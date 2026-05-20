@@ -23,10 +23,7 @@ const t = verbs[lang];
         t.list.map((v) => (
           <div class="verb">
             <div class="v-num">— {v.num}</div>
-            <div class="v-word">
-              {v.word.slice(0, v.word.length - v.accent.length)}
-              <span class="accent">{v.accent}</span>
-            </div>
+            <div class="v-word">{v.word.slice(0, v.word.length - v.accent.length)}<span class="accent">{v.accent}</span></div>
             <div class="v-strut"></div>
             <div class="v-desc">{v.d}</div>
             <ul>
