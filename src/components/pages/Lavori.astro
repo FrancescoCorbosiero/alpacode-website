@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import type { Lang } from "../../i18n/types";
+import PageHero from "../PageHero.astro";
+import ImageSlot from "../ImageSlot.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const works = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
+
+const t =
+  lang === "it"
+    ? {
+        crumb: "§03 · LAVORI",
+        line1: "Sei progetti",
+        line2: "raccontati bene.",
+        lede: "Un campione di quello che abbiamo costruito negli ultimi due anni. Le immagini sono spazi pronti per le foto reali — drag & drop dalla cartella.",
+        placeholder: "Trascina la foto del progetto",
+      }
+    : {
+        crumb: "§03 · WORK",
+        line1: "Six projects,",
+        line2: "told well.",
+        lede: "A sample of what we've built in the last two years. Images are slots — drag your own photos in.",
+        placeholder: "Drop project photo",
+      };
+---
+
+<PageHero crumb={t.crumb} line1={t.line1} line2={t.line2} lede={t.lede} />
+
+<section class="section" style="padding-top:56px">
+  <div class="wrap-wide">
+    <div class="work-grid">
+      {
+        works.map((w, i) => (
+          <article class="work">
+            <ImageSlot placeholder={t.placeholder} />
+            <div class="meta">
+              <span>— {String(i + 1).padStart(2, "0")}</span>
+              <span>{w.data.year} · {w.data.sector[lang]}</span>
+            </div>
+            <h3>{w.data.title[lang]}</h3>
+            <p>{w.data.descriptor[lang]}</p>
+            <div class="tags">
+              {w.data.tags.map((tg) => (
+                <span class="tag">{tg}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<CtaFinal lang={lang} />

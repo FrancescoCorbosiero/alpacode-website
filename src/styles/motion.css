@@ -1,0 +1,347 @@
+/* ============================================================
+   Motion
+   Restrained: things slide up, bars wipe horizontally, masks
+   reveal text. Everything keyed off [data-reveal] + IO.
+   Honors prefers-reduced-motion.
+   ============================================================ */
+
+[data-reveal] {
+  --d: 0ms;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-1) var(--ease) var(--d),
+    transform var(--dur-1) var(--ease) var(--d);
+  will-change: opacity, transform;
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal="bar"] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-2) var(--ease) var(--d);
+}
+[data-reveal="bar"][data-shown] {
+  transform: scaleX(1);
+}
+
+[data-reveal="mask"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--dur-3) var(--ease-out) var(--d);
+}
+[data-reveal="mask"][data-shown] {
+  clip-path: inset(0 0 0 0);
+}
+
+[data-reveal="rise"] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity var(--dur-2) var(--ease) var(--d),
+    transform var(--dur-2) var(--ease) var(--d);
+}
+[data-reveal="rise"][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal="fade"] {
+  transform: none;
+  transition: opacity var(--dur-2) var(--ease) var(--d);
+}
+[data-reveal="fade"][data-shown] {
+  opacity: 1;
+}
+
+/* Hero on-load stagger — bypasses IO; [data-loaded] set after first paint */
+.hero[data-hero] .hero-meta {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--ease) 80ms,
+    transform 600ms var(--ease) 80ms;
+}
+.hero[data-hero] .hero-wordmark .row.row-1 > span {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1100ms var(--ease-out) 200ms;
+}
+.hero[data-hero] .hero-bar {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--ease) 900ms;
+}
+.hero[data-hero] .hero-wordmark .row.row-2 > span {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 900ms var(--ease-out) 1200ms;
+}
+.hero[data-hero] .hero-wordmark .row.row-2 > span + span {
+  transition-delay: 1350ms;
+}
+.hero[data-hero] .hero-claim {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms var(--ease) 1500ms,
+    transform 700ms var(--ease) 1500ms;
+}
+.hero[data-hero] .hero-ctas {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms var(--ease) 1700ms,
+    transform 700ms var(--ease) 1700ms;
+}
+.hero[data-hero] .hero-meta-row {
+  opacity: 0;
+  transition: opacity 800ms var(--ease) 1900ms;
+}
+.hero[data-hero] .hero-meta-row .cell {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 500ms var(--ease),
+    transform 500ms var(--ease);
+}
+.hero[data-hero][data-loaded] .hero-meta {
+  opacity: 1;
+  transform: none;
+}
+.hero[data-hero][data-loaded] .hero-wordmark .row.row-1 > span,
+.hero[data-hero][data-loaded] .hero-wordmark .row.row-2 > span {
+  clip-path: inset(0 0 0 0);
+}
+.hero[data-hero][data-loaded] .hero-bar {
+  transform: scaleX(1);
+}
+.hero[data-hero][data-loaded] .hero-claim,
+.hero[data-hero][data-loaded] .hero-ctas {
+  opacity: 1;
+  transform: none;
+}
+.hero[data-hero][data-loaded] .hero-meta-row {
+  opacity: 1;
+}
+.hero[data-hero][data-loaded] .hero-meta-row .cell {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(2000ms + var(--cell-i, 0) * 90ms);
+}
+
+/* Page-hero h1 — rise + bar wipe */
+.page-hero h1 {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 800ms var(--ease) 250ms,
+    transform 800ms var(--ease) 250ms;
+}
+.page-hero h1 .bar {
+  transform: scaleX(0);
+  transform-origin: left center;
+  display: inline-block;
+  transition: transform 700ms var(--ease) 700ms;
+}
+.page-hero[data-loaded] h1 {
+  opacity: 1;
+  transform: none;
+}
+.page-hero[data-loaded] h1 .bar {
+  transform: scaleX(1);
+}
+.page-hero .lede {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 700ms var(--ease) 800ms,
+    transform 700ms var(--ease) 800ms;
+}
+.page-hero[data-loaded] .lede {
+  opacity: 1;
+  transform: none;
+}
+.page-hero .crumb {
+  opacity: 0;
+  transition: opacity 600ms var(--ease) 80ms;
+}
+.page-hero[data-loaded] .crumb {
+  opacity: 1;
+}
+
+/* Case picker crossfade on tab switch */
+@keyframes caseSwap {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.case-info,
+.case-media .tag {
+  animation: caseSwap 500ms var(--ease) both;
+}
+
+/* Header strut shrinks slightly when scrolled, then settles */
+.site-header .header-strut {
+  transition: height 280ms var(--ease);
+}
+.site-header.scrolled .header-strut {
+  height: 3px;
+}
+
+/* Verb hover: strut grows */
+.verb .v-strut {
+  transition:
+    width 350ms var(--ease),
+    background 200ms;
+}
+.verb:hover .v-strut {
+  width: 128px;
+}
+
+/* Nav item underline animate-in */
+.nav-item::after {
+  transform-origin: left center;
+}
+.nav-item.is-active::after {
+  animation: navUnderline 500ms var(--ease) both;
+}
+@keyframes navUnderline {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Blog row arrow nudges */
+.blog-row .arr {
+  transition: transform 220ms var(--ease);
+  display: inline-block;
+}
+.blog-row:hover .arr {
+  transform: translateX(6px);
+  color: var(--blue);
+}
+
+/* Work card hover lift */
+.work {
+  transition:
+    background 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.work:hover {
+  transform: translateY(-2px);
+}
+.work .img-slot {
+  transition: filter 240ms var(--ease);
+}
+.work:hover .img-slot {
+  filter: contrast(1.04);
+}
+
+/* Course card: price reveals on hover */
+.course .price {
+  transition: color 220ms var(--ease);
+}
+.course:hover .price {
+  color: var(--blue);
+}
+
+/* Button arrow nudges */
+.btn .arrow {
+  transition: transform 200ms var(--ease);
+  display: inline-block;
+}
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* FAQ icon rotate */
+.faq-q .ic {
+  transition:
+    transform 280ms var(--ease),
+    color 200ms;
+  display: inline-block;
+}
+.faq-item.is-open .faq-q .ic {
+  transform: rotate(0deg);
+}
+
+/* CmdK enter */
+@keyframes cmdkIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes cmdkBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mega menu enter handled via .mega-wrap:hover transition in components.css */
+
+/* Status dot pulses, but politely */
+@keyframes statusBlink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.hero-meta .right .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-meta .right .label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--blue);
+  display: inline-block;
+  border-radius: 50%;
+  animation: statusBlink 3.6s infinite var(--ease);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .hero[data-hero] *,
+  .page-hero * {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .case-info,
+  .case-media .tag {
+    animation: none !important;
+  }
+}

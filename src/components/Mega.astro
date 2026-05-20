@@ -1,0 +1,43 @@
+---
+import type { MegaMenu } from "../data/mega";
+import type { Lang } from "../i18n/types";
+import { localizePath } from "../i18n/utils";
+
+interface Props {
+  menu: MegaMenu;
+  lang: Lang;
+}
+const { menu, lang } = Astro.props;
+const href = localizePath(menu.feature.href, lang);
+const columns = [menu.colA, menu.colB];
+---
+
+<div class="mega">
+  <div class="mega-feature">
+    <small>{menu.feature.small[lang]}</small>
+    <div class="display">{menu.feature.display[lang]}</div>
+    <a class="btn btn-blue btn-sm" href={href}>
+      {menu.feature.cta[lang]} <span class="arrow">→</span>
+    </a>
+  </div>
+  {
+    columns.map((col) => (
+      <div>
+        <h5>{col.title[lang]}</h5>
+        <ul>
+          {col.items.map((item) => (
+            <li>
+              <a href={href}>
+                <span class="num">{item.n}</span>
+                <span>
+                  <span class="ttl">{item.t[lang]}</span>
+                  <span class="desc">{item.d[lang]}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>

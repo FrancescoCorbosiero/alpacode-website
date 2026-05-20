@@ -1,0 +1,14 @@
+---
+// Production stand-in for the prototype's <image-slot> web component.
+// When the client provides real photos, swap the placeholder div for
+// Astro's <Image> (a real <picture> element).
+interface Props {
+  placeholder: string;
+  class?: string;
+}
+const { placeholder, class: cls } = Astro.props;
+---
+
+<div class:list={["img-slot", cls]} role="img" aria-label={placeholder}>
+  <span>{placeholder}</span>
+</div>

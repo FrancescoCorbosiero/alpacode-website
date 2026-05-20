@@ -1,0 +1,68 @@
+---
+import type { Lang } from "../i18n/types";
+import { PAGES } from "../data/pages";
+import { localizePath } from "../i18n/utils";
+import { footer } from "../i18n/ui";
+import { business, tagline } from "../data/business";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const contattiHref = localizePath("contatti", lang);
+---
+
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="big">ALPACODE</div>
+        <div class="big-bar"></div>
+        <div class="big big-sub">SOLUZIONI DIGITALI</div>
+        <p>{tagline[lang]}</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>{footer.info[lang]}</h4>
+        <ul>
+          <li>{footer.base[lang]}</li>
+          <li>{footer.vat[lang]}</li>
+          <li>{footer.hours[lang]}</li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>{footer.nav[lang]}</h4>
+        <ul>
+          {PAGES.map((p) => (
+            <li>
+              <a href={localizePath(p.slug, lang)}>{p.label[lang]}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>{footer.contact[lang]}</h4>
+        <ul>
+          <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
+          <li><a href={contattiHref}>{footer.bookCall[lang]}</a></li>
+          <li><a href={business.social.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+          <li><a href={business.social.github} rel="me noopener" target="_blank">GitHub</a></li>
+        </ul>
+        <h4 class="spaced">{footer.legal[lang]}</h4>
+        <ul>
+          <li><a href="#">{footer.privacy[lang]}</a></li>
+          <li><a href="#">{footer.cookies[lang]}</a></li>
+          <li><a href="#">{footer.terms[lang]}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>{footer.rights[lang]}</span>
+      <span>{footer.bottomLocation}</span>
+      <span>{footer.version}</span>
+    </div>
+  </div>
+</footer>

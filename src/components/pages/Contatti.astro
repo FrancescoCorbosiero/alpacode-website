@@ -1,0 +1,51 @@
+---
+import type { Lang } from "../../i18n/types";
+import { contatti } from "../../data/contatti";
+import { business } from "../../data/business";
+import PageHero from "../PageHero.astro";
+import ContactForm from "../islands/ContactForm.tsx";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = contatti[lang];
+---
+
+<PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+<section style="border-top:1px solid var(--rule)">
+  <div class="wrap-wide">
+    <div class="contact-grid">
+      <ContactForm client:idle lang={lang} labels={t.labels} />
+
+      <aside class="contact-info">
+        <h3>{t.info.h}</h3>
+        <div class="block">
+          <span class="k">— {t.info.email}</span>
+          <a href={`mailto:${business.email}`} class="v">{t.info.emailV}</a>
+        </div>
+        <div class="block">
+          <span class="k">— {t.info.base}</span>
+          <span class="v">{t.info.baseV}</span>
+        </div>
+        <div class="block">
+          <span class="k">— {t.info.vat}</span>
+          <span class="v">{t.info.vatV}</span>
+        </div>
+        <div class="block">
+          <span class="k">— {t.info.hours}</span>
+          <span class="v">{t.info.hoursV}</span>
+        </div>
+        <div class="block">
+          <span class="k">— {t.info.reply}</span>
+          <span class="v">{t.info.replyV}</span>
+        </div>
+        <div class="contact-available">
+          <div class="eyebrow">● {t.info.availableLabel}</div>
+          <div class="v">{t.info.availableV}</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

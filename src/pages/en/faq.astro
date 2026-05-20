@@ -1,0 +1,11 @@
+---
+import Layout from "../../components/Layout.astro";
+import Faq from "../../components/pages/Faq.astro";
+import { meta } from "../../i18n/ui";
+const lang = "en" as const;
+const m = meta.faq;
+---
+
+<Layout lang={lang} active="faq" slug="faq" title={m.title[lang]} description={m.description[lang]}>
+  <Faq lang={lang} />
+</Layout>

@@ -1,0 +1,11 @@
+---
+import Layout from "../../components/Layout.astro";
+import Home from "../../components/pages/Home.astro";
+import { meta } from "../../i18n/ui";
+const lang = "en" as const;
+const m = meta.home;
+---
+
+<Layout lang={lang} active="home" slug="" title={m.title[lang]} description={m.description[lang]}>
+  <Home lang={lang} />
+</Layout>

@@ -1,0 +1,40 @@
+---
+import type { Lang } from "../../i18n/types";
+import { cases } from "../../data/home";
+import Hero from "../home/Hero.astro";
+import Verbs from "../home/Verbs.astro";
+import Manifesto from "../home/Manifesto.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+import Cases from "../islands/Cases.tsx";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = cases[lang];
+const caseLabels = {
+  problem: lang === "it" ? "Il problema" : "The problem",
+  before: lang === "it" ? "Prima" : "Before",
+  after: lang === "it" ? "Dopo" : "After",
+  placeholder: lang === "it" ? "Trascina la foto del progetto qui" : "Drop project photo here",
+};
+---
+
+<Hero lang={lang} />
+<Verbs lang={lang} />
+
+<section class="section" style="padding-top:0">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{c.num}</div>
+        <h2 style="white-space:pre-line">{c.heading}</h2>
+      </div>
+      <p class="lede">{c.lede}</p>
+    </div>
+    <Cases client:visible cases={c.list} labels={caseLabels} />
+  </div>
+</section>
+
+<Manifesto lang={lang} />
+<CtaFinal lang={lang} />

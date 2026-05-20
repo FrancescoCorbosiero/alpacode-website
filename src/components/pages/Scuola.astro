@@ -1,0 +1,45 @@
+---
+import type { Lang } from "../../i18n/types";
+import { scuola } from "../../data/courses";
+import { localizePath } from "../../i18n/utils";
+import PageHero from "../PageHero.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = scuola[lang];
+const contattiHref = localizePath("contatti", lang);
+const signUp = lang === "it" ? "Iscriviti" : "Sign up";
+---
+
+<PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap-wide">
+    <div class="eyebrow" style="margin-bottom:32px">● {t.target}</div>
+    <div class="courses">
+      {
+        t.courses.map((c) => (
+          <div class="course">
+            <span class="lvl">— {c.lvl}</span>
+            <h3>{c.t}</h3>
+            <div class="price">{c.price}</div>
+            <div class="eyebrow">{c.h}</div>
+            <ul>
+              {c.items.map((it) => (
+                <li><span>{it}</span></li>
+              ))}
+            </ul>
+            <a class="btn btn-sm" href={contattiHref} style="margin-top:12px;align-self:flex-start">
+              {signUp} <span class="arrow">→</span>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<CtaFinal lang={lang} />

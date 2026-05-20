@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import { localizePath } from "../../i18n/utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const lang = "it" as const;
+const { Content } = await render(post);
+const backHref = localizePath("blog", lang);
+---
+
+<Layout
+  lang={lang}
+  active="blog"
+  slug={`blog/${post.id}`}
+  title={`${post.data.title[lang]} · Alpacode`}
+  description={post.data.descriptor[lang]}
+>
+  <section class="page-hero">
+    <div class="wrap-wide">
+      <div class="crumb">{post.data.category[lang]} · {post.data.date[lang]}</div>
+      <h1><span class="bar" aria-hidden="true"></span>{post.data.title[lang]}</h1>
+      <p class="lede">{post.data.descriptor[lang]}</p>
+    </div>
+  </section>
+  <section class="article">
+    <div class="wrap">
+      <div class="prose"><Content /></div>
+      <a class="article-back" href={backHref}>← Tutti gli articoli</a>
+    </div>
+  </section>
+</Layout>

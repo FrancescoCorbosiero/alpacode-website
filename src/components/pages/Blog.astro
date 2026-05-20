@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import type { Lang } from "../../i18n/types";
+import { localizePath } from "../../i18n/utils";
+import PageHero from "../PageHero.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const posts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+
+const t =
+  lang === "it"
+    ? {
+        crumb: "§05 · BLOG",
+        line1: "Note,",
+        line2: "guide e pensieri.",
+        lede: "Quello che impariamo lo scriviamo. Articoli tecnici, ragionamenti lunghi, raramente news.",
+      }
+    : {
+        crumb: "§05 · BLOG",
+        line1: "Notes,",
+        line2: "guides and thoughts.",
+        lede: "What we learn we write. Technical articles, long-form reasoning, rarely news.",
+      };
+---
+
+<PageHero crumb={t.crumb} line1={t.line1} line2={t.line2} lede={t.lede} />
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap-wide">
+    <div class="blog-list">
+      {
+        posts.map((p) => (
+          <a class="blog-row" href={localizePath(`blog/${p.id}`, lang)}>
+            <span class="date">{p.data.date[lang]}</span>
+            <h3>
+              {p.data.title[lang]}
+              <small>{p.data.descriptor[lang]}</small>
+            </h3>
+            <span class="cat">{p.data.category[lang]}</span>
+            <span class="arr">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<CtaFinal lang={lang} />
