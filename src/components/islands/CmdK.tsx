@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import type { Lang } from "../../i18n/types";
 import { persistLang, toggleLangPath } from "../../lib/lang-store";
@@ -31,7 +31,10 @@ interface Props {
 
 const KIND_ORDER: CmdItem["kind"][] = ["page", "course", "action"];
 
-export default function CmdK({ lang, items, labels }: Props) {
+// Wrapped in memo so @astrojs/react's renderer-detection probe short-circuits
+// on the memo $$typeof instead of calling the component directly (which would
+// run these hooks outside a render pass and log a dev-only "Invalid hook call").
+function CmdK({ lang, items, labels }: Props) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [idx, setIdx] = useState(0);
@@ -200,3 +203,5 @@ export default function CmdK({ lang, items, labels }: Props) {
     </div>
   );
 }
+
+export default memo(CmdK);
