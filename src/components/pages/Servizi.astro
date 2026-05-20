@@ -1,0 +1,40 @@
+---
+import type { Lang } from "../../i18n/types";
+import { servizi } from "../../data/services";
+import PageHero from "../PageHero.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = servizi[lang];
+---
+
+<PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+<section class="section" style="padding-top:0">
+  <div class="wrap-wide">
+    {
+      t.rows.map((r) => (
+        <div class="svc-row">
+          <div class="svc-no">{r.n}<span class="dot">.</span></div>
+          <div>
+            <h3>{r.t}</h3>
+            <p>{r.d}</p>
+            <div class="meta">
+              {r.meta.map((m) => (
+                <div>
+                  <span class="k">{m.k}</span>
+                  <span class="v">{m.v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<CtaFinal lang={lang} />

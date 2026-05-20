@@ -1,0 +1,48 @@
+---
+import type { Lang } from "../../i18n/types";
+import { ctaFinal } from "../../data/home";
+import { localizePath } from "../../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ctaFinal[lang];
+const contattiHref = localizePath("contatti", lang);
+
+const resolve = (href?: string) => {
+  if (!href) return undefined;
+  if (href.startsWith("mailto:") || href.startsWith("http")) return href;
+  return localizePath(href, lang);
+};
+---
+
+<section class="cta-final">
+  <div class="wrap-wide">
+    <div class="sec-num eyebrow" style="color:var(--blue);letter-spacing:0.2em;margin-bottom:20px">{t.num}</div>
+    <div class="display">
+      {t.line1}<br /><span class="underline">{t.underline}</span>
+    </div>
+    <div class="sub">{t.sub}</div>
+    <div class="cta-grid">
+      {
+        t.grid.map((g) => {
+          const href = resolve(g.href);
+          return (
+            <div class="cell">
+              <span class="k">{g.k}</span>
+              {href ? (
+                <a href={href}><span class="v">{g.v} →</span></a>
+              ) : (
+                <span class="v">{g.v}</span>
+              )}
+            </div>
+          );
+        })
+      }
+    </div>
+    <div style="margin-top:36px">
+      <a class="btn btn-blue" href={contattiHref}>{t.cta} <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>

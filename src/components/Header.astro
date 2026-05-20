@@ -1,0 +1,73 @@
+---
+import type { Lang } from "../i18n/types";
+import type { PageKey } from "../data/pages";
+import { PAGES } from "../data/pages";
+import { localizePath } from "../i18n/utils";
+import { ui } from "../i18n/ui";
+import { megaByKey } from "../data/mega";
+import Mega from "./Mega.astro";
+import LangToggle from "./islands/LangToggle.tsx";
+
+interface Props {
+  lang: Lang;
+  active: PageKey;
+  slug: string;
+}
+const { lang, active, slug } = Astro.props;
+
+const homeHref = localizePath("", lang);
+const contattiHref = localizePath("contatti", lang);
+const itHref = localizePath(slug, "it");
+const enHref = localizePath(slug, "en");
+---
+
+<header class="site-header">
+  <div class="header-strut"></div>
+  <div class="header-row">
+    <a class="brand" href={homeHref} aria-label="Alpacode home">
+      <div class="brand-mark"><img src="/logo.png" alt="" width="44" height="44" /></div>
+      <div class="brand-text">
+        ALPACODE
+        <small>{lang === "it" ? "Soluzioni Digitali" : "Digital Solutions"}</small>
+      </div>
+    </a>
+
+    <nav class="nav" aria-label="primary">
+      {
+        PAGES.map((p) => {
+          const href = localizePath(p.slug, lang);
+          const isActive = p.key === active;
+          const cls = "nav-item " + (isActive ? "is-active" : "");
+          if (p.mega) {
+            return (
+              <div class="mega-wrap">
+                <a class={cls} href={href} aria-current={isActive ? "page" : undefined}>
+                  <span class="num">{p.num}</span>
+                  {p.label[lang]}
+                  <span class="caret" aria-hidden="true">▾</span>
+                </a>
+                <Mega menu={megaByKey(p.mega)} lang={lang} />
+              </div>
+            );
+          }
+          return (
+            <a class={cls} href={href} aria-current={isActive ? "page" : undefined}>
+              <span class="num">{p.num}</span>
+              {p.label[lang]}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <div class="nav-actions">
+      <button class="kbd" data-cmdk-open type="button" aria-label={ui.searchOpen[lang]}>
+        <span data-cmd-mod>⌘</span><span>K</span>
+      </button>
+      <LangToggle client:load lang={lang} itHref={itHref} enHref={enHref} label={ui.langLabel[lang]} />
+      <a class="btn btn-sm" href={contattiHref}>
+        {ui.ctaShort[lang]} <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</header>

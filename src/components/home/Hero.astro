@@ -1,0 +1,65 @@
+---
+import type { Lang } from "../../i18n/types";
+import { hero } from "../../data/home";
+import { localizePath } from "../../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = hero[lang];
+const contattiHref = localizePath("contatti", lang);
+const lavoriHref = localizePath("lavori", lang);
+---
+
+<section class="hero">
+  <div class="wrap-wide">
+    <div class="hero-meta">
+      <div class="left">
+        <span class="eyebrow">{t.eyebrow}</span>
+      </div>
+      <div class="right">
+        <span class="label">{t.statusLabel}</span>
+        <span class="val">{t.statusVal}</span>
+      </div>
+    </div>
+
+    <div class="hero-monogram" style="margin-top:56px">
+      <h1 class="hero-wordmark">
+        <div class="row row-1"><span>ALPACODE</span></div>
+        <div class="hero-bar" aria-hidden="true"></div>
+        <div class="row row-2">
+          <span>SOLUZIONI</span><span>DIGITALI</span>
+        </div>
+      </h1>
+    </div>
+
+    <div class="hero-sub-row" style="margin-top:72px">
+      <p class="hero-claim">
+        {
+          lang === "it" ? (
+            <Fragment>Software, <em>consulenza</em> e formazione<br />per chi <em>costruisce</em> in digitale.</Fragment>
+          ) : (
+            <Fragment>Software, <em>consulting</em> and training<br />for those who <em>build</em> in digital.</Fragment>
+          )
+        }
+      </p>
+      <div class="hero-ctas">
+        <a class="btn" href={contattiHref}>{t.cta1} <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
+      </div>
+    </div>
+
+    <div class="hero-meta-row">
+      {
+        t.meta.map((m, i) => (
+          <div class="cell" style={`--cell-i:${i}`}>
+            <span class="k">{m.k}</span>
+            <span class="v">{m.v}</span>
+            <span class="d">{m.d}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

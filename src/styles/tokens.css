@@ -1,0 +1,36 @@
+/* ============================================================
+   Alpacode — design tokens
+   Palette sampled from the logo. The blue strut (#3B72E9) is the
+   brand's connective tissue. Do not invent new colors.
+   ============================================================ */
+:root {
+  /* Palette — extracted from logo */
+  --ink: #0a0a0a;
+  --ink-2: #1b1b1b;
+  --paper: #f4f1e8;
+  --paper-2: #ebe7da;
+  --paper-3: #ddd8c7;
+  --rule: #c9c3b1;
+  --mute: #7d7a72;
+  --mute-2: #54524c;
+  --blue: #3b72e9;
+  --blue-deep: #2756c2;
+  --blue-soft: #dce5fa;
+
+  /* Type */
+  --display: "Archivo Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sans: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --t-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Scale */
+  --strut: 6px; /* the blue bar height */
+  --gutter: 32px;
+  --col: 1240px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.72, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 600ms;
+  --dur-2: 800ms;
+  --dur-3: 1000ms;
+}

@@ -1,0 +1,21 @@
+---
+interface Props {
+  crumb: string;
+  line1: string;
+  line2?: string;
+  lede?: string;
+  bar?: boolean;
+}
+const { crumb, line1, line2, lede, bar = true } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="wrap-wide">
+    <div class="crumb">{crumb}</div>
+    <h1>
+      {bar && <span class="bar" aria-hidden="true"></span>}
+      {line1}{line2 && <Fragment><br />{line2}</Fragment>}
+    </h1>
+    {lede && <p class="lede">{lede}</p>}
+  </div>
+</section>

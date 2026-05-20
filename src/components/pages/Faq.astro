@@ -1,0 +1,23 @@
+---
+import type { Lang } from "../../i18n/types";
+import { faq } from "../../data/faq";
+import PageHero from "../PageHero.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+import FaqList from "../islands/FaqList.tsx";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = faq[lang];
+---
+
+<PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap-wide">
+    <FaqList client:visible faqs={t.faqs} />
+  </div>
+</section>
+
+<CtaFinal lang={lang} />
