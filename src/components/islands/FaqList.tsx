@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { FaqEntry } from "../../data/faq";
 
 interface Props {
   faqs: FaqEntry[];
 }
 
-export default function FaqList({ faqs }: Props) {
+// memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
+function FaqList({ faqs }: Props) {
   const [open, setOpen] = useState(0);
 
   return (
@@ -37,3 +38,5 @@ export default function FaqList({ faqs }: Props) {
     </div>
   );
 }
+
+export default memo(FaqList);

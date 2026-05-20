@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { CaseStudy } from "../../data/home";
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
   };
 }
 
-export default function Cases({ cases, labels }: Props) {
+// memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
+function Cases({ cases, labels }: Props) {
   const [i, setI] = useState(0);
   const cur = cases[i]!;
 
@@ -70,3 +71,5 @@ export default function Cases({ cases, labels }: Props) {
     </div>
   );
 }
+
+export default memo(Cases);

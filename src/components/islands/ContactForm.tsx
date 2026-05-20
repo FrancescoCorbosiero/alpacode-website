@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { memo, useEffect, useState, type FormEvent } from "react";
 import type { Lang } from "../../i18n/types";
 import type { ContattiData } from "../../data/contatti";
 
@@ -9,7 +9,8 @@ interface Props {
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function ContactForm({ lang, labels }: Props) {
+// memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
+function ContactForm({ lang, labels }: Props) {
   const [status, setStatus] = useState<Status>("idle");
 
   useEffect(() => {
@@ -106,3 +107,5 @@ export default function ContactForm({ lang, labels }: Props) {
     </form>
   );
 }
+
+export default memo(ContactForm);
