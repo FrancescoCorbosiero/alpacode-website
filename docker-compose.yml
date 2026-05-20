@@ -1,0 +1,47 @@
+# Alpacode website — sits behind lucaslorentz/caddy-docker-proxy.
+#
+# Prereqs: the caddy proxy stack is already up and owns the external
+# "caddy" network (CADDY_INGRESS_NETWORKS=caddy). Caddy reads the labels
+# below, reverse-proxies the domain to this container and provisions TLS
+# automatically via the global ACME email.
+#
+# Deploy:  docker compose up -d --build
+# Domain:  set SITE_DOMAIN (defaults to alpacode.it); point its DNS A/AAAA
+#          record at the VPS first so Let's Encrypt can issue a cert.
+
+networks:
+  caddy:
+    external: true
+
+services:
+  alpacode-website:
+    build:
+      context: .
+    image: alpacode-website:latest
+    container_name: alpacode-website
+    restart: unless-stopped
+    networks:
+      - caddy
+    expose:
+      - "4321"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "4321"
+      NODE_ENV: "production"
+      # Contact form delivery — optional. Without RESEND_API_KEY the form
+      # still works (the API route logs the submission and returns success).
+      RESEND_API_KEY: "${RESEND_API_KEY:-}"
+      CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-ciao@alpacode.it}"
+      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-Alpacode <onboarding@resend.dev>}"
+    labels:
+      # caddy-docker-proxy: route the domain to this container's :4321 and
+      # compress responses. HTTP->HTTPS redirect and TLS are automatic.
+      caddy: "${SITE_DOMAIN:-alpacode.it}"
+      caddy.reverse_proxy: "{{upstreams 4321}}"
+      caddy.encode: "zstd gzip"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:4321/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
