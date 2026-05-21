@@ -2,10 +2,13 @@
 import Layout from "../components/Layout.astro";
 import Faq from "../components/pages/Faq.astro";
 import { meta } from "../i18n/ui";
+import { faq } from "../data/faq";
+import { faqPageSchema } from "../lib/schema";
 const lang = "it" as const;
 const m = meta.faq;
+const jsonLd = [faqPageSchema(faq[lang].faqs)];
 ---
 
-<Layout lang={lang} active="faq" slug="faq" title={m.title[lang]} description={m.description[lang]}>
+<Layout lang={lang} active="faq" slug="faq" title={m.title[lang]} description={m.description[lang]} jsonLd={jsonLd}>
   <Faq lang={lang} />
 </Layout>

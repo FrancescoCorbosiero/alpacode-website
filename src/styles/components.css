@@ -1073,6 +1073,45 @@
   color: var(--mute-2);
 }
 
+/* ---------- Error page (404) ---------- */
+.error-hero {
+  padding: 112px 0 120px;
+  text-align: center;
+}
+.error-num {
+  font-family: var(--display);
+  font-size: clamp(80px, 26vw, 240px);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.error-bar {
+  height: var(--strut);
+  width: 120px;
+  background: var(--blue);
+  margin: 28px auto;
+}
+.error-h {
+  font-family: var(--display);
+  font-size: clamp(32px, 6vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+}
+.error-sub {
+  max-width: 560px;
+  margin: 0 auto 36px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+.error-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* ---------- Service detail rows ---------- */
 .svc-row {
   display: grid;

@@ -1,0 +1,43 @@
+---
+import type { Lang } from "../i18n/types";
+import Layout from "../components/Layout.astro";
+import { localizePath } from "../i18n/utils";
+
+// Server-rendered so it can mirror the requested locale.
+export const prerender = false;
+
+const lang: Lang = Astro.url.pathname.startsWith("/en") ? "en" : "it";
+Astro.response.status = 404;
+
+const t =
+  lang === "it"
+    ? {
+        title: "404 · Pagina non trovata · Alpacode",
+        h: "Pagina non trovata.",
+        sub: "La pagina che cerchi non esiste o è stata spostata. Torna alla home, oppure premi ⌘K per cercare.",
+        home: "Torna alla home",
+        work: "Vedi i lavori",
+      }
+    : {
+        title: "404 · Page not found · Alpacode",
+        h: "Page not found.",
+        sub: "The page you're looking for doesn't exist or has moved. Head back home, or press ⌘K to search.",
+        home: "Back to home",
+        work: "See the work",
+      };
+---
+
+<Layout lang={lang} slug="" title={t.title} description={t.sub}>
+  <section class="error-hero">
+    <div class="wrap-wide">
+      <div class="error-num">404</div>
+      <div class="error-bar"></div>
+      <h1 class="error-h">{t.h}</h1>
+      <p class="error-sub">{t.sub}</p>
+      <div class="error-ctas">
+        <a class="btn" href={localizePath("", lang)}>{t.home} <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href={localizePath("lavori", lang)}>{t.work}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
