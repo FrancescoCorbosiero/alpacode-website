@@ -27,4 +27,13 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // Prefetch internal links on hover and, where supported, upgrade that to a
+  // full prerender via the Speculation Rules API (experimental.clientPrerender).
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
+  experimental: {
+    clientPrerender: true,
+  },
 });

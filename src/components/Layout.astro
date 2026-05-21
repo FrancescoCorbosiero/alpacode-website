@@ -9,6 +9,7 @@ import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 import "../styles/global.css";
 
+import { ClientRouter } from "astro:transitions";
 import type { Lang } from "../i18n/types";
 import type { PageKey } from "../data/pages";
 import { PAGES } from "../data/pages";
@@ -69,7 +70,12 @@ const cmdLabels: CmdLabels = {
   searchLabel: cmdk.searchLabel,
   placeholder: ui.search[lang],
   esc: cmdk.esc,
-  sections: { page: cmdk.pages[lang], course: cmdk.courses[lang], action: cmdk.actions[lang] },
+  sections: {
+    recent: cmdk.recent[lang],
+    page: cmdk.pages[lang],
+    course: cmdk.courses[lang],
+    action: cmdk.actions[lang],
+  },
   navigate: cmdk.navigate[lang],
   open: cmdk.open[lang],
   close: cmdk.close[lang],
@@ -105,8 +111,11 @@ const cmdLabels: CmdLabels = {
 
     <link rel="alternate" type="application/rss+xml" title="Alpacode · Blog" href={rssHref} />
     <script type="application/ld+json" is:inline set:html={ldJson} />
+
+    <ClientRouter />
   </head>
   <body data-page={active ?? "404"}>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{ui.skip[lang]}</a>
     <Header lang={lang} active={active} slug={slug} />
     <main id="main">

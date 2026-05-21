@@ -23,32 +23,38 @@ import { CAL_NAMESPACE, CAL_ORIGIN, CAL_EMBED_JS } from "../lib/calcom";
     };
   })(window, embedJs, "init");
 
-  Cal("init", ns, { origin: origin });
-  Cal.ns[ns]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+  // Init + listeners once, even if this inline script re-runs on a
+  // view-transition navigation. The flag lives on <html>, which persists.
+  if (!document.documentElement.dataset.alpaCal) {
+    document.documentElement.dataset.alpaCal = "1";
 
-  // Provider-agnostic journey tracking: GTM dataLayer + a DOM event + dev log.
-  function track(name, detail) {
-    try {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(Object.assign({ event: name }, detail));
-    } catch (e) {}
-    document.dispatchEvent(new CustomEvent("alpa:" + name, { detail: detail }));
-    if (location.hostname === "localhost") console.debug("[track]", name, detail);
+    Cal("init", ns, { origin: origin });
+    Cal.ns[ns]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+    // Provider-agnostic journey tracking: GTM dataLayer + a DOM event + dev log.
+    var track = function (name, detail) {
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: name }, detail));
+      } catch (e) {}
+      document.dispatchEvent(new CustomEvent("alpa:" + name, { detail: detail }));
+      if (location.hostname === "localhost") console.debug("[track]", name, detail);
+    };
+
+    // Which journey opened the booker (data-journey on the trigger).
+    document.addEventListener(
+      "click",
+      function (ev) {
+        var t = ev.target;
+        var el = t && t.closest ? t.closest("[data-cal-link]") : null;
+        if (el) track("booking_open", { journey: el.getAttribute("data-journey") || "unknown" });
+      },
+      true,
+    );
+
+    Cal.ns[ns]("on", {
+      action: "bookingSuccessful",
+      callback: function () { track("booking_success", {}); },
+    });
   }
-
-  // Which journey opened the booker (data-journey on the trigger).
-  document.addEventListener(
-    "click",
-    function (ev) {
-      var t = ev.target;
-      var el = t && t.closest ? t.closest("[data-cal-link]") : null;
-      if (el) track("booking_open", { journey: el.getAttribute("data-journey") || "unknown" });
-    },
-    true,
-  );
-
-  Cal.ns[ns]("on", {
-    action: "bookingSuccessful",
-    callback: function () { track("booking_success", {}); },
-  });
 </script>

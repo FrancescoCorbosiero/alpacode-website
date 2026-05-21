@@ -67,29 +67,25 @@ function tagAndObserve(): void {
   });
 }
 
-function loadHero(): void {
+function loadHero(initial: boolean): void {
   const hero = document.querySelector<HTMLElement>(".hero");
   if (hero) {
     hero.setAttribute("data-hero", "");
-    if (reduced) {
-      hero.setAttribute("data-loaded", "");
-    } else {
-      window.setTimeout(() => hero.setAttribute("data-loaded", ""), 40);
-    }
+    // Play the on-load wipe only on first paint; on view-transition navs the
+    // transition itself carries the motion, so reveal immediately.
+    if (reduced || !initial) hero.setAttribute("data-loaded", "");
+    else window.setTimeout(() => hero.setAttribute("data-loaded", ""), 40);
   }
   const ph = document.querySelector<HTMLElement>(".page-hero");
   if (ph) {
-    if (reduced) ph.setAttribute("data-loaded", "");
+    if (reduced || !initial) ph.setAttribute("data-loaded", "");
     else window.setTimeout(() => ph.setAttribute("data-loaded", ""), 40);
   }
 }
 
-function headerScroll(): void {
+function updateHeader(): void {
   const header = document.querySelector<HTMLElement>(".site-header");
-  if (!header) return;
-  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 6);
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
+  if (header) header.classList.toggle("scrolled", window.scrollY > 6);
 }
 
 function cmdMod(): void {
@@ -99,15 +95,27 @@ function cmdMod(): void {
     .forEach((el) => (el.textContent = "Ctrl"));
 }
 
-function boot(): void {
-  loadHero();
-  headerScroll();
+let scrollBound = false;
+let firstRun = true;
+
+// Runs on first paint and after every View Transitions navigation. Idempotent.
+function run(): void {
+  if (!scrollBound) {
+    scrollBound = true;
+    window.addEventListener("scroll", updateHeader, { passive: true });
+  }
   cmdMod();
+  updateHeader();
+  loadHero(firstRun);
   tagAndObserve();
+  firstRun = false;
 }
 
+document.addEventListener("astro:page-load", run);
+// Fallback if the router isn't active or the event already fired (run is safe
+// to call more than once).
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", boot);
+  document.addEventListener("DOMContentLoaded", run);
 } else {
-  boot();
+  run();
 }

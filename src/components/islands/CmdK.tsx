@@ -4,7 +4,7 @@ import type { Lang } from "../../i18n/types";
 import { persistLang, toggleLangPath } from "../../lib/lang-store";
 
 export interface CmdItem {
-  kind: "page" | "course" | "action";
+  kind: "recent" | "page" | "course" | "action";
   num: string;
   ttl: string;
   sub: string;
@@ -29,7 +29,31 @@ interface Props {
   labels: CmdLabels;
 }
 
-const KIND_ORDER: CmdItem["kind"][] = ["page", "course", "action"];
+const KIND_ORDER: CmdItem["kind"][] = ["recent", "page", "course", "action"];
+
+const RECENTS_KEY = "alpacode_recents";
+interface Recent {
+  ttl: string;
+  sub: string;
+  href: string;
+}
+function readRecents(): Recent[] {
+  try {
+    const raw = JSON.parse(localStorage.getItem(RECENTS_KEY) || "[]");
+    return Array.isArray(raw) ? raw : [];
+  } catch {
+    return [];
+  }
+}
+function recordRecent(r: Recent): void {
+  try {
+    const list = readRecents().filter((x) => x.href !== r.href);
+    list.unshift(r);
+    localStorage.setItem(RECENTS_KEY, JSON.stringify(list.slice(0, 8)));
+  } catch {
+    /* storage unavailable — ignore */
+  }
+}
 
 // Wrapped in memo so @astrojs/react's renderer-detection probe short-circuits
 // on the memo $$typeof instead of calling the component directly (which would
@@ -50,10 +74,25 @@ function CmdK({ lang, items, labels }: Props) {
     [items],
   );
 
+  // Record this page so it can show up as "recent" on later visits.
+  useEffect(() => {
+    const ttl = (document.title.split("·")[0] || document.title).trim();
+    recordRecent({ ttl, sub: window.location.pathname, href: window.location.pathname });
+  }, []);
+
+  const recents = useMemo<CmdItem[]>(() => {
+    if (!open) return [];
+    const cur = window.location.pathname;
+    return readRecents()
+      .filter((r) => r.href !== cur)
+      .slice(0, 3)
+      .map((r) => ({ kind: "recent" as const, num: "↩", ttl: r.ttl, sub: r.sub, href: r.href }));
+  }, [open]);
+
   const filtered = useMemo(() => {
-    if (!q.trim()) return items;
+    if (!q.trim()) return [...recents, ...items];
     return fuse.search(q).map((r) => r.item);
-  }, [q, items, fuse]);
+  }, [q, items, fuse, recents]);
 
   // Open via Cmd/Ctrl+K and via any [data-cmdk-open] trigger in the header.
   useEffect(() => {
