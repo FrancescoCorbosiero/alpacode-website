@@ -329,6 +329,38 @@
   animation: statusBlink 3.6s infinite var(--ease);
 }
 
+/* Scroll-progress strut — the blue strut as connective tissue, growing down
+   the left edge with scroll. Native scroll-timeline; hidden where unsupported
+   (stays scaleY(0)) and under reduced-motion. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--blue);
+  transform: scaleY(0);
+  transform-origin: top center;
+  z-index: 60;
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes scrollProgress {
+    to {
+      transform: scaleY(1);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   [data-reveal],

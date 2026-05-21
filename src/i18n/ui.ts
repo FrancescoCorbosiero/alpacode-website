@@ -40,6 +40,7 @@ export const footer = {
 export const cmdk = {
   searchLabel: "SEARCH",
   esc: "ESC",
+  recent: { it: "Recenti", en: "Recent" },
   pages: { it: "Pagine", en: "Pages" },
   courses: { it: "Corsi", en: "Courses" },
   actions: { it: "Azioni", en: "Actions" },
