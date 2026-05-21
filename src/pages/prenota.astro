@@ -1,0 +1,30 @@
+---
+import Layout from "../components/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CalInline from "../components/CalInline.astro";
+import { localizePath } from "../i18n/utils";
+const lang = "it" as const;
+const contattiHref = localizePath("contatti", lang);
+---
+
+<Layout
+  lang={lang}
+  slug="prenota"
+  title="Prenota una call · Alpacode"
+  description="Prenota una call gratuita di 30 minuti con Alpacode. Niente vendite, niente pressioni: ti diciamo subito se possiamo aiutarti."
+>
+  <PageHero
+    crumb="§ · PRENOTA"
+    line1="Prenota"
+    line2="una call."
+    lede="Trenta minuti per capirci. Niente vendite, niente pressioni — ti diciamo subito se possiamo aiutarti e in che modo. Scegli un orario qui sotto."
+  />
+  <section class="section" style="padding-top:24px">
+    <div class="wrap-wide">
+      <CalInline />
+      <p class="eyebrow" style="margin-top:24px">
+        Preferisci scrivere? <a href={contattiHref} style="color:var(--blue)">Compila il modulo →</a>
+      </p>
+    </div>
+  </section>
+</Layout>

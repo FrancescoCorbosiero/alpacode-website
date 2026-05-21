@@ -1,0 +1,17 @@
+---
+import Layout from "../../components/Layout.astro";
+import Home from "../../components/pages/Home.astro";
+import { meta } from "../../i18n/ui";
+const lang = "en" as const;
+const m = meta.home;
+---
+
+<Layout
+  lang={lang}
+  slug="anteprima"
+  title={`Preview · ${m.title[lang]}`}
+  description={m.description[lang]}
+  noindex
+>
+  <Home lang={lang} />
+</Layout>

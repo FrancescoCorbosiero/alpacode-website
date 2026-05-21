@@ -1,0 +1,19 @@
+---
+import { CAL_LINK, CAL_NAMESPACE } from "../lib/calcom";
+---
+
+<div id="cal-inline" class="cal-inline"></div>
+
+<script is:inline define:vars={{ link: CAL_LINK, ns: CAL_NAMESPACE }}>
+  (function mount() {
+    if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
+      window.Cal.ns[ns]("inline", {
+        elementOrSelector: "#cal-inline",
+        calLink: link,
+        config: { layout: "month_view" },
+      });
+    } else {
+      setTimeout(mount, 120);
+    }
+  })();
+</script>

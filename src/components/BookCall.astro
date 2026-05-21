@@ -1,0 +1,23 @@
+---
+import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG } from "../lib/calcom";
+
+interface Props {
+  label: string;
+  /** Journey id for analytics, e.g. "header", "hero", "cta-final". */
+  journey: string;
+  class?: string;
+  arrow?: boolean;
+}
+const { label, journey, class: cls, arrow = true } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={["btn", cls]}
+  data-cal-link={CAL_LINK}
+  data-cal-namespace={CAL_NAMESPACE}
+  data-cal-config={CAL_CONFIG}
+  data-journey={journey}
+>
+  {label}{arrow && <span class="arrow">→</span>}
+</button>

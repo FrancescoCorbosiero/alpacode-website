@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { ctaFinal } from "../../data/home";
 import { localizePath } from "../../i18n/utils";
+import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
@@ -9,6 +10,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = ctaFinal[lang];
 const contattiHref = localizePath("contatti", lang);
+const bookLabel = lang === "it" ? "Prenota una call" : "Book a call";
 
 const resolve = (href?: string) => {
   if (!href) return undefined;
@@ -41,8 +43,9 @@ const resolve = (href?: string) => {
         })
       }
     </div>
-    <div style="margin-top:36px">
-      <a class="btn btn-blue" href={contattiHref}>{t.cta} <span class="arrow">→</span></a>
+    <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+      <BookCall label={bookLabel} journey="cta-final" class="btn-blue" />
+      <a class="btn btn-ghost" href={contattiHref}>{t.cta}</a>
     </div>
   </div>
 </section>

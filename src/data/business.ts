@@ -4,7 +4,7 @@ import type { Localized } from "../i18n/types";
 export const business = {
   name: "Soluzioni Digitali Alpacode",
   wordmark: "ALPACODE",
-  email: "ciao@alpacode.it",
+  email: "info@alpacode.it",
   vat: "14463350968",
   locations: "Monza · Milano · IT",
   locationsEn: "Monza · Milan · IT",
@@ -13,10 +13,10 @@ export const business = {
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
   },
-  founded: "2018",
+  founded: "2025",
 } as const;
 
 export const tagline: Localized = {
-  it: "Costruiamo software che dura, consigliamo con calma, insegniamo con metodo.",
-  en: "We build software that lasts, advise calmly, teach with method.",
+  it: "Il web è cambiato. Rendiamo il digitale accessibile a chiunque.",
+  en: "The web has changed. We make digital accessible to everyone.",
 };

@@ -18,28 +18,28 @@ export interface HeroData {
 
 export const hero: Record<Lang, HeroData> = {
   it: {
-    eyebrow: "MZ · MI — IT · EST. 2018",
+    eyebrow: "MZ · MI — IT · EST. 2025",
     sub: "Soluzioni Digitali",
     cta1: "Prenota una call",
     cta2: "Esplora i lavori",
     meta: [
       { k: "Sede", v: "Monza · Milano", d: "IT" },
       { k: "Operatività", v: "Lun — Ven", d: "09:00 — 18:00 CET" },
-      { k: "Progetti", v: "120+", d: "consegnati dal 2018" },
+      { k: "Dal", v: "2025", d: "un progetto alla volta" },
       { k: "Ambiti", v: "03", d: "costruire · consigliare · insegnare" },
     ],
     statusLabel: "DISPONIBILE",
     statusVal: "Nuovi progetti Q3 2026",
   },
   en: {
-    eyebrow: "MZ · MI — IT · EST. 2018",
+    eyebrow: "MZ · MI — IT · EST. 2025",
     sub: "Digital Solutions",
     cta1: "Book a call",
     cta2: "See the work",
     meta: [
       { k: "Studio", v: "Monza · Milan", d: "IT" },
       { k: "Hours", v: "Mon — Fri", d: "09:00 — 18:00 CET" },
-      { k: "Projects", v: "120+", d: "delivered since 2018" },
+      { k: "Since", v: "2025", d: "one project at a time" },
       { k: "Practice", v: "03", d: "build · advise · teach" },
     ],
     statusLabel: "AVAILABLE",
@@ -66,13 +66,13 @@ export const verbs: Record<Lang, VerbsData> = {
   it: {
     num: "§01 · SERVIZI",
     heading: "Tre verbi.\nNiente di più.",
-    lede: "Da otto anni facciamo solo tre cose, ma le facciamo con cura. Niente bundle confusi, niente upsell, niente jargon.",
+    lede: "Ci concentriamo su poche cose e le facciamo bene. Niente pacchetti gonfiati, niente costi nascosti, parole chiare.",
     list: [
       {
         num: "01",
         word: "Costruire",
         accent: "ire",
-        d: "Siti, web app, software su misura, integrazioni. Codice scritto a mano, manutenibile, documentato.",
+        d: "Siti, web app, software su misura, integrazioni. Soluzioni curate, costruite per durare e semplici da gestire nel tempo.",
         items: ["Sviluppo siti & web app", "Software su misura", "Integrazioni & automazioni", "Performance & SEO"],
       },
       {
@@ -86,21 +86,21 @@ export const verbs: Record<Lang, VerbsData> = {
         num: "03",
         word: "Insegnare",
         accent: "are",
-        d: "Corsi e kit professionali su WordPress, front-end e back-end. Materiali che restano, esercizi reali.",
-        items: ["Corso WordPress Gutenberg", "Front-end moderno", "Back-end & API", "Kit per professionisti"],
+        d: "Corsi e percorsi pratici per chi vuole imparare a muoversi nel digitale. Materiali che restano, esempi concreti.",
+        items: ["Percorsi per chi inizia", "Approfondimenti pratici", "Kit e risorse pronte", "Formazione per team"],
       },
     ],
   },
   en: {
     num: "§01 · SERVICES",
     heading: "Three verbs.\nNothing more.",
-    lede: "For eight years we have done only three things, and we do them with care. No confusing bundles, no upsell, no jargon.",
+    lede: "We focus on a few things and do them well. No padded packages, no hidden costs, plain words.",
     list: [
       {
         num: "01",
         word: "Build",
         accent: "d",
-        d: "Websites, web apps, custom software, integrations. Hand-written, maintainable, documented code.",
+        d: "Websites, web apps, custom software, integrations. Crafted to last and easy to maintain over time.",
         items: ["Websites & web apps", "Custom software", "Integrations & automations", "Performance & SEO"],
       },
       {
@@ -114,8 +114,8 @@ export const verbs: Record<Lang, VerbsData> = {
         num: "03",
         word: "Teach",
         accent: "h",
-        d: "Courses and pro kits on WordPress, front-end and back-end. Materials that last, real exercises.",
-        items: ["WordPress Gutenberg", "Modern front-end", "Back-end & APIs", "Pro kits"],
+        d: "Practical courses and paths for anyone who wants to find their way in digital. Materials that last, real examples.",
+        items: ["Paths for beginners", "Practical deep-dives", "Ready-made kits & resources", "Team training"],
       },
     ],
   },
@@ -145,7 +145,7 @@ export const cases: Record<Lang, CasesData> = {
   it: {
     num: "§02 · CASI DI STUDIO",
     heading: "Quello che\nabbiamo costruito.",
-    lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. Le foto le carichi tu — sono spazi pronti per le tue immagini.",
+    lede: "Tre progetti recenti, raccontati con i numeri prima e dopo.",
     list: [
       {
         key: "studio-legale",
@@ -191,7 +191,7 @@ export const cases: Record<Lang, CasesData> = {
   en: {
     num: "§02 · CASE STUDIES",
     heading: "What we have built.",
-    lede: "Three recent projects, told in numbers before and after. Drop your own images into the slots.",
+    lede: "Three recent projects, told in numbers before and after.",
     list: [
       {
         key: "law-firm",
@@ -253,24 +253,24 @@ export interface ManifestoData {
 export const manifesto: Record<Lang, ManifestoData> = {
   it: {
     num: "§03 · MANIFESTO",
-    heading: "Come\nlavoriamo.",
-    lede: "Quattro principi che applichiamo a ogni progetto, anche quando nessuno ci guarda.",
+    heading: "Il web\nè cambiato.",
+    lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e rendere il digitale accessibile a chiunque.",
     pillars: [
-      { n: "I", label: "PILASTRO I", t: "Il codice è materia.", d: "Lo scriviamo a mano, lo trattiamo come si tratta il legno o il metallo: con attenzione, senza scorciatoie, sapendo che qualcun altro lo leggerà." },
-      { n: "II", label: "PILASTRO II", t: "La calma è un metodo.", d: "Non rispondiamo in cinque minuti, ma in cinque ore lavorate. Ti diamo il tempo per pensare, lo prendiamo per fare." },
-      { n: "III", label: "PILASTRO III", t: "Diciamo di no.", d: "Se non è la cosa giusta per te, lo diciamo. Indicare la porta giusta è parte del lavoro, anche quando non porta a noi." },
-      { n: "IV", label: "PILASTRO IV", t: "Insegniamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, kit e articoli. La conoscenza serve poco se resta chiusa in uno studio." },
+      { n: "I", label: "PILASTRO I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso. Lavoriamo per trovare soluzioni alla portata anche di chi parte con poco." },
+      { n: "II", label: "PILASTRO II", t: "Parliamo chiaro.", d: "Niente tecnicismi, niente sigle. Spieghiamo ogni scelta in parole semplici, così decidi con cognizione." },
+      { n: "III", label: "PILASTRO III", t: "Onestà prima di tutto.", d: "Costi trasparenti, nessuna sorpresa. E se non siamo la scelta giusta per te, te lo diciamo." },
+      { n: "IV", label: "PILASTRO IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
   },
   en: {
     num: "§03 · MANIFESTO",
-    heading: "How we work.",
-    lede: "Four principles we apply to every project, even when nobody is watching.",
+    heading: "The web\nhas changed.",
+    lede: "Our mission is simple: break down the barrier of cost and jargon, and make digital accessible to everyone.",
     pillars: [
-      { n: "I", label: "PILLAR I", t: "Code is material.", d: "We write it by hand, treating it like wood or metal: with care, no shortcuts, knowing someone else will read it." },
-      { n: "II", label: "PILLAR II", t: "Calm is a method.", d: "We don't answer in five minutes; we answer in five worked hours. You get time to think, we take time to act." },
-      { n: "III", label: "PILLAR III", t: "We say no.", d: "If it's not the right thing for you, we say so. Pointing to the right door is part of the job, even when it doesn't lead to us." },
-      { n: "IV", label: "PILLAR IV", t: "We teach what we know.", d: "What we learn we give back as courses, kits and articles. Knowledge serves little if it stays locked in a studio." },
+      { n: "I", label: "PILLAR I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a luxury. We work to find solutions within reach, even on a small budget." },
+      { n: "II", label: "PILLAR II", t: "We speak plainly.", d: "No jargon, no acronyms. We explain every choice in plain words, so you can decide with clarity." },
+      { n: "III", label: "PILLAR III", t: "Honesty first.", d: "Transparent costs, no surprises. And if we're not the right fit for you, we'll say so." },
+      { n: "IV", label: "PILLAR IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
     ],
   },
 };
@@ -297,8 +297,8 @@ export const ctaFinal: Record<Lang, CtaData> = {
     underline: "Parliamone.",
     sub: "Una call di trenta minuti per capirci. Niente vendite, niente pressioni. Ti diciamo subito se possiamo aiutarti e in che modo.",
     grid: [
-      { k: "Scrivici", v: "ciao@alpacode.it", href: "mailto:ciao@alpacode.it" },
-      { k: "Prenota una call", v: "30 min · gratis", href: "contatti" },
+      { k: "Scrivici", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
+      { k: "Prenota una call", v: "30 min · gratis", href: "prenota" },
       { k: "Sede", v: "Monza · Milano · IT" },
     ],
     cta: "Apri il modulo di contatto",
@@ -309,8 +309,8 @@ export const ctaFinal: Record<Lang, CtaData> = {
     underline: "Let's talk.",
     sub: "A thirty-minute call to understand. No sales, no pressure. We'll tell you right away if we can help, and how.",
     grid: [
-      { k: "Write us", v: "ciao@alpacode.it", href: "mailto:ciao@alpacode.it" },
-      { k: "Book a call", v: "30 min · free", href: "contatti" },
+      { k: "Write us", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
+      { k: "Book a call", v: "30 min · free", href: "prenota" },
       { k: "Studio", v: "Monza · Milan · IT" },
     ],
     cta: "Open the contact form",

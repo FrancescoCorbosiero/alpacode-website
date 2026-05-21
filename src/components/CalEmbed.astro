@@ -1,0 +1,54 @@
+---
+import { CAL_NAMESPACE, CAL_ORIGIN } from "../lib/calcom";
+---
+
+{/* cal.com embed loader + journey tracking. Loaded once per page. */}
+<script is:inline define:vars={{ ns: CAL_NAMESPACE, origin: CAL_ORIGIN }}>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); }
+        else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", ns, { origin: origin });
+  Cal.ns[ns]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+  // Provider-agnostic journey tracking: GTM dataLayer + a DOM event + dev log.
+  function track(name, detail) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: name }, detail));
+    } catch (e) {}
+    document.dispatchEvent(new CustomEvent("alpa:" + name, { detail: detail }));
+    if (location.hostname === "localhost") console.debug("[track]", name, detail);
+  }
+
+  // Which journey opened the booker (data-journey on the trigger).
+  document.addEventListener(
+    "click",
+    function (ev) {
+      var t = ev.target;
+      var el = t && t.closest ? t.closest("[data-cal-link]") : null;
+      if (el) track("booking_open", { journey: el.getAttribute("data-journey") || "unknown" });
+    },
+    true,
+  );
+
+  Cal.ns[ns]("on", {
+    action: "bookingSuccessful",
+    callback: function () { track("booking_success", {}); },
+  });
+</script>

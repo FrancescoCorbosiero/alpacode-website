@@ -72,8 +72,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Services · Alpacode Digital Solutions",
     },
     description: {
-      it: "Tre aree, otto anni di pratica: sviluppo, software & integrazioni, consulenza, performance, manutenzione, corsi. Niente bundle gonfi, niente upsell.",
-      en: "Three areas, eight years of practice: development, software & integrations, consulting, performance, maintenance, courses. No inflated bundles, no upsell.",
+      it: "Tre aree e un solo metodo: sviluppo, software & integrazioni, consulenza, performance, manutenzione, corsi. Soluzioni su misura, anche per budget contenuti.",
+      en: "Three areas, one method: development, software & integrations, consulting, performance, maintenance, courses. Tailored solutions, small budgets welcome.",
     },
   },
   lavori: {
@@ -122,8 +122,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Contact · Alpacode Digital Solutions",
     },
     description: {
-      it: "Parliamone con calma. Compila il modulo o scrivici a ciao@alpacode.it. Rispondiamo entro mezza giornata lavorata, da una persona vera.",
-      en: "Let's talk, calmly. Fill the form or write to ciao@alpacode.it. We reply within half a worked day, from a real person.",
+      it: "Parliamone con calma. Compila il modulo o scrivici a info@alpacode.it. Rispondiamo entro mezza giornata lavorata, da una persona vera.",
+      en: "Let's talk, calmly. Fill the form or write to info@alpacode.it. We reply within half a worked day, from a real person.",
     },
   },
 };
