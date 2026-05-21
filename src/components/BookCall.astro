@@ -1,23 +1,35 @@
 ---
-import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG } from "../lib/calcom";
+import type { Lang } from "../i18n/types";
+import { localizePath } from "../i18n/utils";
+import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG, CAL_CONFIGURED } from "../lib/calcom";
 
 interface Props {
   label: string;
   /** Journey id for analytics, e.g. "header", "hero", "cta-final". */
   journey: string;
+  lang: Lang;
   class?: string;
   arrow?: boolean;
 }
-const { label, journey, class: cls, arrow = true } = Astro.props;
+const { label, journey, lang, class: cls, arrow = true } = Astro.props;
+const contattiHref = localizePath("contatti", lang);
 ---
 
-<button
-  type="button"
-  class:list={["btn", cls]}
-  data-cal-link={CAL_LINK}
-  data-cal-namespace={CAL_NAMESPACE}
-  data-cal-config={CAL_CONFIG}
-  data-journey={journey}
->
-  {label}{arrow && <span class="arrow">→</span>}
-</button>
+{
+  CAL_CONFIGURED ? (
+    <button
+      type="button"
+      class:list={["btn", cls]}
+      data-cal-link={CAL_LINK}
+      data-cal-namespace={CAL_NAMESPACE}
+      data-cal-config={CAL_CONFIG}
+      data-journey={journey}
+    >
+      {label}{arrow && <span class="arrow">→</span>}
+    </button>
+  ) : (
+    <a class:list={["btn", cls]} href={contattiHref} data-journey={journey}>
+      {label}{arrow && <span class="arrow">→</span>}
+    </a>
+  )
+}

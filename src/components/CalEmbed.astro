@@ -1,9 +1,9 @@
 ---
-import { CAL_NAMESPACE, CAL_ORIGIN } from "../lib/calcom";
+import { CAL_NAMESPACE, CAL_ORIGIN, CAL_EMBED_JS } from "../lib/calcom";
 ---
 
 {/* cal.com embed loader + journey tracking. Loaded once per page. */}
-<script is:inline define:vars={{ ns: CAL_NAMESPACE, origin: CAL_ORIGIN }}>
+<script is:inline define:vars={{ ns: CAL_NAMESPACE, origin: CAL_ORIGIN, embedJs: CAL_EMBED_JS }}>
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
     let d = C.document;
@@ -21,7 +21,7 @@ import { CAL_NAMESPACE, CAL_ORIGIN } from "../lib/calcom";
       }
       p(cal, ar);
     };
-  })(window, "https://app.cal.com/embed/embed.js", "init");
+  })(window, embedJs, "init");
 
   Cal("init", ns, { origin: origin });
   Cal.ns[ns]("ui", { hideEventTypeDetails: false, layout: "month_view" });

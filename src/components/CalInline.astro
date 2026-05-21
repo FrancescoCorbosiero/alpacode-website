@@ -1,19 +1,37 @@
 ---
-import { CAL_LINK, CAL_NAMESPACE } from "../lib/calcom";
+import type { Lang } from "../i18n/types";
+import { localizePath } from "../i18n/utils";
+import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIGURED } from "../lib/calcom";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const contattiHref = localizePath("contatti", lang);
+const t =
+  lang === "it"
+    ? { soon: "Le prenotazioni online arrivano a breve.", write: "Nel frattempo, scrivici" }
+    : { soon: "Online booking is coming soon.", write: "In the meantime, write us" };
 ---
 
-<div id="cal-inline" class="cal-inline"></div>
-
-<script is:inline define:vars={{ link: CAL_LINK, ns: CAL_NAMESPACE }}>
-  (function mount() {
-    if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
-      window.Cal.ns[ns]("inline", {
-        elementOrSelector: "#cal-inline",
-        calLink: link,
-        config: { layout: "month_view" },
-      });
-    } else {
-      setTimeout(mount, 120);
-    }
-  })();
-</script>
+{
+  CAL_CONFIGURED ? (
+    <Fragment>
+      <div id="cal-inline" class="cal-inline" />
+      <script is:inline define:vars={{ link: CAL_LINK, ns: CAL_NAMESPACE }}>
+        (function mount() {
+          if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
+            window.Cal.ns[ns]("inline", { elementOrSelector: "#cal-inline", calLink: link, config: { layout: "month_view" } });
+          } else {
+            setTimeout(mount, 120);
+          }
+        })();
+      </script>
+    </Fragment>
+  ) : (
+    <div class="cal-fallback">
+      <p class="cal-fallback-msg">{t.soon}</p>
+      <a class="btn btn-blue" href={contattiHref}>{t.write} <span class="arrow">→</span></a>
+    </div>
+  )
+}
