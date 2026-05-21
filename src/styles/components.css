@@ -390,18 +390,21 @@
   padding: 64px 0 96px;
   overflow: hidden;
 }
-/* Blueprint grid backdrop — structural "wow" without images. */
+/* Engineering-paper backdrop: bold major grid + faint fine grid (no images).
+   The rgba lines are --rule (#C9C3B1) at lower alpha for the fine ruling. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   background-image:
-    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 72px),
-    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 72px);
-  opacity: 0.3;
-  -webkit-mask-image: radial-gradient(125% 120% at 50% 42%, #000 38%, transparent 84%);
-  mask-image: radial-gradient(125% 120% at 50% 42%, #000 38%, transparent 84%);
+    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to right, rgba(201, 195, 177, 0.5) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(to bottom, rgba(201, 195, 177, 0.5) 0 1px, transparent 1px 24px);
+  opacity: 0.5;
+  -webkit-mask-image: radial-gradient(125% 120% at 50% 42%, #000 32%, transparent 82%);
+  mask-image: radial-gradient(125% 120% at 50% 42%, #000 32%, transparent 82%);
   pointer-events: none;
 }
 .hero .wrap-wide {
@@ -1157,103 +1160,6 @@
   flex-wrap: wrap;
 }
 
-/* ---------- Work in progress (temporary homepage) ---------- */
-.wip {
-  position: relative;
-  overflow: hidden;
-  padding: 72px 0 96px;
-  text-align: center;
-}
-.wip::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image:
-    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 64px),
-    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 64px);
-  opacity: 0.4;
-  -webkit-mask-image: radial-gradient(120% 110% at 50% 38%, #000 42%, transparent 82%);
-  mask-image: radial-gradient(120% 110% at 50% 38%, #000 42%, transparent 82%);
-  pointer-events: none;
-}
-.wip .wrap-wide {
-  position: relative;
-  z-index: 1;
-}
-.wip-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 56px;
-  text-align: left;
-}
-.wip-status {
-  color: var(--blue);
-}
-.wip-wordmark {
-  font-family: var(--display);
-  font-size: clamp(56px, 13vw, 200px);
-  line-height: 0.84;
-  letter-spacing: -0.03em;
-  margin: 0;
-  color: var(--ink);
-}
-.wip-wordmark .row {
-  display: block;
-}
-.wip-bar {
-  display: block;
-  height: clamp(8px, 1.2vw, 16px);
-  background: var(--blue);
-  width: min(440px, 64%);
-  margin: 12px auto;
-}
-.wip-sub-word {
-  font-size: 0.3em;
-  letter-spacing: 0.02em;
-  color: var(--mute);
-}
-.wip-tagline {
-  font-family: var(--display);
-  font-size: clamp(26px, 5vw, 56px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  margin: 48px 0 0;
-}
-.wip-sub {
-  max-width: 560px;
-  margin: 18px auto 0;
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--mute-2);
-}
-.wip-ctas {
-  margin-top: 36px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.wip-meta {
-  margin-top: 56px;
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  flex-wrap: wrap;
-  border-top: 1px solid var(--rule);
-  padding-top: 24px;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--mute);
-}
-.wip-meta a:hover {
-  color: var(--blue);
-}
-
 /* ---------- Service detail rows ---------- */
 .svc-row {
   display: grid;
@@ -1443,6 +1349,21 @@
 .cal-inline {
   width: 100%;
   min-height: 640px;
+}
+.cal-fallback {
+  border: 1px solid var(--rule);
+  padding: 56px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.cal-fallback-msg {
+  font-family: var(--display);
+  font-size: clamp(22px, 3vw, 30px);
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
 /* ---------- Blog ---------- */

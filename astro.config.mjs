@@ -14,7 +14,6 @@ export default defineConfig({
     react(),
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/anteprima'),
       i18n: {
         defaultLocale: 'it',
         locales: { it: 'it-IT', en: 'en-US' },

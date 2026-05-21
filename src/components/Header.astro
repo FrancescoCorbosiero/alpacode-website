@@ -61,7 +61,7 @@ const enHref = localizePath(slug, "en");
         <span data-cmd-mod>⌘</span><span>K</span>
       </button>
       <LangToggle client:load lang={lang} itHref={itHref} enHref={enHref} label={ui.langLabel[lang]} />
-      <BookCall label={ui.ctaShort[lang]} journey="header" class="btn-sm" />
+      <BookCall label={ui.ctaShort[lang]} journey="header" lang={lang} class="btn-sm" />
     </div>
   </div>
 </header>

@@ -4,13 +4,14 @@ import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
 import { business, tagline } from "../data/business";
-import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG } from "../lib/calcom";
+import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG, CAL_CONFIGURED } from "../lib/calcom";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const prenotaHref = localizePath("prenota", lang);
+const contattiHref = localizePath("contatti", lang);
 ---
 
 <footer class="site-footer">
@@ -48,13 +49,19 @@ const prenotaHref = localizePath("prenota", lang);
         <ul>
           <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
           <li>
-            <a
-              href={prenotaHref}
-              data-cal-link={CAL_LINK}
-              data-cal-namespace={CAL_NAMESPACE}
-              data-cal-config={CAL_CONFIG}
-              data-journey="footer"
-            >{footer.bookCall[lang]}</a>
+            {
+              CAL_CONFIGURED ? (
+                <a
+                  href={prenotaHref}
+                  data-cal-link={CAL_LINK}
+                  data-cal-namespace={CAL_NAMESPACE}
+                  data-cal-config={CAL_CONFIG}
+                  data-journey="footer"
+                >{footer.bookCall[lang]}</a>
+              ) : (
+                <a href={contattiHref}>{footer.bookCall[lang]}</a>
+              )
+            }
           </li>
           <li><a href={business.social.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
           <li><a href={business.social.github} rel="me noopener" target="_blank">GitHub</a></li>

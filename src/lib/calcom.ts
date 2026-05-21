@@ -11,3 +11,9 @@ export const CAL_ORIGIN = "https://cal.com";
 
 /** Layout passed to every embed (square, editorial — matches the design). */
 export const CAL_CONFIG = '{"layout":"month_view"}';
+
+/**
+ * True once a real booking link is set. While it's still the placeholder,
+ * booking CTAs fall back to the contact form instead of opening a 404.
+ */
+export const CAL_CONFIGURED = CAL_LINK.trim() !== "" && CAL_LINK !== "alpacode/call";
