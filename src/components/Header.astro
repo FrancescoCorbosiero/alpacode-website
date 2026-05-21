@@ -10,7 +10,7 @@ import LangToggle from "./islands/LangToggle.tsx";
 
 interface Props {
   lang: Lang;
-  active: PageKey;
+  active?: PageKey;
   slug: string;
 }
 const { lang, active, slug } = Astro.props;

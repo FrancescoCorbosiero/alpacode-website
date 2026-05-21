@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { business } from "../../data/business";
 
 // This route runs on demand (form POST), the rest of the site is static.
@@ -17,6 +18,9 @@ function readEnv(key: string): string | undefined {
     typeof process !== "undefined" ? process.env?.[key] : undefined;
   return fromProcess ?? (import.meta.env as Record<string, string | undefined>)[key];
 }
+
+let sesClient: SESv2Client | null = null;
+const getSes = (region: string) => (sesClient ??= new SESv2Client({ region }));
 
 export const POST: APIRoute = async ({ request }) => {
   let body: Record<string, string>;
@@ -53,33 +57,37 @@ export const POST: APIRoute = async ({ request }) => {
     .filter(Boolean)
     .join("\n");
 
-  const apiKey = readEnv("RESEND_API_KEY");
+  // AWS SES. Credentials come from the standard provider chain
+  // (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY env vars or an IAM role);
+  // AWS_REGION is the toggle for "SES is configured".
+  const region = readEnv("AWS_REGION") ?? readEnv("AWS_DEFAULT_REGION");
   const to = readEnv("CONTACT_TO_EMAIL") ?? business.email;
-  const from = readEnv("CONTACT_FROM_EMAIL") ?? "Alpacode <onboarding@resend.dev>";
+  const from = readEnv("CONTACT_FROM_EMAIL") ?? business.email;
 
-  // No API key configured (e.g. local dev) — log and succeed so the
-  // form is testable end to end without secrets.
-  if (!apiKey) {
-    console.info("[contact] (no RESEND_API_KEY — not sent)\n" + lines);
+  // No region configured (e.g. local dev) — log and succeed so the form is
+  // testable end to end without AWS credentials.
+  if (!region) {
+    console.info("[contact] (no AWS_REGION — not sent via SES)\n" + lines);
     return json({ ok: true, delivered: false });
   }
 
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ from, to, reply_to: email, subject, text: lines }),
-    });
-    if (!res.ok) {
-      console.error("[contact] Resend error", res.status, await res.text());
-      return json({ ok: false, error: "send_failed" }, 502);
-    }
+    await getSes(region).send(
+      new SendEmailCommand({
+        FromEmailAddress: from,
+        Destination: { ToAddresses: [to] },
+        ReplyToAddresses: [email],
+        Content: {
+          Simple: {
+            Subject: { Data: subject, Charset: "UTF-8" },
+            Body: { Text: { Data: lines, Charset: "UTF-8" } },
+          },
+        },
+      }),
+    );
     return json({ ok: true, delivered: true });
   } catch (err) {
-    console.error("[contact] Resend exception", err);
+    console.error("[contact] SES error", err);
     return json({ ok: false, error: "send_failed" }, 502);
   }
 };

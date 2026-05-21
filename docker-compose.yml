@@ -28,17 +28,27 @@ services:
       HOST: "0.0.0.0"
       PORT: "4321"
       NODE_ENV: "production"
-      # Contact form delivery — optional. Without RESEND_API_KEY the form
-      # still works (the API route logs the submission and returns success).
-      RESEND_API_KEY: "${RESEND_API_KEY:-}"
+      # Contact form delivery via AWS SES — optional. Without AWS_REGION the
+      # form still works (the API route logs the submission and returns ok).
+      # Omit the keys if the host uses an IAM role / instance profile.
+      AWS_REGION: "${AWS_REGION:-}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
       CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-ciao@alpacode.it}"
-      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-Alpacode <onboarding@resend.dev>}"
+      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-ciao@alpacode.it}"
     labels:
       # caddy-docker-proxy: route the domain to this container's :4321 and
       # compress responses. HTTP->HTTPS redirect and TLS are automatic.
       caddy: "${SITE_DOMAIN:-alpacode.it}"
       caddy.reverse_proxy: "{{upstreams 4321}}"
       caddy.encode: "zstd gzip"
+      # Security headers. (Hashed /_astro/* assets are already served
+      # cache-immutable by the app, so no caching rule is needed here.)
+      caddy.header.X-Content-Type-Options: "nosniff"
+      caddy.header.Referrer-Policy: "strict-origin-when-cross-origin"
+      caddy.header.X-Frame-Options: "SAMEORIGIN"
+      caddy.header.Permissions-Policy: "geolocation=(), camera=(), microphone=()"
+      caddy.header.Strict-Transport-Security: "max-age=31536000"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:4321/ >/dev/null 2>&1 || exit 1"]
       interval: 30s

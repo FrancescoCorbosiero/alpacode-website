@@ -15,6 +15,7 @@ import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
 import { ui, cmdk } from "../i18n/ui";
 import { business } from "../data/business";
+import { organizationSchema, websiteSchema } from "../lib/schema";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import CmdK from "./islands/CmdK.tsx";
@@ -22,12 +23,13 @@ import type { CmdItem, CmdLabels } from "./islands/CmdK";
 
 interface Props {
   lang: Lang;
-  active: PageKey;
+  active?: PageKey;
   slug: string;
   title: string;
   description: string;
+  jsonLd?: object[];
 }
-const { lang, active, slug, title, description } = Astro.props;
+const { lang, active, slug, title, description, jsonLd } = Astro.props;
 
 const scuolaHref = localizePath("scuola", lang);
 const contattiHref = localizePath("contatti", lang);
@@ -37,6 +39,12 @@ const canonical = new URL(Astro.url.pathname, site).href;
 const itUrl = new URL(localizePath(slug, "it"), site).href;
 const enUrl = new URL(localizePath(slug, "en"), site).href;
 const ogImage = new URL("/logo.png", site).href;
+const rssHref = localizePath("blog/rss.xml", lang);
+
+const ldJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [organizationSchema(site.href), websiteSchema(site.href, lang), ...(jsonLd ?? [])],
+});
 
 const cmdItems: CmdItem[] = [
   ...PAGES.map((p) => ({
@@ -90,8 +98,11 @@ const cmdLabels: CmdLabels = {
     <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_US"} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="alternate" type="application/rss+xml" title="Alpacode · Blog" href={rssHref} />
+    <script type="application/ld+json" is:inline set:html={ldJson} />
   </head>
-  <body data-page={active}>
+  <body data-page={active ?? "404"}>
     <a class="skip-link" href="#main">{ui.skip[lang]}</a>
     <Header lang={lang} active={active} slug={slug} />
     <main id="main">
