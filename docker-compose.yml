@@ -19,7 +19,7 @@ services:
       context: .
       args:
         # cal.com booking link is inlined at build time (PUBLIC_ = client-side).
-        PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-alpacode/call}"
+        PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-https://cal.eu/alpacode/30min}"
     image: alpacode-website:latest
     container_name: alpacode-website
     restart: unless-stopped
