@@ -9,6 +9,7 @@ import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 import "../styles/global.css";
 
+import { ClientRouter } from "astro:transitions";
 import type { Lang } from "../i18n/types";
 import type { PageKey } from "../data/pages";
 import { PAGES } from "../data/pages";
@@ -110,6 +111,8 @@ const cmdLabels: CmdLabels = {
 
     <link rel="alternate" type="application/rss+xml" title="Alpacode · Blog" href={rssHref} />
     <script type="application/ld+json" is:inline set:html={ldJson} />
+
+    <ClientRouter />
   </head>
   <body data-page={active ?? "404"}>
     <div class="scroll-progress" aria-hidden="true"></div>

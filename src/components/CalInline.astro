@@ -20,7 +20,10 @@ const t =
       <div id="cal-inline" class="cal-inline" />
       <script is:inline define:vars={{ link: CAL_LINK, ns: CAL_NAMESPACE }}>
         (function mount() {
+          var el = document.getElementById("cal-inline");
+          if (!el || el.dataset.calMounted) return;
           if (window.Cal && window.Cal.ns && window.Cal.ns[ns]) {
+            el.dataset.calMounted = "1";
             window.Cal.ns[ns]("inline", { elementOrSelector: "#cal-inline", calLink: link, config: { layout: "month_view" } });
           } else {
             setTimeout(mount, 120);
