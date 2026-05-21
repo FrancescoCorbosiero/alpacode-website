@@ -5,6 +5,7 @@ import Hero from "../home/Hero.astro";
 import Verbs from "../home/Verbs.astro";
 import Manifesto from "../home/Manifesto.astro";
 import CtaFinal from "../home/CtaFinal.astro";
+import Ticker from "../Ticker.astro";
 import Cases from "../islands/Cases.tsx";
 
 interface Props {
@@ -16,14 +17,19 @@ const caseLabels = {
   problem: lang === "it" ? "Il problema" : "The problem",
   before: lang === "it" ? "Prima" : "Before",
   after: lang === "it" ? "Dopo" : "After",
-  placeholder: lang === "it" ? "Trascina la foto del progetto qui" : "Drop project photo here",
+  placeholder: lang === "it" ? "La foto del progetto" : "Project photo",
 };
+const tickerItems =
+  lang === "it"
+    ? ["Software", "Consulenza", "Formazione", "Il web è cambiato", "Digitale accessibile", "Monza · Milano"]
+    : ["Software", "Consulting", "Training", "The web has changed", "Accessible digital", "Monza · Milan"];
 ---
 
 <Hero lang={lang} />
+<Ticker items={tickerItems} />
 <Verbs lang={lang} />
 
-<section class="section" style="padding-top:0">
+<section class="section section--tint" style="padding-top:56px">
   <div class="wrap-wide">
     <div class="section-head">
       <div>

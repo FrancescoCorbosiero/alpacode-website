@@ -408,8 +408,8 @@
       var(--paper-3) 0 180deg
     );
   background-size: var(--s) calc(var(--s) * 0.577);
-  -webkit-mask-image: radial-gradient(130% 125% at 50% 46%, #000 26%, transparent 84%);
-  mask-image: radial-gradient(130% 125% at 50% 46%, #000 26%, transparent 84%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 90%);
   pointer-events: none;
 }
 .hero .wrap-wide {
@@ -574,6 +574,10 @@
 .section {
   padding: 96px 0;
   position: relative;
+}
+/* Tinted band — subtle surface change for visual rhythm. */
+.section--tint {
+  background: var(--paper-2);
 }
 .section-head {
   display: grid;
@@ -923,6 +927,48 @@
   height: var(--strut);
   width: 56px;
   background: var(--blue);
+}
+
+/* ---------- Ticker (marquee text slider) ---------- */
+.ticker {
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  padding: 18px 0;
+  animation: tickerMove 34s linear infinite;
+  will-change: transform;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 34px;
+  font-family: var(--t-mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker-item .dot {
+  color: var(--blue);
+  font-size: 8px;
+}
+@keyframes tickerMove {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }
 
 /* ---------- Contatti CTA ---------- */
