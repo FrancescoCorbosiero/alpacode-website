@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import PageHero from "../PageHero.astro";
 import ImageSlot from "../ImageSlot.astro";
@@ -12,21 +13,31 @@ const { lang } = Astro.props;
 
 const works = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
 
+// Drop a file named <entry-id>.<ext> into src/assets/work/ (e.g.
+// studio-legale.jpg) and it's picked up here, optimized, automatically.
+const workImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/work/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+const imgFor = (id: string): ImageMetadata | undefined =>
+  Object.entries(workImages).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === id)?.[1]
+    .default;
+
 const t =
   lang === "it"
     ? {
         crumb: "§03 · LAVORI",
         line1: "Sei progetti",
         line2: "raccontati bene.",
-        lede: "Un campione di quello che abbiamo costruito negli ultimi due anni. Le immagini sono spazi pronti per le foto reali — drag & drop dalla cartella.",
-        placeholder: "Trascina la foto del progetto",
+        lede: "Un campione di quello che abbiamo costruito di recente.",
+        placeholder: "Foto del progetto",
       }
     : {
         crumb: "§03 · WORK",
         line1: "Six projects,",
         line2: "told well.",
-        lede: "A sample of what we've built in the last two years. Images are slots — drag your own photos in.",
-        placeholder: "Drop project photo",
+        lede: "A sample of what we've built recently.",
+        placeholder: "Project photo",
       };
 ---
 
@@ -38,7 +49,7 @@ const t =
       {
         works.map((w, i) => (
           <article class="work">
-            <ImageSlot placeholder={t.placeholder} />
+            <ImageSlot placeholder={t.placeholder} src={imgFor(w.id)} alt={w.data.title[lang]} />
             <div class="meta">
               <span>— {String(i + 1).padStart(2, "0")}</span>
               <span>{w.data.year} · {w.data.sector[lang]}</span>
