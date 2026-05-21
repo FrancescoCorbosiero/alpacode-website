@@ -390,21 +390,26 @@
   padding: 64px 0 96px;
   overflow: hidden;
 }
-/* Engineering-paper backdrop: bold major grid + faint fine grid (no images).
-   The rgba lines are --rule (#C9C3B1) at lower alpha for the fine ruling. */
+/* Isometric-cube backdrop (repeating-conic-gradient) in paper tones with a
+   blue facet — pure CSS, no images. Masked so the wordmark stays crisp. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image:
-    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 96px),
-    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 96px),
-    repeating-linear-gradient(to right, rgba(201, 195, 177, 0.5) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(to bottom, rgba(201, 195, 177, 0.5) 0 1px, transparent 1px 24px);
-  opacity: 0.5;
-  -webkit-mask-image: radial-gradient(125% 120% at 50% 42%, #000 32%, transparent 82%);
-  mask-image: radial-gradient(125% 120% at 50% 42%, #000 32%, transparent 82%);
+  --s: clamp(140px, 13vw, 210px);
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--paper-3) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--blue-soft) 0 60deg,
+      var(--paper) 0 120deg,
+      var(--paper-3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+  -webkit-mask-image: radial-gradient(130% 125% at 50% 46%, #000 26%, transparent 84%);
+  mask-image: radial-gradient(130% 125% at 50% 46%, #000 26%, transparent 84%);
   pointer-events: none;
 }
 .hero .wrap-wide {
@@ -1072,18 +1077,26 @@
   position: relative;
   overflow: hidden;
 }
-/* Blueprint grid, concentrated top-left and fading away from the copy. */
+/* Same cube field, smaller and tucked into the top-right corner so it
+   frames the left-aligned copy without crowding it. */
 .page-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image:
-    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 64px),
-    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 64px);
-  opacity: 0.28;
-  -webkit-mask-image: radial-gradient(90% 130% at 0% 0%, #000 22%, transparent 72%);
-  mask-image: radial-gradient(90% 130% at 0% 0%, #000 22%, transparent 72%);
+  --s: clamp(110px, 10vw, 168px);
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--paper-3) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--blue-soft) 0 60deg,
+      var(--paper) 0 120deg,
+      var(--paper-3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+  -webkit-mask-image: radial-gradient(78% 150% at 100% 0%, #000 10%, transparent 66%);
+  mask-image: radial-gradient(78% 150% at 100% 0%, #000 10%, transparent 66%);
   pointer-events: none;
 }
 .page-hero .wrap-wide {
