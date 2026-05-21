@@ -18,8 +18,10 @@ services:
     build:
       context: .
       args:
-        # cal.com booking link is inlined at build time (PUBLIC_ = client-side).
+        # Inlined at build time (PUBLIC_ = client-side).
         PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-https://cal.eu/alpacode/30min}"
+        PUBLIC_UMAMI_SRC: "${PUBLIC_UMAMI_SRC:-}"
+        PUBLIC_UMAMI_ID: "${PUBLIC_UMAMI_ID:-}"
     image: alpacode-website:latest
     container_name: alpacode-website
     restart: unless-stopped

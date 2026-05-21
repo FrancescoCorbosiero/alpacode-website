@@ -10,7 +10,11 @@ RUN npm ci
 # Public, build-time only: the cal.com booking link gets inlined into the
 # prerendered pages.
 ARG PUBLIC_CALCOM_LINK="https://cal.eu/alpacode/30min"
-ENV PUBLIC_CALCOM_LINK=$PUBLIC_CALCOM_LINK
+ARG PUBLIC_UMAMI_SRC=""
+ARG PUBLIC_UMAMI_ID=""
+ENV PUBLIC_CALCOM_LINK=$PUBLIC_CALCOM_LINK \
+    PUBLIC_UMAMI_SRC=$PUBLIC_UMAMI_SRC \
+    PUBLIC_UMAMI_ID=$PUBLIC_UMAMI_ID
 COPY . .
 RUN npm run build
 

@@ -21,6 +21,7 @@ import { organizationSchema, websiteSchema } from "../lib/schema";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import CalEmbed from "./CalEmbed.astro";
+import Analytics from "./Analytics.astro";
 import CmdK from "./islands/CmdK.tsx";
 import type { CmdItem, CmdLabels } from "./islands/CmdK";
 
@@ -124,9 +125,12 @@ const cmdLabels: CmdLabels = {
     <Footer lang={lang} />
     <CmdK client:idle lang={lang} items={cmdItems} labels={cmdLabels} />
     {CAL_CONFIGURED && <CalEmbed />}
+    <Analytics />
+    <div id="cc-root" transition:persist></div>
 
     <script>
       import "../lib/motion.ts";
+      import "../lib/consent.ts";
     </script>
   </body>
 </html>
