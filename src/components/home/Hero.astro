@@ -2,13 +2,13 @@
 import type { Lang } from "../../i18n/types";
 import { hero } from "../../data/home";
 import { localizePath } from "../../i18n/utils";
+import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = hero[lang];
-const contattiHref = localizePath("contatti", lang);
 const lavoriHref = localizePath("lavori", lang);
 ---
 
@@ -45,7 +45,7 @@ const lavoriHref = localizePath("lavori", lang);
         }
       </p>
       <div class="hero-ctas">
-        <a class="btn" href={contattiHref}>{t.cta1} <span class="arrow">→</span></a>
+        <BookCall label={t.cta1} journey="hero" />
         <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
       </div>
     </div>

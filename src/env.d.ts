@@ -2,6 +2,7 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
+  readonly PUBLIC_CALCOM_LINK?: string;
   readonly AWS_REGION?: string;
   readonly AWS_DEFAULT_REGION?: string;
   readonly AWS_ACCESS_KEY_ID?: string;

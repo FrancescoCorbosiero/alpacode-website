@@ -1,16 +1,15 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { scuola } from "../../data/courses";
-import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
+import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = scuola[lang];
-const contattiHref = localizePath("contatti", lang);
 const signUp = lang === "it" ? "Iscriviti" : "Sign up";
 ---
 
@@ -32,9 +31,7 @@ const signUp = lang === "it" ? "Iscriviti" : "Sign up";
                 <li><span>{it}</span></li>
               ))}
             </ul>
-            <a class="btn btn-sm" href={contattiHref} style="margin-top:12px;align-self:flex-start">
-              {signUp} <span class="arrow">→</span>
-            </a>
+            <BookCall label={signUp} journey="course" class="btn-sm" />
           </div>
         ))
       }

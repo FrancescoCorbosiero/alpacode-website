@@ -7,6 +7,10 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Build the Astro site (Node standalone adapter -> dist/server/entry.mjs).
+# Public, build-time only: the cal.com booking link gets inlined into the
+# prerendered pages.
+ARG PUBLIC_CALCOM_LINK="alpacode/call"
+ENV PUBLIC_CALCOM_LINK=$PUBLIC_CALCOM_LINK
 COPY . .
 RUN npm run build
 

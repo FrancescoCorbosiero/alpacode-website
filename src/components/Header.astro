@@ -6,6 +6,7 @@ import { localizePath } from "../i18n/utils";
 import { ui } from "../i18n/ui";
 import { megaByKey } from "../data/mega";
 import Mega from "./Mega.astro";
+import BookCall from "./BookCall.astro";
 import LangToggle from "./islands/LangToggle.tsx";
 
 interface Props {
@@ -16,7 +17,6 @@ interface Props {
 const { lang, active, slug } = Astro.props;
 
 const homeHref = localizePath("", lang);
-const contattiHref = localizePath("contatti", lang);
 const itHref = localizePath(slug, "it");
 const enHref = localizePath(slug, "en");
 ---
@@ -61,9 +61,7 @@ const enHref = localizePath(slug, "en");
         <span data-cmd-mod>⌘</span><span>K</span>
       </button>
       <LangToggle client:load lang={lang} itHref={itHref} enHref={enHref} label={ui.langLabel[lang]} />
-      <a class="btn btn-sm" href={contattiHref}>
-        {ui.ctaShort[lang]} <span class="arrow">→</span>
-      </a>
+      <BookCall label={ui.ctaShort[lang]} journey="header" class="btn-sm" />
     </div>
   </div>
 </header>

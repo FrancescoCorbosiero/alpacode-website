@@ -1,0 +1,30 @@
+---
+import Layout from "../../components/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CalInline from "../../components/CalInline.astro";
+import { localizePath } from "../../i18n/utils";
+const lang = "en" as const;
+const contattiHref = localizePath("contatti", lang);
+---
+
+<Layout
+  lang={lang}
+  slug="prenota"
+  title="Book a call · Alpacode"
+  description="Book a free 30-minute call with Alpacode. No sales, no pressure: we'll tell you right away if we can help, and how."
+>
+  <PageHero
+    crumb="§ · BOOK"
+    line1="Book"
+    line2="a call."
+    lede="Thirty minutes to understand each other. No sales, no pressure — we'll tell you right away if we can help, and how. Pick a time below."
+  />
+  <section class="section" style="padding-top:24px">
+    <div class="wrap-wide">
+      <CalInline />
+      <p class="eyebrow" style="margin-top:24px">
+        Prefer to write? <a href={contattiHref} style="color:var(--blue)">Fill the form →</a>
+      </p>
+    </div>
+  </section>
+</Layout>

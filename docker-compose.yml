@@ -17,6 +17,9 @@ services:
   alpacode-website:
     build:
       context: .
+      args:
+        # cal.com booking link is inlined at build time (PUBLIC_ = client-side).
+        PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-alpacode/call}"
     image: alpacode-website:latest
     container_name: alpacode-website
     restart: unless-stopped
@@ -34,8 +37,8 @@ services:
       AWS_REGION: "${AWS_REGION:-}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
-      CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-ciao@alpacode.it}"
-      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-ciao@alpacode.it}"
+      CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-info@alpacode.it}"
+      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-info@alpacode.it}"
     labels:
       # caddy-docker-proxy: route the domain to this container's :4321 and
       # compress responses. HTTP->HTTPS redirect and TLS are automatic.
