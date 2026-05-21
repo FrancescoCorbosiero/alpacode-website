@@ -5,6 +5,8 @@ interface ImportMetaEnv {
   readonly PUBLIC_CALCOM_LINK?: string;
   readonly PUBLIC_CALCOM_ORIGIN?: string;
   readonly PUBLIC_CALCOM_EMBED_JS?: string;
+  readonly PUBLIC_UMAMI_SRC?: string;
+  readonly PUBLIC_UMAMI_ID?: string;
   readonly AWS_REGION?: string;
   readonly AWS_DEFAULT_REGION?: string;
   readonly AWS_ACCESS_KEY_ID?: string;

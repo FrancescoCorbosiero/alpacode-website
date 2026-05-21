@@ -133,6 +133,8 @@ export interface CaseStudy {
   quote: string;
   attr: string;
   tag: string;
+  /** Resolved at build from src/assets/cases/<key>.<ext> (see Home.astro). */
+  img?: string;
 }
 export interface CasesData {
   num: string;

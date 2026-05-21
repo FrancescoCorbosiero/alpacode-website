@@ -1,10 +1,12 @@
 ---
+import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import { cases } from "../../data/home";
 import Hero from "../home/Hero.astro";
 import Verbs from "../home/Verbs.astro";
 import Manifesto from "../home/Manifesto.astro";
 import CtaFinal from "../home/CtaFinal.astro";
+import Ticker from "../Ticker.astro";
 import Cases from "../islands/Cases.tsx";
 
 interface Props {
@@ -12,18 +14,36 @@ interface Props {
 }
 const { lang } = Astro.props;
 const c = cases[lang];
+
+// Drop files named 1.<ext>, 2.<ext>, 3.<ext> into src/assets/cases/ (matching
+// the §02 tabs in order); each shows in its panel, otherwise the placeholder
+// stays. Numbered (not keyed) so one file works for both IT and EN.
+const caseImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/cases/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+const caseImgFor = (n: number): string | undefined =>
+  Object.entries(caseImages).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === String(n))
+    ?.[1].default.src;
+const caseList = c.list.map((cs, idx) => ({ ...cs, img: caseImgFor(idx + 1) }));
+
 const caseLabels = {
   problem: lang === "it" ? "Il problema" : "The problem",
   before: lang === "it" ? "Prima" : "Before",
   after: lang === "it" ? "Dopo" : "After",
-  placeholder: lang === "it" ? "Trascina la foto del progetto qui" : "Drop project photo here",
+  placeholder: lang === "it" ? "La foto del progetto" : "Project photo",
 };
+const tickerItems =
+  lang === "it"
+    ? ["Software", "Consulenza", "Formazione", "Il web è cambiato", "Digitale accessibile", "Monza · Milano"]
+    : ["Software", "Consulting", "Training", "The web has changed", "Accessible digital", "Monza · Milan"];
 ---
 
 <Hero lang={lang} />
+<Ticker items={tickerItems} />
 <Verbs lang={lang} />
 
-<section class="section" style="padding-top:0">
+<section class="section section--tint" style="padding-top:56px">
   <div class="wrap-wide">
     <div class="section-head">
       <div>
@@ -32,7 +52,7 @@ const caseLabels = {
       </div>
       <p class="lede">{c.lede}</p>
     </div>
-    <Cases client:visible cases={c.list} labels={caseLabels} />
+    <Cases client:visible cases={caseList} labels={caseLabels} />
   </div>
 </section>
 

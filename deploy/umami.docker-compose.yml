@@ -1,0 +1,61 @@
+# Umami — self-hosted, cookieless analytics, behind caddy-docker-proxy.
+#
+# Usage (on the VPS, with the Caddy proxy stack already up):
+#   1) Point analytics.<your-domain> DNS at the VPS.
+#   2) Set in this dir's .env:
+#        UMAMI_DOMAIN=analytics.alpacode.it
+#        UMAMI_DB_PASSWORD=<strong-password>
+#        UMAMI_APP_SECRET=<random-long-string>
+#   3) docker compose -f umami.docker-compose.yml up -d
+#   4) Open https://<UMAMI_DOMAIN> (default login admin / umami — change it),
+#      add a website, copy its Website ID.
+#   5) Back in the SITE's .env set:
+#        PUBLIC_UMAMI_SRC=https://<UMAMI_DOMAIN>/script.js
+#        PUBLIC_UMAMI_ID=<that website id>
+#      then redeploy the site (docker compose up -d --build).
+
+networks:
+  caddy:
+    external: true
+  umami-internal:
+
+volumes:
+  umami-db-data:
+
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: umami
+    restart: unless-stopped
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    environment:
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: "postgresql://umami:${UMAMI_DB_PASSWORD}@umami-db:5432/umami"
+      APP_SECRET: "${UMAMI_APP_SECRET}"
+    networks:
+      - caddy
+      - umami-internal
+    labels:
+      caddy: "${UMAMI_DOMAIN:-analytics.alpacode.it}"
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+      caddy.encode: "zstd gzip"
+
+  umami-db:
+    image: postgres:16-alpine
+    container_name: umami-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: "${UMAMI_DB_PASSWORD}"
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    networks:
+      - umami-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami -d umami"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

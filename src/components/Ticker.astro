@@ -1,0 +1,21 @@
+---
+interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+// Duplicate the set so the keyframe can loop seamlessly at translateX(-50%).
+const loop = [...items, ...items];
+---
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    {
+      loop.map((t) => (
+        <span class="ticker-item">
+          <span class="dot">●</span>
+          {t}
+        </span>
+      ))
+    }
+  </div>
+</div>

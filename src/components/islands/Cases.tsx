@@ -14,7 +14,9 @@ interface Props {
 // memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
 function Cases({ cases, labels }: Props) {
   const [i, setI] = useState(0);
+  const [broken, setBroken] = useState<Record<string, boolean>>({});
   const cur = cases[i]!;
+  const showImg = cur.img && !broken[cur.key];
 
   return (
     <div className="cases">
@@ -41,7 +43,19 @@ function Cases({ cases, labels }: Props) {
       <div className="case-body" id="case-panel" role="tabpanel" aria-labelledby={`case-tab-${i}`}>
         <div className="case-media" key={`m-${i}`}>
           <span className="tag">{cur.tag}</span>
-          <div className="img-slot">{labels.placeholder}</div>
+          <div className={"img-slot" + (showImg ? " is-filled" : "")}>
+            {showImg ? (
+              <img
+                className="img-fill"
+                src={cur.img}
+                alt={cur.nm}
+                loading="lazy"
+                onError={() => setBroken((b) => ({ ...b, [cur.key]: true }))}
+              />
+            ) : (
+              labels.placeholder
+            )}
+          </div>
         </div>
         <div className="case-info" key={`i-${i}`}>
           <span className="problem-label">{labels.problem}</span>

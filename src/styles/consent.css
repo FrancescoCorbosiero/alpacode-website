@@ -1,0 +1,52 @@
+/* Brutalist overrides for vanilla-cookieconsent: square corners, brand colors,
+   brand fonts. Variable names per cookieconsent v3. */
+#cc-main {
+  --cc-font-family: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --cc-bg: #f4f1e8;
+  --cc-primary-color: #0a0a0a;
+  --cc-secondary-color: #54524c;
+
+  --cc-btn-primary-bg: #0a0a0a;
+  --cc-btn-primary-color: #f4f1e8;
+  --cc-btn-primary-border-color: #0a0a0a;
+  --cc-btn-primary-hover-bg: #3b72e9;
+  --cc-btn-primary-hover-color: #ffffff;
+  --cc-btn-primary-hover-border-color: #3b72e9;
+
+  --cc-btn-secondary-bg: transparent;
+  --cc-btn-secondary-color: #0a0a0a;
+  --cc-btn-secondary-border-color: #0a0a0a;
+  --cc-btn-secondary-hover-bg: #ebe7da;
+  --cc-btn-secondary-hover-color: #0a0a0a;
+
+  --cc-separator-border-color: #c9c3b1;
+  --cc-cookie-category-block-bg: #ebe7da;
+  --cc-cookie-category-block-bg-hover: #ddd8c7;
+
+  --cc-toggle-on-bg: #3b72e9;
+  --cc-toggle-off-bg: #7d7a72;
+
+  --cc-btn-border-radius: 0;
+  --cc-modal-border-radius: 0;
+  --cc-modal-transition-duration: 0.25s;
+}
+
+/* Square everything + the signature blue strut on top of each modal. */
+#cc-main .cm,
+#cc-main .pm {
+  border: 1px solid #0a0a0a;
+  border-top: 6px solid #3b72e9;
+  border-radius: 0;
+}
+#cc-main .cm__title,
+#cc-main .pm__title {
+  font-family: "Archivo Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.01em;
+}
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  border-radius: 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}

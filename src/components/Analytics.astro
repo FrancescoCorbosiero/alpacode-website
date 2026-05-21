@@ -1,0 +1,21 @@
+---
+// Umami analytics — cookieless, privacy-friendly.
+// Build-time, opt-in: the script only ships if PUBLIC_UMAMI_SRC + _ID are set,
+// and stays inert (type="text/plain") until the visitor accepts the
+// "analytics" category in the consent banner, which activates it.
+const src = import.meta.env.PUBLIC_UMAMI_SRC;
+const id = import.meta.env.PUBLIC_UMAMI_ID;
+---
+
+{
+  src && id && (
+    <script
+      type="text/plain"
+      data-category="analytics"
+      is:inline
+      defer
+      src={src}
+      data-website-id={id}
+    />
+  )
+}
