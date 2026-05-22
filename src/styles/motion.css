@@ -381,4 +381,7 @@
   .scale-dot {
     transition: none !important;
   }
+  .map-ping {
+    animation: none !important;
+  }
 }

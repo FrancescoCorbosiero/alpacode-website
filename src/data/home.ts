@@ -47,7 +47,7 @@ export const hero: Record<Lang, HeroData> = {
   },
 };
 
-/* ---------------- §01 Verbs ---------------- */
+/* ---------------- 01 Verbs ---------------- */
 export interface Verb {
   num: string;
   word: string;
@@ -64,7 +64,7 @@ export interface VerbsData {
 
 export const verbs: Record<Lang, VerbsData> = {
   it: {
-    num: "§02 · COSA FACCIAMO",
+    num: "02 · COSA FACCIAMO",
     heading: "Tre modi\ndi aiutarti.",
     lede: "Dal primo sito alla digitalizzazione completa. Ci occupiamo di tutto il digitale della tua attività — anche di quello che di solito chiedi a un'agenzia.",
     list: [
@@ -92,7 +92,7 @@ export const verbs: Record<Lang, VerbsData> = {
     ],
   },
   en: {
-    num: "§02 · WHAT WE DO",
+    num: "02 · WHAT WE DO",
     heading: "Three ways\nto help.",
     lede: "From a first website to full digitalization. We handle all the digital side of your business — including what you'd normally ask an agency for.",
     list: [
@@ -121,7 +121,7 @@ export const verbs: Record<Lang, VerbsData> = {
   },
 };
 
-/* ---------------- §02 Cases ---------------- */
+/* ---------------- 02 Cases ---------------- */
 export interface CaseStudy {
   key: string;
   ind: string;
@@ -145,7 +145,7 @@ export interface CasesData {
 
 export const cases: Record<Lang, CasesData> = {
   it: {
-    num: "§05 · CASI DI STUDIO",
+    num: "05 · CASI DI STUDIO",
     heading: "Quello che\nabbiamo costruito.",
     lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
     list: [
@@ -191,7 +191,7 @@ export const cases: Record<Lang, CasesData> = {
     ],
   },
   en: {
-    num: "§05 · CASE STUDIES",
+    num: "05 · CASE STUDIES",
     heading: "What we have built.",
     lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
     list: [
@@ -238,7 +238,7 @@ export const cases: Record<Lang, CasesData> = {
   },
 };
 
-/* ---------------- §03 Manifesto ---------------- */
+/* ---------------- 03 Manifesto ---------------- */
 export interface Pillar {
   n: string;
   label: string;
@@ -254,7 +254,7 @@ export interface ManifestoData {
 
 export const manifesto: Record<Lang, ManifestoData> = {
   it: {
-    num: "§08 · MANIFESTO",
+    num: "08 · MANIFESTO",
     heading: "Il web\nè cambiato.",
     lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e digitalizzare privati e imprese in tutta Italia.",
     pillars: [
@@ -265,7 +265,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
     ],
   },
   en: {
-    num: "§08 · MANIFESTO",
+    num: "08 · MANIFESTO",
     heading: "The web\nhas changed.",
     lede: "Our mission is simple: break down the barrier of cost and jargon, and digitalize individuals and businesses across Italy.",
     pillars: [
@@ -277,7 +277,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
   },
 };
 
-/* ---------------- §04 Final CTA ---------------- */
+/* ---------------- 04 Final CTA ---------------- */
 export interface CtaCell {
   k: string;
   v: string;
@@ -294,7 +294,7 @@ export interface CtaData {
 
 export const ctaFinal: Record<Lang, CtaData> = {
   it: {
-    num: "§ · CONTATTI",
+    num: "CONTATTI",
     line1: "Hai un progetto?",
     underline: "Parliamone.",
     sub: "Una call di trenta minuti per capirci. Niente vendite, niente pressioni. Ti diciamo subito se possiamo aiutarti e in che modo.",
@@ -306,7 +306,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     cta: "Apri il modulo di contatto",
   },
   en: {
-    num: "§ · CONTACT",
+    num: "CONTACT",
     line1: "Have a project?",
     underline: "Let's talk.",
     sub: "A thirty-minute call to understand. No sales, no pressure. We'll tell you right away if we can help, and how.",
@@ -319,11 +319,11 @@ export const ctaFinal: Record<Lang, CtaData> = {
   },
 };
 
-/* ---------------- §01 Pitch (cost-barrier) ---------------- */
+/* ---------------- 01 Pitch (cost-barrier) ---------------- */
 export interface PitchData {
   num: string;
-  kicker: string;
   lead: string;
+  intro: string;
   objection: string;
   answer: string;
   body: string;
@@ -332,18 +332,18 @@ export interface PitchData {
 
 export const pitch: Record<Lang, PitchData> = {
   it: {
-    num: "§01 · PERCHÉ",
-    kicker: "Il punto, senza giri di parole",
-    lead: "Se lavori online, hai bisogno di un sito dedicato alla tua attività.",
+    num: "01 · ALPACODE PER I PROFESSIONISTI DIGITALI",
+    lead: "Come e perché dovresti digitalizzare la tua attività.",
+    intro: "Se lavori online, hai bisogno di un sito dedicato alla tua attività: visibile su Google, credibile, fatto per portarti clienti. Un sito datato, invece, li allontana.",
     objection: "Ma come, se i preventivi superano le migliaia di euro?",
     answer: "Alpacode è qui per questo.",
     body: "Abbattiamo la barriera dei costi e dei tecnicismi. Niente parcelle da agenzia, niente sorprese: un prezzo chiaro, deciso prima di partire e calibrato su quello che ti serve davvero.",
     chips: ["Prezzo deciso prima", "Niente costi nascosti", "Pagamenti rateizzabili", "Prima call gratuita"],
   },
   en: {
-    num: "§01 · WHY",
-    kicker: "The point, no fluff",
-    lead: "If you work online, you need a website dedicated to your business.",
+    num: "01 · ALPACODE FOR DIGITAL PROFESSIONALS",
+    lead: "How and why you should digitalize your business.",
+    intro: "If you work online, you need a website dedicated to your business: visible on Google, credible, built to bring you clients. A dated site, instead, pushes them away.",
     objection: "But how, when quotes run into the thousands of euros?",
     answer: "That's exactly why Alpacode exists.",
     body: "We tear down the barrier of cost and jargon. No agency-sized invoices, no surprises: a clear price, agreed before we start and sized to what you actually need.",
@@ -351,7 +351,7 @@ export const pitch: Record<Lang, PitchData> = {
   },
 };
 
-/* ---------------- §03 Values ---------------- */
+/* ---------------- 03 Values ---------------- */
 export interface ValueItem {
   t: string;
   d: string;
@@ -369,7 +369,7 @@ export interface ValuesData {
 
 export const values: Record<Lang, ValuesData> = {
   it: {
-    num: "§03 · COSA OTTIENI",
+    num: "03 · COSA OTTIENI",
     heading: "Cosa puoi\naspettarti.",
     lede: "Le competenze tecniche sono il punto di partenza, non l'argomento. A fare la differenza sono il metodo con cui lavoriamo e il risultato che resta alla tua attività.",
     groups: [
@@ -392,7 +392,7 @@ export const values: Record<Lang, ValuesData> = {
     ],
   },
   en: {
-    num: "§03 · WHAT YOU GET",
+    num: "03 · WHAT YOU GET",
     heading: "What you can\nexpect.",
     lede: "Technical skill is the starting point, not the pitch. What makes the difference is the method we work with and the result your business is left with.",
     groups: [
@@ -416,7 +416,7 @@ export const values: Record<Lang, ValuesData> = {
   },
 };
 
-/* ---------------- §04 Scale (the path) ---------------- */
+/* ---------------- 04 Scale (the path) ---------------- */
 export interface ScaleStage {
   n: string;
   tab: string;
@@ -438,7 +438,7 @@ export interface ScaleData {
 
 export const scale: Record<Lang, ScaleData> = {
   it: {
-    num: "§04 · IL PERCORSO",
+    num: "04 · IL PERCORSO",
     heading: "Cresci alla\ntua scala.",
     lede: "Lavoriamo con realtà molto diverse e ci adattiamo a ognuna: da un semplice sito alla digitalizzazione completa, da un servizio flash alla consulenza dedicata. Scegli da dove partire.",
     includeLabel: "Cosa include",
@@ -481,7 +481,7 @@ export const scale: Record<Lang, ScaleData> = {
     ],
   },
   en: {
-    num: "§04 · THE PATH",
+    num: "04 · THE PATH",
     heading: "Grow at\nyour scale.",
     lede: "We work with very different realities and adapt to each one: from a simple website to full digitalization, from a flash service to dedicated consulting. Pick where to start.",
     includeLabel: "What's included",
@@ -525,7 +525,7 @@ export const scale: Record<Lang, ScaleData> = {
   },
 };
 
-/* ---------------- §06 Products teaser ---------------- */
+/* ---------------- 06 Products teaser ---------------- */
 export interface ProductsTeaserData {
   num: string;
   heading: string;
@@ -535,20 +535,20 @@ export interface ProductsTeaserData {
 
 export const productsTeaser: Record<Lang, ProductsTeaserData> = {
   it: {
-    num: "§06 · PRODOTTI",
+    num: "06 · PRODOTTI",
     heading: "Pacchetti pronti,\nprezzo deciso prima.",
     lede: "Non solo lavori su misura: pacchetti già pronti, con un prezzo chiaro fin dall'inizio. Per partire in fretta, senza preventivi infiniti.",
     cta: "Vedi tutti i prodotti",
   },
   en: {
-    num: "§06 · PRODUCTS",
+    num: "06 · PRODUCTS",
     heading: "Ready packages,\nprice agreed up front.",
     lede: "Not only bespoke work: ready-made packages with a clear price from the start. To get going fast, without endless quotes.",
     cta: "See all products",
   },
 };
 
-/* ---------------- §07 Process ---------------- */
+/* ---------------- 07 Process ---------------- */
 export interface ProcessStep {
   n: string;
   t: string;
@@ -563,7 +563,7 @@ export interface ProcessData {
 
 export const process: Record<Lang, ProcessData> = {
   it: {
-    num: "§07 · METODO",
+    num: "07 · METODO",
     heading: "Come si parte.",
     lede: "Quattro passi, zero sorprese. Il prezzo lo conosci prima di firmare qualsiasi cosa.",
     steps: [
@@ -574,7 +574,7 @@ export const process: Record<Lang, ProcessData> = {
     ],
   },
   en: {
-    num: "§07 · METHOD",
+    num: "07 · METHOD",
     heading: "How it starts.",
     lede: "Four steps, zero surprises. You know the price before you sign anything.",
     steps: [
@@ -583,5 +583,46 @@ export const process: Record<Lang, ProcessData> = {
       { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide." },
       { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them." },
     ],
+  },
+};
+
+/* ---------------- 09 Coverage (map) ---------------- */
+export interface CoverageData {
+  num: string;
+  heading: string;
+  lede: string;
+  baseLabel: string;
+  baseValue: string;
+  reachLabel: string;
+  reachValue: string;
+  hqLabel: string;
+  note: string;
+  cta: string;
+}
+
+export const coverage: Record<Lang, CoverageData> = {
+  it: {
+    num: "09 · DOVE OPERIAMO",
+    heading: "Da Milano e la Brianza,\nin tutta Italia.",
+    lede: "La nostra base è tra Monza, Milano e la Brianza. Ma il digitale non ha confini: lavoriamo da remoto con clienti in tutto il Paese, con la stessa cura di quando siamo di persona.",
+    baseLabel: "Base",
+    baseValue: "Monza · Milano · Brianza",
+    reachLabel: "Copertura",
+    reachValue: "Tutta Italia, da remoto",
+    hqLabel: "MILANO · BRIANZA",
+    note: "Per i progetti più grandi, veniamo volentieri da te.",
+    cta: "Lavoriamo insieme",
+  },
+  en: {
+    num: "09 · WHERE WE WORK",
+    heading: "From Milan and Brianza,\nacross all Italy.",
+    lede: "Our base is between Monza, Milan and the Brianza. But digital has no borders: we work remotely with clients all over the country, with the same care as in person.",
+    baseLabel: "Base",
+    baseValue: "Monza · Milan · Brianza",
+    reachLabel: "Reach",
+    reachValue: "All Italy, remotely",
+    hqLabel: "MILAN · BRIANZA",
+    note: "For bigger projects, we're happy to come to you.",
+    cta: "Let's work together",
   },
 };

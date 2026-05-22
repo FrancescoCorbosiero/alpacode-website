@@ -38,6 +38,8 @@ const rules: Rule[] = [
   { sel: ".svc-group-head", kind: "up", delay: 0 },
   { sel: ".svc-cross", kind: "up", delay: 0 },
   { sel: ".pillars .pillar", kind: "up", delay: 0, stagger: 100 },
+  { sel: ".map-figure", kind: "fade", delay: 0 },
+  { sel: ".coverage-info", kind: "up", delay: 150 },
   { sel: ".cta-final .display", kind: "rise", delay: 0 },
   { sel: ".cta-final .sub", kind: "up", delay: 200 },
   { sel: ".cta-grid", kind: "up", delay: 300 },

@@ -25,7 +25,7 @@ export interface ServiziPageData {
 
 export const servizi: Record<Lang, ServiziPageData> = {
   it: {
-    crumb: "§02 · SERVIZI",
+    crumb: "02 · SERVIZI",
     h1Line1: "Costruire. Far crescere.",
     h1Line2: "Insegnare.",
     lede: "Tre aree, un solo metodo: capire cosa ti serve davvero e trovare la soluzione più adatta — anche al tuo budget. Compreso quello che di solito chiedi a un'agenzia.",
@@ -171,7 +171,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
     ],
   },
   en: {
-    crumb: "§02 · SERVICES",
+    crumb: "02 · SERVICES",
     h1Line1: "Build. Grow.",
     h1Line2: "Teach.",
     lede: "Three areas, one method: understand what you actually need and find the right fit — for your budget too. Including the things you'd normally ask an agency for.",

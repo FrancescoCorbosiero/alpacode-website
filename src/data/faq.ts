@@ -14,7 +14,7 @@ export interface FaqPageData {
 
 export const faq: Record<Lang, FaqPageData> = {
   it: {
-    crumb: "§07 · FAQ",
+    crumb: "07 · FAQ",
     h1Line1: "Domande",
     h1Line2: "frequenti.",
     lede: "Quelle che ci fanno davvero, raccolte qui per chi vuole capire prima di chiamare.",
@@ -32,7 +32,7 @@ export const faq: Record<Lang, FaqPageData> = {
     ],
   },
   en: {
-    crumb: "§07 · FAQ",
+    crumb: "07 · FAQ",
     h1Line1: "Frequently",
     h1Line2: "asked.",
     lede: "The questions people actually ask, gathered here for anyone who wants to understand before calling.",

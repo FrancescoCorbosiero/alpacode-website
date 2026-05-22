@@ -11,6 +11,7 @@ import Scale from "../home/Scale.astro";
 import ProductsTeaser from "../home/ProductsTeaser.astro";
 import Process from "../home/Process.astro";
 import Manifesto from "../home/Manifesto.astro";
+import Coverage from "../home/Coverage.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import Ticker from "../Ticker.astro";
 import Cases from "../islands/Cases.tsx";
@@ -22,7 +23,7 @@ const { lang } = Astro.props;
 const c = cases[lang];
 
 // Drop files named 1.<ext>, 2.<ext>, 3.<ext> into src/assets/cases/ (matching
-// the §02 tabs in order); each shows in its panel, otherwise the placeholder
+// the 02 tabs in order); each shows in its panel, otherwise the placeholder
 // stays. Numbered (not keyed) so one file works for both IT and EN.
 const caseImages = import.meta.glob<{ default: ImageMetadata }>(
   "../../assets/cases/*.{jpg,jpeg,png,webp,avif}",
@@ -74,4 +75,5 @@ const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
 <ProductsTeaser lang={lang} />
 <Process lang={lang} />
 <Manifesto lang={lang} />
+<Coverage lang={lang} />
 <CtaFinal lang={lang} />
