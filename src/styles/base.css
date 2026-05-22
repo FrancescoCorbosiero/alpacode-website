@@ -17,8 +17,8 @@ body {
   font-feature-settings: "ss01", "cv11";
   background: var(--paper);
   color: var(--ink);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -75,7 +75,7 @@ img {
 }
 .eyebrow {
   font-family: var(--t-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mute-2);

@@ -67,7 +67,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
           {
             n: "04",
             t: "Software & automazioni",
-            d: "Gestionali, integrazioni e automazioni che fanno il lavoro noioso al posto tuo. Trasformiamo fogli Excel in processi che si tengono in piedi.",
+            d: "Gestionali, integrazioni e automazioni — con l'AI dove serve — che fanno il lavoro noioso al posto tuo. Trasformiamo fogli Excel in processi che si tengono in piedi.",
             meta: [
               { k: "Ambiti", v: "Gestione · ERP · CRM" },
               { k: "Tempi", v: "da 6 a 20 settimane" },
@@ -213,7 +213,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
           {
             n: "04",
             t: "Software & automations",
-            d: "Internal tools, integrations and automations that do the boring work for you. We turn spreadsheets into processes that stand on their own.",
+            d: "Internal tools, integrations and automations — with AI where it helps — that do the boring work for you. We turn spreadsheets into processes that stand on their own.",
             meta: [
               { k: "Areas", v: "Ops · ERP · CRM" },
               { k: "Lead time", v: "6 to 20 weeks" },
