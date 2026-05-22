@@ -1,0 +1,31 @@
+---
+import type { Lang } from "../../i18n/types";
+import { scale } from "../../data/home";
+import ScaleIsland from "../islands/Scale.tsx";
+import BookCall from "../BookCall.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = scale[lang];
+---
+
+<section class="scale-section band-dark">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <ScaleIsland client:visible stages={t.stages} includeLabel={t.includeLabel} idealLabel={t.idealLabel} />
+
+    <div class="scale-foot">
+      <p class="scale-note">{t.note}</p>
+      <BookCall label={t.cta} journey="scale" lang={lang} class="btn-blue" />
+    </div>
+  </div>
+</section>

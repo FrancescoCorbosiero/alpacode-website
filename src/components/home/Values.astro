@@ -1,12 +1,15 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { values } from "../../data/home";
+import { localizePath } from "../../i18n/utils";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = values[lang];
+const contattiHref = localizePath("contatti", lang);
+const cta = lang === "it" ? "Parliamone" : "Let's talk";
 ---
 
 <section class="section section--tint values">
@@ -37,6 +40,9 @@ const t = values[lang];
           </div>
         ))
       }
+    </div>
+    <div class="band-cta">
+      <a class="btn btn-ghost" href={contattiHref}>{cta} <span class="arrow">→</span></a>
     </div>
   </div>
 </section>

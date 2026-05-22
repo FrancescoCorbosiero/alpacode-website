@@ -2,11 +2,12 @@
 import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import { cases } from "../../data/home";
+import { localizePath } from "../../i18n/utils";
 import Hero from "../home/Hero.astro";
 import Pitch from "../home/Pitch.astro";
 import Verbs from "../home/Verbs.astro";
 import Values from "../home/Values.astro";
-import Spectrum from "../home/Spectrum.astro";
+import Scale from "../home/Scale.astro";
 import ProductsTeaser from "../home/ProductsTeaser.astro";
 import Process from "../home/Process.astro";
 import Manifesto from "../home/Manifesto.astro";
@@ -42,6 +43,9 @@ const tickerItems =
   lang === "it"
     ? ["Siti & e-commerce", "Branding", "Pubblicità", "Software", "Formazione", "Digitalizzazione", "Privati & imprese", "Monza · Milano"]
     : ["Websites & e-commerce", "Branding", "Advertising", "Software", "Training", "Digitalization", "People & businesses", "Monza · Milan"];
+
+const lavoriHref = localizePath("lavori", lang);
+const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
 ---
 
 <Hero lang={lang} />
@@ -49,9 +53,9 @@ const tickerItems =
 <Pitch lang={lang} />
 <Verbs lang={lang} />
 <Values lang={lang} />
-<Spectrum lang={lang} />
+<Scale lang={lang} />
 
-<section class="section section--tint" style="padding-top:56px">
+<section class="section section--tint cases-band" style="padding-top:56px">
   <div class="wrap-wide">
     <div class="section-head">
       <div>
@@ -61,6 +65,9 @@ const tickerItems =
       <p class="lede">{c.lede}</p>
     </div>
     <Cases client:visible cases={caseList} labels={caseLabels} />
+    <div class="band-cta">
+      <a class="btn btn-ghost" href={lavoriHref}>{casesCta} <span class="arrow">→</span></a>
+    </div>
   </div>
 </section>
 

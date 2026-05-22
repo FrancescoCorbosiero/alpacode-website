@@ -1,12 +1,17 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { pitch } from "../../data/home";
+import { localizePath } from "../../i18n/utils";
+import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = pitch[lang];
+const prodottiHref = localizePath("prodotti", lang);
+const bookLabel = lang === "it" ? "Prenota una call gratuita" : "Book a free call";
+const seeProducts = lang === "it" ? "Guarda i pacchetti pronti" : "See the ready packages";
 ---
 
 <section class="section pitch">
@@ -25,6 +30,11 @@ const t = pitch[lang];
       <ul class="pitch-chips">
         {t.chips.map((c) => <li>{c}</li>)}
       </ul>
+    </div>
+
+    <div class="pitch-cta">
+      <BookCall label={bookLabel} journey="pitch" lang={lang} class="btn-blue" />
+      <a class="btn btn-ghost" href={prodottiHref}>{seeProducts} <span class="arrow">→</span></a>
     </div>
   </div>
 </section>

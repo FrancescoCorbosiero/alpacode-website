@@ -1,12 +1,14 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { process } from "../../data/home";
+import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = process[lang];
+const bookLabel = lang === "it" ? "Prenota la prima call" : "Book the first call";
 ---
 
 <section class="section section--tint process">
@@ -30,6 +32,9 @@ const t = process[lang];
           </div>
         ))
       }
+    </div>
+    <div class="band-cta">
+      <BookCall label={bookLabel} journey="process" lang={lang} class="btn-blue" />
     </div>
   </div>
 </section>
