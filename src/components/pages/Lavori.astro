@@ -17,7 +17,7 @@ const works = (await getCollection("work")).sort((a, b) => a.data.order - b.data
 // Drop a file named <entry-id>.<ext> into src/assets/work/ (e.g.
 // studio-legale.jpg) and it's picked up here, optimized, automatically.
 const workImages = import.meta.glob<{ default: ImageMetadata }>(
-  "../../assets/work/*.{jpg,jpeg,png,webp,avif}",
+  "../../assets/work/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
   { eager: true },
 );
 const imgFor = (id: string): ImageMetadata | undefined =>
@@ -28,16 +28,16 @@ const t =
   lang === "it"
     ? {
         crumb: "04 · LAVORI",
-        line1: "Tre progetti,",
-        line2: "tre strategie.",
-        lede: "Tre realtà diverse — edilizia, streetwear, assicurazioni — ognuna con la sua strategia di comunicazione su misura.",
+        line1: "I nostri",
+        line2: "lavori.",
+        lede: "Progetti reali in settori molto diversi — edilizia, streetwear, editoria, fitness, pesca, logistica — ognuno con la sua strategia di comunicazione su misura.",
         placeholder: "Foto del progetto",
       }
     : {
         crumb: "04 · WORK",
-        line1: "Three projects,",
-        line2: "three strategies.",
-        lede: "Three different businesses — construction, streetwear, insurance — each with its own tailored communication strategy.",
+        line1: "Our",
+        line2: "work.",
+        lede: "Real projects across very different sectors — construction, streetwear, publishing, fitness, fishing, logistics — each with its own tailored communication strategy.",
         placeholder: "Project photo",
       };
 ---

@@ -20,35 +20,43 @@ const start = lang === "it" ? "Inizia da qui" : "Start here";
   <div class="wrap-wide">
     <div class="eyebrow" style="margin-bottom:32px">● {t.intro}</div>
 
-    <div class="product-grid">
-      {
-        t.list.map((p) => (
-          <article class="product">
-            <div class="product-top">
-              <span class="product-no">{p.n}</span>
-              <span class="product-tag">{p.tag}</span>
-            </div>
-            <h3>{p.t}</h3>
-            <p class="product-for">{p.forWho}</p>
-            <p class="product-desc">{p.d}</p>
-            <ul class="product-items">
-              {p.items.map((i) => (
-                <li><span>{i}</span></li>
-              ))}
-            </ul>
-            <div class="product-meta">
-              {p.meta.map((m) => (
-                <div>
-                  <span class="k">{m.k}</span>
-                  <span class="v">{m.v}</span>
+    {
+      t.groups.map((g) => (
+        <div class="product-group">
+          <div class="svc-group-head">
+            <h2 class="svc-group-verb">{g.label}</h2>
+            <p class="svc-group-tag">{g.tagline}</p>
+          </div>
+          <div class="product-grid">
+            {g.list.map((p) => (
+              <article class="product">
+                <div class="product-top">
+                  <span class="product-no">{p.n}</span>
+                  <span class="product-tag">{p.tag}</span>
                 </div>
-              ))}
-            </div>
-            <BookCall label={start} journey="product" lang={lang} class="btn-sm" />
-          </article>
-        ))
-      }
-    </div>
+                <h3>{p.t}</h3>
+                <p class="product-for">{p.forWho}</p>
+                <p class="product-desc">{p.d}</p>
+                <ul class="product-items">
+                  {p.items.map((i) => (
+                    <li><span>{i}</span></li>
+                  ))}
+                </ul>
+                <div class="product-meta">
+                  {p.meta.map((m) => (
+                    <div>
+                      <span class="k">{m.k}</span>
+                      <span class="v">{m.v}</span>
+                    </div>
+                  ))}
+                </div>
+                <BookCall label={start} journey="product" lang={lang} class="btn-sm" />
+              </article>
+            ))}
+          </div>
+        </div>
+      ))
+    }
   </div>
 </section>
 

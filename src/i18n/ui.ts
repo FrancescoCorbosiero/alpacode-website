@@ -93,8 +93,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Work · Alpacode Digital Solutions",
     },
     description: {
-      it: "Tre progetti reali, tre strategie: un'impresa edile, un e-commerce streetwear e un broker assicurativo. Una comunicazione su misura per ciascuno.",
-      en: "Three real projects, three strategies: a construction firm, a streetwear e-commerce and an insurance broker. A tailored approach for each.",
+      it: "Progetti reali in settori diversi: edilizia, streetwear, editoria, fitness, e-commerce per la pesca, NCC di lusso e logistica. Una strategia su misura per ciascuno.",
+      en: "Real projects across sectors: construction, streetwear, publishing, fitness, fishing e-commerce, luxury chauffeur and logistics. A tailored strategy for each.",
     },
   },
   scuola: {

@@ -26,7 +26,7 @@ const c = cases[lang];
 // Lavori grid uses (edilcalmi, resellpiacenza, cesana). Otherwise the
 // placeholder stays. Keyed, so one file works for both IT and EN.
 const caseImages = import.meta.glob<{ default: ImageMetadata }>(
-  "../../assets/work/*.{jpg,jpeg,png,webp,avif}",
+  "../../assets/work/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
   { eager: true },
 );
 const caseImgFor = (key: string): string | undefined =>

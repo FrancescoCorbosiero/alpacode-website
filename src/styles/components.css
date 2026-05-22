@@ -196,19 +196,21 @@
 .mega .mega-feature {
   background: var(--ink);
   color: var(--paper);
-  padding: 30px;
+  padding: 28px;
   position: relative;
   overflow: hidden;
-  min-height: 260px;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 16px;
 }
 .mega .mega-feature .display {
   font-family: var(--display);
-  font-size: 40px;
-  line-height: 0.95;
+  font-size: 23px;
+  line-height: 1.14;
   letter-spacing: -0.01em;
+  overflow-wrap: break-word;
 }
 .mega .mega-feature small {
   font-family: var(--t-mono);
@@ -2268,6 +2270,9 @@ cal-modal-box iframe,
 /* ---------- Service groups (verbs) ---------- */
 .svc-group + .svc-group {
   margin-top: 24px;
+}
+.product-group + .product-group {
+  margin-top: 28px;
 }
 .svc-group-head {
   padding: 44px 0 12px;

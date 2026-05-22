@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 15
 date: { it: "01 — 2026", en: "01 — 2026" }
 category: { it: "STUDIO", en: "STUDIO" }
 title:

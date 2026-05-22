@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 17
 date: { it: "11 — 2025", en: "11 — 2025" }
 category: { it: "FORMAZIONE", en: "TRAINING" }
 title:
