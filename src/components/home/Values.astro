@@ -5,9 +5,12 @@ import { localizePath } from "../../i18n/utils";
 
 interface Props {
   lang: Lang;
+  /** On sub-pages, drop the home section number from the eyebrow. */
+  bare?: boolean;
 }
-const { lang } = Astro.props;
+const { lang, bare = false } = Astro.props;
 const t = values[lang];
+const num = bare ? t.num.replace(/^\d+\s*·\s*/, "") : t.num;
 const contattiHref = localizePath("contatti", lang);
 const cta = lang === "it" ? "Parliamone" : "Let's talk";
 ---
@@ -16,7 +19,7 @@ const cta = lang === "it" ? "Parliamone" : "Let's talk";
   <div class="wrap-wide">
     <div class="section-head">
       <div>
-        <div class="sec-num">{t.num}</div>
+        <div class="sec-num">{num}</div>
         <h2 style="white-space:pre-line">{t.heading}</h2>
       </div>
       <p class="lede">{t.lede}</p>

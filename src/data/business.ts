@@ -6,6 +6,8 @@ export const business = {
   wordmark: "ALPACODE",
   email: "info@alpacode.it",
   vat: "14463350968",
+  /** WhatsApp number, international format, digits only. TODO: set the real one. */
+  whatsapp: "393330000000",
   locations: "Monza · Milano · IT",
   locationsEn: "Monza · Milan · IT",
   hoursShort: "09:00 — 18:00 CET",
