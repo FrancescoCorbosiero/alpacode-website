@@ -133,7 +133,7 @@ export interface CaseStudy {
   quote: string;
   attr: string;
   tag: string;
-  /** Resolved at build from src/assets/cases/<key>.<ext> (see Home.astro). */
+  /** Resolved at build from src/assets/work/<key>.<ext> (see Home.astro). */
   img?: string;
 }
 export interface CasesData {
@@ -150,7 +150,7 @@ export const cases: Record<Lang, CasesData> = {
     lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
     list: [
       {
-        key: "edil-calmi",
+        key: "edilcalmi",
         ind: "Impresa edile · Brianza",
         nm: "Edil Calmi — sito vetrina",
         problem: "Maestri artigiani con anni di lavori alle spalle, ma invisibili online: i clienti arrivavano solo col passaparola.",
@@ -163,20 +163,20 @@ export const cases: Record<Lang, CasesData> = {
         tag: "2025 · LANDING & LEAD",
       },
       {
-        key: "streetwear-store",
-        ind: "Streetwear & sneakers · Milano",
-        nm: "Store streetwear — e-commerce",
+        key: "resellpiacenza",
+        ind: "Streetwear & sneakers · Piacenza",
+        nm: "Resell Piacenza — e-commerce",
         problem: "Un negozio con un pubblico di veri appassionati, ma vendite ferme ai confini della città.",
         ptext:
           "Un e-commerce completo per vendere capi e sneakers da collezione in tutta Italia: saldi, categorie, pezzi autenticati e checkout rapido. Instagram, TikTok e WhatsApp integrati per trasformare i follower in clienti.",
         mBefore: { v: "Locale", d: "vendite in negozio" },
         mAfter: { v: "Online", d: "vendite in tutta Italia" },
         quote: "«Vendiamo a clienti che non sarebbero mai entrati in negozio.»",
-        attr: "— il team dello store",
+        attr: "— Resell Piacenza",
         tag: "2025 · E-COMMERCE",
       },
       {
-        key: "cesana-brokers",
+        key: "cesana",
         ind: "Broker assicurativo · Milano",
         nm: "Cesana Brokers — sito istituzionale",
         problem: "Competenze assicurative di alto livello, raccontate da un sito che non rendeva loro giustizia.",
@@ -196,7 +196,7 @@ export const cases: Record<Lang, CasesData> = {
     lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
     list: [
       {
-        key: "edil-calmi",
+        key: "edilcalmi",
         ind: "Construction firm · Brianza",
         nm: "Edil Calmi — showcase site",
         problem: "Skilled craftsmen with years of work behind them, but invisible online: clients came only by word of mouth.",
@@ -209,20 +209,20 @@ export const cases: Record<Lang, CasesData> = {
         tag: "2025 · LANDING & LEAD",
       },
       {
-        key: "streetwear-store",
-        ind: "Streetwear & sneakers · Milan",
-        nm: "Streetwear store — e-commerce",
+        key: "resellpiacenza",
+        ind: "Streetwear & sneakers · Piacenza",
+        nm: "Resell Piacenza — e-commerce",
         problem: "A shop with a passionate following, but sales stuck at the city limits.",
         ptext:
           "A full e-commerce to sell collectible apparel and sneakers across Italy: sales, categories, authenticated pieces and fast checkout. Instagram, TikTok and WhatsApp built in to turn followers into customers.",
         mBefore: { v: "Local", d: "in-store sales" },
         mAfter: { v: "Online", d: "sales across Italy" },
         quote: "“We sell to customers who'd never have walked into the shop.”",
-        attr: "— the store team",
+        attr: "— Resell Piacenza",
         tag: "2025 · E-COMMERCE",
       },
       {
-        key: "cesana-brokers",
+        key: "cesana",
         ind: "Insurance broker · Milan",
         nm: "Cesana Brokers — corporate site",
         problem: "High-level insurance expertise, told by a site that didn't do it justice.",

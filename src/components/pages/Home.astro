@@ -22,17 +22,17 @@ interface Props {
 const { lang } = Astro.props;
 const c = cases[lang];
 
-// Drop files named 1.<ext>, 2.<ext>, 3.<ext> into src/assets/cases/ (matching
-// the 02 tabs in order); each shows in its panel, otherwise the placeholder
-// stays. Numbered (not keyed) so one file works for both IT and EN.
+// Case photos resolve from src/assets/work/<key>.<ext> — the same files the
+// Lavori grid uses (edilcalmi, resellpiacenza, cesana). Otherwise the
+// placeholder stays. Keyed, so one file works for both IT and EN.
 const caseImages = import.meta.glob<{ default: ImageMetadata }>(
-  "../../assets/cases/*.{jpg,jpeg,png,webp,avif}",
+  "../../assets/work/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
 );
-const caseImgFor = (n: number): string | undefined =>
-  Object.entries(caseImages).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === String(n))
+const caseImgFor = (key: string): string | undefined =>
+  Object.entries(caseImages).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === key)
     ?.[1].default.src;
-const caseList = c.list.map((cs, idx) => ({ ...cs, img: caseImgFor(idx + 1) }));
+const caseList = c.list.map((cs) => ({ ...cs, img: caseImgFor(cs.key) }));
 
 const caseLabels = {
   problem: lang === "it" ? "Il problema" : "The problem",
