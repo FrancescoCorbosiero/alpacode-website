@@ -1,4 +1,5 @@
 import type { Localized } from "../i18n/types";
+import type { MegaKey } from "./pages";
 
 export interface MegaItem {
   n: string;
@@ -7,59 +8,113 @@ export interface MegaItem {
 }
 
 export interface MegaMenu {
-  feature: { small: Localized; display: Localized; cta: Localized; href: "servizi" | "scuola" };
+  feature: { small: Localized; display: Localized; cta: Localized; href: MegaKey };
   colA: { title: Localized; items: MegaItem[] };
   colB: { title: Localized; items: MegaItem[] };
 }
 
 export const megaServizi: MegaMenu = {
   feature: {
-    small: { it: "Servizio in evidenza", en: "Featured service" },
+    small: { it: "In evidenza", en: "Featured" },
     display: {
-      it: "Costruiamo prodotti digitali che durano.",
-      en: "We build digital products that last.",
+      it: "Dal sito alla digitalizzazione completa.",
+      en: "From a website to full digitalization.",
     },
     cta: { it: "Vedi tutti i servizi", en: "All services" },
     href: "servizi",
   },
   colA: {
-    title: { it: "Aree", en: "Practice" },
+    title: { it: "Costruire", en: "Build" },
     items: [
       {
         n: "01",
-        t: { it: "Sviluppo siti & web app", en: "Websites & web apps" },
+        t: { it: "Siti & web app", en: "Websites & web apps" },
         d: {
-          it: "WordPress, headless, e-commerce su misura, prodotti SaaS",
-          en: "WordPress, headless, e-commerce, custom SaaS products",
+          it: "Siti, e-commerce, gestionali e prodotti su misura",
+          en: "Sites, e-commerce, portals and custom products",
         },
       },
       {
         n: "02",
-        t: { it: "Software & integrazioni", en: "Software & integrations" },
+        t: { it: "Software & automazioni", en: "Software & automations" },
         d: {
-          it: "Back-end, automazioni, API, sistemi gestionali",
-          en: "Back-end, automations, APIs, ERP-like systems",
+          it: "Integrazioni, gestionali, processi che si tengono in piedi",
+          en: "Integrations, internal tools, processes that hold up",
         },
       },
     ],
   },
   colB: {
-    title: { it: "Estensioni", en: "Extensions" },
+    title: { it: "Far crescere", en: "Grow" },
     items: [
       {
         n: "03",
-        t: { it: "Consulenza digitale", en: "Digital consulting" },
+        t: { it: "Branding & design", en: "Branding & design" },
         d: {
-          it: "Audit, roadmap tecnologica, trasformazione di processi",
-          en: "Audits, tech roadmap, process transformation",
+          it: "Identità visiva, logo, UI/UX. Come ti vedono e ti ricordano",
+          en: "Visual identity, logo, UI/UX. How people see and remember you",
         },
       },
       {
         n: "04",
-        t: { it: "Performance & SEO", en: "Performance & SEO" },
+        t: { it: "Pubblicità & SEO", en: "Advertising & SEO" },
         d: {
-          it: "Misurazione, ottimizzazioni Core Web Vitals, search",
-          en: "Measurement, Core Web Vitals, search optimization",
+          it: "Campagne Google e Meta, ricerca, contenuti. Ti fanno trovare",
+          en: "Google and Meta campaigns, search, content. Get found",
+        },
+      },
+    ],
+  },
+};
+
+export const megaProdotti: MegaMenu = {
+  feature: {
+    small: { it: "Pacchetti pronti", en: "Ready-made packages" },
+    display: {
+      it: "Prezzo deciso prima. Niente sorprese.",
+      en: "Price agreed up front. No surprises.",
+    },
+    cta: { it: "Vedi tutti i prodotti", en: "All products" },
+    href: "prodotti",
+  },
+  colA: {
+    title: { it: "Per partire", en: "Get started" },
+    items: [
+      {
+        n: "01",
+        t: { it: "Sito Pronto", en: "Ready Site" },
+        d: {
+          it: "Il sito della tua attività, a prezzo fisso e in poche settimane",
+          en: "Your business website, fixed price, in a few weeks",
+        },
+      },
+      {
+        n: "02",
+        t: { it: "Brand Kit", en: "Brand Kit" },
+        d: {
+          it: "Logo, colori e identità visiva pronti all'uso",
+          en: "Logo, colors and a ready-to-use visual identity",
+        },
+      },
+    ],
+  },
+  colB: {
+    title: { it: "Per crescere", en: "Keep growing" },
+    items: [
+      {
+        n: "03",
+        t: { it: "Care Plan", en: "Care Plan" },
+        d: {
+          it: "Manutenzione, sicurezza e modifiche con un canone mensile",
+          en: "Maintenance, security and changes for a monthly fee",
+        },
+      },
+      {
+        n: "04",
+        t: { it: "Digitalizzazione Full", en: "Full Digitalization" },
+        d: {
+          it: "Il percorso completo per digitalizzare tutta l'attività",
+          en: "The complete path to digitalize your whole business",
         },
       },
     ],
@@ -120,5 +175,5 @@ export const megaScuola: MegaMenu = {
   },
 };
 
-export const megaByKey = (key: "servizi" | "scuola"): MegaMenu =>
-  key === "servizi" ? megaServizi : megaScuola;
+export const megaByKey = (key: MegaKey): MegaMenu =>
+  key === "servizi" ? megaServizi : key === "prodotti" ? megaProdotti : megaScuola;

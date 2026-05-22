@@ -14,12 +14,14 @@ export interface FaqPageData {
 
 export const faq: Record<Lang, FaqPageData> = {
   it: {
-    crumb: "§06 · FAQ",
+    crumb: "§07 · FAQ",
     h1Line1: "Domande",
     h1Line2: "frequenti.",
     lede: "Quelle che ci fanno davvero, raccolte qui per chi vuole capire prima di chiamare.",
     faqs: [
       { q: "Quanto costa un sito?", a: "Dipende da cosa ti serve. Non lavoriamo a listino: partiamo dal tuo obiettivo e dal tuo budget, anche quando è contenuto, e cerchiamo la soluzione più adatta. Ti diamo una stima orientativa già nella prima call, gratuita e senza impegno." },
+      { q: "Avete pacchetti a prezzo fisso?", a: "Sì. Oltre ai lavori su misura abbiamo dei prodotti pronti — come Sito Pronto, Brand Kit o Care Plan — con un prezzo deciso prima di partire e niente sorprese. Li trovi nella pagina Prodotti: sono il modo più veloce e prevedibile per cominciare." },
+      { q: "Fate anche branding e pubblicità?", a: "Sì. Oltre a siti e software ci occupiamo di quello che di solito chiedi a un'agenzia di comunicazione: branding e identità visiva, design, gestione delle campagne pubblicitarie (Google e Meta), SEO e contenuti. Tutto sotto lo stesso tetto, con un unico interlocutore." },
       { q: "Lavorate solo a Milano?", a: "No. Abbiamo sede a Monza e Milano ma lavoriamo con clienti in tutta Italia (e qualche progetto in Svizzera e Germania). Per progetti grandi veniamo volentieri in studio del cliente per i kickoff." },
       { q: "Usate WordPress o React?", a: "Tutti e due, quando hanno senso. WordPress è ottimo per siti editoriali ed e-commerce di taglia media. React/Next.js per prodotti più complessi. Non abbiamo una preferenza dogmatica." },
       { q: "Fate manutenzione dopo la consegna?", a: "Sì, è uno dei nostri servizi. Contratti mensili con monitoraggio, aggiornamenti, sicurezza e supporto, calibrati sul progetto. Si può chiudere quando si vuole." },
@@ -30,12 +32,14 @@ export const faq: Record<Lang, FaqPageData> = {
     ],
   },
   en: {
-    crumb: "§06 · FAQ",
+    crumb: "§07 · FAQ",
     h1Line1: "Frequently",
     h1Line2: "asked.",
     lede: "The questions people actually ask, gathered here for anyone who wants to understand before calling.",
     faqs: [
       { q: "How much does a website cost?", a: "It depends on what you need. We don't work from a price list: we start from your goal and your budget — even a small one — and find the right fit. You get an indicative estimate during the first call, free and no-strings." },
+      { q: "Do you have fixed-price packages?", a: "Yes. Alongside bespoke work we have ready-made products — like Ready Site, Brand Kit or Care Plan — with a price agreed before we start and no surprises. You'll find them on the Products page: they're the fastest, most predictable way to get going." },
+      { q: "Do you also do branding and advertising?", a: "Yes. Beyond websites and software we handle what you'd normally ask a communication agency for: branding and visual identity, design, advertising campaign management (Google and Meta), SEO and content. All under one roof, with a single point of contact." },
       { q: "Do you only work in Milan?", a: "No. We're based in Monza and Milan but work with clients across Italy (and a few in Switzerland and Germany). For large projects we happily visit the client's office for kickoffs." },
       { q: "Do you use WordPress or React?", a: "Both, when they fit. WordPress is great for editorial sites and mid-size e-commerce. React/Next.js for more complex products. We have no dogmatic preference." },
       { q: "Do you handle maintenance after delivery?", a: "Yes, it's one of our services. Monthly contracts with monitoring, updates, security and support, sized to the project. Cancel anytime." },

@@ -1,0 +1,35 @@
+---
+import type { Lang } from "../../i18n/types";
+import { process } from "../../data/home";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = process[lang];
+---
+
+<section class="section section--tint process">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="steps">
+      {
+        t.steps.map((s) => (
+          <div class="step">
+            <div class="step-no">{s.n}</div>
+            <div class="step-strut" />
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

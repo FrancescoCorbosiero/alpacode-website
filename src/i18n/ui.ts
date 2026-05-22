@@ -59,12 +59,12 @@ export const cmdk = {
 export const meta: Record<PageKey, { title: Localized; description: Localized }> = {
   home: {
     title: {
-      it: "Alpacode · Soluzioni Digitali · Monza · Milano",
-      en: "Alpacode · Digital Solutions · Monza · Milan",
+      it: "Alpacode · Digitalizziamo privati e imprese in Italia",
+      en: "Alpacode · Digital solutions for people & businesses in Italy",
     },
     description: {
-      it: "Software, consulenza e formazione per chi costruisce in digitale. Sviluppo siti & web app, consulenza, corsi e kit professionali. Monza · Milano · IT.",
-      en: "Software, consulting and training for those who build in digital. Websites & web apps, consulting, courses and pro kits. Monza · Milan · IT.",
+      it: "Digitalizziamo privati e imprese in tutta Italia: siti, e-commerce, branding, pubblicità, software e formazione. Prezzo deciso prima, niente sorprese.",
+      en: "We digitalize individuals and businesses across Italy: websites, e-commerce, branding, advertising, software and training. Price agreed up front, no surprises.",
     },
   },
   servizi: {
@@ -73,8 +73,18 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Services · Alpacode Digital Solutions",
     },
     description: {
-      it: "Tre aree e un solo metodo: sviluppo, software & integrazioni, consulenza, performance, manutenzione, corsi. Soluzioni su misura, anche per budget contenuti.",
-      en: "Three areas, one method: development, software & integrations, consulting, performance, maintenance, courses. Tailored solutions, small budgets welcome.",
+      it: "Costruire, far crescere, insegnare: siti, e-commerce, software, branding, design, pubblicità e SEO. Anche quello che chiedi a un'agenzia, a un prezzo deciso prima.",
+      en: "Build, grow, teach: websites, e-commerce, software, branding, design, advertising and SEO. Even what you'd ask an agency for, at a price agreed up front.",
+    },
+  },
+  prodotti: {
+    title: {
+      it: "Prodotti · Alpacode Soluzioni Digitali",
+      en: "Products · Alpacode Digital Solutions",
+    },
+    description: {
+      it: "Pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan e Digitalizzazione Full. Prezzo deciso prima di partire.",
+      en: "Ready-made packages at a fixed price: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan and Full Digitalization. Price agreed before we start.",
     },
   },
   lavori: {

@@ -1,0 +1,42 @@
+---
+import type { Lang } from "../../i18n/types";
+import { values } from "../../data/home";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = values[lang];
+---
+
+<section class="section section--tint values">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="value-groups">
+      {
+        t.groups.map((g) => (
+          <div class="value-group">
+            <div class="value-group-label">— {g.label}</div>
+            <div class="value-cards">
+              {g.items.map((v, i) => (
+                <div class="value">
+                  <div class="value-no">{String(i + 1).padStart(2, "0")}</div>
+                  <h3>{v.t}</h3>
+                  <div class="value-strut" />
+                  <p>{v.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
