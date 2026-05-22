@@ -93,8 +93,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Work · Alpacode Digital Solutions",
     },
     description: {
-      it: "Sei progetti recenti raccontati con i numeri prima e dopo: portali, configuratori B2B, piattaforme di formazione, e-commerce e dashboard interne.",
-      en: "Six recent projects told in before/after numbers: portals, B2B configurators, learning platforms, e-commerce and internal dashboards.",
+      it: "Tre progetti reali, tre strategie: un'impresa edile, un e-commerce streetwear e un broker assicurativo. Una comunicazione su misura per ciascuno.",
+      en: "Three real projects, three strategies: a construction firm, a streetwear e-commerce and an insurance broker. A tailored approach for each.",
     },
   },
   scuola: {
