@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import { servizi } from "../../data/services";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
+import Process from "../home/Process.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 
 interface Props {
@@ -56,4 +57,5 @@ const prodottiLabel =
   </div>
 </section>
 
+<Process lang={lang} bare />
 <CtaFinal lang={lang} />

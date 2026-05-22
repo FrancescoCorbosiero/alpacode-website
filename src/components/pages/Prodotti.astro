@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { prodotti } from "../../data/products";
 import PageHero from "../PageHero.astro";
+import Values from "../home/Values.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import BookCall from "../BookCall.astro";
 
@@ -51,4 +52,5 @@ const start = lang === "it" ? "Inizia da qui" : "Start here";
   </div>
 </section>
 
+<Values lang={lang} bare />
 <CtaFinal lang={lang} />

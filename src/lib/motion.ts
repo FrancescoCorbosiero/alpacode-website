@@ -103,6 +103,8 @@ function loadHero(initial: boolean): void {
 function updateHeader(): void {
   const header = document.querySelector<HTMLElement>(".site-header");
   if (header) header.classList.toggle("scrolled", window.scrollY > 6);
+  const top = document.querySelector<HTMLElement>("[data-scroll-top]");
+  if (top) top.classList.toggle("is-visible", window.scrollY > 600);
 }
 
 function cmdMod(): void {
@@ -120,6 +122,10 @@ function run(): void {
   if (!scrollBound) {
     scrollBound = true;
     window.addEventListener("scroll", updateHeader, { passive: true });
+    document.addEventListener("click", (e) => {
+      const el = (e.target as Element | null)?.closest?.("[data-scroll-top]");
+      if (el) window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    });
   }
   cmdMod();
   updateHeader();

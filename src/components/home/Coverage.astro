@@ -6,9 +6,12 @@ import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
+  /** On sub-pages, drop the home section number from the eyebrow. */
+  bare?: boolean;
 }
-const { lang } = Astro.props;
+const { lang, bare = false } = Astro.props;
 const t = coverage[lang];
+const num = bare ? t.num.replace(/^\d+\s*·\s*/, "") : t.num;
 const { viewBox, regions, hq, cities } = italyMap;
 
 const isLombardia = (n: string) => /lombard/i.test(n);
@@ -26,7 +29,7 @@ const anchorFor = (x: number) => (x < hq.x ? "end" : "start");
   <div class="wrap-wide">
     <div class="section-head">
       <div>
-        <div class="sec-num">{t.num}</div>
+        <div class="sec-num">{num}</div>
         <h2 style="white-space:pre-line">{t.heading}</h2>
       </div>
       <p class="lede">{t.lede}</p>

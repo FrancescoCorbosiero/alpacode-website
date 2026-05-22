@@ -4,6 +4,7 @@ import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import PageHero from "../PageHero.astro";
 import ImageSlot from "../ImageSlot.astro";
+import Coverage from "../home/Coverage.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 
 interface Props {
@@ -68,4 +69,5 @@ const t =
   </div>
 </section>
 
+<Coverage lang={lang} bare />
 <CtaFinal lang={lang} />
