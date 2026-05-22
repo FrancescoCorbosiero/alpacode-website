@@ -3,7 +3,12 @@ import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import { cases } from "../../data/home";
 import Hero from "../home/Hero.astro";
+import Pitch from "../home/Pitch.astro";
 import Verbs from "../home/Verbs.astro";
+import Values from "../home/Values.astro";
+import Spectrum from "../home/Spectrum.astro";
+import ProductsTeaser from "../home/ProductsTeaser.astro";
+import Process from "../home/Process.astro";
 import Manifesto from "../home/Manifesto.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import Ticker from "../Ticker.astro";
@@ -35,13 +40,16 @@ const caseLabels = {
 };
 const tickerItems =
   lang === "it"
-    ? ["Software", "Consulenza", "Formazione", "Il web è cambiato", "Digitale accessibile", "Monza · Milano"]
-    : ["Software", "Consulting", "Training", "The web has changed", "Accessible digital", "Monza · Milan"];
+    ? ["Siti & e-commerce", "Branding", "Pubblicità", "Software", "Formazione", "Digitalizzazione", "Privati & imprese", "Monza · Milano"]
+    : ["Websites & e-commerce", "Branding", "Advertising", "Software", "Training", "Digitalization", "People & businesses", "Monza · Milan"];
 ---
 
 <Hero lang={lang} />
 <Ticker items={tickerItems} />
+<Pitch lang={lang} />
 <Verbs lang={lang} />
+<Values lang={lang} />
+<Spectrum lang={lang} />
 
 <section class="section section--tint" style="padding-top:56px">
   <div class="wrap-wide">
@@ -56,5 +64,7 @@ const tickerItems =
   </div>
 </section>
 
+<ProductsTeaser lang={lang} />
+<Process lang={lang} />
 <Manifesto lang={lang} />
 <CtaFinal lang={lang} />

@@ -1,0 +1,11 @@
+---
+import Layout from "../components/Layout.astro";
+import Prodotti from "../components/pages/Prodotti.astro";
+import { meta } from "../i18n/ui";
+const lang = "it" as const;
+const m = meta.prodotti;
+---
+
+<Layout lang={lang} active="prodotti" slug="prodotti" title={m.title[lang]} description={m.description[lang]}>
+  <Prodotti lang={lang} />
+</Layout>

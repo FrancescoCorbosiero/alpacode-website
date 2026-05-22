@@ -1,0 +1,30 @@
+---
+import type { Lang } from "../../i18n/types";
+import { pitch } from "../../data/home";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = pitch[lang];
+---
+
+<section class="section pitch">
+  <div class="wrap-wide">
+    <div class="sec-num">{t.num}</div>
+    <p class="pitch-kicker">{t.kicker}</p>
+    <h2 class="pitch-lead">{t.lead}</h2>
+
+    <div class="pitch-turn">
+      <p class="pitch-objection">{t.objection}</p>
+      <p class="pitch-answer"><span class="hl">{t.answer}</span></p>
+    </div>
+
+    <div class="pitch-foot">
+      <p class="pitch-body">{t.body}</p>
+      <ul class="pitch-chips">
+        {t.chips.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

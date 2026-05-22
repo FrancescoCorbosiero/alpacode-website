@@ -3,11 +3,14 @@ import type { Lang, Localized } from "../i18n/types";
 export type PageKey =
   | "home"
   | "servizi"
+  | "prodotti"
   | "lavori"
   | "scuola"
   | "blog"
   | "faq"
   | "contatti";
+
+export type MegaKey = "servizi" | "prodotti" | "scuola";
 
 export interface NavPage {
   num: string;
@@ -16,17 +19,18 @@ export interface NavPage {
   slug: string;
   label: Localized;
   /** Which mega-menu, if any, this nav item opens. */
-  mega?: "servizi" | "scuola";
+  mega?: MegaKey;
 }
 
 export const PAGES: NavPage[] = [
   { num: "01", key: "home", slug: "", label: { it: "Home", en: "Home" } },
   { num: "02", key: "servizi", slug: "servizi", label: { it: "Servizi", en: "Services" }, mega: "servizi" },
-  { num: "03", key: "lavori", slug: "lavori", label: { it: "Lavori", en: "Work" } },
-  { num: "04", key: "scuola", slug: "scuola", label: { it: "Scuola", en: "School" }, mega: "scuola" },
-  { num: "05", key: "blog", slug: "blog", label: { it: "Blog", en: "Blog" } },
-  { num: "06", key: "faq", slug: "faq", label: { it: "FAQ", en: "FAQ" } },
-  { num: "07", key: "contatti", slug: "contatti", label: { it: "Contatti", en: "Contact" } },
+  { num: "03", key: "prodotti", slug: "prodotti", label: { it: "Prodotti", en: "Products" }, mega: "prodotti" },
+  { num: "04", key: "lavori", slug: "lavori", label: { it: "Lavori", en: "Work" } },
+  { num: "05", key: "scuola", slug: "scuola", label: { it: "Scuola", en: "School" }, mega: "scuola" },
+  { num: "06", key: "blog", slug: "blog", label: { it: "Blog", en: "Blog" } },
+  { num: "07", key: "faq", slug: "faq", label: { it: "FAQ", en: "FAQ" } },
+  { num: "08", key: "contatti", slug: "contatti", label: { it: "Contatti", en: "Contact" } },
 ];
 
 export const pageByKey = (key: PageKey): NavPage =>

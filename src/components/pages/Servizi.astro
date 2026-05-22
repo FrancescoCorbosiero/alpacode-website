@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { servizi } from "../../data/services";
+import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 
@@ -9,31 +10,49 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = servizi[lang];
+const prodottiHref = localizePath("prodotti", lang);
+const prodottiLabel =
+  lang === "it"
+    ? "Cerchi un pacchetto a prezzo fisso? Vedi i prodotti"
+    : "Looking for a fixed-price package? See the products";
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
 
-<section class="section" style="padding-top:0">
+<section class="section" style="padding-top:40px">
   <div class="wrap-wide">
     {
-      t.rows.map((r) => (
-        <div class="svc-row">
-          <div class="svc-no">{r.n}<span class="dot">.</span></div>
-          <div>
-            <h3>{r.t}</h3>
-            <p>{r.d}</p>
-            <div class="meta">
-              {r.meta.map((m) => (
-                <div>
-                  <span class="k">{m.k}</span>
-                  <span class="v">{m.v}</span>
-                </div>
-              ))}
-            </div>
+      t.groups.map((g) => (
+        <div class="svc-group">
+          <div class="svc-group-head">
+            <h2 class="svc-group-verb">{g.verb}</h2>
+            <p class="svc-group-tag">{g.tagline}</p>
           </div>
+          {g.rows.map((r) => (
+            <div class="svc-row">
+              <div class="svc-no">{r.n}<span class="dot">.</span></div>
+              <div>
+                <h3>{r.t}</h3>
+                <p>{r.d}</p>
+                <div class="meta">
+                  {r.meta.map((m) => (
+                    <div>
+                      <span class="k">{m.k}</span>
+                      <span class="v">{m.v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ))
     }
+
+    <a class="svc-cross" href={prodottiHref}>
+      <span class="svc-cross-arrow">→</span>
+      <span>{prodottiLabel}</span>
+    </a>
   </div>
 </section>
 

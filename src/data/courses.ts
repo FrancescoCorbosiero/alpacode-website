@@ -18,7 +18,7 @@ export interface ScuolaPageData {
 
 export const scuola: Record<Lang, ScuolaPageData> = {
   it: {
-    crumb: "§04 · SCUOLA",
+    crumb: "§05 · SCUOLA",
     h1Line1: "Insegnare",
     h1Line2: "quello che sappiamo.",
     lede: "Corsi e percorsi pratici per chi vuole imparare a muoversi nel digitale — dai primi passi fino agli approfondimenti.",
@@ -33,7 +33,7 @@ export const scuola: Record<Lang, ScuolaPageData> = {
     ],
   },
   en: {
-    crumb: "§04 · SCHOOL",
+    crumb: "§05 · SCHOOL",
     h1Line1: "Teach",
     h1Line2: "what we know.",
     lede: "Practical courses and paths for anyone who wants to find their way in digital — from first steps to deeper dives.",

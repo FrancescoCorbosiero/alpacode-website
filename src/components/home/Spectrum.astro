@@ -1,0 +1,40 @@
+---
+import type { Lang } from "../../i18n/types";
+import { spectrum } from "../../data/home";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = spectrum[lang];
+---
+
+<section class="spectrum">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="spectrum-axes">
+      {
+        t.axes.map((a) => (
+          <div class="spectrum-axis">
+            <div class="spectrum-end">{a.from}</div>
+            <div class="spectrum-track" aria-hidden="true">
+              <span class="d1" />
+              <span class="bar" />
+              <span class="d2" />
+            </div>
+            <div class="spectrum-end to">{a.to}</div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="spectrum-note">{t.note}</p>
+  </div>
+</section>

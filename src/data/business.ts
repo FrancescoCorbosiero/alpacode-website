@@ -17,6 +17,6 @@ export const business = {
 } as const;
 
 export const tagline: Localized = {
-  it: "Il web è cambiato. Rendiamo il digitale accessibile a chiunque.",
-  en: "The web has changed. We make digital accessible to everyone.",
+  it: "Digitalizziamo privati e imprese in Italia. Con professionalità, senza preventivi da capogiro.",
+  en: "We digitalize individuals and businesses across Italy. Professionally, without sky-high quotes.",
 };

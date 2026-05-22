@@ -44,7 +44,7 @@ export interface ContattiData {
 
 export const contatti: Record<Lang, ContattiData> = {
   it: {
-    crumb: "§07 · CONTATTI",
+    crumb: "§08 · CONTATTI",
     h1Line1: "Parliamone,",
     h1Line2: "con calma.",
     lede: "Compila il modulo o scrivici direttamente. Ti rispondiamo entro mezza giornata lavorata, in italiano, da una persona vera.",
@@ -85,7 +85,7 @@ export const contatti: Record<Lang, ContattiData> = {
     },
   },
   en: {
-    crumb: "§07 · CONTACT",
+    crumb: "§08 · CONTACT",
     h1Line1: "Let's talk,",
     h1Line2: "calmly.",
     lede: "Fill the form or write directly. We reply within half a worked day, in English or Italian, from a real person.",

@@ -1,0 +1,50 @@
+---
+import type { Lang } from "../../i18n/types";
+import { productsTeaser } from "../../data/home";
+import { prodotti } from "../../data/products";
+import { localizePath } from "../../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = productsTeaser[lang];
+const all = prodotti[lang].list;
+// A small, representative spread across the range: entry · identity · full.
+const featured = [all[0], all[2], all[5]].filter(Boolean);
+const prodottiHref = localizePath("prodotti", lang);
+const more = lang === "it" ? "Scopri" : "Learn more";
+---
+
+<section class="section products-teaser">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="product-grid product-grid--teaser">
+      {
+        featured.map((p) => (
+          <a class="product product--link" href={prodottiHref}>
+            <div class="product-top">
+              <span class="product-no">{p.n}</span>
+              <span class="product-tag">{p.tag}</span>
+            </div>
+            <h3>{p.t}</h3>
+            <p class="product-for">{p.forWho}</p>
+            <p class="product-desc">{p.d}</p>
+            <span class="product-more">{more} <span class="arrow">→</span></span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="products-teaser-foot">
+      <a class="btn btn-ghost" href={prodottiHref}>{t.cta} <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>

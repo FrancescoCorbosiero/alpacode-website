@@ -23,10 +23,10 @@ export const hero: Record<Lang, HeroData> = {
     cta1: "Prenota una call",
     cta2: "Esplora i lavori",
     meta: [
-      { k: "Sede", v: "Monza · Milano", d: "IT" },
-      { k: "Operatività", v: "Lun — Ven", d: "09:00 — 18:00 CET" },
-      { k: "Dal", v: "2025", d: "un progetto alla volta" },
-      { k: "Ambiti", v: "03", d: "costruire · consigliare · insegnare" },
+      { k: "Per chi", v: "Privati & imprese", d: "in tutta Italia" },
+      { k: "Preventivi", v: "Decisi prima", d: "niente sorprese" },
+      { k: "Risposta", v: "Mezza giornata", d: "da una persona vera" },
+      { k: "Ambiti", v: "Costruire", d: "far crescere · insegnare" },
     ],
     statusLabel: "DISPONIBILE",
     statusVal: "Nuovi progetti Q3 2026",
@@ -37,10 +37,10 @@ export const hero: Record<Lang, HeroData> = {
     cta1: "Book a call",
     cta2: "See the work",
     meta: [
-      { k: "Studio", v: "Monza · Milan", d: "IT" },
-      { k: "Hours", v: "Mon — Fri", d: "09:00 — 18:00 CET" },
-      { k: "Since", v: "2025", d: "one project at a time" },
-      { k: "Practice", v: "03", d: "build · advise · teach" },
+      { k: "For", v: "People & businesses", d: "across Italy" },
+      { k: "Quotes", v: "Agreed up front", d: "no surprises" },
+      { k: "Reply", v: "Half a day", d: "from a real person" },
+      { k: "Practice", v: "Build", d: "grow · teach" },
     ],
     statusLabel: "AVAILABLE",
     statusVal: "New projects Q3 2026",
@@ -64,58 +64,58 @@ export interface VerbsData {
 
 export const verbs: Record<Lang, VerbsData> = {
   it: {
-    num: "§01 · SERVIZI",
-    heading: "Tre verbi.\nNiente di più.",
-    lede: "Ci concentriamo su poche cose e le facciamo bene. Niente pacchetti gonfiati, niente costi nascosti, parole chiare.",
+    num: "§02 · COSA FACCIAMO",
+    heading: "Tre modi\ndi aiutarti.",
+    lede: "Dal primo sito alla digitalizzazione completa. Ci occupiamo di tutto il digitale della tua attività — anche di quello che di solito chiedi a un'agenzia.",
     list: [
       {
         num: "01",
         word: "Costruire",
         accent: "ire",
-        d: "Siti, web app, software su misura, integrazioni. Soluzioni curate, costruite per durare e semplici da gestire nel tempo.",
-        items: ["Sviluppo siti & web app", "Software su misura", "Integrazioni & automazioni", "Performance & SEO"],
+        d: "La base digitale della tua attività: il sito, il negozio online, il gestionale. Curati, semplici da usare e fatti per durare.",
+        items: ["Siti & e-commerce", "Software & gestionali", "App e portali su misura", "Veloci e sempre online"],
       },
       {
         num: "02",
-        word: "Consigliare",
-        accent: "are",
-        d: "Audit, roadmap, scelte tecnologiche. Lavoriamo a fianco del cliente, in italiano e senza fumo.",
-        items: ["Audit tecnico & UX", "Roadmap di prodotto", "Trasformazione digitale", "Selezione fornitori"],
+        word: "Far crescere",
+        accent: "ere",
+        d: "Branding, design, pubblicità e SEO: tutto quello che un'agenzia di comunicazione fa per farti trovare, scegliere e ricordare.",
+        items: ["Branding & identità visiva", "Design e UI/UX", "Campagne Google & Meta", "SEO e contenuti"],
       },
       {
         num: "03",
         word: "Insegnare",
         accent: "are",
-        d: "Corsi e percorsi pratici per chi vuole imparare a muoversi nel digitale. Materiali che restano, esempi concreti.",
-        items: ["Percorsi per chi inizia", "Approfondimenti pratici", "Kit e risorse pronte", "Formazione per team"],
+        d: "Corsi, kit e affiancamento per diventare autonomo. Quello che impariamo, te lo lasciamo — niente dipendenza dal fornitore.",
+        items: ["Corsi pratici", "Kit e risorse pronte", "Formazione per team", "Supporto anche dopo"],
       },
     ],
   },
   en: {
-    num: "§01 · SERVICES",
-    heading: "Three verbs.\nNothing more.",
-    lede: "We focus on a few things and do them well. No padded packages, no hidden costs, plain words.",
+    num: "§02 · WHAT WE DO",
+    heading: "Three ways\nto help.",
+    lede: "From a first website to full digitalization. We handle all the digital side of your business — including what you'd normally ask an agency for.",
     list: [
       {
         num: "01",
         word: "Build",
         accent: "d",
-        d: "Websites, web apps, custom software, integrations. Crafted to last and easy to maintain over time.",
-        items: ["Websites & web apps", "Custom software", "Integrations & automations", "Performance & SEO"],
+        d: "The digital backbone of your business: the site, the online shop, the internal tools. Crafted, easy to use and made to last.",
+        items: ["Websites & e-commerce", "Software & internal tools", "Custom apps and portals", "Fast and always online"],
       },
       {
         num: "02",
-        word: "Advise",
-        accent: "e",
-        d: "Audits, roadmaps, technology choices. We work next to the client, plainly, no smoke.",
-        items: ["Tech & UX audits", "Product roadmap", "Digital transformation", "Vendor selection"],
+        word: "Grow",
+        accent: "w",
+        d: "Branding, design, advertising and SEO: everything a communication agency does to help people find, choose and remember you.",
+        items: ["Branding & visual identity", "Design and UI/UX", "Google & Meta campaigns", "SEO and content"],
       },
       {
         num: "03",
         word: "Teach",
         accent: "h",
-        d: "Practical courses and paths for anyone who wants to find their way in digital. Materials that last, real examples.",
-        items: ["Paths for beginners", "Practical deep-dives", "Ready-made kits & resources", "Team training"],
+        d: "Courses, kits and hands-on guidance to become independent. What we learn, we hand over — no vendor lock-in.",
+        items: ["Practical courses", "Ready-made kits & resources", "Team training", "Support afterwards too"],
       },
     ],
   },
@@ -145,9 +145,9 @@ export interface CasesData {
 
 export const cases: Record<Lang, CasesData> = {
   it: {
-    num: "§02 · CASI DI STUDIO",
+    num: "§05 · CASI DI STUDIO",
     heading: "Quello che\nabbiamo costruito.",
-    lede: "Tre progetti recenti, raccontati con i numeri prima e dopo.",
+    lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
     list: [
       {
         key: "studio-legale",
@@ -191,9 +191,9 @@ export const cases: Record<Lang, CasesData> = {
     ],
   },
   en: {
-    num: "§02 · CASE STUDIES",
+    num: "§05 · CASE STUDIES",
     heading: "What we have built.",
-    lede: "Three recent projects, told in numbers before and after.",
+    lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
     list: [
       {
         key: "law-firm",
@@ -254,22 +254,22 @@ export interface ManifestoData {
 
 export const manifesto: Record<Lang, ManifestoData> = {
   it: {
-    num: "§03 · MANIFESTO",
+    num: "§08 · MANIFESTO",
     heading: "Il web\nè cambiato.",
-    lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e rendere il digitale accessibile a chiunque.",
+    lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e digitalizzare privati e imprese in tutta Italia.",
     pillars: [
-      { n: "I", label: "PILASTRO I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso. Lavoriamo per trovare soluzioni alla portata anche di chi parte con poco." },
+      { n: "I", label: "PILASTRO I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso da migliaia di euro. Troviamo soluzioni alla portata di privati e piccole imprese, non solo dei grandi." },
       { n: "II", label: "PILASTRO II", t: "Parliamo chiaro.", d: "Niente tecnicismi, niente sigle. Spieghiamo ogni scelta in parole semplici, così decidi con cognizione." },
       { n: "III", label: "PILASTRO III", t: "Onestà prima di tutto.", d: "Costi trasparenti, nessuna sorpresa. E se non siamo la scelta giusta per te, te lo diciamo." },
       { n: "IV", label: "PILASTRO IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
   },
   en: {
-    num: "§03 · MANIFESTO",
+    num: "§08 · MANIFESTO",
     heading: "The web\nhas changed.",
-    lede: "Our mission is simple: break down the barrier of cost and jargon, and make digital accessible to everyone.",
+    lede: "Our mission is simple: break down the barrier of cost and jargon, and digitalize individuals and businesses across Italy.",
     pillars: [
-      { n: "I", label: "PILLAR I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a luxury. We work to find solutions within reach, even on a small budget." },
+      { n: "I", label: "PILLAR I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a thousands-of-euros luxury. We find solutions within reach for individuals and small businesses, not just the big players." },
       { n: "II", label: "PILLAR II", t: "We speak plainly.", d: "No jargon, no acronyms. We explain every choice in plain words, so you can decide with clarity." },
       { n: "III", label: "PILLAR III", t: "Honesty first.", d: "Transparent costs, no surprises. And if we're not the right fit for you, we'll say so." },
       { n: "IV", label: "PILLAR IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
@@ -294,7 +294,7 @@ export interface CtaData {
 
 export const ctaFinal: Record<Lang, CtaData> = {
   it: {
-    num: "§04 · CONTATTI",
+    num: "§ · CONTATTI",
     line1: "Hai un progetto?",
     underline: "Parliamone.",
     sub: "Una call di trenta minuti per capirci. Niente vendite, niente pressioni. Ti diciamo subito se possiamo aiutarti e in che modo.",
@@ -306,7 +306,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     cta: "Apri il modulo di contatto",
   },
   en: {
-    num: "§04 · CONTACT",
+    num: "§ · CONTACT",
     line1: "Have a project?",
     underline: "Let's talk.",
     sub: "A thirty-minute call to understand. No sales, no pressure. We'll tell you right away if we can help, and how.",
@@ -316,5 +316,199 @@ export const ctaFinal: Record<Lang, CtaData> = {
       { k: "Studio", v: "Monza · Milan · IT" },
     ],
     cta: "Open the contact form",
+  },
+};
+
+/* ---------------- §01 Pitch (cost-barrier) ---------------- */
+export interface PitchData {
+  num: string;
+  kicker: string;
+  lead: string;
+  objection: string;
+  answer: string;
+  body: string;
+  chips: string[];
+}
+
+export const pitch: Record<Lang, PitchData> = {
+  it: {
+    num: "§01 · PERCHÉ",
+    kicker: "Il punto, senza giri di parole",
+    lead: "Se lavori online, hai bisogno di un sito dedicato alla tua attività.",
+    objection: "Ma come, se i preventivi superano le migliaia di euro?",
+    answer: "Alpacode è qui per questo.",
+    body: "Abbattiamo la barriera dei costi e dei tecnicismi. Niente parcelle da agenzia, niente sorprese: un prezzo chiaro, deciso prima di partire e calibrato su quello che ti serve davvero.",
+    chips: ["Prezzo deciso prima", "Niente costi nascosti", "Pagamenti rateizzabili", "Prima call gratuita"],
+  },
+  en: {
+    num: "§01 · WHY",
+    kicker: "The point, no fluff",
+    lead: "If you work online, you need a website dedicated to your business.",
+    objection: "But how, when quotes run into the thousands of euros?",
+    answer: "That's exactly why Alpacode exists.",
+    body: "We tear down the barrier of cost and jargon. No agency-sized invoices, no surprises: a clear price, agreed before we start and sized to what you actually need.",
+    chips: ["Price agreed up front", "No hidden costs", "Installments available", "First call free"],
+  },
+};
+
+/* ---------------- §03 Values ---------------- */
+export interface ValueItem {
+  t: string;
+  d: string;
+}
+export interface ValueGroup {
+  label: string;
+  items: ValueItem[];
+}
+export interface ValuesData {
+  num: string;
+  heading: string;
+  lede: string;
+  groups: ValueGroup[];
+}
+
+export const values: Record<Lang, ValuesData> = {
+  it: {
+    num: "§03 · COSA OTTIENI",
+    heading: "Cosa puoi\naspettarti.",
+    lede: "Le competenze tecniche le diamo per scontate. Quello che conta è come lavoriamo e cosa ti rimane in mano.",
+    groups: [
+      {
+        label: "Il nostro lavoro",
+        items: [
+          { t: "Professionalità", d: "Persone vere, metodo chiaro, consegne nei tempi. Tratti con chi costruisce, non con un centralino." },
+          { t: "Affidabilità", d: "Diciamo quello che facciamo e facciamo quello che diciamo. Anche dopo la consegna restiamo al tuo fianco." },
+          { t: "Convenienza", d: "Il giusto lavoro al giusto prezzo. Niente sovrapprezzi da agenzia, niente voci che non ti servono." },
+        ],
+      },
+      {
+        label: "Il tuo risultato",
+        items: [
+          { t: "Semplicità", d: "Strumenti che usi senza manuale. Ti spieghiamo tutto in parole semplici: a decidere sei sempre tu." },
+          { t: "Investimento", d: "Non una spesa, ma qualcosa che ti torna indietro: più clienti, meno tempo perso, un'attività che cresce." },
+          { t: "Feedback", d: "Ci confrontiamo a ogni passo e misuriamo i risultati con numeri veri. Niente promesse al buio." },
+        ],
+      },
+    ],
+  },
+  en: {
+    num: "§03 · WHAT YOU GET",
+    heading: "What you can\nexpect.",
+    lede: "Technical skill is a given. What matters is how we work and what you're left holding.",
+    groups: [
+      {
+        label: "Our work",
+        items: [
+          { t: "Professionalism", d: "Real people, a clear method, delivered on time. You deal with the people who build, not a call center." },
+          { t: "Reliability", d: "We say what we do and do what we say. And we stay by your side long after launch." },
+          { t: "Value", d: "The right work at the right price. No agency markup, no line items you don't need." },
+        ],
+      },
+      {
+        label: "Your result",
+        items: [
+          { t: "Simplicity", d: "Tools you use without a manual. We explain everything in plain words: you always decide." },
+          { t: "Investment", d: "Not an expense, but something that pays you back: more clients, less wasted time, a business that grows." },
+          { t: "Feedback", d: "We check in at every step and measure results with real numbers. No promises in the dark." },
+        ],
+      },
+    ],
+  },
+};
+
+/* ---------------- §04 Spectrum (fluid range) ---------------- */
+export interface SpectrumAxis {
+  from: string;
+  to: string;
+}
+export interface SpectrumData {
+  num: string;
+  heading: string;
+  lede: string;
+  axes: SpectrumAxis[];
+  note: string;
+}
+
+export const spectrum: Record<Lang, SpectrumData> = {
+  it: {
+    num: "§04 · COME LAVORIAMO",
+    heading: "Fluidi.\nSu qualsiasi scala.",
+    lede: "Lavoriamo con realtà molto diverse e ci adattiamo a ognuna. Non esiste un progetto troppo piccolo o troppo grande.",
+    axes: [
+      { from: "Un sito web semplice", to: "Digitalizzazione completa del business" },
+      { from: "Un servizio flash", to: "Consulenza dedicata e continuativa" },
+    ],
+    note: "Partiamo da dove sei tu, non da un listino.",
+  },
+  en: {
+    num: "§04 · HOW WE WORK",
+    heading: "Fluid.\nAt any scale.",
+    lede: "We work with very different realities and adapt to each one. No project is too small or too big.",
+    axes: [
+      { from: "A simple website", to: "Full business digitalization" },
+      { from: "A one-off flash service", to: "Dedicated, ongoing consulting" },
+    ],
+    note: "We start from where you are, not from a price list.",
+  },
+};
+
+/* ---------------- §06 Products teaser ---------------- */
+export interface ProductsTeaserData {
+  num: string;
+  heading: string;
+  lede: string;
+  cta: string;
+}
+
+export const productsTeaser: Record<Lang, ProductsTeaserData> = {
+  it: {
+    num: "§06 · PRODOTTI",
+    heading: "Pacchetti pronti,\nprezzo deciso prima.",
+    lede: "Non solo lavori su misura: pacchetti già pronti, con un prezzo chiaro fin dall'inizio. Per partire in fretta, senza preventivi infiniti.",
+    cta: "Vedi tutti i prodotti",
+  },
+  en: {
+    num: "§06 · PRODUCTS",
+    heading: "Ready packages,\nprice agreed up front.",
+    lede: "Not only bespoke work: ready-made packages with a clear price from the start. To get going fast, without endless quotes.",
+    cta: "See all products",
+  },
+};
+
+/* ---------------- §07 Process ---------------- */
+export interface ProcessStep {
+  n: string;
+  t: string;
+  d: string;
+}
+export interface ProcessData {
+  num: string;
+  heading: string;
+  lede: string;
+  steps: ProcessStep[];
+}
+
+export const process: Record<Lang, ProcessData> = {
+  it: {
+    num: "§07 · METODO",
+    heading: "Come si parte.",
+    lede: "Quattro passi, zero sorprese. Il prezzo lo conosci prima di firmare qualsiasi cosa.",
+    steps: [
+      { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno." },
+      { n: "02", t: "Proposta chiara", d: "Scope, tempi e prezzo deciso prima. In parole semplici, nero su bianco." },
+      { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu." },
+      { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono." },
+    ],
+  },
+  en: {
+    num: "§07 · METHOD",
+    heading: "How it starts.",
+    lede: "Four steps, zero surprises. You know the price before you sign anything.",
+    steps: [
+      { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment." },
+      { n: "02", t: "Clear proposal", d: "Scope, timing and a price agreed up front. In plain words, in writing." },
+      { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide." },
+      { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them." },
+    ],
   },
 };
