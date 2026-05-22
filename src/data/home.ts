@@ -23,10 +23,10 @@ export const hero: Record<Lang, HeroData> = {
     cta1: "Prenota una call",
     cta2: "Esplora i lavori",
     meta: [
-      { k: "Per chi", v: "Privati & imprese", d: "in tutta Italia" },
-      { k: "Preventivi", v: "Decisi prima", d: "niente sorprese" },
-      { k: "Risposta", v: "Mezza giornata", d: "da una persona vera" },
-      { k: "Ambiti", v: "Costruire", d: "far crescere · insegnare" },
+      { k: "Sede", v: "Monza · Milano", d: "IT" },
+      { k: "Operatività", v: "Lun — Ven", d: "09:00 — 18:00 CET" },
+      { k: "Dal", v: "2025", d: "un progetto alla volta" },
+      { k: "Ambiti", v: "03", d: "costruire · far crescere · insegnare" },
     ],
     statusLabel: "DISPONIBILE",
     statusVal: "Nuovi progetti Q3 2026",
@@ -37,10 +37,10 @@ export const hero: Record<Lang, HeroData> = {
     cta1: "Book a call",
     cta2: "See the work",
     meta: [
-      { k: "For", v: "People & businesses", d: "across Italy" },
-      { k: "Quotes", v: "Agreed up front", d: "no surprises" },
-      { k: "Reply", v: "Half a day", d: "from a real person" },
-      { k: "Practice", v: "Build", d: "grow · teach" },
+      { k: "Studio", v: "Monza · Milan", d: "IT" },
+      { k: "Hours", v: "Mon — Fri", d: "09:00 — 18:00 CET" },
+      { k: "Since", v: "2025", d: "one project at a time" },
+      { k: "Practice", v: "03", d: "build · grow · teach" },
     ],
     statusLabel: "AVAILABLE",
     statusVal: "New projects Q3 2026",
@@ -86,8 +86,8 @@ export const verbs: Record<Lang, VerbsData> = {
         num: "03",
         word: "Insegnare",
         accent: "are",
-        d: "Corsi, kit e affiancamento per diventare autonomo. Quello che impariamo, te lo lasciamo — niente dipendenza dal fornitore.",
-        items: ["Corsi pratici", "Kit e risorse pronte", "Formazione per team", "Supporto anche dopo"],
+        d: "Corsi, kit e percorsi pratici per imparare a gestire il tuo digitale in autonomia. Formiamo te e il tuo team, al vostro ritmo.",
+        items: ["Corsi pratici", "Kit e risorse pronte", "Formazione per team", "Assistenza dopo il corso"],
       },
     ],
   },
@@ -114,8 +114,8 @@ export const verbs: Record<Lang, VerbsData> = {
         num: "03",
         word: "Teach",
         accent: "h",
-        d: "Courses, kits and hands-on guidance to become independent. What we learn, we hand over — no vendor lock-in.",
-        items: ["Practical courses", "Ready-made kits & resources", "Team training", "Support afterwards too"],
+        d: "Practical courses, kits and paths to learn how to run your own digital, at your pace. We train you and your team.",
+        items: ["Practical courses", "Ready-made kits & resources", "Team training", "Help after the course"],
       },
     ],
   },
@@ -259,8 +259,8 @@ export const manifesto: Record<Lang, ManifestoData> = {
     lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e digitalizzare privati e imprese in tutta Italia.",
     pillars: [
       { n: "I", label: "PILASTRO I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso da migliaia di euro. Troviamo soluzioni alla portata di privati e piccole imprese, non solo dei grandi." },
-      { n: "II", label: "PILASTRO II", t: "Parliamo chiaro.", d: "Niente tecnicismi, niente sigle. Spieghiamo ogni scelta in parole semplici, così decidi con cognizione." },
-      { n: "III", label: "PILASTRO III", t: "Onestà prima di tutto.", d: "Costi trasparenti, nessuna sorpresa. E se non siamo la scelta giusta per te, te lo diciamo." },
+      { n: "II", label: "PILASTRO II", t: "Trasparenza, dall'inizio.", d: "Prezzi, tempi e scelte sul tavolo prima di partire. Sai sempre cosa stai pagando e perché — nessun costo a sorpresa." },
+      { n: "III", label: "PILASTRO III", t: "Conta il risultato.", d: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — e lo misuriamo con numeri veri." },
       { n: "IV", label: "PILASTRO IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
   },
@@ -270,8 +270,8 @@ export const manifesto: Record<Lang, ManifestoData> = {
     lede: "Our mission is simple: break down the barrier of cost and jargon, and digitalize individuals and businesses across Italy.",
     pillars: [
       { n: "I", label: "PILLAR I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a thousands-of-euros luxury. We find solutions within reach for individuals and small businesses, not just the big players." },
-      { n: "II", label: "PILLAR II", t: "We speak plainly.", d: "No jargon, no acronyms. We explain every choice in plain words, so you can decide with clarity." },
-      { n: "III", label: "PILLAR III", t: "Honesty first.", d: "Transparent costs, no surprises. And if we're not the right fit for you, we'll say so." },
+      { n: "II", label: "PILLAR II", t: "Transparent from the start.", d: "Prices, timing and choices on the table before we begin. You always know what you're paying and why — no surprise costs." },
+      { n: "III", label: "PILLAR III", t: "Results are what count.", d: "A good-looking site isn't enough. We work so it's visible, credible and brings clients — and we measure it with real numbers." },
       { n: "IV", label: "PILLAR IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
     ],
   },
@@ -371,7 +371,7 @@ export const values: Record<Lang, ValuesData> = {
   it: {
     num: "§03 · COSA OTTIENI",
     heading: "Cosa puoi\naspettarti.",
-    lede: "Le competenze tecniche le diamo per scontate. Quello che conta è come lavoriamo e cosa ti rimane in mano.",
+    lede: "Le competenze tecniche sono il punto di partenza, non l'argomento. A fare la differenza sono il metodo con cui lavoriamo e il risultato che resta alla tua attività.",
     groups: [
       {
         label: "Il nostro lavoro",
@@ -394,7 +394,7 @@ export const values: Record<Lang, ValuesData> = {
   en: {
     num: "§03 · WHAT YOU GET",
     heading: "What you can\nexpect.",
-    lede: "Technical skill is a given. What matters is how we work and what you're left holding.",
+    lede: "Technical skill is the starting point, not the pitch. What makes the difference is the method we work with and the result your business is left with.",
     groups: [
       {
         label: "Our work",
@@ -416,39 +416,112 @@ export const values: Record<Lang, ValuesData> = {
   },
 };
 
-/* ---------------- §04 Spectrum (fluid range) ---------------- */
-export interface SpectrumAxis {
-  from: string;
-  to: string;
+/* ---------------- §04 Scale (the path) ---------------- */
+export interface ScaleStage {
+  n: string;
+  tab: string;
+  title: string;
+  d: string;
+  items: string[];
+  ideal: string;
 }
-export interface SpectrumData {
+export interface ScaleData {
   num: string;
   heading: string;
   lede: string;
-  axes: SpectrumAxis[];
+  includeLabel: string;
+  idealLabel: string;
   note: string;
+  cta: string;
+  stages: ScaleStage[];
 }
 
-export const spectrum: Record<Lang, SpectrumData> = {
+export const scale: Record<Lang, ScaleData> = {
   it: {
-    num: "§04 · COME LAVORIAMO",
-    heading: "Fluidi.\nSu qualsiasi scala.",
-    lede: "Lavoriamo con realtà molto diverse e ci adattiamo a ognuna. Non esiste un progetto troppo piccolo o troppo grande.",
-    axes: [
-      { from: "Un sito web semplice", to: "Digitalizzazione completa del business" },
-      { from: "Un servizio flash", to: "Consulenza dedicata e continuativa" },
-    ],
+    num: "§04 · IL PERCORSO",
+    heading: "Cresci alla\ntua scala.",
+    lede: "Lavoriamo con realtà molto diverse e ci adattiamo a ognuna: da un semplice sito alla digitalizzazione completa, da un servizio flash alla consulenza dedicata. Scegli da dove partire.",
+    includeLabel: "Cosa include",
+    idealLabel: "Ideale per",
     note: "Partiamo da dove sei tu, non da un listino.",
+    cta: "Trova il tuo punto di partenza",
+    stages: [
+      {
+        n: "01",
+        tab: "Esserci",
+        title: "Un sito che ti fa fare bella figura.",
+        d: "Il primo passo: una presenza online curata, veloce e visibile su Google. Un sito obsoleto allontana i clienti — uno fatto bene dà credibilità e raccoglie i primi contatti.",
+        items: ["Sito o landing page", "Visibilità su Google", "Design & contenuti", "Modulo di contatto"],
+        ideal: "Chi parte da zero o ha un sito ormai datato.",
+      },
+      {
+        n: "02",
+        tab: "Vendere",
+        title: "Trasformare le visite in clienti.",
+        d: "Non basta un sito bello da vedere: serve un sito che venda. E-commerce o funnel pensati per convertire, con la pubblicità che porta le persone giuste e i numeri che lo dimostrano.",
+        items: ["E-commerce o funnel", "Pagamenti & spedizioni", "Campagne Google & Meta", "Tracciamento dei risultati"],
+        ideal: "Chi vuole vendere online o generare contatti.",
+      },
+      {
+        n: "03",
+        tab: "Automatizzare",
+        title: "Far lavorare il digitale per te.",
+        d: "Gestionali, integrazioni e automazioni che tolgono il lavoro ripetitivo e tengono tutto in ordine. Il tempo che risparmi torna alla tua attività.",
+        items: ["Gestionale su misura", "Integrazioni ERP & CRM", "Automazioni di processo", "Dashboard e report"],
+        ideal: "Chi perde troppo tempo in attività manuali.",
+      },
+      {
+        n: "04",
+        tab: "Digitalizzare tutto",
+        title: "Tutta l'attività, online.",
+        d: "Il percorso completo: strategia, sito, vendite, software, brand e formazione, seguiti nel tempo da un unico interlocutore. Una digitalizzazione vera, un passo alla volta.",
+        items: ["Strategia & roadmap", "Tutto il digitale, integrato", "Brand & comunicazione", "Supporto continuativo"],
+        ideal: "Imprese che vogliono digitalizzare sul serio.",
+      },
+    ],
   },
   en: {
-    num: "§04 · HOW WE WORK",
-    heading: "Fluid.\nAt any scale.",
-    lede: "We work with very different realities and adapt to each one. No project is too small or too big.",
-    axes: [
-      { from: "A simple website", to: "Full business digitalization" },
-      { from: "A one-off flash service", to: "Dedicated, ongoing consulting" },
-    ],
+    num: "§04 · THE PATH",
+    heading: "Grow at\nyour scale.",
+    lede: "We work with very different realities and adapt to each one: from a simple website to full digitalization, from a flash service to dedicated consulting. Pick where to start.",
+    includeLabel: "What's included",
+    idealLabel: "Ideal for",
     note: "We start from where you are, not from a price list.",
+    cta: "Find your starting point",
+    stages: [
+      {
+        n: "01",
+        tab: "Be there",
+        title: "A site that makes a good impression.",
+        d: "The first step: a polished online presence, fast and visible on Google. An outdated site pushes clients away — a good one gives credibility and gathers your first leads.",
+        items: ["Website or landing page", "Visibility on Google", "Design & content", "Contact form"],
+        ideal: "Starting from scratch or with a dated site.",
+      },
+      {
+        n: "02",
+        tab: "Sell",
+        title: "Turn visits into clients.",
+        d: "A nice-looking site isn't enough: you need one that sells. E-commerce or funnels built to convert, with advertising that brings the right people and numbers that prove it.",
+        items: ["E-commerce or funnel", "Payments & shipping", "Google & Meta campaigns", "Results tracking"],
+        ideal: "Selling online or generating leads.",
+      },
+      {
+        n: "03",
+        tab: "Automate",
+        title: "Make digital work for you.",
+        d: "Internal tools, integrations and automations that remove repetitive work and keep everything in order. The time you save goes back to your business.",
+        items: ["Custom internal tool", "ERP & CRM integrations", "Process automations", "Dashboards and reports"],
+        ideal: "Losing too much time on manual tasks.",
+      },
+      {
+        n: "04",
+        tab: "Digitalize it all",
+        title: "Your whole business, online.",
+        d: "The complete path: strategy, site, sales, software, brand and training, followed over time by a single point of contact. Real digitalization, one step at a time.",
+        items: ["Strategy & roadmap", "All your digital, integrated", "Brand & communication", "Ongoing support"],
+        ideal: "Businesses ready to digitalize for real.",
+      },
+    ],
   },
 };
 

@@ -373,7 +373,12 @@
     clip-path: none !important;
   }
   .case-info,
-  .case-media .tag {
+  .case-media .tag,
+  .scale-panel {
     animation: none !important;
+  }
+  .scale-rail-fill,
+  .scale-dot {
+    transition: none !important;
   }
 }
