@@ -25,7 +25,7 @@ export interface ServiziPageData {
 
 export const servizi: Record<Lang, ServiziPageData> = {
   it: {
-    crumb: "§02 · SERVIZI",
+    crumb: "02 · SERVIZI",
     h1Line1: "Costruire. Far crescere.",
     h1Line2: "Insegnare.",
     lede: "Tre aree, un solo metodo: capire cosa ti serve davvero e trovare la soluzione più adatta — anche al tuo budget. Compreso quello che di solito chiedi a un'agenzia.",
@@ -67,7 +67,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
           {
             n: "04",
             t: "Software & automazioni",
-            d: "Gestionali, integrazioni e automazioni che fanno il lavoro noioso al posto tuo. Trasformiamo fogli Excel in processi che si tengono in piedi.",
+            d: "Gestionali, integrazioni e automazioni — con l'AI dove serve — che fanno il lavoro noioso al posto tuo. Trasformiamo fogli Excel in processi che si tengono in piedi.",
             meta: [
               { k: "Ambiti", v: "Gestione · ERP · CRM" },
               { k: "Tempi", v: "da 6 a 20 settimane" },
@@ -171,7 +171,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
     ],
   },
   en: {
-    crumb: "§02 · SERVICES",
+    crumb: "02 · SERVICES",
     h1Line1: "Build. Grow.",
     h1Line2: "Teach.",
     lede: "Three areas, one method: understand what you actually need and find the right fit — for your budget too. Including the things you'd normally ask an agency for.",
@@ -213,7 +213,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
           {
             n: "04",
             t: "Software & automations",
-            d: "Internal tools, integrations and automations that do the boring work for you. We turn spreadsheets into processes that stand on their own.",
+            d: "Internal tools, integrations and automations — with AI where it helps — that do the boring work for you. We turn spreadsheets into processes that stand on their own.",
             meta: [
               { k: "Areas", v: "Ops · ERP · CRM" },
               { k: "Lead time", v: "6 to 20 weeks" },

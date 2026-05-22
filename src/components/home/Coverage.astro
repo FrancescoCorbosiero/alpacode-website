@@ -1,0 +1,92 @@
+---
+import type { Lang } from "../../i18n/types";
+import { coverage } from "../../data/home";
+import { italyMap } from "../../data/italyMap";
+import BookCall from "../BookCall.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = coverage[lang];
+const { viewBox, regions, hq, cities } = italyMap;
+
+const isLombardia = (n: string) => /lombard/i.test(n);
+// Milano is represented by the HQ marker, so skip it as a separate city.
+const pts = cities.filter((c) => c.n !== "Milano");
+const lines = pts.map((c, i) => {
+  const dx = c.x - hq.x;
+  const dy = c.y - hq.y;
+  return { x2: c.x, y2: c.y, len: Math.round(Math.hypot(dx, dy)), i };
+});
+const anchorFor = (x: number) => (x < hq.x ? "end" : "start");
+---
+
+<section class="section coverage">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="coverage-grid">
+      <figure class="map-figure">
+        <svg
+          class="map"
+          viewBox={`0 0 ${viewBox.w} ${viewBox.h}`}
+          role="img"
+          aria-label={lang === "it"
+            ? "Mappa dell'Italia: base in Lombardia, copertura nazionale da remoto"
+            : "Map of Italy: based in Lombardy, nationwide coverage, remote"}
+        >
+          <g class="map-regions">
+            {regions.map((r) => <path class:list={["map-land", { "is-region": isLombardia(r.name) }]} d={r.d} />)}
+          </g>
+
+          {
+            lines.map((l) => (
+              <line
+                class="map-line"
+                x1={hq.x}
+                y1={hq.y}
+                x2={l.x2}
+                y2={l.y2}
+                pathLength={l.len}
+                style={`--len:${l.len};--i:${l.i}`}
+              />
+            ))
+          }
+
+          {pts.map((c) => <circle class="map-city" cx={c.x} cy={c.y} r="2.4" />)}
+          {
+            pts.map((c) => (
+              <text class="map-label" x={anchorFor(c.x) === "end" ? c.x - 6 : c.x + 6} y={c.y + 3} text-anchor={anchorFor(c.x)}>
+                {c.n}
+              </text>
+            ))
+          }
+
+          <circle class="map-ping" cx={hq.x} cy={hq.y} r="6" />
+          <circle class="map-hq" cx={hq.x} cy={hq.y} r="4.5" />
+          <text class="map-hq-label" x={hq.x} y={hq.y - 12} text-anchor="middle">{t.hqLabel}</text>
+        </svg>
+      </figure>
+
+      <div class="coverage-info">
+        <div class="cov-block">
+          <span class="k">— {t.baseLabel}</span>
+          <span class="v">{t.baseValue}</span>
+        </div>
+        <div class="cov-block">
+          <span class="k">— {t.reachLabel}</span>
+          <span class="v">{t.reachValue}</span>
+        </div>
+        <p class="cov-note">{t.note}</p>
+        <BookCall label={t.cta} journey="coverage" lang={lang} class="btn-blue" />
+      </div>
+    </div>
+  </div>
+</section>

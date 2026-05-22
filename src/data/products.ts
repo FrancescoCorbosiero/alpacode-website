@@ -25,7 +25,7 @@ export interface ProdottiPageData {
 
 export const prodotti: Record<Lang, ProdottiPageData> = {
   it: {
-    crumb: "§03 · PRODOTTI",
+    crumb: "03 · PRODOTTI",
     h1Line1: "Pacchetti",
     h1Line2: "pronti all'uso.",
     lede: "Soluzioni già pronte, con un prezzo deciso prima di partire. Scegli il punto da cui iniziare: al resto pensiamo insieme.",
@@ -112,7 +112,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
     ],
   },
   en: {
-    crumb: "§03 · PRODUCTS",
+    crumb: "03 · PRODUCTS",
     h1Line1: "Ready-made",
     h1Line2: "packages.",
     lede: "Ready-made solutions, with a price agreed before we start. Pick where to begin — we'll figure out the rest together.",
