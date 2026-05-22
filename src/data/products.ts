@@ -17,6 +17,8 @@ export interface Product {
 export interface ProductGroup {
   label: string;
   tagline: string;
+  /** Renders the cards with the special "flagship" treatment. */
+  featured?: boolean;
   list: Product[];
 }
 export interface ProdottiPageData {
@@ -39,6 +41,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
       {
         label: "Prodotti digitali",
         tagline: "I nostri prodotti, pronti a lavorare per te.",
+        featured: true,
         list: [
           {
             n: "01",
@@ -82,7 +85,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             meta: [
               { k: "Tempi", v: "2 — 3 settimane" },
               { k: "Prezzo", v: "Fisso, deciso prima" },
-              { k: "Dopo", v: "Care Plan opzionale" },
+              { k: "Dopo", v: "Manutenzione opzionale" },
             ],
           },
           {
@@ -124,32 +127,6 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Canali", v: "Google · Meta" },
             ],
           },
-          {
-            n: "07",
-            tag: "ABBONAMENTO",
-            t: "Care Plan",
-            d: "Ci prendiamo cura del tuo sito tutti i mesi: aggiornamenti, sicurezza, backup e le modifiche che ti servono.",
-            forWho: "Per chi è già online",
-            items: ["Aggiornamenti & backup", "Sicurezza & monitoraggio", "Piccole modifiche incluse", "Canale di supporto dedicato", "Report periodico"],
-            meta: [
-              { k: "Formato", v: "Canone mensile" },
-              { k: "Disdetta", v: "Quando vuoi" },
-              { k: "Risposta", v: "< mezza giornata" },
-            ],
-          },
-          {
-            n: "08",
-            tag: "SU MISURA",
-            t: "Digitalizzazione Full",
-            d: "Il percorso completo per digitalizzare tutta l'attività: dal sito ai gestionali, dal brand alla formazione del team.",
-            forWho: "Per imprese che vogliono fare sul serio",
-            items: ["Audit & roadmap", "Sito + software su misura", "Brand & comunicazione", "Integrazioni e automazioni", "Formazione del team", "Supporto continuativo"],
-            meta: [
-              { k: "Formato", v: "Percorso dedicato" },
-              { k: "Prezzo", v: "Su misura, a fasi" },
-              { k: "Durata", v: "Definita insieme" },
-            ],
-          },
         ],
       },
     ],
@@ -164,6 +141,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
       {
         label: "Digital products",
         tagline: "Our own products, ready to work for you.",
+        featured: true,
         list: [
           {
             n: "01",
@@ -207,7 +185,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             meta: [
               { k: "Lead time", v: "2 — 3 weeks" },
               { k: "Price", v: "Fixed, agreed first" },
-              { k: "After", v: "Optional Care Plan" },
+              { k: "After", v: "Optional maintenance" },
             ],
           },
           {
@@ -247,32 +225,6 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Lead time", v: "1 — 2 weeks" },
               { k: "Price", v: "Fixed + ad budget" },
               { k: "Channels", v: "Google · Meta" },
-            ],
-          },
-          {
-            n: "07",
-            tag: "SUBSCRIPTION",
-            t: "Care Plan",
-            d: "We look after your site every month: updates, security, backups and the changes you need.",
-            forWho: "For those already online",
-            items: ["Updates & backups", "Security & monitoring", "Small changes included", "Dedicated support channel", "Periodic report"],
-            meta: [
-              { k: "Format", v: "Monthly fee" },
-              { k: "Cancel", v: "Anytime" },
-              { k: "Reply", v: "< half a worked day" },
-            ],
-          },
-          {
-            n: "08",
-            tag: "BESPOKE",
-            t: "Full Digitalization",
-            d: "The complete path to digitalize your whole business: from the site to internal tools, from brand to team training.",
-            forWho: "For businesses that mean it",
-            items: ["Audit & roadmap", "Custom site + software", "Brand & communication", "Integrations and automations", "Team training", "Ongoing support"],
-            meta: [
-              { k: "Format", v: "Dedicated path" },
-              { k: "Price", v: "Bespoke, in phases" },
-              { k: "Duration", v: "Set together" },
             ],
           },
         ],

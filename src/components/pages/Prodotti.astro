@@ -27,9 +27,9 @@ const start = lang === "it" ? "Inizia da qui" : "Start here";
             <h2 class="svc-group-verb">{g.label}</h2>
             <p class="svc-group-tag">{g.tagline}</p>
           </div>
-          <div class="product-grid">
+          <div class:list={["product-grid", { "product-grid--featured": g.featured }]}>
             {g.list.map((p) => (
-              <article class="product">
+              <article class:list={["product", { "product--featured": g.featured }]}>
                 <div class="product-top">
                   <span class="product-no">{p.n}</span>
                   <span class="product-tag">{p.tag}</span>

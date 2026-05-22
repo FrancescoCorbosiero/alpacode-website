@@ -83,8 +83,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Products · Alpacode Digital Solutions",
     },
     description: {
-      it: "Pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan e Digitalizzazione Full. Prezzo deciso prima di partire.",
-      en: "Ready-made packages at a fixed price: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan and Full Digitalization. Price agreed before we start.",
+      it: "I prodotti digitali Alpacode — Hive Commerce e Alpacode Pro Kit — e i pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV.",
+      en: "Alpacode's digital products — Hive Commerce and Alpacode Pro Kit — plus fixed-price packages: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV.",
     },
   },
   lavori: {

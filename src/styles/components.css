@@ -2267,6 +2267,94 @@ cal-modal-box iframe,
   margin-top: 40px;
 }
 
+/* ---------- Featured products (flagship treatment) ---------- */
+.product-grid--featured {
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 0;
+  border-bottom: 0;
+  gap: 20px;
+}
+.product--featured {
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  padding: 34px 30px 30px;
+  position: relative;
+  overflow: hidden;
+}
+.product--featured::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--strut);
+  background: var(--blue);
+}
+/* faint isometric-cube sheen, top-right, like the dark bands */
+.product--featured::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  --s: 120px;
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, rgba(244, 241, 232, 0.05) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      rgba(59, 114, 233, 0.16) 0 60deg,
+      rgba(244, 241, 232, 0.02) 0 120deg,
+      rgba(244, 241, 232, 0.05) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+  -webkit-mask-image: radial-gradient(70% 80% at 100% 0%, #000 4%, transparent 60%);
+  mask-image: radial-gradient(70% 80% at 100% 0%, #000 4%, transparent 60%);
+  pointer-events: none;
+}
+.product--featured > * {
+  position: relative;
+  z-index: 1;
+}
+.product--featured .product-no {
+  color: var(--blue-soft);
+}
+.product--featured .product-tag {
+  background: var(--blue);
+  color: #fff;
+}
+.product--featured h3 {
+  color: var(--paper);
+  font-size: 32px;
+}
+.product--featured .product-for {
+  color: var(--blue-soft);
+}
+.product--featured .product-desc {
+  color: rgba(244, 241, 232, 0.82);
+}
+.product--featured .product-items {
+  color: rgba(244, 241, 232, 0.92);
+}
+.product--featured .product-meta {
+  border-top-color: rgba(244, 241, 232, 0.2);
+}
+.product--featured .product-meta .k {
+  color: rgba(244, 241, 232, 0.55);
+}
+.product--featured .product-meta .v {
+  color: var(--paper);
+}
+.product--featured .btn {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+.product--featured .btn:hover {
+  background: var(--blue-deep);
+  border-color: var(--blue-deep);
+}
+
 /* ---------- Service groups (verbs) ---------- */
 .svc-group + .svc-group {
   margin-top: 24px;
@@ -2770,7 +2858,8 @@ cal-modal-box iframe,
     max-width: 340px;
     margin: 0 auto;
   }
-  .product-grid {
+  .product-grid,
+  .product-grid--featured {
     grid-template-columns: 1fr;
   }
   .product {
