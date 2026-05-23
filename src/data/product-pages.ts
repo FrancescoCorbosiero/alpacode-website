@@ -2,9 +2,8 @@
    Product detail pages — content for the standalone presentations
    of Hive Commerce and Alpacode Pro Kit.
 
-   Replace any of the strings below with final copy. Structure is
-   stable: feature counts, FAQ counts and qualification lists can
-   change length without code changes.
+   Structure is stable: feature counts, FAQ counts and qualification
+   lists can change length without code changes.
    ============================================================ */
 import type { Lang } from "../i18n/types";
 

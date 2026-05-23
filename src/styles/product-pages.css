@@ -129,6 +129,16 @@
   pointer-events: none;
 }
 
+/* Hive: real honeycomb pattern in place of the isometric tile.
+   Pointy-top hex lattice — R=30, tile = 51.96 × 90. Three hex paths
+   per tile (one full + two halved) tessellate seamlessly on repeat. */
+.pp--hive .pp-hero::before {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='51.96' height='90' viewBox='0 0 51.96 90'%3E%3Cg fill='none' stroke='%23FFD400' stroke-opacity='0.14' stroke-width='1'%3E%3Cpath d='M25.98 -15 L51.96 0 L51.96 30 L25.98 45 L0 30 L0 0 Z'/%3E%3Cpath d='M0 30 L25.98 45 L25.98 75 L0 90 L-25.98 75 L-25.98 45 Z'/%3E%3Cpath d='M51.96 30 L77.94 45 L77.94 75 L51.96 90 L25.98 75 L25.98 45 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 52px 90px;
+  background-repeat: repeat;
+}
+
 .pp-hero .wrap-wide {
   position: relative;
   z-index: 1;
@@ -670,6 +680,16 @@
   inset: 0;
   background: radial-gradient(60% 80% at 50% 100%, var(--pp-stage-grid), transparent 70%);
   pointer-events: none;
+}
+/* Hive: layer a faint honeycomb beneath the radial glow on the closer */
+.pp--hive .pp-cta-final::before {
+  background:
+    radial-gradient(60% 80% at 50% 100%, var(--pp-stage-grid), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='51.96' height='90' viewBox='0 0 51.96 90'%3E%3Cg fill='none' stroke='%23FFD400' stroke-opacity='0.10' stroke-width='1'%3E%3Cpath d='M25.98 -15 L51.96 0 L51.96 30 L25.98 45 L0 30 L0 0 Z'/%3E%3Cpath d='M0 30 L25.98 45 L25.98 75 L0 90 L-25.98 75 L-25.98 45 Z'/%3E%3Cpath d='M51.96 30 L77.94 45 L77.94 75 L51.96 90 L25.98 75 L25.98 45 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:
+    100% 100%,
+    52px 90px;
+  background-repeat: no-repeat, repeat;
 }
 .pp-cta-final .wrap-wide {
   position: relative;
