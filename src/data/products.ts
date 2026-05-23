@@ -13,6 +13,8 @@ export interface Product {
   forWho: string;
   items: string[];
   meta: ProductMeta[];
+  /** When set, the card links to a dedicated product page under /<slug>. */
+  slug?: string;
 }
 export interface ProductGroup {
   label: string;
@@ -55,6 +57,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Incluso", v: "Tema grafico" },
               { k: "Licenza", v: "Su richiesta" },
             ],
+            slug: "hive-commerce",
           },
           {
             n: "02",
@@ -68,6 +71,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Licenza", v: "Personale" },
               { k: "Prezzo", v: "Su richiesta" },
             ],
+            slug: "alpacode-pro-kit",
           },
         ],
       },
@@ -155,6 +159,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Included", v: "Graphic theme" },
               { k: "License", v: "On request" },
             ],
+            slug: "hive-commerce",
           },
           {
             n: "02",
@@ -168,6 +173,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "License", v: "Personal" },
               { k: "Price", v: "On request" },
             ],
+            slug: "alpacode-pro-kit",
           },
         ],
       },

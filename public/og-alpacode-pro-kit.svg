@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="48" height="48">
+      <path d="M48 0L0 0 0 48" fill="none" stroke="#E63422" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="paperVignette" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4F1E8" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#F4F1E8" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F4F1E8"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#paperVignette)"/>
+  <!-- Top strut -->
+  <rect x="0" y="0" width="1200" height="8" fill="#E63422"/>
+  <!-- Brand mark -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#54524C" font-size="14" letter-spacing="2.8">
+    <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
+  </g>
+  <!-- Eyebrow -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
+    <rect x="80" y="160" width="14" height="14" fill="#E63422"/>
+    <text x="106" y="172" fill="#E63422">EARLY ACCESS · Q3 2026</text>
+  </g>
+  <!-- Accent bar -->
+  <rect x="80" y="220" width="120" height="8" fill="#E63422"/>
+  <!-- Headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="108" fill="#0A0A0A">
+    <text x="80" y="332">ALPACODE PRO KIT</text>
+  </g>
+  <!-- Sub-headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="56" fill="#E63422">
+    <text x="80" y="406">Tutto quello che ti serve.</text>
+  </g>
+  <!-- Lede -->
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#54524C">
+    <text x="80" y="470">Il kit completo per diventare Web Master.</text>
+    <text x="80" y="502">Guide, codice, dashboard, contratti.</text>
+  </g>
+  <!-- Foot meta -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#54524C">
+    <text x="80" y="582">PRODOTTO · 02 · ALPACODE PRO KIT</text>
+    <text x="1120" y="582" text-anchor="end" fill="#E63422">ALPACODE.IT</text>
+  </g>
+</svg>

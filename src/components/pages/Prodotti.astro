@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { prodotti } from "../../data/products";
+import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import Values from "../home/Values.astro";
 import CtaFinal from "../home/CtaFinal.astro";
@@ -12,6 +13,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = prodotti[lang];
 const start = lang === "it" ? "Inizia da qui" : "Start here";
+const learnMore = lang === "it" ? "Scopri di più" : "Learn more";
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
@@ -50,7 +52,13 @@ const start = lang === "it" ? "Inizia da qui" : "Start here";
                     </div>
                   ))}
                 </div>
-                <BookCall label={start} journey="product" lang={lang} class="btn-sm" />
+                {p.slug ? (
+                  <a class="btn btn-sm" href={localizePath(p.slug, lang)} data-journey="product-learn-more">
+                    {learnMore} <span class="arrow">→</span>
+                  </a>
+                ) : (
+                  <BookCall label={start} journey="product" lang={lang} class="btn-sm" />
+                )}
               </article>
             ))}
           </div>

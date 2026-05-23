@@ -1,0 +1,19 @@
+---
+import Layout from "../../components/Layout.astro";
+import ProductPage from "../../components/pages/ProductPage.astro";
+import { hiveCommerce } from "../../data/product-pages";
+const lang = "en" as const;
+const data = hiveCommerce[lang];
+---
+
+<Layout
+  lang={lang}
+  active="prodotti"
+  slug="hive-commerce"
+  title={data.title}
+  description={data.description}
+  ogImage={data.ogImage}
+  noindex
+>
+  <ProductPage lang={lang} variant="hive" data={data} />
+</Layout>

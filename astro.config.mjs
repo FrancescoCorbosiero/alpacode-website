@@ -49,6 +49,10 @@ export default defineConfig({
         defaultLocale: 'it',
         locales: { it: 'it-IT', en: 'en-US' },
       },
+      // Pre-launch product pages: noindex'd, so keep them out of the sitemap
+      // until launch. Drop these entries when going live.
+      filter: (page) =>
+        !/\/(hive-commerce|alpacode-pro-kit)\/?$/.test(page),
     }),
   ],
   i18n: {
