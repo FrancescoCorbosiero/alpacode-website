@@ -2108,6 +2108,25 @@ cal-modal-box iframe,
 .article .prose h2,
 .article .prose h3 {
   scroll-margin-top: 96px;
+  position: relative;
+}
+.article .prose .heading-anchor {
+  display: inline-block;
+  margin-left: 12px;
+  color: var(--mute);
+  font-family: var(--t-mono);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease), color 0.18s var(--ease);
+}
+.article .prose h2:hover .heading-anchor,
+.article .prose h3:hover .heading-anchor,
+.article .prose .heading-anchor:focus {
+  opacity: 1;
+}
+.article .prose .heading-anchor:hover {
+  color: var(--blue);
 }
 .article .prose img {
   display: block;

@@ -4,6 +4,8 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +15,31 @@ export default defineConfig({
   redirects: {
     '/scuola': '/learning',
     '/en/scuola': '/en/learning',
+  },
+  markdown: {
+    shikiConfig: {
+      theme: 'min-light',
+      wrap: true,
+    },
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: {
+            className: ['heading-anchor'],
+            ariaLabel: 'Link to this section',
+          },
+          content: {
+            type: 'element',
+            tagName: 'span',
+            properties: { ariaHidden: 'true' },
+            children: [{ type: 'text', value: '#' }],
+          },
+        },
+      ],
+    ],
   },
   integrations: [
     react(),

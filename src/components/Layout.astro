@@ -16,7 +16,7 @@ import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
 import { ui, cmdk } from "../i18n/ui";
 import { business } from "../data/business";
-import { CAL_CONFIGURED } from "../lib/calcom";
+import { CAL_CONFIGURED, CAL_ORIGIN } from "../lib/calcom";
 import { organizationSchema, websiteSchema } from "../lib/schema";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
@@ -111,9 +111,16 @@ const cmdLabels: CmdLabels = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={title} />
     <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_US"} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
     <meta name="generator" content={Astro.generator} />
+
+    {CAL_CONFIGURED && <link rel="preconnect" href={CAL_ORIGIN} crossorigin />}
 
     <link rel="alternate" type="application/rss+xml" title="Alpacode · Blog" href={rssHref} />
     <script type="application/ld+json" is:inline set:html={ldJson} />
