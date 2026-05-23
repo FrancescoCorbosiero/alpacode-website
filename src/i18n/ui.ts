@@ -113,8 +113,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Blog · Alpacode Digital Solutions",
     },
     description: {
-      it: "Note, guide e pensieri. Articoli tecnici, ragionamenti lunghi, raramente news. Quello che impariamo lo scriviamo.",
-      en: "Notes, guides and thoughts. Technical articles, long-form reasoning, rarely news. What we learn we write.",
+      it: "Note, guide e riflessioni. Articoli tecnici, ragionamenti lunghi, raramente news. Quello che impariamo lo scriviamo.",
+      en: "Notes, guides and insights. Technical articles, long-form reasoning, rarely news. What we learn we write.",
     },
   },
   faq: {

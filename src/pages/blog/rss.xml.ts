@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   const posts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
   return rss({
     title: "Alpacode · Blog",
-    description: "Note, guide e pensieri. Quello che impariamo lo scriviamo.",
+    description: "Note, guide e riflessioni. Quello che impariamo lo scriviamo.",
     site: context.site ?? "https://alpacode.it",
     items: posts.map((p) => {
       const iso = isoFromDisplayDate(p.data.date[lang]);

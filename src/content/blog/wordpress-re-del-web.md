@@ -1,6 +1,6 @@
 ---
 order: 1
-audience: "thoughts"
+audience: "insights"
 date: { it: "05 — 2026", en: "05 — 2026" }
 category: { it: "WEB", en: "WEB" }
 title:
