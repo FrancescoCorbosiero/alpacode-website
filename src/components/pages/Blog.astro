@@ -4,27 +4,69 @@ import type { Lang } from "../../i18n/types";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
+import BlogList from "../islands/BlogList.tsx";
+import type { BlogPost, AudienceTab, BlogLabels } from "../islands/BlogList";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 
-const posts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+const all = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+
+const posts: BlogPost[] = all.map((p) => ({
+  id: p.id,
+  href: localizePath(`blog/${p.id}`, lang),
+  title: p.data.title[lang],
+  descriptor: p.data.descriptor[lang],
+  date: p.data.date[lang],
+  category: p.data.category[lang],
+  audience: p.data.audience,
+}));
+
+const tabs: AudienceTab[] =
+  lang === "it"
+    ? [
+        { key: "all", label: "Tutti" },
+        { key: "clients", label: "Privati e Aziende" },
+        { key: "developers", label: "Sviluppatori e Tecnici" },
+        { key: "insights", label: "Riflessioni" },
+      ]
+    : [
+        { key: "all", label: "All" },
+        { key: "clients", label: "People & Businesses" },
+        { key: "developers", label: "Developers & Tech" },
+        { key: "insights", label: "Insights" },
+      ];
+
+const labels: BlogLabels =
+  lang === "it"
+    ? {
+        featured: "In evidenza",
+        read: "Leggi l'articolo",
+        empty: "Nessun articolo in questa sezione, per ora.",
+        filter: "Filtra per pubblico",
+      }
+    : {
+        featured: "Featured",
+        read: "Read the article",
+        empty: "No articles in this section yet.",
+        filter: "Filter by audience",
+      };
 
 const t =
   lang === "it"
     ? {
         crumb: "06 · BLOG",
         line1: "Note,",
-        line2: "guide e pensieri.",
-        lede: "Quello che impariamo lo scriviamo. Articoli tecnici, ragionamenti lunghi, raramente news.",
+        line2: "guide e riflessioni.",
+        lede: "Note, guide e riflessioni. Contenuti per chi vuole digitalizzare la propria attività, per chi la digitalizzazione la costruisce ogni giorno, e per chi vuole leggere uno sguardo informato sul digitale.",
       }
     : {
         crumb: "06 · BLOG",
         line1: "Notes,",
-        line2: "guides and thoughts.",
-        lede: "What we learn we write. Technical articles, long-form reasoning, rarely news.",
+        line2: "guides and insights.",
+        lede: "Notes, guides and insights. Content for those looking to digitalize their business, for those who build digital every day, and for anyone after an informed view on the industry.",
       };
 ---
 
@@ -32,21 +74,7 @@ const t =
 
 <section class="section" style="padding-top:24px">
   <div class="wrap-wide">
-    <div class="blog-list">
-      {
-        posts.map((p) => (
-          <a class="blog-row" href={localizePath(`blog/${p.id}`, lang)}>
-            <span class="date">{p.data.date[lang]}</span>
-            <h3>
-              {p.data.title[lang]}
-              <small>{p.data.descriptor[lang]}</small>
-            </h3>
-            <span class="cat">{p.data.category[lang]}</span>
-            <span class="arr">→</span>
-          </a>
-        ))
-      }
-    </div>
+    <BlogList client:load posts={posts} tabs={tabs} labels={labels} />
   </div>
 </section>
 

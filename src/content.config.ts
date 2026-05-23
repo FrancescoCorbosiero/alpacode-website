@@ -3,6 +3,10 @@ import { glob } from "astro/loaders";
 
 const localized = z.object({ it: z.string(), en: z.string() });
 
+/** Site target audiences (+ a cross-cutting "insights" section) for the Blog page tabs. */
+export const AUDIENCES = ["clients", "developers", "insights"] as const;
+export type Audience = (typeof AUDIENCES)[number];
+
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
@@ -13,6 +17,8 @@ const blog = defineCollection({
     category: localized,
     title: localized,
     descriptor: localized,
+    /** Which target audience this post is written for — drives the Blog tabs. */
+    audience: z.enum(AUDIENCES).default("clients"),
   }),
 });
 
