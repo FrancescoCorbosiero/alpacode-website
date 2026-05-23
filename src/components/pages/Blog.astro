@@ -4,13 +4,55 @@ import type { Lang } from "../../i18n/types";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
+import BlogList from "../islands/BlogList.tsx";
+import type { BlogPost, AudienceTab, BlogLabels } from "../islands/BlogList";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 
-const posts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+const all = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+
+const posts: BlogPost[] = all.map((p) => ({
+  id: p.id,
+  href: localizePath(`blog/${p.id}`, lang),
+  title: p.data.title[lang],
+  descriptor: p.data.descriptor[lang],
+  date: p.data.date[lang],
+  category: p.data.category[lang],
+  audience: p.data.audience,
+}));
+
+const tabs: AudienceTab[] =
+  lang === "it"
+    ? [
+        { key: "all", label: "Tutti" },
+        { key: "entrepreneurs", label: "Imprenditori" },
+        { key: "developers", label: "Sviluppatori" },
+        { key: "curious", label: "Curiosi" },
+      ]
+    : [
+        { key: "all", label: "All" },
+        { key: "entrepreneurs", label: "Entrepreneurs" },
+        { key: "developers", label: "Developers" },
+        { key: "curious", label: "Curious" },
+      ];
+
+const labels: BlogLabels =
+  lang === "it"
+    ? {
+        featured: "In evidenza",
+        read: "Leggi l'articolo",
+        empty: "Nessun articolo per questa sezione, per ora.",
+        filter: "Filtra per pubblico",
+      }
+    : {
+        featured: "Featured",
+        read: "Read the article",
+        empty: "No articles in this section yet.",
+        filter: "Filter by audience",
+      };
 
 const t =
   lang === "it"
@@ -18,13 +60,13 @@ const t =
         crumb: "06 · BLOG",
         line1: "Note,",
         line2: "guide e pensieri.",
-        lede: "Quello che impariamo lo scriviamo. Articoli tecnici, ragionamenti lunghi, raramente news.",
+        lede: "Quello che impariamo lo scriviamo. Articoli tecnici, riflessioni e guide pratiche, organizzati per il pubblico a cui parlano. Scegli il tuo qui sotto.",
       }
     : {
         crumb: "06 · BLOG",
         line1: "Notes,",
         line2: "guides and thoughts.",
-        lede: "What we learn we write. Technical articles, long-form reasoning, rarely news.",
+        lede: "What we learn we write. Technical articles, long-form reasoning and practical guides, organized by the audience they speak to. Pick yours below.",
       };
 ---
 
@@ -32,21 +74,7 @@ const t =
 
 <section class="section" style="padding-top:24px">
   <div class="wrap-wide">
-    <div class="blog-list">
-      {
-        posts.map((p) => (
-          <a class="blog-row" href={localizePath(`blog/${p.id}`, lang)}>
-            <span class="date">{p.data.date[lang]}</span>
-            <h3>
-              {p.data.title[lang]}
-              <small>{p.data.descriptor[lang]}</small>
-            </h3>
-            <span class="cat">{p.data.category[lang]}</span>
-            <span class="arr">→</span>
-          </a>
-        ))
-      }
-    </div>
+    <BlogList client:load posts={posts} tabs={tabs} labels={labels} />
   </div>
 </section>
 

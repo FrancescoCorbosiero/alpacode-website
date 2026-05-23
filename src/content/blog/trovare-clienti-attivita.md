@@ -1,5 +1,6 @@
 ---
 order: 2
+audience: "entrepreneurs"
 date: { it: "05 — 2026", en: "05 — 2026" }
 category: { it: "CRESCITA", en: "GROWTH" }
 title:

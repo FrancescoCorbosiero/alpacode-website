@@ -1,5 +1,6 @@
 ---
 order: 3
+audience: "developers"
 date: { it: "05 — 2026", en: "05 — 2026" }
 category: { it: "PROFESSIONE", en: "CAREER" }
 title:
