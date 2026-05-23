@@ -19,13 +19,22 @@ const { lang, active, slug } = Astro.props;
 const homeHref = localizePath("", lang);
 const itHref = localizePath(slug, "it");
 const enHref = localizePath(slug, "en");
+
+const status = lang === "it" ? "DISPONIBILE · Q3 2026" : "AVAILABLE · Q3 2026";
 ---
 
 <header class="site-header">
   <div class="header-strut"></div>
   <div class="header-row">
-    <a class="brand" href={homeHref} aria-label="Alpacode home">
-      <img class="brand-logo" src="/logo.png" alt="" width="52" height="52" />
+    <a class="brand" href={homeHref} aria-label="Alpacode — home">
+      <span class="brand-mark">
+        <span class="brand-name">ALPACODE</span>
+        <span class="brand-strut" aria-hidden="true"></span>
+        <span class="brand-meta">
+          <span class="status-dot" aria-hidden="true"></span>
+          {status}
+        </span>
+      </span>
     </a>
 
     <nav class="nav" aria-label="primary">
