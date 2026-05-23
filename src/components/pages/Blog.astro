@@ -5,7 +5,7 @@ import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import BlogList from "../islands/BlogList.tsx";
-import type { BlogPost, AudienceTab, BlogLabels } from "../islands/BlogList";
+import type { BlogPost, TopicTab, BlogLabels } from "../islands/BlogList";
 
 interface Props {
   lang: Lang;
@@ -21,22 +21,22 @@ const posts: BlogPost[] = all.map((p) => ({
   descriptor: p.data.descriptor[lang],
   date: p.data.date[lang],
   category: p.data.category[lang],
-  audience: p.data.audience,
+  topic: p.data.topic,
 }));
 
-const tabs: AudienceTab[] =
+const tabs: TopicTab[] =
   lang === "it"
     ? [
         { key: "all", label: "Tutti" },
-        { key: "entrepreneurs", label: "Imprenditori" },
-        { key: "developers", label: "Sviluppatori" },
-        { key: "curious", label: "Curiosi" },
+        { key: "strategy", label: "Strategia" },
+        { key: "craft", label: "Mestiere" },
+        { key: "perspectives", label: "Sguardi" },
       ]
     : [
         { key: "all", label: "All" },
-        { key: "entrepreneurs", label: "Entrepreneurs" },
-        { key: "developers", label: "Developers" },
-        { key: "curious", label: "Curious" },
+        { key: "strategy", label: "Strategy" },
+        { key: "craft", label: "Craft" },
+        { key: "perspectives", label: "Perspectives" },
       ];
 
 const labels: BlogLabels =
@@ -44,14 +44,14 @@ const labels: BlogLabels =
     ? {
         featured: "In evidenza",
         read: "Leggi l'articolo",
-        empty: "Nessun articolo per questa sezione, per ora.",
-        filter: "Filtra per pubblico",
+        empty: "Nessun articolo in questa sezione, per ora.",
+        filter: "Filtra per tema",
       }
     : {
         featured: "Featured",
         read: "Read the article",
         empty: "No articles in this section yet.",
-        filter: "Filter by audience",
+        filter: "Filter by topic",
       };
 
 const t =
@@ -60,13 +60,13 @@ const t =
         crumb: "06 · BLOG",
         line1: "Note,",
         line2: "guide e pensieri.",
-        lede: "Quello che impariamo lo scriviamo. Articoli tecnici, riflessioni e guide pratiche, organizzati per il pubblico a cui parlano. Scegli il tuo qui sotto.",
+        lede: "Quello che impariamo lo scriviamo. Strategie, mestiere e sguardi sul digitale — scegli da dove vuoi partire.",
       }
     : {
         crumb: "06 · BLOG",
         line1: "Notes,",
         line2: "guides and thoughts.",
-        lede: "What we learn we write. Technical articles, long-form reasoning and practical guides, organized by the audience they speak to. Pick yours below.",
+        lede: "What we learn we write. Strategy, craft and perspectives on digital — pick where to start.",
       };
 ---
 

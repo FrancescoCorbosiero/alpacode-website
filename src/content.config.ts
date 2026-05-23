@@ -3,9 +3,9 @@ import { glob } from "astro/loaders";
 
 const localized = z.object({ it: z.string(), en: z.string() });
 
-/** Audience macro-taxonomy used by the blog page tabs. */
-export const AUDIENCES = ["entrepreneurs", "developers", "curious"] as const;
-export type Audience = (typeof AUDIENCES)[number];
+/** Editorial macro-taxonomy used by the Blog page tabs. */
+export const TOPICS = ["strategy", "craft", "perspectives"] as const;
+export type Topic = (typeof TOPICS)[number];
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
@@ -17,8 +17,8 @@ const blog = defineCollection({
     category: localized,
     title: localized,
     descriptor: localized,
-    /** Which macro audience this post is written for — drives the Blog tabs. */
-    audience: z.enum(AUDIENCES).default("curious"),
+    /** Which macro topic this post belongs to — drives the Blog tabs. */
+    topic: z.enum(TOPICS).default("perspectives"),
   }),
 });
 

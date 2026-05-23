@@ -7,9 +7,9 @@ export interface BlogPost {
   descriptor: string;
   date: string;
   category: string;
-  audience: string;
+  topic: string;
 }
-export interface AudienceTab {
+export interface TopicTab {
   key: string;
   label: string;
 }
@@ -21,7 +21,7 @@ export interface BlogLabels {
 }
 interface Props {
   posts: BlogPost[];
-  tabs: AudienceTab[];
+  tabs: TopicTab[];
   labels: BlogLabels;
 }
 
@@ -63,9 +63,9 @@ function BlogList({ posts, tabs, labels }: Props) {
   };
 
   const counts: Record<string, number> = { all: posts.length };
-  for (const p of posts) counts[p.audience] = (counts[p.audience] ?? 0) + 1;
+  for (const p of posts) counts[p.topic] = (counts[p.topic] ?? 0) + 1;
 
-  const filtered = active === "all" ? posts : posts.filter((p) => p.audience === active);
+  const filtered = active === "all" ? posts : posts.filter((p) => p.topic === active);
   const [featured, ...rest] = filtered;
 
   return (
