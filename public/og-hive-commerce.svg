@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="iso" patternUnits="userSpaceOnUse" width="120" height="69.28">
+      <polygon points="60,0 120,34.64 60,69.28 0,34.64" fill="none" stroke="#FFD400" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="vignette" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A0A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <rect width="1200" height="630" fill="url(#iso)"/>
+  <rect width="1200" height="630" fill="url(#vignette)" opacity="0.4"/>
+  <!-- Top strut -->
+  <rect x="0" y="0" width="1200" height="8" fill="#FFD400"/>
+  <!-- Brand mark -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#8A857A" font-size="14" letter-spacing="2.8">
+    <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
+  </g>
+  <!-- Eyebrow -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
+    <rect x="80" y="160" width="14" height="14" fill="#FFD400"/>
+    <text x="106" y="172" fill="#FFD400">EARLY ACCESS · Q3 2026</text>
+  </g>
+  <!-- Accent bar -->
+  <rect x="80" y="220" width="120" height="8" fill="#FFD400"/>
+  <!-- Headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="108" fill="#F4F1E8">
+    <text x="80" y="332">HIVE COMMERCE</text>
+  </g>
+  <!-- Sub-headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="56" fill="#FFD400">
+    <text x="80" y="406">Il tuo e-commerce, da solo.</text>
+  </g>
+  <!-- Lede -->
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#B3B0A8">
+    <text x="80" y="470">Plugin WooCommerce per chi vuole vendere</text>
+    <text x="80" y="502">e basta. Tema grafico incluso.</text>
+  </g>
+  <!-- Foot meta -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#8A857A">
+    <text x="80" y="582">PRODOTTO · 01 · HIVE COMMERCE</text>
+    <text x="1120" y="582" text-anchor="end" fill="#FFD400">ALPACODE.IT</text>
+  </g>
+</svg>

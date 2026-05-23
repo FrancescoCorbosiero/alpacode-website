@@ -1,0 +1,271 @@
+---
+import type { Lang } from "../../i18n/types";
+import type { ProductPage } from "../../data/product-pages";
+import { localizePath } from "../../i18n/utils";
+import BookCall from "../BookCall.astro";
+
+interface Props {
+  lang: Lang;
+  /** Visual theme: hive = dark + yellow, pro-kit = paper + coral red. */
+  variant: "hive" | "pro-kit";
+  data: ProductPage;
+}
+const { lang, variant, data: t } = Astro.props;
+const prodottiHref = localizePath("prodotti", lang);
+const variantClass = `pp pp--${variant}`;
+---
+
+<div class={variantClass}>
+  {/* ---------- HERO ---------- */}
+  <section class="pp-hero">
+    <div class="wrap-wide">
+      <div class="pp-hero-top">
+        <a class="pp-crumb" href={prodottiHref}>{t.crumb}</a>
+        <span class="pp-eyebrow">
+          <span class="pp-dot" aria-hidden="true"></span>{t.eyebrow}
+        </span>
+      </div>
+
+      <h1 class="pp-h1">
+        <span class="pp-h1-bar" aria-hidden="true"></span>
+        <span class="pp-h1-line">{t.h1Line1}</span>
+        <span class="pp-h1-line pp-h1-line--accent">{t.h1Line2}</span>
+      </h1>
+
+      <div class="pp-hero-tail">
+        <p class="pp-lede">{t.lede}</p>
+        <div class="pp-hero-ctas">
+          <BookCall label={t.ctaPrimary} journey={`${variant}-hero`} lang={lang} class="btn-accent" />
+          <a class="btn btn-ghost-on-dark" href={`mailto:info@alpacode.it?subject=${encodeURIComponent(t.ctaSecondary)}`}>
+            {t.ctaSecondary} <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Hero visual placeholder — drop a real screenshot / mockup later */}
+      <div class="pp-hero-stage" aria-hidden="true">
+        <div class="pp-hero-stage-grid"></div>
+        <div class="pp-hero-stage-card">
+          <div class="pp-hero-stage-card-row pp-hero-stage-card-row--1"></div>
+          <div class="pp-hero-stage-card-row pp-hero-stage-card-row--2"></div>
+          <div class="pp-hero-stage-card-row pp-hero-stage-card-row--3"></div>
+          <div class="pp-hero-stage-card-row pp-hero-stage-card-row--4"></div>
+        </div>
+        <div class="pp-hero-stage-tag">{variant === "hive" ? "HIVE.DASH" : "PROKIT.APP"}</div>
+      </div>
+
+      <div class="pp-hero-meta">
+        {
+          t.heroMeta.map((m, i) => (
+            <div class="pp-hero-cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- PITCH ---------- */}
+  <section class="pp-section pp-pitch">
+    <div class="wrap-wide">
+      <div class="pp-sec-num">{t.pitchEyebrow}</div>
+      <h2 class="pp-pitch-lead">{t.pitchLead}</h2>
+      <p class="pp-pitch-body">{t.pitchBody}</p>
+    </div>
+  </section>
+
+  {/* ---------- FEATURES ---------- */}
+  <section class="pp-section pp-features">
+    <div class="wrap-wide">
+      <div class="pp-section-head">
+        <div>
+          <div class="pp-sec-num">{t.featuresEyebrow}</div>
+          <h2 class="pp-h2">{t.featuresHeading}</h2>
+        </div>
+      </div>
+      <div class="pp-features-grid">
+        {
+          t.features.map((f) => (
+            <article class="pp-feature">
+              <div class="pp-feature-top">
+                <span class="pp-feature-n">{f.n}</span>
+                <span class="pp-feature-strut" aria-hidden="true"></span>
+              </div>
+              <h3 class="pp-feature-t">{f.t}</h3>
+              <p class="pp-feature-d">{f.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STEPS / WHAT'S INSIDE ---------- */}
+  <section class="pp-section pp-section--invert pp-steps">
+    <div class="wrap-wide">
+      <div class="pp-section-head">
+        <div>
+          <div class="pp-sec-num">{t.stepsEyebrow}</div>
+          <h2 class="pp-h2">{t.stepsHeading}</h2>
+        </div>
+        <p class="pp-lede pp-lede--inline">{t.stepsLede}</p>
+      </div>
+      <div class="pp-steps-grid">
+        {
+          t.steps.map((s) => (
+            <div class="pp-step">
+              <div class="pp-step-n">{s.n}</div>
+              <div class="pp-step-strut" aria-hidden="true"></div>
+              <h3 class="pp-step-t">{s.t}</h3>
+              <p class="pp-step-d">{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FOR WHO ---------- */}
+  <section class="pp-section pp-for">
+    <div class="wrap-wide">
+      <div class="pp-section-head">
+        <div>
+          <div class="pp-sec-num">{t.forWhoEyebrow}</div>
+          <h2 class="pp-h2">{t.forWhoHeading}</h2>
+        </div>
+      </div>
+      <div class="pp-for-grid">
+        <div class="pp-for-col pp-for-col--yes">
+          <div class="pp-for-label">{t.forWhoLabel}</div>
+          <ul>
+            {t.forWho.map((it) => (
+              <li>
+                <span class="pp-for-mark pp-for-mark--yes" aria-hidden="true">{it.mark}</span>
+                <span>{it.t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="pp-for-col pp-for-col--no">
+          <div class="pp-for-label">{t.notForLabel}</div>
+          <ul>
+            {t.notFor.map((it) => (
+              <li>
+                <span class="pp-for-mark pp-for-mark--no" aria-hidden="true">{it.mark}</span>
+                <span>{it.t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- DIFFERENTIATOR / COMPARISON ---------- */}
+  <section class="pp-section pp-vs">
+    <div class="wrap-wide">
+      <div class="pp-section-head">
+        <div>
+          <div class="pp-sec-num">{t.vsEyebrow}</div>
+          <h2 class="pp-h2">{t.vsHeading}</h2>
+        </div>
+      </div>
+      <p class="pp-vs-claim">{t.vsClaim}</p>
+      <div class="pp-vs-table" role="table" aria-label={t.vsHeading}>
+        <div class="pp-vs-row pp-vs-row--head" role="row">
+          <div class="pp-vs-cell pp-vs-cell--k" role="columnheader"></div>
+          <div class="pp-vs-cell pp-vs-cell--ours" role="columnheader">{t.vsOursLabel}</div>
+          <div class="pp-vs-cell pp-vs-cell--theirs" role="columnheader">{t.vsTheirsLabel}</div>
+        </div>
+        {
+          t.vsRows.map((r) => (
+            <div class="pp-vs-row" role="row">
+              <div class="pp-vs-cell pp-vs-cell--k" role="cell">{r.k}</div>
+              <div class="pp-vs-cell pp-vs-cell--ours" role="cell">
+                <span class="pp-vs-mark" aria-hidden="true">●</span>
+                <span>{r.ours}</span>
+              </div>
+              <div class="pp-vs-cell pp-vs-cell--theirs" role="cell">
+                <span class="pp-vs-mark pp-vs-mark--mute" aria-hidden="true">○</span>
+                <span>{r.theirs}</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ ---------- */}
+  <section class="pp-section pp-faq">
+    <div class="wrap-wide">
+      <div class="pp-section-head">
+        <div>
+          <div class="pp-sec-num">{t.faqEyebrow}</div>
+          <h2 class="pp-h2">{t.faqHeading}</h2>
+        </div>
+      </div>
+      <div class="pp-faq-list">
+        {
+          t.faq.map((f) => (
+            <details class="pp-faq-item">
+              <summary>
+                <span class="pp-faq-q">{f.q}</span>
+                <span class="pp-faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="pp-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FINAL CTA ---------- */}
+  <section class="pp-section pp-cta-final">
+    <div class="wrap-wide">
+      <div class="pp-sec-num">{t.ctaFinalEyebrow}</div>
+      <div class="pp-cta-display">
+        {t.ctaFinalLine1}<br /><span class="pp-cta-underline">{t.ctaFinalLine2}</span>
+      </div>
+      <p class="pp-cta-sub">{t.ctaFinalSub}</p>
+      <div class="pp-cta-actions">
+        <BookCall label={t.ctaFinalCta} journey={`${variant}-cta-final`} lang={lang} class="btn-accent btn-lg" />
+        <a class="btn btn-ghost-on-dark" href={prodottiHref}>{t.ctaFinalAlt} <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STICKY CTA PILL ---------- */}
+  <div class="pp-sticky" data-pp-sticky>
+    <BookCall label={t.stickyCta} journey={`${variant}-sticky`} lang={lang} class="pp-sticky-btn" arrow={true} />
+  </div>
+</div>
+
+<script is:inline>
+  /* Show the sticky CTA only after the user scrolls past the hero. */
+  (function () {
+    const init = () => {
+      const sticky = document.querySelector("[data-pp-sticky]");
+      const hero = document.querySelector(".pp-hero");
+      if (!sticky || !hero) return;
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            sticky.classList.toggle("is-visible", !e.isIntersecting);
+          });
+        },
+        { threshold: 0, rootMargin: "-60px 0px 0px 0px" },
+      );
+      io.observe(hero);
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+    document.addEventListener("astro:page-load", init);
+  })();
+</script>

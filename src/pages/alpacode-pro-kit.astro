@@ -1,0 +1,19 @@
+---
+import Layout from "../components/Layout.astro";
+import ProductPage from "../components/pages/ProductPage.astro";
+import { alpacodeProKit } from "../data/product-pages";
+const lang = "it" as const;
+const data = alpacodeProKit[lang];
+---
+
+<Layout
+  lang={lang}
+  active="prodotti"
+  slug="alpacode-pro-kit"
+  title={data.title}
+  description={data.description}
+  ogImage={data.ogImage}
+  noindex
+>
+  <ProductPage lang={lang} variant="pro-kit" data={data} />
+</Layout>
