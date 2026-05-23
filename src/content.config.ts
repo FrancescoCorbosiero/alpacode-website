@@ -3,8 +3,8 @@ import { glob } from "astro/loaders";
 
 const localized = z.object({ it: z.string(), en: z.string() });
 
-/** Site target audiences for the Blog page tabs. */
-export const AUDIENCES = ["clients", "developers"] as const;
+/** Site target audiences (+ a "thoughts" cross-cutting section) for the Blog page tabs. */
+export const AUDIENCES = ["clients", "developers", "thoughts"] as const;
 export type Audience = (typeof AUDIENCES)[number];
 
 const blog = defineCollection({
