@@ -79,7 +79,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             t: "Manutenzione & supporto",
             d: "Dopo il lancio non spariamo. Aggiornamenti, sicurezza, backup e modifiche, con un canale dedicato e risposte rapide.",
             meta: [
-              { k: "Formato", v: "Care Plan mensile" },
+              { k: "Formato", v: "Canone mensile" },
               { k: "Risposta", v: "< mezza giornata" },
               { k: "Disdetta", v: "Quando vuoi" },
             ],
@@ -225,7 +225,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             t: "Maintenance & support",
             d: "After launch we don't disappear. Updates, security, backups and changes, with a dedicated channel and quick replies.",
             meta: [
-              { k: "Format", v: "Monthly Care Plan" },
+              { k: "Format", v: "Monthly plan" },
               { k: "Reply", v: "< half a worked day" },
               { k: "Cancel", v: "Anytime" },
             ],

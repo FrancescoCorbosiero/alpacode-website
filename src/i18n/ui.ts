@@ -83,8 +83,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Products · Alpacode Digital Solutions",
     },
     description: {
-      it: "Pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan e Digitalizzazione Full. Prezzo deciso prima di partire.",
-      en: "Ready-made packages at a fixed price: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV, Care Plan and Full Digitalization. Price agreed before we start.",
+      it: "I prodotti digitali Alpacode — Hive Commerce e Alpacode Pro Kit — e i pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV.",
+      en: "Alpacode's digital products — Hive Commerce and Alpacode Pro Kit — plus fixed-price packages: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV.",
     },
   },
   lavori: {
@@ -93,8 +93,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Work · Alpacode Digital Solutions",
     },
     description: {
-      it: "Tre progetti reali, tre strategie: un'impresa edile, un e-commerce streetwear e un broker assicurativo. Una comunicazione su misura per ciascuno.",
-      en: "Three real projects, three strategies: a construction firm, a streetwear e-commerce and an insurance broker. A tailored approach for each.",
+      it: "Progetti reali in settori diversi: edilizia, streetwear, editoria, fitness, e-commerce per la pesca, NCC di lusso e logistica. Una strategia su misura per ciascuno.",
+      en: "Real projects across sectors: construction, streetwear, publishing, fitness, fishing e-commerce, luxury chauffeur and logistics. A tailored strategy for each.",
     },
   },
   scuola: {

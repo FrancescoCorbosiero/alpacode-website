@@ -69,19 +69,40 @@ export const megaServizi: MegaMenu = {
 
 export const megaProdotti: MegaMenu = {
   feature: {
-    small: { it: "Pacchetti pronti", en: "Ready-made packages" },
+    small: { it: "Prodotto di punta", en: "Flagship product" },
     display: {
-      it: "Prezzo deciso prima. Niente sorprese.",
-      en: "Price agreed up front. No surprises.",
+      it: "Hive Commerce: l'e-commerce, automatizzato.",
+      en: "Hive Commerce: e-commerce, automated.",
     },
     cta: { it: "Vedi tutti i prodotti", en: "All products" },
     href: "prodotti",
   },
   colA: {
-    title: { it: "Per partire", en: "Get started" },
+    title: { it: "Prodotti digitali", en: "Digital products" },
     items: [
       {
         n: "01",
+        t: { it: "Hive Commerce", en: "Hive Commerce" },
+        d: {
+          it: "Plugin WooCommerce per gestire l'e-commerce, tema incluso",
+          en: "WooCommerce plugin to run your shop, theme included",
+        },
+      },
+      {
+        n: "02",
+        t: { it: "Alpacode Pro Kit", en: "Alpacode Pro Kit" },
+        d: {
+          it: "Il kit completo per la carriera da Web Master",
+          en: "The complete kit for a Web Master career",
+        },
+      },
+    ],
+  },
+  colB: {
+    title: { it: "Pacchetti pronti", en: "Ready-made packages" },
+    items: [
+      {
+        n: "03",
         t: { it: "Sito Pronto", en: "Ready Site" },
         d: {
           it: "Il sito della tua attività, a prezzo fisso e in poche settimane",
@@ -89,32 +110,11 @@ export const megaProdotti: MegaMenu = {
         },
       },
       {
-        n: "02",
-        t: { it: "Brand Kit", en: "Brand Kit" },
-        d: {
-          it: "Logo, colori e identità visiva pronti all'uso",
-          en: "Logo, colors and a ready-to-use visual identity",
-        },
-      },
-    ],
-  },
-  colB: {
-    title: { it: "Per crescere", en: "Keep growing" },
-    items: [
-      {
-        n: "03",
-        t: { it: "Care Plan", en: "Care Plan" },
-        d: {
-          it: "Manutenzione, sicurezza e modifiche con un canone mensile",
-          en: "Maintenance, security and changes for a monthly fee",
-        },
-      },
-      {
         n: "04",
-        t: { it: "Digitalizzazione Full", en: "Full Digitalization" },
+        t: { it: "Landing & ADV", en: "Landing & ADV" },
         d: {
-          it: "Il percorso completo per digitalizzare tutta l'attività",
-          en: "The complete path to digitalize your whole business",
+          it: "Una landing e una campagna pubblicitaria avviata",
+          en: "A landing and an advertising campaign, launched",
         },
       },
     ],
