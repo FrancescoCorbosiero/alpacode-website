@@ -18,6 +18,7 @@ export async function GET(context: APIContext) {
         title: p.data.title[lang],
         description: p.data.descriptor[lang],
         link: localizePath(`blog/${p.id}`, lang),
+        categories: [p.data.category[lang], p.data.audience],
         ...(iso ? { pubDate: new Date(iso) } : {}),
       };
     }),

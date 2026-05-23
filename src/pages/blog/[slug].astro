@@ -1,8 +1,6 @@
 ---
-import { getCollection, render } from "astro:content";
-import Layout from "../../components/Layout.astro";
-import { localizePath } from "../../i18n/utils";
-import { articleSchema, breadcrumbSchema, isoFromDisplayDate } from "../../lib/schema";
+import { getCollection } from "astro:content";
+import BlogPost from "../../components/pages/BlogPost.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -10,48 +8,6 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const lang = "it" as const;
-const { Content } = await render(post);
-const backHref = localizePath("blog", lang);
-
-const siteUrl = (Astro.site ?? new URL("https://alpacode.it")).href;
-const url = new URL(localizePath(`blog/${post.id}`, lang), siteUrl).href;
-const jsonLd = [
-  articleSchema({
-    title: post.data.title[lang],
-    description: post.data.descriptor[lang],
-    datePublished: isoFromDisplayDate(post.data.date[lang]),
-    url,
-    lang,
-    siteUrl,
-  }),
-  breadcrumbSchema([
-    { name: "Home", url: new URL(localizePath("", lang), siteUrl).href },
-    { name: "Blog", url: new URL(localizePath("blog", lang), siteUrl).href },
-    { name: post.data.title[lang], url },
-  ]),
-];
 ---
 
-<Layout
-  lang={lang}
-  active="blog"
-  slug={`blog/${post.id}`}
-  title={`${post.data.title[lang]} · Alpacode`}
-  description={post.data.descriptor[lang]}
-  jsonLd={jsonLd}
->
-  <section class="page-hero">
-    <div class="wrap-wide">
-      <div class="crumb">{post.data.category[lang]} · {post.data.date[lang]}</div>
-      <h1><span class="bar" aria-hidden="true"></span>{post.data.title[lang]}</h1>
-      <p class="lede">{post.data.descriptor[lang]}</p>
-    </div>
-  </section>
-  <section class="article">
-    <div class="wrap">
-      <div class="prose"><Content /></div>
-      <a class="article-back" href={backHref}>← Tutti gli articoli</a>
-    </div>
-  </section>
-</Layout>
+<BlogPost post={post} lang="it" />

@@ -18,6 +18,22 @@ responsive `srcset`); the placeholder disappears.
 | `work/museo-civico.jpg`              | Sito museo civico |
 | `work/dashboard-analytics.jpg`       | Dashboard analytics |
 
+## `blog/` — Blog cover images (optional, optimized)
+
+Drop a cover image anywhere under `src/assets/blog/` and reference it from the
+post's frontmatter:
+
+```yaml
+cover: ../../assets/blog/my-post-cover.jpg
+coverAlt:
+  it: "Descrizione dell'immagine"
+  en: "Image description"
+```
+
+The cover renders large under the article hero and is auto-used as the
+`og:image` for that post (better social sharing than the default logo).
+Omit the field and the post falls back to the standard logo OG.
+
 ## `cases/` — home §02 case picker
 
 Name files by position: `cases/1.jpg`, `cases/2.jpg`, `cases/3.jpg` — matching
