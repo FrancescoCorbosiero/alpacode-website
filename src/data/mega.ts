@@ -121,15 +121,15 @@ export const megaProdotti: MegaMenu = {
   },
 };
 
-export const megaScuola: MegaMenu = {
+export const megaLearning: MegaMenu = {
   feature: {
     small: { it: "Corso in partenza", en: "Upcoming course" },
     display: {
       it: "Impara facendo, da chi costruisce ogni giorno.",
       en: "Learn by doing, from people who ship every day.",
     },
-    cta: { it: "Vai alla scuola", en: "Visit the school" },
-    href: "scuola",
+    cta: { it: "Esplora i corsi", en: "Explore the courses" },
+    href: "learning",
   },
   colA: {
     title: { it: "Percorsi", en: "Tracks" },
@@ -144,31 +144,31 @@ export const megaScuola: MegaMenu = {
       },
       {
         n: "02",
-        t: { it: "Front-end moderno", en: "Modern front-end" },
+        t: { it: "WordPress with Sage Theme", en: "WordPress with Sage Theme" },
         d: {
-          it: "HTML, CSS, JavaScript, accessibilità, design systems",
-          en: "HTML, CSS, JavaScript, accessibility, design systems",
+          it: "Sviluppo WordPress moderno con Roots Sage e Blade",
+          en: "Modern WordPress development with Roots Sage and Blade",
         },
       },
     ],
   },
   colB: {
-    title: { it: "Risorse", en: "Resources" },
+    title: { it: "Avanzati & AI", en: "Advanced & AI" },
     items: [
       {
         n: "03",
-        t: { it: "Back-end & API", en: "Back-end & APIs" },
+        t: { it: "Advanced Java with Spring Boot", en: "Advanced Java with Spring Boot" },
         d: {
-          it: "PHP, Node, database, REST, sicurezza",
-          en: "PHP, Node, databases, REST, security",
+          it: "Back-end JVM, API REST, sicurezza e deploy",
+          en: "JVM back-end, REST APIs, security and deploy",
         },
       },
       {
         n: "04",
-        t: { it: "Kit per professionisti", en: "Pro kits" },
+        t: { it: "WordPress + AI", en: "WordPress + AI" },
         d: {
-          it: "Template, starter, snippet pronti all'uso",
-          en: "Templates, starters, ready-made snippets",
+          it: "Automatizza la creazione di siti WordPress con l'AI",
+          en: "Automate WordPress site creation with AI",
         },
       },
     ],
@@ -176,4 +176,4 @@ export const megaScuola: MegaMenu = {
 };
 
 export const megaByKey = (key: MegaKey): MegaMenu =>
-  key === "servizi" ? megaServizi : key === "prodotti" ? megaProdotti : megaScuola;
+  key === "servizi" ? megaServizi : key === "prodotti" ? megaProdotti : megaLearning;

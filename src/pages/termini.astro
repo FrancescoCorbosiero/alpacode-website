@@ -1,0 +1,14 @@
+---
+import Layout from "../components/Layout.astro";
+import Legal from "../components/pages/Legal.astro";
+const lang = "it" as const;
+---
+
+<Layout
+  lang={lang}
+  slug="termini"
+  title="Termini e condizioni · Alpacode"
+  description="I termini di utilizzo del sito alpacode.it e dei servizi offerti da Soluzioni Digitali Alpacode."
+>
+  <Legal lang={lang} kind="termini" />
+</Layout>

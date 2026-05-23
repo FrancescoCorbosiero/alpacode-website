@@ -1,0 +1,14 @@
+---
+import Layout from "../../components/Layout.astro";
+import Legal from "../../components/pages/Legal.astro";
+const lang = "en" as const;
+---
+
+<Layout
+  lang={lang}
+  slug="cookie"
+  title="Cookie policy · Alpacode"
+  description="Which cookies alpacode.it uses and how to manage them: strictly necessary, optional analytics and third-party services."
+>
+  <Legal lang={lang} kind="cookie" />
+</Layout>

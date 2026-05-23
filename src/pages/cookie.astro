@@ -1,0 +1,14 @@
+---
+import Layout from "../components/Layout.astro";
+import Legal from "../components/pages/Legal.astro";
+const lang = "it" as const;
+---
+
+<Layout
+  lang={lang}
+  slug="cookie"
+  title="Cookie policy · Alpacode"
+  description="Quali cookie usa il sito alpacode.it e come gestirli: cookie tecnici, analytics opzionali e servizi di terze parti."
+>
+  <Legal lang={lang} kind="cookie" />
+</Layout>

@@ -1,0 +1,14 @@
+---
+import Layout from "../components/Layout.astro";
+import Legal from "../components/pages/Legal.astro";
+const lang = "it" as const;
+---
+
+<Layout
+  lang={lang}
+  slug="privacy"
+  title="Privacy policy · Alpacode"
+  description="Come Alpacode tratta i tuoi dati personali: dati raccolti, base giuridica, conservazione, servizi di terze parti e i tuoi diritti."
+>
+  <Legal lang={lang} kind="privacy" />
+</Layout>

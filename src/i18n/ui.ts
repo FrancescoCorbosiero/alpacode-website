@@ -97,14 +97,14 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Real projects across sectors: construction, streetwear, publishing, fitness, fishing e-commerce, luxury chauffeur and logistics. A tailored strategy for each.",
     },
   },
-  scuola: {
+  learning: {
     title: {
-      it: "Scuola · Alpacode Soluzioni Digitali",
-      en: "School · Alpacode Digital Solutions",
+      it: "Learning · Alpacode Soluzioni Digitali",
+      en: "Learning · Alpacode Digital Solutions",
     },
     description: {
-      it: "Corsi e kit professionali su WordPress, front-end e back-end. Per professionisti, team aziendali e studenti. Materiali che restano, esercizi reali.",
-      en: "Courses and pro kits on WordPress, front-end and back-end. For professionals, internal teams and students. Materials that last, real exercises.",
+      it: "Corsi e kit professionali: WordPress (Gutenberg, Sage), front-end, Java/Spring Boot, automatizzazione WordPress con l'AI. Per professionisti, team aziendali e studenti.",
+      en: "Courses and pro kits: WordPress (Gutenberg, Sage), front-end, Java/Spring Boot, AI-driven WordPress automation. For professionals, internal teams and students.",
     },
   },
   blog: {

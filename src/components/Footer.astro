@@ -12,6 +12,10 @@ interface Props {
 const { lang } = Astro.props;
 const prenotaHref = localizePath("prenota", lang);
 const contattiHref = localizePath("contatti", lang);
+const privacyHref = localizePath("privacy", lang);
+const cookieHref = localizePath("cookie", lang);
+const terminiHref = localizePath("termini", lang);
+const cookiePrefsLabel = lang === "it" ? "Preferenze cookie" : "Cookie preferences";
 ---
 
 <footer class="site-footer">
@@ -68,9 +72,10 @@ const contattiHref = localizePath("contatti", lang);
         </ul>
         <h4 class="spaced">{footer.legal[lang]}</h4>
         <ul>
-          <li><a href="#">{footer.privacy[lang]}</a></li>
-          <li><a href="#" data-cookie-prefs>{footer.cookies[lang]}</a></li>
-          <li><a href="#">{footer.terms[lang]}</a></li>
+          <li><a href={privacyHref}>{footer.privacy[lang]}</a></li>
+          <li><a href={cookieHref}>{footer.cookies[lang]}</a></li>
+          <li><a href={terminiHref}>{footer.terms[lang]}</a></li>
+          <li><button type="button" class="foot-link-btn" data-cookie-prefs>{cookiePrefsLabel}</button></li>
         </ul>
       </div>
     </div>
