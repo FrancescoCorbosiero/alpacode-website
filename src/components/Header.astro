@@ -5,9 +5,12 @@ import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
 import { ui } from "../i18n/ui";
 import { megaByKey } from "../data/mega";
+import { CAL_CONFIGURED, CAL_LINK, CAL_NAMESPACE, CAL_CONFIG } from "../lib/calcom";
 import Mega from "./Mega.astro";
 import BookCall from "./BookCall.astro";
 import LangToggle from "./islands/LangToggle.tsx";
+import MobileNav from "./islands/MobileNav.tsx";
+import type { MobileNavItem, MobileNavLabels } from "./islands/MobileNav";
 
 interface Props {
   lang: Lang;
@@ -19,8 +22,38 @@ const { lang, active, slug } = Astro.props;
 const homeHref = localizePath("", lang);
 const itHref = localizePath(slug, "it");
 const enHref = localizePath(slug, "en");
+const contattiHref = localizePath("contatti", lang);
 
 const status = lang === "it" ? "DISPONIBILE · Q3 2026" : "AVAILABLE · Q3 2026";
+
+const mobileNavItems: MobileNavItem[] = PAGES.map((p) => {
+  const item: MobileNavItem = {
+    num: p.num,
+    key: p.key,
+    label: p.label[lang],
+    href: localizePath(p.slug, lang),
+  };
+  if (p.mega) {
+    const menu = megaByKey(p.mega);
+    item.mega = {
+      columns: [menu.colA, menu.colB].map((col) => ({
+        title: col.title[lang],
+        items: col.items.map((it) => ({ n: it.n, t: it.t[lang], d: it.d[lang] })),
+      })),
+    };
+  }
+  return item;
+});
+
+const mobileNavLabels: MobileNavLabels = {
+  title: ui.menuTitle[lang],
+  close: ui.menuClose[lang],
+  expand: ui.menuExpand[lang],
+  collapse: ui.menuCollapse[lang],
+  langLabel: ui.langLabel[lang],
+  searchOpen: ui.searchOpen[lang],
+  ctaLabel: ui.cta[lang],
+};
 ---
 
 <header class="site-header">
@@ -71,6 +104,33 @@ const status = lang === "it" ? "DISPONIBILE · Q3 2026" : "AVAILABLE · Q3 2026"
       </button>
       <LangToggle client:load lang={lang} itHref={itHref} enHref={enHref} label={ui.langLabel[lang]} />
       <BookCall label={ui.ctaShort[lang]} journey="header" lang={lang} class="btn-sm" />
+      <button
+        class="mnav-burger"
+        type="button"
+        data-mobile-nav-open
+        aria-label={ui.menuOpen[lang]}
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<MobileNav
+  client:load
+  lang={lang}
+  active={active}
+  items={mobileNavItems}
+  itHref={itHref}
+  enHref={enHref}
+  contattiHref={contattiHref}
+  cal={{
+    configured: CAL_CONFIGURED,
+    link: CAL_LINK,
+    namespace: CAL_NAMESPACE,
+    config: CAL_CONFIG,
+  }}
+  labels={mobileNavLabels}
+/>

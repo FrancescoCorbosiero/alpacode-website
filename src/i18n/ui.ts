@@ -9,6 +9,11 @@ export const ui = {
   langLabel: { it: "Lingua", en: "Language" },
   skip: { it: "Vai al contenuto", en: "Skip to content" },
   searchOpen: { it: "Apri la ricerca", en: "Open search" },
+  menuOpen: { it: "Apri il menu", en: "Open menu" },
+  menuClose: { it: "Chiudi il menu", en: "Close menu" },
+  menuTitle: { it: "Menu", en: "Menu" },
+  menuExpand: { it: "Espandi", en: "Expand" },
+  menuCollapse: { it: "Comprimi", en: "Collapse" },
 } satisfies Record<string, Localized>;
 
 export const footer = {
