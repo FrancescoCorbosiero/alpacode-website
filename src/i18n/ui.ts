@@ -123,8 +123,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "FAQ · Alpacode Digital Solutions",
     },
     description: {
-      it: "Le domande che ci fanno davvero: costi, sedi, tecnologie, manutenzione, attestati, pagamenti, tempi. Raccolte qui per chi vuole capire prima di chiamare.",
-      en: "The questions people actually ask: costs, locations, tech, maintenance, certificates, payments, timing. Gathered here before you call.",
+      it: "Le domande che ci fanno davvero: costi, pacchetti, branding e pubblicità, manutenzione, pagamenti a rate, tempi. Raccolte qui per chi vuole capire prima di chiamare.",
+      en: "The questions people actually ask: costs, packages, branding and ads, maintenance, installments, timing. Gathered here before you call.",
     },
   },
   contatti: {
