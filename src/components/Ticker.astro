@@ -7,12 +7,12 @@ const { items } = Astro.props;
 const loop = [...items, ...items];
 ---
 
-<div class="ticker" aria-hidden="true">
+<div class="ticker" aria-hidden="true" style={`--items:${items.length}`}>
   <div class="ticker-track">
     {
       loop.map((t) => (
         <span class="ticker-item">
-          <span class="dot">●</span>
+          <span class="tick" aria-hidden="true" />
           {t}
         </span>
       ))
