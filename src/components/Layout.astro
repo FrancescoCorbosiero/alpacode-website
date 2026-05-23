@@ -34,8 +34,9 @@ interface Props {
   description: string;
   jsonLd?: object[];
   noindex?: boolean;
+  ogImage?: string;
 }
-const { lang, active, slug, title, description, jsonLd, noindex } = Astro.props;
+const { lang, active, slug, title, description, jsonLd, noindex, ogImage: ogImageProp } = Astro.props;
 
 const learningHref = localizePath("learning", lang);
 const prenotaHref = localizePath("prenota", lang);
@@ -44,7 +45,9 @@ const site = Astro.site ?? new URL("https://alpacode.it");
 const canonical = new URL(Astro.url.pathname, site).href;
 const itUrl = new URL(localizePath(slug, "it"), site).href;
 const enUrl = new URL(localizePath(slug, "en"), site).href;
-const ogImage = new URL("/logo.png", site).href;
+const ogImage = ogImageProp
+  ? new URL(ogImageProp, site).href
+  : new URL("/logo.png", site).href;
 const rssHref = localizePath("blog/rss.xml", lang);
 
 const ldJson = JSON.stringify({

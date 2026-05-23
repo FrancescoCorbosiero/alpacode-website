@@ -1,0 +1,46 @@
+---
+import type { Lang } from "../../i18n/types";
+
+interface PostNavItem {
+  href: string;
+  title: string;
+  category: string;
+}
+
+interface Props {
+  prev?: PostNavItem;
+  next?: PostNavItem;
+  lang: Lang;
+}
+const { prev, next, lang } = Astro.props;
+
+const t =
+  lang === "it"
+    ? { prev: "Articolo precedente", next: "Articolo successivo" }
+    : { prev: "Previous article", next: "Next article" };
+---
+
+{
+  (prev || next) && (
+    <nav class="post-nav" aria-label={lang === "it" ? "Navigazione articoli" : "Article navigation"}>
+      {prev ? (
+        <a class="post-nav-cell post-nav-prev" href={prev.href}>
+          <span class="post-nav-dir">← {t.prev}</span>
+          <span class="post-nav-cat">{prev.category}</span>
+          <span class="post-nav-ttl">{prev.title}</span>
+        </a>
+      ) : (
+        <span class="post-nav-cell post-nav-empty" />
+      )}
+      {next ? (
+        <a class="post-nav-cell post-nav-next" href={next.href}>
+          <span class="post-nav-dir">{t.next} →</span>
+          <span class="post-nav-cat">{next.category}</span>
+          <span class="post-nav-ttl">{next.title}</span>
+        </a>
+      ) : (
+        <span class="post-nav-cell post-nav-empty" />
+      )}
+    </nav>
+  )
+}

@@ -56,7 +56,13 @@ export function articleSchema(opts: {
   url: string;
   lang: Lang;
   siteUrl: string;
+  image?: string;
+  wordCount?: number;
+  authorName?: string;
 }) {
+  const image = opts.image
+    ? new URL(opts.image, opts.siteUrl).href
+    : `${opts.siteUrl}logo.png`;
   return {
     "@type": "BlogPosting",
     headline: opts.title,
@@ -64,10 +70,13 @@ export function articleSchema(opts: {
     inLanguage: locale(opts.lang),
     url: opts.url,
     mainEntityOfPage: opts.url,
-    image: `${opts.siteUrl}logo.png`,
-    author: { "@id": `${opts.siteUrl}#org` },
+    image,
+    author: opts.authorName
+      ? { "@type": "Person", name: opts.authorName }
+      : { "@id": `${opts.siteUrl}#org` },
     publisher: { "@id": `${opts.siteUrl}#org` },
     ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
+    ...(opts.wordCount ? { wordCount: opts.wordCount } : {}),
   };
 }
 

@@ -1,0 +1,196 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import type { Lang } from "../../i18n/types";
+import { localizePath } from "../../i18n/utils";
+import { articleSchema, breadcrumbSchema, isoFromDisplayDate } from "../../lib/schema";
+import { readingTime } from "../../lib/reading-time";
+import Layout from "../Layout.astro";
+import Toc from "../blog/Toc.astro";
+import Share from "../blog/Share.astro";
+import PostNav from "../blog/PostNav.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  lang: Lang;
+}
+const { post, lang } = Astro.props;
+const { Content, headings } = await render(post);
+
+const backHref = localizePath("blog", lang);
+const siteUrl = (Astro.site ?? new URL("https://alpacode.it")).href;
+const url = new URL(localizePath(`blog/${post.id}`, lang), siteUrl).href;
+
+const rt = readingTime(post.body ?? "", lang);
+const author = post.data.author ?? "Alpacode";
+
+const coverAlt =
+  (post.data.coverAlt && post.data.coverAlt[lang]) || post.data.title[lang];
+
+const jsonLd = [
+  articleSchema({
+    title: post.data.title[lang],
+    description: post.data.descriptor[lang],
+    datePublished: isoFromDisplayDate(post.data.date[lang]),
+    url,
+    lang,
+    siteUrl,
+    image: post.data.cover?.src,
+    wordCount: rt.words,
+    authorName: author,
+  }),
+  breadcrumbSchema([
+    { name: "Home", url: new URL(localizePath("", lang), siteUrl).href },
+    { name: "Blog", url: new URL(localizePath("blog", lang), siteUrl).href },
+    { name: post.data.title[lang], url },
+  ]),
+];
+
+const allPosts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+const idx = allPosts.findIndex((p) => p.id === post.id);
+const prevPost = idx > 0 ? allPosts[idx - 1] : undefined;
+const nextPost = idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : undefined;
+const prev = prevPost
+  ? {
+      href: localizePath(`blog/${prevPost.id}`, lang),
+      title: prevPost.data.title[lang],
+      category: prevPost.data.category[lang],
+    }
+  : undefined;
+const next = nextPost
+  ? {
+      href: localizePath(`blog/${nextPost.id}`, lang),
+      title: nextPost.data.title[lang],
+      category: nextPost.data.category[lang],
+    }
+  : undefined;
+
+const tocLabel = lang === "it" ? "Sommario" : "Contents";
+const backLabel = lang === "it" ? "← Tutti gli articoli" : "← All articles";
+const byline = `${author} · ${rt.label}`;
+---
+
+<Layout
+  lang={lang}
+  active="blog"
+  slug={`blog/${post.id}`}
+  title={`${post.data.title[lang]} · Alpacode`}
+  description={post.data.descriptor[lang]}
+  jsonLd={jsonLd}
+  ogImage={post.data.cover?.src}
+>
+  <div class="article-progress" data-article-progress aria-hidden="true">
+    <div class="article-progress-fill"></div>
+  </div>
+
+  <section class="post-hero">
+    <div class="wrap-wide">
+      <div class="crumb">{post.data.category[lang]} · {post.data.date[lang]}</div>
+      <h1><span class="bar" aria-hidden="true"></span>{post.data.title[lang]}</h1>
+      <p class="lede">{post.data.descriptor[lang]}</p>
+      <div class="byline">
+        <span class="byline-author">{byline}</span>
+      </div>
+    </div>
+    {
+      post.data.cover && (
+        <div class="post-cover">
+          <div class="wrap-wide">
+            <Image
+              src={post.data.cover}
+              alt={coverAlt}
+              widths={[480, 800, 1200, 1600]}
+              sizes="(max-width: 900px) 100vw, 1200px"
+              class="post-cover-img"
+            />
+          </div>
+        </div>
+      )
+    }
+  </section>
+
+  <section class="article article-with-toc">
+    <div class="wrap-wide post-grid">
+      <Toc headings={headings} label={tocLabel} />
+      <article class="post-body">
+        <div class="prose" data-article-body><Content /></div>
+        <Share url={url} title={post.data.title[lang]} lang={lang} />
+        <PostNav prev={prev} next={next} lang={lang} />
+        <a class="article-back" href={backHref}>{backLabel}</a>
+      </article>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function runArticleEnhancements() {
+    const body = document.querySelector<HTMLElement>("[data-article-body]");
+    const progressBar = document.querySelector<HTMLElement>("[data-article-progress]");
+    const fill = progressBar?.querySelector<HTMLElement>(".article-progress-fill");
+    const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
+
+    if (!body) return;
+
+    if (progressBar && fill) {
+      const update = () => {
+        const rect = body.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const start = rect.top;
+        const total = rect.height - vh;
+        let pct = 0;
+        if (total > 0) {
+          pct = Math.min(1, Math.max(0, (-start) / total));
+        }
+        fill.style.transform = `scaleX(${pct})`;
+      };
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    }
+
+    if (tocLinks.length > 0) {
+      const bySlug = new Map(tocLinks.map((a) => [a.dataset.tocLink, a]));
+      const headings = Array.from(body.querySelectorAll<HTMLElement>("h2[id], h3[id]"));
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            const id = (e.target as HTMLElement).id;
+            const link = bySlug.get(id);
+            if (!link) return;
+            if (e.isIntersecting) {
+              tocLinks.forEach((a) => a.classList.remove("is-active"));
+              link.classList.add("is-active");
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -65% 0px", threshold: [0, 1] },
+      );
+      headings.forEach((h) => io.observe(h));
+    }
+
+    const share = document.querySelector<HTMLElement>("[data-share]");
+    if (share) {
+      const btn = share.querySelector<HTMLButtonElement>("[data-copy-link]");
+      const txt = share.querySelector<HTMLElement>("[data-copy-text]");
+      const copyLabel = share.dataset.copyLabel || "";
+      const copiedLabel = share.dataset.copiedLabel || "";
+      btn?.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+        } catch {
+          /* clipboard unavailable */
+        }
+        if (txt) {
+          txt.textContent = copiedLabel;
+          btn?.classList.add("is-copied");
+          window.setTimeout(() => {
+            txt.textContent = copyLabel;
+            btn?.classList.remove("is-copied");
+          }, 1800);
+        }
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", runArticleEnhancements);
+</script>
