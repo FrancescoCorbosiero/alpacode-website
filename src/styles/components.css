@@ -1389,7 +1389,7 @@
   color: var(--mute-2);
 }
 
-/* ---------- Scuola courses ---------- */
+/* ---------- Learning courses ---------- */
 .courses {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3023,4 +3023,54 @@ cal-modal-box iframe,
   .fab-btn:hover {
     transform: none;
   }
+}
+
+/* ---------- Legal pages (privacy / cookie / termini) ---------- */
+.legal .prose h2 {
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 40px 0 12px;
+}
+.legal .prose h2:first-of-type {
+  margin-top: 8px;
+}
+.legal .prose ul {
+  padding-left: 22px;
+}
+.legal-updated {
+  margin-top: 56px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* Plain link-style button (footer "Preferenze cookie", inline cookie page links) */
+.foot-link-btn,
+.cookie-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.foot-link-btn {
+  font-size: 15px;
+  color: var(--paper);
+  text-decoration: none;
+}
+.foot-link-btn:hover {
+  color: var(--blue);
+}
+.legal .prose .cookie-link {
+  color: var(--blue);
 }

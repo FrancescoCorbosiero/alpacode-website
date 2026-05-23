@@ -37,7 +37,7 @@ interface Props {
 }
 const { lang, active, slug, title, description, jsonLd, noindex } = Astro.props;
 
-const scuolaHref = localizePath("scuola", lang);
+const learningHref = localizePath("learning", lang);
 const prenotaHref = localizePath("prenota", lang);
 
 const site = Astro.site ?? new URL("https://alpacode.it");
@@ -60,9 +60,10 @@ const cmdItems: CmdItem[] = [
     sub: `${lang === "it" ? "Pagina" : "Page"} · ${localizePath(p.slug, lang)}`,
     href: localizePath(p.slug, lang),
   })),
-  { kind: "course", num: "C1", ttl: "WordPress Gutenberg", sub: lang === "it" ? "Corso completo · 24h" : "Full course · 24h", href: scuolaHref },
-  { kind: "course", num: "C2", ttl: lang === "it" ? "Front-end moderno" : "Modern front-end", sub: lang === "it" ? "Corso · 32h" : "Course · 32h", href: scuolaHref },
-  { kind: "course", num: "C3", ttl: lang === "it" ? "Back-end & API" : "Back-end & APIs", sub: lang === "it" ? "Corso · 28h" : "Course · 28h", href: scuolaHref },
+  { kind: "course", num: "C1", ttl: "WordPress Gutenberg", sub: lang === "it" ? "Corso · 24h" : "Course · 24h", href: learningHref },
+  { kind: "course", num: "C2", ttl: "WordPress with Sage Theme", sub: lang === "it" ? "Corso · 20h" : "Course · 20h", href: learningHref },
+  { kind: "course", num: "C3", ttl: "Advanced Java with Spring Boot", sub: lang === "it" ? "Corso · 32h" : "Course · 32h", href: learningHref },
+  { kind: "course", num: "C4", ttl: lang === "it" ? "WordPress + AI" : "WordPress + AI", sub: lang === "it" ? "Corso · 12h" : "Course · 12h", href: learningHref },
   { kind: "action", num: "→", ttl: cmdk.bookCall[lang], sub: cmdk.bookCallSub[lang], href: prenotaHref },
   { kind: "action", num: "✉", ttl: business.email, sub: cmdk.email[lang], href: `mailto:${business.email}` },
   { kind: "action", num: "⌘", ttl: cmdk.switchLang[lang], sub: cmdk.switchLangSub[lang], action: "lang" },

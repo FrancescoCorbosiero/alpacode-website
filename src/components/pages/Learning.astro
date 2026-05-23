@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../../i18n/types";
-import { scuola } from "../../data/courses";
+import { learning } from "../../data/courses";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import BookCall from "../BookCall.astro";
@@ -9,7 +9,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = scuola[lang];
+const t = learning[lang];
 const signUp = lang === "it" ? "Iscriviti" : "Sign up";
 ---
 

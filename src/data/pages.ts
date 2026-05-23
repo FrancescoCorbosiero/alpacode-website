@@ -5,12 +5,12 @@ export type PageKey =
   | "servizi"
   | "prodotti"
   | "lavori"
-  | "scuola"
+  | "learning"
   | "blog"
   | "faq"
   | "contatti";
 
-export type MegaKey = "servizi" | "prodotti" | "scuola";
+export type MegaKey = "servizi" | "prodotti" | "learning";
 
 export interface NavPage {
   num: string;
@@ -27,7 +27,7 @@ export const PAGES: NavPage[] = [
   { num: "02", key: "servizi", slug: "servizi", label: { it: "Servizi", en: "Services" }, mega: "servizi" },
   { num: "03", key: "prodotti", slug: "prodotti", label: { it: "Prodotti", en: "Products" }, mega: "prodotti" },
   { num: "04", key: "lavori", slug: "lavori", label: { it: "Lavori", en: "Work" } },
-  { num: "05", key: "scuola", slug: "scuola", label: { it: "Scuola", en: "School" }, mega: "scuola" },
+  { num: "05", key: "learning", slug: "learning", label: { it: "Learning", en: "Learning" }, mega: "learning" },
   { num: "06", key: "blog", slug: "blog", label: { it: "Blog", en: "Blog" } },
   { num: "07", key: "faq", slug: "faq", label: { it: "FAQ", en: "FAQ" } },
   { num: "08", key: "contatti", slug: "contatti", label: { it: "Contatti", en: "Contact" } },

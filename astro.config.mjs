@@ -10,6 +10,10 @@ export default defineConfig({
   site: 'https://alpacode.it',
   output: 'static',
   adapter: node({ mode: 'standalone' }),
+  redirects: {
+    '/scuola': '/learning',
+    '/en/scuola': '/en/learning',
+  },
   integrations: [
     react(),
     mdx(),
