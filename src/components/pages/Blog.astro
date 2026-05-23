@@ -5,7 +5,7 @@ import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import BlogList from "../islands/BlogList.tsx";
-import type { BlogPost, TopicTab, BlogLabels } from "../islands/BlogList";
+import type { BlogPost, AudienceTab, BlogLabels } from "../islands/BlogList";
 
 interface Props {
   lang: Lang;
@@ -21,22 +21,20 @@ const posts: BlogPost[] = all.map((p) => ({
   descriptor: p.data.descriptor[lang],
   date: p.data.date[lang],
   category: p.data.category[lang],
-  topic: p.data.topic,
+  audience: p.data.audience,
 }));
 
-const tabs: TopicTab[] =
+const tabs: AudienceTab[] =
   lang === "it"
     ? [
         { key: "all", label: "Tutti" },
-        { key: "strategy", label: "Strategia" },
-        { key: "craft", label: "Mestiere" },
-        { key: "perspectives", label: "Sguardi" },
+        { key: "clients", label: "Clienti" },
+        { key: "developers", label: "Sviluppatori" },
       ]
     : [
         { key: "all", label: "All" },
-        { key: "strategy", label: "Strategy" },
-        { key: "craft", label: "Craft" },
-        { key: "perspectives", label: "Perspectives" },
+        { key: "clients", label: "Clients" },
+        { key: "developers", label: "Developers" },
       ];
 
 const labels: BlogLabels =
@@ -45,13 +43,13 @@ const labels: BlogLabels =
         featured: "In evidenza",
         read: "Leggi l'articolo",
         empty: "Nessun articolo in questa sezione, per ora.",
-        filter: "Filtra per tema",
+        filter: "Filtra per pubblico",
       }
     : {
         featured: "Featured",
         read: "Read the article",
         empty: "No articles in this section yet.",
-        filter: "Filter by topic",
+        filter: "Filter by audience",
       };
 
 const t =
@@ -60,13 +58,13 @@ const t =
         crumb: "06 · BLOG",
         line1: "Note,",
         line2: "guide e pensieri.",
-        lede: "Quello che impariamo lo scriviamo. Strategie, mestiere e sguardi sul digitale — scegli da dove vuoi partire.",
+        lede: "Quello che impariamo lo scriviamo. Contenuti per chi vuole digitalizzare la propria attività e per chi la digitalizzazione la costruisce ogni giorno.",
       }
     : {
         crumb: "06 · BLOG",
         line1: "Notes,",
         line2: "guides and thoughts.",
-        lede: "What we learn we write. Strategy, craft and perspectives on digital — pick where to start.",
+        lede: "What we learn we write. Content for those looking to digitalize their business — and for those who build digital every day.",
       };
 ---
 

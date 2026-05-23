@@ -3081,7 +3081,7 @@ cal-modal-box iframe,
 }
 .blog-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--ink);
@@ -3229,7 +3229,7 @@ cal-modal-box iframe,
 
 @media (max-width: 900px) {
   .blog-tabs {
-    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
     overflow-x: auto;
   }
   .blog-tab {
