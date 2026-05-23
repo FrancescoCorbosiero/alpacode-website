@@ -1238,34 +1238,60 @@
 
 /* ---------- Ticker (marquee text slider) ---------- */
 .ticker {
+  position: relative;
   overflow: hidden;
   background: var(--ink);
   color: var(--paper);
+}
+/* Edge fades: keep the ink band solid, dissolve text into ink at the edges. */
+.ticker::before,
+.ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  pointer-events: none;
+  z-index: 1;
+}
+.ticker::before {
+  left: 0;
+  background: linear-gradient(to right, var(--ink), transparent);
+}
+.ticker::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ink), transparent);
 }
 .ticker-track {
   display: flex;
   width: max-content;
   padding: 18px 0;
-  animation: tickerMove 34s linear infinite;
+  /* Duration scales with item count so visual speed stays constant across
+     widths. ~3.2s per item — tuned against the 8-item home list (≈26s). */
+  animation: tickerMove calc(var(--items, 8) * 3.2s) linear infinite;
   will-change: transform;
 }
-.ticker:hover .ticker-track {
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
   animation-play-state: paused;
 }
 .ticker-item {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 34px;
+  gap: 18px;
+  padding: 0 28px;
   font-family: var(--t-mono);
   font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   white-space: nowrap;
 }
-.ticker-item .dot {
-  color: var(--blue);
-  font-size: 8px;
+.ticker-item .tick {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--blue);
+  flex-shrink: 0;
 }
 @keyframes tickerMove {
   to {
@@ -1273,8 +1299,32 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ticker {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ticker::before,
+  .ticker::after {
+    display: none;
+  }
   .ticker-track {
     animation: none;
+    transform: none;
+  }
+  .ticker-item {
+    scroll-snap-align: start;
+  }
+}
+@media (max-width: 600px) {
+  .ticker::before,
+  .ticker::after {
+    width: 48px;
+  }
+  .ticker-item {
+    gap: 14px;
+    padding: 0 22px;
+    font-size: 12px;
   }
 }
 
