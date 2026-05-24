@@ -102,123 +102,30 @@ const variantClass = `pp pp--${variant}`;
     </div>
   </section>
 
-  {/* ---------- STEPS / WHAT'S INSIDE ---------- */}
-  <section class="pp-section pp-section--invert pp-steps">
+  {/* ---------- EARLY ACCESS ---------- */}
+  <section class="pp-section pp-section--invert pp-ea">
     <div class="wrap-wide">
       <div class="pp-section-head">
         <div>
-          <div class="pp-sec-num">{t.stepsEyebrow}</div>
-          <h2 class="pp-h2">{t.stepsHeading}</h2>
+          <div class="pp-sec-num">{t.eaEyebrow}</div>
+          <h2 class="pp-h2">{t.eaHeading}</h2>
         </div>
-        <p class="pp-lede pp-lede--inline">{t.stepsLede}</p>
+        <p class="pp-lede pp-lede--inline">{t.eaLede}</p>
       </div>
-      <div class="pp-steps-grid">
+      <div class="pp-ea-grid">
         {
-          t.steps.map((s) => (
-            <div class="pp-step">
-              <div class="pp-step-n">{s.n}</div>
-              <div class="pp-step-strut" aria-hidden="true"></div>
-              <h3 class="pp-step-t">{s.t}</h3>
-              <p class="pp-step-d">{s.d}</p>
+          t.eaPerks.map((p) => (
+            <div class="pp-ea-perk">
+              <div class="pp-ea-n">{p.n}</div>
+              <div class="pp-ea-strut" aria-hidden="true"></div>
+              <h3 class="pp-ea-t">{p.t}</h3>
+              <p class="pp-ea-d">{p.d}</p>
             </div>
           ))
         }
       </div>
-    </div>
-  </section>
-
-  {/* ---------- FOR WHO ---------- */}
-  <section class="pp-section pp-for">
-    <div class="wrap-wide">
-      <div class="pp-section-head">
-        <div>
-          <div class="pp-sec-num">{t.forWhoEyebrow}</div>
-          <h2 class="pp-h2">{t.forWhoHeading}</h2>
-        </div>
-      </div>
-      <div class="pp-for-grid">
-        <div class="pp-for-col pp-for-col--yes">
-          <div class="pp-for-label">{t.forWhoLabel}</div>
-          <ul>
-            {t.forWho.map((it) => (
-              <li>
-                <span class="pp-for-mark pp-for-mark--yes" aria-hidden="true">{it.mark}</span>
-                <span>{it.t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="pp-for-col pp-for-col--no">
-          <div class="pp-for-label">{t.notForLabel}</div>
-          <ul>
-            {t.notFor.map((it) => (
-              <li>
-                <span class="pp-for-mark pp-for-mark--no" aria-hidden="true">{it.mark}</span>
-                <span>{it.t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ---------- DIFFERENTIATOR / COMPARISON ---------- */}
-  <section class="pp-section pp-vs">
-    <div class="wrap-wide">
-      <div class="pp-section-head">
-        <div>
-          <div class="pp-sec-num">{t.vsEyebrow}</div>
-          <h2 class="pp-h2">{t.vsHeading}</h2>
-        </div>
-      </div>
-      <p class="pp-vs-claim">{t.vsClaim}</p>
-      <div class="pp-vs-table" role="table" aria-label={t.vsHeading}>
-        <div class="pp-vs-row pp-vs-row--head" role="row">
-          <div class="pp-vs-cell pp-vs-cell--k" role="columnheader"></div>
-          <div class="pp-vs-cell pp-vs-cell--ours" role="columnheader">{t.vsOursLabel}</div>
-          <div class="pp-vs-cell pp-vs-cell--theirs" role="columnheader">{t.vsTheirsLabel}</div>
-        </div>
-        {
-          t.vsRows.map((r) => (
-            <div class="pp-vs-row" role="row">
-              <div class="pp-vs-cell pp-vs-cell--k" role="cell">{r.k}</div>
-              <div class="pp-vs-cell pp-vs-cell--ours" role="cell">
-                <span class="pp-vs-mark" aria-hidden="true">●</span>
-                <span>{r.ours}</span>
-              </div>
-              <div class="pp-vs-cell pp-vs-cell--theirs" role="cell">
-                <span class="pp-vs-mark pp-vs-mark--mute" aria-hidden="true">○</span>
-                <span>{r.theirs}</span>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* ---------- FAQ ---------- */}
-  <section class="pp-section pp-faq">
-    <div class="wrap-wide">
-      <div class="pp-section-head">
-        <div>
-          <div class="pp-sec-num">{t.faqEyebrow}</div>
-          <h2 class="pp-h2">{t.faqHeading}</h2>
-        </div>
-      </div>
-      <div class="pp-faq-list">
-        {
-          t.faq.map((f) => (
-            <details class="pp-faq-item">
-              <summary>
-                <span class="pp-faq-q">{f.q}</span>
-                <span class="pp-faq-icon" aria-hidden="true">+</span>
-              </summary>
-              <div class="pp-faq-a"><p>{f.a}</p></div>
-            </details>
-          ))
-        }
+      <div class="pp-ea-cta">
+        <BookCall label={t.eaCta} journey={`${variant}-ea`} lang={lang} class="btn-accent" />
       </div>
     </div>
   </section>

@@ -189,8 +189,8 @@
 .pp-h1 {
   position: relative;
   margin-top: 56px;
-  font-size: clamp(56px, 11vw, 168px);
-  line-height: 0.94;
+  font-size: clamp(42px, 6.5vw, 96px);
+  line-height: 0.98;
   letter-spacing: -0.015em;
   display: grid;
   gap: 4px;
@@ -401,12 +401,12 @@
    ============================================================= */
 .pp-features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--pp-rule);
   border-left: 1px solid var(--pp-rule);
 }
 .pp-feature {
-  padding: 32px 28px 36px;
+  padding: 28px 24px 32px;
   border-right: 1px solid var(--pp-rule);
   border-bottom: 1px solid var(--pp-rule);
   background: var(--pp-bg);
@@ -459,210 +459,48 @@
 }
 
 /* =============================================================
-   STEPS
+   EARLY ACCESS — three perks + CTA, in the inverted contrast band
    ============================================================= */
-.pp-steps-grid {
+.pp-ea-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--pp-invert-rule);
 }
-.pp-step {
-  padding: 32px 28px 36px;
+.pp-ea-perk {
+  padding: 32px 28px 40px;
   border-right: 1px solid var(--pp-invert-rule);
   display: grid;
   gap: 14px;
   align-content: start;
+  position: relative;
 }
-.pp-step:last-child {
+.pp-ea-perk:last-child {
   border-right: 0;
 }
-.pp-step-n {
+.pp-ea-n {
   font-family: var(--t-mono);
   font-size: 12px;
   letter-spacing: 0.18em;
   color: var(--pp-accent);
 }
-.pp-step-strut {
-  width: 48px;
+.pp-ea-strut {
+  width: 56px;
   height: var(--strut);
   background: var(--pp-accent);
 }
-.pp-step-t {
-  font-size: 22px;
+.pp-ea-t {
+  font-size: 24px;
   line-height: 1.2;
 }
-.pp-step-d {
+.pp-ea-d {
   font-size: 15px;
   line-height: 1.55;
   color: var(--pp-invert-mute);
 }
-
-/* =============================================================
-   FOR WHO
-   ============================================================= */
-.pp-for-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-top: 1px solid var(--pp-rule);
-  border-left: 1px solid var(--pp-rule);
-}
-.pp-for-col {
-  padding: 36px 32px 40px;
-  border-right: 1px solid var(--pp-rule);
-  border-bottom: 1px solid var(--pp-rule);
-}
-.pp-for-label {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--pp-fg-faint);
-  margin-bottom: 24px;
-}
-.pp-for-col--yes .pp-for-label { color: var(--pp-accent); }
-.pp-for-col--no .pp-for-label { color: var(--pp-fg-faint); }
-.pp-for-col ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 18px;
-}
-.pp-for-col li {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  align-items: start;
-  gap: 12px;
-  font-size: 17px;
-  line-height: 1.5;
-}
-.pp-for-mark {
-  font-family: var(--t-mono);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-.pp-for-mark--yes { color: var(--pp-accent); }
-.pp-for-mark--no { color: var(--pp-fg-faint); }
-
-/* =============================================================
-   COMPARISON
-   ============================================================= */
-.pp-vs-claim {
-  font-family: var(--display);
-  font-size: clamp(22px, 2.6vw, 32px);
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-  max-width: 36ch;
-  margin-bottom: 48px;
-  color: var(--pp-fg);
-}
-.pp-vs-table {
-  border-top: 1px solid var(--pp-rule);
-  border-left: 1px solid var(--pp-rule);
-}
-.pp-vs-row {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr 1.4fr;
-  border-bottom: 1px solid var(--pp-rule);
-}
-.pp-vs-cell {
-  padding: 20px 24px;
-  border-right: 1px solid var(--pp-rule);
+.pp-ea-cta {
+  margin-top: 40px;
   display: flex;
-  align-items: center;
   gap: 12px;
-  font-size: 15px;
-  line-height: 1.4;
-}
-.pp-vs-cell--k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--pp-fg-faint);
-  background: var(--pp-bg);
-}
-.pp-vs-cell--ours {
-  color: var(--pp-fg);
-  background: var(--pp-bg-2);
-}
-.pp-vs-cell--theirs {
-  color: var(--pp-fg-mute);
-}
-.pp-vs-row--head .pp-vs-cell {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 14px 24px;
-}
-.pp-vs-row--head .pp-vs-cell--ours {
-  background: var(--pp-accent);
-  color: var(--pp-accent-ink);
-  border-right-color: var(--pp-accent);
-}
-.pp-vs-mark {
-  font-size: 14px;
-  color: var(--pp-accent);
-  flex-shrink: 0;
-}
-.pp-vs-mark--mute {
-  color: var(--pp-fg-faint);
-}
-
-/* =============================================================
-   FAQ
-   ============================================================= */
-.pp-faq-list {
-  border-top: 1px solid var(--pp-rule);
-}
-.pp-faq-item {
-  border-bottom: 1px solid var(--pp-rule);
-  padding: 0;
-}
-.pp-faq-item summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 28px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-  user-select: none;
-}
-.pp-faq-item summary::-webkit-details-marker {
-  display: none;
-}
-.pp-faq-q {
-  font-family: var(--display);
-  font-size: clamp(20px, 2.2vw, 26px);
-  line-height: 1.2;
-  color: var(--pp-fg);
-  flex: 1;
-}
-.pp-faq-icon {
-  font-family: var(--t-mono);
-  font-size: 20px;
-  color: var(--pp-accent);
-  flex-shrink: 0;
-  transition: transform 0.25s var(--ease-out);
-  width: 24px;
-  text-align: center;
-}
-.pp-faq-item[open] .pp-faq-icon {
-  transform: rotate(45deg);
-}
-.pp-faq-a {
-  padding: 0 0 32px;
-  max-width: 70ch;
-}
-.pp-faq-a p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--pp-fg-mute);
 }
 
 /* =============================================================
@@ -697,8 +535,8 @@
 }
 .pp-cta-display {
   font-family: var(--display);
-  font-size: clamp(48px, 7vw, 104px);
-  line-height: 1.0;
+  font-size: clamp(36px, 5.2vw, 76px);
+  line-height: 1.02;
   letter-spacing: -0.015em;
   text-transform: uppercase;
   margin: 12px 0 28px;
@@ -780,11 +618,10 @@ body[data-page="prodotti"]:has(.pp--hive) {
    ============================================================= */
 @media (max-width: 1100px) {
   .pp-features-grid { grid-template-columns: repeat(2, 1fr); }
-  .pp-steps-grid { grid-template-columns: repeat(2, 1fr); }
-  .pp-steps-grid .pp-step:nth-child(2) { border-right: 0; }
-  .pp-steps-grid .pp-step:nth-child(1),
-  .pp-steps-grid .pp-step:nth-child(2) {
-    border-bottom: 1px solid var(--pp-invert-rule);
+  .pp-feature:nth-child(2) { border-right: 0; }
+  .pp-feature:nth-child(1),
+  .pp-feature:nth-child(2) {
+    border-bottom: 1px solid var(--pp-rule);
   }
   .pp-hero-meta { grid-template-columns: repeat(2, 1fr); }
   .pp-hero-cell:nth-child(2) { border-right: 0; }
@@ -818,28 +655,10 @@ body[data-page="prodotti"]:has(.pp--hive) {
   .pp-features-grid { grid-template-columns: 1fr; }
   .pp-feature { border-right: 0; }
 
-  .pp-steps-grid { grid-template-columns: 1fr; }
-  .pp-step { border-right: 0; }
-  .pp-step:not(:last-child) {
+  .pp-ea-grid { grid-template-columns: 1fr; }
+  .pp-ea-perk { border-right: 0; }
+  .pp-ea-perk:not(:last-child) {
     border-bottom: 1px solid var(--pp-invert-rule);
-  }
-
-  .pp-for-grid { grid-template-columns: 1fr; }
-  .pp-for-col { border-right: 0; }
-
-  .pp-vs-row {
-    grid-template-columns: 1fr;
-  }
-  .pp-vs-cell {
-    border-right: 0;
-    border-bottom: 1px solid var(--pp-rule);
-  }
-  .pp-vs-cell:last-child { border-bottom: 0; }
-  .pp-vs-row--head { display: none; }
-  .pp-vs-cell--ours::before {
-    content: "✓";
-    color: var(--pp-accent);
-    font-weight: 700;
   }
 
   .pp-sticky {
