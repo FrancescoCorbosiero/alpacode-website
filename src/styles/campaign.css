@@ -1,0 +1,537 @@
+/* ============================================================
+   Campaign — advertising landing pages (/offerta/*)
+   Built on the site's tokens, with bolder, conversion-first
+   rhythm. Brutalist DNA kept: 1px rules, square corners,
+   the blue strut, no shadows/gradients.
+   ============================================================ */
+
+/* ---------- Minimal chrome ---------- */
+.campaign-header .header-row {
+  justify-content: space-between;
+}
+.campaign-lang {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  padding: 9px 12px;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+}
+.campaign-lang:hover {
+  border-color: var(--ink);
+}
+.campaign-footer .wrap-wide {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.campaign-foot-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding-bottom: 18px;
+}
+.campaign-foot-brand {
+  font-family: var(--display);
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+}
+.campaign-foot-tag {
+  color: var(--paper);
+  opacity: 0.7;
+  font-size: 14px;
+  flex: 1 1 240px;
+}
+.campaign-foot-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.campaign-foot-links a {
+  color: var(--paper);
+  opacity: 0.75;
+  font-size: 13px;
+}
+.campaign-foot-links a:hover {
+  opacity: 1;
+  color: var(--blue);
+}
+
+/* ---------- Section rhythm ---------- */
+.cmp-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--rule);
+}
+@media (max-width: 720px) {
+  .cmp-section {
+    padding: 48px 0;
+  }
+}
+
+/* ---------- Hero ---------- */
+.cmp-hero {
+  padding: 88px 0 64px;
+}
+.cmp-eyebrow {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+  margin-bottom: 22px;
+}
+.cmp-h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 7.2vw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin: 0 0 26px;
+}
+.cmp-h1 .bar {
+  display: block;
+  width: 120px;
+  height: var(--strut);
+  background: var(--blue);
+  margin-bottom: 26px;
+}
+.cmp-lede {
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.5;
+  color: var(--mute-2);
+  max-width: 60ch;
+  margin: 0 0 36px;
+}
+
+/* Scarcity strip */
+.cmp-scarcity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--rule);
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+.cmp-scar-block {
+  flex: 1 1 240px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cmp-scar-block + .cmp-scar-block {
+  border-left: 1px solid var(--rule);
+}
+.cmp-scar-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.cmp-seats-v {
+  font-family: var(--display);
+  font-size: 26px;
+  color: var(--ink);
+}
+.cmp-seats-v strong {
+  color: var(--blue);
+  font-weight: 400;
+}
+@media (max-width: 560px) {
+  .cmp-scar-block + .cmp-scar-block {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+.cmp-hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Countdown ---------- */
+.countdown {
+  display: flex;
+  gap: 14px;
+}
+.cd-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 44px;
+}
+.cd-num {
+  font-family: var(--display);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.cd-lab {
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-top: 4px;
+}
+.countdown--closed {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--blue-deep);
+}
+
+/* ---------- Pains ---------- */
+.cmp-pains,
+.cmp-guar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.cmp-guar-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.cmp-pain,
+.cmp-guar {
+  background: var(--paper);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cmp-pain h3,
+.cmp-guar h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 6px 0 0;
+}
+.cmp-pain p,
+.cmp-guar p {
+  color: var(--mute-2);
+  margin: 0;
+  font-size: 15px;
+}
+@media (max-width: 860px) {
+  .cmp-pains,
+  .cmp-guar-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Stats ---------- */
+.cmp-stats-sec {
+  background: var(--ink);
+  color: var(--paper);
+}
+.cmp-stats-sec .section-head h2 {
+  color: var(--paper);
+}
+.cmp-stats-sec .section-head .lede {
+  color: rgba(244, 241, 232, 0.72);
+}
+.cmp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+}
+.cmp-stat {
+  border-top: var(--strut) solid var(--blue);
+  padding-top: 22px;
+}
+.cmp-stat-v {
+  font-family: var(--display);
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.cmp-stat-l {
+  margin-top: 16px;
+  color: rgba(244, 241, 232, 0.82);
+  font-size: 15px;
+  max-width: 30ch;
+}
+.cmp-stat-src {
+  margin-top: 12px;
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.5);
+}
+@media (max-width: 860px) {
+  .cmp-stats {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* ---------- Offer toggle ---------- */
+.cmp-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--ink);
+  margin: 28px 0 28px;
+  flex-wrap: wrap;
+}
+.cmp-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  padding: 13px 20px;
+  color: var(--ink);
+  transition: background 0.15s, color 0.15s;
+}
+.cmp-tab + .cmp-tab {
+  border-left: 1.5px solid var(--ink);
+}
+.cmp-tab.is-active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+.cmp-tab:not(.is-active):hover {
+  background: var(--paper-2);
+}
+
+.cmp-panel[hidden] {
+  display: none;
+}
+.cmp-panel-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.cmp-panel-head,
+.cmp-includes {
+  background: var(--paper);
+  padding: 36px 32px;
+}
+.cmp-panel-head h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0 0 14px;
+}
+.cmp-panel-head > p {
+  color: var(--mute-2);
+  margin: 0 0 24px;
+}
+.cmp-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.cmp-price-v {
+  font-family: var(--display);
+  font-size: clamp(48px, 7vw, 76px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--blue);
+}
+.cmp-price-per {
+  font-family: var(--t-mono);
+  font-size: 14px;
+  color: var(--mute);
+}
+.cmp-price-note {
+  margin: 12px 0 26px;
+  color: var(--mute-2);
+  font-size: 15px;
+}
+.cmp-includes-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 18px;
+}
+.cmp-includes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.cmp-includes li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.cmp-includes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 12px;
+  height: var(--strut);
+  background: var(--blue);
+}
+@media (max-width: 760px) {
+  .cmp-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Steps ---------- */
+.cmp-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 36px;
+}
+.cmp-step {
+  border-top: 1px solid var(--rule);
+  padding-top: 22px;
+}
+.cmp-step-n {
+  font-family: var(--display);
+  font-size: 40px;
+  color: var(--blue);
+  line-height: 1;
+}
+.cmp-step h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 16px 0 8px;
+  letter-spacing: -0.01em;
+}
+.cmp-step p {
+  color: var(--mute-2);
+  margin: 0;
+  font-size: 15px;
+}
+@media (max-width: 860px) {
+  .cmp-steps {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ---------- FAQ ---------- */
+.cmp-faq {
+  margin-top: 32px;
+  border-top: 1px solid var(--rule);
+}
+.cmp-faq-item {
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 0;
+}
+.cmp-faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(18px, 2.2vw, 24px);
+  letter-spacing: -0.01em;
+  padding: 18px 36px 18px 0;
+  position: relative;
+}
+.cmp-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.cmp-faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 16px;
+  font-family: var(--t-mono);
+  color: var(--blue);
+  font-size: 22px;
+}
+.cmp-faq-item[open] summary::after {
+  content: "–";
+}
+.cmp-faq-item p {
+  margin: 0 0 20px;
+  color: var(--mute-2);
+  max-width: 70ch;
+}
+
+/* ---------- Form ---------- */
+.cmp-form-sec {
+  background: var(--paper-2);
+}
+.cmp-form-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: start;
+}
+.cmp-form-intro h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 12px 0 18px;
+}
+.cmp-form-scar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--rule);
+  padding: 18px 20px;
+  margin: 24px 0;
+  background: var(--paper);
+  max-width: 280px;
+}
+.cmp-form-privacy a {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--blue-deep);
+}
+.cmp-form-box {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+}
+.cf-chosen {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 0 18px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.cf-chosen-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.cf-chosen-v {
+  font-family: var(--display);
+  font-size: 20px;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+}
+@media (max-width: 860px) {
+  .cmp-form-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* ---------- Reduced motion already covered globally for reveals; the
+   countdown ticks regardless but is not animated. ---------- */

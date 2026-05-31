@@ -14,8 +14,8 @@ import type { Lang } from "../i18n/types";
 import type { PageKey } from "../data/pages";
 import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
-import { ui, cmdk } from "../i18n/ui";
-import { business } from "../data/business";
+import { ui, cmdk, footer } from "../i18n/ui";
+import { business, tagline } from "../data/business";
 import { CAL_CONFIGURED, CAL_ORIGIN } from "../lib/calcom";
 import { organizationSchema, websiteSchema } from "../lib/schema";
 import Header from "./Header.astro";
@@ -35,8 +35,30 @@ interface Props {
   jsonLd?: object[];
   noindex?: boolean;
   ogImage?: string;
+  /** Conversion-focused chrome: minimal header, slim footer, no ⌘K palette.
+   *  Used by advertising landing pages to cut exits. */
+  minimal?: boolean;
+  /** Minimal-mode header CTA. */
+  ctaLabel?: string;
+  ctaHref?: string;
 }
-const { lang, active, slug, title, description, jsonLd, noindex, ogImage: ogImageProp } = Astro.props;
+const {
+  lang,
+  active,
+  slug,
+  title,
+  description,
+  jsonLd,
+  noindex,
+  ogImage: ogImageProp,
+  minimal = false,
+  ctaLabel,
+  ctaHref = "#offerta",
+} = Astro.props;
+
+const homeHref = localizePath("", lang);
+const itHref = localizePath(slug, "it");
+const enHref = localizePath(slug, "en");
 
 const learningHref = localizePath("learning", lang);
 const prenotaHref = localizePath("prenota", lang);
@@ -130,13 +152,61 @@ const cmdLabels: CmdLabels = {
   <body data-page={active ?? "404"}>
     <div class="scroll-progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{ui.skip[lang]}</a>
-    <Header lang={lang} active={active} slug={slug} />
+    {
+      minimal ? (
+        <header class="site-header campaign-header">
+          <div class="header-strut" />
+          <div class="header-row">
+            <a class="brand" href={homeHref} aria-label="Alpacode — home">
+              <span class="brand-mark">
+                <span class="brand-name">ALPACODE</span>
+                <span class="brand-strut" aria-hidden="true" />
+              </span>
+            </a>
+            <div class="nav-actions">
+              <a class="campaign-lang" href={lang === "it" ? enHref : itHref}>
+                {lang === "it" ? "EN" : "IT"}
+              </a>
+              <a class="btn btn-blue btn-sm" href={ctaHref}>
+                {ctaLabel ?? ui.cta[lang]} <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </header>
+      ) : (
+        <Header lang={lang} active={active} slug={slug} />
+      )
+    }
     <main id="main">
       <slot />
     </main>
-    <Footer lang={lang} />
+    {
+      minimal ? (
+        <footer class="site-footer campaign-footer">
+          <div class="footer-strut" />
+          <div class="wrap-wide">
+            <div class="campaign-foot-row">
+              <span class="campaign-foot-brand">ALPACODE</span>
+              <span class="campaign-foot-tag">{tagline[lang]}</span>
+              <span class="campaign-foot-links">
+                <a href={`mailto:${business.email}`}>{business.email}</a>
+                <a href={localizePath("privacy", lang)}>{footer.privacy[lang]}</a>
+                <a href={localizePath("cookie", lang)}>{footer.cookies[lang]}</a>
+                <a href={localizePath("termini", lang)}>{footer.terms[lang]}</a>
+              </span>
+            </div>
+            <div class="footer-bottom">
+              <span>{footer.rights[lang]}</span>
+              <span>{footer.bottomLocation}</span>
+            </div>
+          </div>
+        </footer>
+      ) : (
+        <Footer lang={lang} />
+      )
+    }
     <FloatingActions lang={lang} />
-    <CmdK client:idle lang={lang} items={cmdItems} labels={cmdLabels} />
+    {!minimal && <CmdK client:idle lang={lang} items={cmdItems} labels={cmdLabels} />}
     {CAL_CONFIGURED && <CalEmbed />}
     <Analytics />
     <div id="cc-root" transition:persist></div>

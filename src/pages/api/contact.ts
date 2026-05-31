@@ -39,22 +39,32 @@ export const POST: APIRoute = async ({ request }) => {
   const email = (body.email ?? "").trim();
   const message = (body.message ?? "").trim();
 
-  if (!name || !email || !message || !isEmail(email)) {
+  // Message is optional (campaign lead forms keep friction low); name and a
+  // valid email are the only hard requirements.
+  if (!name || !email || !isEmail(email)) {
     return json({ ok: false, error: "validation" }, 422);
   }
 
-  const subject = `Nuovo contatto · ${name}`;
+  // Campaign leads carry extra attribution so we know which offer they chose.
+  const subject = body.campaign
+    ? `Lead offerta · ${body.audience || body.campaign} · ${name}`
+    : `Nuovo contatto · ${name}`;
   const lines = [
     `Nome: ${name}`,
     body.company ? `Azienda: ${body.company}` : null,
     `Email: ${email}`,
+    body.phone ? `Telefono: ${body.phone}` : null,
+    body.campaign ? `Campagna: ${body.campaign}` : null,
+    body.audience ? `Target: ${body.audience}` : null,
+    body.offer ? `Offerta scelta: ${body.offer}` : null,
+    body.price ? `Prezzo: ${body.price}` : null,
     body.topic ? `Argomento: ${body.topic}` : null,
     body.budget ? `Budget: ${body.budget}` : null,
     body.lang ? `Lingua: ${body.lang}` : null,
-    "",
-    message,
+    message ? "" : null,
+    message || null,
   ]
-    .filter(Boolean)
+    .filter((l) => l !== null)
     .join("\n");
 
   // AWS SES. Credentials come from the standard provider chain
