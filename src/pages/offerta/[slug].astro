@@ -1,0 +1,27 @@
+---
+import Layout from "../../components/Layout.astro";
+import Offerta from "../../components/pages/Offerta.astro";
+import { CAMPAIGNS, COPY, t, type Campaign } from "../../data/campaigns";
+
+export function getStaticPaths() {
+  return CAMPAIGNS.map((campaign) => ({
+    params: { slug: campaign.slug },
+    props: { campaign },
+  }));
+}
+
+const lang = "it" as const;
+const { campaign } = Astro.props as { campaign: Campaign };
+const slug = `offerta/${campaign.slug}`;
+---
+
+<Layout
+  lang={lang}
+  slug={slug}
+  title={t(campaign.meta.title, lang)}
+  description={t(campaign.meta.description, lang)}
+  minimal
+  ctaLabel={t(COPY.ctaPrimary, lang)}
+>
+  <Offerta lang={lang} campaign={campaign} />
+</Layout>
