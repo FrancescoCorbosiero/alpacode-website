@@ -199,6 +199,42 @@ export const GUARANTEES: { t: Localized; d: Localized }[] = [
   },
 ];
 
+/** The AI section — why quality no longer costs thousands. */
+export const AI = {
+  kicker: { it: "Come è possibile", en: "How it's possible" },
+  title: {
+    it: "L'AI ha cambiato le regole. Il prezzo, di conseguenza.",
+    en: "AI changed the rules. So did the price.",
+  },
+  lede: {
+    it: "L'intelligenza artificiale ha rivoluzionato il web e il mondo digitale: per un lavoro di qualità non servono più migliaia di euro. Noi usiamo l'AI per tenere alta la qualità e contenere il prezzo finale — così molte più figure possono finalmente avere il proprio spazio digitale.",
+    en: "AI has transformed the web and the digital world: quality work no longer costs thousands. We use AI to keep quality high and the final price low — so many more people can finally have their own digital space.",
+  },
+  points: [
+    {
+      k: { it: "Qualità, non scorciatoie", en: "Quality, not shortcuts" },
+      v: {
+        it: "L'AI accelera il lavoro ripetitivo. Le scelte, la cura e il controllo finale restano umani.",
+        en: "AI speeds up the repetitive work. The decisions, the care and the final check stay human.",
+      },
+    },
+    {
+      k: { it: "Meno costi, meno prezzo", en: "Lower cost, lower price" },
+      v: {
+        it: "Lavorando in modo più efficiente, abbattiamo i costi. E quel risparmio finisce nel tuo prezzo.",
+        en: "By working more efficiently, we cut costs. And that saving ends up in your price.",
+      },
+    },
+    {
+      k: { it: "Il digitale per tutti", en: "Digital for everyone" },
+      v: {
+        it: "Un sito di qualità non è più un lusso da grandi budget: ora è alla portata di ogni professionista.",
+        en: "A quality website is no longer a big-budget luxury: now it's within reach of every professional.",
+      },
+    },
+  ],
+} satisfies { kicker: Localized; title: Localized; lede: Localized; points: { k: Localized; v: Localized }[] };
+
 export const FAQ: { q: Localized; a: Localized }[] = [
   {
     q: { it: "Devo pagare qualcosa in anticipo?", en: "Do I have to pay anything up front?" },
@@ -224,8 +260,8 @@ export const FAQ: { q: Localized; a: Localized }[] = [
   {
     q: { it: "Perché così conveniente?", en: "Why so affordable?" },
     a: {
-      it: "Perché lavoriamo in modo snello e standardizziamo ciò che si può standardizzare. La qualità resta da agency; il prezzo è pensato per la situazione economica dei professionisti italiani.",
-      en: "Because we work lean and standardise what can be standardised. The quality stays agency-grade; the price is built for Italian professionals' economic reality.",
+      it: "Perché sfruttiamo l'AI e lavoriamo in modo snello: l'intelligenza artificiale ha abbattuto i costi del lavoro digitale di qualità. Quel risparmio lo giriamo a te. La qualità resta da agency; il prezzo è pensato per la situazione economica dei professionisti italiani.",
+      en: "Because we leverage AI and work lean: artificial intelligence has cut the cost of quality digital work. We pass that saving on to you. The quality stays agency-grade; the price is built for Italian professionals' economic reality.",
     },
   },
   {

@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import type { Campaign } from "../../data/campaigns";
 import {
   STATS,
+  AI,
   STEPS,
   GUARANTEES,
   FAQ,
@@ -131,6 +132,30 @@ const formLabels: CampaignFormLabels = {
           </div>
         ))
       }
+    </div>
+  </div>
+</section>
+
+<!-- AI — why quality no longer costs thousands -->
+<section class="cmp-section cmp-ai">
+  <div class="wrap-wide">
+    <div class="cmp-ai-grid">
+      <div class="cmp-ai-lead">
+        <div class="sec-num eyebrow" style="color:var(--blue)">{t(AI.kicker, lang)}</div>
+        <h2>{t(AI.title, lang)}</h2>
+        <p class="lede">{t(AI.lede, lang)}</p>
+      </div>
+      <div class="cmp-ai-points">
+        {
+          AI.points.map((p) => (
+            <div class="cmp-ai-point">
+              <span class="strut-short" aria-hidden="true"></span>
+              <h3>{t(p.k, lang)}</h3>
+              <p>{t(p.v, lang)}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
