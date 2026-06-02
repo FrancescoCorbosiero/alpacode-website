@@ -1,20 +1,28 @@
 ---
-// Remote image (e.g. Unsplash hotlink) with a graceful fallback.
-// If the URL fails to load (blocked, 404, offline), the styled placeholder
-// box is shown instead — so a broken image never reaches the visitor.
-// Use for advertising/marketing imagery where the asset lives off-repo.
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// Marketing image with a three-tier strategy:
+//   1. `local` provided  -> optimized <Image> (WebP/AVIF + srcset). Best.
+//   2. else `src` (remote, e.g. Unsplash) -> hotlinked <img>, with a JS
+//      onerror fallback to the styled placeholder.
+//   3. neither / load fails -> the dashed placeholder box.
+// So a missing local file or a blocked remote URL never shows a broken image.
 interface Props {
-  src: string;
+  /** Remote URL (e.g. Unsplash). Used when no local image is supplied. */
+  src?: string;
+  /** Optimized local asset; takes priority when present. */
+  local?: ImageMetadata;
   alt: string;
-  /** Shown if the image can't load. */
+  /** Shown if nothing can load. */
   placeholder: string;
   class?: string;
-  /** Loading hint; hero images can pass "eager". */
   loading?: "lazy" | "eager";
   ratio?: string;
 }
 const {
   src,
+  local,
   alt,
   placeholder,
   class: cls,
@@ -24,15 +32,28 @@ const {
 ---
 
 <div class:list={["img-slot", "remote-slot", cls]} style={`--ratio:${ratio}`}>
-  <img
-    src={src}
-    alt={alt}
-    loading={loading}
-    decoding="async"
-    class="img-fill"
-    data-remote-img
-    data-placeholder={placeholder}
-  />
+  {
+    local ? (
+      <Image
+        src={local}
+        alt={alt}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 920px) 100vw, 45vw"
+        loading={loading}
+        class="img-fill"
+      />
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        loading={loading}
+        decoding="async"
+        class="img-fill"
+        data-remote-img
+        data-placeholder={placeholder}
+      />
+    )
+  }
   <span class="remote-fallback" aria-hidden="true">{placeholder}</span>
 </div>
 
