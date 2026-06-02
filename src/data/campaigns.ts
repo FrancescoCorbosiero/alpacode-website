@@ -50,10 +50,26 @@ export interface Campaign {
   /** Offer deadline (ISO, with timezone). Drives the countdown. */
   deadlineISO: string;
   hero: { line1: Localized; line2: Localized; lede: Localized };
+  /** Hero image — an Unsplash hotlink + bilingual alt text. */
+  heroImage: { src: string; alt: Localized };
   /** Audience-specific reasons / pains the offer answers. */
   pains: { k: Localized; v: Localized }[];
   meta: { title: Localized; description: Localized };
 }
+
+/** Build an Unsplash URL at a sensible delivery size.
+ *  Hotlinked at runtime by the visitor's browser — no build dependency. */
+export const unsplash = (id: string, w = 900) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+
+/** Shared image for the AI section. */
+export const AI_IMAGE = {
+  src: unsplash("1677442136019-21780ecad995", 900),
+  alt: {
+    it: "Intelligenza artificiale al lavoro: tecnologia che rende il digitale accessibile",
+    en: "Artificial intelligence at work: technology making digital accessible",
+  } as Localized,
+};
 
 /* ---------- Shared building blocks ---------- */
 
@@ -335,6 +351,13 @@ export const CAMPAIGNS: Campaign[] = [
         en: "You live on social, but the platforms aren't yours. A personal site is the space you truly control: portfolio, contacts, links, all in one place. We build it for you, at €300 a year, all included.",
       },
     },
+    heroImage: {
+      src: unsplash("1611162617474-5b21e879e113"),
+      alt: {
+        it: "Creator che lavora ai propri contenuti sullo smartphone",
+        en: "Creator working on their content on a smartphone",
+      },
+    },
     pains: [
       { k: { it: "Niente più «link in bio»", en: "No more “link in bio”" }, v: { it: "Un indirizzo tuo, professionale, da mettere ovunque.", en: "Your own professional address, to put everywhere." } },
       { k: { it: "Mostra il tuo lavoro", en: "Show your work" }, v: { it: "Portfolio, collaborazioni e media kit sempre aggiornati.", en: "Portfolio, collabs and media kit always up to date." } },
@@ -367,6 +390,13 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Coach, consultant, trainer: the first conversation now happens online. A polished site is the difference between “I'll think about it” and “I'll book”. We build it for you, at €350 a year, all included.",
       },
     },
+    heroImage: {
+      src: unsplash("1556761175-b413da4baf72"),
+      alt: {
+        it: "Sessione di consulenza one-to-one in ufficio",
+        en: "One-to-one consulting session in an office",
+      },
+    },
     pains: [
       { k: { it: "Autorevolezza, subito", en: "Authority, instantly" }, v: { it: "Un sito serio comunica valore prima ancora di parlare.", en: "A serious site communicates value before you even speak." } },
       { k: { it: "Prenotazioni integrate", en: "Built-in booking" }, v: { it: "Calendario e modulo contatti per riempire l'agenda.", en: "Calendar and contact form to fill your agenda." } },
@@ -397,6 +427,13 @@ export const CAMPAIGNS: Campaign[] = [
       lede: {
         it: "Avvocato, commercialista, architetto, psicologo: chi ha bisogno di te parte da una ricerca. Senza un sito tuo, finisci nelle mani delle directory. Ne costruiamo uno serio, a 450 € l'anno, tutto incluso.",
         en: "Lawyer, accountant, architect, psychologist: whoever needs you starts with a search. Without your own site, you end up in the hands of directories. We build a serious one, at €450 a year, all included.",
+      },
+    },
+    heroImage: {
+      src: unsplash("1521791136064-7986c2920216"),
+      alt: {
+        it: "Professionisti che si stringono la mano dopo un incontro",
+        en: "Professionals shaking hands after a meeting",
       },
     },
     pains: [

@@ -4,6 +4,7 @@ import type { Campaign } from "../../data/campaigns";
 import {
   STATS,
   AI,
+  AI_IMAGE,
   STEPS,
   GUARANTEES,
   FAQ,
@@ -12,6 +13,7 @@ import {
   t,
 } from "../../data/campaigns";
 import { localizePath } from "../../i18n/utils";
+import RemoteImage from "../RemoteImage.astro";
 import Countdown from "../islands/Countdown.tsx";
 import CampaignForm from "../islands/CampaignForm.tsx";
 import type { CampaignFormLabels } from "../islands/CampaignForm";
@@ -63,34 +65,48 @@ const formLabels: CampaignFormLabels = {
 <!-- HERO -->
 <section class="cmp-hero">
   <div class="wrap-wide">
-    <div class="cmp-eyebrow">{t(c.eyebrow, lang)} · {t(c.audience, lang)}</div>
-    <h1 class="cmp-h1">
-      <span class="bar" aria-hidden="true"></span>
-      {t(c.hero.line1, lang)}<br />{t(c.hero.line2, lang)}
-    </h1>
-    <p class="cmp-lede">{t(c.hero.lede, lang)}</p>
+    <div class="cmp-hero-grid">
+      <div class="cmp-hero-col">
+        <div class="cmp-eyebrow">{t(c.eyebrow, lang)} · {t(c.audience, lang)}</div>
+        <h1 class="cmp-h1">
+          <span class="bar" aria-hidden="true"></span>
+          {t(c.hero.line1, lang)}<br />{t(c.hero.line2, lang)}
+        </h1>
+        <p class="cmp-lede">{t(c.hero.lede, lang)}</p>
 
-    <div class="cmp-scarcity">
-      <div class="cmp-scar-block">
-        <span class="cmp-scar-k">{t(COPY.deadlineLabel, lang)}</span>
-        <Countdown
-          client:load
-          deadlineISO={c.deadlineISO}
-          labels={countdownLabels}
-          closedLabel={t(COPY.closed, lang)}
+        <div class="cmp-scarcity">
+          <div class="cmp-scar-block">
+            <span class="cmp-scar-k">{t(COPY.deadlineLabel, lang)}</span>
+            <Countdown
+              client:load
+              deadlineISO={c.deadlineISO}
+              labels={countdownLabels}
+              closedLabel={t(COPY.closed, lang)}
+            />
+          </div>
+          <div class="cmp-scar-block cmp-seats">
+            <span class="cmp-scar-k">{t(COPY.seatsLabel, lang)}</span>
+            <span class="cmp-seats-v">
+              <strong>{c.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {c.seats}
+            </span>
+          </div>
+        </div>
+
+        <div class="cmp-hero-cta">
+          <a class="btn btn-blue" href="#offerta">{t(COPY.ctaPrimary, lang)} <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="#offer-detail">{t(COPY.ctaSecondary, lang)}</a>
+        </div>
+      </div>
+
+      <div class="cmp-hero-media">
+        <RemoteImage
+          src={c.heroImage.src}
+          alt={t(c.heroImage.alt, lang)}
+          placeholder={t(c.audience, lang)}
+          loading="eager"
+          ratio="4 / 5"
         />
       </div>
-      <div class="cmp-scar-block cmp-seats">
-        <span class="cmp-scar-k">{t(COPY.seatsLabel, lang)}</span>
-        <span class="cmp-seats-v">
-          <strong>{c.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {c.seats}
-        </span>
-      </div>
-    </div>
-
-    <div class="cmp-hero-cta">
-      <a class="btn btn-blue" href="#offerta">{t(COPY.ctaPrimary, lang)} <span class="arrow">→</span></a>
-      <a class="btn btn-ghost" href="#offer-detail">{t(COPY.ctaSecondary, lang)}</a>
     </div>
   </div>
 </section>
@@ -146,6 +162,13 @@ const formLabels: CampaignFormLabels = {
         <p class="lede">{t(AI.lede, lang)}</p>
       </div>
       <div class="cmp-ai-points">
+        <RemoteImage
+          src={AI_IMAGE.src}
+          alt={t(AI_IMAGE.alt, lang)}
+          placeholder="AI · ALPACODE"
+          class="cmp-ai-img"
+          ratio="16 / 9"
+        />
         {
           AI.points.map((p) => (
             <div class="cmp-ai-point">
