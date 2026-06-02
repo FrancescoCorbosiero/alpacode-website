@@ -626,3 +626,38 @@ export const coverage: Record<Lang, CoverageData> = {
     cta: "Let's work together",
   },
 };
+
+/* ---------------- AI (how we keep quality high, price low) ---------------- */
+export interface AiPoint {
+  t: string;
+  d: string;
+}
+export interface AiData {
+  num: string;
+  heading: string;
+  lede: string;
+  points: AiPoint[];
+}
+
+export const ai: Record<Lang, AiData> = {
+  it: {
+    num: "L'AI, AL NOSTRO FIANCO",
+    heading: "L'AI ha cambiato\nle regole.",
+    lede: "L'intelligenza artificiale ha rivoluzionato il web e il digitale: per un lavoro di qualità non servono più migliaia di euro. La usiamo per tenere alta la qualità e contenere il prezzo finale — così molte più persone possono avere il proprio spazio digitale.",
+    points: [
+      { t: "Qualità, non scorciatoie.", d: "L'AI accelera il lavoro ripetitivo. Le scelte, la cura e il controllo finale restano umani — i nostri." },
+      { t: "Meno costi, meno prezzo.", d: "Lavorando in modo più efficiente abbattiamo i costi. E quel risparmio finisce nel prezzo che paghi tu." },
+      { t: "Il digitale per tutti.", d: "Un sito di qualità non è più un lusso da grandi budget: oggi è alla portata di privati e piccole realtà." },
+    ],
+  },
+  en: {
+    num: "AI, BY OUR SIDE",
+    heading: "AI changed\nthe rules.",
+    lede: "Artificial intelligence has transformed the web and the digital world: quality work no longer costs thousands. We use it to keep quality high and the final price low — so many more people can have their own digital space.",
+    points: [
+      { t: "Quality, not shortcuts.", d: "AI speeds up the repetitive work. The decisions, the care and the final check stay human — ours." },
+      { t: "Lower cost, lower price.", d: "By working more efficiently we cut costs. And that saving ends up in the price you pay." },
+      { t: "Digital for everyone.", d: "A quality website is no longer a big-budget luxury: today it's within reach of individuals and small businesses." },
+    ],
+  },
+};

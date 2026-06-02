@@ -37,6 +37,8 @@ const rules: Rule[] = [
   { sel: ".step", kind: "up", delay: 0, stagger: 90 },
   { sel: ".svc-group-head", kind: "up", delay: 0 },
   { sel: ".svc-cross", kind: "up", delay: 0 },
+  { sel: ".ai-points .ai-point", kind: "up", delay: 0, stagger: 100 },
+  { sel: ".people-grid .person", kind: "up", delay: 0, stagger: 90 },
   { sel: ".pillars .pillar", kind: "up", delay: 0, stagger: 100 },
   { sel: ".map-figure", kind: "fade", delay: 0 },
   { sel: ".coverage-info", kind: "up", delay: 150 },

@@ -112,6 +112,16 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Courses and pro kits: WordPress (Gutenberg, Sage), front-end, Java/Spring Boot, AI-driven WordPress automation. For professionals, internal teams and students.",
     },
   },
+  persone: {
+    title: {
+      it: "Persone · Alpacode Soluzioni Digitali",
+      en: "People · Alpacode Digital Solutions",
+    },
+    description: {
+      it: "Le persone dietro Alpacode: un team piccolo e affiatato. Parli direttamente con chi lavora al tuo progetto, senza reparti né call center.",
+      en: "The people behind Alpacode: a small, close-knit team. You talk straight to whoever works on your project, with no departments or call centres.",
+    },
+  },
   blog: {
     title: {
       it: "Blog · Alpacode Soluzioni Digitali",

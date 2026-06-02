@@ -6,6 +6,7 @@ export type PageKey =
   | "prodotti"
   | "lavori"
   | "learning"
+  | "persone"
   | "blog"
   | "faq"
   | "contatti";
@@ -28,9 +29,10 @@ export const PAGES: NavPage[] = [
   { num: "03", key: "prodotti", slug: "prodotti", label: { it: "Prodotti", en: "Products" }, mega: "prodotti" },
   { num: "04", key: "lavori", slug: "lavori", label: { it: "Lavori", en: "Work" } },
   { num: "05", key: "learning", slug: "learning", label: { it: "Learning", en: "Learning" }, mega: "learning" },
-  { num: "06", key: "blog", slug: "blog", label: { it: "Blog", en: "Blog" } },
-  { num: "07", key: "faq", slug: "faq", label: { it: "FAQ", en: "FAQ" } },
-  { num: "08", key: "contatti", slug: "contatti", label: { it: "Contatti", en: "Contact" } },
+  { num: "06", key: "persone", slug: "persone", label: { it: "Persone", en: "People" } },
+  { num: "07", key: "blog", slug: "blog", label: { it: "Blog", en: "Blog" } },
+  { num: "08", key: "faq", slug: "faq", label: { it: "FAQ", en: "FAQ" } },
+  { num: "09", key: "contatti", slug: "contatti", label: { it: "Contatti", en: "Contact" } },
 ];
 
 export const pageByKey = (key: PageKey): NavPage =>

@@ -1,0 +1,35 @@
+---
+import type { Lang } from "../../i18n/types";
+import { ai } from "../../data/home";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ai[lang];
+---
+
+<section class="section ai-section">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.num}</div>
+        <h2 style="white-space:pre-line">{t.heading}</h2>
+      </div>
+      <p class="lede">{t.lede}</p>
+    </div>
+
+    <div class="ai-points">
+      {
+        t.points.map((p, i) => (
+          <div class="ai-point">
+            <div class="ai-point-no">{String(i + 1).padStart(2, "0")}</div>
+            <div class="ai-point-strut" />
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
