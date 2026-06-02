@@ -50,8 +50,9 @@ export interface Campaign {
   /** Offer deadline (ISO, with timezone). Drives the countdown. */
   deadlineISO: string;
   hero: { line1: Localized; line2: Localized; lede: Localized };
-  /** Hero image — an Unsplash hotlink + bilingual alt text. */
-  heroImage: { src: string; alt: Localized };
+  /** Hero image. `id` resolves to src/assets/campaigns/<id>.<ext> when that
+   *  file exists (optimized by Astro); otherwise `src` (Unsplash) is used. */
+  heroImage: { id: string; src: string; alt: Localized };
   /** Audience-specific reasons / pains the offer answers. */
   pains: { k: Localized; v: Localized }[];
   meta: { title: Localized; description: Localized };
@@ -62,8 +63,10 @@ export interface Campaign {
 export const unsplash = (id: string, w = 900) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
 
-/** Shared image for the AI section. */
+/** Shared image for the AI section.
+ *  Local override: drop src/assets/campaigns/ai.<ext> to replace the hotlink. */
 export const AI_IMAGE = {
+  id: "ai",
   src: unsplash("1677442136019-21780ecad995", 900),
   alt: {
     it: "Intelligenza artificiale al lavoro: tecnologia che rende il digitale accessibile",
@@ -332,7 +335,8 @@ export const COPY = {
 
 /* ---------- The campaigns ---------- */
 
-const DEADLINE = "2026-06-30T23:59:59+02:00";
+// End of Q3 2026 (Q3 = 1 Jul – 30 Sep). +02:00 = CEST, valid in September.
+const DEADLINE = "2026-09-30T23:59:59+02:00";
 
 export const CAMPAIGNS: Campaign[] = [
   {
@@ -352,6 +356,7 @@ export const CAMPAIGNS: Campaign[] = [
       },
     },
     heroImage: {
+      id: "social-media-manager",
       src: unsplash("1611162617474-5b21e879e113"),
       alt: {
         it: "Creator che lavora ai propri contenuti sullo smartphone",
@@ -391,6 +396,7 @@ export const CAMPAIGNS: Campaign[] = [
       },
     },
     heroImage: {
+      id: "coach-consulenti",
       src: unsplash("1556761175-b413da4baf72"),
       alt: {
         it: "Sessione di consulenza one-to-one in ufficio",
@@ -430,6 +436,7 @@ export const CAMPAIGNS: Campaign[] = [
       },
     },
     heroImage: {
+      id: "liberi-professionisti",
       src: unsplash("1521791136064-7986c2920216"),
       alt: {
         it: "Professionisti che si stringono la mano dopo un incontro",

@@ -1,5 +1,6 @@
 ---
 import type { Lang } from "../../i18n/types";
+import type { ImageMetadata } from "astro";
 import type { Campaign } from "../../data/campaigns";
 import {
   STATS,
@@ -26,6 +27,20 @@ const { lang, campaign: c } = Astro.props;
 
 const variants = offerVariants(c.price);
 const privacyHref = localizePath("privacy", lang);
+
+// Drop a file named <slug>.<ext> (or ai.<ext>) into src/assets/campaigns/ and
+// it's picked up, optimized, automatically — overriding the Unsplash hotlink.
+const campaignImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/campaigns/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true },
+);
+const localImg = (id: string): ImageMetadata | undefined =>
+  Object.entries(campaignImages).find(
+    ([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === id,
+  )?.[1].default;
+
+const heroLocal = localImg(c.heroImage.id);
+const aiLocal = localImg(AI_IMAGE.id);
 
 const cd = COPY.countdown;
 const countdownLabels = {
@@ -100,6 +115,7 @@ const formLabels: CampaignFormLabels = {
 
       <div class="cmp-hero-media">
         <RemoteImage
+          local={heroLocal}
           src={c.heroImage.src}
           alt={t(c.heroImage.alt, lang)}
           placeholder={t(c.audience, lang)}
@@ -163,6 +179,7 @@ const formLabels: CampaignFormLabels = {
       </div>
       <div class="cmp-ai-points">
         <RemoteImage
+          local={aiLocal}
           src={AI_IMAGE.src}
           alt={t(AI_IMAGE.alt, lang)}
           placeholder="AI · ALPACODE"
