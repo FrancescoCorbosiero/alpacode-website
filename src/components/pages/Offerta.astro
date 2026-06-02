@@ -14,6 +14,7 @@ import {
   t,
 } from "../../data/campaigns";
 import { localizePath } from "../../i18n/utils";
+import { CAMPAIGN_HERO } from "../../data/heroConfig";
 import RemoteImage from "../RemoteImage.astro";
 import Countdown from "../islands/Countdown.tsx";
 import CampaignForm from "../islands/CampaignForm.tsx";
@@ -78,54 +79,106 @@ const formLabels: CampaignFormLabels = {
 ---
 
 <!-- HERO -->
-<section class="cmp-hero">
-  <div class="wrap-wide">
-    <div class="cmp-hero-grid">
-      <div class="cmp-hero-col">
-        <div class="cmp-eyebrow">{t(c.eyebrow, lang)} · {t(c.audience, lang)}</div>
-        <h1 class="cmp-h1">
-          <span class="bar" aria-hidden="true"></span>
-          {t(c.hero.line1, lang)}<br />{t(c.hero.line2, lang)}
-        </h1>
-        <p class="cmp-lede">{t(c.hero.lede, lang)}</p>
-
-        <div class="cmp-scarcity">
-          <div class="cmp-scar-block">
-            <span class="cmp-scar-k">{t(COPY.deadlineLabel, lang)}</span>
-            <Countdown
-              client:load
-              deadlineISO={c.deadlineISO}
-              labels={countdownLabels}
-              closedLabel={t(COPY.closed, lang)}
-            />
-          </div>
-          <div class="cmp-scar-block cmp-seats">
-            <span class="cmp-scar-k">{t(COPY.seatsLabel, lang)}</span>
-            <span class="cmp-seats-v">
-              <strong>{c.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {c.seats}
-            </span>
-          </div>
-        </div>
-
-        <div class="cmp-hero-cta">
-          <a class="btn btn-blue" href="#offerta">{t(COPY.ctaPrimary, lang)} <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="#offer-detail">{t(COPY.ctaSecondary, lang)}</a>
-        </div>
-      </div>
-
-      <div class="cmp-hero-media">
+{
+  CAMPAIGN_HERO === "background" ? (
+    <section class="cmp-hero cmp-hero--bg">
+      <div class="cmp-hero-bg" aria-hidden="true">
         <RemoteImage
           local={heroLocal}
           src={c.heroImage.src}
-          alt={t(c.heroImage.alt, lang)}
-          placeholder={t(c.audience, lang)}
+          alt=""
+          placeholder=""
           loading="eager"
-          ratio="4 / 5"
+          ratio="auto"
+          class="cmp-hero-bg-img"
         />
+        <div class="cmp-hero-scrim" />
       </div>
-    </div>
-  </div>
-</section>
+      <div class="wrap-wide">
+        <div class="cmp-hero-bg-inner">
+          <div class="cmp-eyebrow cmp-eyebrow--on-dark">{t(c.eyebrow, lang)} · {t(c.audience, lang)}</div>
+          <h1 class="cmp-h1 cmp-h1--on-dark">
+            <span class="bar" aria-hidden="true" />
+            {t(c.hero.line1, lang)}<br />{t(c.hero.line2, lang)}
+          </h1>
+          <p class="cmp-lede cmp-lede--on-dark">{t(c.hero.lede, lang)}</p>
+
+          <div class="cmp-scarcity cmp-scarcity--on-dark">
+            <div class="cmp-scar-block">
+              <span class="cmp-scar-k">{t(COPY.deadlineLabel, lang)}</span>
+              <Countdown
+                client:load
+                deadlineISO={c.deadlineISO}
+                labels={countdownLabels}
+                closedLabel={t(COPY.closed, lang)}
+              />
+            </div>
+            <div class="cmp-scar-block cmp-seats">
+              <span class="cmp-scar-k">{t(COPY.seatsLabel, lang)}</span>
+              <span class="cmp-seats-v">
+                <strong>{c.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {c.seats}
+              </span>
+            </div>
+          </div>
+
+          <div class="cmp-hero-cta">
+            <a class="btn btn-blue" href="#offerta">{t(COPY.ctaPrimary, lang)} <span class="arrow">→</span></a>
+            <a class="btn btn-ghost btn-ghost--on-dark" href="#offer-detail">{t(COPY.ctaSecondary, lang)}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="cmp-hero">
+      <div class="wrap-wide">
+        <div class="cmp-hero-grid">
+          <div class="cmp-hero-col">
+            <div class="cmp-eyebrow">{t(c.eyebrow, lang)} · {t(c.audience, lang)}</div>
+            <h1 class="cmp-h1">
+              <span class="bar" aria-hidden="true" />
+              {t(c.hero.line1, lang)}<br />{t(c.hero.line2, lang)}
+            </h1>
+            <p class="cmp-lede">{t(c.hero.lede, lang)}</p>
+
+            <div class="cmp-scarcity">
+              <div class="cmp-scar-block">
+                <span class="cmp-scar-k">{t(COPY.deadlineLabel, lang)}</span>
+                <Countdown
+                  client:load
+                  deadlineISO={c.deadlineISO}
+                  labels={countdownLabels}
+                  closedLabel={t(COPY.closed, lang)}
+                />
+              </div>
+              <div class="cmp-scar-block cmp-seats">
+                <span class="cmp-scar-k">{t(COPY.seatsLabel, lang)}</span>
+                <span class="cmp-seats-v">
+                  <strong>{c.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {c.seats}
+                </span>
+              </div>
+            </div>
+
+            <div class="cmp-hero-cta">
+              <a class="btn btn-blue" href="#offerta">{t(COPY.ctaPrimary, lang)} <span class="arrow">→</span></a>
+              <a class="btn btn-ghost" href="#offer-detail">{t(COPY.ctaSecondary, lang)}</a>
+            </div>
+          </div>
+
+          <div class="cmp-hero-media">
+            <RemoteImage
+              local={heroLocal}
+              src={c.heroImage.src}
+              alt={t(c.heroImage.alt, lang)}
+              placeholder={t(c.audience, lang)}
+              loading="eager"
+              ratio="4 / 5"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 <!-- PAINS -->
 <section class="cmp-section">

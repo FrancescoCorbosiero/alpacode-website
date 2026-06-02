@@ -1,8 +1,11 @@
 ---
+import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import { hero } from "../../data/home";
+import { HOME_HERO, HOME_HERO_IMAGE } from "../../data/heroConfig";
 import { localizePath } from "../../i18n/utils";
 import BookCall from "../BookCall.astro";
+import RemoteImage from "../RemoteImage.astro";
 
 interface Props {
   lang: Lang;
@@ -10,56 +13,119 @@ interface Props {
 const { lang } = Astro.props;
 const t = hero[lang];
 const lavoriHref = localizePath("lavori", lang);
+
+// Local override for the split-hero image (src/assets/campaigns/home-hero.*).
+const campaignImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/campaigns/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true },
+);
+const heroLocal = Object.entries(campaignImages).find(
+  ([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === HOME_HERO_IMAGE.id,
+)?.[1].default;
+
+const claimIt = lang === "it";
 ---
 
-<section class="hero">
-  <div class="wrap-wide">
-    <div class="hero-meta">
-      <div class="left">
-        <span class="eyebrow">{t.eyebrow}</span>
-      </div>
-      <div class="right">
-        <span class="label">{t.statusLabel}</span>
-        <span class="val">{t.statusVal}</span>
-      </div>
-    </div>
-
-    <div class="hero-monogram" style="margin-top:56px">
-      <h1 class="hero-wordmark">
-        <div class="row row-1"><span>ALPACODE</span></div>
-        <div class="hero-bar" aria-hidden="true"></div>
-        <div class="row row-2">
-          <span>SOLUZIONI</span><span>DIGITALI</span>
-        </div>
-      </h1>
-    </div>
-
-    <div class="hero-sub-row" style="margin-top:72px">
-      <p class="hero-claim">
-        {
-          lang === "it" ? (
-            <Fragment>Digitalizziamo <em>privati</em> e imprese,<br />in tutta Italia.</Fragment>
-          ) : (
-            <Fragment>We digitalize <em>people</em> and businesses,<br />right across Italy.</Fragment>
-          )
-        }
-      </p>
-      <div class="hero-ctas">
-        <BookCall label={t.cta1} journey="hero" lang={lang} />
-        <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
-      </div>
-    </div>
-
-    <div class="hero-meta-row">
-      {
-        t.meta.map((m, i) => (
-          <div class="cell" style={`--cell-i:${i}`}>
-            <span class="k">{m.k}</span>
-            <span class="v">{m.v}</span>
-            <span class="d">{m.d}</span>
+{
+  HOME_HERO === "split" ? (
+    <section class="hero hero--split">
+      <div class="wrap-wide">
+        <div class="hero-split-grid">
+          <div class="hero-split-col">
+            <div class="hero-meta">
+              <div class="left"><span class="eyebrow">{t.eyebrow}</span></div>
+              <div class="right">
+                <span class="status-dot" aria-hidden="true" />
+                <span class="label">{t.statusLabel}</span>
+                <span class="val">{t.statusVal}</span>
+              </div>
+            </div>
+            <h1 class="hero-split-title">
+              <span class="bar" aria-hidden="true" />
+              ALPACODE
+              <small>{t.sub}</small>
+            </h1>
+            <p class="hero-claim">
+              {claimIt ? (
+                <Fragment>Digitalizziamo <em>privati</em> e imprese,<br />in tutta Italia.</Fragment>
+              ) : (
+                <Fragment>We digitalize <em>people</em> and businesses,<br />right across Italy.</Fragment>
+              )}
+            </p>
+            <div class="hero-ctas">
+              <BookCall label={t.cta1} journey="hero" lang={lang} class="btn-blue" />
+              <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
+            </div>
           </div>
-        ))
-      }
-    </div>
-  </div>
-</section>
+          <div class="hero-split-media">
+            <RemoteImage
+              local={heroLocal}
+              src={HOME_HERO_IMAGE.src}
+              alt={HOME_HERO_IMAGE.alt[lang]}
+              placeholder="ALPACODE"
+              loading="eager"
+              ratio="4 / 5"
+            />
+          </div>
+        </div>
+        <div class="hero-meta-row">
+          {t.meta.map((m, i) => (
+            <div class="cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+              <span class="d">{m.d}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="hero">
+      <div class="wrap-wide">
+        <div class="hero-meta">
+          <div class="left">
+            <span class="eyebrow">{t.eyebrow}</span>
+          </div>
+          <div class="right">
+            <span class="label">{t.statusLabel}</span>
+            <span class="val">{t.statusVal}</span>
+          </div>
+        </div>
+
+        <div class="hero-monogram" style="margin-top:56px">
+          <h1 class="hero-wordmark">
+            <div class="row row-1"><span>ALPACODE</span></div>
+            <div class="hero-bar" aria-hidden="true" />
+            <div class="row row-2">
+              <span>SOLUZIONI</span><span>DIGITALI</span>
+            </div>
+          </h1>
+        </div>
+
+        <div class="hero-sub-row" style="margin-top:72px">
+          <p class="hero-claim">
+            {claimIt ? (
+              <Fragment>Digitalizziamo <em>privati</em> e imprese,<br />in tutta Italia.</Fragment>
+            ) : (
+              <Fragment>We digitalize <em>people</em> and businesses,<br />right across Italy.</Fragment>
+            )}
+          </p>
+          <div class="hero-ctas">
+            <BookCall label={t.cta1} journey="hero" lang={lang} />
+            <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
+          </div>
+        </div>
+
+        <div class="hero-meta-row">
+          {t.meta.map((m, i) => (
+            <div class="cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+              <span class="d">{m.d}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
