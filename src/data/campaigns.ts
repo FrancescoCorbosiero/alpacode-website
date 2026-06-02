@@ -50,10 +50,26 @@ export interface Campaign {
   /** Offer deadline (ISO, with timezone). Drives the countdown. */
   deadlineISO: string;
   hero: { line1: Localized; line2: Localized; lede: Localized };
+  /** Hero image — an Unsplash hotlink + bilingual alt text. */
+  heroImage: { src: string; alt: Localized };
   /** Audience-specific reasons / pains the offer answers. */
   pains: { k: Localized; v: Localized }[];
   meta: { title: Localized; description: Localized };
 }
+
+/** Build an Unsplash URL at a sensible delivery size.
+ *  Hotlinked at runtime by the visitor's browser — no build dependency. */
+export const unsplash = (id: string, w = 900) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+
+/** Shared image for the AI section. */
+export const AI_IMAGE = {
+  src: unsplash("1677442136019-21780ecad995", 900),
+  alt: {
+    it: "Intelligenza artificiale al lavoro: tecnologia che rende il digitale accessibile",
+    en: "Artificial intelligence at work: technology making digital accessible",
+  } as Localized,
+};
 
 /* ---------- Shared building blocks ---------- */
 
@@ -199,6 +215,42 @@ export const GUARANTEES: { t: Localized; d: Localized }[] = [
   },
 ];
 
+/** The AI section — why quality no longer costs thousands. */
+export const AI = {
+  kicker: { it: "Come è possibile", en: "How it's possible" },
+  title: {
+    it: "L'AI ha cambiato le regole. Il prezzo, di conseguenza.",
+    en: "AI changed the rules. So did the price.",
+  },
+  lede: {
+    it: "L'intelligenza artificiale ha rivoluzionato il web e il mondo digitale: per un lavoro di qualità non servono più migliaia di euro. Noi usiamo l'AI per tenere alta la qualità e contenere il prezzo finale — così molte più figure possono finalmente avere il proprio spazio digitale.",
+    en: "AI has transformed the web and the digital world: quality work no longer costs thousands. We use AI to keep quality high and the final price low — so many more people can finally have their own digital space.",
+  },
+  points: [
+    {
+      k: { it: "Qualità, non scorciatoie", en: "Quality, not shortcuts" },
+      v: {
+        it: "L'AI accelera il lavoro ripetitivo. Le scelte, la cura e il controllo finale restano umani.",
+        en: "AI speeds up the repetitive work. The decisions, the care and the final check stay human.",
+      },
+    },
+    {
+      k: { it: "Meno costi, meno prezzo", en: "Lower cost, lower price" },
+      v: {
+        it: "Lavorando in modo più efficiente, abbattiamo i costi. E quel risparmio finisce nel tuo prezzo.",
+        en: "By working more efficiently, we cut costs. And that saving ends up in your price.",
+      },
+    },
+    {
+      k: { it: "Il digitale per tutti", en: "Digital for everyone" },
+      v: {
+        it: "Un sito di qualità non è più un lusso da grandi budget: ora è alla portata di ogni professionista.",
+        en: "A quality website is no longer a big-budget luxury: now it's within reach of every professional.",
+      },
+    },
+  ],
+} satisfies { kicker: Localized; title: Localized; lede: Localized; points: { k: Localized; v: Localized }[] };
+
 export const FAQ: { q: Localized; a: Localized }[] = [
   {
     q: { it: "Devo pagare qualcosa in anticipo?", en: "Do I have to pay anything up front?" },
@@ -224,8 +276,8 @@ export const FAQ: { q: Localized; a: Localized }[] = [
   {
     q: { it: "Perché così conveniente?", en: "Why so affordable?" },
     a: {
-      it: "Perché lavoriamo in modo snello e standardizziamo ciò che si può standardizzare. La qualità resta da agency; il prezzo è pensato per la situazione economica dei professionisti italiani.",
-      en: "Because we work lean and standardise what can be standardised. The quality stays agency-grade; the price is built for Italian professionals' economic reality.",
+      it: "Perché sfruttiamo l'AI e lavoriamo in modo snello: l'intelligenza artificiale ha abbattuto i costi del lavoro digitale di qualità. Quel risparmio lo giriamo a te. La qualità resta da agency; il prezzo è pensato per la situazione economica dei professionisti italiani.",
+      en: "Because we leverage AI and work lean: artificial intelligence has cut the cost of quality digital work. We pass that saving on to you. The quality stays agency-grade; the price is built for Italian professionals' economic reality.",
     },
   },
   {
@@ -299,6 +351,13 @@ export const CAMPAIGNS: Campaign[] = [
         en: "You live on social, but the platforms aren't yours. A personal site is the space you truly control: portfolio, contacts, links, all in one place. We build it for you, at €300 a year, all included.",
       },
     },
+    heroImage: {
+      src: unsplash("1611162617474-5b21e879e113"),
+      alt: {
+        it: "Creator che lavora ai propri contenuti sullo smartphone",
+        en: "Creator working on their content on a smartphone",
+      },
+    },
     pains: [
       { k: { it: "Niente più «link in bio»", en: "No more “link in bio”" }, v: { it: "Un indirizzo tuo, professionale, da mettere ovunque.", en: "Your own professional address, to put everywhere." } },
       { k: { it: "Mostra il tuo lavoro", en: "Show your work" }, v: { it: "Portfolio, collaborazioni e media kit sempre aggiornati.", en: "Portfolio, collabs and media kit always up to date." } },
@@ -331,6 +390,13 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Coach, consultant, trainer: the first conversation now happens online. A polished site is the difference between “I'll think about it” and “I'll book”. We build it for you, at €350 a year, all included.",
       },
     },
+    heroImage: {
+      src: unsplash("1556761175-b413da4baf72"),
+      alt: {
+        it: "Sessione di consulenza one-to-one in ufficio",
+        en: "One-to-one consulting session in an office",
+      },
+    },
     pains: [
       { k: { it: "Autorevolezza, subito", en: "Authority, instantly" }, v: { it: "Un sito serio comunica valore prima ancora di parlare.", en: "A serious site communicates value before you even speak." } },
       { k: { it: "Prenotazioni integrate", en: "Built-in booking" }, v: { it: "Calendario e modulo contatti per riempire l'agenda.", en: "Calendar and contact form to fill your agenda." } },
@@ -361,6 +427,13 @@ export const CAMPAIGNS: Campaign[] = [
       lede: {
         it: "Avvocato, commercialista, architetto, psicologo: chi ha bisogno di te parte da una ricerca. Senza un sito tuo, finisci nelle mani delle directory. Ne costruiamo uno serio, a 450 € l'anno, tutto incluso.",
         en: "Lawyer, accountant, architect, psychologist: whoever needs you starts with a search. Without your own site, you end up in the hands of directories. We build a serious one, at €450 a year, all included.",
+      },
+    },
+    heroImage: {
+      src: unsplash("1521791136064-7986c2920216"),
+      alt: {
+        it: "Professionisti che si stringono la mano dopo un incontro",
+        en: "Professionals shaking hands after a meeting",
       },
     },
     pains: [

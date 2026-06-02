@@ -1,0 +1,55 @@
+---
+// Remote image (e.g. Unsplash hotlink) with a graceful fallback.
+// If the URL fails to load (blocked, 404, offline), the styled placeholder
+// box is shown instead — so a broken image never reaches the visitor.
+// Use for advertising/marketing imagery where the asset lives off-repo.
+interface Props {
+  src: string;
+  alt: string;
+  /** Shown if the image can't load. */
+  placeholder: string;
+  class?: string;
+  /** Loading hint; hero images can pass "eager". */
+  loading?: "lazy" | "eager";
+  ratio?: string;
+}
+const {
+  src,
+  alt,
+  placeholder,
+  class: cls,
+  loading = "lazy",
+  ratio = "4 / 3",
+} = Astro.props;
+---
+
+<div class:list={["img-slot", "remote-slot", cls]} style={`--ratio:${ratio}`}>
+  <img
+    src={src}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+    class="img-fill"
+    data-remote-img
+    data-placeholder={placeholder}
+  />
+  <span class="remote-fallback" aria-hidden="true">{placeholder}</span>
+</div>
+
+<script>
+  // Swap to the dashed placeholder if a remote image fails to load. Runs once;
+  // safe across View Transitions navigations.
+  function wireRemoteImages() {
+    document
+      .querySelectorAll<HTMLImageElement>("img[data-remote-img]")
+      .forEach((img) => {
+        if (img.dataset.wired) return;
+        img.dataset.wired = "1";
+        const fail = () => img.closest(".remote-slot")?.classList.add("img-failed");
+        if (img.complete && img.naturalWidth === 0) fail();
+        img.addEventListener("error", fail);
+      });
+  }
+  document.addEventListener("astro:page-load", wireRemoteImages);
+  wireRemoteImages();
+</script>
