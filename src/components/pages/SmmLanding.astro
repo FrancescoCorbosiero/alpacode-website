@@ -1,0 +1,488 @@
+---
+import type { Lang } from "../../i18n/types";
+import { smmLanding, SMM_CAMPAIGN } from "../../data/smm-landing";
+import { COPY, t } from "../../data/campaigns";
+import { business } from "../../data/business";
+import { localizePath } from "../../i18n/utils";
+import Ticker from "../Ticker.astro";
+import Countdown from "../islands/Countdown.tsx";
+import CampaignForm from "../islands/CampaignForm.tsx";
+import type { CampaignFormLabels } from "../islands/CampaignForm";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = smmLanding[lang];
+const camp = SMM_CAMPAIGN;
+const privacyHref = localizePath("privacy", lang);
+
+/* Server-side defaults for the mirror, derived from the placeholder name so
+   the first paint already looks real. Mirrors the slugify in the script. */
+const slugify = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "")
+    .slice(0, 24);
+const initialsOf = (s: string) =>
+  s
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+const defName = c.inputPlaceholder;
+const defSlug = slugify(defName);
+const mailbox = lang === "it" ? "ciao" : "hi";
+
+const cd = COPY.countdown;
+const countdownLabels = {
+  days: t(cd.days, lang),
+  hours: t(cd.hours, lang),
+  minutes: t(cd.minutes, lang),
+  seconds: t(cd.seconds, lang),
+};
+
+const formLabels: CampaignFormLabels = {
+  name: lang === "it" ? "Nome e cognome" : "Full name",
+  namePlaceholder: c.inputPlaceholder,
+  email: "Email",
+  emailPlaceholder: lang === "it" ? "nome@dominio.it" : "name@domain.com",
+  phone: lang === "it" ? "Telefono (opzionale)" : "Phone (optional)",
+  phonePlaceholder: "+39 …",
+  business: lang === "it" ? "Il tuo profilo social (opzionale)" : "Your social handle (optional)",
+  businessPlaceholder: lang === "it" ? "@iltuoprofilo" : "@yourhandle",
+  message: lang === "it" ? "Due righe su di te (opzionale)" : "A couple of lines about you (optional)",
+  messagePlaceholder:
+    lang === "it" ? "Chi segui, chi ti segue, cosa ti serve." : "What you do, what you need.",
+  chosenOffer: t(COPY.chosenOffer, lang),
+  send: c.offerCta,
+  consent:
+    lang === "it"
+      ? "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a."
+      : "I have read the privacy policy and consent to data processing to be contacted back.",
+  confirm: lang === "it" ? "GRAZIE — TI RICONTATTIAMO PRESTISSIMO" : "THANKS — WE'LL REACH OUT VERY SOON",
+  error: lang === "it" ? "QUALCOSA È ANDATO STORTO — RIPROVA" : "SOMETHING WENT WRONG — RETRY",
+  // No toggle on this page: both variant ids map to the same fixed label.
+  variants: {
+    "all-inclusive": c.offerVariantLabel,
+    "premium-extras": c.offerVariantLabel,
+  },
+};
+---
+
+<div class="smm">
+  {/* ---------- HERO ---------- */}
+  <section class="smm-hero">
+    <div class="wrap-wide">
+      <div class="smm-hero-top">
+        <span class="smm-eyebrow"><span class="smm-dot" aria-hidden="true"></span>{c.eyebrow}</span>
+        <span class="smm-hero-host" aria-hidden="true">ALPACODE · {lang === "it" ? "SOLUZIONI DIGITALI" : "DIGITAL SOLUTIONS"}</span>
+      </div>
+
+      <h1 class="smm-h1">
+        <span class="smm-h1-bar" aria-hidden="true"></span>
+        {c.h1Lines.map((line) => <span class="smm-h1-line">{line}</span>)}
+        <span class="smm-h1-line smm-h1-line--accent">{c.h1Accent}</span>
+      </h1>
+
+      <div class="smm-hero-tail">
+        <p class="smm-lede">{c.lede}</p>
+        <div class="smm-hero-ctas">
+          <a class="btn smm-btn-accent" href="#posto">{c.ctaPrimary} <span class="arrow">→</span></a>
+          <a class="btn smm-btn-ghost" href="#specchio">{c.ctaSecondary} <span class="arrow">↓</span></a>
+        </div>
+      </div>
+
+      <div class="smm-hero-meta">
+        {
+          c.heroMeta.map((m, i) => (
+            <div class="smm-hero-cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- TICKER ---------- */}
+  <div class="smm-ticker">
+    <Ticker items={c.ticker} />
+  </div>
+
+  {/* ---------- MIRROR — type your name, see the difference ---------- */}
+  <section class="smm-section smm-mirror" id="specchio" data-smm-mirror data-tld={c.tld} data-mailbox={mailbox} data-fallback={defName}>
+    <div class="wrap-wide">
+      <div class="section-head smm-head">
+        <div>
+          <div class="sec-num smm-kicker">{c.mirrorKicker}</div>
+          <h2>{c.mirrorTitle}</h2>
+        </div>
+        <p class="lede">{c.mirrorLede}</p>
+      </div>
+
+      <div class="smm-try">
+        <label class="smm-try-label" for="smm-name">— {c.inputLabel}</label>
+        <input
+          class="smm-try-input"
+          id="smm-name"
+          type="text"
+          maxlength="26"
+          autocomplete="off"
+          autocapitalize="words"
+          spellcheck="false"
+          placeholder={c.inputPlaceholder}
+          data-smm-name
+        />
+        <span class="smm-try-cursor" aria-hidden="true"></span>
+      </div>
+
+      <div class="smm-stage">
+        {/* LEFT — today: the rented link-in-bio */}
+        <div class="smm-stage-col">
+          <div class="smm-stage-tag smm-stage-tag--rent">{c.leftTag}</div>
+          <div class="smm-phone" aria-hidden="true">
+            <div class="smm-phone-avatar"><span data-m-initials>{initialsOf(defName)}</span></div>
+            <div class="smm-phone-handle" data-m-handle>@{defSlug}</div>
+            <div class="smm-phone-bio">{c.leftBioLabel}</div>
+            <div class="smm-phone-links">
+              {c.leftLinks.map((l) => <div class="smm-phone-link">{l}</div>)}
+            </div>
+            <div class="smm-phone-warn">▼ {c.leftWarn}</div>
+          </div>
+          <p class="smm-stage-foot">{c.leftFoot}</p>
+        </div>
+
+        <div class="smm-stage-vs" aria-hidden="true">→</div>
+
+        {/* RIGHT — tomorrow: your own site, in the real Alpacode language */}
+        <div class="smm-stage-col">
+          <div class="smm-stage-tag smm-stage-tag--own">{c.rightTag}</div>
+          <div class="smm-browser" aria-hidden="true">
+            <div class="smm-browser-bar">
+              <span class="smm-browser-dots"><i></i><i></i><i></i></span>
+              <span class="smm-browser-url">https://<strong data-m-domain>{defSlug}{c.tld}</strong></span>
+            </div>
+            <div class="smm-site">
+              <div class="smm-site-topbar">
+                <span class="smm-site-brand" data-m-name-short>{defName.split(/\s+/)[0]}</span>
+                <nav class="smm-site-nav">
+                  {c.rightNav.map((n) => <span>{n}</span>)}
+                </nav>
+              </div>
+              <span class="smm-site-strut"></span>
+              <div class="smm-site-name" data-m-name>{defName}</div>
+              <div class="smm-site-role">{c.rightRole}</div>
+              <div class="smm-site-grid">
+                <div class="ph">P·01</div>
+                <div class="ph">P·02</div>
+                <div class="ph">P·03</div>
+              </div>
+              <div class="smm-site-row">
+                <span class="smm-site-btn">{c.rightCta} →</span>
+                <span class="smm-site-mail">{mailbox}@<span data-m-domain>{defSlug}{c.tld}</span></span>
+              </div>
+            </div>
+          </div>
+          <p class="smm-stage-foot smm-stage-foot--own">{c.rightFoot}</p>
+        </div>
+      </div>
+
+      <p class="smm-mirror-caption">
+        {c.mirrorCaption}
+        <a class="smm-mirror-link" href="#posto">{c.ctaPrimary} →</a>
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- PAINS ---------- */}
+  <section class="smm-section smm-pains">
+    <div class="wrap-wide">
+      <div class="section-head smm-head">
+        <div>
+          <div class="sec-num smm-kicker">{c.painsKicker}</div>
+          <h2>{c.painsTitle}</h2>
+        </div>
+        <p class="lede">{c.painsLede}</p>
+      </div>
+      <div class="smm-pain-grid">
+        {
+          c.pains.map((p, i) => (
+            <article class="smm-pain">
+              <span class="smm-pain-n">0{i + 1}</span>
+              <span class="smm-pain-strut" aria-hidden="true"></span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="smm-numbers">
+        {
+          c.numbers.map((n) => (
+            <div class="smm-number">
+              <div class="smm-number-v">{n.v}</div>
+              <div class="smm-number-l">{n.l}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- OFFER (paper band) ---------- */}
+  <section class="smm-section smm-offer" id="offerta">
+    <div class="wrap-wide">
+      <div class="section-head smm-head-paper">
+        <div>
+          <div class="sec-num smm-kicker-deep">{c.offerKicker}</div>
+          <h2>{c.offerTitle}</h2>
+        </div>
+        <p class="lede">{c.offerBlurb}</p>
+      </div>
+
+      <div class="smm-offer-grid">
+        <div class="smm-offer-price">
+          <div class="smm-price">
+            <span class="smm-price-v">{camp.price} €</span>
+            <span class="smm-price-per">{c.perYear}</span>
+          </div>
+          <p class="smm-price-note">{c.priceNote}</p>
+
+          <div class="smm-scarcity">
+            <div class="smm-scar-block">
+              <span class="smm-scar-k">{t(COPY.deadlineLabel, lang)}</span>
+              <Countdown
+                client:load
+                deadlineISO={camp.deadlineISO}
+                labels={countdownLabels}
+                closedLabel={t(COPY.closed, lang)}
+              />
+            </div>
+            <div class="smm-scar-block">
+              <span class="smm-scar-k">{t(COPY.seatsLabel, lang)}</span>
+              <span class="smm-seats-v"><strong>{camp.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {camp.seats}</span>
+            </div>
+          </div>
+
+          <a class="btn smm-btn-accent smm-btn-lg" href="#posto">{c.offerCta} <span class="arrow">→</span></a>
+        </div>
+
+        <div class="smm-includes">
+          <div class="smm-includes-k">{c.includesLabel}</div>
+          <ul>
+            {c.includes.map((it) => <li>{it}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STEPS + GUARANTEES (paper band) ---------- */}
+  <section class="smm-section smm-paper">
+    <div class="wrap-wide">
+      <div class="section-head smm-head-paper">
+        <div>
+          <div class="sec-num smm-kicker-deep">{c.stepsKicker}</div>
+          <h2>{c.stepsTitle}</h2>
+        </div>
+      </div>
+      <div class="smm-steps">
+        {
+          c.steps.map((s) => (
+            <div class="smm-step">
+              <div class="smm-step-n">{s.n}</div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="section-head smm-head-paper smm-head-gap">
+        <div>
+          <div class="sec-num smm-kicker-deep">{c.guarKicker}</div>
+          <h2>{c.guarTitle}</h2>
+        </div>
+      </div>
+      <div class="smm-guar-grid">
+        {
+          c.guarantees.map((g) => (
+            <div class="smm-guar">
+              <span class="strut-short smm-strut" aria-hidden="true"></span>
+              <h3>{g.t}</h3>
+              <p>{g.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ (dark) ---------- */}
+  <section class="smm-section smm-faq-sec">
+    <div class="wrap-wide">
+      <div class="section-head smm-head">
+        <div>
+          <div class="sec-num smm-kicker">{c.faqKicker}</div>
+          <h2>{c.faqTitle}</h2>
+        </div>
+      </div>
+      <div class="smm-faq">
+        {
+          c.faq.map((f, i) => (
+            <details class="smm-faq-item" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FORM (paper band) ---------- */}
+  <section class="smm-section smm-form-sec" id="posto">
+    <div class="wrap-wide">
+      <div class="smm-form-grid">
+        <div class="smm-form-intro">
+          <div class="sec-num smm-kicker-deep">{c.formKicker}</div>
+          <h2>{c.formTitle}</h2>
+          <p class="lede">{c.formLede}</p>
+          <div class="smm-form-scar">
+            <span class="smm-scar-k">{t(COPY.seatsLabel, lang)}</span>
+            <span class="smm-seats-v"><strong>{camp.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {camp.seats}</span>
+          </div>
+          <p class="smm-form-privacy"><a href={privacyHref}>{c.privacyLink}</a></p>
+        </div>
+        <div class="smm-form-box">
+          <CampaignForm
+            client:idle
+            lang={lang}
+            campaign="smm-landing"
+            audience={t(camp.audience, lang)}
+            price={camp.price}
+            labels={formLabels}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FINAL CTA (dark) ---------- */}
+  <section class="smm-section smm-final">
+    <div class="wrap-wide">
+      <div class="sec-num smm-kicker">{c.finalKicker}</div>
+      <div class="smm-final-display">
+        {c.finalLine1}<br /><span class="smm-final-underline">{c.finalLine2}</span>
+      </div>
+      <p class="smm-final-sub">{c.finalSub}</p>
+      <div class="smm-final-actions">
+        <a class="btn smm-btn-accent smm-btn-lg" href="#posto">{c.finalCta} <span class="arrow">→</span></a>
+        <a class="btn smm-btn-ghost" href={`mailto:${business.email}?subject=${encodeURIComponent(c.ctaPrimary)}`}>
+          {c.finalAlt} <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STICKY CTA PILL ---------- */}
+  <div class="smm-sticky" data-smm-sticky>
+    <a class="smm-sticky-btn" href="#posto">{c.stickyCta} <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<script is:inline>
+  /* SMM landing interactions: (1) the "mirror" — typing a name repaints the
+     rented profile and the owned site live; (2) sticky CTA after the hero. */
+  (function () {
+    var slugify = function (s) {
+      return s
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "")
+        .slice(0, 24);
+    };
+    var initialsOf = function (s) {
+      return s
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(function (w) {
+          return (w[0] || "").toUpperCase();
+        })
+        .join("");
+    };
+
+    var init = function () {
+      var mirror = document.querySelector("[data-smm-mirror]");
+      if (mirror && !mirror.hasAttribute("data-smm-ready")) {
+        mirror.setAttribute("data-smm-ready", "");
+        var input = mirror.querySelector("[data-smm-name]");
+        var tld = mirror.getAttribute("data-tld") || ".it";
+        var fallback = mirror.getAttribute("data-fallback") || "Maria Rossi";
+        var setAll = function (sel, text) {
+          mirror.querySelectorAll(sel).forEach(function (el) {
+            el.textContent = text;
+          });
+        };
+        var update = function () {
+          var name = (input && input.value.trim()) || fallback;
+          var slug = slugify(name) || slugify(fallback);
+          setAll("[data-m-name]", name);
+          setAll("[data-m-name-short]", name.split(/\s+/)[0]);
+          setAll("[data-m-initials]", initialsOf(name));
+          setAll("[data-m-handle]", "@" + slug);
+          setAll("[data-m-domain]", slug + tld);
+        };
+        if (input) input.addEventListener("input", update);
+        update();
+      }
+
+      var sticky = document.querySelector("[data-smm-sticky]");
+      var hero = document.querySelector(".smm-hero");
+      var form = document.querySelector(".smm-form-sec");
+      if (sticky && hero && !sticky.hasAttribute("data-smm-ready")) {
+        sticky.setAttribute("data-smm-ready", "");
+        var pastHero = false;
+        var onForm = false;
+        var apply = function () {
+          sticky.classList.toggle("is-visible", pastHero && !onForm);
+        };
+        new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              pastHero = !e.isIntersecting;
+            });
+            apply();
+          },
+          { threshold: 0, rootMargin: "-60px 0px 0px 0px" }
+        ).observe(hero);
+        if (form) {
+          new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                onForm = e.isIntersecting;
+              });
+              apply();
+            },
+            { threshold: 0.15 }
+          ).observe(form);
+        }
+      }
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+    document.addEventListener("astro:page-load", init);
+  })();
+</script>
