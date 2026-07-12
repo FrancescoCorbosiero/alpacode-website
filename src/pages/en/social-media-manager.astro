@@ -1,0 +1,31 @@
+---
+import Layout from "../../components/Layout.astro";
+import SmmLanding from "../../components/pages/SmmLanding.astro";
+import { smmLanding } from "../../data/smm-landing";
+
+const lang = "en" as const;
+const data = smmLanding[lang];
+
+const faqSchema = {
+  "@type": "FAQPage",
+  mainEntity: data.faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout
+  lang={lang}
+  slug="social-media-manager"
+  title={data.title}
+  description={data.description}
+  ogImage={data.ogImage}
+  jsonLd={[faqSchema]}
+  minimal
+  ctaLabel={data.stickyCta}
+  ctaHref="#posto"
+>
+  <SmmLanding lang={lang} />
+</Layout>
