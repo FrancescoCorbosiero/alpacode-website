@@ -121,7 +121,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     eyebrow: "Programma partner · Un partner per nicchia e zona",
     h1Lines: ["Tu hai i clienti.", "Noi il digitale."],
-    h1Accent: "Simbiosi.",
+    h1Accent: "Alleanza.",
     lede: "Prima o poi un tuo cliente te lo chiede: «mi fai anche il sito?». Da oggi la risposta è sì — senza impararlo, senza assumere nessuno, senza rischiare la figura. Tu metti la relazione, noi la tecnologia. E il valore torna a tutti e due.",
     ctaPrimary: "Candidati come partner",
     ctaSecondary: "Guarda come gira",
@@ -148,7 +148,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     thesisBody:
       "Chi lavora coi clienti ogni giorno — chi gestisce i loro social, i loro conti, le loro vendite — ha in mano la cosa più difficile da costruire: la fiducia. Noi abbiamo quella più difficile da improvvisare: un laboratorio che progetta siti, e-commerce e automazioni. Il programma partner collega le due cose. Con regole chiare, per iscritto.",
 
-    symbKicker: "§ 02 — La simbiosi",
+    symbKicker: "§ 02 — L'alleanza",
     symbTitle: "Un canale che gira in due direzioni.",
     symbLede:
       "Tre modelli. Puoi sceglierne uno, combinarli, o iniziare con un solo cliente per provare. Sotto, cosa scorre da una parte e cosa torna dall'altra.",
@@ -235,7 +235,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     dealKicker: "§ 04 — Patti chiari",
     dealTitle: "Cosa ci guadagni. Cosa ci guadagniamo.",
     dealLede:
-      "La simbiosi funziona solo se conviene a tutti e due. Ecco il conto, alla luce del sole.",
+      "Un'alleanza funziona solo se conviene a tutti e due. Ecco il conto, alla luce del sole.",
     yoursLabel: "Per te",
     yours: [
       "Un servizio in più a listino, senza costi fissi",
@@ -335,7 +335,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     finalKicker: "§ 09 — Ultima cosa",
     finalLine1: "Da soli si vende.",
-    finalLine2: "In simbiosi si cresce.",
+    finalLine2: "Insieme si cresce.",
     finalSub:
       "Trenta minuti di call. Zero costi, zero vincoli, condizioni scritte. E una nicchia che può diventare tua.",
     finalCta: "Candidati come partner",
@@ -352,7 +352,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     eyebrow: "Partner program · One partner per niche and area",
     h1Lines: ["You have the clients.", "We have the digital."],
-    h1Accent: "Symbiosis.",
+    h1Accent: "Allies.",
     lede: "Sooner or later a client asks you: “could you do my website too?”. From today the answer is yes — without learning it, hiring anyone, or risking your reputation. You bring the relationship, we bring the technology. And the value flows both ways.",
     ctaPrimary: "Apply as a partner",
     ctaSecondary: "See how it flows",
@@ -379,7 +379,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     thesisBody:
       "People who work with clients every day — running their socials, their books, their sales — hold the hardest thing to build: trust. We hold the hardest thing to improvise: a studio that designs websites, e-commerce and automations. The partner program connects the two. With clear rules, in writing.",
 
-    symbKicker: "§ 02 — The symbiosis",
+    symbKicker: "§ 02 — The alliance",
     symbTitle: "A channel that flows both ways.",
     symbLede:
       "Three models. Pick one, combine them, or start with a single client to test the waters. Below: what flows one way, and what comes back.",
@@ -465,7 +465,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     dealKicker: "§ 04 — Open ledger",
     dealTitle: "What you gain. What we gain.",
-    dealLede: "Symbiosis only works if it pays for both sides. Here's the ledger, in the open.",
+    dealLede: "An alliance only works if it pays for both sides. Here's the ledger, in the open.",
     yoursLabel: "For you",
     yours: [
       "One more service on your list, zero fixed costs",
@@ -565,7 +565,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     finalKicker: "§ 09 — One last thing",
     finalLine1: "Alone, you sell.",
-    finalLine2: "In symbiosis, you grow.",
+    finalLine2: "Together, you grow.",
     finalSub:
       "Thirty minutes on a call. Zero costs, zero lock-in, written terms. And a niche that can become yours.",
     finalCta: "Apply as a partner",

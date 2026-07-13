@@ -30,17 +30,16 @@
   <!-- Accent bar -->
   <rect x="80" y="220" width="120" height="8" fill="#2FE08A"/>
   <!-- Headline -->
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="82" fill="#F4F1E8">
-    <text x="80" y="322">TU HAI I CLIENTI.</text>
-    <text x="80" y="410">NOI IL DIGITALE.</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#F4F1E8">
+    <text x="80" y="296">TU HAI I CLIENTI.</text>
+    <text x="80" y="376">NOI IL DIGITALE.</text>
   </g>
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="82" fill="#2FE08A">
-    <text x="808" y="410">SIMBIOSI.</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#2FE08A">
+    <text x="80" y="456">ALLEANZA.</text>
   </g>
   <!-- Lede -->
   <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#B3B0A8">
-    <text x="80" y="478">Segnala, rivendi in white-label o scambia lead con noi.</text>
-    <text x="80" y="510">Il cliente resta tuo. Le condizioni sono scritte.</text>
+    <text x="80" y="514">Segnala, rivendi in white-label o scambia lead. Il cliente resta tuo.</text>
   </g>
   <!-- Foot meta -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#8A857A">
