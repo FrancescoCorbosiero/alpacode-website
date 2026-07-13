@@ -928,6 +928,53 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 }
 
 /* =============================================================
+   BRIDGE — a green portal to the partner program
+   ============================================================= */
+.smm-bridge-sec {
+  padding: 72px 0;
+}
+.smm-bridge {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #2fe08a;
+  padding: 32px 30px;
+  background: linear-gradient(90deg, rgba(47, 224, 138, 0.07), transparent 60%);
+  transition: background 0.2s ease;
+}
+.smm-bridge:hover {
+  background: linear-gradient(90deg, rgba(47, 224, 138, 0.14), transparent 70%);
+}
+.smm-bridge-tag {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2fe08a;
+}
+.smm-bridge-title {
+  font-family: var(--display);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.05;
+  color: var(--smm-fg);
+}
+.smm-bridge-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--smm-fg-mute);
+  max-width: 70ch;
+}
+.smm-bridge-cta {
+  margin-top: 6px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  color: #2fe08a;
+}
+.smm-bridge:hover .smm-bridge-cta {
+  color: var(--smm-fg);
+}
+
+/* =============================================================
    FINAL CTA — dark closer
    ============================================================= */
 .smm-final {

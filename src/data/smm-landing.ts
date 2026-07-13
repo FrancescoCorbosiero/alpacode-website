@@ -115,6 +115,12 @@ export interface SmmCopy {
   /** Label shown as the (fixed) chosen offer inside the lead form. */
   offerVariantLabel: string;
 
+  /* Bridge to the partner program */
+  bridgeTag: string;
+  bridgeTitle: string;
+  bridgeBody: string;
+  bridgeCta: string;
+
   /* Final CTA */
   finalKicker: string;
   finalLine1: string;
@@ -310,7 +316,13 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     privacyLink: "Come trattiamo i tuoi dati →",
     offerVariantLabel: "Sito personale — tutto incluso",
 
-    finalKicker: "§ 08 — Ultima cosa",
+    bridgeTag: "Programma partner",
+    bridgeTitle: "Non solo cliente. Partner.",
+    bridgeBody:
+      "I tuoi clienti ti chiedono siti, e-commerce, automazioni? Non dire più «non me ne occupo». Segnalali o rivendili col tuo brand: costruiamo noi, il margine è tuo, il cliente resta tuo. E noi ti presentiamo chi cerca un social media manager.",
+    bridgeCta: "Scopri il programma partner",
+
+    finalKicker: "§ 09 — Ultima cosa",
     finalLine1: "Il prossimo brand",
     finalLine2: "da lanciare sei tu.",
     finalSub:
@@ -501,7 +513,13 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     privacyLink: "How we handle your data →",
     offerVariantLabel: "Personal site — all-inclusive",
 
-    finalKicker: "§ 08 — One last thing",
+    bridgeTag: "Partner program",
+    bridgeTitle: "Not just a client. A partner.",
+    bridgeBody:
+      "Your clients ask you for websites, e-commerce, automations? Stop saying “that's not my thing”. Refer them or resell under your brand: we build, the margin is yours, the client stays yours. And we introduce you to people looking for a social media manager.",
+    bridgeCta: "Discover the partner program",
+
+    finalKicker: "§ 09 — One last thing",
     finalLine1: "The next brand",
     finalLine2: "to launch is yours.",
     finalSub:

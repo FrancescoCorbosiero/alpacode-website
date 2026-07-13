@@ -1,0 +1,439 @@
+---
+import type { Lang } from "../../i18n/types";
+import { partnerLanding } from "../../data/partner-landing";
+import { business } from "../../data/business";
+import { localizePath } from "../../i18n/utils";
+import Ticker from "../Ticker.astro";
+import PartnerForm from "../islands/PartnerForm.tsx";
+import type { PartnerFormLabels } from "../islands/PartnerForm";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = partnerLanding[lang];
+const privacyHref = localizePath("privacy", lang);
+const smmHref = localizePath("social-media-manager", lang);
+const firstMode = c.modes[0];
+
+const formLabels: PartnerFormLabels = {
+  name: lang === "it" ? "Nome e cognome" : "Full name",
+  namePlaceholder: lang === "it" ? "Mario Rossi" : "Jane Doe",
+  email: "Email",
+  emailPlaceholder: lang === "it" ? "nome@dominio.it" : "name@domain.com",
+  phone: lang === "it" ? "Telefono (opzionale)" : "Phone (optional)",
+  phonePlaceholder: "+39 …",
+  profession: lang === "it" ? "Di cosa ti occupi" : "What you do",
+  professions:
+    lang === "it"
+      ? [
+          "Social media manager",
+          "Commercialista / consulente",
+          "Venditore / agente",
+          "Fotografo / videomaker",
+          "Copywriter / marketer",
+          "Coach / formatore",
+          "Altro",
+        ]
+      : [
+          "Social media manager",
+          "Accountant / consultant",
+          "Sales rep / agent",
+          "Photographer / videomaker",
+          "Copywriter / marketer",
+          "Coach / trainer",
+          "Other",
+        ],
+  zone: lang === "it" ? "Zona in cui lavori" : "Area you work in",
+  zonePlaceholder: lang === "it" ? "Es. Milano e provincia" : "e.g. Milan area",
+  message: lang === "it" ? "I tuoi clienti tipo (opzionale)" : "Your typical clients (optional)",
+  messagePlaceholder:
+    lang === "it" ? "Chi sono, quanti sono, cosa ti chiedono." : "Who they are, how many, what they ask for.",
+  send: c.ctaPrimary,
+  consent:
+    lang === "it"
+      ? "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a."
+      : "I have read the privacy policy and consent to data processing to be contacted back.",
+  confirm: lang === "it" ? "GRAZIE — TI RICONTATTIAMO PRESTISSIMO" : "THANKS — WE'LL REACH OUT VERY SOON",
+  error: lang === "it" ? "QUALCOSA È ANDATO STORTO — RIPROVA" : "SOMETHING WENT WRONG — RETRY",
+};
+---
+
+<div class="ptn">
+  {/* ---------- HERO ---------- */}
+  <section class="ptn-hero">
+    <div class="wrap-wide">
+      <div class="ptn-hero-top">
+        <span class="ptn-eyebrow"><span class="ptn-dot" aria-hidden="true"></span>{c.eyebrow}</span>
+        <span class="ptn-hero-host" aria-hidden="true">ALPACODE · {lang === "it" ? "SOLUZIONI DIGITALI" : "DIGITAL SOLUTIONS"}</span>
+      </div>
+
+      <h1 class="ptn-h1">
+        <span class="ptn-h1-bar" aria-hidden="true"></span>
+        {c.h1Lines.map((line) => <span class="ptn-h1-line">{line}</span>)}
+        <span class="ptn-h1-line ptn-h1-line--accent">{c.h1Accent}</span>
+      </h1>
+
+      <div class="ptn-hero-tail">
+        <p class="ptn-lede">{c.lede}</p>
+        <div class="ptn-hero-ctas">
+          <a class="btn ptn-btn-accent" href="#candidatura">{c.ctaPrimary} <span class="arrow">→</span></a>
+          <a class="btn ptn-btn-ghost" href="#simbiosi">{c.ctaSecondary} <span class="arrow">↓</span></a>
+        </div>
+      </div>
+
+      <div class="ptn-hero-meta">
+        {
+          c.heroMeta.map((m, i) => (
+            <div class="ptn-hero-cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- TICKER ---------- */}
+  <div class="ptn-ticker">
+    <Ticker items={c.ticker} />
+  </div>
+
+  {/* ---------- THESIS ---------- */}
+  <section class="ptn-section ptn-thesis">
+    <div class="wrap-wide">
+      <div class="sec-num ptn-kicker">{c.thesisKicker}</div>
+      <h2 class="ptn-thesis-lead">{c.thesisLead}</h2>
+      <p class="ptn-thesis-body">{c.thesisBody}</p>
+    </div>
+  </section>
+
+  {/* ---------- SYMBIOSIS — the two-way flow ---------- */}
+  <section class="ptn-section ptn-symb" id="simbiosi" data-ptn-flow>
+    <div class="wrap-wide">
+      <div class="section-head ptn-head">
+        <div>
+          <div class="sec-num ptn-kicker">{c.symbKicker}</div>
+          <h2>{c.symbTitle}</h2>
+        </div>
+        <p class="lede">{c.symbLede}</p>
+      </div>
+
+      <div class="ptn-flow-tabs" role="tablist" aria-label={c.symbTitle}>
+        {
+          c.modes.map((m, i) => (
+            <button
+              class={"ptn-tab " + (i === 0 ? "is-active" : "")}
+              role="tab"
+              aria-selected={i === 0 ? "true" : "false"}
+              data-mode={m.id}
+              data-flow-to={m.flowTo}
+              data-flow-from={m.flowFrom}
+              type="button"
+            >
+              <span class="ptn-tab-n">0{i + 1}</span> {m.tab}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="ptn-diagram" aria-hidden="true">
+        <div class="ptn-node">
+          <span class="ptn-node-v">{c.youLabel}</span>
+          <span class="ptn-node-sub">{c.youSub}</span>
+        </div>
+        <div class="ptn-rails">
+          <div class="ptn-rail ptn-rail--to">
+            <span class="ptn-rail-label" data-flow-label-to>{firstMode.flowTo}</span>
+            <span class="ptn-rail-line">
+              <span class="ptn-packet"></span>
+              <span class="ptn-packet"></span>
+              <span class="ptn-packet"></span>
+            </span>
+            <span class="ptn-rail-arrow">→</span>
+          </div>
+          <div class="ptn-rail ptn-rail--from">
+            <span class="ptn-rail-arrow">←</span>
+            <span class="ptn-rail-line">
+              <span class="ptn-packet"></span>
+              <span class="ptn-packet"></span>
+              <span class="ptn-packet"></span>
+            </span>
+            <span class="ptn-rail-label" data-flow-label-from>{firstMode.flowFrom}</span>
+          </div>
+        </div>
+        <div class="ptn-node ptn-node--us">
+          <span class="ptn-node-v">{c.usLabel}</span>
+          <span class="ptn-node-sub">{c.usSub}</span>
+        </div>
+      </div>
+
+      <div class="ptn-mode-panels">
+        {
+          c.modes.map((m, i) => (
+            <div
+              class={"ptn-mode " + (i === 0 ? "is-active" : "")}
+              data-panel={m.id}
+              role="tabpanel"
+              hidden={i !== 0}
+            >
+              <div class="ptn-mode-grid">
+                <div class="ptn-mode-head">
+                  <h3>{m.headline}</h3>
+                  <p>{m.blurb}</p>
+                </div>
+                <ul class="ptn-mode-bullets">
+                  {m.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- WHO IT'S FOR (paper) ---------- */}
+  <section class="ptn-section ptn-paper">
+    <div class="wrap-wide">
+      <div class="section-head ptn-head-paper">
+        <div>
+          <div class="sec-num ptn-kicker-deep">{c.whoKicker}</div>
+          <h2>{c.whoTitle}</h2>
+        </div>
+        <p class="lede">{c.whoLede}</p>
+      </div>
+      <div class="ptn-who-grid">
+        {
+          c.professions.map((p, i) => (
+            <article class="ptn-who">
+              <span class="ptn-who-n">0{i + 1}</span>
+              <span class="ptn-who-strut" aria-hidden="true"></span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- OPEN LEDGER (paper) ---------- */}
+  <section class="ptn-section ptn-paper ptn-deal">
+    <div class="wrap-wide">
+      <div class="section-head ptn-head-paper">
+        <div>
+          <div class="sec-num ptn-kicker-deep">{c.dealKicker}</div>
+          <h2>{c.dealTitle}</h2>
+        </div>
+        <p class="lede">{c.dealLede}</p>
+      </div>
+      <div class="ptn-deal-grid">
+        <div class="ptn-deal-col">
+          <div class="ptn-deal-k">{c.yoursLabel}</div>
+          <ul>
+            {c.yours.map((y) => <li>{y}</li>)}
+          </ul>
+        </div>
+        <div class="ptn-deal-col ptn-deal-col--ours">
+          <div class="ptn-deal-k">{c.oursLabel}</div>
+          <ul>
+            {c.ours.map((o) => <li>{o}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STEPS + PRINCIPLES (paper) ---------- */}
+  <section class="ptn-section ptn-paper">
+    <div class="wrap-wide">
+      <div class="section-head ptn-head-paper">
+        <div>
+          <div class="sec-num ptn-kicker-deep">{c.stepsKicker}</div>
+          <h2>{c.stepsTitle}</h2>
+        </div>
+      </div>
+      <div class="ptn-steps">
+        {
+          c.steps.map((s) => (
+            <div class="ptn-step">
+              <div class="ptn-step-n">{s.n}</div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="section-head ptn-head-paper ptn-head-gap">
+        <div>
+          <div class="sec-num ptn-kicker-deep">{c.prinKicker}</div>
+          <h2>{c.prinTitle}</h2>
+        </div>
+      </div>
+      <div class="ptn-prin-grid">
+        {
+          c.principles.map((g) => (
+            <div class="ptn-prin">
+              <span class="strut-short ptn-strut" aria-hidden="true"></span>
+              <h3>{g.t}</h3>
+              <p>{g.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ (dark) ---------- */}
+  <section class="ptn-section ptn-faq-sec">
+    <div class="wrap-wide">
+      <div class="section-head ptn-head">
+        <div>
+          <div class="sec-num ptn-kicker">{c.faqKicker}</div>
+          <h2>{c.faqTitle}</h2>
+        </div>
+      </div>
+      <div class="ptn-faq">
+        {
+          c.faq.map((f, i) => (
+            <details class="ptn-faq-item" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+
+      {/* Cross-link — the SMM offer, magenta portal */}
+      <a class="ptn-cross" href={smmHref}>
+        <span class="ptn-cross-tag">{c.crossTag}</span>
+        <span class="ptn-cross-title">{c.crossTitle}</span>
+        <span class="ptn-cross-body">{c.crossBody}</span>
+        <span class="ptn-cross-cta">{c.crossCta} <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  {/* ---------- FORM (paper-2) ---------- */}
+  <section class="ptn-section ptn-form-sec" id="candidatura">
+    <div class="wrap-wide">
+      <div class="ptn-form-grid">
+        <div class="ptn-form-intro">
+          <div class="sec-num ptn-kicker-deep">{c.formKicker}</div>
+          <h2>{c.formTitle}</h2>
+          <p class="lede">{c.formLede}</p>
+          <p class="ptn-form-privacy"><a href={privacyHref}>{c.privacyLink}</a></p>
+        </div>
+        <div class="ptn-form-box">
+          <PartnerForm client:idle lang={lang} labels={formLabels} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FINAL CTA (dark) ---------- */}
+  <section class="ptn-section ptn-final">
+    <div class="wrap-wide">
+      <div class="sec-num ptn-kicker">{c.finalKicker}</div>
+      <div class="ptn-final-display">
+        {c.finalLine1}<br /><span class="ptn-final-underline">{c.finalLine2}</span>
+      </div>
+      <p class="ptn-final-sub">{c.finalSub}</p>
+      <div class="ptn-final-actions">
+        <a class="btn ptn-btn-accent ptn-btn-lg" href="#candidatura">{c.finalCta} <span class="arrow">→</span></a>
+        <a class="btn ptn-btn-ghost" href={`mailto:${business.email}?subject=${encodeURIComponent(c.ctaPrimary)}`}>
+          {c.finalAlt} <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STICKY CTA PILL ---------- */}
+  <div class="ptn-sticky" data-ptn-sticky>
+    <a class="ptn-sticky-btn" href="#candidatura">{c.stickyCta} <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<script is:inline>
+  /* Partner landing interactions: (1) mode tabs repaint the symbiosis flow
+     labels and panels; (2) sticky CTA after the hero, hidden on the form. */
+  (function () {
+    var init = function () {
+      var root = document.querySelector("[data-ptn-flow]");
+      if (root && !root.hasAttribute("data-ptn-ready")) {
+        root.setAttribute("data-ptn-ready", "");
+        var tabs = Array.prototype.slice.call(root.querySelectorAll(".ptn-tab"));
+        var panels = Array.prototype.slice.call(root.querySelectorAll(".ptn-mode"));
+        var labelTo = root.querySelector("[data-flow-label-to]");
+        var labelFrom = root.querySelector("[data-flow-label-from]");
+        var diagram = root.querySelector(".ptn-diagram");
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            var id = tab.getAttribute("data-mode");
+            tabs.forEach(function (t) {
+              var on = t === tab;
+              t.classList.toggle("is-active", on);
+              t.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            panels.forEach(function (p) {
+              var on = p.getAttribute("data-panel") === id;
+              p.classList.toggle("is-active", on);
+              p.hidden = !on;
+            });
+            if (labelTo) labelTo.textContent = tab.getAttribute("data-flow-to") || "";
+            if (labelFrom) labelFrom.textContent = tab.getAttribute("data-flow-from") || "";
+            /* Restart the packet animation so the new flow reads as new. */
+            if (diagram) {
+              diagram.classList.remove("is-flowing");
+              void diagram.offsetWidth;
+              diagram.classList.add("is-flowing");
+            }
+          });
+        });
+        if (diagram) diagram.classList.add("is-flowing");
+      }
+
+      var sticky = document.querySelector("[data-ptn-sticky]");
+      var hero = document.querySelector(".ptn-hero");
+      var form = document.querySelector(".ptn-form-sec");
+      if (sticky && hero && !sticky.hasAttribute("data-ptn-ready")) {
+        sticky.setAttribute("data-ptn-ready", "");
+        var pastHero = false;
+        var onForm = false;
+        var apply = function () {
+          sticky.classList.toggle("is-visible", pastHero && !onForm);
+        };
+        new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              pastHero = !e.isIntersecting;
+            });
+            apply();
+          },
+          { threshold: 0, rootMargin: "-60px 0px 0px 0px" }
+        ).observe(hero);
+        if (form) {
+          new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                onForm = e.isIntersecting;
+              });
+              apply();
+            },
+            { threshold: 0.15 }
+          ).observe(form);
+        }
+      }
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+    document.addEventListener("astro:page-load", init);
+  })();
+</script>
