@@ -17,7 +17,9 @@ import type { Lang, Localized } from "../i18n/types";
 export type CampaignSlug =
   | "social-media-manager"
   | "coach-consulenti"
-  | "liberi-professionisti";
+  | "liberi-professionisti"
+  | "educatori-cinofili"
+  | "olistica-yoga";
 
 /** The two offer strategies, shown as a toggle on every page. */
 export type VariantId = "all-inclusive" | "premium-extras";
@@ -456,6 +458,86 @@ export const CAMPAIGNS: Campaign[] = [
       description: {
         it: "Sito professionale per avvocati, commercialisti, architetti e psicologi: dominio, hosting, conformità. 450 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
         en: "Professional site for lawyers, accountants, architects and psychologists: domain, hosting, compliance. €450 a year, all included. See it first, then pay. Only 30 seats.",
+      },
+    },
+  },
+  {
+    slug: "educatori-cinofili",
+    audience: { it: "Educatori & addestratori cinofili", en: "Dog trainers & educators" },
+    eyebrow: { it: "Per chi lavora con i cani", en: "For people who work with dogs" },
+    price: 300,
+    seats: 30,
+    seatsLeft: 30,
+    deadlineISO: DEADLINE,
+    hero: {
+      line1: { it: "Bravissimo sul campo.", en: "Brilliant in the field." },
+      line2: { it: "Invisibile su Google.", en: "Invisible on Google." },
+      lede: {
+        it: "Il passaparola riempie i corsi, i social tengono vivo il gruppo. Ma chi cerca «educatore cinofilo» nella tua zona trova altri. Un sito tuo mette ordine: chi sei, il metodo, i percorsi, le recensioni e le prenotazioni — senza form di Google e link Calendly sparsi. Lo costruiamo noi, a 300 € l'anno, tutto incluso.",
+        en: "Word of mouth fills your classes, socials keep the group alive. But whoever searches “dog trainer” in your area finds someone else. Your own site puts it in order: who you are, your method, programs, reviews and bookings — no scattered Google Forms and Calendly links. We build it for you, at €300 a year, all included.",
+      },
+    },
+    heroImage: {
+      id: "educatori-cinofili",
+      src: unsplash("1548199973-03cce0bbc87b"),
+      alt: {
+        it: "Educatore cinofilo a passeggio con i cani durante una lezione",
+        en: "Dog trainer walking dogs during a lesson",
+      },
+    },
+    pains: [
+      { k: { it: "Fatti trovare, non solo seguire", en: "Get found, not just followed" }, v: { it: "Chi ha appena preso un cucciolo parte da Google, non da Instagram. Senza sito, trova i tuoi concorrenti.", en: "New puppy owners start from Google, not Instagram. Without a site, they find your competitors." } },
+      { k: { it: "Basta link sparsi", en: "No more scattered links" }, v: { it: "Form di Google, Calendly, pagine social: tutto in un unico posto, professionale e tuo.", en: "Google Forms, Calendly, social pages: everything in one place, professional and yours." } },
+      { k: { it: "Percorsi chiari, clienti decisi", en: "Clear programs, decided clients" }, v: { it: "Metodo, percorsi e prezzi spiegati bene: chi ti scrive ha già capito e scelto.", en: "Method, programs and prices well explained: whoever writes has already understood and chosen." } },
+    ],
+    meta: {
+      title: {
+        it: "Sito per educatori cinofili · 300 €/anno tutto incluso — Alpacode",
+        en: "Website for dog trainers · €300/yr all-inclusive — Alpacode",
+      },
+      description: {
+        it: "Sito professionale per educatori e addestratori cinofili: metodo, percorsi, recensioni e prenotazioni in un posto solo. 300 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
+        en: "Professional site for dog trainers and educators: method, programs, reviews and bookings in one place. €300 a year, all included. See it first, then pay. Only 30 seats.",
+      },
+    },
+  },
+  {
+    slug: "olistica-yoga",
+    audience: { it: "Yoga, olistica & benessere", en: "Yoga, holistic & wellness" },
+    eyebrow: { it: "Per chi cura corpo e mente", en: "For those who care for body and mind" },
+    price: 300,
+    seats: 30,
+    seatsLeft: 30,
+    deadlineISO: DEADLINE,
+    hero: {
+      line1: { it: "Il tuo lavoro è unico.", en: "Your work is one of a kind." },
+      line2: { it: "Online, non si vede.", en: "Online, it doesn't show." },
+      lede: {
+        it: "Discipline, percorsi, sensibilità: nessuno lavora come te. Ma sui social tutto scorre e tutto si somiglia. Un sito tuo dà casa e ordine a quello che fai: chi sei, le pratiche, gli orari, le prenotazioni. Lo costruiamo noi, a 300 € l'anno, tutto incluso.",
+        en: "Disciplines, paths, sensibility: nobody works like you. But on social media everything scrolls by and looks the same. Your own site gives what you do a home and an order: who you are, your practices, schedules, bookings. We build it for you, at €300 a year, all included.",
+      },
+    },
+    heroImage: {
+      id: "olistica-yoga",
+      src: unsplash("1544367567-0f2fcb009e0b"),
+      alt: {
+        it: "Pratica yoga all'aperto al tramonto",
+        en: "Outdoor yoga practice at sunset",
+      },
+    },
+    pains: [
+      { k: { it: "Uno spazio che ti somiglia", en: "A space that feels like you" }, v: { it: "Niente template freddi: un sito che rispecchia il tuo modo di lavorare e la tua energia.", en: "No cold templates: a site that mirrors how you work and your energy." } },
+      { k: { it: "Le tue pratiche, in chiaro", en: "Your practices, made clear" }, v: { it: "Discipline, percorsi, orari e prezzi ordinati — non sparsi tra post e stories.", en: "Disciplines, paths, schedules and prices organised — not scattered across posts and stories." } },
+      { k: { it: "Chi cerca benessere ti trova", en: "Wellness seekers find you" }, v: { it: "Su Google, col tuo nome e la tua disciplina — anche chi non ti segue ancora.", en: "On Google, by your name and your discipline — even people who don't follow you yet." } },
+    ],
+    meta: {
+      title: {
+        it: "Sito per yoga e discipline olistiche · 300 €/anno tutto incluso — Alpacode",
+        en: "Website for yoga & holistic practitioners · €300/yr all-inclusive — Alpacode",
+      },
+      description: {
+        it: "Sito professionale per insegnanti di yoga e operatori olistici: pratiche, orari e prenotazioni in un posto solo, con la tua identità. 300 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
+        en: "Professional site for yoga teachers and holistic practitioners: practices, schedules and bookings in one place, with your identity. €300 a year, all included. See it first, then pay. Only 30 seats.",
       },
     },
   },

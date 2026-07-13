@@ -1,0 +1,31 @@
+---
+import Layout from "../components/Layout.astro";
+import PartnerLanding from "../components/pages/PartnerLanding.astro";
+import { partnerLanding } from "../data/partner-landing";
+
+const lang = "it" as const;
+const data = partnerLanding[lang];
+
+const faqSchema = {
+  "@type": "FAQPage",
+  mainEntity: data.faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout
+  lang={lang}
+  slug="partner"
+  title={data.title}
+  description={data.description}
+  ogImage={data.ogImage}
+  jsonLd={[faqSchema]}
+  minimal
+  ctaLabel={data.stickyCta}
+  ctaHref="#candidatura"
+>
+  <PartnerLanding lang={lang} />
+</Layout>

@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
-    <pattern id="dots" patternUnits="userSpaceOnUse" width="26" height="26">
-      <circle cx="2" cy="2" r="1.6" fill="#FF2E88" fill-opacity="0.22"/>
+    <pattern id="plus" patternUnits="userSpaceOnUse" width="36" height="36">
+      <path d="M18 12 V24 M12 18 H24" stroke="#2FE08A" stroke-opacity="0.18" stroke-width="1"/>
     </pattern>
     <radialGradient id="spot" cx="85%" cy="15%" r="55%">
-      <stop offset="0%" stop-color="#FF2E88" stop-opacity="0.14"/>
-      <stop offset="100%" stop-color="#FF2E88" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#2FE08A" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#2FE08A" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="vignette" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#0A0A0A" stop-opacity="0"/>
@@ -13,37 +13,37 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="#0A0A0A"/>
-  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#plus)"/>
   <rect width="1200" height="630" fill="url(#spot)"/>
   <rect width="1200" height="630" fill="url(#vignette)" opacity="0.55"/>
   <!-- Top strut -->
-  <rect x="0" y="0" width="1200" height="8" fill="#FF2E88"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#2FE08A"/>
   <!-- Brand mark -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#8A857A" font-size="14" letter-spacing="2.8">
     <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
   </g>
   <!-- Eyebrow -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
-    <rect x="80" y="160" width="14" height="14" fill="#FF2E88"/>
-    <text x="106" y="172" fill="#FF2E88">PER SOCIAL MEDIA MANAGER · SOLO 30 POSTI</text>
+    <rect x="80" y="160" width="14" height="14" fill="#2FE08A"/>
+    <text x="106" y="172" fill="#2FE08A">PROGRAMMA PARTNER · UN PARTNER PER NICCHIA E ZONA</text>
   </g>
   <!-- Accent bar -->
-  <rect x="80" y="220" width="120" height="8" fill="#FF2E88"/>
+  <rect x="80" y="220" width="120" height="8" fill="#2FE08A"/>
   <!-- Headline -->
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="72" fill="#F4F1E8">
-    <text x="80" y="292">FAI CRESCERE I BRAND</text>
-    <text x="80" y="368">DEGLI ALTRI.</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#F4F1E8">
+    <text x="80" y="296">TU HAI I CLIENTI.</text>
+    <text x="80" y="376">NOI IL DIGITALE.</text>
   </g>
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="72" fill="#FF2E88">
-    <text x="80" y="444">E IL TUO?</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#2FE08A">
+    <text x="80" y="456">ALLEANZA.</text>
   </g>
   <!-- Lede -->
   <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#B3B0A8">
-    <text x="80" y="506">Portfolio, media kit e contatti sul tuo dominio. 300 € l'anno, tutto incluso.</text>
+    <text x="80" y="514">Segnala, rivendi in white-label o scambia lead. Il cliente resta tuo.</text>
   </g>
   <!-- Foot meta -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#8A857A">
-    <text x="80" y="582">OFFERTA · SOCIAL MEDIA MANAGER</text>
-    <text x="1120" y="582" text-anchor="end" fill="#FF2E88">ALPACODE.IT</text>
+    <text x="80" y="582">SEGNALA · RIVENDI · SCAMBIA</text>
+    <text x="1120" y="582" text-anchor="end" fill="#2FE08A">ALPACODE.IT</text>
   </g>
 </svg>
