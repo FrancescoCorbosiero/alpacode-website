@@ -5,6 +5,7 @@ import { COPY, t } from "../../data/campaigns";
 import { business } from "../../data/business";
 import { localizePath } from "../../i18n/utils";
 import Ticker from "../Ticker.astro";
+import TrustBlock from "../TrustBlock.astro";
 import Countdown from "../islands/Countdown.tsx";
 import CampaignForm from "../islands/CampaignForm.tsx";
 import type { CampaignFormLabels } from "../islands/CampaignForm";
@@ -16,6 +17,9 @@ const { lang } = Astro.props;
 const c = smmLanding[lang];
 const camp = SMM_CAMPAIGN;
 const privacyHref = localizePath("privacy", lang);
+const partnerHref = localizePath("partner", lang);
+const learningHref = localizePath("learning", lang);
+const pathHrefs = ["#posto", partnerHref, learningHref];
 
 /* Server-side defaults for the mirror, derived from the placeholder name so
    the first paint already looks real. Mirrors the slugify in the script. */
@@ -65,10 +69,10 @@ const formLabels: CampaignFormLabels = {
       : "I have read the privacy policy and consent to data processing to be contacted back.",
   confirm: lang === "it" ? "GRAZIE — TI RICONTATTIAMO PRESTISSIMO" : "THANKS — WE'LL REACH OUT VERY SOON",
   error: lang === "it" ? "QUALCOSA È ANDATO STORTO — RIPROVA" : "SOMETHING WENT WRONG — RETRY",
-  // No toggle on this page: both variant ids map to the same fixed label.
+  // No toggle on this page; the express-lane button switches the second slot.
   variants: {
     "all-inclusive": c.offerVariantLabel,
-    "premium-extras": c.offerVariantLabel,
+    "premium-extras": c.expressOfferLabel,
   },
 };
 ---
@@ -89,22 +93,39 @@ const formLabels: CampaignFormLabels = {
       </h1>
 
       <div class="smm-hero-tail">
-        <p class="smm-lede">{c.lede}</p>
+        <div>
+          <p class="smm-lede">{c.lede}</p>
+          <p class="smm-hero-partner">
+            {c.heroPartnerNote}
+            <a href={partnerHref}>{c.heroPartnerCta} →</a>
+          </p>
+        </div>
         <div class="smm-hero-ctas">
           <a class="btn smm-btn-accent" href="#posto">{c.ctaPrimary} <span class="arrow">→</span></a>
           <a class="btn smm-btn-ghost" href="#specchio">{c.ctaSecondary} <span class="arrow">↓</span></a>
         </div>
       </div>
 
-      <div class="smm-hero-meta">
-        {
-          c.heroMeta.map((m, i) => (
-            <div class="smm-hero-cell" style={`--cell-i:${i}`}>
-              <span class="k">{m.k}</span>
-              <span class="v">{m.v}</span>
-            </div>
-          ))
-        }
+      {/* Scarcity band — the countdown IS the hero meta */}
+      <div class="smm-hero-scar">
+        <div class="smm-hero-scar-cell smm-hero-scar-cell--cd" style="--cell-i:0">
+          <span class="k">{t(COPY.deadlineLabel, lang)}</span>
+          <Countdown
+            client:load
+            deadlineISO={camp.deadlineISO}
+            labels={countdownLabels}
+            closedLabel={t(COPY.closed, lang)}
+          />
+        </div>
+        <div class="smm-hero-scar-cell" style="--cell-i:1">
+          <span class="k">{t(COPY.seatsLabel, lang)}</span>
+          <span class="v"><strong>{camp.seatsLeft}</strong> {t(COPY.ofLabel, lang)} {camp.seats}</span>
+        </div>
+        <div class="smm-hero-scar-cell" style="--cell-i:2">
+          <span class="k">{c.heroPriceK}</span>
+          <span class="v">{c.heroPriceV}</span>
+          <span class="s">{c.heroPriceSub}</span>
+        </div>
       </div>
     </div>
   </section>
@@ -114,7 +135,7 @@ const formLabels: CampaignFormLabels = {
     <Ticker items={c.ticker} />
   </div>
 
-  {/* ---------- MIRROR — type your name, see the difference ---------- */}
+  {/* ---------- MIRROR — type your name, socials + site side by side ---------- */}
   <section class="smm-section smm-mirror" id="specchio" data-smm-mirror data-tld={c.tld} data-mailbox={mailbox} data-fallback={defName}>
     <div class="wrap-wide">
       <div class="section-head smm-head">
@@ -138,13 +159,12 @@ const formLabels: CampaignFormLabels = {
           placeholder={c.inputPlaceholder}
           data-smm-name
         />
-        <span class="smm-try-cursor" aria-hidden="true"></span>
       </div>
 
       <div class="smm-stage">
-        {/* LEFT — today: the rented link-in-bio */}
+        {/* LEFT — the socials: the stage */}
         <div class="smm-stage-col">
-          <div class="smm-stage-tag smm-stage-tag--rent">{c.leftTag}</div>
+          <div class="smm-stage-tag smm-stage-tag--social">{c.leftTag}</div>
           <div class="smm-phone" aria-hidden="true">
             <div class="smm-phone-avatar"><span data-m-initials>{initialsOf(defName)}</span></div>
             <div class="smm-phone-handle" data-m-handle>@{defSlug}</div>
@@ -152,14 +172,13 @@ const formLabels: CampaignFormLabels = {
             <div class="smm-phone-links">
               {c.leftLinks.map((l) => <div class="smm-phone-link">{l}</div>)}
             </div>
-            <div class="smm-phone-warn">▼ {c.leftWarn}</div>
           </div>
           <p class="smm-stage-foot">{c.leftFoot}</p>
         </div>
 
-        <div class="smm-stage-vs" aria-hidden="true">→</div>
+        <div class="smm-stage-vs" aria-hidden="true">+</div>
 
-        {/* RIGHT — tomorrow: your own site, in the real Alpacode language */}
+        {/* RIGHT — the site: the headquarters, in the real Alpacode language */}
         <div class="smm-stage-col">
           <div class="smm-stage-tag smm-stage-tag--own">{c.rightTag}</div>
           <div class="smm-browser" aria-hidden="true">
@@ -177,10 +196,26 @@ const formLabels: CampaignFormLabels = {
               <span class="smm-site-strut"></span>
               <div class="smm-site-name" data-m-name>{defName}</div>
               <div class="smm-site-role">{c.rightRole}</div>
+              <div class="smm-site-stats">
+                {
+                  c.rightStats.map((s) => (
+                    <div class="smm-site-stat">
+                      <span class="v">{s.v}</span>
+                      <span class="k">{s.k}</span>
+                    </div>
+                  ))
+                }
+              </div>
               <div class="smm-site-grid">
-                <div class="ph">P·01</div>
-                <div class="ph">P·02</div>
-                <div class="ph">P·03</div>
+                {
+                  c.rightTiles.map((tile, i) => (
+                    <div class="smm-site-tile">
+                      <span class="smm-site-tile-strut" aria-hidden="true"></span>
+                      <span class="smm-site-tile-n">P·0{i + 1}</span>
+                      <span class="smm-site-tile-t">{tile}</span>
+                    </div>
+                  ))
+                }
               </div>
               <div class="smm-site-row">
                 <span class="smm-site-btn">{c.rightCta} →</span>
@@ -271,6 +306,19 @@ const formLabels: CampaignFormLabels = {
           </div>
 
           <a class="btn smm-btn-accent smm-btn-lg" href="#posto">{c.offerCta} <span class="arrow">→</span></a>
+
+          {/* Express lane — direct online activation */}
+          <div class="smm-express">
+            <div class="smm-express-head">
+              <span class="smm-express-t">{c.expressTitle}</span>
+              <span class="smm-express-pay">{c.expressPay}</span>
+            </div>
+            <p class="smm-express-body">{c.expressBody}</p>
+            <div class="smm-express-row">
+              <a class="btn smm-express-btn" href="#posto" data-smm-express>{c.expressCta} <span class="arrow">→</span></a>
+              <span class="smm-express-note">{c.expressNote}</span>
+            </div>
+          </div>
         </div>
 
         <div class="smm-includes">
@@ -278,7 +326,34 @@ const formLabels: CampaignFormLabels = {
           <ul>
             {c.includes.map((it) => <li>{it}</li>)}
           </ul>
+          <p class="smm-offer-why">{c.offerWhy}</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- PATHS — client / partner / student (paper band) ---------- */}
+  <section class="smm-section smm-paper smm-paths-sec">
+    <div class="wrap-wide">
+      <div class="section-head smm-head-paper">
+        <div>
+          <div class="sec-num smm-kicker-deep">{c.pathsKicker}</div>
+          <h2>{c.pathsTitle}</h2>
+        </div>
+        <p class="lede">{c.pathsLede}</p>
+      </div>
+      <div class="smm-paths">
+        {
+          c.paths.map((p, i) => (
+            <a class="smm-path" href={pathHrefs[i]}>
+              <span class="smm-path-n">{p.n}</span>
+              <span class="smm-path-strut" aria-hidden="true"></span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+              <span class="smm-path-cta">{p.cta} →</span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -322,6 +397,11 @@ const formLabels: CampaignFormLabels = {
         }
       </div>
     </div>
+  </section>
+
+  {/* ---------- TRUST / CREDENTIALS (dark) ---------- */}
+  <section class="smm-section smm-trust lp-trust">
+    <TrustBlock lang={lang} kicker={c.trustKicker} title={c.trustTitle} lede={c.trustLede} />
   </section>
 
   {/* ---------- FAQ (dark) ---------- */}
@@ -374,18 +454,6 @@ const formLabels: CampaignFormLabels = {
     </div>
   </section>
 
-  {/* ---------- BRIDGE — the partner program (dark) ---------- */}
-  <section class="smm-section smm-bridge-sec">
-    <div class="wrap-wide">
-      <a class="smm-bridge" href={localizePath("partner", lang)}>
-        <span class="smm-bridge-tag">{c.bridgeTag}</span>
-        <span class="smm-bridge-title">{c.bridgeTitle}</span>
-        <span class="smm-bridge-body">{c.bridgeBody}</span>
-        <span class="smm-bridge-cta">{c.bridgeCta} <span class="arrow">→</span></span>
-      </a>
-    </div>
-  </section>
-
   {/* ---------- FINAL CTA (dark) ---------- */}
   <section class="smm-section smm-final">
     <div class="wrap-wide">
@@ -410,8 +478,9 @@ const formLabels: CampaignFormLabels = {
 </div>
 
 <script is:inline>
-  /* SMM landing interactions: (1) the "mirror" — typing a name repaints the
-     rented profile and the owned site live; (2) sticky CTA after the hero. */
+  /* SMM landing interactions: (1) the "mirror" — typing a name repaints both
+     previews live; (2) sticky CTA after the hero; (3) express lane buttons
+     flag the lead form with the fast-lane offer label. */
   (function () {
     var slugify = function (s) {
       return s
@@ -456,6 +525,15 @@ const formLabels: CampaignFormLabels = {
         if (input) input.addEventListener("input", update);
         update();
       }
+
+      /* Express lane: tell the lead form the visitor picked online activation. */
+      document.querySelectorAll("[data-smm-express]").forEach(function (btn) {
+        if (btn.hasAttribute("data-smm-ready")) return;
+        btn.setAttribute("data-smm-ready", "");
+        btn.addEventListener("click", function () {
+          window.dispatchEvent(new CustomEvent("offer-variant", { detail: "premium-extras" }));
+        });
+      });
 
       var sticky = document.querySelector("[data-smm-sticky]");
       var hero = document.querySelector(".smm-hero");

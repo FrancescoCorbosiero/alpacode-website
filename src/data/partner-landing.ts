@@ -89,11 +89,20 @@ export interface PartnerCopy {
   faqTitle: string;
   faq: { q: string; a: string }[];
 
-  /* Cross-link to the SMM offer */
+  /* Trust / credentials */
+  trustKicker: string;
+  trustTitle: string;
+  trustLede: string;
+
+  /* Cross-links: the SMM offer + direct training */
   crossTag: string;
   crossTitle: string;
   crossBody: string;
   crossCta: string;
+  trainTag: string;
+  trainTitle: string;
+  trainBody: string;
+  trainCta: string;
 
   /* Form */
   formKicker: string;
@@ -119,16 +128,16 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "Hai un portafoglio clienti che ti chiede siti e servizi digitali? Segnala, rivendi in white-label o scambia lead con noi. Il cliente resta tuo, le condizioni sono scritte. Un partner per nicchia e zona.",
     ogImage: "/og-partner.svg",
 
-    eyebrow: "Programma partner · Un partner per nicchia e zona",
-    h1Lines: ["Tu hai i clienti.", "Noi il digitale."],
-    h1Accent: "Alleanza.",
-    lede: "Prima o poi un tuo cliente te lo chiede: «mi fai anche il sito?». Da oggi la risposta è sì — senza impararlo, senza assumere nessuno, senza rischiare la figura. Tu metti la relazione, noi la tecnologia. E il valore torna a tutti e due.",
+    eyebrow: "Programma partner · Un partner per nicchia e area",
+    h1Lines: ["La fiducia è tua.", "Il digitale è nostro."],
+    h1Accent: "Cresciamo insieme.",
+    lede: "Prima o poi un tuo cliente te lo chiede: «mi fai anche il sito?». Da oggi la risposta è sì. Tu porti la relazione e la conoscenza del tuo mercato; noi progettazione, sviluppo e manutenzione. Ogni collaborazione parte da condizioni scritte e un referente dedicato.",
     ctaPrimary: "Candidati come partner",
     ctaSecondary: "Guarda come gira",
     heroMeta: [
       { k: "Modelli", v: "3" },
       { k: "Costo d'ingresso", v: "0 €" },
-      { k: "Esclusiva", v: "Nicchia + zona" },
+      { k: "Esclusiva", v: "Nicchia + area" },
       { k: "Condizioni", v: "Scritte, prima" },
     ],
 
@@ -140,7 +149,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "LEAD CALDI",
       "IL CLIENTE RESTA TUO",
       "ZERO COSTI FISSI",
-      "UN PARTNER PER ZONA",
+      "UN PARTNER PER AREA",
     ],
 
     thesisKicker: "§ 01 — La tesi",
@@ -148,7 +157,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     thesisBody:
       "Chi lavora coi clienti ogni giorno — chi gestisce i loro social, i loro conti, le loro vendite — ha in mano la cosa più difficile da costruire: la fiducia. Noi abbiamo quella più difficile da improvvisare: un laboratorio che progetta siti, e-commerce e automazioni. Il programma partner collega le due cose. Con regole chiare, per iscritto.",
 
-    symbKicker: "§ 02 — L'alleanza",
+    symbKicker: "§ 02 — La collaborazione",
     symbTitle: "Un canale che gira in due direzioni.",
     symbLede:
       "Tre modelli. Puoi sceglierne uno, combinarli, o iniziare con un solo cliente per provare. Sotto, cosa scorre da una parte e cosa torna dall'altra.",
@@ -235,7 +244,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     dealKicker: "§ 04 — Patti chiari",
     dealTitle: "Cosa ci guadagni. Cosa ci guadagniamo.",
     dealLede:
-      "Un'alleanza funziona solo se conviene a tutti e due. Ecco il conto, alla luce del sole.",
+      "Una collaborazione funziona solo se conviene a tutti e due. Ecco il conto, alla luce del sole.",
     yoursLabel: "Per te",
     yours: [
       "Un servizio in più a listino, senza costi fissi",
@@ -317,23 +326,33 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
       {
         q: "Quanti partner prendete?",
-        a: "Uno per nicchia e zona: non ha senso mettere in concorrenza due alleati. Se la tua è libera, è tua finché la partnership è attiva.",
+        a: "Uno per nicchia e area: non ha senso mettere in concorrenza due alleati. Se la tua è libera, è tua finché la collaborazione è attiva.",
       },
     ],
 
+    trustKicker: "§ 08 — Credenziali",
+    trustTitle: "La fiducia si costruisce coi fatti.",
+    trustLede:
+      "Il tuo nome finirà accanto al nostro lavoro: hai il diritto di sapere su cosa poggia. Infrastruttura, metodo e risultati verificabili.",
+
     crossTag: "Per i social media manager",
-    crossTitle: "Prima il tuo sito, poi la tua zona.",
+    crossTitle: "Prima il tuo sito, poi la tua area.",
     crossBody:
       "Sei un social media manager senza sito? C'è un'offerta pensata per te: sito personale, portfolio e media kit a 300 € l'anno, tutto incluso. Partire dal proprio dominio è il modo migliore di vendere il nostro lavoro ai tuoi clienti.",
     crossCta: "Scopri l'offerta SMM",
+    trainTag: "Formazione diretta",
+    trainTitle: "Vuoi anche capire come lavoriamo?",
+    trainBody:
+      "Alpacode è anche scuola: corsi su WordPress, sviluppo e AI, tenuti da chi li applica ogni giorno in studio. Molti partner iniziano da qui — capire il mestiere rende più facile venderlo.",
+    trainCta: "Vedi i corsi",
 
-    formKicker: "§ 08 — Candidati",
-    formTitle: "Prendi la tua zona.",
+    formKicker: "§ 09 — Candidati",
+    formTitle: "Riserva la tua area.",
     formLede:
-      "Raccontaci chi sei e con che clienti lavori. Ti rispondiamo entro mezza giornata lavorata — e se la tua nicchia è libera, la blocchiamo per te.",
+      "Raccontaci chi sei e con che clienti lavori. Ti rispondiamo entro mezza giornata lavorata — e se la tua nicchia è libera, la riserviamo per te.",
     privacyLink: "Come trattiamo i tuoi dati →",
 
-    finalKicker: "§ 09 — Ultima cosa",
+    finalKicker: "§ 10 — Ultima cosa",
     finalLine1: "Da soli si vende.",
     finalLine2: "Insieme si cresce.",
     finalSub:
@@ -351,9 +370,9 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     ogImage: "/og-partner.svg",
 
     eyebrow: "Partner program · One partner per niche and area",
-    h1Lines: ["You have the clients.", "We have the digital."],
-    h1Accent: "Allies.",
-    lede: "Sooner or later a client asks you: “could you do my website too?”. From today the answer is yes — without learning it, hiring anyone, or risking your reputation. You bring the relationship, we bring the technology. And the value flows both ways.",
+    h1Lines: ["The trust is yours.", "The craft is ours."],
+    h1Accent: "Let's grow together.",
+    lede: "Sooner or later a client asks you: “could you do my website too?”. From today the answer is yes. You bring the relationship and your knowledge of the market; we bring design, development and maintenance. Every collaboration starts from written terms and a dedicated contact.",
     ctaPrimary: "Apply as a partner",
     ctaSecondary: "See how it flows",
     heroMeta: [
@@ -379,7 +398,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     thesisBody:
       "People who work with clients every day — running their socials, their books, their sales — hold the hardest thing to build: trust. We hold the hardest thing to improvise: a studio that designs websites, e-commerce and automations. The partner program connects the two. With clear rules, in writing.",
 
-    symbKicker: "§ 02 — The alliance",
+    symbKicker: "§ 02 — The collaboration",
     symbTitle: "A channel that flows both ways.",
     symbLede:
       "Three models. Pick one, combine them, or start with a single client to test the waters. Below: what flows one way, and what comes back.",
@@ -465,7 +484,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
 
     dealKicker: "§ 04 — Open ledger",
     dealTitle: "What you gain. What we gain.",
-    dealLede: "An alliance only works if it pays for both sides. Here's the ledger, in the open.",
+    dealLede: "A collaboration only works if it pays for both sides. Here's the ledger, in the open.",
     yoursLabel: "For you",
     yours: [
       "One more service on your list, zero fixed costs",
@@ -547,23 +566,33 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
       {
         q: "How many partners do you take?",
-        a: "One per niche and area: it makes no sense to pit two allies against each other. If yours is free, it's yours for as long as the partnership is active.",
+        a: "One per niche and area: it makes no sense to pit two allies against each other. If yours is free, it's yours for as long as the collaboration is active.",
       },
     ],
+
+    trustKicker: "§ 08 — Credentials",
+    trustTitle: "Trust is built on facts.",
+    trustLede:
+      "Your name will sit next to our work: you have the right to know what it rests on. Infrastructure, method and verifiable results.",
 
     crossTag: "For social media managers",
     crossTitle: "Your site first, your area next.",
     crossBody:
       "Are you a social media manager without a website? There's an offer built for you: personal site, portfolio and media kit at €300 a year, all included. Starting from your own domain is the best way to sell our work to your clients.",
     crossCta: "See the SMM offer",
+    trainTag: "Direct training",
+    trainTitle: "Want to understand how we work, too?",
+    trainBody:
+      "Alpacode is also a school: courses on WordPress, development and AI, taught by the people who apply them in the studio every day. Many partners start here — knowing the craft makes it easier to sell.",
+    trainCta: "See the courses",
 
-    formKicker: "§ 08 — Apply",
-    formTitle: "Claim your area.",
+    formKicker: "§ 09 — Apply",
+    formTitle: "Reserve your area.",
     formLede:
-      "Tell us who you are and what clients you work with. We reply within half a worked day — and if your niche is free, we lock it for you.",
+      "Tell us who you are and what clients you work with. We reply within half a worked day — and if your niche is free, we reserve it for you.",
     privacyLink: "How we handle your data →",
 
-    finalKicker: "§ 09 — One last thing",
+    finalKicker: "§ 10 — One last thing",
     finalLine1: "Alone, you sell.",
     finalLine2: "Together, you grow.",
     finalSub:

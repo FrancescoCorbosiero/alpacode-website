@@ -25,17 +25,17 @@
   <!-- Eyebrow -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
     <rect x="80" y="160" width="14" height="14" fill="#2FE08A"/>
-    <text x="106" y="172" fill="#2FE08A">PROGRAMMA PARTNER · UN PARTNER PER NICCHIA E ZONA</text>
+    <text x="106" y="172" fill="#2FE08A">PROGRAMMA PARTNER · UN PARTNER PER NICCHIA E AREA</text>
   </g>
   <!-- Accent bar -->
   <rect x="80" y="220" width="120" height="8" fill="#2FE08A"/>
   <!-- Headline -->
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#F4F1E8">
-    <text x="80" y="296">TU HAI I CLIENTI.</text>
-    <text x="80" y="376">NOI IL DIGITALE.</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="68" fill="#F4F1E8">
+    <text x="80" y="292">LA FIDUCIA È TUA.</text>
+    <text x="80" y="364">IL DIGITALE È NOSTRO.</text>
   </g>
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#2FE08A">
-    <text x="80" y="456">ALLEANZA.</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="68" fill="#2FE08A">
+    <text x="80" y="446">CRESCIAMO INSIEME.</text>
   </g>
   <!-- Lede -->
   <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#B3B0A8">
