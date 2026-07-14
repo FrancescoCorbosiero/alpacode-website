@@ -20,6 +20,14 @@
   --smm-accent-ink: #0a0a0a;
   --smm-glow: rgba(255, 46, 136, 0.09);
 
+  /* Trust block palette mapping (see trust-block.css) */
+  --lpt-accent: var(--smm-accent);
+  --lpt-fg: var(--smm-fg);
+  --lpt-mute: var(--smm-fg-mute);
+  --lpt-faint: var(--smm-fg-faint);
+  --lpt-rule: var(--smm-rule);
+  --lpt-bg-2: var(--smm-bg-2);
+
   background: var(--smm-bg);
   color: var(--smm-fg);
   position: relative;
@@ -222,35 +230,85 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   justify-content: flex-end;
 }
 
-.smm-hero-meta {
+/* Mono note under the lede — the partner program, visible from second one */
+.smm-hero-partner {
+  margin-top: 18px;
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--smm-fg-faint);
+}
+.smm-hero-partner a {
+  color: #2fe08a;
+  border-bottom: 1px solid rgba(47, 224, 138, 0.45);
+  padding-bottom: 1px;
+  margin-left: 8px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.smm-hero-partner a:hover {
+  color: var(--smm-fg);
+  border-color: var(--smm-fg);
+}
+
+/* Scarcity band — the countdown IS the hero meta */
+.smm-hero-scar {
   margin-top: 60px;
   border-top: 1px solid var(--smm-rule);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.4fr 0.8fr 1fr;
 }
-.smm-hero-cell {
-  padding: 22px 24px 24px;
+.smm-hero-scar-cell {
+  padding: 24px 26px 26px;
   border-right: 1px solid var(--smm-rule);
   display: grid;
-  gap: 8px;
+  gap: 12px;
+  align-content: start;
   opacity: 0;
   transform: translateY(12px);
-  animation: smm-rise 600ms calc(550ms + var(--cell-i) * 80ms) var(--ease-out) forwards;
+  animation: smm-rise 600ms calc(550ms + var(--cell-i) * 90ms) var(--ease-out) forwards;
 }
-.smm-hero-cell:last-child {
+.smm-hero-scar-cell:last-child {
   border-right: 0;
 }
-.smm-hero-cell .k {
+.smm-hero-scar-cell .k {
   font-family: var(--t-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--smm-fg-faint);
 }
-.smm-hero-cell .v {
+.smm-hero-scar-cell .v {
   font-family: var(--display);
-  font-size: 22px;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1;
   color: var(--smm-fg);
+}
+.smm-hero-scar-cell .v strong {
+  color: var(--smm-accent);
+  font-weight: 400;
+}
+.smm-hero-scar-cell .s {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--smm-fg-mute);
+}
+/* Big, luminous countdown on dark */
+.smm-hero-scar .countdown {
+  gap: 22px;
+}
+.smm-hero-scar .cd-num {
+  color: var(--smm-fg);
+  font-size: clamp(30px, 3.2vw, 44px);
+}
+.smm-hero-scar .cd-cell:first-child .cd-num {
+  color: var(--smm-accent);
+}
+.smm-hero-scar .cd-lab {
+  color: var(--smm-fg-faint);
+}
+.smm-hero-scar .countdown--closed {
+  color: var(--smm-accent);
 }
 
 /* ---------- Ticker (magenta ticks, hairline rules) ---------- */
@@ -323,10 +381,12 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   flex-direction: column;
   min-width: 0;
 }
+/* The "+" — socials and site are a sum, not a switch */
 .smm-stage-vs {
   align-self: center;
-  font-family: var(--t-mono);
-  font-size: 28px;
+  font-family: var(--display);
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1;
   color: var(--smm-accent);
 }
 .smm-stage-tag {
@@ -336,8 +396,8 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   text-transform: uppercase;
   margin-bottom: 16px;
 }
-.smm-stage-tag--rent {
-  color: var(--smm-fg-faint);
+.smm-stage-tag--social {
+  color: var(--smm-fg-mute);
 }
 .smm-stage-tag--own {
   color: var(--smm-accent);
@@ -347,17 +407,14 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   font-family: var(--t-mono);
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--smm-fg-faint);
-}
-.smm-stage-foot--own {
   color: var(--smm-fg-mute);
 }
 
-/* Phone — the rented world: soft, rounded, generic, a bit dim. */
+/* Phone — the socials: the stage. Rounded, polished, respected. */
 .smm-phone {
   flex: 1;
-  background: #121212;
-  border: 1px solid var(--smm-rule);
+  background: #151515;
+  border: 1px solid var(--smm-rule-strong);
   border-radius: 28px;
   padding: 28px 22px 22px;
   display: flex;
@@ -365,19 +422,18 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   gap: 12px;
   align-items: center;
   text-align: center;
-  filter: saturate(0.55);
 }
 .smm-phone-avatar {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   background: #242424;
-  border: 1px solid var(--smm-rule-strong);
+  border: 1px solid var(--smm-accent);
   display: grid;
   place-items: center;
   font-family: var(--display);
   font-size: 20px;
-  color: var(--smm-fg-mute);
+  color: var(--smm-fg);
 }
 .smm-phone-handle {
   font-family: var(--t-mono);
@@ -400,22 +456,13 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 .smm-phone-link {
   border: 1px solid var(--smm-rule-strong);
   border-radius: 999px;
-  background: #1a1a1a;
+  background: #1e1e1e;
   padding: 11px 14px;
   font-size: 12.5px;
-  color: var(--smm-fg-mute);
+  color: var(--smm-fg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.smm-phone-warn {
-  margin-top: auto;
-  padding-top: 16px;
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #c96a4a;
 }
 
 /* Browser — the owned world: the real Alpacode paper language. */
@@ -522,22 +569,70 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   text-transform: uppercase;
   color: var(--mute-2);
 }
+/* Mini media-kit stats — makes the preview feel like a real site */
+.smm-site-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 6px;
+}
+.smm-site-stat {
+  padding: 10px 12px;
+  display: grid;
+  gap: 2px;
+}
+.smm-site-stat + .smm-site-stat {
+  border-left: 1px solid var(--rule);
+}
+.smm-site-stat .v {
+  font-family: var(--display);
+  font-size: clamp(15px, 1.6vw, 20px);
+  line-height: 1;
+  color: var(--ink);
+}
+.smm-site-stat .k {
+  font-family: var(--t-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
 .smm-site-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 8px;
 }
-.smm-site-grid .ph {
+.smm-site-tile {
   aspect-ratio: 4 / 3;
   background: var(--paper-2);
   border: 1px solid var(--rule);
-  display: grid;
-  place-items: center;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.smm-site-tile-strut {
+  width: 26px;
+  height: 4px;
+  background: var(--blue);
+}
+.smm-site-tile-n {
   font-family: var(--t-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.16em;
   color: var(--mute);
+}
+.smm-site-tile-t {
+  margin-top: auto;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11.5px;
+  line-height: 1.25;
+  color: var(--ink);
 }
 .smm-site-row {
   margin-top: auto;
@@ -771,6 +866,72 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   height: var(--strut);
   background: var(--smm-accent-deep);
 }
+/* Reason-why — makes the unbeatable price credible */
+.smm-offer-why {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border-left: var(--strut) solid var(--smm-accent-deep);
+  background: var(--paper-2);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--mute-2);
+}
+
+/* Express lane — direct online activation */
+.smm-express {
+  margin-top: 30px;
+  border: 1.5px solid var(--ink);
+  padding: 22px 24px;
+  background: var(--paper);
+  display: grid;
+  gap: 12px;
+}
+.smm-express-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.smm-express-t {
+  font-family: var(--display);
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+.smm-express-pay {
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+.smm-express-body {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  max-width: 52ch;
+}
+.smm-express-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.smm-express-btn {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.smm-express-btn:hover {
+  background: var(--smm-accent-deep);
+  border-color: var(--smm-accent-deep);
+  color: #fff;
+}
+.smm-express-note {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+}
 
 .smm-steps {
   display: grid;
@@ -928,50 +1089,70 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 }
 
 /* =============================================================
-   BRIDGE — a green portal to the partner program
+   PATHS — client / partner / student. One house, three doors.
    ============================================================= */
-.smm-bridge-sec {
-  padding: 72px 0;
-}
-.smm-bridge {
+.smm-paths {
   display: grid;
-  gap: 12px;
-  border: 1px solid #2fe08a;
-  padding: 32px 30px;
-  background: linear-gradient(90deg, rgba(47, 224, 138, 0.07), transparent 60%);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.smm-path {
+  background: var(--paper);
+  padding: 32px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--ink);
   transition: background 0.2s ease;
 }
-.smm-bridge:hover {
-  background: linear-gradient(90deg, rgba(47, 224, 138, 0.14), transparent 70%);
+.smm-path:hover {
+  background: var(--paper-2);
 }
-.smm-bridge-tag {
+.smm-path-n {
   font-family: var(--t-mono);
   font-size: 11px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #2fe08a;
+  color: var(--mute);
 }
-.smm-bridge-title {
-  font-family: var(--display);
-  font-size: clamp(22px, 3vw, 34px);
-  line-height: 1.05;
-  color: var(--smm-fg);
+.smm-path-strut {
+  width: 44px;
+  height: var(--strut);
+  background: var(--smm-accent-deep);
 }
-.smm-bridge-body {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--smm-fg-mute);
-  max-width: 70ch;
+.smm-path:nth-child(2) .smm-path-strut {
+  background: #12a35e;
 }
-.smm-bridge-cta {
-  margin-top: 6px;
+.smm-path:nth-child(3) .smm-path-strut {
+  background: var(--blue);
+}
+.smm-path h3 {
+  font-size: 22px;
+  line-height: 1.15;
+}
+.smm-path p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+.smm-path-cta {
+  margin-top: auto;
+  padding-top: 10px;
   font-family: var(--sans);
   font-weight: 700;
   font-size: 14px;
-  color: #2fe08a;
+  color: var(--smm-accent-deep);
 }
-.smm-bridge:hover .smm-bridge-cta {
-  color: var(--smm-fg);
+.smm-path:nth-child(2) .smm-path-cta {
+  color: #12a35e;
+}
+.smm-path:nth-child(3) .smm-path-cta {
+  color: var(--blue);
+}
+.smm-path:hover .smm-path-cta {
+  color: var(--ink);
 }
 
 /* =============================================================
@@ -1081,17 +1262,20 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   .smm-dot { animation: none; }
   .smm-h1-bar { transform: none; animation: none; }
   .smm-h1-line,
-  .smm-hero-cell { opacity: 1; transform: none; animation: none; }
+  .smm-hero-scar-cell { opacity: 1; transform: none; animation: none; }
 }
 
 /* =============================================================
    RESPONSIVE
    ============================================================= */
 @media (max-width: 1100px) {
-  .smm-hero-meta { grid-template-columns: repeat(2, 1fr); }
-  .smm-hero-cell:nth-child(2) { border-right: 0; }
-  .smm-hero-cell:nth-child(1),
-  .smm-hero-cell:nth-child(2) { border-bottom: 1px solid var(--smm-rule); }
+  .smm-hero-scar { grid-template-columns: 1fr 1fr; }
+  .smm-hero-scar-cell--cd {
+    grid-column: 1 / -1;
+    border-right: 0;
+    border-bottom: 1px solid var(--smm-rule);
+  }
+  .smm-hero-scar-cell:nth-child(2) { border-right: 1px solid var(--smm-rule); }
 
   .smm-stage {
     grid-template-columns: minmax(220px, 300px) auto 1fr;
@@ -1106,9 +1290,9 @@ body:has(.smm) .campaign-header .btn-blue:hover {
     max-width: 560px;
   }
   .smm-stage-vs {
-    transform: rotate(90deg);
     justify-self: center;
   }
+  .smm-paths { grid-template-columns: 1fr; }
   .smm-pain-grid { grid-template-columns: 1fr; }
   .smm-pain { border-right: 0; }
   .smm-numbers { grid-template-columns: 1fr; gap: 40px; }

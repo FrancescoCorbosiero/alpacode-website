@@ -4,6 +4,7 @@ import { partnerLanding } from "../../data/partner-landing";
 import { business } from "../../data/business";
 import { localizePath } from "../../i18n/utils";
 import Ticker from "../Ticker.astro";
+import TrustBlock from "../TrustBlock.astro";
 import PartnerForm from "../islands/PartnerForm.tsx";
 import type { PartnerFormLabels } from "../islands/PartnerForm";
 
@@ -14,6 +15,7 @@ const { lang } = Astro.props;
 const c = partnerLanding[lang];
 const privacyHref = localizePath("privacy", lang);
 const smmHref = localizePath("social-media-manager", lang);
+const learningHref = localizePath("learning", lang);
 const firstMode = c.modes[0];
 
 const formLabels: PartnerFormLabels = {
@@ -44,7 +46,7 @@ const formLabels: PartnerFormLabels = {
           "Coach / trainer",
           "Other",
         ],
-  zone: lang === "it" ? "Zona in cui lavori" : "Area you work in",
+  zone: lang === "it" ? "Area di attività" : "Area of activity",
   zonePlaceholder: lang === "it" ? "Es. Milano e provincia" : "e.g. Milan area",
   message: lang === "it" ? "I tuoi clienti tipo (opzionale)" : "Your typical clients (optional)",
   messagePlaceholder:
@@ -307,14 +309,27 @@ const formLabels: PartnerFormLabels = {
         }
       </div>
 
-      {/* Cross-link — the SMM offer, magenta portal */}
-      <a class="ptn-cross" href={smmHref}>
-        <span class="ptn-cross-tag">{c.crossTag}</span>
-        <span class="ptn-cross-title">{c.crossTitle}</span>
-        <span class="ptn-cross-body">{c.crossBody}</span>
-        <span class="ptn-cross-cta">{c.crossCta} <span class="arrow">→</span></span>
-      </a>
+      {/* Cross-links — the SMM offer (magenta) and direct training (blue) */}
+      <div class="ptn-cross-grid">
+        <a class="ptn-cross ptn-cross--smm" href={smmHref}>
+          <span class="ptn-cross-tag">{c.crossTag}</span>
+          <span class="ptn-cross-title">{c.crossTitle}</span>
+          <span class="ptn-cross-body">{c.crossBody}</span>
+          <span class="ptn-cross-cta">{c.crossCta} <span class="arrow">→</span></span>
+        </a>
+        <a class="ptn-cross ptn-cross--train" href={learningHref}>
+          <span class="ptn-cross-tag">{c.trainTag}</span>
+          <span class="ptn-cross-title">{c.trainTitle}</span>
+          <span class="ptn-cross-body">{c.trainBody}</span>
+          <span class="ptn-cross-cta">{c.trainCta} <span class="arrow">→</span></span>
+        </a>
+      </div>
     </div>
+  </section>
+
+  {/* ---------- TRUST / CREDENTIALS (dark) ---------- */}
+  <section class="ptn-section ptn-trust lp-trust">
+    <TrustBlock lang={lang} kicker={c.trustKicker} title={c.trustTitle} lede={c.trustLede} />
   </section>
 
   {/* ---------- FORM (paper-2) ---------- */}

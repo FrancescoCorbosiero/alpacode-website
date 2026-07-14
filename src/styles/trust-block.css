@@ -1,0 +1,155 @@
+/* ============================================================
+   Trust / credentials block — shared by the conversion landings.
+   Palette-agnostic: each landing root maps the --lpt-* variables
+   to its own scoped palette (see .smm / .ptn).
+   Quiet by design: claims, proof slots and a badge strip.
+   No testimonials, no shouting.
+   ============================================================ */
+
+.lp-trust .lp-trust-head h2 {
+  color: var(--lpt-fg);
+}
+.lp-trust .lp-trust-head .lede {
+  color: var(--lpt-mute);
+}
+.lp-trust .sec-num.lp-trust-kicker {
+  color: var(--lpt-accent);
+  letter-spacing: 0.22em;
+}
+
+.lp-trust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Claims — three sober facts */
+.lp-trust-claims {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--lpt-rule);
+}
+.lp-trust-claim {
+  padding: 26px 0 28px;
+  border-bottom: 1px solid var(--lpt-rule);
+  display: grid;
+  gap: 12px;
+}
+.lp-trust-strut {
+  width: 44px;
+  height: var(--strut);
+  background: var(--lpt-accent);
+}
+.lp-trust-claim h3 {
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--lpt-fg);
+}
+.lp-trust-claim p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--lpt-mute);
+  max-width: 52ch;
+}
+
+/* Proof tiles — screenshots of real results (or quiet placeholders) */
+.lp-trust-proofs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.lp-trust-proof {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.lp-trust-img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--lpt-rule);
+  display: block;
+}
+.lp-trust-ph {
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--lpt-rule);
+  background: var(--lpt-bg-2);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  text-align: center;
+}
+.lp-trust-ph span {
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lpt-faint);
+  max-width: 24ch;
+}
+.lp-trust-proof figcaption {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--lpt-faint);
+}
+
+/* Badge strip — certifications and platforms, grayscale and quiet */
+.lp-trust-badges {
+  margin-top: 56px;
+  border-top: 1px solid var(--lpt-rule);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.lp-trust-badge {
+  padding: 26px 20px;
+  border-right: 1px solid var(--lpt-rule);
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+}
+.lp-trust-badge:last-child {
+  border-right: 0;
+}
+.lp-trust-badge-img {
+  max-width: 150px;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  filter: grayscale(1);
+  opacity: 0.8;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+.lp-trust-badge:hover .lp-trust-badge-img {
+  filter: none;
+  opacity: 1;
+}
+.lp-trust-badge-ph {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lpt-faint);
+  border: 1px dashed var(--lpt-rule);
+  padding: 12px 18px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .lp-trust-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .lp-trust-badges {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lp-trust-badge:nth-child(2) { border-right: 0; }
+  .lp-trust-badge:nth-child(1),
+  .lp-trust-badge:nth-child(2) { border-bottom: 1px solid var(--lpt-rule); }
+}
+
+@media (max-width: 560px) {
+  .lp-trust-proofs {
+    grid-template-columns: 1fr;
+  }
+}
