@@ -9,6 +9,10 @@ title:
 descriptor:
   it: "Una guida pratica per professionisti e piccole imprese che vogliono farsi trovare e scegliere — senza budget da multinazionale."
   en: "A practical guide for professionals and small businesses who want to be found and chosen — without a corporate budget."
+cover: "../../assets/blog/trovare-clienti-attivita.png"
+coverAlt:
+  it: "Copertina — Come trovare i primi clienti online, nel 2026"
+  en: "Cover — How to find your first clients online in 2026"
 ---
 
 Ogni settimana ci scrive qualcuno che ha appena aperto la propria attività e ha già un problema: il telefono non squilla. Quasi mai è una questione di qualità — il servizio è buono, i prezzi sono giusti, le persone che ci hanno provato sono tornate. Il problema è che nessuno *sa* di esistere. Nel 2026, con la maggior parte delle decisioni d'acquisto che passano da uno schermo prima ancora che da una telefonata, esistere online non è più un extra: è la condizione minima per giocare la partita. La buona notizia è che i primi clienti si conquistano con pochi passi concreti, alla portata di chiunque sia disposto a farli seriamente.

@@ -17,11 +17,12 @@
    exactly 1200×630 with sharp (already here as an Astro dep).
    ============================================================ */
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import { COVERS, coverSvg } from "./covers.mjs";
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -63,6 +64,47 @@ function findChrome() {
 
 const chrome = findChrome();
 const work = mkdtempSync(join(tmpdir(), "og-"));
+let shots = 0;
+
+async function renderSvgTo(svgText, outPng, label) {
+  const html = `<!doctype html><meta charset="utf-8"><style>${fontCss}\nhtml,body{margin:0;padding:0}svg{display:block}</style>${svgText}`;
+  const page = join(work, `page-${shots}.html`);
+  const shot = join(work, `shot-${shots}.png`);
+  shots += 1;
+  writeFileSync(page, html);
+
+  execFileSync(
+    chrome,
+    [
+      "--headless=new",
+      "--no-sandbox",
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--hide-scrollbars",
+      "--force-device-scale-factor=1",
+      // Oversized on purpose — see the toolbar note up top.
+      `--window-size=${WIDTH + 200},${HEIGHT + 200}`,
+      // Let inlined fonts settle before the shot.
+      "--virtual-time-budget=4000",
+      `--screenshot=${shot}`,
+      `file://${page}`,
+    ],
+    { stdio: "pipe" },
+  );
+
+  await sharp(shot)
+    .extract({ left: 0, top: 0, width: WIDTH, height: HEIGHT })
+    .png()
+    .toFile(outPng);
+
+  const meta = await sharp(outPng).metadata();
+  if (meta.width !== WIDTH || meta.height !== HEIGHT) {
+    throw new Error(`${label}: rendered ${meta.width}×${meta.height}, expected ${WIDTH}×${HEIGHT}`);
+  }
+  const kb = Math.round(readFileSync(outPng).length / 1024);
+  console.log(`✓ ${label} (${meta.width}×${meta.height}, ${kb} kB)`);
+}
+
 const sources = readdirSync(here).filter((f) => f.endsWith(".svg")).sort();
 if (sources.length === 0) {
   console.error("No .svg sources in tools/og/ — nothing to render.");
@@ -70,44 +112,20 @@ if (sources.length === 0) {
 }
 
 try {
+  // 1) Static cards: tools/og/*.svg -> public/*.png (og:image assets).
   for (const svgFile of sources) {
     const svg = readFileSync(join(here, svgFile), "utf8");
-    const html = `<!doctype html><meta charset="utf-8"><style>${fontCss}\nhtml,body{margin:0;padding:0}svg{display:block}</style>${svg}`;
-    const page = join(work, svgFile.replace(/\.svg$/, ".html"));
-    writeFileSync(page, html);
-
-    const shot = join(work, svgFile.replace(/\.svg$/, ".shot.png"));
-    execFileSync(
-      chrome,
-      [
-        "--headless=new",
-        "--no-sandbox",
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
-        "--hide-scrollbars",
-        "--force-device-scale-factor=1",
-        // Oversized on purpose — see the toolbar note up top.
-        `--window-size=${WIDTH + 200},${HEIGHT + 200}`,
-        // Let inlined fonts settle before the shot.
-        "--virtual-time-budget=4000",
-        `--screenshot=${shot}`,
-        `file://${page}`,
-      ],
-      { stdio: "pipe" },
-    );
-
     const png = join(outDir, svgFile.replace(/\.svg$/, ".png"));
-    await sharp(shot)
-      .extract({ left: 0, top: 0, width: WIDTH, height: HEIGHT })
-      .png()
-      .toFile(png);
+    await renderSvgTo(svg, png, `${svgFile} -> public/${svgFile.replace(/\.svg$/, ".png")}`);
+  }
 
-    const meta = await sharp(png).metadata();
-    if (meta.width !== WIDTH || meta.height !== HEIGHT) {
-      throw new Error(`${svgFile}: rendered ${meta.width}×${meta.height}, expected ${WIDTH}×${HEIGHT}`);
-    }
-    const kb = Math.round(readFileSync(png).length / 1024);
-    console.log(`✓ ${svgFile} -> public/${svgFile.replace(/\.svg$/, ".png")} (${meta.width}×${meta.height}, ${kb} kB)`);
+  // 2) Blog covers: generated from specs -> src/assets/blog/<slug>.png,
+  //    referenced by each post's `cover` frontmatter (page + og:image).
+  const coversDir = join(root, "src", "assets", "blog");
+  mkdirSync(coversDir, { recursive: true });
+  for (const spec of COVERS) {
+    const png = join(coversDir, `${spec.slug}.png`);
+    await renderSvgTo(coverSvg(spec), png, `cover:${spec.slug} -> src/assets/blog/${spec.slug}.png`);
   }
 } finally {
   rmSync(work, { recursive: true, force: true });

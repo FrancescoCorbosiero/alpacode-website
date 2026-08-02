@@ -41,6 +41,9 @@ interface Props {
   ogImageHeight?: number;
   /** Open Graph object type — "article" for blog posts. */
   ogType?: "website" | "article";
+  /** Browser-chrome color override for pages that are dark in both schemes
+   *  (the bespoke landings paint their own ink background). */
+  themeColor?: string;
   /** Conversion-focused chrome: minimal header, slim footer, no ⌘K palette.
    *  Used by advertising landing pages to cut exits. */
   minimal?: boolean;
@@ -60,6 +63,7 @@ const {
   ogImageWidth = 1200,
   ogImageHeight = 630,
   ogType = "website",
+  themeColor,
   minimal = false,
   ctaLabel,
   ctaHref = "#offerta",
@@ -129,10 +133,24 @@ const cmdLabels: CmdLabels = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/logo.png" />
+    {/* Monogram icon set (tools/icons) — the wordmark logo is illegible at tab size. */}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content="#0A0A0A" />
+    {
+      themeColor ? (
+        <meta name="theme-color" content={themeColor} />
+      ) : (
+        <>
+          <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1E8" />
+          <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12110F" />
+        </>
+      )
+    }
 
     <link rel="alternate" hreflang="it" href={itUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />

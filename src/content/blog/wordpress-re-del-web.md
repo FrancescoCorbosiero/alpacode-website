@@ -9,6 +9,10 @@ title:
 descriptor:
   it: "Vent'anni dopo, WordPress fa girare più web di chiunque altro. Ma il 2026 è l'anno in cui dovrà dimostrare di meritarselo."
   en: "Twenty years in, WordPress still runs more of the web than anyone else. But 2026 is the year it has to prove it deserves to."
+cover: "../../assets/blog/wordpress-re-del-web.png"
+coverAlt:
+  it: "Copertina — Perché WordPress è ancora una garanzia nel 2026"
+  en: "Cover — Why WordPress is still the king of the web"
 ---
 
 Ogni anno qualcuno dichiara morto WordPress. Ogni anno fa girare una fetta enorme del web — di gran lunga la più grande, numeri alla mano. Non è nostalgia, ed è solo in parte inerzia: per la maggior parte delle attività, resta semplicemente la scelta più sensata. Ma il 2026 non è un anno qualunque, e vale la pena dirlo subito.

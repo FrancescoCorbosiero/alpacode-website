@@ -608,9 +608,11 @@
 }
 
 /* The Hive page has a dark body. The site's normal page background is paper,
-   so we paint the body to match the variant where these pages are mounted. */
+   so we paint the body to match the variant where these pages are mounted.
+   Literal ink (not var(--ink)): this page is dark in BOTH color schemes,
+   and in dark mode the shared token flips to a light value. */
 body[data-page="prodotti"]:has(.pp--hive) {
-  background: var(--ink);
+  background: #0a0a0a;
 }
 
 /* =============================================================
