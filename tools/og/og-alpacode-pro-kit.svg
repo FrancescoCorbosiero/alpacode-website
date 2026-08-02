@@ -25,8 +25,8 @@
   <!-- Accent bar -->
   <rect x="80" y="220" width="120" height="8" fill="#E63422"/>
   <!-- Headline -->
-  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="108" fill="#0A0A0A">
-    <text x="80" y="332">ALPACODE PRO KIT</text>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="88" fill="#0A0A0A">
+    <text x="80" y="324">ALPACODE PRO KIT</text>
   </g>
   <!-- Sub-headline -->
   <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="56" fill="#E63422">

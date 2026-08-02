@@ -15,7 +15,8 @@ This skill is the operational checklist.
   `src/data/campaigns.ts`. That is the whole job.
 - The pitch is anything else (product, program, partnership) →
   **Track B**: clone the SMM/Partner pattern (data file + page
-  component + scoped stylesheet + IT/EN pages + OG svg).
+  component + scoped stylesheet + IT/EN pages + OG card in
+  `tools/og/` rendered to PNG via `npm run og`).
 
 If the user's brief doesn't clearly say which, default to Track A and
 say so in the reply.

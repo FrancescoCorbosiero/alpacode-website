@@ -28,7 +28,7 @@ export interface ProductPage {
   title: string;
   /** Description in <head> and OG. */
   description: string;
-  /** Path under public/, e.g. "/og-hive-commerce.svg". */
+  /** Path under public/, e.g. "/og-hive-commerce.png". */
   ogImage: string;
 
   /** Page header crumb, e.g. "PRODOTTI · HIVE COMMERCE". */
@@ -83,7 +83,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     title: "Hive Commerce · Plugin WooCommerce per e-commerce in autonomia · Alpacode",
     description:
       "Hive Commerce è il plugin che automatizza la gestione del tuo e-commerce su WooCommerce: tema grafico incluso, set di funzionalità completo, aggiornamenti continui. Early access da Q3 2026.",
-    ogImage: "/og-hive-commerce.svg",
+    ogImage: "/og-hive-commerce.png",
 
     crumb: "PRODOTTI · 01 HIVE COMMERCE",
     eyebrow: "EARLY ACCESS · Q3 2026",
@@ -169,7 +169,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     title: "Hive Commerce · WooCommerce plugin for self-running e-commerce · Alpacode",
     description:
       "Hive Commerce is the plugin that automates the operations of your WooCommerce store: graphic theme included, complete feature set, continuous updates. Early access from Q3 2026.",
-    ogImage: "/og-hive-commerce.svg",
+    ogImage: "/og-hive-commerce.png",
 
     crumb: "PRODUCTS · 01 HIVE COMMERCE",
     eyebrow: "EARLY ACCESS · Q3 2026",
@@ -259,7 +259,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     title: "Alpacode Pro Kit · Il kit completo per diventare Web Master · Alpacode",
     description:
       "Alpacode Pro Kit: guide, PDF, repository, kit di sviluppo WordPress e dashboard gestionale. Tutto quello che serve per iniziare la carriera da Web Master. Early access da Q3 2026.",
-    ogImage: "/og-alpacode-pro-kit.svg",
+    ogImage: "/og-alpacode-pro-kit.png",
 
     crumb: "PRODOTTI · 02 ALPACODE PRO KIT",
     eyebrow: "EARLY ACCESS · Q3 2026",
@@ -345,7 +345,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     title: "Alpacode Pro Kit · The complete kit to become a Web Master · Alpacode",
     description:
       "Alpacode Pro Kit: guides, PDFs, repositories, WordPress dev kits and a management dashboard. Everything you need to start your Web Master career. Early access from Q3 2026.",
-    ogImage: "/og-alpacode-pro-kit.svg",
+    ogImage: "/og-alpacode-pro-kit.png",
 
     crumb: "PRODUCTS · 02 ALPACODE PRO KIT",
     eyebrow: "EARLY ACCESS · Q3 2026",

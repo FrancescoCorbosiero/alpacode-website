@@ -1,7 +1,8 @@
 ---
 import Layout from "../../../components/Layout.astro";
 import Offerta from "../../../components/pages/Offerta.astro";
-import { CAMPAIGNS, COPY, t, type Campaign } from "../../../data/campaigns";
+import { CAMPAIGNS, COPY, FAQ, t, type Campaign } from "../../../data/campaigns";
+import { faqPageSchema } from "../../../lib/schema";
 
 export function getStaticPaths() {
   return CAMPAIGNS.map((campaign) => ({
@@ -13,6 +14,7 @@ export function getStaticPaths() {
 const lang = "en" as const;
 const { campaign } = Astro.props as { campaign: Campaign };
 const slug = `offerta/${campaign.slug}`;
+const faqSchema = faqPageSchema(FAQ.map((f) => ({ q: t(f.q, lang), a: t(f.a, lang) })));
 ---
 
 <Layout
@@ -20,6 +22,7 @@ const slug = `offerta/${campaign.slug}`;
   slug={slug}
   title={t(campaign.meta.title, lang)}
   description={t(campaign.meta.description, lang)}
+  jsonLd={[faqSchema]}
   minimal
   ctaLabel={t(COPY.ctaPrimary, lang)}
 >

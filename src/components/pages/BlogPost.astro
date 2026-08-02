@@ -22,7 +22,11 @@ const siteUrl = (Astro.site ?? new URL("https://alpacode.it")).href;
 const url = new URL(localizePath(`blog/${post.id}`, lang), siteUrl).href;
 
 const rt = readingTime(post.body ?? "", lang);
-const author = post.data.author ?? "Alpacode";
+// Only a real person goes into the schema author slot — defaulting to
+// "Alpacode" would emit a Person named after the organization; with no
+// author the schema falls back to the #org entity instead.
+const author = post.data.author;
+const bylineName = author ?? "Alpacode";
 
 const coverAlt =
   (post.data.coverAlt && post.data.coverAlt[lang]) || post.data.title[lang];
@@ -67,7 +71,7 @@ const next = nextPost
 
 const tocLabel = lang === "it" ? "Sommario" : "Contents";
 const backLabel = lang === "it" ? "← Tutti gli articoli" : "← All articles";
-const byline = `${author} · ${rt.label}`;
+const byline = `${bylineName} · ${rt.label}`;
 ---
 
 <Layout
@@ -78,6 +82,9 @@ const byline = `${author} · ${rt.label}`;
   description={post.data.descriptor[lang]}
   jsonLd={jsonLd}
   ogImage={post.data.cover?.src}
+  ogImageWidth={post.data.cover?.width}
+  ogImageHeight={post.data.cover?.height}
+  ogType="article"
 >
   <div class="article-progress" data-article-progress aria-hidden="true">
     <div class="article-progress-fill"></div>

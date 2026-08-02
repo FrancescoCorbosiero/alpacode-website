@@ -1,0 +1,26 @@
+# Type-check + build on every push and PR. Catches broken campaign data
+# entries, i18n type errors and template regressions before they deploy —
+# the site had no CI at all before this.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22 # keep in sync with the Dockerfile
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build

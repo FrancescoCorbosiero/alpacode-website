@@ -13,9 +13,13 @@ type Status = "idle" | "sending" | "sent" | "error";
 function ContactForm({ lang, labels }: Props) {
   const [status, setStatus] = useState<Status>("idle");
 
+  // Earlier versions persisted a ?sent=1 flag in the URL, which made shared
+  // or reloaded links show a false "message sent" confirmation. Strip it.
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("sent") === "1") {
-      setStatus("sent");
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("sent")) {
+      url.searchParams.delete("sent");
+      window.history.replaceState({}, "", url);
     }
   }, []);
 
@@ -33,16 +37,13 @@ function ContactForm({ lang, labels }: Props) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("sent");
       form.reset();
-      const url = new URL(window.location.href);
-      url.searchParams.set("sent", "1");
-      window.history.replaceState({}, "", url);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <form className="contact-form" onSubmit={onSubmit} noValidate>
+    <form className="contact-form" onSubmit={onSubmit}>
       {/* Honeypot — must stay empty for humans. */}
       <input
         type="text"
@@ -101,8 +102,10 @@ function ContactForm({ lang, labels }: Props) {
         <button className="btn btn-blue" type="submit" disabled={status === "sending"}>
           {labels.send} <span className="arrow">→</span>
         </button>
-        {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-        {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        <span role="status" aria-live="polite">
+          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        </span>
       </div>
     </form>
   );

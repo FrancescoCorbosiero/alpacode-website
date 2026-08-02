@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "og": "node tools/og/render.mjs",
     "astro": "astro"
   },
   "dependencies": {

@@ -126,7 +126,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     title: "Programma Partner · Porta il digitale ai tuoi clienti, senza farlo tu — Alpacode",
     description:
       "Hai un portafoglio clienti che ti chiede siti e servizi digitali? Segnala, rivendi in white-label o scambia lead con noi. Il cliente resta tuo, le condizioni sono scritte. Un partner per nicchia e zona.",
-    ogImage: "/og-partner.svg",
+    ogImage: "/og-partner.png",
 
     eyebrow: "Programma partner · Un partner per nicchia e area",
     h1Lines: ["La fiducia è tua.", "Il digitale è nostro."],
@@ -367,7 +367,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     title: "Partner Program · Bring digital to your clients, without building it — Alpacode",
     description:
       "Got a client portfolio asking for websites and digital services? Refer, resell white-label or swap leads with us. The client stays yours, the terms are written. One partner per niche and area.",
-    ogImage: "/og-partner.svg",
+    ogImage: "/og-partner.png",
 
     eyebrow: "Partner program · One partner per niche and area",
     h1Lines: ["The trust is yours.", "The craft is ours."],

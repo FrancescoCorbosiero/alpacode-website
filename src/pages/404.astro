@@ -6,7 +6,8 @@ import { localizePath } from "../i18n/utils";
 // Server-rendered so it can mirror the requested locale.
 export const prerender = false;
 
-const lang: Lang = Astro.url.pathname.startsWith("/en") ? "en" : "it";
+const lang: Lang =
+  Astro.url.pathname === "/en" || Astro.url.pathname.startsWith("/en/") ? "en" : "it";
 Astro.response.status = 404;
 
 const t =
@@ -27,7 +28,7 @@ const t =
       };
 ---
 
-<Layout lang={lang} slug="" title={t.title} description={t.sub}>
+<Layout lang={lang} slug="" title={t.title} description={t.sub} noindex>
   <section class="error-hero">
     <div class="wrap-wide">
       <div class="error-num">404</div>

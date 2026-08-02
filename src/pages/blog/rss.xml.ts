@@ -8,10 +8,15 @@ const lang = "it" as const;
 
 export async function GET(context: APIContext) {
   const posts = (await getCollection("blog")).sort((a, b) => a.data.order - b.data.order);
+  const site = context.site ?? "https://alpacode.it";
+  const selfHref = new URL(localizePath("blog/rss.xml", lang), site).href;
   return rss({
-    title: "Alpacode · Blog",
+    // "(IT)" — the EN feed shares the brand name; readers subscribed to both
+    // need distinguishable channel titles.
+    title: "Alpacode · Blog (IT)",
     description: "Note, guide e riflessioni. Quello che impariamo lo scriviamo.",
-    site: context.site ?? "https://alpacode.it",
+    site,
+    xmlns: { atom: "http://www.w3.org/2005/Atom" },
     items: posts.map((p) => {
       const iso = isoFromDisplayDate(p.data.date[lang]);
       return {
@@ -22,6 +27,6 @@ export async function GET(context: APIContext) {
         ...(iso ? { pubDate: new Date(iso) } : {}),
       };
     }),
-    customData: "<language>it-IT</language>",
+    customData: `<language>it-IT</language><atom:link href="${selfHref}" rel="self" type="application/rss+xml"/>`,
   });
 }

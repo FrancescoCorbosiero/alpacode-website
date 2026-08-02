@@ -1,7 +1,9 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import Fuse from "fuse.js";
+import { navigate } from "astro:transitions/client";
 import type { Lang } from "../../i18n/types";
 import { persistLang, toggleLangPath } from "../../lib/lang-store";
+import { lockScroll } from "../../lib/scroll-lock";
 
 export interface CmdItem {
   kind: "recent" | "page" | "course" | "action";
@@ -63,6 +65,7 @@ function CmdK({ lang, items, labels }: Props) {
   const [q, setQ] = useState("");
   const [idx, setIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const fuse = useMemo(
     () =>
@@ -94,6 +97,20 @@ function CmdK({ lang, items, labels }: Props) {
     return fuse.search(q).map((r) => r.item);
   }, [q, items, fuse, recents]);
 
+  // The list renders grouped by kind, which reorders Fuse's relevance-sorted
+  // results — so keyboard nav and Enter must index into the *rendered* order
+  // (`ordered`), never into `filtered` directly, or they'd act on a different
+  // item than the highlighted one.
+  const grouped = useMemo(
+    () =>
+      KIND_ORDER.map((kind) => ({
+        kind,
+        list: filtered.filter((it) => it.kind === kind),
+      })).filter((g) => g.list.length > 0),
+    [filtered],
+  );
+  const ordered = useMemo(() => grouped.flatMap((g) => g.list), [grouped]);
+
   // Open via Cmd/Ctrl+K and via any [data-cmdk-open] trigger in the header.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -121,20 +138,30 @@ function CmdK({ lang, items, labels }: Props) {
     if (open) {
       setQ("");
       setIdx(0);
+      // Return focus to whatever opened the palette when it closes.
+      const opener = document.activeElement as HTMLElement | null;
       const id = window.setTimeout(() => inputRef.current?.focus(), 30);
-      return () => window.clearTimeout(id);
+      return () => {
+        window.clearTimeout(id);
+        if (opener?.isConnected) opener.focus();
+      };
     }
   }, [open]);
 
   const run = (item: CmdItem | undefined) => {
     if (!item) return;
+    setOpen(false);
     if (item.action === "lang") {
       const next = lang === "it" ? "en" : "it";
       persistLang(next);
-      window.location.href = toggleLangPath(window.location.pathname);
+      navigate(toggleLangPath(window.location.pathname));
       return;
     }
-    if (item.href) window.location.href = item.href;
+    if (!item.href) return;
+    // Soft-navigate internal links so prefetch/view transitions keep paying
+    // off; external protocols (mailto:) need a real navigation.
+    if (item.href.startsWith("/")) navigate(item.href);
+    else window.location.href = item.href;
   };
 
   useEffect(() => {
@@ -143,42 +170,52 @@ function CmdK({ lang, items, labels }: Props) {
       if (e.key === "Escape") setOpen(false);
       else if (e.key === "ArrowDown") {
         e.preventDefault();
-        setIdx((i) => Math.min(filtered.length - 1, i + 1));
+        setIdx((i) => Math.min(ordered.length - 1, i + 1));
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         setIdx((i) => Math.max(0, i - 1));
       } else if (e.key === "Enter") {
         e.preventDefault();
-        run(filtered[idx]);
+        run(ordered[idx]);
+      } else if (e.key === "Tab") {
+        // aria-modal promises containment — cycle focus inside the dialog.
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusables = Array.from(
+          panel.querySelectorAll<HTMLElement>("input, button"),
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0]!;
+        const last = focusables[focusables.length - 1]!;
+        const active = document.activeElement;
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, idx, filtered]);
+  }, [open, idx, ordered]);
 
-  // Lock body scroll while open.
+  // Lock body scroll while open (ref-counted — shared with the mobile nav).
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return lockScroll();
   }, [open]);
 
   if (!open) return null;
-
-  const grouped = KIND_ORDER.map((kind) => ({
-    kind,
-    list: filtered.filter((it) => it.kind === kind),
-  })).filter((g) => g.list.length > 0);
 
   let running = -1;
 
   return (
     <div className="cmdk-backdrop" onClick={() => setOpen(false)}>
       <div
+        ref={panelRef}
         className="cmdk"
         role="dialog"
         aria-modal="true"

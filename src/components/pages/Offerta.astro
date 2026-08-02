@@ -380,7 +380,12 @@ const formLabels: CampaignFormLabels = {
           p.classList.toggle("is-active", on);
           p.hidden = !on;
         });
-        if (id) window.dispatchEvent(new CustomEvent("offer-variant", { detail: id }));
+        if (id) {
+          // Recorded so the lead form (client:idle) can seed itself with
+          // picks made before it hydrates.
+          (window as { __offerVariant?: string }).__offerVariant = id;
+          window.dispatchEvent(new CustomEvent("offer-variant", { detail: id }));
+        }
       });
     });
   }

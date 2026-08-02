@@ -85,9 +85,13 @@ magenta) and Partner (`ptn` prefix, green):
 4. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
    `Layout` with `minimal` chrome, `ctaHref` pointing at the form
    anchor, FAQPage JSON-LD built from the data file.
-5. **OG card** — `public/og-<name>.svg` following the existing ones.
-   Keep each headline line under ~20 chars and stack the accent word
-   on its own line — display fonts overflow otherwise.
+5. **OG card** — `tools/og/og-<name>.svg` following the existing
+   ones, then `npm run og` to rasterise it (link-preview scrapers —
+   WhatsApp, Facebook, LinkedIn — don't render SVG, so the site
+   serves the generated `public/og-<name>.png`; point `ogImage` at
+   the `.png`). Keep each headline line under ~20 chars and stack
+   the accent word on its own line — display fonts overflow
+   otherwise. Eyeball the generated PNG before committing it.
 6. **Verify** — `npm run check && npm run build`, serve
    `dist/server/entry.mjs`, screenshot at 1440px and 390px, click the
    interactive element, submit the form end-to-end (without

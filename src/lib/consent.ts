@@ -1,8 +1,9 @@
-import { run, showPreferences } from "vanilla-cookieconsent";
+import { run, setLanguage, showPreferences } from "vanilla-cookieconsent";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import "../styles/consent.css";
 
-const lang = document.documentElement.lang === "en" ? "en" : "it";
+const docLang = () => (document.documentElement.lang === "en" ? "en" : "it");
+const lang = docLang();
 
 run({
   root: "#cc-root",
@@ -81,6 +82,13 @@ run({
       },
     },
   },
+});
+
+// This module runs once per real page load, but View Transitions swap
+// <html lang> underneath it — without this, switching language would leave
+// the banner and the preferences modal in the first-load language forever.
+document.addEventListener("astro:after-swap", () => {
+  setLanguage(docLang());
 });
 
 // Footer "Cookie" link reopens preferences. Delegated on document so it keeps
