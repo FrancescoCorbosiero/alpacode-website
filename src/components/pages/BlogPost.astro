@@ -78,6 +78,8 @@ const byline = `${author} · ${rt.label}`;
   description={post.data.descriptor[lang]}
   jsonLd={jsonLd}
   ogImage={post.data.cover?.src}
+  ogImageWidth={post.data.cover?.width}
+  ogImageHeight={post.data.cover?.height}
 >
   <div class="article-progress" data-article-progress aria-hidden="true">
     <div class="article-progress-fill"></div>

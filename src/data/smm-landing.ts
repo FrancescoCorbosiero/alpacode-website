@@ -174,7 +174,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
   it: {
     title: `Il sito per chi gestisce i social degli altri · ${price} €/anno tutto incluso — Alpacode`,
     description: `Fai crescere i brand degli altri, ma un brand che cerca te trova un link in bio. Portfolio, media kit e contatti sul tuo dominio: ${price} € l'anno, tutto incluso. Prima vedi, poi paghi. Solo ${seats} posti.`,
-    ogImage: "/og-smm.svg",
+    ogImage: "/og-smm.png",
 
     eyebrow: `Offerta lancio · Solo ${seats} posti`,
     h1Lines: ["Fai crescere", "i brand degli altri."],
@@ -410,7 +410,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
   en: {
     title: `The website for people who run everyone else's socials · €${price}/yr all-inclusive — Alpacode`,
     description: `You grow other people's brands, but a brand searching for you finds a link in bio. Portfolio, media kit and contacts on your own domain: €${price} a year, all included. See it first, then pay. Only ${seats} seats.`,
-    ogImage: "/og-smm.svg",
+    ogImage: "/og-smm.png",
 
     eyebrow: `Launch offer · Only ${seats} seats`,
     h1Lines: ["You grow", "everyone else's brand."],
