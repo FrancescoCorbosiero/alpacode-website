@@ -38,7 +38,12 @@
 }
 
 /* ============================================================
-   Dark scheme — the same brutalist system on an ink field.
+   Dark theme — the same brutalist system on an ink field.
+   OPT-IN: light is the default for everyone; the OS color-scheme
+   preference is deliberately not consulted. The header toggle
+   sets data-theme="dark" on <html> (persisted in localStorage,
+   applied pre-paint by the inline script in Layout.astro).
+
    The palette is inverted at the token level (components are
    written against the tokens, so they follow), with one rule:
    surfaces that are ink-by-design in the light theme — the
@@ -50,41 +55,39 @@
    (SMM, Partner, product pages, campaign chrome) carry their
    own scoped palettes and are untouched.
    ============================================================ */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f2efe6;
-    --ink-2: #dedbd0;
-    --paper: #12110f;
-    --paper-2: #1b1a17;
-    --paper-3: #262420;
-    --rule: #33312c;
-    --mute: #9b978d;
-    --mute-2: #c9c5b9;
-    --blue-soft: #1a2740;
+:root[data-theme="dark"] {
+  --ink: #f2efe6;
+  --ink-2: #dedbd0;
+  --paper: #12110f;
+  --paper-2: #1b1a17;
+  --paper-3: #262420;
+  --rule: #33312c;
+  --mute: #9b978d;
+  --mute-2: #c9c5b9;
+  --blue-soft: #1a2740;
 
-    color-scheme: dark;
-  }
+  color-scheme: dark;
+}
 
-  /* Ink-by-design surfaces: restore the light palette inside. The two
-     bespoke dark landings (SMM, Partner) are pinned at body level — their
-     whole page, campaign chrome included, is designed against the light
-     token values and must not follow the scheme. */
-  .manifesto,
-  .ticker,
-  .site-footer,
-  .band-dark,
-  .product--featured,
-  .cmdk-item.is-on,
-  body:has(.smm),
-  body:has(.ptn) {
-    --ink: #0a0a0a;
-    --ink-2: #1b1b1b;
-    --paper: #f4f1e8;
-    --paper-2: #ebe7da;
-    --paper-3: #ddd8c7;
-    --rule: #c9c3b1;
-    --mute: #7d7a72;
-    --mute-2: #54524c;
-    --blue-soft: #dce5fa;
-  }
+/* Ink-by-design surfaces: restore the light palette inside. The two
+   bespoke dark landings (SMM, Partner) are pinned at body level — their
+   whole page, campaign chrome included, is designed against the light
+   token values and must not follow the theme. */
+:root[data-theme="dark"] .manifesto,
+:root[data-theme="dark"] .ticker,
+:root[data-theme="dark"] .site-footer,
+:root[data-theme="dark"] .band-dark,
+:root[data-theme="dark"] .product--featured,
+:root[data-theme="dark"] .cmdk-item.is-on,
+:root[data-theme="dark"] body:has(.smm),
+:root[data-theme="dark"] body:has(.ptn) {
+  --ink: #0a0a0a;
+  --ink-2: #1b1b1b;
+  --paper: #f4f1e8;
+  --paper-2: #ebe7da;
+  --paper-3: #ddd8c7;
+  --rule: #c9c3b1;
+  --mute: #7d7a72;
+  --mute-2: #54524c;
+  --blue-soft: #dce5fa;
 }
