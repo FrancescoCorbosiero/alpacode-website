@@ -9,6 +9,10 @@ title:
 descriptor:
   it: "Saper costruire siti è metà del lavoro. L'altra metà è farsi trovare — e nel 2026 le regole del gioco sono cambiate."
   en: "Building websites is half the job. The other half is getting found — and in 2026 the rules have changed."
+cover: "../../assets/blog/trovare-clienti-web-master.png"
+coverAlt:
+  it: "Copertina — Trovare clienti come Web Master nel 2026"
+  en: "Cover — Finding clients as a Web Master in 2026"
 ---
 
 Ogni mese qualcuno apre partita IVA pensando che basti saper fare siti per camparci. Ogni mese qualcun altro chiude perché ha scoperto che non basta. La differenza tra le due categorie quasi mai è tecnica: è organizzativa. Chi dura ha capito presto che la professione si regge su processo, posizionamento e strumenti — non sulle ore passate a smanettare. Il 2026, con l'AI che ha alzato l'asticella di ciò che ci si aspetta da un freelance, lo rende ancora più evidente.
