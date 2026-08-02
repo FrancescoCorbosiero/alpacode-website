@@ -1,5 +1,6 @@
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import type { CaseStudy } from "../../data/home";
+import { rovingTabKey } from "../../lib/roving";
 
 interface Props {
   cases: CaseStudy[];
@@ -15,8 +16,14 @@ interface Props {
 function Cases({ cases, labels }: Props) {
   const [i, setI] = useState(0);
   const [broken, setBroken] = useState<Record<string, boolean>>({});
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const cur = cases[i]!;
   const showImg = cur.img && !broken[cur.key];
+
+  const selectTab = (next: number) => {
+    setI(next);
+    tabRefs.current[next]?.focus();
+  };
 
   return (
     <div className="cases">
@@ -27,11 +34,15 @@ function Cases({ cases, labels }: Props) {
             type="button"
             role="tab"
             id={`case-tab-${idx}`}
+            ref={(el) => {
+              tabRefs.current[idx] = el;
+            }}
             aria-selected={idx === i}
             aria-controls="case-panel"
             tabIndex={idx === i ? 0 : -1}
             className={"case-tab " + (idx === i ? "is-on" : "")}
             onClick={() => setI(idx)}
+            onKeyDown={(e) => rovingTabKey(e, idx, cases.length, selectTab)}
           >
             <span className="num">— 0{idx + 1}</span>
             <span className="nm">{c.nm}</span>

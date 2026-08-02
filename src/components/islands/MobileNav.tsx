@@ -1,6 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../../i18n/types";
 import { persistLang } from "../../lib/lang-store";
+import { lockScroll } from "../../lib/scroll-lock";
 
 export interface MobileNavItem {
   num: string;
@@ -68,18 +69,48 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
     setExpanded(initialExpanded);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
+      else if (e.key === "Tab") {
+        // aria-modal promises containment — cycle focus inside the drawer.
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusables = Array.from(
+          panel.querySelectorAll<HTMLElement>("a[href], button"),
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0]!;
+        const last = focusables[focusables.length - 1]!;
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || active === panel)) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, initialExpanded]);
 
+  // Move focus into the dialog on open; return it to the opener on close.
+  // Also mirror the state onto the burger's aria-expanded (it lives in the
+  // static header markup, outside this island).
+  useEffect(() => {
+    const triggers = document.querySelectorAll<HTMLElement>("[data-mobile-nav-open]");
+    triggers.forEach((t) => t.setAttribute("aria-expanded", open ? "true" : "false"));
+    if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
+    panelRef.current?.focus();
+    return () => {
+      if (opener?.isConnected) opener.focus();
+    };
+  }, [open]);
+
+  // Lock body scroll while open (ref-counted — shared with the ⌘K palette).
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return lockScroll();
   }, [open]);
 
   useEffect(() => {
@@ -100,6 +131,7 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
         role="dialog"
         aria-modal="true"
         aria-label={labels.title}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mnav-strut" aria-hidden="true" />

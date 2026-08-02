@@ -421,7 +421,7 @@ const formLabels: PartnerFormLabels = {
         var apply = function () {
           sticky.classList.toggle("is-visible", pastHero && !onForm);
         };
-        new IntersectionObserver(
+        var heroObs = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (e) {
               pastHero = !e.isIntersecting;
@@ -429,9 +429,11 @@ const formLabels: PartnerFormLabels = {
             apply();
           },
           { threshold: 0, rootMargin: "-60px 0px 0px 0px" }
-        ).observe(hero);
+        );
+        heroObs.observe(hero);
+        observers.push(heroObs);
         if (form) {
-          new IntersectionObserver(
+          var formObs = new IntersectionObserver(
             function (entries) {
               entries.forEach(function (e) {
                 onForm = e.isIntersecting;
@@ -439,7 +441,9 @@ const formLabels: PartnerFormLabels = {
               apply();
             },
             { threshold: 0.15 }
-          ).observe(form);
+          );
+          formObs.observe(form);
+          observers.push(formObs);
         }
       }
     };

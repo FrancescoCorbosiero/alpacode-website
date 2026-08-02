@@ -41,14 +41,29 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
   const [variant, setVariant] = useState<VariantId>("all-inclusive");
 
   // The offer toggle elsewhere on the page broadcasts the active variant so the
-  // form's "chosen offer" stays in sync. See Offerta.astro.
+  // form's "chosen offer" stays in sync. See Offerta.astro. The island hydrates
+  // client:idle, so any pick made before hydration is missed — seed from the
+  // page's record of the last dispatch, falling back to the active tab's DOM
+  // state, so the submitted lead never carries the wrong offer.
   useEffect(() => {
+    const seed =
+      (window as { __offerVariant?: string }).__offerVariant ??
+      document.querySelector<HTMLElement>('.cmp-tab[aria-selected="true"]')?.dataset.variant;
+    if (seed === "all-inclusive" || seed === "premium-extras") setVariant(seed);
+
     const onPick = (e: Event) => {
       const detail = (e as CustomEvent<VariantId>).detail;
       if (detail === "all-inclusive" || detail === "premium-extras") setVariant(detail);
     };
     window.addEventListener("offer-variant", onPick as EventListener);
-    if (new URLSearchParams(window.location.search).get("sent") === "1") setStatus("sent");
+
+    // Earlier versions persisted a ?sent=1 flag in the URL, which made shared
+    // or reloaded links show a false "message sent" confirmation. Strip it.
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("sent")) {
+      url.searchParams.delete("sent");
+      window.history.replaceState({}, "", url);
+    }
     return () => window.removeEventListener("offer-variant", onPick as EventListener);
   }, []);
 
@@ -75,16 +90,13 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("sent");
       form.reset();
-      const url = new URL(window.location.href);
-      url.searchParams.set("sent", "1");
-      window.history.replaceState({}, "", url);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <form className="contact-form campaign-form" onSubmit={onSubmit} noValidate>
+    <form className="contact-form campaign-form" onSubmit={onSubmit}>
       {/* Honeypot — must stay empty for humans. */}
       <input
         type="text"
@@ -130,8 +142,10 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
         <button className="btn btn-blue" type="submit" disabled={status === "sending"}>
           {labels.send} <span className="arrow">→</span>
         </button>
-        {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-        {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        <span role="status" aria-live="polite">
+          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        </span>
       </div>
     </form>
   );

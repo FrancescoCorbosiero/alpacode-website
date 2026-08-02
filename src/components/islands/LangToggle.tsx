@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { Lang } from "../../i18n/types";
 import { persistLang } from "../../lib/lang-store";
 
@@ -8,7 +9,8 @@ interface Props {
   label: string;
 }
 
-export default function LangToggle({ lang, itHref, enHref, label }: Props) {
+// memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
+function LangToggle({ lang, itHref, enHref, label }: Props) {
   return (
     <div className="lang-toggle" role="group" aria-label={label}>
       <a
@@ -30,3 +32,5 @@ export default function LangToggle({ lang, itHref, enHref, label }: Props) {
     </div>
   );
 }
+
+export default memo(LangToggle);

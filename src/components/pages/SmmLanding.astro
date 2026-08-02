@@ -482,6 +482,19 @@ const formLabels: CampaignFormLabels = {
      previews live; (2) sticky CTA after the hero; (3) express lane buttons
      flag the lead form with the fast-lane offer label. */
   (function () {
+    /* is:inline scripts re-execute on every view-transition swap into this
+       page — without this guard each visit would stack another
+       astro:page-load listener and leak the per-visit observers. */
+    if (window.__smmInit) return;
+    window.__smmInit = true;
+    var observers = [];
+    document.addEventListener("astro:before-swap", function () {
+      observers.forEach(function (o) {
+        o.disconnect();
+      });
+      observers = [];
+    });
+
     var slugify = function (s) {
       return s
         .normalize("NFD")
@@ -531,6 +544,9 @@ const formLabels: CampaignFormLabels = {
         if (btn.hasAttribute("data-smm-ready")) return;
         btn.setAttribute("data-smm-ready", "");
         btn.addEventListener("click", function () {
+          /* Recorded so the lead form (client:idle) can seed itself with
+             picks made before it hydrates. */
+          window.__offerVariant = "premium-extras";
           window.dispatchEvent(new CustomEvent("offer-variant", { detail: "premium-extras" }));
         });
       });
@@ -545,7 +561,7 @@ const formLabels: CampaignFormLabels = {
         var apply = function () {
           sticky.classList.toggle("is-visible", pastHero && !onForm);
         };
-        new IntersectionObserver(
+        var heroObs = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (e) {
               pastHero = !e.isIntersecting;
@@ -553,9 +569,11 @@ const formLabels: CampaignFormLabels = {
             apply();
           },
           { threshold: 0, rootMargin: "-60px 0px 0px 0px" }
-        ).observe(hero);
+        );
+        heroObs.observe(hero);
+        observers.push(heroObs);
         if (form) {
-          new IntersectionObserver(
+          var formObs = new IntersectionObserver(
             function (entries) {
               entries.forEach(function (e) {
                 onForm = e.isIntersecting;
@@ -563,7 +581,9 @@ const formLabels: CampaignFormLabels = {
               apply();
             },
             { threshold: 0.15 }
-          ).observe(form);
+          );
+          formObs.observe(form);
+          observers.push(formObs);
         }
       }
     };

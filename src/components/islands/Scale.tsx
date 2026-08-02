@@ -1,5 +1,6 @@
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import type { ScaleStage } from "../../data/home";
+import { rovingTabKey } from "../../lib/roving";
 
 interface Props {
   stages: ScaleStage[];
@@ -10,8 +11,14 @@ interface Props {
 // memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
 function Scale({ stages, includeLabel, idealLabel }: Props) {
   const [i, setI] = useState(0);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const cur = stages[i]!;
   const pct = stages.length > 1 ? (i / (stages.length - 1)) * 100 : 0;
+
+  const selectTab = (next: number) => {
+    setI(next);
+    tabRefs.current[next]?.focus();
+  };
 
   return (
     <div className="scale">
@@ -29,11 +36,15 @@ function Scale({ stages, includeLabel, idealLabel }: Props) {
             type="button"
             role="tab"
             id={`scale-tab-${idx}`}
+            ref={(el) => {
+              tabRefs.current[idx] = el;
+            }}
             aria-selected={idx === i}
             aria-controls="scale-panel"
             tabIndex={idx === i ? 0 : -1}
             className={"scale-stop " + (idx === i ? "is-on " : "") + (idx < i ? "is-done" : "")}
             onClick={() => setI(idx)}
+            onKeyDown={(e) => rovingTabKey(e, idx, stages.length, selectTab)}
           >
             <span className="scale-dot" aria-hidden="true" />
             <span className="scale-n">{s.n}</span>

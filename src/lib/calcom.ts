@@ -41,7 +41,10 @@ export const CAL_NAMESPACE = "call";
 export const CAL_CONFIG = '{"layout":"month_view"}';
 
 /**
- * True once a real booking link is set. While it's still the placeholder,
- * booking CTAs fall back to the contact form instead of opening a 404.
+ * True when a booking link is available (the env var, or the default above).
+ * Setting PUBLIC_CALCOM_LINK to an empty string disables booking: CTAs fall
+ * back to the contact form instead of opening a dead embed.
+ * (An old sentinel compared against "alpacode/call" — a value the default
+ * could never produce, so the fallback was unreachable.)
  */
-export const CAL_CONFIGURED = CAL_LINK !== "" && CAL_LINK !== "alpacode/call";
+export const CAL_CONFIGURED = CAL_LINK !== "";

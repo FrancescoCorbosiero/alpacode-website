@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
+import { rovingTabKey } from "../../lib/roving";
 
 export interface BlogPost {
   id: string;
@@ -50,17 +51,11 @@ function BlogList({ posts, tabs, labels }: Props) {
     history.replaceState(null, "", url);
   };
 
-  const onTabKey = (e: React.KeyboardEvent, i: number) => {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "Home" && e.key !== "End") return;
-    e.preventDefault();
-    let next = i;
-    if (e.key === "ArrowRight") next = (i + 1) % tabs.length;
-    if (e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
-    if (e.key === "Home") next = 0;
-    if (e.key === "End") next = tabs.length - 1;
-    setTab(tabs[next]!.key);
-    tabRefs.current[next]?.focus();
-  };
+  const onTabKey = (e: React.KeyboardEvent, i: number) =>
+    rovingTabKey(e, i, tabs.length, (next) => {
+      setTab(tabs[next]!.key);
+      tabRefs.current[next]?.focus();
+    });
 
   const counts: Record<string, number> = { all: posts.length };
   for (const p of posts) counts[p.audience] = (counts[p.audience] ?? 0) + 1;

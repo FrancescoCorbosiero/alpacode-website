@@ -32,8 +32,14 @@ type Status = "idle" | "sending" | "sent" | "error";
 function PartnerForm({ lang, labels }: Props) {
   const [status, setStatus] = useState<Status>("idle");
 
+  // Earlier versions persisted a ?sent=1 flag in the URL, which made shared
+  // or reloaded links show a false "message sent" confirmation. Strip it.
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("sent") === "1") setStatus("sent");
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("sent")) {
+      url.searchParams.delete("sent");
+      window.history.replaceState({}, "", url);
+    }
   }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -55,6 +61,7 @@ function PartnerForm({ lang, labels }: Props) {
           email: data.email,
           phone: data.phone,
           website: data.website,
+          consent: data.consent,
           message,
           lang,
           // Lead routing / attribution — surfaced in the notification email.
@@ -66,16 +73,13 @@ function PartnerForm({ lang, labels }: Props) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("sent");
       form.reset();
-      const url = new URL(window.location.href);
-      url.searchParams.set("sent", "1");
-      window.history.replaceState({}, "", url);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <form className="contact-form campaign-form" onSubmit={onSubmit} noValidate>
+    <form className="contact-form campaign-form" onSubmit={onSubmit}>
       {/* Honeypot — must stay empty for humans. */}
       <input
         type="text"
@@ -126,8 +130,10 @@ function PartnerForm({ lang, labels }: Props) {
         <button className="btn btn-blue" type="submit" disabled={status === "sending"}>
           {labels.send} <span className="arrow">→</span>
         </button>
-        {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-        {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        <span role="status" aria-live="polite">
+          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+        </span>
       </div>
     </form>
   );

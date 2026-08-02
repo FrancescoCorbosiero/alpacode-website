@@ -56,6 +56,14 @@ const rules: Rule[] = [
 
 let io: IntersectionObserver | null = null;
 
+// The observer would otherwise keep references to every below-the-fold
+// element of every page visited in the session. Drop it before each
+// view-transition swap; the next run() recreates it for the new page.
+document.addEventListener("astro:before-swap", () => {
+  io?.disconnect();
+  io = null;
+});
+
 function tagAndObserve(): void {
   if (reduced) return;
 
