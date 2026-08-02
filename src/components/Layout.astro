@@ -39,6 +39,8 @@ interface Props {
    *  1200×630 cards (tools/og); override when passing a custom image. */
   ogImageWidth?: number;
   ogImageHeight?: number;
+  /** Open Graph object type — "article" for blog posts. */
+  ogType?: "website" | "article";
   /** Conversion-focused chrome: minimal header, slim footer, no ⌘K palette.
    *  Used by advertising landing pages to cut exits. */
   minimal?: boolean;
@@ -57,6 +59,7 @@ const {
   ogImage: ogImageProp,
   ogImageWidth = 1200,
   ogImageHeight = 630,
+  ogType = "website",
   minimal = false,
   ctaLabel,
   ctaHref = "#offerta",
@@ -135,7 +138,7 @@ const cmdLabels: CmdLabels = {
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={itUrl} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Alpacode · Soluzioni Digitali" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

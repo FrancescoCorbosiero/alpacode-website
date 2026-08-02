@@ -384,4 +384,9 @@
   .map-ping {
     animation: none !important;
   }
+  /* The marquee runs infinitely and has no keyboard/touch pause control —
+     with reduced motion it must simply not move (WCAG 2.2.2). */
+  .ticker-track {
+    animation: none !important;
+  }
 }

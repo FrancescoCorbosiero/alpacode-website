@@ -24,18 +24,21 @@ const lavoriHref = localizePath("lavori", lang);
       </div>
     </div>
 
+    {/* The wordmark is a visual lockup (and Italian-only), so the h1 goes on
+        the localized claim below — the wordmark used to be the h1, which on
+        /en/ made the page's main heading untranslated brand furniture. */}
     <div class="hero-monogram" style="margin-top:56px">
-      <h1 class="hero-wordmark">
+      <div class="hero-wordmark">
         <div class="row row-1"><span>ALPACODE</span></div>
         <div class="hero-bar" aria-hidden="true"></div>
         <div class="row row-2">
           <span>SOLUZIONI</span><span>DIGITALI</span>
         </div>
-      </h1>
+      </div>
     </div>
 
     <div class="hero-sub-row" style="margin-top:72px">
-      <p class="hero-claim">
+      <h1 class="hero-claim">
         {
           lang === "it" ? (
             <Fragment>Digitalizziamo <em>privati</em> e imprese,<br />in tutta Italia.</Fragment>
@@ -43,7 +46,7 @@ const lavoriHref = localizePath("lavori", lang);
             <Fragment>We digitalize <em>people</em> and businesses,<br />right across Italy.</Fragment>
           )
         }
-      </p>
+      </h1>
       <div class="hero-ctas">
         <BookCall label={t.cta1} journey="hero" lang={lang} />
         <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>

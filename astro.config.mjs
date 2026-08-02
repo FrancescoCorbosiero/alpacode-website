@@ -13,8 +13,8 @@ export default defineConfig({
   output: 'static',
   adapter: node({ mode: 'standalone' }),
   redirects: {
-    '/scuola': '/learning',
-    '/en/scuola': '/en/learning',
+    '/scuola': '/learning/',
+    '/en/scuola': '/en/learning/',
   },
   markdown: {
     shikiConfig: {
@@ -47,7 +47,10 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'it',
-        locales: { it: 'it-IT', en: 'en-US' },
+        // Bare language codes, matching the <link rel="alternate"> hreflang
+        // values in Layout.astro — mixed signals (it vs it-IT) across the two
+        // sources make crawlers distrust both.
+        locales: { it: 'it', en: 'en' },
       },
       // Pre-launch product pages: noindex'd, so keep them out of the sitemap
       // until launch. Drop these entries when going live.
