@@ -52,6 +52,7 @@ const mobileNavLabels: MobileNavLabels = {
   collapse: ui.menuCollapse[lang],
   langLabel: ui.langLabel[lang],
   searchOpen: ui.searchOpen[lang],
+  themeLabel: ui.themeToggle[lang],
   ctaLabel: ui.cta[lang],
 };
 ---
@@ -99,6 +100,18 @@ const mobileNavLabels: MobileNavLabels = {
     </nav>
 
     <div class="nav-actions">
+      <button
+        class="kbd theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label={ui.themeToggle[lang]}
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle>
+          <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path>
+        </svg>
+      </button>
       <button class="kbd" data-cmdk-open type="button" aria-label={ui.searchOpen[lang]}>
         <span data-cmd-mod>⌘</span><span>K</span>
       </button>

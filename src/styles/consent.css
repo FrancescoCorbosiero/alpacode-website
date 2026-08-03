@@ -51,32 +51,31 @@
   letter-spacing: 0.02em;
 }
 
-/* Dark scheme — mirrors the token inversion in tokens.css (this sheet
-   deliberately uses literals, so it needs its own dark values). */
-@media (prefers-color-scheme: dark) {
-  #cc-main {
-    --cc-bg: #1b1a17;
-    --cc-primary-color: #f2efe6;
-    --cc-secondary-color: #c9c5b9;
+/* Dark theme (opt-in via data-theme, see tokens.css) — mirrors the token
+   inversion (this sheet deliberately uses literals, so it needs its own
+   dark values). */
+:root[data-theme="dark"] #cc-main {
+  --cc-bg: #1b1a17;
+  --cc-primary-color: #f2efe6;
+  --cc-secondary-color: #c9c5b9;
 
-    --cc-btn-primary-bg: #f2efe6;
-    --cc-btn-primary-color: #0a0a0a;
-    --cc-btn-primary-border-color: #f2efe6;
+  --cc-btn-primary-bg: #f2efe6;
+  --cc-btn-primary-color: #0a0a0a;
+  --cc-btn-primary-border-color: #f2efe6;
 
-    --cc-btn-secondary-color: #f2efe6;
-    --cc-btn-secondary-border-color: #f2efe6;
-    --cc-btn-secondary-hover-bg: #262420;
-    --cc-btn-secondary-hover-color: #f2efe6;
+  --cc-btn-secondary-color: #f2efe6;
+  --cc-btn-secondary-border-color: #f2efe6;
+  --cc-btn-secondary-hover-bg: #262420;
+  --cc-btn-secondary-hover-color: #f2efe6;
 
-    --cc-separator-border-color: #33312c;
-    --cc-cookie-category-block-bg: #262420;
-    --cc-cookie-category-block-bg-hover: #2e2c28;
+  --cc-separator-border-color: #33312c;
+  --cc-cookie-category-block-bg: #262420;
+  --cc-cookie-category-block-bg-hover: #2e2c28;
 
-    --cc-toggle-off-bg: #54524c;
-  }
-  #cc-main .cm,
-  #cc-main .pm {
-    border-color: #33312c;
-    border-top-color: #3b72e9;
-  }
+  --cc-toggle-off-bg: #54524c;
+}
+:root[data-theme="dark"] #cc-main .cm,
+:root[data-theme="dark"] #cc-main .pm {
+  border-color: #33312c;
+  border-top-color: #3b72e9;
 }

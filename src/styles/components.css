@@ -159,6 +159,28 @@
   font-size: 11px;
   color: var(--mute-2);
 }
+
+/* Theme toggle — a .kbd chip with the half-moon glyph. State (aria-pressed)
+   is driven by the inline theme script in Layout.astro. */
+.theme-toggle {
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+.theme-toggle:hover {
+  color: var(--ink);
+  border-color: var(--mute-2);
+}
+.theme-toggle[aria-pressed="true"] {
+  color: var(--ink);
+  background: var(--paper-3);
+  border-color: var(--mute-2);
+}
+.theme-toggle svg {
+  display: block;
+}
 .kbd span {
   display: inline-block;
 }

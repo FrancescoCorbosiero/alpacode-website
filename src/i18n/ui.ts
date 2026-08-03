@@ -7,6 +7,7 @@ export const ui = {
   ctaShort: { it: "Prenota call", en: "Book call" },
   search: { it: "Cerca pagine, corsi, azioni…", en: "Search pages, courses, actions…" },
   langLabel: { it: "Lingua", en: "Language" },
+  themeToggle: { it: "Tema scuro", en: "Dark theme" },
   skip: { it: "Vai al contenuto", en: "Skip to content" },
   searchOpen: { it: "Apri la ricerca", en: "Open search" },
   menuOpen: { it: "Apri il menu", en: "Open menu" },

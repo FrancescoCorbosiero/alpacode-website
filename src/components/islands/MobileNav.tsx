@@ -23,6 +23,7 @@ export interface MobileNavLabels {
   collapse: string;
   langLabel: string;
   searchOpen: string;
+  themeLabel: string;
   ctaLabel: string;
 }
 
@@ -229,6 +230,20 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
               <span data-cmd-mod>⌘</span>
               <span>K</span>
               <span className="mnav-search-label">{labels.searchOpen}</span>
+            </button>
+            {/* Toggling is handled by the delegated listener in Layout's
+                theme script; it also keeps aria-pressed in sync. */}
+            <button
+              type="button"
+              className="kbd theme-toggle"
+              data-theme-toggle
+              aria-label={labels.themeLabel}
+              aria-pressed={document.documentElement.getAttribute("data-theme") === "dark"}
+            >
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2"></circle>
+                <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path>
+              </svg>
             </button>
             <div className="lang-toggle" role="group" aria-label={labels.langLabel}>
               <a

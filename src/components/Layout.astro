@@ -142,15 +142,63 @@ const cmdLabels: CmdLabels = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     {
+      /* data-fixed = constant chrome (dark bespoke landings); the theme
+         script leaves it alone and only rewrites the default meta. */
       themeColor ? (
-        <meta name="theme-color" content={themeColor} />
+        <meta name="theme-color" content={themeColor} data-fixed />
       ) : (
-        <>
-          <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1E8" />
-          <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12110F" />
-        </>
+        <meta name="theme-color" content="#F4F1E8" />
       )
     }
+    <script is:inline>
+      /* Theme boot — runs pre-paint. Light is the default for everyone
+         (the OS preference is deliberately not consulted); dark is the
+         visitor's explicit choice via [data-theme-toggle], persisted in
+         localStorage. ?theme=dark|light previews a theme for one view
+         without persisting (handy for sharing/screenshots). */
+      (() => {
+        const KEY = "alpacode_theme";
+        const CHROME = { light: "#F4F1E8", dark: "#12110F" };
+        const current = () => {
+          const q = new URLSearchParams(location.search).get("theme");
+          if (q === "dark" || q === "light") return q;
+          try {
+            return localStorage.getItem(KEY) === "dark" ? "dark" : "light";
+          } catch {
+            return "light";
+          }
+        };
+        const apply = (t) => {
+          if (t === "dark") document.documentElement.setAttribute("data-theme", "dark");
+          else document.documentElement.removeAttribute("data-theme");
+          const m = document.querySelector('meta[name="theme-color"]:not([data-fixed])');
+          if (m) m.setAttribute("content", CHROME[t]);
+          document.querySelectorAll("[data-theme-toggle]").forEach((b) => {
+            b.setAttribute("aria-pressed", t === "dark" ? "true" : "false");
+          });
+        };
+        apply(current());
+        if (window.__themeInit) return;
+        window.__themeInit = true;
+        // Re-apply on soft navigations: after-swap restores <html> pre-paint,
+        // page-load syncs the freshly parsed toggle buttons.
+        document.addEventListener("astro:after-swap", () => apply(current()));
+        document.addEventListener("astro:page-load", () => apply(current()));
+        document.addEventListener("DOMContentLoaded", () => apply(current()));
+        document.addEventListener("click", (e) => {
+          const btn = e.target instanceof Element && e.target.closest("[data-theme-toggle]");
+          if (!btn) return;
+          const next =
+            document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          try {
+            localStorage.setItem(KEY, next);
+          } catch {
+            /* storage unavailable — theme still applies for this page */
+          }
+          apply(next);
+        });
+      })();
+    </script>
 
     <link rel="alternate" hreflang="it" href={itUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />
