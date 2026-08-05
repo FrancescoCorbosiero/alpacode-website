@@ -36,6 +36,13 @@ export const footer = {
     en: "Available Mon–Fri · 09:00–18:00 CET",
   },
   bookCall: { it: "Prenota una call", en: "Book a call" },
+  /* Secondary nav strip — indexes the marketing/program pages that
+     deliberately have no primary-nav slot. */
+  collab: { it: "Collabora", en: "Work with us" },
+  offers: { it: "Offerte su misura", en: "Tailored offers" },
+  workWithUs: { it: "Lavora con noi", en: "Work with us" },
+  partnerProgram: { it: "Programma partner", en: "Partner program" },
+  smmOffer: { it: "Per social media manager", en: "For social media managers" },
   privacy: { it: "Privacy", en: "Privacy" },
   cookies: { it: "Cookie", en: "Cookies" },
   terms: { it: "Termini", en: "Terms" },
@@ -63,6 +70,16 @@ export const cmdk = {
 
 /** <title> and meta description per page. */
 export const meta: Record<PageKey, { title: Localized; description: Localized }> = {
+  "lavora-con-noi": {
+    title: {
+      it: "Lavora con noi · Collaborazioni remote-native — Alpacode",
+      en: "Work with us · Remote-native collaborations — Alpacode",
+    },
+    description: {
+      it: "Cerchiamo grafici, designer, sviluppatori, marketer e social media manager per task e progetti interi. Remote-native, da tutta Italia, con accordi chiari e per iscritto.",
+      en: "We're looking for graphic artists, designers, developers, marketers and social media managers for single tasks and entire projects. Remote-native, from anywhere in Italy, with clear written agreements.",
+    },
+  },
   home: {
     title: {
       it: "Alpacode · Digitalizziamo privati e imprese in Italia",

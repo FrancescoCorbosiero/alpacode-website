@@ -24,13 +24,18 @@ export interface PartnerFormLabels {
 interface Props {
   lang: Lang;
   labels: PartnerFormLabels;
+  /** Lead attribution — which page/program this application comes from. */
+  campaign?: string;
+  /** Subject line context for the notification email. */
+  topic?: string;
 }
 
 type Status = "idle" | "sending" | "sent" | "error";
 
 // memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
-function PartnerForm({ lang, labels }: Props) {
+function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Partnership" }: Props) {
   const [status, setStatus] = useState<Status>("idle");
+  const [profession, setProfession] = useState(labels.professions[0] ?? "");
 
   // Earlier versions persisted a ?sent=1 flag in the URL, which made shared
   // or reloaded links show a false "message sent" confirmation. Strip it.
@@ -41,6 +46,20 @@ function PartnerForm({ lang, labels }: Props) {
       window.history.replaceState({}, "", url);
     }
   }, []);
+
+  // Pages can pre-select the profession (the "candidati come" cards on
+  // /lavora-con-noi): picks made before this client:visible island hydrates
+  // are recorded on window, later ones arrive as events.
+  useEffect(() => {
+    const seed = (window as { __professionSeed?: string }).__professionSeed;
+    if (seed && labels.professions.includes(seed)) setProfession(seed);
+    const onSeed = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (labels.professions.includes(detail)) setProfession(detail);
+    };
+    window.addEventListener("profession-seed", onSeed as EventListener);
+    return () => window.removeEventListener("profession-seed", onSeed as EventListener);
+  }, [labels.professions]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,9 +84,9 @@ function PartnerForm({ lang, labels }: Props) {
           message,
           lang,
           // Lead routing / attribution — surfaced in the notification email.
-          campaign: "partner-landing",
+          campaign,
           audience: data.profession,
-          topic: "Partnership",
+          topic,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -100,7 +119,13 @@ function PartnerForm({ lang, labels }: Props) {
       </div>
       <div className="field">
         <label htmlFor="pf-profession">— {labels.profession}</label>
-        <select id="pf-profession" name="profession" required defaultValue={labels.professions[0]}>
+        <select
+          id="pf-profession"
+          name="profession"
+          required
+          value={profession}
+          onChange={(e) => setProfession(e.target.value)}
+        >
           {labels.professions.map((p) => (
             <option key={p} value={p}>
               {p}

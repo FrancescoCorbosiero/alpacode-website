@@ -63,6 +63,8 @@ export interface SmmCopy {
   /** Mono link under the CTAs — the partner program, visible from second one. */
   heroPartnerNote: string;
   heroPartnerCta: string;
+  heroCollabNote: string;
+  heroCollabCta: string;
   /** Price cell in the hero scarcity band (deadline/seats labels come from COPY). */
   heroPriceK: string;
   heroPriceV: string;
@@ -184,6 +186,8 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     ctaSecondary: "Fammi vedere",
     heroPartnerNote: "Lavori già con clienti tuoi?",
     heroPartnerCta: "C'è il programma partner",
+    heroCollabNote: "Preferisci lavorare nei nostri progetti?",
+    heroCollabCta: "Lavora con noi",
     heroPriceK: "Prezzo bloccato",
     heroPriceV: `${price} € /anno`,
     heroPriceSub: "Tutto incluso · 0 € di anticipo",
@@ -420,6 +424,8 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     ctaSecondary: "Show me",
     heroPartnerNote: "Already working with clients of your own?",
     heroPartnerCta: "There's a partner program",
+    heroCollabNote: "Rather work inside our projects?",
+    heroCollabCta: "Work with us",
     heroPriceK: "Locked price",
     heroPriceV: `€${price} /yr`,
     heroPriceSub: "All-inclusive · €0 upfront",

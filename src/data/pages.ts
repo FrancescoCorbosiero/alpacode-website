@@ -8,7 +8,10 @@ export type PageKey =
   | "learning"
   | "blog"
   | "faq"
-  | "contatti";
+  | "contatti"
+  /* Not in PAGES (no primary-nav slot): reachable from the footer's
+     secondary nav, the ⌘K palette and cross-links. */
+  | "lavora-con-noi";
 
 export type MegaKey = "servizi" | "prodotti" | "learning";
 

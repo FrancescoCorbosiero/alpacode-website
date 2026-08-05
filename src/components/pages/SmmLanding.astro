@@ -19,6 +19,7 @@ const camp = SMM_CAMPAIGN;
 const privacyHref = localizePath("privacy", lang);
 const partnerHref = localizePath("partner", lang);
 const learningHref = localizePath("learning", lang);
+const lavoraHref = localizePath("lavora-con-noi", lang);
 const pathHrefs = ["#posto", partnerHref, learningHref];
 
 /* Server-side defaults for the mirror, derived from the placeholder name so
@@ -98,6 +99,10 @@ const formLabels: CampaignFormLabels = {
           <p class="smm-hero-partner">
             {c.heroPartnerNote}
             <a href={partnerHref}>{c.heroPartnerCta} →</a>
+          </p>
+          <p class="smm-hero-partner">
+            {c.heroCollabNote}
+            <a href={lavoraHref}>{c.heroCollabCta} →</a>
           </p>
         </div>
         <div class="smm-hero-ctas">

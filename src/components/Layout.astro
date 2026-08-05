@@ -92,14 +92,21 @@ const ldJson = JSON.stringify({
   "@graph": [organizationSchema(site.href), websiteSchema(site.href, lang), ...(jsonLd ?? [])],
 });
 
+const pageSub = (slug: string) =>
+  `${lang === "it" ? "Pagina" : "Page"} · ${localizePath(slug, lang)}`;
+
 const cmdItems: CmdItem[] = [
   ...PAGES.map((p) => ({
     kind: "page" as const,
     num: p.num,
     ttl: p.label[lang],
-    sub: `${lang === "it" ? "Pagina" : "Page"} · ${localizePath(p.slug, lang)}`,
+    sub: pageSub(p.slug),
     href: localizePath(p.slug, lang),
   })),
+  // Program/marketing pages — no primary-nav slot, but searchable.
+  { kind: "page", num: "09", ttl: footer.workWithUs[lang], sub: pageSub("lavora-con-noi"), href: localizePath("lavora-con-noi", lang) },
+  { kind: "page", num: "P1", ttl: footer.partnerProgram[lang], sub: pageSub("partner"), href: localizePath("partner", lang) },
+  { kind: "page", num: "P2", ttl: footer.smmOffer[lang], sub: pageSub("social-media-manager"), href: localizePath("social-media-manager", lang) },
   { kind: "course", num: "C1", ttl: "WordPress Gutenberg", sub: lang === "it" ? "Corso · 24h" : "Course · 24h", href: learningHref },
   { kind: "course", num: "C2", ttl: "WordPress with Sage Theme", sub: lang === "it" ? "Corso · 20h" : "Course · 20h", href: learningHref },
   { kind: "course", num: "C3", ttl: "Advanced Java with Spring Boot", sub: lang === "it" ? "Corso · 32h" : "Course · 32h", href: learningHref },

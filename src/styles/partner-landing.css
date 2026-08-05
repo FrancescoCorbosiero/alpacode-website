@@ -735,7 +735,7 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
 .ptn-cross-grid {
   margin-top: 64px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 .ptn-cross {

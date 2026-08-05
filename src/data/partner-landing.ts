@@ -103,6 +103,10 @@ export interface PartnerCopy {
   trainTitle: string;
   trainBody: string;
   trainCta: string;
+  collabTag: string;
+  collabTitle: string;
+  collabBody: string;
+  collabCta: string;
 
   /* Form */
   formKicker: string;
@@ -345,6 +349,11 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     trainBody:
       "Alpacode è anche scuola: corsi su WordPress, sviluppo e AI, tenuti da chi li applica ogni giorno in studio. Molti partner iniziano da qui — capire il mestiere rende più facile venderlo.",
     trainCta: "Vedi i corsi",
+    collabTag: "Produci, invece di portare clienti?",
+    collabTitle: "Lavora con noi, su progetto.",
+    collabBody:
+      "Grafico, designer, sviluppatore, marketer: collaboriamo su task e progetti interi, da remoto e con accordi scritti. Tu metti il mestiere, noi clienti e infrastruttura.",
+    collabCta: "Scopri come collaborare",
 
     formKicker: "§ 09 — Candidati",
     formTitle: "Riserva la tua area.",
@@ -585,6 +594,11 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     trainBody:
       "Alpacode is also a school: courses on WordPress, development and AI, taught by the people who apply them in the studio every day. Many partners start here — knowing the craft makes it easier to sell.",
     trainCta: "See the courses",
+    collabTag: "Producing, rather than bringing clients?",
+    collabTitle: "Work with us, project-based.",
+    collabBody:
+      "Graphic artist, designer, developer, marketer: we collaborate on tasks and entire projects, remotely and with written agreements. You bring the craft, we bring clients and infrastructure.",
+    collabCta: "See how to collaborate",
 
     formKicker: "§ 09 — Apply",
     formTitle: "Reserve your area.",
