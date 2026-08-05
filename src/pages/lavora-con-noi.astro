@@ -1,0 +1,23 @@
+---
+import Layout from "../components/Layout.astro";
+import LavoraConNoi from "../components/pages/LavoraConNoi.astro";
+import { lavoraConNoi } from "../data/lavora-con-noi";
+import { meta } from "../i18n/ui";
+import { faqPageSchema } from "../lib/schema";
+
+const lang = "it" as const;
+const t = lavoraConNoi[lang];
+const m = meta["lavora-con-noi"];
+const faqSchema = faqPageSchema(t.faq);
+---
+
+<Layout
+  lang={lang}
+  active="lavora-con-noi"
+  slug="lavora-con-noi"
+  title={m.title[lang]}
+  description={m.description[lang]}
+  jsonLd={[faqSchema]}
+>
+  <LavoraConNoi lang={lang} />
+</Layout>

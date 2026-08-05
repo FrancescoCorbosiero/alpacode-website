@@ -16,6 +16,7 @@ const c = partnerLanding[lang];
 const privacyHref = localizePath("privacy", lang);
 const smmHref = localizePath("social-media-manager", lang);
 const learningHref = localizePath("learning", lang);
+const lavoraHref = localizePath("lavora-con-noi", lang);
 const firstMode = c.modes[0];
 
 const formLabels: PartnerFormLabels = {
@@ -322,6 +323,12 @@ const formLabels: PartnerFormLabels = {
           <span class="ptn-cross-title">{c.trainTitle}</span>
           <span class="ptn-cross-body">{c.trainBody}</span>
           <span class="ptn-cross-cta">{c.trainCta} <span class="arrow">→</span></span>
+        </a>
+        <a class="ptn-cross ptn-cross--collab" href={lavoraHref}>
+          <span class="ptn-cross-tag">{c.collabTag}</span>
+          <span class="ptn-cross-title">{c.collabTitle}</span>
+          <span class="ptn-cross-body">{c.collabBody}</span>
+          <span class="ptn-cross-cta">{c.collabCta} <span class="arrow">→</span></span>
         </a>
       </div>
     </div>

@@ -24,12 +24,16 @@ export interface PartnerFormLabels {
 interface Props {
   lang: Lang;
   labels: PartnerFormLabels;
+  /** Lead attribution — which page/program this application comes from. */
+  campaign?: string;
+  /** Subject line context for the notification email. */
+  topic?: string;
 }
 
 type Status = "idle" | "sending" | "sent" | "error";
 
 // memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
-function PartnerForm({ lang, labels }: Props) {
+function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Partnership" }: Props) {
   const [status, setStatus] = useState<Status>("idle");
 
   // Earlier versions persisted a ?sent=1 flag in the URL, which made shared
@@ -65,9 +69,9 @@ function PartnerForm({ lang, labels }: Props) {
           message,
           lang,
           // Lead routing / attribution — surfaced in the notification email.
-          campaign: "partner-landing",
+          campaign,
           audience: data.profession,
-          topic: "Partnership",
+          topic,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

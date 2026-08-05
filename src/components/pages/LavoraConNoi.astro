@@ -1,0 +1,196 @@
+---
+import type { Lang } from "../../i18n/types";
+import { lavoraConNoi } from "../../data/lavora-con-noi";
+import { localizePath } from "../../i18n/utils";
+import PageHero from "../PageHero.astro";
+import PartnerForm from "../islands/PartnerForm.tsx";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = lavoraConNoi[lang];
+const partnerHref = localizePath("partner", lang);
+---
+
+<PageHero crumb={t.hero.crumb} line1={t.hero.line1} line2={t.hero.line2} lede={t.hero.lede} />
+
+{/* ---------- Remote-native ---------- */}
+<section class="section">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.remoteKicker}</div>
+        <h2>{t.remoteTitle}</h2>
+      </div>
+      <p class="lede">{t.remoteLede}</p>
+    </div>
+    <div class="lcn-points">
+      {
+        t.remotePoints.map((p) => (
+          <div class="lcn-point">
+            <h3>{p.k}</h3>
+            <p>{p.v}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{/* ---------- The two tracks ---------- */}
+<section class="section section--tint">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.pathsKicker}</div>
+        <h2>{t.pathsTitle}</h2>
+      </div>
+      <p class="lede">{t.pathsLede}</p>
+    </div>
+    <div class="lcn-paths">
+      {
+        t.paths.map((path) => (
+          <article class="lcn-path">
+            <span class="lcn-path-tag">{path.tag}</span>
+            <h3>{path.title}</h3>
+            <p class="lcn-path-body">{path.body}</p>
+            <ol class="lcn-path-steps">
+              {path.steps.map((s) => (
+                <li>
+                  <span class="lcn-step-no">{s.n}</span>
+                  <div>
+                    <h4>{s.t}</h4>
+                    <p>{s.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p class="lcn-path-note">{path.note}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{/* ---------- The rule (compliance) ---------- */}
+<section class="section">
+  <div class="wrap-wide">
+    <div class="lcn-rule">
+      <div class="lcn-rule-head">
+        <div class="sec-num eyebrow">{t.ruleKicker}</div>
+        <h2>{t.ruleTitle}</h2>
+        <p>{t.ruleBody}</p>
+      </div>
+      <ul class="lcn-rule-list">
+        {t.rulePoints.map((p) => <li><span>{p}</span></li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{/* ---------- Who we look for ---------- */}
+<section class="section section--tint">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.figuresKicker}</div>
+        <h2>{t.figuresTitle}</h2>
+      </div>
+      <p class="lede">{t.figuresLede}</p>
+    </div>
+    <div class="lcn-figures">
+      {
+        t.figures.map((f, i) => (
+          <div class="lcn-figure">
+            <span class="lcn-figure-no">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{f.role}</h3>
+            <p>{f.d}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="lcn-figures-foot">{t.figuresFoot}</p>
+  </div>
+</section>
+
+{/* ---------- How it starts ---------- */}
+<section class="section">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.howKicker}</div>
+        <h2>{t.howTitle}</h2>
+      </div>
+    </div>
+    <div class="steps">
+      {
+        t.howSteps.map((s) => (
+          <div class="step">
+            <div class="step-no">{s.n}</div>
+            <div class="step-strut"></div>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{/* ---------- FAQ ---------- */}
+<section class="section section--tint">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.faqKicker}</div>
+        <h2>{t.faqTitle}</h2>
+      </div>
+    </div>
+    <div class="cmp-faq">
+      {
+        t.faq.map((f, i) => (
+          <details class="cmp-faq-item" open={i === 0}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{/* ---------- Partner cross-link ---------- */}
+<section class="section">
+  <div class="wrap-wide">
+    <a class="lcn-cross" href={partnerHref}>
+      <span class="lcn-cross-tag">{t.crossTag}</span>
+      <span class="lcn-cross-title">{t.crossTitle}</span>
+      <span class="lcn-cross-body">{t.crossBody}</span>
+      <span class="lcn-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
+    </a>
+  </div>
+</section>
+
+{/* ---------- Application form ---------- */}
+<section class="section section--tint" id="candidatura">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{t.formKicker}</div>
+        <h2>{t.formTitle}</h2>
+      </div>
+      <p class="lede">{t.formLede}</p>
+    </div>
+    <div class="lcn-form">
+      <PartnerForm
+        client:visible
+        lang={lang}
+        labels={t.formLabels}
+        campaign="lavora-con-noi"
+        topic={lang === "it" ? "Collaborazione" : "Collaboration"}
+      />
+    </div>
+  </div>
+</section>
