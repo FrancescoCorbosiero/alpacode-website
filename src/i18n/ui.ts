@@ -76,8 +76,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Work with us · Remote-native collaborations — Alpacode",
     },
     description: {
-      it: "Cerchiamo grafici, designer, sviluppatori, marketer e social media manager per task e progetti interi. Remote-native, da tutta Italia, solo collaborazioni in regola.",
-      en: "We're looking for graphic artists, designers, developers, marketers and social media managers for single tasks and entire projects. Remote-native, from anywhere in Italy, fully compliant collaborations only.",
+      it: "Cerchiamo grafici, designer, sviluppatori, marketer e social media manager per task e progetti interi. Remote-native, da tutta Italia, con accordi chiari e per iscritto.",
+      en: "We're looking for graphic artists, designers, developers, marketers and social media managers for single tasks and entire projects. Remote-native, from anywhere in Italy, with clear written agreements.",
     },
   },
   home: {
