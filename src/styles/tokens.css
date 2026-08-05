@@ -77,6 +77,8 @@
 :root[data-theme="dark"] .ticker,
 :root[data-theme="dark"] .site-footer,
 :root[data-theme="dark"] .band-dark,
+:root[data-theme="dark"] .lcn-hero,
+:root[data-theme="dark"] .lcn-quote,
 :root[data-theme="dark"] .product--featured,
 :root[data-theme="dark"] .cmdk-item.is-on,
 :root[data-theme="dark"] body:has(.smm),

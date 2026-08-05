@@ -2,7 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { lavoraConNoi } from "../../data/lavora-con-noi";
 import { localizePath } from "../../i18n/utils";
-import PageHero from "../PageHero.astro";
+import Ticker from "../Ticker.astro";
 import PartnerForm from "../islands/PartnerForm.tsx";
 
 interface Props {
@@ -13,184 +13,265 @@ const t = lavoraConNoi[lang];
 const partnerHref = localizePath("partner", lang);
 ---
 
-<PageHero crumb={t.hero.crumb} line1={t.hero.line1} line2={t.hero.line2} lede={t.hero.lede} />
-
-{/* ---------- Remote-native ---------- */}
-<section class="section">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.remoteKicker}</div>
-        <h2>{t.remoteTitle}</h2>
+<div class="lcn">
+  {/* ---------- HERO (ink band) ---------- */}
+  <section class="lcn-hero">
+    <div class="wrap-wide">
+      <div class="lcn-hero-crumb">{t.hero.crumb}</div>
+      <h1 class="lcn-hero-h1">
+        <span class="lcn-hero-bar" aria-hidden="true"></span>
+        {t.hero.line1}<br />
+        <span class="lcn-hero-accent">{t.hero.line2}</span>
+      </h1>
+      <div class="lcn-hero-tail">
+        <p class="lcn-hero-lede">{t.hero.lede}</p>
+        <div class="lcn-hero-ctas">
+          <a class="btn btn-blue" href="#candidatura">{t.hero.cta1} <span class="arrow">→</span></a>
+          <a class="btn lcn-btn-ghost" href="#percorsi">{t.hero.cta2} <span class="arrow">↓</span></a>
+        </div>
       </div>
-      <p class="lede">{t.remoteLede}</p>
-    </div>
-    <div class="lcn-points">
-      {
-        t.remotePoints.map((p) => (
-          <div class="lcn-point">
-            <h3>{p.k}</h3>
-            <p>{p.v}</p>
-          </div>
-        ))
-      }
-    </div>
-  </div>
-</section>
-
-{/* ---------- The two tracks ---------- */}
-<section class="section section--tint">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.pathsKicker}</div>
-        <h2>{t.pathsTitle}</h2>
-      </div>
-      <p class="lede">{t.pathsLede}</p>
-    </div>
-    <div class="lcn-paths">
-      {
-        t.paths.map((path) => (
-          <article class="lcn-path">
-            <span class="lcn-path-tag">{path.tag}</span>
-            <h3>{path.title}</h3>
-            <p class="lcn-path-body">{path.body}</p>
-            <ol class="lcn-path-steps">
-              {path.steps.map((s) => (
-                <li>
-                  <span class="lcn-step-no">{s.n}</span>
-                  <div>
-                    <h4>{s.t}</h4>
-                    <p>{s.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <p class="lcn-path-note">{path.note}</p>
-          </article>
-        ))
-      }
-    </div>
-  </div>
-</section>
-
-{/* ---------- The rule (compliance) ---------- */}
-<section class="section">
-  <div class="wrap-wide">
-    <div class="lcn-rule">
-      <div class="lcn-rule-head">
-        <div class="sec-num eyebrow">{t.ruleKicker}</div>
-        <h2>{t.ruleTitle}</h2>
-        <p>{t.ruleBody}</p>
-      </div>
-      <ul class="lcn-rule-list">
-        {t.rulePoints.map((p) => <li><span>{p}</span></li>)}
-      </ul>
-    </div>
-  </div>
-</section>
-
-{/* ---------- Who we look for ---------- */}
-<section class="section section--tint">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.figuresKicker}</div>
-        <h2>{t.figuresTitle}</h2>
-      </div>
-      <p class="lede">{t.figuresLede}</p>
-    </div>
-    <div class="lcn-figures">
-      {
-        t.figures.map((f, i) => (
-          <div class="lcn-figure">
-            <span class="lcn-figure-no">{String(i + 1).padStart(2, "0")}</span>
-            <h3>{f.role}</h3>
-            <p>{f.d}</p>
-          </div>
-        ))
-      }
-    </div>
-    <p class="lcn-figures-foot">{t.figuresFoot}</p>
-  </div>
-</section>
-
-{/* ---------- How it starts ---------- */}
-<section class="section">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.howKicker}</div>
-        <h2>{t.howTitle}</h2>
+      <div class="lcn-hero-meta">
+        {
+          t.hero.meta.map((m, i) => (
+            <div class="lcn-hero-cell" style={`--cell-i:${i}`}>
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
-    <div class="steps">
-      {
-        t.howSteps.map((s) => (
-          <div class="step">
-            <div class="step-no">{s.n}</div>
-            <div class="step-strut"></div>
-            <h3>{s.t}</h3>
-            <p>{s.d}</p>
-          </div>
-        ))
-      }
-    </div>
-  </div>
-</section>
+  </section>
 
-{/* ---------- FAQ ---------- */}
-<section class="section section--tint">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.faqKicker}</div>
-        <h2>{t.faqTitle}</h2>
+  {/* ---------- TICKER ---------- */}
+  <Ticker items={t.ticker} />
+
+  {/* ---------- BENEFITS ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.benefitsKicker}</div>
+          <h2>{t.benefitsTitle}</h2>
+        </div>
+        <p class="lede">{t.benefitsLede}</p>
+      </div>
+      <div class="lcn-benefits">
+        {
+          t.benefits.map((b, i) => (
+            <div class="lcn-benefit">
+              <span class="lcn-benefit-no">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{b.t}</h3>
+              <p>{b.d}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
-    <div class="cmp-faq">
-      {
-        t.faq.map((f, i) => (
-          <details class="cmp-faq-item" open={i === 0}>
-            <summary>{f.q}</summary>
-            <p>{f.a}</p>
-          </details>
-        ))
-      }
-    </div>
-  </div>
-</section>
+  </section>
 
-{/* ---------- Partner cross-link ---------- */}
-<section class="section">
-  <div class="wrap-wide">
-    <a class="lcn-cross" href={partnerHref}>
-      <span class="lcn-cross-tag">{t.crossTag}</span>
-      <span class="lcn-cross-title">{t.crossTitle}</span>
-      <span class="lcn-cross-body">{t.crossBody}</span>
-      <span class="lcn-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
-    </a>
-  </div>
-</section>
-
-{/* ---------- Application form ---------- */}
-<section class="section section--tint" id="candidatura">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num eyebrow">{t.formKicker}</div>
-        <h2>{t.formTitle}</h2>
+  {/* ---------- REMOTE-NATIVE QUOTE (ink band) ---------- */}
+  <section class="lcn-quote">
+    <div class="wrap-wide">
+      <div class="sec-num lcn-quote-kicker">{t.quoteKicker}</div>
+      <p class="lcn-quote-title">{t.quoteTitle}</p>
+      <p class="lcn-quote-lede">{t.quoteLede}</p>
+      <div class="lcn-quote-points">
+        {
+          t.quotePoints.map((p) => (
+            <div class="lcn-quote-point">
+              <span class="k">{p.k}</span>
+              <span class="v">{p.v}</span>
+            </div>
+          ))
+        }
       </div>
-      <p class="lede">{t.formLede}</p>
     </div>
-    <div class="lcn-form">
-      <PartnerForm
-        client:visible
-        lang={lang}
-        labels={t.formLabels}
-        campaign="lavora-con-noi"
-        topic={lang === "it" ? "Collaborazione" : "Collaboration"}
-      />
+  </section>
+
+  {/* ---------- OPEN COLLABORATIONS (interactive position cards) ---------- */}
+  <section class="section" id="collaborazioni">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.positionsKicker}</div>
+          <h2>{t.positionsTitle}</h2>
+        </div>
+        <p class="lede">{t.positionsLede}</p>
+      </div>
+      <div class="lcn-positions">
+        {
+          t.positions.map((p) => (
+            <a class="lcn-pos" href="#candidatura" data-lcn-craft={p.role}>
+              <span class="lcn-pos-meta">
+                <span class="lcn-pos-open">● {t.positionsMeta.open}</span>
+                <span>{t.positionsMeta.remote}</span>
+                <span>{t.positionsMeta.scope}</span>
+              </span>
+              <span class="lcn-pos-role">{p.role}</span>
+              <span class="lcn-pos-d">{p.d}</span>
+              <span class="lcn-pos-cta">{t.positionsApply} {p.role.toLowerCase()} <span class="arrow">→</span></span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="lcn-positions-foot">{t.positionsFoot}</p>
     </div>
-  </div>
-</section>
+  </section>
+
+  {/* ---------- THE TWO TRACKS ---------- */}
+  <section class="section section--tint" id="percorsi">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.pathsKicker}</div>
+          <h2>{t.pathsTitle}</h2>
+        </div>
+        <p class="lede">{t.pathsLede}</p>
+      </div>
+      <div class="lcn-paths">
+        {
+          t.paths.map((path, i) => (
+            <article class={"lcn-path" + (i === 0 ? " lcn-path--a" : "")}>
+              <div class="lcn-path-head">
+                <span class="lcn-path-tag">{path.tag}</span>
+                <h3>{path.title}</h3>
+              </div>
+              <p class="lcn-path-body">{path.body}</p>
+              <ol class="lcn-path-steps">
+                {path.steps.map((s) => (
+                  <li>
+                    <span class="lcn-step-no">{s.n}</span>
+                    <div>
+                      <h4>{s.t}</h4>
+                      <p>{s.d}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <p class="lcn-path-note">{path.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- THE RULE (compliance) ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="lcn-rule">
+        <div class="lcn-rule-head">
+          <div class="sec-num eyebrow">{t.ruleKicker}</div>
+          <h2>{t.ruleTitle}</h2>
+          <p>{t.ruleBody}</p>
+        </div>
+        <ul class="lcn-rule-list">
+          {t.rulePoints.map((p) => <li><span>{p}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- HOW IT STARTS ---------- */}
+  <section class="section section--tint">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.howKicker}</div>
+          <h2>{t.howTitle}</h2>
+        </div>
+      </div>
+      <div class="steps">
+        {
+          t.howSteps.map((s) => (
+            <div class="step">
+              <div class="step-no">{s.n}</div>
+              <div class="step-strut"></div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.faqKicker}</div>
+          <h2>{t.faqTitle}</h2>
+        </div>
+      </div>
+      <div class="cmp-faq">
+        {
+          t.faq.map((f, i) => (
+            <details class="cmp-faq-item" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- PARTNER CROSS-LINK ---------- */}
+  <section class="section section--tint">
+    <div class="wrap-wide">
+      <a class="lcn-cross" href={partnerHref}>
+        <span class="lcn-cross-tag">{t.crossTag}</span>
+        <span class="lcn-cross-title">{t.crossTitle}</span>
+        <span class="lcn-cross-body">{t.crossBody}</span>
+        <span class="lcn-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  {/* ---------- APPLICATION FORM ---------- */}
+  <section class="section" id="candidatura">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.formKicker}</div>
+          <h2>{t.formTitle}</h2>
+        </div>
+        <p class="lede">{t.formLede}</p>
+      </div>
+      <div class="lcn-form">
+        <PartnerForm
+          client:visible
+          lang={lang}
+          labels={t.formLabels}
+          campaign="lavora-con-noi"
+          topic={lang === "it" ? "Collaborazione" : "Collaboration"}
+        />
+      </div>
+    </div>
+  </section>
+</div>
+
+<script is:inline>
+  /* Position cards: clicking "candidati come X" records the craft so the
+     application form (client:visible island) pre-selects it — before or
+     after hydration — then the anchor scrolls to the form. Idempotent:
+     is:inline re-executes on view-transition swaps. */
+  (function () {
+    if (window.__lcnInit) return;
+    window.__lcnInit = true;
+    document.addEventListener("click", function (e) {
+      var card = e.target instanceof Element && e.target.closest("[data-lcn-craft]");
+      if (!card) return;
+      var craft = card.getAttribute("data-lcn-craft");
+      if (!craft) return;
+      window.__professionSeed = craft;
+      window.dispatchEvent(new CustomEvent("profession-seed", { detail: craft }));
+      document.querySelectorAll("[data-lcn-craft]").forEach(function (c) {
+        c.classList.toggle("is-on", c === card);
+      });
+    });
+  })();
+</script>

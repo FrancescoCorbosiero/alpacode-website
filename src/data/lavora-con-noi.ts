@@ -22,13 +22,39 @@ import type { PartnerFormLabels } from "../components/islands/PartnerForm";
 
 export interface LavoraData {
   /* Meta title/description live with the other pages' in i18n/ui.ts (meta). */
-  hero: { crumb: string; line1: string; line2: string; lede: string };
 
-  /* Remote-native principles */
-  remoteKicker: string;
-  remoteTitle: string;
-  remoteLede: string;
-  remotePoints: { k: string; v: string }[];
+  hero: {
+    crumb: string;
+    line1: string;
+    line2: string;
+    lede: string;
+    cta1: string;
+    cta2: string;
+    meta: { k: string; v: string }[];
+  };
+
+  ticker: string[];
+
+  /* What's in it for you */
+  benefitsKicker: string;
+  benefitsTitle: string;
+  benefitsLede: string;
+  benefits: { t: string; d: string }[];
+
+  /* Remote-native manifesto band */
+  quoteKicker: string;
+  quoteTitle: string;
+  quoteLede: string;
+  quotePoints: { k: string; v: string }[];
+
+  /* Open collaborations (the five crafts, as position cards) */
+  positionsKicker: string;
+  positionsTitle: string;
+  positionsLede: string;
+  positionsMeta: { open: string; remote: string; scope: string };
+  positions: { role: string; d: string }[];
+  positionsApply: string;
+  positionsFoot: string;
 
   /* The two collaboration tracks */
   pathsKicker: string;
@@ -47,13 +73,6 @@ export interface LavoraData {
   ruleTitle: string;
   ruleBody: string;
   rulePoints: string[];
-
-  /* Who we look for */
-  figuresKicker: string;
-  figuresTitle: string;
-  figuresLede: string;
-  figures: { role: string; d: string }[];
-  figuresFoot: string;
 
   /* How it starts */
   howKicker: string;
@@ -84,29 +103,114 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       crumb: "§ 09 — Lavora con noi",
       line1: "Bravo nel tuo mestiere?",
       line2: "Il resto lo portiamo noi.",
-      lede: "Cerchiamo collaboratori per task singoli o progetti interi: tu metti il mestiere, noi clienti, metodo e infrastruttura. Da qualsiasi punto d'Italia, con accordi chiari e per iscritto.",
+      lede: "Collaboratori per task singoli o progetti interi: tu metti il mestiere, noi clienti, metodo e infrastruttura. Da qualsiasi punto d'Italia, con accordi chiari e per iscritto.",
+      cta1: "Candidati ora",
+      cta2: "Vedi i percorsi",
+      meta: [
+        { k: "Dove", v: "Remote · tutta Italia" },
+        { k: "Cosa", v: "Task o progetti interi" },
+        { k: "Come", v: "Solo in regola, per iscritto" },
+      ],
     },
 
-    remoteKicker: "§ 01 — Remote-native",
-    remoteTitle: "Il talento non ha un indirizzo.",
-    remoteLede:
-      "Alpacode nasce distribuita: niente sede da raggiungere, niente ore di pendolarismo. Contano il lavoro consegnato e gli standard con cui è fatto.",
-    remotePoints: [
+    ticker: [
+      "GRAFICA",
+      "UI / UX",
+      "CODICE",
+      "ADV & SEO",
+      "SOCIAL",
+      "REMOTE-NATIVE",
+      "SCADENZE VERE",
+      "PAGAMENTI PUNTUALI",
+      "TUTTO PER ISCRITTO",
+    ],
+
+    benefitsKicker: "§ 01 — Cosa ci guadagni",
+    benefitsTitle: "Patti chiari, lavoro vero.",
+    benefitsLede:
+      "Niente promesse da annuncio: quello che trovi qui è quello che succede davvero, dal primo task.",
+    benefits: [
       {
-        k: "Da tutta Italia",
-        v: "Città o provincia, nord o sud: se il lavoro regge i nostri standard, la geografia non è un requisito.",
+        t: "Compenso scritto prima",
+        d: "Oggetto, scadenza e compenso si firmano prima di iniziare. A consegna accettata, pagamento puntuale.",
       },
       {
-        k: "Task o progetti interi",
-        v: "Un'illustrazione, una landing, un gestionale completo: collaborazioni della misura giusta per te.",
+        t: "Libertà reale",
+        d: "Orari tuoi, strumenti tuoi, metodo tuo. L'unico vincolo è la scadenza che concordiamo insieme.",
       },
       {
-        k: "Asincrono per default",
-        v: "Poche call, quelle che servono. Brief scritti, scadenze chiare, strumenti condivisi.",
+        t: "Progetti veri",
+        d: "Clienti reali che vanno online davvero: siti, e-commerce, campagne, gestionali. Portfolio che pesa.",
+      },
+      {
+        t: "Zero riunioni inutili",
+        d: "Asincrono per default: brief scritti, poche call, quelle che servono. Il tuo tempo va sul lavoro.",
+      },
+      {
+        t: "Il giro cresce con te",
+        d: "Ogni consegna che regge gli standard porta più progetti, più fiducia, più autonomia.",
+      },
+      {
+        t: "Formazione dentro",
+        d: "Alpacode è anche scuola: metodo, strumenti e AI applicata li condividiamo con chi lavora con noi.",
       },
     ],
 
-    pathsKicker: "§ 02 — I due percorsi",
+    quoteKicker: "§ 02 — Remote-native",
+    quoteTitle: "Il talento non ha un indirizzo.",
+    quoteLede:
+      "Alpacode nasce distribuita: niente sede da raggiungere, niente pendolarismo. Contano il lavoro consegnato e gli standard con cui è fatto.",
+    quotePoints: [
+      {
+        k: "Da tutta Italia",
+        v: "Città o provincia, nord o sud: la geografia non è un requisito.",
+      },
+      {
+        k: "Della misura giusta",
+        v: "Un'illustrazione, una landing, un gestionale completo: task o progetti interi.",
+      },
+      {
+        k: "Asincrono per default",
+        v: "Brief scritti, scadenze chiare, strumenti condivisi.",
+      },
+    ],
+
+    positionsKicker: "§ 03 — Collaborazioni aperte",
+    positionsTitle: "Cinque mestieri, una soglia: la qualità.",
+    positionsLede:
+      "Collaborazioni sempre aperte, su task singoli o interi flussi in outsourcing. Scegli il tuo mestiere: il form si prepara da solo.",
+    positionsMeta: {
+      open: "Sempre aperta",
+      remote: "Remote",
+      scope: "Task o progetto",
+    },
+    positions: [
+      {
+        role: "Grafico/a",
+        d: "Identità, illustrazione, materiali per campagne. Gusto brutalist benvenuto.",
+      },
+      {
+        role: "Designer",
+        d: "UI e UX per siti e prodotti: da Figma al design system, con attenzione vera all'accessibilità.",
+      },
+      {
+        role: "Sviluppatore/trice",
+        d: "WordPress, Astro, React, gestionali. Codice pulito, performance, niente scorciatoie.",
+      },
+      {
+        role: "Marketer",
+        d: "Campagne, funnel, copy che vende senza urlare. Misurare prima di promettere.",
+      },
+      {
+        role: "Social media manager",
+        d: "Gestione canali e contenuti per i clienti che portiamo online. Metodo, non improvvisazione.",
+      },
+    ],
+    positionsApply: "Candidati come",
+    positionsFoot:
+      "Non ti riconosci ma sai fare qualcosa di raro? Scrivici lo stesso: le eccezioni buone ci interessano.",
+
+    pathsKicker: "§ 04 — I due percorsi",
     pathsTitle: "Due modi di collaborare. Entrambi in regola.",
     pathsLede:
       "Qualunque sia il percorso, il principio non cambia: lavoro autonomo, accordo scritto, compenso definito prima di iniziare.",
@@ -169,7 +273,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       },
     ],
 
-    ruleKicker: "§ 03 — La regola",
+    ruleKicker: "§ 05 — La regola",
     ruleTitle: "Solo collaborazioni in regola.",
     ruleBody:
       "Alpacode opera in regime forfettario e non assume personale dipendente: ogni collaborazione è lavoro autonomo, nelle forme previste dalla legge. Non è un cavillo — è il patto di partenza.",
@@ -180,36 +284,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "Ogni compenso passa da ricevuta o fattura, secondo il tuo inquadramento.",
     ],
 
-    figuresKicker: "§ 04 — Chi cerchiamo",
-    figuresTitle: "Cinque mestieri, una soglia: la qualità.",
-    figuresLede:
-      "Collaborazioni singole o interi flussi in outsourcing. Quello che non cambia è lo standard.",
-    figures: [
-      {
-        role: "Grafici",
-        d: "Identità, illustrazione, materiali per campagne. Gusto brutalist benvenuto.",
-      },
-      {
-        role: "Designer",
-        d: "UI e UX per siti e prodotti: da Figma al design system, con attenzione vera all'accessibilità.",
-      },
-      {
-        role: "Sviluppatori",
-        d: "WordPress, Astro, React, gestionali. Codice pulito, performance, niente scorciatoie.",
-      },
-      {
-        role: "Marketer",
-        d: "Campagne, funnel, copy che vende senza urlare. Misurare prima di promettere.",
-      },
-      {
-        role: "Social media manager",
-        d: "Gestione canali e contenuti per i clienti che portiamo online. Metodo, non improvvisazione.",
-      },
-    ],
-    figuresFoot:
-      "Non ti riconosci ma sai fare qualcosa di raro? Scrivici lo stesso: le eccezioni buone ci interessano.",
-
-    howKicker: "§ 05 — Come si parte",
+    howKicker: "§ 06 — Come si parte",
     howTitle: "Dal form al primo progetto.",
     howSteps: [
       {
@@ -234,7 +309,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       },
     ],
 
-    faqKicker: "§ 06 — Domande",
+    faqKicker: "§ 07 — Domande",
     faqTitle: "Le risposte rapide.",
     faq: [
       {
@@ -265,7 +340,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "Se il tuo forte è la rete — clienti, contatti, un pubblico che si fida — il programma partner ti riserva una nicchia e un'area: tu porti le opportunità, noi costruiamo.",
     crossCta: "Scopri il programma partner",
 
-    formKicker: "§ 07 — Candidati",
+    formKicker: "§ 08 — Candidati",
     formTitle: "Presentati.",
     formLede:
       "Nessun impegno: raccontaci chi sei e mostraci qualcosa di tuo. Ti rispondiamo in fretta, anche quando la risposta è «non ancora».",
@@ -302,29 +377,114 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       crumb: "§ 09 — Work with us",
       line1: "Good at your craft?",
       line2: "We bring the rest.",
-      lede: "We're looking for collaborators for single tasks or entire projects: you bring the craft, we bring clients, method and infrastructure. From anywhere in Italy, with clear written agreements.",
+      lede: "Collaborators for single tasks or entire projects: you bring the craft, we bring clients, method and infrastructure. From anywhere in Italy, with clear written agreements.",
+      cta1: "Apply now",
+      cta2: "See the tracks",
+      meta: [
+        { k: "Where", v: "Remote · all of Italy" },
+        { k: "What", v: "Tasks or entire projects" },
+        { k: "How", v: "Fully compliant, in writing" },
+      ],
     },
 
-    remoteKicker: "§ 01 — Remote-native",
-    remoteTitle: "Talent has no address.",
-    remoteLede:
-      "Alpacode was born distributed: no office to commute to, no hours lost on the road. What counts is the work delivered and the standards it's built to.",
-    remotePoints: [
+    ticker: [
+      "GRAPHICS",
+      "UI / UX",
+      "CODE",
+      "ADS & SEO",
+      "SOCIAL",
+      "REMOTE-NATIVE",
+      "REAL DEADLINES",
+      "PROMPT PAYMENTS",
+      "EVERYTHING IN WRITING",
+    ],
+
+    benefitsKicker: "§ 01 — What's in it for you",
+    benefitsTitle: "Clear terms, real work.",
+    benefitsLede:
+      "No job-ad promises: what you read here is what actually happens, from the first task.",
+    benefits: [
       {
-        k: "From all of Italy",
-        v: "City or countryside, north or south: if the work meets our standards, geography is not a requirement.",
+        t: "Compensation in writing, first",
+        d: "Scope, deadline and compensation are signed before you start. Delivery accepted, payment prompt.",
       },
       {
-        k: "Tasks or entire projects",
-        v: "An illustration, a landing page, a complete management system: collaborations sized to fit you.",
+        t: "Real freedom",
+        d: "Your hours, your tools, your method. The only constraint is the deadline we agree on together.",
       },
       {
-        k: "Async by default",
-        v: "Few calls — only the ones that matter. Written briefs, clear deadlines, shared tools.",
+        t: "Real projects",
+        d: "Real clients actually going online: websites, e-commerce, campaigns, management systems. A portfolio with weight.",
+      },
+      {
+        t: "Zero useless meetings",
+        d: "Async by default: written briefs, few calls — only the ones that matter. Your time goes into the work.",
+      },
+      {
+        t: "The loop grows with you",
+        d: "Every delivery that holds the standard brings more projects, more trust, more autonomy.",
+      },
+      {
+        t: "Training included",
+        d: "Alpacode is also a school: method, tools and applied AI — we share them with the people who work with us.",
       },
     ],
 
-    pathsKicker: "§ 02 — The two tracks",
+    quoteKicker: "§ 02 — Remote-native",
+    quoteTitle: "Talent has no address.",
+    quoteLede:
+      "Alpacode was born distributed: no office to commute to, no hours lost on the road. What counts is the work delivered and the standards it's built to.",
+    quotePoints: [
+      {
+        k: "From all of Italy",
+        v: "City or countryside, north or south: geography is not a requirement.",
+      },
+      {
+        k: "Sized to fit",
+        v: "An illustration, a landing page, a complete system: tasks or entire projects.",
+      },
+      {
+        k: "Async by default",
+        v: "Written briefs, clear deadlines, shared tools.",
+      },
+    ],
+
+    positionsKicker: "§ 03 — Open collaborations",
+    positionsTitle: "Five crafts, one threshold: quality.",
+    positionsLede:
+      "Collaborations always open, on single tasks or entire outsourced flows. Pick your craft: the form fills itself in.",
+    positionsMeta: {
+      open: "Always open",
+      remote: "Remote",
+      scope: "Task or project",
+    },
+    positions: [
+      {
+        role: "Graphic artist",
+        d: "Identity, illustration, campaign material. Brutalist taste welcome.",
+      },
+      {
+        role: "Designer",
+        d: "UI and UX for sites and products: from Figma to design systems, with real attention to accessibility.",
+      },
+      {
+        role: "Developer",
+        d: "WordPress, Astro, React, management systems. Clean code, performance, no shortcuts.",
+      },
+      {
+        role: "Marketer",
+        d: "Campaigns, funnels, copy that sells without shouting. Measure before you promise.",
+      },
+      {
+        role: "Social media manager",
+        d: "Channel and content management for the clients we bring online. Method, not improvisation.",
+      },
+    ],
+    positionsApply: "Apply as",
+    positionsFoot:
+      "Don't see yourself here but you're rare at something? Write anyway: good exceptions interest us.",
+
+    pathsKicker: "§ 04 — The two tracks",
     pathsTitle: "Two ways to collaborate. Both fully compliant.",
     pathsLede:
       "Whichever track fits, the principle stays the same: autonomous work, a written agreement, compensation defined before starting.",
@@ -387,7 +547,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       },
     ],
 
-    ruleKicker: "§ 03 — The rule",
+    ruleKicker: "§ 05 — The rule",
     ruleTitle: "Compliant collaborations only.",
     ruleBody:
       "Alpacode operates under Italy's flat-rate regime and does not employ staff: every collaboration is autonomous work, in the forms provided by law. It's not small print — it's the starting pact.",
@@ -398,36 +558,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "Every payment goes through a receipt or invoice, according to your status.",
     ],
 
-    figuresKicker: "§ 04 — Who we look for",
-    figuresTitle: "Five crafts, one threshold: quality.",
-    figuresLede:
-      "Single collaborations or entire outsourced flows. What never changes is the standard.",
-    figures: [
-      {
-        role: "Graphic artists",
-        d: "Identity, illustration, campaign material. Brutalist taste welcome.",
-      },
-      {
-        role: "Designers",
-        d: "UI and UX for sites and products: from Figma to design systems, with real attention to accessibility.",
-      },
-      {
-        role: "Developers",
-        d: "WordPress, Astro, React, management systems. Clean code, performance, no shortcuts.",
-      },
-      {
-        role: "Marketers",
-        d: "Campaigns, funnels, copy that sells without shouting. Measure before you promise.",
-      },
-      {
-        role: "Social media managers",
-        d: "Channel and content management for the clients we bring online. Method, not improvisation.",
-      },
-    ],
-    figuresFoot:
-      "Don't see yourself here but you're rare at something? Write anyway: good exceptions interest us.",
-
-    howKicker: "§ 05 — How it starts",
+    howKicker: "§ 06 — How it starts",
     howTitle: "From the form to the first project.",
     howSteps: [
       {
@@ -452,7 +583,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       },
     ],
 
-    faqKicker: "§ 06 — Questions",
+    faqKicker: "§ 07 — Questions",
     faqTitle: "Quick answers.",
     faq: [
       {
@@ -483,7 +614,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "If your strength is your network — clients, contacts, an audience that trusts you — the partner program reserves you a niche and an area: you bring the opportunities, we build.",
     crossCta: "Discover the partner program",
 
-    formKicker: "§ 07 — Apply",
+    formKicker: "§ 08 — Apply",
     formTitle: "Introduce yourself.",
     formLede:
       "No commitment: tell us who you are and show us something of yours. We reply quickly, even when the answer is 'not yet'.",
