@@ -352,7 +352,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     collabTag: "Produci, invece di portare clienti?",
     collabTitle: "Lavora con noi, su progetto.",
     collabBody:
-      "Grafico, designer, sviluppatore, marketer: collaboriamo su task e progetti interi, da remoto e in regola. Tu metti il mestiere, noi clienti e infrastruttura.",
+      "Grafico, designer, sviluppatore, marketer: collaboriamo su task e progetti interi, da remoto e con accordi scritti. Tu metti il mestiere, noi clienti e infrastruttura.",
     collabCta: "Scopri come collaborare",
 
     formKicker: "§ 09 — Candidati",
@@ -597,7 +597,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
     collabTag: "Producing, rather than bringing clients?",
     collabTitle: "Work with us, project-based.",
     collabBody:
-      "Graphic artist, designer, developer, marketer: we collaborate on tasks and entire projects, remotely and fully compliant. You bring the craft, we bring clients and infrastructure.",
+      "Graphic artist, designer, developer, marketer: we collaborate on tasks and entire projects, remotely and with written agreements. You bring the craft, we bring clients and infrastructure.",
     collabCta: "See how to collaborate",
 
     formKicker: "§ 09 — Apply",

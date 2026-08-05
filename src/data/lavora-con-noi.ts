@@ -109,7 +109,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       meta: [
         { k: "Dove", v: "Remote · tutta Italia" },
         { k: "Cosa", v: "Task o progetti interi" },
-        { k: "Come", v: "Solo in regola, per iscritto" },
+        { k: "Come", v: "Accordo scritto, sempre" },
       ],
     },
 
@@ -211,7 +211,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "Non ti riconosci ma sai fare qualcosa di raro? Scrivici lo stesso: le eccezioni buone ci interessano.",
 
     pathsKicker: "§ 04 — I due percorsi",
-    pathsTitle: "Due modi di collaborare. Entrambi in regola.",
+    pathsTitle: "Due modi di collaborare. Tu scegli.",
     pathsLede:
       "Qualunque sia il percorso, il principio non cambia: lavoro autonomo, accordo scritto, compenso definito prima di iniziare.",
     paths: [
@@ -274,9 +274,9 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     ruleKicker: "§ 05 — La regola",
-    ruleTitle: "Solo collaborazioni in regola.",
+    ruleTitle: "Il patto di partenza.",
     ruleBody:
-      "Alpacode opera in regime forfettario e non assume personale dipendente: ogni collaborazione è lavoro autonomo, nelle forme previste dalla legge. Non è un cavillo — è il patto di partenza.",
+      "Alpacode opera in regime forfettario e non assume personale dipendente: ogni collaborazione è lavoro autonomo, nelle forme previste dalla legge. Nessuna zona grigia: quattro impegni, uguali per tutti, prima ancora di cominciare.",
     rulePoints: [
       "Nessun rapporto di lavoro dipendente, dichiarato o mascherato.",
       "Accordo scritto sempre: oggetto, scadenza, compenso e diritti d'uso, prima di iniziare.",
@@ -383,7 +383,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       meta: [
         { k: "Where", v: "Remote · all of Italy" },
         { k: "What", v: "Tasks or entire projects" },
-        { k: "How", v: "Fully compliant, in writing" },
+        { k: "How", v: "Written agreement, always" },
       ],
     },
 
@@ -485,7 +485,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
       "Don't see yourself here but you're rare at something? Write anyway: good exceptions interest us.",
 
     pathsKicker: "§ 04 — The two tracks",
-    pathsTitle: "Two ways to collaborate. Both fully compliant.",
+    pathsTitle: "Two ways to collaborate. You choose.",
     pathsLede:
       "Whichever track fits, the principle stays the same: autonomous work, a written agreement, compensation defined before starting.",
     paths: [
@@ -548,9 +548,9 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     ruleKicker: "§ 05 — The rule",
-    ruleTitle: "Compliant collaborations only.",
+    ruleTitle: "The starting pact.",
     ruleBody:
-      "Alpacode operates under Italy's flat-rate regime and does not employ staff: every collaboration is autonomous work, in the forms provided by law. It's not small print — it's the starting pact.",
+      "Alpacode operates under Italy's flat-rate regime and does not employ staff: every collaboration is autonomous work, in the forms provided by law. No grey areas: four commitments, the same for everyone, before anything starts.",
     rulePoints: [
       "No employment relationships, declared or disguised.",
       "Always a written agreement: scope, deadline, compensation and usage rights, before starting.",
