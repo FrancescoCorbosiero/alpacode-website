@@ -40,6 +40,15 @@ export interface ContattiData {
     availableLabel: string;
     availableV: string;
   };
+  /* The human block next to the 60-second wizard. */
+  person: {
+    h: string;
+    points: { k: string; v: string }[];
+    clockOpen: string;
+    clockClosed: string;
+    /** The face behind the inbox. Photo slot: src/assets/people/francesco.<ext>. */
+    sig: { name: string; role: string; initials: string; photoAlt: string };
+  };
 }
 
 export const contatti: Record<Lang, ContattiData> = {
@@ -83,6 +92,31 @@ export const contatti: Record<Lang, ContattiData> = {
       availableLabel: "DISPONIBILE",
       availableV: "Stiamo prendendo nuovi progetti per Q3 2026.",
     },
+    person: {
+      h: "A chi stai scrivendo.",
+      points: [
+        {
+          k: "Chi risponde",
+          v: "Chi costruisce. Niente call center, niente risposte fotocopia.",
+        },
+        {
+          k: "Quanto aspetti",
+          v: "Mezza giornata lavorata, di solito meno.",
+        },
+        {
+          k: "Come parliamo",
+          v: "Italiano chiaro: se una cosa non ti serve, te lo diciamo.",
+        },
+      ],
+      clockOpen: "In studio adesso",
+      clockClosed: "Fuori orario · ti leggiamo al rientro",
+      sig: {
+        name: "Francesco Corbosiero",
+        role: "Fondatore — è lui che ti risponde",
+        initials: "FC",
+        photoAlt: "Francesco Corbosiero, fondatore di Alpacode",
+      },
+    },
   },
   en: {
     crumb: "08 · CONTACT",
@@ -123,6 +157,31 @@ export const contatti: Record<Lang, ContattiData> = {
       replyV: "< half a worked day",
       availableLabel: "AVAILABLE",
       availableV: "We're taking new projects for Q3 2026.",
+    },
+    person: {
+      h: "Who you're writing to.",
+      points: [
+        {
+          k: "Who answers",
+          v: "The people who build. No call center, no copy-paste replies.",
+        },
+        {
+          k: "How long you wait",
+          v: "Half a working day, usually less.",
+        },
+        {
+          k: "How we talk",
+          v: "Plainly: if you don't need something, we tell you.",
+        },
+      ],
+      clockOpen: "At the desk right now",
+      clockClosed: "After hours · we'll read you when we're back",
+      sig: {
+        name: "Francesco Corbosiero",
+        role: "Founder — he's the one who answers",
+        initials: "FC",
+        photoAlt: "Francesco Corbosiero, founder of Alpacode",
+      },
     },
   },
 };

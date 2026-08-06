@@ -18,12 +18,14 @@ const trim = (slug: string) => slug.replace(/^\/+|\/+$/g, "");
  * signals in Search Console. Paths with an extension (feeds) stay bare.
  */
 export function localizePath(slug: string, lang: Lang): string {
-  const clean = trim(slug);
+  const [rawPath, ...hashParts] = trim(slug).split("#");
+  const clean = rawPath ?? "";
+  const hash = hashParts.length ? `#${hashParts.join("#")}` : "";
   const suffix = clean && !clean.includes(".") ? "/" : "";
   if (lang === DEFAULT_LANG) {
-    return clean ? `/${clean}${suffix}` : "/";
+    return clean ? `/${clean}${suffix}${hash}` : `/${hash}`;
   }
-  return clean ? `/en/${clean}${suffix}` : "/en/";
+  return clean ? `/en/${clean}${suffix}${hash}` : `/en/${hash}`;
 }
 
 /** The opposite locale of the one given. */

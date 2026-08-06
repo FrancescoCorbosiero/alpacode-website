@@ -62,6 +62,12 @@ const t =
                 <span class="tag">{tg}</span>
               ))}
             </div>
+            {w.data.quote && (
+              <figure class="work-quote">
+                <blockquote>{w.data.quote[lang]}</blockquote>
+                {w.data.quoteAttr && <figcaption>{w.data.quoteAttr}</figcaption>}
+              </figure>
+            )}
           </article>
         ))
       }

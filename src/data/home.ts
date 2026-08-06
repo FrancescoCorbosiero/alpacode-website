@@ -250,6 +250,8 @@ export interface ManifestoData {
   heading: string;
   lede: string;
   pillars: Pillar[];
+  /** The manifesto is signed by a person, not a brand. */
+  sig: { name: string; role: string };
 }
 
 export const manifesto: Record<Lang, ManifestoData> = {
@@ -263,6 +265,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
       { n: "III", label: "PILASTRO III", t: "Conta il risultato.", d: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — e lo misuriamo con numeri veri." },
       { n: "IV", label: "PILASTRO IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
+    sig: { name: "Francesco Corbosiero", role: "fondatore, Alpacode" },
   },
   en: {
     num: "08 · MANIFESTO",
@@ -274,6 +277,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
       { n: "III", label: "PILLAR III", t: "Results are what count.", d: "A good-looking site isn't enough. We work so it's visible, credible and brings clients — and we measure it with real numbers." },
       { n: "IV", label: "PILLAR IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
     ],
+    sig: { name: "Francesco Corbosiero", role: "founder, Alpacode" },
   },
 };
 
@@ -301,7 +305,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Scrivici", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Prenota una call", v: "30 min · gratis", href: "prenota" },
-      { k: "Sede", v: "Monza · Milano · IT" },
+      { k: "Racconta il progetto", v: "60 secondi · 3 tap", href: "contatti#wizard" },
     ],
     cta: "Apri il modulo di contatto",
   },
@@ -313,7 +317,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Write us", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Book a call", v: "30 min · free", href: "prenota" },
-      { k: "Studio", v: "Monza · Milan · IT" },
+      { k: "Tell us your project", v: "60 seconds · 3 taps", href: "contatti#wizard" },
     ],
     cta: "Open the contact form",
   },

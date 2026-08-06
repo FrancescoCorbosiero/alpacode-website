@@ -126,7 +126,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     benefitsKicker: "§ 01 — Cosa ci guadagni",
-    benefitsTitle: "Patti chiari, lavoro vero.",
+    benefitsTitle: "Cosa mettiamo sul tavolo.",
     benefitsLede:
       "Niente promesse da annuncio: quello che trovi qui è quello che succede davvero, dal primo task.",
     benefits: [
@@ -157,7 +157,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     quoteKicker: "§ 02 — Remote-native",
-    quoteTitle: "Il talento non ha un indirizzo.",
+    quoteTitle: "Remote-native, alla lettera.",
     quoteLede:
       "Alpacode nasce distribuita: niente sede da raggiungere, niente pendolarismo. Contano il lavoro consegnato e gli standard con cui è fatto.",
     quotePoints: [
@@ -176,7 +176,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     positionsKicker: "§ 03 — Collaborazioni aperte",
-    positionsTitle: "Cinque mestieri, una soglia: la qualità.",
+    positionsTitle: "Cinque mestieri, sempre aperti.",
     positionsLede:
       "Collaborazioni sempre aperte, su task singoli o interi flussi in outsourcing. Scegli il tuo mestiere: il form si prepara da solo.",
     positionsMeta: {
@@ -400,7 +400,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     benefitsKicker: "§ 01 — What's in it for you",
-    benefitsTitle: "Clear terms, real work.",
+    benefitsTitle: "What we put on the table.",
     benefitsLede:
       "No job-ad promises: what you read here is what actually happens, from the first task.",
     benefits: [
@@ -431,7 +431,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     quoteKicker: "§ 02 — Remote-native",
-    quoteTitle: "Talent has no address.",
+    quoteTitle: "Remote-native, literally.",
     quoteLede:
       "Alpacode was born distributed: no office to commute to, no hours lost on the road. What counts is the work delivered and the standards it's built to.",
     quotePoints: [
@@ -450,7 +450,7 @@ export const lavoraConNoi: Record<Lang, LavoraData> = {
     ],
 
     positionsKicker: "§ 03 — Open collaborations",
-    positionsTitle: "Five crafts, one threshold: quality.",
+    positionsTitle: "Five crafts, always open.",
     positionsLede:
       "Collaborations always open, on single tasks or entire outsourced flows. Pick your craft: the form fills itself in.",
     positionsMeta: {
