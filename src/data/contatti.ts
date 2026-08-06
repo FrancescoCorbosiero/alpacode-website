@@ -46,6 +46,8 @@ export interface ContattiData {
     points: { k: string; v: string }[];
     clockOpen: string;
     clockClosed: string;
+    /** The face behind the inbox. Photo slot: src/assets/people/francesco.<ext>. */
+    sig: { name: string; role: string; initials: string; photoAlt: string };
   };
 }
 
@@ -108,6 +110,12 @@ export const contatti: Record<Lang, ContattiData> = {
       ],
       clockOpen: "In studio adesso",
       clockClosed: "Fuori orario · ti leggiamo al rientro",
+      sig: {
+        name: "Francesco Corbosiero",
+        role: "Fondatore — è lui che ti risponde",
+        initials: "FC",
+        photoAlt: "Francesco Corbosiero, fondatore di Alpacode",
+      },
     },
   },
   en: {
@@ -168,6 +176,12 @@ export const contatti: Record<Lang, ContattiData> = {
       ],
       clockOpen: "At the desk right now",
       clockClosed: "After hours · we'll read you when we're back",
+      sig: {
+        name: "Francesco Corbosiero",
+        role: "Founder — he's the one who answers",
+        initials: "FC",
+        photoAlt: "Francesco Corbosiero, founder of Alpacode",
+      },
     },
   },
 };

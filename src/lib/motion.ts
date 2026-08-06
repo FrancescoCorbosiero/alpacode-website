@@ -56,6 +56,7 @@ const rules: Rule[] = [
   { sel: ".lcn-path", kind: "up", delay: 0, stagger: 120 },
   { sel: ".lcn-rule", kind: "rise", delay: 0 },
   { sel: ".lcn-cross", kind: "up", delay: 0 },
+  { sel: ".manifesto-sig", kind: "up", delay: 200 },
   { sel: ".foot-brand", kind: "up", delay: 0 },
   { sel: ".foot-col", kind: "up", delay: 0, stagger: 90 },
   { sel: ".foot-brand .big-bar", kind: "bar", delay: 200 },

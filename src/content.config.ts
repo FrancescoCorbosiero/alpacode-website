@@ -38,6 +38,9 @@ const work = defineCollection({
     title: localized,
     descriptor: localized,
     tags: z.array(z.string()),
+    /** Client quote shown on the card. Keep it short and attributed. */
+    quote: localized.optional(),
+    quoteAttr: z.string().optional(),
   }),
 });
 

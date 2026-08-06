@@ -1,5 +1,7 @@
 ---
 import type { Lang } from "../../i18n/types";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import { contatti } from "../../data/contatti";
 import { wizard } from "../../data/wizard";
 import { business } from "../../data/business";
@@ -16,6 +18,16 @@ const { lang } = Astro.props;
 const t = contatti[lang];
 const w = wizard[lang];
 const prenotaHref = localizePath("prenota", lang);
+
+// Founder photo slot — drop src/assets/people/francesco.<ext> and the
+// initials placeholder disappears (see src/assets/README.md).
+const peopleImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/people/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true },
+);
+const founderImg = Object.entries(peopleImages).find(
+  ([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === "francesco",
+)?.[1].default;
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
@@ -34,6 +46,25 @@ const prenotaHref = localizePath("prenota", lang);
       <BriefWizard client:load lang={lang} labels={w} prenotaHref={prenotaHref} />
       <aside class="contact-info bw-person">
         <h3>{t.person.h}</h3>
+        <div class="bw-founder">
+          {
+            founderImg ? (
+              <Image
+                src={founderImg}
+                alt={t.person.sig.photoAlt}
+                widths={[96, 192]}
+                sizes="96px"
+                class="bw-founder-img"
+              />
+            ) : (
+              <span class="bw-founder-ph" aria-hidden="true">{t.person.sig.initials}</span>
+            )
+          }
+          <span class="bw-founder-id">
+            <span class="bw-founder-name">{t.person.sig.name}</span>
+            <span class="bw-founder-role">{t.person.sig.role}</span>
+          </span>
+        </div>
         {
           t.person.points.map((p) => (
             <div class="block">

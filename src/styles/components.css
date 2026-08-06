@@ -4600,3 +4600,102 @@ cal-modal-box iframe,
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Work card quotes ---------- */
+.work-quote {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.work-quote blockquote {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.work-quote figcaption {
+  margin-top: 8px;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* ---------- Founder block (contact page) ---------- */
+.bw-founder {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 26px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+.bw-founder-img,
+.bw-founder-ph {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  object-fit: cover;
+}
+.bw-founder-ph {
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 20px;
+  position: relative;
+}
+.bw-founder-ph::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
+  height: 4px;
+  background: var(--blue);
+}
+.bw-founder-id {
+  display: grid;
+  gap: 4px;
+}
+.bw-founder-name {
+  font-family: var(--display);
+  font-size: 16px;
+}
+.bw-founder-role {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+}
+
+/* ---------- Manifesto signature ---------- */
+.manifesto-sig {
+  margin-top: 56px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.manifesto-sig-bar {
+  width: 40px;
+  height: 6px;
+  background: var(--blue);
+  transform: translateY(-3px);
+}
+.manifesto-sig-name {
+  font-family: var(--display);
+  font-size: 18px;
+  color: var(--paper);
+}
+.manifesto-sig-role {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.55);
+}
