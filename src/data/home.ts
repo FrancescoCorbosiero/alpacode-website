@@ -301,7 +301,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Scrivici", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Prenota una call", v: "30 min · gratis", href: "prenota" },
-      { k: "Sede", v: "Monza · Milano · IT" },
+      { k: "Racconta il progetto", v: "60 secondi · 3 tap", href: "contatti#wizard" },
     ],
     cta: "Apri il modulo di contatto",
   },
@@ -313,7 +313,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Write us", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Book a call", v: "30 min · free", href: "prenota" },
-      { k: "Studio", v: "Monza · Milan · IT" },
+      { k: "Tell us your project", v: "60 seconds · 3 taps", href: "contatti#wizard" },
     ],
     cta: "Open the contact form",
   },

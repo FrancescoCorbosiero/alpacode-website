@@ -111,7 +111,68 @@ const offerLinks = CAMPAIGNS.map((c) => ({
     <div class="foot-bottom">
       <span>{footer.rights[lang]}</span>
       <span>{footer.bottomLocation}</span>
+      <span class="foot-clock" data-studio-root>
+        <span data-studio-dot aria-hidden="true">●</span>
+        <span data-studio-time>—:—</span> CET
+      </span>
       <span>{footer.version}</span>
     </div>
   </div>
 </footer>
+
+<script>
+  /* Studio clock — the small "someone is actually here" signal. Shows the
+     current Monza time everywhere the footer is, and open/closed state
+     where a label slot exists (contact page). Runs once (bundled module);
+     re-syncs targets after every view-transition swap. */
+  const timeFmt = new Intl.DateTimeFormat("it-IT", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Rome",
+  });
+  const partsFmt = new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
+    hour: "numeric",
+    hour12: false,
+    timeZone: "Europe/Rome",
+  });
+
+  function studioOpen(now: Date): boolean {
+    const parts = partsFmt.formatToParts(now);
+    const wd = parts.find((p) => p.type === "weekday")?.value ?? "";
+    const h = Number(parts.find((p) => p.type === "hour")?.value ?? "0");
+    return !["Sat", "Sun"].includes(wd) && h >= 9 && h < 18;
+  }
+
+  function tick(): void {
+    const now = new Date();
+    const open = studioOpen(now);
+    const time = timeFmt.format(now);
+    document.querySelectorAll<HTMLElement>("[data-studio-time]").forEach((el) => {
+      el.textContent = time;
+    });
+    document.querySelectorAll<HTMLElement>("[data-studio-root]").forEach((root) => {
+      root.classList.toggle("is-open", open);
+      const label = root.querySelector<HTMLElement>("[data-studio-label]");
+      if (label) {
+        const next = open ? root.dataset.openLabel : root.dataset.closedLabel;
+        if (next) label.textContent = next;
+      }
+    });
+  }
+
+  let clockStarted = false;
+  function start(): void {
+    tick();
+    if (clockStarted) return;
+    clockStarted = true;
+    window.setInterval(tick, 30_000);
+  }
+
+  document.addEventListener("astro:page-load", start);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+</script>

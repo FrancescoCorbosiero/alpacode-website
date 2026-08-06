@@ -40,6 +40,13 @@ export interface ContattiData {
     availableLabel: string;
     availableV: string;
   };
+  /* The human block next to the 60-second wizard. */
+  person: {
+    h: string;
+    points: { k: string; v: string }[];
+    clockOpen: string;
+    clockClosed: string;
+  };
 }
 
 export const contatti: Record<Lang, ContattiData> = {
@@ -83,6 +90,25 @@ export const contatti: Record<Lang, ContattiData> = {
       availableLabel: "DISPONIBILE",
       availableV: "Stiamo prendendo nuovi progetti per Q3 2026.",
     },
+    person: {
+      h: "C'è una persona, non un ticket.",
+      points: [
+        {
+          k: "Chi risponde",
+          v: "Chi costruisce. Niente call center, niente risposte fotocopia.",
+        },
+        {
+          k: "Quanto aspetti",
+          v: "Mezza giornata lavorata, di solito meno.",
+        },
+        {
+          k: "Come parliamo",
+          v: "Italiano chiaro: se una cosa non ti serve, te lo diciamo.",
+        },
+      ],
+      clockOpen: "In studio adesso",
+      clockClosed: "Fuori orario · ti leggiamo al rientro",
+    },
   },
   en: {
     crumb: "08 · CONTACT",
@@ -123,6 +149,25 @@ export const contatti: Record<Lang, ContattiData> = {
       replyV: "< half a worked day",
       availableLabel: "AVAILABLE",
       availableV: "We're taking new projects for Q3 2026.",
+    },
+    person: {
+      h: "A person, not a ticket.",
+      points: [
+        {
+          k: "Who answers",
+          v: "The people who build. No call center, no copy-paste replies.",
+        },
+        {
+          k: "How long you wait",
+          v: "Half a working day, usually less.",
+        },
+        {
+          k: "How we talk",
+          v: "Plainly: if you don't need something, we tell you.",
+        },
+      ],
+      clockOpen: "At the desk right now",
+      clockClosed: "After hours · we'll read you when we're back",
     },
   },
 };

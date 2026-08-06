@@ -1,9 +1,12 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { contatti } from "../../data/contatti";
+import { wizard } from "../../data/wizard";
 import { business } from "../../data/business";
+import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import ContactForm from "../islands/ContactForm.tsx";
+import BriefWizard from "../islands/BriefWizard.tsx";
 import Coverage from "../home/Coverage.astro";
 
 interface Props {
@@ -11,9 +14,48 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = contatti[lang];
+const w = wizard[lang];
+const prenotaHref = localizePath("prenota", lang);
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+{/* ---------- 60-second wizard + the human block ---------- */}
+<section class="section" id="wizard" style="border-top:1px solid var(--rule)">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num eyebrow">{w.kicker}</div>
+        <h2>{w.title}</h2>
+      </div>
+      <p class="lede">{w.lede}</p>
+    </div>
+    <div class="bw-grid">
+      <BriefWizard client:load lang={lang} labels={w} prenotaHref={prenotaHref} />
+      <aside class="contact-info bw-person">
+        <h3>{t.person.h}</h3>
+        {
+          t.person.points.map((p) => (
+            <div class="block">
+              <span class="k">— {p.k}</span>
+              <span class="v">{p.v}</span>
+            </div>
+          ))
+        }
+        <div
+          class="bw-clock"
+          data-studio-root
+          data-open-label={t.person.clockOpen}
+          data-closed-label={t.person.clockClosed}
+        >
+          <span class="bw-clock-dot" data-studio-dot aria-hidden="true">●</span>
+          <span data-studio-label>{t.person.clockOpen}</span>
+          <span class="bw-clock-time"><span data-studio-time>—:—</span> CET</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
 
 <section style="border-top:1px solid var(--rule)">
   <div class="wrap-wide">
