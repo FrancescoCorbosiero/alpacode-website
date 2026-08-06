@@ -31,7 +31,7 @@ versioni migliori mantenendo il nome.
 
 | File                     | Dove appare |
 |--------------------------|-------------|
-| `people/francesco.<ext>` | Blocco «C'è una persona, non un ticket» sui Contatti |
+| `people/francesco.<ext>` | Blocco «A chi stai scrivendo» sui Contatti |
 
 Foto quadrata (o quasi), viso ben visibile: viene ritagliata 64×64.
 Futuri collaboratori: `people/<nome>.<ext>` — lo slot va poi collegato

@@ -83,7 +83,7 @@ export const wizard: Record<Lang, WizardData> = {
     emailPlaceholder: "nome@dominio.it",
     consent:
       "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
-    send: "Invia — vi leggo tra poco",
+    send: "Invia — ti leggiamo a breve",
     sending: "Invio…",
     note: "Nessun preventivo automatico: ti risponde una persona, con un numero deciso prima e messo per iscritto.",
     successTitle: "Ricevuto. Ora tocca a noi.",

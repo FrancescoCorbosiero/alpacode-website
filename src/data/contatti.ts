@@ -93,7 +93,7 @@ export const contatti: Record<Lang, ContattiData> = {
       availableV: "Stiamo prendendo nuovi progetti per Q3 2026.",
     },
     person: {
-      h: "C'è una persona, non un ticket.",
+      h: "A chi stai scrivendo.",
       points: [
         {
           k: "Chi risponde",
@@ -159,7 +159,7 @@ export const contatti: Record<Lang, ContattiData> = {
       availableV: "We're taking new projects for Q3 2026.",
     },
     person: {
-      h: "A person, not a ticket.",
+      h: "Who you're writing to.",
       points: [
         {
           k: "Who answers",
