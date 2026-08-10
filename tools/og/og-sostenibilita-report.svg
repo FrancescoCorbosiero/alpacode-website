@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M0 40 H40 M40 0 V40" stroke="#C9C3B1" stroke-opacity="0.45" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="fade" cx="88%" cy="12%" r="60%">
+      <stop offset="0%" stop-color="#3B72E9" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#3B72E9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F4F1E8"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+  <!-- Top strut -->
+  <rect x="0" y="0" width="1200" height="8" fill="#3B72E9"/>
+  <!-- Brand mark -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#7D7A72" font-size="14" letter-spacing="2.8">
+    <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
+  </g>
+  <!-- Eyebrow -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
+    <rect x="80" y="158" width="14" height="14" fill="#3B72E9"/>
+    <text x="106" y="170" fill="#3B72E9">REPORT DI SOSTENIBILITÀ AMBIENTALE</text>
+  </g>
+  <!-- Accent bar -->
+  <rect x="80" y="212" width="120" height="8" fill="#3B72E9"/>
+  <!-- Headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#0A0A0A">
+    <text x="80" y="296">QUATTRO</text>
+    <text x="80" y="376">TRIMESTRI.</text>
+  </g>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="76" fill="#3B72E9">
+    <text x="80" y="456">GLI STESSI DATI.</text>
+  </g>
+  <!-- Quarter bars, a nod to the chart on the page -->
+  <g>
+    <rect x="880" y="352" width="52" height="104" fill="#3B72E9"/>
+    <rect x="946" y="340" width="52" height="116" fill="#3B72E9"/>
+    <rect x="1012.5" y="416.5" width="51" height="39" fill="none" stroke="#C9C3B1" stroke-width="1" stroke-dasharray="4 4"/>
+    <rect x="1078.5" y="416.5" width="51" height="39" fill="none" stroke="#C9C3B1" stroke-width="1" stroke-dasharray="4 4"/>
+    <rect x="880" y="456" width="250" height="2" fill="#0A0A0A"/>
+    <rect x="880" y="460" width="52" height="7" fill="#C2542A"/>
+    <rect x="946" y="460" width="52" height="6" fill="#C2542A"/>
+  </g>
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing="2" fill="#7D7A72">
+    <text x="893" y="490">Q1</text>
+    <text x="959" y="490">Q2</text>
+    <text x="1025" y="490">Q3</text>
+    <text x="1091" y="490">Q4</text>
+  </g>
+  <!-- Lede -->
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#54524C">
+    <text x="80" y="522">Pendolarismo evitato, carta non stampata, trasferte sottratte.</text>
+  </g>
+  <!-- Foot meta -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#7D7A72">
+    <text x="80" y="582">STIME INTERNE · METODO PUBBLICATO · NESSUNA COMPENSAZIONE</text>
+    <text x="1120" y="582" text-anchor="end" fill="#3B72E9">ALPACODE.IT</text>
+  </g>
+</svg>

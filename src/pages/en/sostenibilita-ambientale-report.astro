@@ -1,0 +1,48 @@
+---
+import Layout from "../../components/Layout.astro";
+import SostenibilitaReport from "../../components/pages/SostenibilitaReport.astro";
+import { meta } from "../../i18n/ui";
+import { REPORT_YEARS } from "../../data/sostenibilita";
+import { breadcrumbSchema, reportSchema } from "../../lib/schema";
+import { localizePath } from "../../i18n/utils";
+const lang = "en" as const;
+const slug = "sostenibilita-ambientale-report";
+const m = meta[slug];
+const site = Astro.site ?? new URL("https://alpacode.it");
+const url = new URL(localizePath(slug, lang), site).href;
+
+/* Latest edition drives the schema's period and cut-off date. */
+const current = [...REPORT_YEARS].sort((a, b) => b.year - a.year)[0]!;
+const [d, mo, y] = current.updated.split(".");
+const jsonLd = [
+  reportSchema({
+    name: m.title[lang],
+    description: m.description[lang],
+    url,
+    lang,
+    siteUrl: site.href,
+    period: String(current.year),
+    dateModified: `${y}-${mo}-${d}`,
+  }),
+  breadcrumbSchema([
+    { name: "Home", url: new URL(localizePath("", lang), site).href },
+    {
+      name: "Environmental sustainability",
+      url: new URL(localizePath("sostenibilita-ambientale", lang), site).href,
+    },
+    { name: `Report ${current.year}`, url },
+  ]),
+];
+---
+
+<Layout
+  lang={lang}
+  active={slug}
+  slug={slug}
+  title={m.title[lang]}
+  description={m.description[lang]}
+  ogImage="/og-sostenibilita-report.png"
+  jsonLd={jsonLd}
+>
+  <SostenibilitaReport lang={lang} />
+</Layout>

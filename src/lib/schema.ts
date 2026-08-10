@@ -80,6 +80,34 @@ export function articleSchema(opts: {
   };
 }
 
+/** A published, periodic report (the environmental one). Kept honest:
+ *  it declares the studio as author/publisher and nothing else. */
+export function reportSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  lang: Lang;
+  siteUrl: string;
+  /** Reporting period covered, e.g. "2026". */
+  period: string;
+  /** Cut-off of the current edition, ISO date. */
+  dateModified?: string;
+}) {
+  return {
+    "@type": "Report",
+    name: opts.name,
+    description: opts.description,
+    inLanguage: locale(opts.lang),
+    url: opts.url,
+    mainEntityOfPage: opts.url,
+    temporalCoverage: opts.period,
+    author: { "@id": `${opts.siteUrl}#org` },
+    publisher: { "@id": `${opts.siteUrl}#org` },
+    about: { "@id": `${opts.siteUrl}#org` },
+    ...(opts.dateModified ? { dateModified: opts.dateModified } : {}),
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@type": "BreadcrumbList",

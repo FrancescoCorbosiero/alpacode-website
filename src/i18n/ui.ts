@@ -43,6 +43,9 @@ export const footer = {
   workWithUs: { it: "Lavora con noi", en: "Work with us" },
   partnerProgram: { it: "Programma partner", en: "Partner program" },
   smmOffer: { it: "Per social media manager", en: "For social media managers" },
+  commitment: { it: "Impegno", en: "Commitment" },
+  sustainability: { it: "Sostenibilità ambientale", en: "Environmental sustainability" },
+  sustainabilityReport: { it: "Report di sostenibilità", en: "Sustainability report" },
   privacy: { it: "Privacy", en: "Privacy" },
   cookies: { it: "Cookie", en: "Cookies" },
   terms: { it: "Termini", en: "Terms" },
@@ -78,6 +81,26 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
     description: {
       it: "Cerchiamo grafici, designer, sviluppatori, marketer e social media manager per task e progetti interi. Remote-native, da tutta Italia, con accordi chiari e per iscritto.",
       en: "We're looking for graphic artists, designers, developers, marketers and social media managers for single tasks and entire projects. Remote-native, from anywhere in Italy, with clear written agreements.",
+    },
+  },
+  "sostenibilita-ambientale": {
+    title: {
+      it: "Sostenibilità ambientale · Uno studio remote-native — Alpacode",
+      en: "Environmental sustainability · A remote-native studio — Alpacode",
+    },
+    description: {
+      it: "Siamo uno studio digitale piccolo e vogliamo che anche la nostra impronta lo sia: remote-native, senza pendolarismo quotidiano né uffici energivori, completamente paperless. Con un report pubblico ogni anno.",
+      en: "We're a small digital studio and we want our footprint to be small too: remote-native, with no daily commuting and no energy-hungry offices, entirely paperless. With a report published every year.",
+    },
+  },
+  "sostenibilita-ambientale-report": {
+    title: {
+      it: "Report di sostenibilità ambientale · Alpacode",
+      en: "Environmental sustainability report · Alpacode",
+    },
+    description: {
+      it: "Il nostro report ambientale, trimestre per trimestre: pendolarismo evitato, documenti solo digitali e trasferte effettuate, sottratte dal saldo. Stime interne con metodo e fattori di calcolo pubblicati.",
+      en: "Our environmental report, quarter by quarter: commuting avoided, digital-only documents and business travel taken, subtracted from the balance. Internal estimates with the method and factors published.",
     },
   },
   home: {
