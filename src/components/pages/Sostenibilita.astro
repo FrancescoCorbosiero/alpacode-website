@@ -1,0 +1,178 @@
+---
+import type { Lang } from "../../i18n/types";
+import { sostenibilita } from "../../data/sostenibilita";
+import { localizePath } from "../../i18n/utils";
+import Ticker from "../Ticker.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = sostenibilita[lang];
+const reportHref = localizePath("sostenibilita-ambientale-report", lang);
+---
+
+<div class="sus">
+  {/* ---------- HERO ---------- */}
+  <section class="page-hero sus-hero">
+    <div class="wrap-wide">
+      <div class="crumb">{t.hero.crumb}</div>
+      <h1>
+        <span class="bar" aria-hidden="true"></span>
+        {t.hero.line1}<br />{t.hero.line2}
+      </h1>
+      <p class="lede">{t.hero.lede}</p>
+      <div class="sus-hero-ctas">
+        <a class="btn btn-blue" href={reportHref}>{t.hero.cta1} <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#metodo">{t.hero.cta2} <span class="arrow">↓</span></a>
+      </div>
+      <div class="sus-hero-meta">
+        {
+          t.hero.meta.map((m) => (
+            <div class="sus-hero-cell">
+              <span class="k">{m.k}</span>
+              <span class="v">{m.v}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Ticker items={t.ticker} />
+
+  {/* ---------- 01 · WHERE THE SAVING IS ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.savingKicker}</div>
+          <h2>{t.savingTitle}</h2>
+        </div>
+        <p class="lede">{t.savingLede}</p>
+      </div>
+      <div class="sus-savings">
+        {
+          t.savings.map((s) => (
+            <article class="sus-saving">
+              <span class="sus-saving-no">{s.n}</span>
+              <span class="sus-saving-k">{s.k}</span>
+              <h3>{s.v}</h3>
+              <span class="sus-saving-strut" aria-hidden="true" />
+              <p>{s.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 02 · THE METHOD ---------- */}
+  <section class="section section--tint" id="metodo">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.howKicker}</div>
+          <h2>{t.howTitle}</h2>
+        </div>
+        <p class="lede">{t.howLede}</p>
+      </div>
+      <div class="sus-how">
+        {
+          t.howRows.map((r) => (
+            <div class="sus-how-row">
+              <div class="sus-how-no">{r.n}<span class="dot">.</span></div>
+              <div class="sus-how-body">
+                <h3>{r.t}</h3>
+                <p>{r.d}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 03 · WHAT WE DON'T CLAIM (ink band) ---------- */}
+  <section class="sus-limits">
+    <div class="wrap-wide">
+      <div class="sec-num eyebrow sus-limits-kicker">{t.limitsKicker}</div>
+      <h2 class="sus-limits-title">{t.limitsTitle}</h2>
+      <p class="sus-limits-lede">{t.limitsLede}</p>
+      <ul class="sus-limits-list">
+        {
+          t.limits.map((l) => (
+            <li>
+              <span class="sus-limits-mark" aria-hidden="true" />
+              <span>{l}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- 04 · COMMITMENTS ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.pledgeKicker}</div>
+          <h2>{t.pledgeTitle}</h2>
+        </div>
+        <p class="lede">{t.pledgeLede}</p>
+      </div>
+      <ol class="sus-pledges">
+        {
+          t.pledges.map((p) => (
+            <li class="sus-pledge">
+              <span class="sus-pledge-no">{p.n}</span>
+              <div class="sus-pledge-body">
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </div>
+              <span class="sus-pledge-when">{p.when}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* ---------- REPORT CROSS-LINK ---------- */}
+  <section class="section section--tint">
+    <div class="wrap-wide">
+      <a class="sus-cross" href={reportHref}>
+        <span class="sus-cross-tag">{t.crossTag}</span>
+        <span class="sus-cross-title">{t.crossTitle}</span>
+        <span class="sus-cross-body">{t.crossBody}</span>
+        <span class="sus-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  {/* ---------- 05 · FAQ ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.faqKicker}</div>
+          <h2>{t.faqTitle}</h2>
+        </div>
+      </div>
+      <div class="cmp-faq">
+        {
+          t.faq.map((f, i) => (
+            <details class="cmp-faq-item" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</div>
+
+<CtaFinal lang={lang} />

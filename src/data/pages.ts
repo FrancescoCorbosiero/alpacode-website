@@ -11,7 +11,10 @@ export type PageKey =
   | "contatti"
   /* Not in PAGES (no primary-nav slot): reachable from the footer's
      secondary nav, the ⌘K palette and cross-links. */
-  | "lavora-con-noi";
+  | "lavora-con-noi"
+  | "sostenibilita-ambientale"
+  | "sostenibilita-ambientale-report"
+  | "impatto-sociale-report";
 
 export type MegaKey = "servizi" | "prodotti" | "learning";
 

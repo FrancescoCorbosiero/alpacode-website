@@ -1,0 +1,1316 @@
+/* ============================================================
+   "Impegno" pages — the studio's public commitments.
+
+     .sus   sostenibilità ambientale, the showcase page
+     .rep   the shared report chrome: hero tail, year header,
+            KPI tiles, quarter cards, pledge list, boundary band,
+            foot. Worn by BOTH annual reports.
+     .soc   what only the social-impact report adds: the three
+            pillars, the share meters, the small multiples.
+
+   These pages keep the house chrome (full header, full footer)
+   because they are institutional pages, not campaign landings:
+   they inherit the standard tokens instead of declaring their
+   own dark palette.
+
+   The only addition is ONE data-viz pair, used exclusively for
+   the environmental report's diverging chart and its legend:
+
+     --sus-up    avoided   (brand blue, the positive direction)
+     --sus-down  emitted   (terracotta, the negative direction)
+
+   The pair is validated for CVD separation and for contrast
+   against both surfaces (light #F4F1E8, dark #12110F); the dark
+   steps are chosen, not auto-flipped. Do not reuse these two
+   anywhere else — outside the chart they carry no meaning.
+   ============================================================ */
+.sus,
+.rep {
+  --sus-up: var(--blue);
+  --sus-down: #c2542a;
+}
+:root[data-theme="dark"] .sus,
+:root[data-theme="dark"] .rep {
+  --sus-up: #5b8cf5;
+  --sus-down: #e0703f;
+}
+/* The social report is single-series everywhere — columns and meter
+   fills all carry the same meaning — so it uses the brand hue alone
+   and needs no second colour. */
+
+/* ============================================================
+   Shared hero tail — CTAs + meta cells under the page hero
+   ============================================================ */
+.sus-hero-ctas,
+.rep-hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.sus-hero-meta,
+.rep-hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 44px;
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+}
+.sus-hero-cell,
+.rep-hero-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 24px;
+}
+.sus-hero-cell + .sus-hero-cell,
+.rep-hero-cell + .rep-hero-cell {
+  padding-left: 24px;
+  border-left: 1px solid var(--rule);
+}
+.sus-hero-cell .k,
+.rep-hero-cell .k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sus-hero-cell .v,
+.rep-hero-cell .v {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   01 — Where the saving is
+   ============================================================ */
+.sus-savings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.sus-saving {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px 26px 34px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+  transition: background 0.2s;
+}
+.sus-saving:last-child {
+  border-right: 0;
+}
+.sus-saving:hover {
+  background: var(--paper-2);
+}
+.sus-saving-no {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+}
+.sus-saving-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sus-saving h3 {
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.sus-saving-strut {
+  display: block;
+  width: 40px;
+  height: var(--strut);
+  background: var(--blue);
+}
+.sus-saving p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  margin: 0;
+}
+
+/* ============================================================
+   02 — The method
+   ============================================================ */
+.sus-how {
+  border-top: 1px solid var(--ink);
+}
+.sus-how-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.sus-how-no {
+  font-family: var(--display);
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.sus-how-no .dot {
+  color: var(--blue);
+}
+.sus-how-body h3 {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+.sus-how-body p {
+  margin: 0;
+  color: var(--mute-2);
+  max-width: 76ch;
+}
+
+/* ============================================================
+   03 — What we don't claim (ink band)
+   ============================================================ */
+.sus-limits,
+.rep-boundary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 96px 0;
+}
+.sus-limits-kicker,
+.rep-boundary-kicker {
+  color: var(--blue) !important;
+  margin-bottom: 16px;
+}
+.sus-limits-title,
+.rep-boundary-title {
+  font-family: var(--display);
+  font-size: clamp(30px, 6vw, 72px);
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  margin: 0;
+  max-width: 18ch;
+}
+.sus-limits-lede,
+.rep-boundary-lede {
+  margin: 24px 0 0;
+  max-width: 62ch;
+  font-size: 18px;
+  color: rgba(244, 241, 232, 0.72);
+}
+.sus-limits-list,
+.rep-boundary-list {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(244, 241, 232, 0.18);
+}
+.sus-limits-list li,
+.rep-boundary-list li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 26px 32px 26px 0;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.18);
+  color: rgba(244, 241, 232, 0.86);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.sus-limits-list li:nth-child(2n),
+.rep-boundary-list li:nth-child(2n) {
+  padding-left: 32px;
+  border-left: 1px solid rgba(244, 241, 232, 0.18);
+}
+.sus-limits-mark,
+.rep-boundary-mark {
+  display: block;
+  width: 18px;
+  height: var(--strut);
+  background: var(--blue);
+  margin-top: 9px;
+}
+
+/* ============================================================
+   04 — Commitments
+   ============================================================ */
+.sus-pledges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+.sus-pledge {
+  display: grid;
+  grid-template-columns: 64px 1fr 160px;
+  gap: 24px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.sus-pledge-no {
+  font-family: var(--t-mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+  padding-top: 6px;
+}
+.sus-pledge-body h3 {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+.sus-pledge-body p {
+  margin: 0;
+  color: var(--mute-2);
+  font-size: 15px;
+  max-width: 72ch;
+}
+.sus-pledge-when {
+  justify-self: end;
+  align-self: start;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border: 1px solid var(--rule);
+  padding: 7px 12px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Portal card → the other page (shared by both)
+   ============================================================ */
+.sus-cross {
+  display: grid;
+  gap: 10px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  padding: 36px 32px;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+.sus-cross:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+.sus-cross-tag {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.sus-cross-title {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.05;
+}
+.sus-cross-body {
+  color: var(--mute);
+  max-width: 720px;
+}
+.sus-cross-cta {
+  font-weight: 800;
+  font-size: 14px;
+  margin-top: 8px;
+}
+.sus-cross:hover .sus-cross-cta .arrow {
+  color: var(--blue);
+}
+
+/* ============================================================
+   REPORT — year header
+   ============================================================ */
+.rep-archive {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+.rep-archive-label,
+.rep-year-label {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-archive a {
+  font-family: var(--t-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+.rep-archive a:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.rep-year-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  margin-bottom: 48px;
+  border-bottom: var(--strut) solid var(--blue);
+}
+.rep-year-num {
+  font-family: var(--display);
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.rep-year-status {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--mute-2);
+  margin-left: auto;
+}
+
+/* ============================================================
+   REPORT — KPI tiles
+   ============================================================ */
+.rep-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.rep-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 30px 26px 32px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+}
+.rep-kpi:last-child {
+  border-right: 0;
+}
+.rep-kpi-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-kpi-v {
+  font-family: var(--display);
+  font-size: clamp(34px, 4.4vw, 54px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.rep-kpi-u {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--mute-2);
+}
+.rep-kpi-strut {
+  display: block;
+  width: 34px;
+  height: var(--strut);
+  background: var(--blue);
+  margin: 6px 0 2px;
+}
+.rep-kpi p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+.rep-partial {
+  margin: 18px 0 0;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* ============================================================
+   REPORT — quarterly balance chart
+
+   Avoided grows up from the baseline, emitted grows down, on one
+   shared kg-per-pixel scale. Heights are computed in the
+   component; this file only draws. Bars are aria-hidden — the
+   quarter table below carries every value as text.
+   ============================================================ */
+.rep-chart {
+  margin: 0;
+}
+.rep-legend {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+.rep-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+}
+.rep-swatch {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+.rep-swatch--up {
+  background: var(--sus-up);
+}
+.rep-swatch--down {
+  background: var(--sus-down);
+}
+.rep-legend-unit {
+  margin-left: auto;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--mute);
+}
+.rep-plot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px; /* the 2px surface gap between adjacent marks */
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+.rep-col {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px 0;
+  border-right: 1px solid var(--rule);
+}
+.rep-col:last-child {
+  border-right: 0;
+}
+.rep-col-up {
+  height: var(--up-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.rep-col-down {
+  height: var(--down-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+.rep-baseline {
+  height: 1px;
+  background: var(--ink);
+}
+.rep-bar {
+  width: 100%;
+  max-width: 84px;
+  display: block;
+}
+/* Square data-ends: the house rule is no rounded corners anywhere, and a
+   4px radius reads as a foreign element next to the 1px rules. */
+.rep-bar--up {
+  background: var(--sus-up);
+}
+.rep-bar--down {
+  background: var(--sus-down);
+}
+.rep-val {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.rep-val--down {
+  color: var(--mute-2);
+  font-size: 11px;
+}
+.rep-nodata {
+  margin-top: auto;
+  margin-bottom: 8px;
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-col.is-empty {
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 7px,
+    var(--paper-2) 7px 8px
+  );
+}
+.rep-col-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 14px 0 16px;
+}
+.rep-col-q {
+  font-family: var(--display);
+  font-size: 18px;
+  line-height: 1;
+}
+.rep-col-m {
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+.rep-chart-cap {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mute);
+  max-width: 78ch;
+}
+
+/* ============================================================
+   REPORT — quarter detail (the table view of the chart)
+   ============================================================ */
+.rep-quarters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.rep-q {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 22px 26px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+}
+.rep-q:last-child {
+  border-right: 0;
+}
+.rep-q.is-open,
+.rep-q.is-upcoming {
+  background: var(--paper-2);
+}
+.rep-q-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 16px;
+}
+.rep-q-id {
+  font-family: var(--display);
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.rep-q-months {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+.rep-q-state {
+  margin-left: auto;
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border: 1px solid var(--rule);
+  padding: 4px 8px;
+}
+.rep-q.is-closed .rep-q-state {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.rep-q-rows {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.rep-q-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.rep-q-row dt {
+  font-size: 13px;
+  color: var(--mute-2);
+  line-height: 1.35;
+}
+.rep-q-row dd {
+  margin: 0;
+  font-family: var(--t-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rep-q-net {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: var(--strut) solid var(--blue);
+}
+.rep-q-net .k {
+  font-family: var(--t-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-q-net .v {
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.rep-q-empty {
+  font-family: var(--display);
+  font-size: 44px;
+  line-height: 1;
+  color: var(--rule);
+  padding: 22px 0;
+}
+.rep-q-note {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mute);
+}
+
+/* ============================================================
+   REPORT — pledge status
+   ============================================================ */
+.rep-pledges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+.rep-pledge {
+  display: grid;
+  grid-template-columns: 170px 1fr 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.rep-pledge-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+}
+.rep-pledge-dot {
+  width: 9px;
+  height: 9px;
+  display: block;
+  background: var(--mute);
+}
+.rep-pledge.is-done .rep-pledge-dot {
+  background: var(--blue);
+}
+.rep-pledge.is-doing .rep-pledge-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--blue);
+}
+.rep-pledge.is-planned .rep-pledge-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--mute);
+}
+.rep-pledge-t {
+  font-weight: 700;
+  font-size: 16px;
+}
+.rep-pledge-n {
+  font-size: 14px;
+  color: var(--mute-2);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   REPORT — method & factors
+   ============================================================ */
+.rep-formulas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.rep-formula {
+  padding: 26px 24px 28px;
+  border-right: 1px solid var(--rule);
+}
+.rep-formula:last-child {
+  border-right: 0;
+}
+.rep-formula h3 {
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
+.rep-formula-f {
+  display: block;
+  font-family: var(--t-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--blue);
+  background: var(--paper-2);
+  border-left: var(--strut) solid var(--blue);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.rep-formula p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+.rep-factors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding-top: 40px;
+}
+.rep-factors-col h3 {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin: 0 0 16px;
+}
+.rep-factor-rows {
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.rep-factor-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.rep-factor-row dt {
+  font-size: 15px;
+}
+.rep-factor-row dd {
+  margin: 0;
+  font-family: var(--t-mono);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rep-sources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+.rep-sources li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+
+/* ============================================================
+   REPORT — foot
+   ============================================================ */
+.rep-foot {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+.rep-contact {
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.rep-contact h3 {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.05;
+  margin: 0;
+}
+.rep-contact p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+/* Pointer to the other annual report — the two are siblings and each
+   links to the other, so neither is a dead end. */
+.rep-sibling {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-sibling a {
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+  padding-bottom: 2px;
+}
+.rep-sibling a:hover {
+  color: var(--blue-deep);
+  border-color: var(--blue-deep);
+}
+
+/* ============================================================
+   SOCIAL REPORT — the three pillars
+   ============================================================ */
+.soc-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.soc-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px 28px 34px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+}
+.soc-pillar:last-child {
+  border-right: 0;
+}
+.soc-pillar-no {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+}
+.soc-pillar-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-pillar h3 {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.soc-pillar-strut {
+  display: block;
+  width: 40px;
+  height: var(--strut);
+  background: var(--blue);
+}
+.soc-pillar p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+
+/* ============================================================
+   SOCIAL REPORT — share meters
+
+   A ratio against its own total is a meter, not a chart: one
+   hue, a track from the same ramp, the count spelled out under
+   it so the percentage is never the only evidence.
+   ============================================================ */
+.soc-meters-title {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin: 56px 0 18px;
+}
+.soc-meters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.soc-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 26px 26px 28px;
+  border-right: 1px solid var(--rule);
+}
+.soc-meter:last-child {
+  border-right: 0;
+}
+.soc-meter-k {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.soc-meter-v {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.4vw, 42px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.soc-meter-track {
+  height: 10px;
+  background: var(--blue-soft);
+  border: 1px solid var(--rule);
+  margin-top: 2px;
+}
+.soc-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+}
+.soc-meter-c {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--mute-2);
+  font-variant-numeric: tabular-nums;
+}
+.soc-meter p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+
+/* ============================================================
+   SOCIAL REPORT — small multiples
+
+   Two measures in different units, so two panels each with its
+   own scale. Never one chart with two axes; heights are read
+   inside a panel, never across panels — the caption says so.
+   ============================================================ */
+.soc-facets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.soc-facet {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+.soc-facet-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0 18px;
+}
+.soc-facet-t {
+  font-weight: 700;
+  font-size: 16px;
+}
+.soc-facet-u {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-facet-plot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+.soc-fcol {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 10px 0;
+  border-right: 1px solid var(--rule);
+}
+.soc-fcol:last-child {
+  border-right: 0;
+}
+.soc-fcol.is-empty {
+  background: repeating-linear-gradient(135deg, transparent 0 7px, var(--paper-2) 7px 8px);
+}
+.soc-fcol-bars {
+  height: var(--facet-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.soc-fbar {
+  display: block;
+  width: 100%;
+  max-width: 72px;
+  background: var(--blue);
+}
+.soc-fval {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.soc-fnodata {
+  margin-top: auto;
+  margin-bottom: 6px;
+  font-family: var(--t-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-fq {
+  font-family: var(--display);
+  font-size: 15px;
+  line-height: 1;
+  text-align: center;
+  padding: 12px 0 14px;
+}
+
+/* ============================================================
+   SOCIAL REPORT — definitions
+   ============================================================ */
+.soc-defs {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+.soc-def {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.soc-def dt {
+  font-weight: 700;
+  font-size: 16px;
+}
+.soc-def dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  max-width: 82ch;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1080px) {
+  .sus-savings,
+  .rep-kpis,
+  .rep-quarters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sus-saving:nth-child(2n),
+  .rep-kpi:nth-child(2n),
+  .rep-q:nth-child(2n) {
+    border-right: 0;
+  }
+  .sus-saving:nth-child(-n + 2),
+  .rep-kpi:nth-child(-n + 2),
+  .rep-q:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--rule);
+  }
+  .rep-formulas,
+  .soc-pillars,
+  .soc-meters {
+    grid-template-columns: 1fr;
+  }
+  .soc-pillar,
+  .soc-meter {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .soc-pillar:last-child,
+  .soc-meter:last-child {
+    border-bottom: 0;
+  }
+  .rep-formula {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .rep-formula:last-child {
+    border-bottom: 0;
+  }
+  .rep-foot {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .sus-hero-meta,
+  .rep-hero-meta {
+    grid-template-columns: 1fr;
+  }
+  .sus-hero-cell + .sus-hero-cell,
+  .rep-hero-cell + .rep-hero-cell {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    margin-top: 14px;
+  }
+  .sus-limits-list,
+  .rep-boundary-list {
+    grid-template-columns: 1fr;
+  }
+  .sus-limits-list li:nth-child(2n),
+  .rep-boundary-list li:nth-child(2n) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .sus-limits,
+  .rep-boundary {
+    padding: 64px 0;
+  }
+  .rep-pledge {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .rep-factors {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .rep-year-status {
+    margin-left: 0;
+    width: 100%;
+  }
+  .soc-facets {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .soc-def {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sus-savings,
+  .rep-kpis,
+  .rep-quarters {
+    grid-template-columns: 1fr;
+  }
+  .sus-saving,
+  .rep-kpi,
+  .rep-q {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sus-saving:last-child,
+  .rep-kpi:last-child,
+  .rep-q:last-child {
+    border-bottom: 0;
+  }
+  .sus-how-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sus-pledge {
+    grid-template-columns: 40px 1fr;
+    row-gap: 12px;
+  }
+  .sus-pledge-when {
+    grid-column: 2;
+    justify-self: start;
+  }
+  /* The chart keeps four columns at every width — it is the shape of
+     the year — but the bars and labels tighten up. */
+  .rep-col {
+    padding: 16px 5px 0;
+  }
+  .rep-bar {
+    max-width: 60px;
+  }
+  .soc-fcol {
+    padding: 12px 4px 0;
+  }
+  .soc-fbar {
+    max-width: 50px;
+  }
+  .soc-fval {
+    font-size: 10px;
+  }
+  .rep-val {
+    font-size: 10px;
+  }
+  .rep-val--down {
+    font-size: 9px;
+  }
+  .rep-nodata {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+  .rep-legend-unit {
+    margin-left: 0;
+  }
+}

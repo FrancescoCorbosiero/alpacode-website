@@ -79,6 +79,8 @@
 :root[data-theme="dark"] .band-dark,
 :root[data-theme="dark"] .lcn-hero,
 :root[data-theme="dark"] .lcn-quote,
+:root[data-theme="dark"] .sus-limits,
+:root[data-theme="dark"] .rep-boundary,
 :root[data-theme="dark"] .product--featured,
 :root[data-theme="dark"] .cmdk-item.is-on,
 :root[data-theme="dark"] body:has(.smm),

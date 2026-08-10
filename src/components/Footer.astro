@@ -29,6 +29,14 @@ const offerLinks = CAMPAIGNS.map((c) => ({
   href: localizePath(`offerta/${c.slug}`, lang),
   label: tr(c.audience, lang),
 }));
+const commitmentLinks = [
+  { href: localizePath("sostenibilita-ambientale", lang), label: footer.sustainability[lang] },
+  {
+    href: localizePath("sostenibilita-ambientale-report", lang),
+    label: footer.sustainabilityReport[lang],
+  },
+  { href: localizePath("impatto-sociale-report", lang), label: footer.impactReport[lang] },
+];
 ---
 
 <footer class="site-footer">
@@ -104,6 +112,12 @@ const offerLinks = CAMPAIGNS.map((c) => ({
         <span class="foot-index-label">{footer.offers[lang]}</span>
         <nav aria-label={footer.offers[lang]}>
           {offerLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+      </div>
+      <div class="foot-index-row">
+        <span class="foot-index-label">{footer.commitment[lang]}</span>
+        <nav aria-label={footer.commitment[lang]}>
+          {commitmentLinks.map((l) => <a href={l.href}>{l.label}</a>)}
         </nav>
       </div>
     </div>

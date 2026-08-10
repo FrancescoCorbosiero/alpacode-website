@@ -1,0 +1,31 @@
+---
+import Layout from "../components/Layout.astro";
+import Sostenibilita from "../components/pages/Sostenibilita.astro";
+import { meta } from "../i18n/ui";
+import { sostenibilita } from "../data/sostenibilita";
+import { breadcrumbSchema, faqPageSchema } from "../lib/schema";
+import { localizePath } from "../i18n/utils";
+const lang = "it" as const;
+const slug = "sostenibilita-ambientale";
+const m = meta[slug];
+const site = Astro.site ?? new URL("https://alpacode.it");
+const jsonLd = [
+  faqPageSchema(sostenibilita[lang].faq),
+  breadcrumbSchema([
+    { name: "Home", url: new URL(localizePath("", lang), site).href },
+    { name: "Sostenibilità ambientale", url: new URL(localizePath(slug, lang), site).href },
+  ]),
+];
+---
+
+<Layout
+  lang={lang}
+  active={slug}
+  slug={slug}
+  title={m.title[lang]}
+  description={m.description[lang]}
+  ogImage="/og-sostenibilita.png"
+  jsonLd={jsonLd}
+>
+  <Sostenibilita lang={lang} />
+</Layout>

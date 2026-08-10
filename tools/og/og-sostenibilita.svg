@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M0 40 H40 M40 0 V40" stroke="#C9C3B1" stroke-opacity="0.45" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="fade" cx="88%" cy="12%" r="60%">
+      <stop offset="0%" stop-color="#3B72E9" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#3B72E9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F4F1E8"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+  <!-- Top strut -->
+  <rect x="0" y="0" width="1200" height="8" fill="#3B72E9"/>
+  <!-- Brand mark -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#7D7A72" font-size="14" letter-spacing="2.8">
+    <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
+  </g>
+  <!-- Eyebrow -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
+    <rect x="80" y="158" width="14" height="14" fill="#3B72E9"/>
+    <text x="106" y="170" fill="#3B72E9">SOSTENIBILITÀ AMBIENTALE · STUDIO REMOTE-NATIVE</text>
+  </g>
+  <!-- Accent bar -->
+  <rect x="80" y="212" width="120" height="8" fill="#3B72E9"/>
+  <!-- Headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="72" fill="#0A0A0A">
+    <text x="80" y="292">LA NOSTRA</text>
+    <text x="80" y="368">IMPRONTA È</text>
+  </g>
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="72" fill="#3B72E9">
+    <text x="80" y="444">PICCOLA COME NOI.</text>
+  </g>
+  <!-- Lede -->
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#54524C">
+    <text x="80" y="512">Zero pendolarismo, nessun ufficio da scaldare, tutto in digitale.</text>
+  </g>
+  <!-- Foot meta -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#7D7A72">
+    <text x="80" y="582">REMOTE-NATIVE · PAPERLESS · REPORT PUBBLICO</text>
+    <text x="1120" y="582" text-anchor="end" fill="#3B72E9">ALPACODE.IT</text>
+  </g>
+</svg>

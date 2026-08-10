@@ -1,0 +1,387 @@
+---
+import type { Lang } from "../../i18n/types";
+import {
+  REPORT_YEARS,
+  impatto,
+  share,
+  yearTotals,
+  type Quarter,
+} from "../../data/impatto-sociale";
+import { localizePath } from "../../i18n/utils";
+import { business } from "../../data/business";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = impatto[lang];
+const sustainReportHref = localizePath("sostenibilita-ambientale-report", lang);
+
+const nf = new Intl.NumberFormat(lang === "it" ? "it-IT" : "en-GB", {
+  maximumFractionDigits: 0,
+});
+const n = (v: number) => nf.format(v);
+
+const years = [...REPORT_YEARS].sort((a, b) => b.year - a.year);
+const current = years[0]!;
+const anchor = (year: number) => `anno-${year}`;
+
+/* ---------- Small multiples ----------
+   Two measures with different units, so two panels with their own
+   scale rather than one chart with two axes. Empty quarters keep
+   their slot: the shape of the year includes what hasn't happened. */
+const FACET_H = 132;
+const FLOOR = 3;
+
+const FACET_KEYS = ["projects", "trainingHours"] as const;
+
+function facetColumns(quarters: Quarter[], key: (typeof FACET_KEYS)[number]) {
+  const values = quarters.map((q) => (q.input ? q.input[key] : null));
+  const peak = Math.max(0, ...values.map((v) => v ?? 0));
+  return quarters.map((q, i) => {
+    const v = values[i] ?? null;
+    return {
+      q,
+      v,
+      h: v && peak > 0 ? Math.max(FLOOR, Math.round((v / peak) * FACET_H)) : 0,
+    };
+  });
+}
+---
+
+<div class="rep soc">
+  {/* ---------- HERO ---------- */}
+  <section class="page-hero rep-hero">
+    <div class="wrap-wide">
+      <div class="crumb">{t.hero.crumb}</div>
+      <h1>
+        <span class="bar" aria-hidden="true"></span>
+        {t.hero.line1}<br />{t.hero.line2}
+      </h1>
+      <p class="lede">{t.hero.lede}</p>
+      <div class="rep-hero-ctas">
+        <a class="btn btn-blue" href="#trimestri">{t.hero.cta1} <span class="arrow">↓</span></a>
+        <a class="btn btn-ghost" href="#metodo">{t.hero.cta2} <span class="arrow">↓</span></a>
+      </div>
+      <div class="rep-hero-meta">
+        <div class="rep-hero-cell">
+          <span class="k">{t.scopeLabel}</span>
+          <span class="v">{t.scopeValue}</span>
+        </div>
+        <div class="rep-hero-cell">
+          <span class="k">{t.updatedLabel}</span>
+          <span class="v">{current.updated}</span>
+        </div>
+        <div class="rep-hero-cell">
+          <span class="k">{t.natureLabel}</span>
+          <span class="v">{t.natureValue}</span>
+        </div>
+      </div>
+      {
+        years.length > 1 && (
+          <nav class="rep-archive" aria-label={t.archiveLabel}>
+            <span class="rep-archive-label">{t.archiveLabel}</span>
+            {years.map((y) => (
+              <a href={`#${anchor(y.year)}`}>{y.year}</a>
+            ))}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+
+  {/* ---------- 01 · THE GAP (the three pillars) ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.gapKicker}</div>
+          <h2>{t.gapTitle}</h2>
+        </div>
+        <p class="lede">{t.gapLede}</p>
+      </div>
+      <div class="soc-pillars">
+        {
+          t.pillars.map((p) => (
+            <article class="soc-pillar">
+              <span class="soc-pillar-no">{p.n}</span>
+              <span class="soc-pillar-k">{p.k}</span>
+              <h3>{p.t}</h3>
+              <span class="soc-pillar-strut" aria-hidden="true" />
+              <p>{p.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    years.map((year, yi) => {
+      const totals = yearTotals(year);
+      const partial = totals.closedQuarters < 4;
+      const kpiValues = [
+        totals.projects,
+        totals.firstTimeOnline,
+        totals.trainingHours,
+        totals.peopleTrained,
+      ];
+      const meterValues = [
+        { part: totals.fixedPriceProjects, whole: totals.projects },
+        { part: totals.handoverDocumented, whole: totals.projects },
+        { part: totals.projectsOutsideMetro, whole: totals.projects },
+      ];
+      return (
+        <div class="rep-year" id={anchor(year.year)}>
+          {/* ---------- 02 · YEAR SUMMARY ---------- */}
+          <section class="section section--tint">
+            <div class="wrap-wide">
+              <div class="rep-year-head">
+                <span class="rep-year-label">{t.yearLabel}</span>
+                <span class="rep-year-num">{year.year}</span>
+                <span class="rep-year-status">{year.status[lang]}</span>
+              </div>
+
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.kpiKicker}</div>
+                  <h2>{t.kpiTitle}</h2>
+                </div>
+                <p class="lede">{t.kpiLede}</p>
+              </div>
+
+              <div class="rep-kpis">
+                {t.kpi.map((k, i) => (
+                  <div class="rep-kpi">
+                    <span class="rep-kpi-k">{k.k}</span>
+                    <span class="rep-kpi-v">{n(kpiValues[i] ?? 0)}</span>
+                    <span class="rep-kpi-u">{k.unit}</span>
+                    <span class="rep-kpi-strut" aria-hidden="true" />
+                    <p>{k.d}</p>
+                  </div>
+                ))}
+              </div>
+              {partial && <p class="rep-partial">{t.partialNote}</p>}
+
+              {/* Three ratios against their own total — meters, not charts. */}
+              <h3 class="soc-meters-title">{t.metersTitle}</h3>
+              <div class="soc-meters">
+                {t.meters.map((m, i) => {
+                  const { part, whole } = meterValues[i]!;
+                  const pct = share(part, whole);
+                  return (
+                    <div class="soc-meter">
+                      <span class="soc-meter-k">{m.k}</span>
+                      <span class="soc-meter-v">{pct}%</span>
+                      <div
+                        class="soc-meter-track"
+                        role="img"
+                        aria-label={`${pct}% — ${n(part)} ${t.meterOf} ${n(whole)}`}
+                      >
+                        <span class="soc-meter-fill" style={`width:${pct}%`} />
+                      </div>
+                      <span class="soc-meter-c">
+                        {n(part)} {t.meterOf} {n(whole)}
+                      </span>
+                      <p>{m.d}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- 03 · SMALL MULTIPLES ---------- */}
+          <section class="section">
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.chartKicker}</div>
+                  <h2>{t.chartTitle}</h2>
+                </div>
+                <p class="lede">{t.chartLede}</p>
+              </div>
+
+              <div class="soc-facets">
+                {FACET_KEYS.map((key, fi) => {
+                  const cols = facetColumns(year.quarters, key);
+                  const facet = t.facets[fi]!;
+                  return (
+                    <figure class="soc-facet">
+                      <figcaption class="soc-facet-head">
+                        <span class="soc-facet-t">{facet.t}</span>
+                        <span class="soc-facet-u">{facet.unit}</span>
+                      </figcaption>
+                      <div
+                        class="soc-facet-plot"
+                        aria-hidden="true"
+                        style={`--facet-h:${FACET_H}px`}
+                      >
+                        {cols.map((c) => (
+                          <div class:list={["soc-fcol", { "is-empty": c.v === null }]}>
+                            <div class="soc-fcol-bars">
+                              {c.v !== null ? (
+                                <>
+                                  <span class="soc-fval">{n(c.v)}</span>
+                                  <span class="soc-fbar" style={`height:${c.h}px`} />
+                                </>
+                              ) : (
+                                <span class="soc-fnodata">{t.chartNoData}</span>
+                              )}
+                            </div>
+                            <span class="soc-fq">{c.q.q}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </figure>
+                  );
+                })}
+              </div>
+              <p class="rep-chart-cap">{t.chartCaption}</p>
+            </div>
+          </section>
+
+          {/* ---------- 04 · QUARTER DETAIL ---------- */}
+          <section class="section section--tint" id={yi === 0 ? "trimestri" : undefined}>
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.quartersKicker}</div>
+                  <h2>{t.quartersTitle}</h2>
+                </div>
+                <p class="lede">{t.quartersLede}</p>
+              </div>
+
+              <div class="rep-quarters">
+                {year.quarters.map((q) => {
+                  const i = q.input;
+                  const lines = i
+                    ? [
+                        { k: t.rows.projects, v: n(i.projects) },
+                        { k: t.rows.firstTimeOnline, v: n(i.firstTimeOnline) },
+                        { k: t.rows.fixedPriceProjects, v: n(i.fixedPriceProjects) },
+                        { k: t.rows.handoverDocumented, v: n(i.handoverDocumented) },
+                        { k: t.rows.projectsOutsideMetro, v: n(i.projectsOutsideMetro) },
+                        { k: t.rows.trainingHours, v: n(i.trainingHours) },
+                        { k: t.rows.peopleTrained, v: n(i.peopleTrained) },
+                        { k: t.rows.freeResources, v: n(i.freeResources) },
+                      ]
+                    : [];
+                  return (
+                    <article class:list={["rep-q", `is-${q.state}`]}>
+                      <header class="rep-q-head">
+                        <span class="rep-q-id">{q.q}</span>
+                        <span class="rep-q-months">{q.months}</span>
+                        <span class="rep-q-state">{t.stateLabel[q.state]}</span>
+                      </header>
+                      {i ? (
+                        <dl class="rep-q-rows">
+                          {lines.map((l) => (
+                            <div class="rep-q-row">
+                              <dt>{l.k}</dt>
+                              <dd>{l.v}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      ) : (
+                        <div class="rep-q-empty">—</div>
+                      )}
+                      <p class="rep-q-note">{q.note[lang]}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- 05 · PLEDGE STATUS ---------- */}
+          <section class="section">
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.pledgeKicker}</div>
+                  <h2>{t.pledgeTitle}</h2>
+                </div>
+              </div>
+              <ul class="rep-pledges">
+                {year.pledges.map((p) => (
+                  <li class:list={["rep-pledge", `is-${p.state}`]}>
+                    <span class="rep-pledge-state">
+                      <span class="rep-pledge-dot" aria-hidden="true" />
+                      {t.pledgeState[p.state]}
+                    </span>
+                    <span class="rep-pledge-t">{p.t[lang]}</span>
+                    <span class="rep-pledge-n">{p.note[lang]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      );
+    })
+  }
+
+  {/* ---------- 06 · METHOD (definitions) ---------- */}
+  <section class="section section--tint" id="metodo">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.methodKicker}</div>
+          <h2>{t.methodTitle}</h2>
+        </div>
+        <p class="lede">{t.methodLede}</p>
+      </div>
+      <dl class="soc-defs">
+        {
+          t.definitions.map((d) => (
+            <div class="soc-def">
+              <dt>{d.t}</dt>
+              <dd>{d.d}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  {/* ---------- 07 · BOUNDARY & LIMITS (ink band) ---------- */}
+  <section class="rep-boundary">
+    <div class="wrap-wide">
+      <div class="sec-num eyebrow rep-boundary-kicker">{t.boundaryKicker}</div>
+      <h2 class="rep-boundary-title">{t.boundaryTitle}</h2>
+      <p class="rep-boundary-lede">{t.boundaryLede}</p>
+      <ul class="rep-boundary-list">
+        {
+          t.boundaryPoints.map((p) => (
+            <li>
+              <span class="rep-boundary-mark" aria-hidden="true" />
+              <span>{p}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- FOOT ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="rep-foot">
+        <a class="sus-cross" href={sustainReportHref}>
+          <span class="sus-cross-tag">{t.crossTag}</span>
+          <span class="sus-cross-title">{t.crossTitle}</span>
+          <span class="sus-cross-body">{t.crossBody}</span>
+          <span class="sus-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
+        </a>
+        <div class="rep-contact">
+          <h3>{t.contactTitle}</h3>
+          <p>{t.contactBody}</p>
+          <a class="btn btn-sm" href={`mailto:${business.email}`}>
+            {t.contactCta} <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

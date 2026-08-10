@@ -1,0 +1,389 @@
+---
+import type { Lang } from "../../i18n/types";
+import {
+  FACTOR_SOURCES,
+  REPORT_YEARS,
+  quarterFigures,
+  report,
+  yearTotals,
+  type Quarter,
+  type QuarterFigures,
+} from "../../data/sostenibilita";
+import { localizePath } from "../../i18n/utils";
+import { business } from "../../data/business";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = report[lang];
+const sustainHref = localizePath("sostenibilita-ambientale", lang);
+const impactHref = localizePath("impatto-sociale-report", lang);
+
+const locale = lang === "it" ? "it-IT" : "en-GB";
+const nf = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat(locale, {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+const n = (v: number) => nf.format(Math.round(v));
+/** Small kg figures — the paper saving is under 1 kg a quarter — would
+ *  round to a meaningless "1"; keep a decimal below 10. */
+const kg = (v: number) => (v < 10 ? nf1.format(v) : nf.format(Math.round(v)));
+
+/* Most recent year first; the archive strip only appears once there is
+   more than one edition. */
+const years = [...REPORT_YEARS].sort((a, b) => b.year - a.year);
+const current = years[0]!;
+const anchor = (year: number) => `anno-${year}`;
+
+/* ---------- Chart geometry ----------
+   Avoided grows up from the baseline, emitted grows down: one shared
+   kg-per-pixel scale for both, derived from the tallest avoided bar.
+   Non-zero values get a 3px floor so a small bar never vanishes; the
+   exact figures are in the quarter table right below the figure. */
+const UP_H = 190;
+const DOWN_H = 56;
+const FLOOR = 3;
+
+interface Column {
+  q: Quarter;
+  f: QuarterFigures | null;
+  up: number;
+  down: number;
+}
+
+function columns(quarters: Quarter[]): Column[] {
+  const figures = quarters.map((q) => (q.input ? quarterFigures(q.input) : null));
+  const peak = Math.max(0, ...figures.map((f) => f?.avoidedKg ?? 0));
+  const scale = peak > 0 ? UP_H / peak : 0;
+  const bar = (v: number, max: number) =>
+    v > 0 ? Math.max(FLOOR, Math.min(max, Math.round(v * scale))) : 0;
+  return quarters.map((q, i) => {
+    const f = figures[i] ?? null;
+    return {
+      q,
+      f,
+      up: f ? bar(f.avoidedKg, UP_H) : 0,
+      down: f ? bar(f.travelKg, DOWN_H) : 0,
+    };
+  });
+}
+---
+
+<div class="rep">
+  {/* ---------- HERO ---------- */}
+  <section class="page-hero rep-hero">
+    <div class="wrap-wide">
+      <div class="crumb">{t.hero.crumb}</div>
+      <h1>
+        <span class="bar" aria-hidden="true"></span>
+        {t.hero.line1}<br />{t.hero.line2}
+      </h1>
+      <p class="lede">{t.hero.lede}</p>
+      <div class="rep-hero-ctas">
+        <a class="btn btn-blue" href="#trimestri">{t.hero.cta1} <span class="arrow">↓</span></a>
+        <a class="btn btn-ghost" href="#metodo">{t.hero.cta2} <span class="arrow">↓</span></a>
+      </div>
+      <div class="rep-hero-meta">
+        <div class="rep-hero-cell">
+          <span class="k">{t.scopeLabel}</span>
+          <span class="v">{t.scopeValue}</span>
+        </div>
+        <div class="rep-hero-cell">
+          <span class="k">{t.updatedLabel}</span>
+          <span class="v">{current.updated}</span>
+        </div>
+        <div class="rep-hero-cell">
+          <span class="k">{t.natureLabel}</span>
+          <span class="v">{t.natureValue}</span>
+        </div>
+      </div>
+      {
+        years.length > 1 && (
+          <nav class="rep-archive" aria-label={t.archiveLabel}>
+            <span class="rep-archive-label">{t.archiveLabel}</span>
+            {years.map((y) => (
+              <a href={`#${anchor(y.year)}`}>{y.year}</a>
+            ))}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    years.map((year, yi) => {
+      const totals = yearTotals(year);
+      const partial = totals.closedQuarters < 4;
+      const cols = columns(year.quarters);
+      const kpiValues = [totals.commuteKm, totals.netKg, totals.sheets, totals.travelKm];
+      return (
+        <div class="rep-year" id={anchor(year.year)}>
+          {/* ---------- 01 · YEAR SUMMARY ---------- */}
+          <section class="section">
+            <div class="wrap-wide">
+              <div class="rep-year-head">
+                <span class="rep-year-label">{t.yearLabel}</span>
+                <span class="rep-year-num">{year.year}</span>
+                <span class="rep-year-status">{year.status[lang]}</span>
+              </div>
+
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.kpiKicker}</div>
+                  <h2>{t.kpiTitle}</h2>
+                </div>
+                <p class="lede">{t.kpiLede}</p>
+              </div>
+
+              <div class="rep-kpis">
+                {t.kpi.map((k, i) => (
+                  <div class="rep-kpi">
+                    <span class="rep-kpi-k">{k.k}</span>
+                    <span class="rep-kpi-v">{n(kpiValues[i] ?? 0)}</span>
+                    <span class="rep-kpi-u">{k.unit}</span>
+                    <span class="rep-kpi-strut" aria-hidden="true" />
+                    <p>{k.d}</p>
+                  </div>
+                ))}
+              </div>
+              {partial && <p class="rep-partial">{t.partialNote}</p>}
+            </div>
+          </section>
+
+          {/* ---------- 02 · QUARTERLY BALANCE (chart) ---------- */}
+          <section class="section section--tint">
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.chartKicker}</div>
+                  <h2>{t.chartTitle}</h2>
+                </div>
+                <p class="lede">{t.chartLede}</p>
+              </div>
+
+              <figure class="rep-chart">
+                <div class="rep-legend">
+                  <span class="rep-legend-item">
+                    <span class="rep-swatch rep-swatch--up" aria-hidden="true" />
+                    {t.chartAvoided}
+                  </span>
+                  <span class="rep-legend-item">
+                    <span class="rep-swatch rep-swatch--down" aria-hidden="true" />
+                    {t.chartEmitted}
+                  </span>
+                  <span class="rep-legend-unit">{t.chartAxis}</span>
+                </div>
+
+                <div class="rep-plot" aria-hidden="true" style={`--up-h:${UP_H}px;--down-h:${DOWN_H}px`}>
+                  {cols.map((c) => (
+                    <div class:list={["rep-col", { "is-empty": !c.f }]}>
+                      <div class="rep-col-up">
+                        {c.f ? (
+                          <>
+                            <span class="rep-val rep-val--up">{n(c.f.avoidedKg)}</span>
+                            <span class="rep-bar rep-bar--up" style={`height:${c.up}px`} />
+                          </>
+                        ) : (
+                          <span class="rep-nodata">{t.chartNoData}</span>
+                        )}
+                      </div>
+                      <div class="rep-baseline" />
+                      <div class="rep-col-down">
+                        {c.f && <span class="rep-bar rep-bar--down" style={`height:${c.down}px`} />}
+                        {c.f && <span class="rep-val rep-val--down">{n(c.f.travelKg)}</span>}
+                      </div>
+                      <div class="rep-col-foot">
+                        <span class="rep-col-q">{c.q.q}</span>
+                        <span class="rep-col-m">{c.q.months}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <figcaption class="rep-chart-cap">
+                  {t.chartCaption}
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          {/* ---------- 03 · QUARTER DETAIL ----------
+              The hero's "go to the quarters" anchor lands on the most
+              recent edition, so only that one carries the shared id. */}
+          <section class="section" id={yi === 0 ? "trimestri" : undefined}>
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.quartersKicker}</div>
+                  <h2>{t.quartersTitle}</h2>
+                </div>
+                <p class="lede">{t.quartersLede}</p>
+              </div>
+
+              <div class="rep-quarters">
+                {year.quarters.map((q) => {
+                  const f = q.input ? quarterFigures(q.input) : null;
+                  const lines = f
+                    ? [
+                        { k: t.rows.commuteKm, v: `${n(f.commuteKm)} km` },
+                        { k: t.rows.commuteKg, v: `${kg(f.commuteKg)} kg` },
+                        { k: t.rows.sheets, v: n(f.sheets) },
+                        { k: t.rows.paperKg, v: `${kg(f.paperKg)} kg` },
+                        { k: t.rows.travelKm, v: `${n(f.travelKm)} km` },
+                        { k: t.rows.travelKg, v: `− ${kg(f.travelKg)} kg` },
+                      ]
+                    : [];
+                  return (
+                    <article class:list={["rep-q", `is-${q.state}`]}>
+                      <header class="rep-q-head">
+                        <span class="rep-q-id">{q.q}</span>
+                        <span class="rep-q-months">{q.months}</span>
+                        <span class="rep-q-state">{t.stateLabel[q.state]}</span>
+                      </header>
+                      {f ? (
+                        <>
+                          <dl class="rep-q-rows">
+                            {lines.map((l) => (
+                              <div class="rep-q-row">
+                                <dt>{l.k}</dt>
+                                <dd>{l.v}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                          <div class="rep-q-net">
+                            <span class="k">{t.rows.netKg}</span>
+                            <span class="v">{n(f.netKg)} kg CO₂e</span>
+                          </div>
+                        </>
+                      ) : (
+                        <div class="rep-q-empty">—</div>
+                      )}
+                      <p class="rep-q-note">{q.note[lang]}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- 04 · PLEDGE STATUS ---------- */}
+          <section class="section section--tint">
+            <div class="wrap-wide">
+              <div class="section-head">
+                <div>
+                  <div class="sec-num eyebrow">{t.pledgeKicker}</div>
+                  <h2>{t.pledgeTitle}</h2>
+                </div>
+              </div>
+              <ul class="rep-pledges">
+                {year.pledges.map((p) => (
+                  <li class:list={["rep-pledge", `is-${p.state}`]}>
+                    <span class="rep-pledge-state">
+                      <span class="rep-pledge-dot" aria-hidden="true" />
+                      {t.pledgeState[p.state]}
+                    </span>
+                    <span class="rep-pledge-t">{p.t[lang]}</span>
+                    <span class="rep-pledge-n">{p.note[lang]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      );
+    })
+  }
+
+  {/* ---------- 05 · METHOD ---------- */}
+  <section class="section" id="metodo">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <div class="sec-num eyebrow">{t.methodKicker}</div>
+          <h2>{t.methodTitle}</h2>
+        </div>
+        <p class="lede">{t.methodLede}</p>
+      </div>
+
+      <div class="rep-formulas">
+        {
+          t.formulas.map((f) => (
+            <div class="rep-formula">
+              <h3>{f.t}</h3>
+              <code class="rep-formula-f">{f.f}</code>
+              <p>{f.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="rep-factors">
+        <div class="rep-factors-col">
+          <h3>{t.factorsTitle}</h3>
+          <dl class="rep-factor-rows">
+            {
+              t.factorRows.map((r) => (
+                <div class="rep-factor-row">
+                  <dt>{r.k}</dt>
+                  <dd>{r.v}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div class="rep-factors-col">
+          <h3>{t.sourcesTitle}</h3>
+          <ul class="rep-sources">
+            {FACTOR_SOURCES[lang].map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 06 · BOUNDARY & LIMITS (ink band) ---------- */}
+  <section class="rep-boundary">
+    <div class="wrap-wide">
+      <div class="sec-num eyebrow rep-boundary-kicker">{t.boundaryKicker}</div>
+      <h2 class="rep-boundary-title">{t.boundaryTitle}</h2>
+      <p class="rep-boundary-lede">{t.boundaryLede}</p>
+      <ul class="rep-boundary-list">
+        {
+          t.boundaryPoints.map((p) => (
+            <li>
+              <span class="rep-boundary-mark" aria-hidden="true" />
+              <span>{p}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- FOOT ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="rep-foot">
+        <a class="sus-cross" href={sustainHref}>
+          <span class="sus-cross-tag">{t.crossTag}</span>
+          <span class="sus-cross-title">{t.crossTitle}</span>
+          <span class="sus-cross-body">{t.crossBody}</span>
+          <span class="sus-cross-cta">{t.crossCta} <span class="arrow">→</span></span>
+        </a>
+        <div class="rep-contact">
+          <h3>{t.contactTitle}</h3>
+          <p>{t.contactBody}</p>
+          <a class="btn btn-sm" href={`mailto:${business.email}`}>
+            {t.contactCta} <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <p class="rep-sibling">
+        <span>{t.siblingLabel}</span>
+        <a href={impactHref}>{t.siblingCta} <span class="arrow">→</span></a>
+      </p>
+    </div>
+  </section>
+</div>
