@@ -1,0 +1,44 @@
+---
+import Layout from "../components/Layout.astro";
+import ImpattoSociale from "../components/pages/ImpattoSociale.astro";
+import { meta } from "../i18n/ui";
+import { REPORT_YEARS } from "../data/impatto-sociale";
+import { breadcrumbSchema, reportSchema } from "../lib/schema";
+import { localizePath } from "../i18n/utils";
+const lang = "it" as const;
+const slug = "impatto-sociale-report";
+const m = meta[slug];
+const site = Astro.site ?? new URL("https://alpacode.it");
+const url = new URL(localizePath(slug, lang), site).href;
+
+/* Latest edition drives the schema's period and cut-off date. */
+const current = [...REPORT_YEARS].sort((a, b) => b.year - a.year)[0]!;
+const [d, mo, y] = current.updated.split(".");
+const jsonLd = [
+  reportSchema({
+    name: m.title[lang],
+    description: m.description[lang],
+    url,
+    lang,
+    siteUrl: site.href,
+    period: String(current.year),
+    dateModified: `${y}-${mo}-${d}`,
+  }),
+  breadcrumbSchema([
+    { name: "Home", url: new URL(localizePath("", lang), site).href },
+    { name: `Report di impatto sociale ${current.year}`, url },
+  ]),
+];
+---
+
+<Layout
+  lang={lang}
+  active={slug}
+  slug={slug}
+  title={m.title[lang]}
+  description={m.description[lang]}
+  ogImage="/og-impatto-sociale.png"
+  jsonLd={jsonLd}
+>
+  <ImpattoSociale lang={lang} />
+</Layout>

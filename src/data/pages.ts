@@ -13,7 +13,8 @@ export type PageKey =
      secondary nav, the ⌘K palette and cross-links. */
   | "lavora-con-noi"
   | "sostenibilita-ambientale"
-  | "sostenibilita-ambientale-report";
+  | "sostenibilita-ambientale-report"
+  | "impatto-sociale-report";
 
 export type MegaKey = "servizi" | "prodotti" | "learning";
 

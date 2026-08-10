@@ -46,6 +46,7 @@ export const footer = {
   commitment: { it: "Impegno", en: "Commitment" },
   sustainability: { it: "Sostenibilità ambientale", en: "Environmental sustainability" },
   sustainabilityReport: { it: "Report di sostenibilità", en: "Sustainability report" },
+  impactReport: { it: "Report di impatto sociale", en: "Social impact report" },
   privacy: { it: "Privacy", en: "Privacy" },
   cookies: { it: "Cookie", en: "Cookies" },
   terms: { it: "Termini", en: "Terms" },
@@ -101,6 +102,16 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
     description: {
       it: "Il nostro report ambientale, trimestre per trimestre: pendolarismo evitato, documenti solo digitali e trasferte effettuate, sottratte dal saldo. Stime interne con metodo e fattori di calcolo pubblicati.",
       en: "Our environmental report, quarter by quarter: commuting avoided, digital-only documents and business travel taken, subtracted from the balance. Internal estimates with the method and factors published.",
+    },
+  },
+  "impatto-sociale-report": {
+    title: {
+      it: "Report di impatto sociale · Alpacode",
+      en: "Social impact report · Alpacode",
+    },
+    description: {
+      it: "Il nostro report di impatto sociale, trimestre per trimestre: progetti per privati e piccole attività, attività portate online per la prima volta, ore di formazione e persone formate. Conteggi interni, con la definizione di ogni indicatore.",
+      en: "Our social impact report, quarter by quarter: projects for individuals and small businesses, businesses brought online for the first time, training hours and people trained. Internal counts, with every indicator defined.",
     },
   },
   home: {

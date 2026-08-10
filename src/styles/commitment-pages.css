@@ -1,13 +1,20 @@
 /* ============================================================
-   Sostenibilità ambientale — showcase (.sus) + report (.rep)
+   "Impegno" pages — the studio's public commitments.
 
-   Both pages keep the house chrome (full header, full footer)
+     .sus   sostenibilità ambientale, the showcase page
+     .rep   the shared report chrome: hero tail, year header,
+            KPI tiles, quarter cards, pledge list, boundary band,
+            foot. Worn by BOTH annual reports.
+     .soc   what only the social-impact report adds: the three
+            pillars, the share meters, the small multiples.
+
+   These pages keep the house chrome (full header, full footer)
    because they are institutional pages, not campaign landings:
    they inherit the standard tokens instead of declaring their
    own dark palette.
 
    The only addition is ONE data-viz pair, used exclusively for
-   the report chart and its legend:
+   the environmental report's diverging chart and its legend:
 
      --sus-up    avoided   (brand blue, the positive direction)
      --sus-down  emitted   (terracotta, the negative direction)
@@ -27,6 +34,9 @@
   --sus-up: #5b8cf5;
   --sus-down: #e0703f;
 }
+/* The social report is single-series everywhere — columns and meter
+   fills all carry the same meaning — so it uses the brand hue alone
+   and needs no second colour. */
 
 /* ============================================================
    Shared hero tail — CTAs + meta cells under the page hero
@@ -885,6 +895,271 @@
   line-height: 1.55;
   color: var(--mute-2);
 }
+/* Pointer to the other annual report — the two are siblings and each
+   links to the other, so neither is a dead end. */
+.rep-sibling {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rep-sibling a {
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+  padding-bottom: 2px;
+}
+.rep-sibling a:hover {
+  color: var(--blue-deep);
+  border-color: var(--blue-deep);
+}
+
+/* ============================================================
+   SOCIAL REPORT — the three pillars
+   ============================================================ */
+.soc-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.soc-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px 28px 34px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+}
+.soc-pillar:last-child {
+  border-right: 0;
+}
+.soc-pillar-no {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+}
+.soc-pillar-k {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-pillar h3 {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.soc-pillar-strut {
+  display: block;
+  width: 40px;
+  height: var(--strut);
+  background: var(--blue);
+}
+.soc-pillar p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+
+/* ============================================================
+   SOCIAL REPORT — share meters
+
+   A ratio against its own total is a meter, not a chart: one
+   hue, a track from the same ramp, the count spelled out under
+   it so the percentage is never the only evidence.
+   ============================================================ */
+.soc-meters-title {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin: 56px 0 18px;
+}
+.soc-meters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.soc-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 26px 26px 28px;
+  border-right: 1px solid var(--rule);
+}
+.soc-meter:last-child {
+  border-right: 0;
+}
+.soc-meter-k {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.soc-meter-v {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.4vw, 42px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.soc-meter-track {
+  height: 10px;
+  background: var(--blue-soft);
+  border: 1px solid var(--rule);
+  margin-top: 2px;
+}
+.soc-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+}
+.soc-meter-c {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--mute-2);
+  font-variant-numeric: tabular-nums;
+}
+.soc-meter p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+
+/* ============================================================
+   SOCIAL REPORT — small multiples
+
+   Two measures in different units, so two panels each with its
+   own scale. Never one chart with two axes; heights are read
+   inside a panel, never across panels — the caption says so.
+   ============================================================ */
+.soc-facets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.soc-facet {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+.soc-facet-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0 18px;
+}
+.soc-facet-t {
+  font-weight: 700;
+  font-size: 16px;
+}
+.soc-facet-u {
+  font-family: var(--t-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-facet-plot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+.soc-fcol {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 10px 0;
+  border-right: 1px solid var(--rule);
+}
+.soc-fcol:last-child {
+  border-right: 0;
+}
+.soc-fcol.is-empty {
+  background: repeating-linear-gradient(135deg, transparent 0 7px, var(--paper-2) 7px 8px);
+}
+.soc-fcol-bars {
+  height: var(--facet-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.soc-fbar {
+  display: block;
+  width: 100%;
+  max-width: 72px;
+  background: var(--blue);
+}
+.soc-fval {
+  font-family: var(--t-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.soc-fnodata {
+  margin-top: auto;
+  margin-bottom: 6px;
+  font-family: var(--t-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.soc-fq {
+  font-family: var(--display);
+  font-size: 15px;
+  line-height: 1;
+  text-align: center;
+  padding: 12px 0 14px;
+}
+
+/* ============================================================
+   SOCIAL REPORT — definitions
+   ============================================================ */
+.soc-defs {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+.soc-def {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.soc-def dt {
+  font-weight: 700;
+  font-size: 16px;
+}
+.soc-def dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  max-width: 82ch;
+}
 
 /* ============================================================
    Responsive
@@ -905,8 +1180,19 @@
   .rep-q:nth-child(-n + 2) {
     border-bottom: 1px solid var(--rule);
   }
-  .rep-formulas {
+  .rep-formulas,
+  .soc-pillars,
+  .soc-meters {
     grid-template-columns: 1fr;
+  }
+  .soc-pillar,
+  .soc-meter {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .soc-pillar:last-child,
+  .soc-meter:last-child {
+    border-bottom: 0;
   }
   .rep-formula {
     border-right: 0;
@@ -958,6 +1244,14 @@
     margin-left: 0;
     width: 100%;
   }
+  .soc-facets {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .soc-def {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -996,6 +1290,15 @@
   }
   .rep-bar {
     max-width: 60px;
+  }
+  .soc-fcol {
+    padding: 12px 4px 0;
+  }
+  .soc-fbar {
+    max-width: 50px;
+  }
+  .soc-fval {
+    font-size: 10px;
   }
   .rep-val {
     font-size: 10px;

@@ -1,4 +1,7 @@
 import type { Lang, Localized } from "../i18n/types";
+import type { PledgeStatus, QuarterId, QuarterState } from "./report-common";
+
+export type { PledgeStatus, QuarterId, QuarterState };
 
 /* ============================================================
    Sostenibilità ambientale — showcase page + annual report.
@@ -457,11 +460,6 @@ export const FACTOR_SOURCES: Localized<string[]> = {
   ],
 };
 
-export type QuarterId = "Q1" | "Q2" | "Q3" | "Q4";
-
-/** Closed = counted. Open = running, no figures yet. Upcoming = not started. */
-export type QuarterState = "closed" | "open" | "upcoming";
-
 /**
  * Raw operational counts for one quarter. THIS is what gets edited when a
  * quarter closes — everything on the page is derived from these.
@@ -490,12 +488,6 @@ export interface Quarter {
   state: QuarterState;
   /** Present only for closed quarters. */
   input?: QuarterInput;
-  note: Localized;
-}
-
-export interface PledgeStatus {
-  t: Localized;
-  state: "done" | "doing" | "planned";
   note: Localized;
 }
 
@@ -777,6 +769,9 @@ export interface ReportCopy {
   contactTitle: string;
   contactBody: string;
   contactCta: string;
+  /** Pointer to the other annual report. */
+  siblingLabel: string;
+  siblingCta: string;
 }
 
 export const report: Record<Lang, ReportCopy> = {
@@ -906,6 +901,8 @@ export const report: Record<Lang, ReportCopy> = {
     contactBody:
       "Se un conto non torna, o pensi che un fattore vada corretto, scrivici: le correzioni finiscono nella prossima edizione, con la data.",
     contactCta: "Scrivici",
+    siblingLabel: "L'altro report che pubblichiamo",
+    siblingCta: "Impatto sociale",
   },
 
   en: {
@@ -1034,5 +1031,7 @@ export const report: Record<Lang, ReportCopy> = {
     contactBody:
       "If something doesn't add up, or you think a factor should be corrected, write to us: corrections go into the next edition, with the date.",
     contactCta: "Write to us",
+    siblingLabel: "The other report we publish",
+    siblingCta: "Social impact",
   },
 };
