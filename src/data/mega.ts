@@ -100,7 +100,7 @@ export const megaProdotti: MegaMenu = {
         n: "03",
         t: { it: "Paco", en: "Paco" },
         d: {
-          it: "Il concierge AI che gestisce il tuo sito da WhatsApp",
+          it: "L'assistente AI che gestisce il tuo sito da WhatsApp",
           en: "The AI concierge that runs your website from WhatsApp",
         },
       },

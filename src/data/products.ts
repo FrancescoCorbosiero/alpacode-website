@@ -75,9 +75,9 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "03",
-            tag: "CONCIERGE AI",
+            tag: "ASSISTENTE AI",
             t: "Paco",
-            d: "Il concierge AI che fa da tramite tra te e il tuo sito web. Il sito lo genera lui, tu lo gestisci scrivendogli su WhatsApp: aggiornamenti, offerte e risposte ai clienti, tutto in chat.",
+            d: "L'assistente AI che fa da tramite tra te e il tuo sito web. Il sito lo genera lui, tu lo gestisci scrivendogli su WhatsApp: aggiornamenti, offerte e risposte ai clienti, tutto in chat.",
             forWho: "Per chi vuole un sito senza pensieri",
             items: ["Sito web generato dall'AI", "Gestione in chat, su WhatsApp", "Risponde ai tuoi clienti", "Zero pannelli di controllo", "Sempre aggiornato"],
             meta: [
