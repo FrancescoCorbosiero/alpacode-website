@@ -435,7 +435,7 @@ export const paco: Record<Lang, ProductPage> = {
   it: {
     title: "Paco · Il tuo sito web, gestito in chat · Alpacode",
     description:
-      "Paco è il concierge AI che genera e gestisce il tuo sito web da WhatsApp: tu scrivi in chat, lui aggiorna il sito e risponde ai tuoi clienti. Early access da Q4 2026.",
+      "Paco è l'assistente AI che genera e gestisce il tuo sito web da WhatsApp: tu scrivi in chat, lui aggiorna il sito e risponde ai tuoi clienti. Early access da Q4 2026.",
     ogImage: "/og-paco.png",
 
     crumb: "PRODOTTI · 03 PACO",
@@ -443,7 +443,7 @@ export const paco: Record<Lang, ProductPage> = {
     h1Line1: "Il tuo sito web,",
     h1Line2: "in una chat.",
     lede:
-      "Paco è il concierge AI che fa da tramite tra te e il tuo sito. Il sito lo genera lui, gli aggiornamenti glieli scrivi su WhatsApp, e ai clienti risponde lui. Niente pannelli, niente password: una chat.",
+      "Paco è l'assistente AI che fa da tramite tra te e il tuo sito. Il sito lo genera lui, gli aggiornamenti glieli scrivi su WhatsApp, e ai clienti risponde lui. Niente pannelli, niente password: una chat.",
     ctaPrimary: "Prenota una call",
     ctaSecondary: "Richiedi l'early access",
     heroMeta: [
