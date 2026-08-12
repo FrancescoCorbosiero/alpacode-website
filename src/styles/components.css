@@ -2963,7 +2963,7 @@ cal-modal-box iframe,
 
 /* ---------- Featured products (flagship treatment) ---------- */
 .product-grid--featured {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 0;
   border-bottom: 0;
   gap: 20px;

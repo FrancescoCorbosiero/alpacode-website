@@ -1,0 +1,19 @@
+---
+import Layout from "../components/Layout.astro";
+import ProductPage from "../components/pages/ProductPage.astro";
+import { paco } from "../data/product-pages";
+const lang = "it" as const;
+const data = paco[lang];
+---
+
+<Layout
+  lang={lang}
+  active="prodotti"
+  slug="paco"
+  title={data.title}
+  description={data.description}
+  ogImage={data.ogImage}
+  noindex
+>
+  <ProductPage lang={lang} variant="paco" data={data} />
+</Layout>

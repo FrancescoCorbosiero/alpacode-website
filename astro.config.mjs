@@ -55,7 +55,7 @@ export default defineConfig({
       // Pre-launch product pages: noindex'd, so keep them out of the sitemap
       // until launch. Drop these entries when going live.
       filter: (page) =>
-        !/\/(hive-commerce|alpacode-pro-kit)\/?$/.test(page),
+        !/\/(hive-commerce|alpacode-pro-kit|paco)\/?$/.test(page),
     }),
   ],
   i18n: {

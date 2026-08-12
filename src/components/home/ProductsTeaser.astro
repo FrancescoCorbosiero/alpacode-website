@@ -13,7 +13,7 @@ const { lang, bare = false } = Astro.props;
 const t = productsTeaser[lang];
 const num = bare ? t.num.replace(/^\d+\s*·\s*/, "") : t.num;
 const all = prodotti[lang].groups.flatMap((g) => g.list);
-// Lead with the two flagship products, then an entry package.
+// Lead with the three flagship digital products.
 const featured = [all[0], all[1], all[2]].filter(Boolean);
 const prodottiHref = localizePath("prodotti", lang);
 const more = lang === "it" ? "Scopri" : "Learn more";

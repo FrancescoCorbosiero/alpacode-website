@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="bubbles" patternUnits="userSpaceOnUse" width="112" height="112">
+      <g fill="none" stroke="#25D366" stroke-opacity="0.12" stroke-width="1">
+        <path d="M10 14 H70 V50 H30 L20 60 V50 H10 Z"/>
+        <path d="M50 66 H102 V96 H92 V106 L82 96 H50 Z"/>
+      </g>
+    </pattern>
+    <radialGradient id="spot" cx="85%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#25D366" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#25D366" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="vignette" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F0C" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0A0F0C" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0A0F0C"/>
+  <rect width="1200" height="630" fill="url(#bubbles)"/>
+  <rect width="1200" height="630" fill="url(#spot)"/>
+  <rect width="1200" height="630" fill="url(#vignette)" opacity="0.5"/>
+  <!-- Top strut -->
+  <rect x="0" y="0" width="1200" height="8" fill="#25D366"/>
+  <!-- Brand mark -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" fill="#8A857A" font-size="14" letter-spacing="2.8">
+    <text x="80" y="80">ALPACODE · SOLUZIONI DIGITALI</text>
+  </g>
+  <!-- Eyebrow -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" letter-spacing="3.2">
+    <rect x="80" y="160" width="14" height="14" fill="#25D366"/>
+    <text x="106" y="172" fill="#25D366">EARLY ACCESS · Q4 2026</text>
+  </g>
+  <!-- Accent bar -->
+  <rect x="80" y="220" width="120" height="8" fill="#25D366"/>
+  <!-- Headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="108" fill="#F0F4EE">
+    <text x="80" y="332">PACO</text>
+  </g>
+  <!-- Sub-headline -->
+  <g font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="56" fill="#25D366">
+    <text x="80" y="406">Il tuo sito, in una chat.</text>
+  </g>
+  <!-- Lede -->
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#B3B0A8">
+    <text x="80" y="470">Il concierge AI che genera e gestisce il tuo</text>
+    <text x="80" y="502">sito web. Direttamente su WhatsApp.</text>
+  </g>
+  <!-- Foot meta -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#8A857A">
+    <text x="80" y="582">PRODOTTO · 03 · PACO</text>
+    <text x="1120" y="582" text-anchor="end" fill="#25D366">ALPACODE.IT</text>
+  </g>
+</svg>
