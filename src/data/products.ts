@@ -73,6 +73,20 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
             slug: "alpacode-pro-kit",
           },
+          {
+            n: "03",
+            tag: "CONCIERGE AI",
+            t: "Paco",
+            d: "Il concierge AI che fa da tramite tra te e il tuo sito web. Il sito lo genera lui, tu lo gestisci scrivendogli su WhatsApp: aggiornamenti, offerte e risposte ai clienti, tutto in chat.",
+            forWho: "Per chi vuole un sito senza pensieri",
+            items: ["Sito web generato dall'AI", "Gestione in chat, su WhatsApp", "Risponde ai tuoi clienti", "Zero pannelli di controllo", "Sempre aggiornato"],
+            meta: [
+              { k: "Tipo", v: "Chatbot AI" },
+              { k: "Canale", v: "WhatsApp" },
+              { k: "Licenza", v: "Su richiesta" },
+            ],
+            slug: "paco",
+          },
         ],
       },
       {
@@ -80,7 +94,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         tagline: "Soluzioni a prezzo fisso per partire in fretta.",
         list: [
           {
-            n: "03",
+            n: "04",
             tag: "PREZZO FISSO",
             t: "Sito Pronto",
             d: "Il sito della tua attività, pronto in poche settimane. Design su misura, veloce e pensato per portarti clienti.",
@@ -93,7 +107,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "04",
+            n: "05",
             tag: "PREZZO FISSO",
             t: "E-commerce Starter",
             d: "Un negozio online pronto a vendere: catalogo, pagamenti e spedizioni già configurati e collaudati.",
@@ -106,7 +120,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "05",
+            n: "06",
             tag: "PREZZO FISSO",
             t: "Brand Kit",
             d: "Logo, colori e identità visiva pronti all'uso. Tutto quello che serve per presentarti bene, ovunque.",
@@ -119,7 +133,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "06",
+            n: "07",
             tag: "PREZZO FISSO",
             t: "Landing & ADV",
             d: "Una pagina pensata per convertire e una campagna pubblicitaria avviata e tracciata. Per un lancio o una promozione.",
@@ -175,6 +189,20 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
             slug: "alpacode-pro-kit",
           },
+          {
+            n: "03",
+            tag: "AI CONCIERGE",
+            t: "Paco",
+            d: "The AI concierge that sits between you and your website. It generates the site, you run it by texting on WhatsApp: updates, offers and customer replies, all in chat.",
+            forWho: "For a website with zero overhead",
+            items: ["AI-generated website", "Managed in chat, on WhatsApp", "Answers your customers", "Zero control panels", "Always up to date"],
+            meta: [
+              { k: "Type", v: "AI chatbot" },
+              { k: "Channel", v: "WhatsApp" },
+              { k: "License", v: "On request" },
+            ],
+            slug: "paco",
+          },
         ],
       },
       {
@@ -182,7 +210,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         tagline: "Fixed-price solutions to get going fast.",
         list: [
           {
-            n: "03",
+            n: "04",
             tag: "FIXED PRICE",
             t: "Ready Site",
             d: "Your business website, ready in a few weeks. Custom design, fast, and built to bring you clients.",
@@ -195,7 +223,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "04",
+            n: "05",
             tag: "FIXED PRICE",
             t: "E-commerce Starter",
             d: "An online shop ready to sell: catalog, payments and shipping already set up and tested.",
@@ -208,7 +236,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "05",
+            n: "06",
             tag: "FIXED PRICE",
             t: "Brand Kit",
             d: "Logo, colors and a visual identity ready to use. Everything you need to present yourself well, everywhere.",
@@ -221,7 +249,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             ],
           },
           {
-            n: "06",
+            n: "07",
             tag: "FIXED PRICE",
             t: "Landing & ADV",
             d: "A page built to convert and an advertising campaign launched and tracked. For a launch or a promotion.",

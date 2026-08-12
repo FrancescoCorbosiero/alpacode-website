@@ -1,6 +1,7 @@
 /* ============================================================
-   Product detail pages — Hive Commerce & Alpacode Pro Kit.
-   Shared structure (.pp), variant palettes (.pp--hive / .pp--pro-kit).
+   Product detail pages — Hive Commerce, Alpacode Pro Kit & Paco.
+   Shared structure (.pp), variant palettes
+   (.pp--hive / .pp--pro-kit / .pp--paco).
 
    The variants override accent/background tokens; the layout
    itself stays identical so we only maintain one structure.
@@ -53,6 +54,29 @@
   --pp-stage-grid: rgba(230, 52, 34, 0.1);
   --pp-stage-card-bg: #fbfaf4;
   --pp-stage-card-border: #c9c3b1;
+}
+
+.pp--paco {
+  /* green-tinted dark + WhatsApp green */
+  --pp-bg: #0a0f0c;
+  --pp-bg-2: #101711;
+  --pp-bg-3: #182019;
+  --pp-surface: #121a14;
+  --pp-fg: #f0f4ee;
+  --pp-fg-mute: #a9b3a8;
+  --pp-fg-faint: #6a7268;
+  --pp-rule: #212a22;
+  --pp-rule-strong: #323d33;
+  --pp-accent: #25d366;
+  --pp-accent-deep: #1daf53;
+  --pp-accent-ink: #06130a; /* text color over the accent */
+  --pp-invert-bg: #f0f4ee;
+  --pp-invert-fg: #0a0f0c;
+  --pp-invert-mute: #4e564d;
+  --pp-invert-rule: #c3cbc0;
+  --pp-stage-grid: rgba(37, 211, 102, 0.09);
+  --pp-stage-card-bg: #0d130f;
+  --pp-stage-card-border: #212a22;
 }
 
 /* ---------- Root container ---------- */
@@ -136,6 +160,16 @@
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='51.96' height='90' viewBox='0 0 51.96 90'%3E%3Cg fill='none' stroke='%23FFD400' stroke-opacity='0.14' stroke-width='1'%3E%3Cpath d='M25.98 -15 L51.96 0 L51.96 30 L25.98 45 L0 30 L0 0 Z'/%3E%3Cpath d='M0 30 L25.98 45 L25.98 75 L0 90 L-25.98 75 L-25.98 45 Z'/%3E%3Cpath d='M51.96 30 L77.94 45 L77.94 75 L51.96 90 L25.98 75 L25.98 45 Z'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 52px 90px;
+  background-repeat: repeat;
+}
+
+/* Paco: square chat bubbles (brand rule: no rounded corners) in place
+   of the isometric tile. Two offset bubbles per 112px tile, tails
+   alternating left/right like a conversation. */
+.pp--paco .pp-hero::before {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%2325D366' stroke-opacity='0.14' stroke-width='1'%3E%3Cpath d='M10 14 H70 V50 H30 L20 60 V50 H10 Z'/%3E%3Cpath d='M50 66 H102 V96 H92 V106 L82 96 H50 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 112px 112px;
   background-repeat: repeat;
 }
 
@@ -529,6 +563,16 @@
     52px 90px;
   background-repeat: no-repeat, repeat;
 }
+/* Paco: faint chat bubbles beneath the radial glow on the closer */
+.pp--paco .pp-cta-final::before {
+  background:
+    radial-gradient(60% 80% at 50% 100%, var(--pp-stage-grid), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%2325D366' stroke-opacity='0.10' stroke-width='1'%3E%3Cpath d='M10 14 H70 V50 H30 L20 60 V50 H10 Z'/%3E%3Cpath d='M50 66 H102 V96 H92 V106 L82 96 H50 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:
+    100% 100%,
+    112px 112px;
+  background-repeat: no-repeat, repeat;
+}
 .pp-cta-final .wrap-wide {
   position: relative;
   z-index: 1;
@@ -607,12 +651,15 @@
   font-weight: 400;
 }
 
-/* The Hive page has a dark body. The site's normal page background is paper,
-   so we paint the body to match the variant where these pages are mounted.
-   Literal ink (not var(--ink)): this page is dark in BOTH color schemes,
-   and in dark mode the shared token flips to a light value. */
+/* The Hive and Paco pages have dark bodies. The site's normal page background
+   is paper, so we paint the body to match the variant where these pages are
+   mounted. Literal ink (not var(--ink)): these pages are dark in BOTH color
+   schemes, and in dark mode the shared token flips to a light value. */
 body[data-page="prodotti"]:has(.pp--hive) {
   background: #0a0a0a;
+}
+body[data-page="prodotti"]:has(.pp--paco) {
+  background: #0a0f0c;
 }
 
 /* =============================================================

@@ -6,11 +6,13 @@ import BookCall from "../BookCall.astro";
 
 interface Props {
   lang: Lang;
-  /** Visual theme: hive = dark + yellow, pro-kit = paper + coral red. */
-  variant: "hive" | "pro-kit";
+  /** Visual theme: hive = dark + yellow, pro-kit = paper + coral red,
+   *  paco = dark + WhatsApp green. */
+  variant: "hive" | "pro-kit" | "paco";
   data: ProductPage;
 }
 const { lang, variant, data: t } = Astro.props;
+const stageTag = { hive: "HIVE.DASH", "pro-kit": "PROKIT.APP", paco: "PACO.CHAT" }[variant];
 const prodottiHref = localizePath("prodotti", lang);
 const variantClass = `pp pp--${variant}`;
 ---
@@ -51,7 +53,7 @@ const variantClass = `pp pp--${variant}`;
           <div class="pp-hero-stage-card-row pp-hero-stage-card-row--3"></div>
           <div class="pp-hero-stage-card-row pp-hero-stage-card-row--4"></div>
         </div>
-        <div class="pp-hero-stage-tag">{variant === "hive" ? "HIVE.DASH" : "PROKIT.APP"}</div>
+        <div class="pp-hero-stage-tag">{stageTag}</div>
       </div>
 
       <div class="pp-hero-meta">

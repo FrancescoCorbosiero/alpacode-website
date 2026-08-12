@@ -1,7 +1,7 @@
 /* ============================================================
-   Product detail pages — early-access teasers for Hive Commerce
-   and Alpacode Pro Kit. Lean structure: hero, pitch, four features,
-   early-access perks, final CTA.
+   Product detail pages — early-access teasers for Hive Commerce,
+   Alpacode Pro Kit and Paco. Lean structure: hero, pitch, four
+   features, early-access perks, final CTA.
    ============================================================ */
 import type { Lang } from "../i18n/types";
 
@@ -420,6 +420,183 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     ctaFinalLine2: "reinventing the wheel?",
     ctaFinalSub:
       "Thirty minutes on a call: we show you what's in the kit and tell you straight if it's the right time.",
+    ctaFinalCta: "Book a call",
+    ctaFinalAlt: "Back to products",
+
+    stickyCta: "Book a call",
+  },
+};
+
+/* ------------------------------------------------------------
+   Paco — the AI concierge that runs your website from WhatsApp.
+   The name hides in plain sight: al-PACO-de.
+   ------------------------------------------------------------ */
+export const paco: Record<Lang, ProductPage> = {
+  it: {
+    title: "Paco · Il tuo sito web, gestito in chat · Alpacode",
+    description:
+      "Paco è il concierge AI che genera e gestisce il tuo sito web da WhatsApp: tu scrivi in chat, lui aggiorna il sito e risponde ai tuoi clienti. Early access da Q4 2026.",
+    ogImage: "/og-paco.png",
+
+    crumb: "PRODOTTI · 03 PACO",
+    eyebrow: "EARLY ACCESS · Q4 2026",
+    h1Line1: "Il tuo sito web,",
+    h1Line2: "in una chat.",
+    lede:
+      "Paco è il concierge AI che fa da tramite tra te e il tuo sito. Il sito lo genera lui, gli aggiornamenti glieli scrivi su WhatsApp, e ai clienti risponde lui. Niente pannelli, niente password: una chat.",
+    ctaPrimary: "Prenota una call",
+    ctaSecondary: "Richiedi l'early access",
+    heroMeta: [
+      { k: "Tipo", v: "Chatbot AI" },
+      { k: "Canale", v: "WhatsApp" },
+      { k: "Disponibile", v: "Q4 2026" },
+      { k: "Licenza", v: "Su richiesta" },
+    ],
+
+    pitchEyebrow: "§ 01 — PERCHÉ PACO",
+    pitchLead:
+      "Il problema non è avere un sito. È tutto quello che viene dopo.",
+    pitchBody:
+      "Aggiornare gli orari, cambiare una foto, pubblicare l'offerta del mese: piccole cose che restano indietro, finché il sito non racconta più la tua attività. Paco ribalta il rapporto. Il sito lo genera l'AI, e da lì in poi ogni modifica passa da WhatsApp: scrivi a Paco come scriveresti a un collaboratore, e lui lo fa. E quando un cliente scrive, risponde lui — con le informazioni del sito, sempre aggiornate.",
+
+    featuresEyebrow: "§ 02 — DENTRO PACO",
+    featuresHeading: "Cosa fa, in concreto.",
+    features: [
+      {
+        n: "01",
+        t: "Il sito lo genera lui",
+        d: "Racconti la tua attività in chat e Paco costruisce il sito: struttura, testi, immagini. Tuo da subito, senza toccare codice.",
+      },
+      {
+        n: "02",
+        t: "Aggiornamenti in chat",
+        d: "“Cambia gli orari”, “metti questa foto”, “pubblica l'offerta di settembre”. Lo scrivi su WhatsApp, Paco lo fa sul sito.",
+      },
+      {
+        n: "03",
+        t: "Risponde ai tuoi clienti",
+        d: "Prezzi, orari, disponibilità, indicazioni: Paco risponde con le informazioni del sito. E quando serve un umano, ti passa la palla.",
+      },
+      {
+        n: "04",
+        t: "Zero pannelli di controllo",
+        d: "Niente login, niente dashboard, niente password dimenticate. Tutta la tua presenza online vive dove sei già ogni giorno: in chat.",
+      },
+    ],
+
+    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaHeading: "In lista, prima degli altri.",
+    eaLede:
+      "Lancio pubblico nel quarto trimestre 2026. Chi entra adesso affida il proprio sito a Paco prima di tutti — a condizioni da fondatore.",
+    eaPerks: [
+      {
+        n: "01",
+        t: "Accesso anticipato",
+        d: "Sei tra i primi a mettere il tuo sito in chat, con mesi di vantaggio sul lancio pubblico.",
+      },
+      {
+        n: "02",
+        t: "Prezzo fondatori",
+        d: "Tariffa bloccata a vita, finché resti a bordo. Niente sorprese in fattura.",
+      },
+      {
+        n: "03",
+        t: "Roadmap condivisa",
+        d: "Le prime integrazioni le scegliamo con chi c'è: prenotazioni, pagamenti, gestionali. La tua attività fa da guida.",
+      },
+    ],
+    eaCta: "Richiedi l'early access",
+
+    ctaFinalEyebrow: "§ 04 — INIZIA",
+    ctaFinalLine1: "Pronto ad avere un sito",
+    ctaFinalLine2: "che ti risponde?",
+    ctaFinalSub:
+      "Trenta minuti di call: ti facciamo parlare con Paco e ti diciamo se ha senso per la tua attività. Tutto qui.",
+    ctaFinalCta: "Prenota una call",
+    ctaFinalAlt: "Torna ai prodotti",
+
+    stickyCta: "Prenota una call",
+  },
+
+  en: {
+    title: "Paco · Your website, managed in chat · Alpacode",
+    description:
+      "Paco is the AI concierge that generates and runs your website from WhatsApp: you text in chat, it updates the site and answers your customers. Early access from Q4 2026.",
+    ogImage: "/og-paco.png",
+
+    crumb: "PRODUCTS · 03 PACO",
+    eyebrow: "EARLY ACCESS · Q4 2026",
+    h1Line1: "Your website,",
+    h1Line2: "in a chat.",
+    lede:
+      "Paco is the AI concierge that sits between you and your website. It generates the site, takes your updates over WhatsApp, and answers your customers itself. No panels, no passwords: one chat.",
+    ctaPrimary: "Book a call",
+    ctaSecondary: "Request early access",
+    heroMeta: [
+      { k: "Type", v: "AI chatbot" },
+      { k: "Channel", v: "WhatsApp" },
+      { k: "Available", v: "Q4 2026" },
+      { k: "License", v: "On request" },
+    ],
+
+    pitchEyebrow: "§ 01 — WHY PACO",
+    pitchLead: "The problem isn't having a website. It's everything that comes after.",
+    pitchBody:
+      "Updating opening hours, swapping a photo, publishing this month's offer: small things that pile up until the site no longer tells your story. Paco flips the relationship. The AI generates the site, and from then on every change goes through WhatsApp: text Paco like you'd text a collaborator, and it gets done. And when a customer writes, Paco answers — with the site's information, always current.",
+
+    featuresEyebrow: "§ 02 — INSIDE PACO",
+    featuresHeading: "What it does, concretely.",
+    features: [
+      {
+        n: "01",
+        t: "It generates the site",
+        d: "Tell it about your business in chat and Paco builds the website: structure, copy, images. Yours from day one, no code involved.",
+      },
+      {
+        n: "02",
+        t: "Updates in chat",
+        d: "“Change the opening hours”, “add this photo”, “publish the September offer”. You text it on WhatsApp, Paco does it on the site.",
+      },
+      {
+        n: "03",
+        t: "Answers your customers",
+        d: "Prices, hours, availability, directions: Paco replies with the site's information. And when a human is needed, it hands over to you.",
+      },
+      {
+        n: "04",
+        t: "Zero control panels",
+        d: "No logins, no dashboards, no forgotten passwords. Your whole online presence lives where you already are every day: in chat.",
+      },
+    ],
+
+    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaHeading: "On the list, before everyone.",
+    eaLede:
+      "Public launch is Q4 2026. Joining now means Paco takes over your website before anyone else's — on founder terms.",
+    eaPerks: [
+      {
+        n: "01",
+        t: "Early entry",
+        d: "You're among the first to put your website in a chat, months ahead of the public launch.",
+      },
+      {
+        n: "02",
+        t: "Founder pricing",
+        d: "Rate locked for life, for as long as you stay on board. No surprises on the invoice.",
+      },
+      {
+        n: "03",
+        t: "Shared roadmap",
+        d: "The first integrations are chosen with early users: bookings, payments, back-office tools. Your business leads the way.",
+      },
+    ],
+    eaCta: "Request early access",
+
+    ctaFinalEyebrow: "§ 04 — START",
+    ctaFinalLine1: "Ready for a website",
+    ctaFinalLine2: "that texts you back?",
+    ctaFinalSub:
+      "Thirty minutes on a call: we let you talk to Paco and tell you straight if it fits your business. That's it.",
     ctaFinalCta: "Book a call",
     ctaFinalAlt: "Back to products",
 

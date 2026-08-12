@@ -96,13 +96,21 @@ export const megaProdotti: MegaMenu = {
           en: "The complete kit for a Web Master career",
         },
       },
+      {
+        n: "03",
+        t: { it: "Paco", en: "Paco" },
+        d: {
+          it: "Il concierge AI che gestisce il tuo sito da WhatsApp",
+          en: "The AI concierge that runs your website from WhatsApp",
+        },
+      },
     ],
   },
   colB: {
     title: { it: "Pacchetti pronti", en: "Ready-made packages" },
     items: [
       {
-        n: "03",
+        n: "04",
         t: { it: "Sito Pronto", en: "Ready Site" },
         d: {
           it: "Il sito della tua attività, a prezzo fisso e in poche settimane",
@@ -110,7 +118,7 @@ export const megaProdotti: MegaMenu = {
         },
       },
       {
-        n: "04",
+        n: "05",
         t: { it: "Landing & ADV", en: "Landing & ADV" },
         d: {
           it: "Una landing e una campagna pubblicitaria avviata",
