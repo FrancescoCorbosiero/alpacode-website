@@ -27,14 +27,14 @@ const imgFor = (id: string): ImageMetadata | undefined =>
 const t =
   lang === "it"
     ? {
-        crumb: "04 · LAVORI",
+        crumb: "Lavori",
         line1: "I nostri",
         line2: "lavori.",
         lede: "Progetti reali in settori molto diversi — edilizia, streetwear, editoria, fitness, pesca, logistica — ognuno con la sua strategia di comunicazione su misura.",
         placeholder: "Foto del progetto",
       }
     : {
-        crumb: "04 · WORK",
+        crumb: "Work",
         line1: "Our",
         line2: "work.",
         lede: "Real projects across very different sectors — construction, streetwear, publishing, fitness, fishing, logistics — each with its own tailored communication strategy.",
@@ -52,7 +52,7 @@ const t =
           <article class="work">
             <ImageSlot placeholder={t.placeholder} src={imgFor(w.id)} alt={w.data.title[lang]} />
             <div class="meta">
-              <span>— {String(i + 1).padStart(2, "0")}</span>
+              <span>{String(i + 1).padStart(2, "0")}</span>
               <span>{w.data.year} · {w.data.sector[lang]}</span>
             </div>
             <h3>{w.data.title[lang]}</h3>

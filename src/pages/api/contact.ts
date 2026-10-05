@@ -110,9 +110,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const audience = str(body.audience);
 
   // Campaign leads carry extra attribution so we know which offer they chose.
-  const subject = campaign
-    ? `Lead offerta · ${audience || campaign} · ${name}`
-    : `Nuovo contatto · ${name}`;
+  // Collaboration proposals are not leads — keep them apart in the inbox.
+  const subject =
+    campaign === "collabora-con-noi"
+      ? `Proposta di collaborazione · ${audience || "—"} · ${name}`
+      : campaign
+        ? `Lead offerta · ${audience || campaign} · ${name}`
+        : `Nuovo contatto · ${name}`;
   const company = str(body.company);
   const phone = str(body.phone);
   const offer = str(body.offer);

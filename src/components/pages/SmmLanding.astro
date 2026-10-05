@@ -19,7 +19,7 @@ const camp = SMM_CAMPAIGN;
 const privacyHref = localizePath("privacy", lang);
 const partnerHref = localizePath("partner", lang);
 const learningHref = localizePath("learning", lang);
-const lavoraHref = localizePath("lavora-con-noi", lang);
+const collabHref = localizePath("collabora-con-noi", lang);
 const pathHrefs = ["#posto", partnerHref, learningHref];
 
 /* Server-side defaults for the mirror, derived from the placeholder name so
@@ -68,8 +68,8 @@ const formLabels: CampaignFormLabels = {
     lang === "it"
       ? "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a."
       : "I have read the privacy policy and consent to data processing to be contacted back.",
-  confirm: lang === "it" ? "GRAZIE — TI RICONTATTIAMO PRESTISSIMO" : "THANKS — WE'LL REACH OUT VERY SOON",
-  error: lang === "it" ? "QUALCOSA È ANDATO STORTO — RIPROVA" : "SOMETHING WENT WRONG — RETRY",
+  confirm: lang === "it" ? "Grazie: ti ricontattiamo prestissimo." : "Thanks: we'll reach out very soon.",
+  error: lang === "it" ? "Qualcosa è andato storto: riprova." : "Something went wrong: retry.",
   // No toggle on this page; the express-lane button switches the second slot.
   variants: {
     "all-inclusive": c.offerVariantLabel,
@@ -102,7 +102,7 @@ const formLabels: CampaignFormLabels = {
           </p>
           <p class="smm-hero-partner">
             {c.heroCollabNote}
-            <a href={lavoraHref}>{c.heroCollabCta} →</a>
+            <a href={collabHref}>{c.heroCollabCta} →</a>
           </p>
         </div>
         <div class="smm-hero-ctas">
@@ -152,7 +152,7 @@ const formLabels: CampaignFormLabels = {
       </div>
 
       <div class="smm-try">
-        <label class="smm-try-label" for="smm-name">— {c.inputLabel}</label>
+        <label class="smm-try-label" for="smm-name">{c.inputLabel}</label>
         <input
           class="smm-try-input"
           id="smm-name"

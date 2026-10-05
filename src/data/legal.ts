@@ -18,7 +18,7 @@ export type LegalKind = "privacy" | "cookie" | "termini";
 export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
   privacy: {
     it: {
-      crumb: "LEGALE · PRIVACY",
+      crumb: "Legale · Privacy",
       h1Line1: "Privacy",
       h1Line2: "policy.",
       lede: "Come trattiamo i tuoi dati personali. Linguaggio semplice, niente sorprese.",
@@ -35,7 +35,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       ],
     },
     en: {
-      crumb: "LEGAL · PRIVACY",
+      crumb: "Legal · Privacy",
       h1Line1: "Privacy",
       h1Line2: "policy.",
       lede: "How we handle your personal data. Plain language, no surprises.",
@@ -54,7 +54,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
   },
   cookie: {
     it: {
-      crumb: "LEGALE · COOKIE",
+      crumb: "Legale · Cookie",
       h1Line1: "Cookie",
       h1Line2: "policy.",
       lede: "Cosa salviamo sul tuo dispositivo, e come gestirlo in due clic.",
@@ -69,7 +69,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       ],
     },
     en: {
-      crumb: "LEGAL · COOKIES",
+      crumb: "Legal · Cookies",
       h1Line1: "Cookie",
       h1Line2: "policy.",
       lede: "What we save on your device, and how to manage it in two clicks.",
@@ -86,7 +86,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
   },
   termini: {
     it: {
-      crumb: "LEGALE · TERMINI",
+      crumb: "Legale · Termini",
       h1Line1: "Termini",
       h1Line2: "e condizioni.",
       lede: "Le regole d'ingaggio tra te e Alpacode, dette in modo semplice.",
@@ -103,7 +103,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       ],
     },
     en: {
-      crumb: "LEGAL · TERMS",
+      crumb: "Legal · Terms",
       h1Line1: "Terms",
       h1Line2: "and conditions.",
       lede: "The rules of engagement between you and Alpacode, in plain language.",

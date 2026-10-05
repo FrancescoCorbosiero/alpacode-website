@@ -68,7 +68,7 @@ const founderImg = Object.entries(peopleImages).find(
         {
           t.person.points.map((p) => (
             <div class="block">
-              <span class="k">— {p.k}</span>
+              <span class="k">{p.k}</span>
               <span class="v">{p.v}</span>
             </div>
           ))
@@ -96,27 +96,27 @@ const founderImg = Object.entries(peopleImages).find(
       <aside class="contact-info">
         <h3>{t.info.h}</h3>
         <div class="block">
-          <span class="k">— {t.info.email}</span>
+          <span class="k">{t.info.email}</span>
           <a href={`mailto:${business.email}`} class="v">{t.info.emailV}</a>
         </div>
         <div class="block">
-          <span class="k">— {t.info.base}</span>
+          <span class="k">{t.info.base}</span>
           <span class="v">{t.info.baseV}</span>
         </div>
         <div class="block">
-          <span class="k">— {t.info.vat}</span>
+          <span class="k">{t.info.vat}</span>
           <span class="v">{t.info.vatV}</span>
         </div>
         <div class="block">
-          <span class="k">— {t.info.hours}</span>
+          <span class="k">{t.info.hours}</span>
           <span class="v">{t.info.hoursV}</span>
         </div>
         <div class="block">
-          <span class="k">— {t.info.reply}</span>
+          <span class="k">{t.info.reply}</span>
           <span class="v">{t.info.replyV}</span>
         </div>
         <div class="contact-available">
-          <div class="eyebrow">● {t.info.availableLabel}</div>
+          <div class="eyebrow">{t.info.availableLabel}</div>
           <div class="v">{t.info.availableV}</div>
         </div>
       </aside>

@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import { scale } from "../../data/home";
 import ScaleIsland from "../islands/Scale.tsx";
 import BookCall from "../BookCall.astro";
+import Br from "../Br.astro";
 
 interface Props {
   lang: Lang;
@@ -16,12 +17,14 @@ const t = scale[lang];
     <div class="section-head">
       <div>
         <div class="sec-num">{t.num}</div>
-        <h2 style="white-space:pre-line">{t.heading}</h2>
+        <h2><Br text={t.heading} /></h2>
       </div>
       <p class="lede">{t.lede}</p>
     </div>
 
-    <ScaleIsland client:visible stages={t.stages} includeLabel={t.includeLabel} idealLabel={t.idealLabel} />
+    <div data-reveal>
+      <ScaleIsland client:visible stages={t.stages} includeLabel={t.includeLabel} idealLabel={t.idealLabel} />
+    </div>
 
     <div class="scale-foot">
       <p class="scale-note">{t.note}</p>

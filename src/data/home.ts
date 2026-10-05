@@ -1,51 +1,53 @@
 import type { Lang } from "../i18n/types";
 
 /* ---------------- Hero ---------------- */
-export interface HeroMetaCell {
-  k: string;
-  v: string;
-  d: string;
-}
 export interface HeroData {
-  eyebrow: string;
-  sub: string;
+  /** One plain line above the headline. */
+  kicker: string;
+  /** The h1, one entry per line; wrap the highlighted word in *asterisks*. */
+  claim: string[];
+  lede: string;
   cta1: string;
   cta2: string;
-  meta: HeroMetaCell[];
-  statusLabel: string;
-  statusVal: string;
 }
 
 export const hero: Record<Lang, HeroData> = {
   it: {
-    eyebrow: "MZ · MI — IT · EST. 2025",
-    sub: "Soluzioni Digitali",
+    kicker: "Studio digitale a Monza e Milano",
+    claim: ["Digitalizziamo *privati*", "e imprese,", "in tutta Italia."],
+    lede: "Siti, e-commerce, branding, pubblicità, software e formazione: tutto il digitale della tua attività, con un prezzo deciso prima.",
     cta1: "Prenota una call",
     cta2: "Esplora i lavori",
-    meta: [
-      { k: "Sede", v: "Monza · Milano", d: "IT" },
-      { k: "Operatività", v: "Lun — Ven", d: "09:00 — 18:00 CET" },
-      { k: "Dal", v: "2025", d: "un progetto alla volta" },
-      { k: "Ambiti", v: "03", d: "costruire · far crescere · insegnare" },
-    ],
-    statusLabel: "DISPONIBILE",
-    statusVal: "Nuovi progetti Q3 2026",
   },
   en: {
-    eyebrow: "MZ · MI — IT · EST. 2025",
-    sub: "Digital Solutions",
+    kicker: "Digital studio in Monza & Milan",
+    claim: ["We digitalize *people*", "and businesses,", "right across Italy."],
+    lede: "Websites, e-commerce, branding, advertising, software and training: all the digital side of your business, at a price agreed up front.",
     cta1: "Book a call",
     cta2: "See the work",
-    meta: [
-      { k: "Studio", v: "Monza · Milan", d: "IT" },
-      { k: "Hours", v: "Mon — Fri", d: "09:00 — 18:00 CET" },
-      { k: "Since", v: "2025", d: "one project at a time" },
-      { k: "Practice", v: "03", d: "build · grow · teach" },
-    ],
-    statusLabel: "AVAILABLE",
-    statusVal: "New projects Q3 2026",
   },
 };
+
+/* ---------------- Hero background video (optional) ----------------
+   null → the typographic hero (brand lockup over the cube field).
+   Set it → the hero becomes full-bleed video under an ink scrim, with
+   paper-colored type. Files go in public/media/. Specs that keep the page
+   fast: 1920×1080 (or 1600×900), 8–20 s seamless loop, no audio track,
+   H.264 MP4 ≤ 6 MB (+ optional VP9/AV1 WebM, usually ~40% smaller), and
+   a JPG/WebP poster of the first frame. Reduced-motion visitors and
+   Save-Data connections get the poster only. Example:
+     { mp4: "/media/hero.mp4", webm: "/media/hero.webm", poster: "/media/hero-poster.jpg" } */
+export interface HeroVideo {
+  /** H.264 MP4 — required, plays everywhere. */
+  mp4: string;
+  /** VP9/AV1 WebM — optional, smaller where supported. */
+  webm?: string;
+  /** First-frame still: shown before playback and instead of the video
+   *  under reduced motion / Save-Data. */
+  poster: string;
+}
+
+export const heroVideo: HeroVideo | null = null;
 
 /* ---------------- 01 Verbs ---------------- */
 export interface Verb {
@@ -64,7 +66,7 @@ export interface VerbsData {
 
 export const verbs: Record<Lang, VerbsData> = {
   it: {
-    num: "02 · COSA FACCIAMO",
+    num: "Cosa facciamo",
     heading: "Tre modi\ndi aiutarti.",
     lede: "Dal primo sito alla digitalizzazione completa. Ci occupiamo di tutto il digitale della tua attività — anche di quello che di solito chiedi a un'agenzia.",
     list: [
@@ -92,7 +94,7 @@ export const verbs: Record<Lang, VerbsData> = {
     ],
   },
   en: {
-    num: "02 · WHAT WE DO",
+    num: "What we do",
     heading: "Three ways\nto help.",
     lede: "From a first website to full digitalization. We handle all the digital side of your business — including what you'd normally ask an agency for.",
     list: [
@@ -145,7 +147,7 @@ export interface CasesData {
 
 export const cases: Record<Lang, CasesData> = {
   it: {
-    num: "05 · CASI DI STUDIO",
+    num: "Casi di studio",
     heading: "Quello che\nabbiamo costruito.",
     lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
     list: [
@@ -160,7 +162,7 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "24/7", d: "preventivi dal sito" },
         quote: "«Ora i clienti ci trovano da soli e arrivano già con le idee chiare.»",
         attr: "— Antonio, EdilCalmi",
-        tag: "2025 · LANDING & LEAD",
+        tag: "2025 · Landing & lead",
       },
       {
         key: "resellpiacenza",
@@ -173,7 +175,7 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "Online", d: "vendite in tutta Italia" },
         quote: "«Vendiamo a clienti che non sarebbero mai entrati in negozio.»",
         attr: "— ResellPiacenza",
-        tag: "2025 · E-COMMERCE",
+        tag: "2025 · E-commerce",
       },
       {
         key: "cesana",
@@ -186,12 +188,12 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "8 aree", d: "per settore e comparto" },
         quote: "«Finalmente il sito parla come parliamo noi ai nostri clienti.»",
         attr: "— direzione, Cesana Assicuratori & Brokers",
-        tag: "2025 · WEB AZIENDALE",
+        tag: "2025 · Web aziendale",
       },
     ],
   },
   en: {
-    num: "05 · CASE STUDIES",
+    num: "Case studies",
     heading: "What we have built.",
     lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
     list: [
@@ -206,7 +208,7 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "24/7", d: "quote requests online" },
         quote: "“Now clients find us on their own and arrive with clear ideas.”",
         attr: "— Antonio, EdilCalmi",
-        tag: "2025 · LANDING & LEAD",
+        tag: "2025 · Landing & lead",
       },
       {
         key: "resellpiacenza",
@@ -219,7 +221,7 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "Online", d: "sales across Italy" },
         quote: "“We sell to customers who'd never have walked into the shop.”",
         attr: "— ResellPiacenza",
-        tag: "2025 · E-COMMERCE",
+        tag: "2025 · E-commerce",
       },
       {
         key: "cesana",
@@ -232,7 +234,7 @@ export const cases: Record<Lang, CasesData> = {
         mAfter: { v: "8 areas", d: "by sector & line" },
         quote: "“At last the site speaks the way we speak to our clients.”",
         attr: "— management, Cesana Assicuratori & Brokers",
-        tag: "2025 · CORPORATE WEB",
+        tag: "2025 · Corporate web",
       },
     ],
   },
@@ -256,26 +258,26 @@ export interface ManifestoData {
 
 export const manifesto: Record<Lang, ManifestoData> = {
   it: {
-    num: "08 · MANIFESTO",
+    num: "Manifesto",
     heading: "Il web\nè cambiato.",
     lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e digitalizzare privati e imprese in tutta Italia.",
     pillars: [
-      { n: "I", label: "PILASTRO I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso da migliaia di euro. Troviamo soluzioni alla portata di privati e piccole imprese, non solo dei grandi." },
-      { n: "II", label: "PILASTRO II", t: "Trasparenza, dall'inizio.", d: "Prezzi, tempi e scelte sul tavolo prima di partire. Sai sempre cosa stai pagando e perché — nessun costo a sorpresa." },
-      { n: "III", label: "PILASTRO III", t: "Conta il risultato.", d: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — e lo misuriamo con numeri veri." },
-      { n: "IV", label: "PILASTRO IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
+      { n: "I", label: "Pilastro I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso da migliaia di euro. Troviamo soluzioni alla portata di privati e piccole imprese, non solo dei grandi." },
+      { n: "II", label: "Pilastro II", t: "Trasparenza, dall'inizio.", d: "Prezzi, tempi e scelte sul tavolo prima di partire. Sai sempre cosa stai pagando e perché — nessun costo a sorpresa." },
+      { n: "III", label: "Pilastro III", t: "Conta il risultato.", d: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — e lo misuriamo con numeri veri." },
+      { n: "IV", label: "Pilastro IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
     sig: { name: "Francesco Corbosiero", role: "fondatore, Alpacode" },
   },
   en: {
-    num: "08 · MANIFESTO",
+    num: "Manifesto",
     heading: "The web\nhas changed.",
     lede: "Our mission is simple: break down the barrier of cost and jargon, and digitalize individuals and businesses across Italy.",
     pillars: [
-      { n: "I", label: "PILLAR I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a thousands-of-euros luxury. We find solutions within reach for individuals and small businesses, not just the big players." },
-      { n: "II", label: "PILLAR II", t: "Transparent from the start.", d: "Prices, timing and choices on the table before we begin. You always know what you're paying and why — no surprise costs." },
-      { n: "III", label: "PILLAR III", t: "Results are what count.", d: "A good-looking site isn't enough. We work so it's visible, credible and brings clients — and we measure it with real numbers." },
-      { n: "IV", label: "PILLAR IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
+      { n: "I", label: "Pillar I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a thousands-of-euros luxury. We find solutions within reach for individuals and small businesses, not just the big players." },
+      { n: "II", label: "Pillar II", t: "Transparent from the start.", d: "Prices, timing and choices on the table before we begin. You always know what you're paying and why — no surprise costs." },
+      { n: "III", label: "Pillar III", t: "Results are what count.", d: "A good-looking site isn't enough. We work so it's visible, credible and brings clients — and we measure it with real numbers." },
+      { n: "IV", label: "Pillar IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
     ],
     sig: { name: "Francesco Corbosiero", role: "founder, Alpacode" },
   },
@@ -298,7 +300,7 @@ export interface CtaData {
 
 export const ctaFinal: Record<Lang, CtaData> = {
   it: {
-    num: "CONTATTI",
+    num: "Contatti",
     line1: "Hai un progetto?",
     underline: "Parliamone.",
     sub: "Una call di trenta minuti per capirci. Niente vendite, niente pressioni. Ti diciamo subito se possiamo aiutarti e in che modo.",
@@ -310,7 +312,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     cta: "Apri il modulo di contatto",
   },
   en: {
-    num: "CONTACT",
+    num: "Contact",
     line1: "Have a project?",
     underline: "Let's talk.",
     sub: "A thirty-minute call to understand. No sales, no pressure. We'll tell you right away if we can help, and how.",
@@ -336,7 +338,7 @@ export interface PitchData {
 
 export const pitch: Record<Lang, PitchData> = {
   it: {
-    num: "01 · ALPACODE PER I PROFESSIONISTI DIGITALI",
+    num: "Alpacode per i professionisti digitali",
     lead: "Come e perché dovresti digitalizzare la tua attività.",
     intro: "Se lavori online, hai bisogno di un sito dedicato alla tua attività: visibile su Google, credibile, fatto per portarti clienti. Un sito datato, invece, li allontana.",
     objection: "Ma come, se i preventivi superano le migliaia di euro?",
@@ -345,7 +347,7 @@ export const pitch: Record<Lang, PitchData> = {
     chips: ["Prezzo deciso prima", "Niente costi nascosti", "Pagamenti rateizzabili", "Prima call gratuita"],
   },
   en: {
-    num: "01 · ALPACODE FOR DIGITAL PROFESSIONALS",
+    num: "Alpacode for digital professionals",
     lead: "How and why you should digitalize your business.",
     intro: "If you work online, you need a website dedicated to your business: visible on Google, credible, built to bring you clients. A dated site, instead, pushes them away.",
     objection: "But how, when quotes run into the thousands of euros?",
@@ -373,7 +375,7 @@ export interface ValuesData {
 
 export const values: Record<Lang, ValuesData> = {
   it: {
-    num: "03 · COSA OTTIENI",
+    num: "Cosa ottieni",
     heading: "Cosa puoi\naspettarti.",
     lede: "Le competenze tecniche sono il punto di partenza, non l'argomento. A fare la differenza sono il metodo con cui lavoriamo e il risultato che resta alla tua attività.",
     groups: [
@@ -396,7 +398,7 @@ export const values: Record<Lang, ValuesData> = {
     ],
   },
   en: {
-    num: "03 · WHAT YOU GET",
+    num: "What you get",
     heading: "What you can\nexpect.",
     lede: "Technical skill is the starting point, not the pitch. What makes the difference is the method we work with and the result your business is left with.",
     groups: [
@@ -442,7 +444,7 @@ export interface ScaleData {
 
 export const scale: Record<Lang, ScaleData> = {
   it: {
-    num: "04 · IL PERCORSO",
+    num: "Il percorso",
     heading: "Cresci alla\ntua scala.",
     lede: "Lavoriamo con realtà molto diverse e ci adattiamo a ognuna: da un semplice sito alla digitalizzazione completa, da un servizio flash alla consulenza dedicata. Scegli da dove partire.",
     includeLabel: "Cosa include",
@@ -485,7 +487,7 @@ export const scale: Record<Lang, ScaleData> = {
     ],
   },
   en: {
-    num: "04 · THE PATH",
+    num: "The path",
     heading: "Grow at\nyour scale.",
     lede: "We work with very different realities and adapt to each one: from a simple website to full digitalization, from a flash service to dedicated consulting. Pick where to start.",
     includeLabel: "What's included",
@@ -539,13 +541,13 @@ export interface ProductsTeaserData {
 
 export const productsTeaser: Record<Lang, ProductsTeaserData> = {
   it: {
-    num: "06 · PRODOTTI",
+    num: "Prodotti",
     heading: "Pacchetti pronti,\nprezzo deciso prima.",
     lede: "Non solo lavori su misura: pacchetti già pronti, con un prezzo chiaro fin dall'inizio. Per partire in fretta, senza preventivi infiniti.",
     cta: "Vedi tutti i prodotti",
   },
   en: {
-    num: "06 · PRODUCTS",
+    num: "Products",
     heading: "Ready packages,\nprice agreed up front.",
     lede: "Not only bespoke work: ready-made packages with a clear price from the start. To get going fast, without endless quotes.",
     cta: "See all products",
@@ -567,7 +569,7 @@ export interface ProcessData {
 
 export const process: Record<Lang, ProcessData> = {
   it: {
-    num: "07 · METODO",
+    num: "Metodo",
     heading: "Come si parte.",
     lede: "Quattro passi, zero sorprese. Il prezzo lo conosci prima di firmare qualsiasi cosa.",
     steps: [
@@ -578,7 +580,7 @@ export const process: Record<Lang, ProcessData> = {
     ],
   },
   en: {
-    num: "07 · METHOD",
+    num: "Method",
     heading: "How it starts.",
     lede: "Four steps, zero surprises. You know the price before you sign anything.",
     steps: [
@@ -606,26 +608,26 @@ export interface CoverageData {
 
 export const coverage: Record<Lang, CoverageData> = {
   it: {
-    num: "09 · DOVE OPERIAMO",
+    num: "Dove operiamo",
     heading: "Da Milano e la Brianza,\nin tutta Italia.",
     lede: "La nostra base è tra Monza, Milano e la Brianza. Ma il digitale non ha confini: lavoriamo da remoto con clienti in tutto il Paese, con la stessa cura di quando siamo di persona.",
     baseLabel: "Base",
     baseValue: "Monza · Milano · Brianza",
     reachLabel: "Copertura",
     reachValue: "Tutta Italia, da remoto",
-    hqLabel: "MILANO · BRIANZA",
+    hqLabel: "Milano · Brianza",
     note: "Per i progetti più grandi, veniamo volentieri da te.",
     cta: "Lavoriamo insieme",
   },
   en: {
-    num: "09 · WHERE WE WORK",
+    num: "Where we work",
     heading: "From Milan and Brianza,\nacross all Italy.",
     lede: "Our base is between Monza, Milan and the Brianza. But digital has no borders: we work remotely with clients all over the country, with the same care as in person.",
     baseLabel: "Base",
     baseValue: "Monza · Milan · Brianza",
     reachLabel: "Reach",
     reachValue: "All Italy, remotely",
-    hqLabel: "MILAN · BRIANZA",
+    hqLabel: "Milan · Brianza",
     note: "For bigger projects, we're happy to come to you.",
     cta: "Let's work together",
   },

@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { process } from "../../data/home";
 import BookCall from "../BookCall.astro";
+import Br from "../Br.astro";
 
 interface Props {
   lang: Lang;
@@ -19,7 +20,7 @@ const bookLabel = lang === "it" ? "Prenota la prima call" : "Book the first call
     <div class="section-head">
       <div>
         <div class="sec-num">{num}</div>
-        <h2 style="white-space:pre-line">{t.heading}</h2>
+        <h2><Br text={t.heading} /></h2>
       </div>
       <p class="lede">{t.lede}</p>
     </div>

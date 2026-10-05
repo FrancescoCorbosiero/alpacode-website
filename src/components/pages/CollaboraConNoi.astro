@@ -1,0 +1,216 @@
+---
+import type { Lang } from "../../i18n/types";
+import { collabora } from "../../data/collabora-con-noi";
+import { localizePath } from "../../i18n/utils";
+import PartnerForm from "../islands/PartnerForm.tsx";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = collabora[lang];
+const partnerHref = localizePath("partner", lang);
+const pad = (i: number) => String(i + 1).padStart(2, "0");
+---
+
+<div class="clb">
+  {/* ---------- HERO (ink band): the answer comes first ---------- */}
+  <section class="clb-hero">
+    <div class="wrap-wide">
+      <p class="label label--on-ink" data-intro>{t.hero.label}</p>
+      <h1 class="clb-hero-h1 intro-lines">
+        <span class="line"><span>{t.hero.line1}</span></span>
+        <span class="line clb-hero-accent"><span>{t.hero.line2}</span></span>
+      </h1>
+      <div class="clb-hero-tail">
+        <p class="clb-hero-lede" data-intro>{t.hero.lede}</p>
+        <div class="clb-hero-ctas" data-intro>
+          <a class="btn btn-blue" href="#proposta">{t.hero.cta1} <span class="arrow">→</span></a>
+          <a class="btn btn-on-ink" href="#cosa-e">{t.hero.cta2} <span class="arrow">↓</span></a>
+        </div>
+      </div>
+      <dl class="clb-facts" data-intro>
+        {
+          t.hero.facts.map((f) => (
+            <div class="clb-fact">
+              <dt>{f.k}</dt>
+              <dd>{f.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  {/* ---------- WHAT IT IS / WHAT IT ISN'T ---------- */}
+  <section class="section" id="cosa-e">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.isLabel}</p>
+          <h2>{t.isTitle}</h2>
+        </div>
+        <p class="lede">{t.isLede}</p>
+      </div>
+      <div class="clb-split">
+        <div class="clb-col clb-col--not">
+          <h3>{t.isNot.title}</h3>
+          <ul>{t.isNot.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+        <div class="clb-col clb-col--is">
+          <h3>{t.is.title}</h3>
+          <ul>{t.is.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- STATEMENT — words light up with scroll ---------- */}
+  <section class="clb-statement">
+    <div class="wrap-wide">
+      <p class="statement" data-scrub>{t.statement}</p>
+    </div>
+  </section>
+
+  {/* ---------- HOW IT HAPPENS — a rail that fills as you read ---------- */}
+  <section class="section section--tint">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.howLabel}</p>
+          <h2>{t.howTitle}</h2>
+        </div>
+        <p class="lede">{t.howLede}</p>
+      </div>
+      <div class="clb-steps" data-progress>
+        <div class="clb-steps-rail" aria-hidden="true"><span data-progress-fill></span></div>
+        <ol>
+          {
+            t.howSteps.map((s, i) => (
+              <li class="clb-step" data-progress-step>
+                <span class="clb-step-no">{pad(i)}</span>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- CRAFTS — an index, not a job board ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.craftsLabel}</p>
+          <h2>{t.craftsTitle}</h2>
+        </div>
+        <p class="lede">{t.craftsNote}</p>
+      </div>
+      <ul class="clb-crafts">
+        {
+          t.crafts.map((c) => (
+            <li class="clb-craft">
+              <span class="clb-craft-t">{c.t}</span>
+              <span class="clb-craft-d">{c.d}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- THE TWO FORMS + THE PACT ---------- */}
+  <section class="section section--tint">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.formsLabel}</p>
+          <h2>{t.formsTitle}</h2>
+        </div>
+        <p class="lede">{t.formsLede}</p>
+      </div>
+      <div class="clb-forms">
+        {
+          t.forms.map((f, i) => (
+            <article class={"clb-form-card" + (i === 0 ? " clb-form-card--main" : "")}>
+              <span class="clb-form-tag">{f.tag}</span>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+              <p class="clb-form-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="clb-pact">
+        <div class="clb-pact-head">
+          <p class="sec-num">{t.pactLabel}</p>
+          <h2>{t.pactTitle}</h2>
+          <p>{t.pactBody}</p>
+        </div>
+        <ul class="clb-pact-list">
+          {t.pactPoints.map((p) => <li><span>{p}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ ---------- */}
+  <section class="section">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.faqLabel}</p>
+          <h2>{t.faqTitle}</h2>
+        </div>
+      </div>
+      <div class="cmp-faq">
+        {
+          t.faq.map((f, i) => (
+            <details class="cmp-faq-item" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- PARTNER CROSS-LINK ---------- */}
+  <section class="section section--tint clb-cross-sec">
+    <div class="wrap-wide">
+      <a class="clb-cross" href={partnerHref}>
+        <span class="clb-cross-tag">{t.cross.tag}</span>
+        <span class="clb-cross-title">{t.cross.title}</span>
+        <span class="clb-cross-body">{t.cross.body}</span>
+        <span class="clb-cross-cta">{t.cross.cta} <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  {/* ---------- PROPOSAL FORM ---------- */}
+  <section class="section" id="proposta">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <p class="sec-num">{t.formLabel}</p>
+          <h2>{t.formTitle}</h2>
+        </div>
+        <p class="lede">{t.formLede}</p>
+      </div>
+      <div class="clb-form">
+        <PartnerForm
+          client:visible
+          lang={lang}
+          labels={t.formLabels}
+          campaign="collabora-con-noi"
+          topic={lang === "it" ? "Proposta di collaborazione" : "Collaboration proposal"}
+        />
+      </div>
+    </div>
+  </section>
+</div>

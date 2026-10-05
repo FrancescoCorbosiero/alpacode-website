@@ -41,7 +41,7 @@ export interface WizardData {
 
 export const wizard: Record<Lang, WizardData> = {
   it: {
-    kicker: "§ 60 — Sessanta secondi",
+    kicker: "Sessanta secondi",
     title: "Raccontaci il progetto in tre tap.",
     lede: "Niente moduli infiniti: tre domande secche, un contatto, e ti rispondiamo noi — con idee chiare e un numero scritto.",
     stepLabel: "Passo",
@@ -90,11 +90,11 @@ export const wizard: Record<Lang, WizardData> = {
     successBody:
       "Ti rispondiamo entro mezza giornata lavorata, da persona vera. Se preferisci parlarne a voce, la call è gratis.",
     successCta: "Prenota una call di 30 minuti",
-    error: "QUALCOSA È ANDATO STORTO — RIPROVA O SCRIVICI VIA EMAIL",
+    error: "Qualcosa è andato storto: riprova o scrivici via email.",
     restart: "Ricomincia",
   },
   en: {
-    kicker: "§ 60 — Sixty seconds",
+    kicker: "Sixty seconds",
     title: "Tell us your project in three taps.",
     lede: "No endless forms: three quick questions, one contact, and we get back to you — with clear ideas and a written number.",
     stepLabel: "Step",
@@ -139,7 +139,7 @@ export const wizard: Record<Lang, WizardData> = {
     successBody:
       "We reply within half a working day, from a real person. If you'd rather talk it through, the call is free.",
     successCta: "Book a 30-minute call",
-    error: "SOMETHING WENT WRONG — RETRY OR EMAIL US",
+    error: "Something went wrong: retry or email us.",
     restart: "Start over",
   },
 };

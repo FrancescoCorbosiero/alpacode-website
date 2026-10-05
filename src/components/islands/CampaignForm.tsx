@@ -108,28 +108,28 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
       />
 
       <div className="cf-chosen" aria-live="polite">
-        <span className="cf-chosen-k">— {labels.chosenOffer}</span>
+        <span className="cf-chosen-k">{labels.chosenOffer}</span>
         <span className="cf-chosen-v">{labels.variants[variant]} · {price} €/anno</span>
       </div>
 
       <div className="field">
-        <label htmlFor="cf-name">— {labels.name}</label>
+        <label htmlFor="cf-name">{labels.name}</label>
         <input id="cf-name" name="name" required placeholder={labels.namePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-email">— {labels.email}</label>
+        <label htmlFor="cf-email">{labels.email}</label>
         <input id="cf-email" name="email" type="email" required placeholder={labels.emailPlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-phone">— {labels.phone}</label>
+        <label htmlFor="cf-phone">{labels.phone}</label>
         <input id="cf-phone" name="phone" type="tel" placeholder={labels.phonePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-business">— {labels.business}</label>
+        <label htmlFor="cf-business">{labels.business}</label>
         <input id="cf-business" name="company" placeholder={labels.businessPlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-message">— {labels.message}</label>
+        <label htmlFor="cf-message">{labels.message}</label>
         <textarea id="cf-message" name="message" rows={3} placeholder={labels.messagePlaceholder} />
       </div>
 
@@ -143,8 +143,8 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
           {labels.send} <span className="arrow">→</span>
         </button>
         <span role="status" aria-live="polite">
-          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+          {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">{labels.error}</span>}
         </span>
       </div>
     </form>

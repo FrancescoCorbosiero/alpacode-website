@@ -6,13 +6,16 @@
    ============================================================ */
 
 /* ---------- Minimal chrome ---------- */
+/* Two children (brand + actions), not the full header's three: without
+   this the actions sat in the middle column, hugging the logo. */
 .campaign-header .header-row {
-  justify-content: space-between;
+  grid-template-columns: 1fr auto;
 }
 .campaign-lang {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.02em;
   padding: 9px 12px;
   border: 1px solid var(--rule);
   color: var(--ink);
@@ -90,10 +93,10 @@
   place-items: center;
   text-align: center;
   padding: 16px;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 /* When the remote image fails: hide it, show the dashed placeholder. */
@@ -144,10 +147,10 @@
   }
 }
 .cmp-eyebrow {
-  font-family: var(--t-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute-2);
   margin-bottom: 22px;
 }
@@ -194,10 +197,10 @@
   border-left: 1px solid var(--rule);
 }
 .cmp-scar-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .cmp-seats-v {
@@ -241,17 +244,18 @@
   font-variant-numeric: tabular-nums;
 }
 .cd-lab {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
   margin-top: 4px;
 }
 .countdown--closed {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   color: var(--blue-deep);
 }
 
@@ -331,10 +335,10 @@
 }
 .cmp-stat-src {
   margin-top: 12px;
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: rgba(244, 241, 232, 0.5);
 }
 @media (max-width: 860px) {
@@ -470,7 +474,7 @@
   color: var(--blue);
 }
 .cmp-price-per {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 14px;
   color: var(--mute);
 }
@@ -480,10 +484,10 @@
   font-size: 15px;
 }
 .cmp-includes-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
   margin-bottom: 18px;
 }
@@ -578,7 +582,7 @@
   position: absolute;
   right: 4px;
   top: 16px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   color: var(--blue);
   font-size: 22px;
 }
@@ -620,7 +624,7 @@
   max-width: 280px;
 }
 .cmp-form-privacy a {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--blue-deep);
@@ -639,10 +643,10 @@
   border-bottom: 1px solid var(--rule);
 }
 .cf-chosen-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .cf-chosen-v {

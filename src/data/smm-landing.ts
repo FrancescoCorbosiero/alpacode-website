@@ -186,8 +186,8 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     ctaSecondary: "Fammi vedere",
     heroPartnerNote: "Lavori già con clienti tuoi?",
     heroPartnerCta: "C'è il programma partner",
-    heroCollabNote: "Preferisci lavorare nei nostri progetti?",
-    heroCollabCta: "Lavora con noi",
+    heroCollabNote: "Sei un professionista e vuoi collaborare ai nostri progetti?",
+    heroCollabCta: "Collabora con noi",
     heroPriceK: "Prezzo bloccato",
     heroPriceV: `${price} € /anno`,
     heroPriceSub: "Tutto incluso · 0 € di anticipo",
@@ -204,7 +204,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       `SOLO ${seats} POSTI`,
     ],
 
-    mirrorKicker: "§ 01 — Facciamo una prova",
+    mirrorKicker: "Facciamo una prova",
     mirrorTitle: "Scrivi il tuo nome. Guarda l'insieme.",
     mirrorLede:
       "I social ti hanno costruito il pubblico; il sito lo trasforma in clienti. Non è un aut-aut: è una somma. Fai la prova con il tuo nome.",
@@ -233,7 +233,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     rightFoot: "Qui i brand ti scelgono.",
     mirrorCaption: "Lo costruiamo noi. Tu continui a postare.",
 
-    painsKicker: "§ 02 — La verità",
+    painsKicker: "La verità",
     painsTitle: "Non costruire la casa su un terreno in affitto.",
     painsLede: "È la regola numero uno che ripeti ai tuoi clienti. Vale anche per te.",
     pains: [
@@ -266,7 +266,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    offerKicker: "§ 03 — L'offerta",
+    offerKicker: "L'offerta",
     offerTitle: "Un sito da agenzia. A un prezzo che le agenzie non fanno.",
     offerBlurb:
       "Un prezzo solo, deciso prima. Nessun anticipo: vedi il sito finito, poi decidi. Se non ti convince, non paghi niente.",
@@ -293,7 +293,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     expressNote: "Pagamento sicuro · fattura inclusa",
     expressOfferLabel: "Corsia veloce — attivazione online",
 
-    pathsKicker: "§ 04 — I percorsi",
+    pathsKicker: "I percorsi",
     pathsTitle: "Un solo interlocutore. Tre modi di lavorare insieme.",
     pathsLede:
       "Alpacode non è solo il fornitore del tuo sito: è studio di sviluppo, rete di partner e scuola di formazione. Scegli il rapporto che ti serve oggi — o combinali.",
@@ -318,7 +318,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    stepsKicker: "§ 05 — Come funziona",
+    stepsKicker: "Come funziona",
     stepsTitle: "Tre passi. Zero pensieri.",
     steps: [
       {
@@ -338,7 +338,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    guarKicker: "§ 06 — Senza rischi",
+    guarKicker: "Senza rischi",
     guarTitle: "Perché è un sì facile.",
     guarantees: [
       {
@@ -359,12 +359,12 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    trustKicker: "§ 07 — Credenziali",
+    trustKicker: "Credenziali",
     trustTitle: "La fiducia si costruisce coi fatti.",
     trustLede:
       "Niente frasi a effetto: infrastruttura, metodo e risultati verificabili. Il resto lo lasciamo dire ai progetti.",
 
-    faqKicker: "§ 08 — Obiezioni",
+    faqKicker: "Obiezioni",
     faqTitle: "Le hai già pensate. Rispondiamo.",
     faq: [
       {
@@ -393,14 +393,14 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    formKicker: "§ 09 — Candidati",
+    formKicker: "Candidati",
     formTitle: "Prendi il tuo posto.",
     formLede:
       "Compila il modulo: ti ricontattiamo per partire. Nessun impegno, nessun pagamento finché non vedi il sito finito.",
     privacyLink: "Come trattiamo i tuoi dati →",
     offerVariantLabel: "Sito personale — tutto incluso",
 
-    finalKicker: "§ 10 — Ultima cosa",
+    finalKicker: "Ultima cosa",
     finalLine1: "Il prossimo brand",
     finalLine2: "da lanciare sei tu.",
     finalSub:
@@ -424,8 +424,8 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     ctaSecondary: "Show me",
     heroPartnerNote: "Already working with clients of your own?",
     heroPartnerCta: "There's a partner program",
-    heroCollabNote: "Rather work inside our projects?",
-    heroCollabCta: "Work with us",
+    heroCollabNote: "A professional who'd rather collaborate on our projects?",
+    heroCollabCta: "Collaborate with us",
     heroPriceK: "Locked price",
     heroPriceV: `€${price} /yr`,
     heroPriceSub: "All-inclusive · €0 upfront",
@@ -442,7 +442,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       `ONLY ${seats} SEATS`,
     ],
 
-    mirrorKicker: "§ 01 — Try it yourself",
+    mirrorKicker: "Try it yourself",
     mirrorTitle: "Type your name. See the whole picture.",
     mirrorLede:
       "Your socials built you an audience; a site turns it into clients. It's not either-or: it's a sum. Try it with your name.",
@@ -471,7 +471,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     rightFoot: "Here, brands choose you.",
     mirrorCaption: "We build it. You keep posting.",
 
-    painsKicker: "§ 02 — The truth",
+    painsKicker: "The truth",
     painsTitle: "Don't build your house on rented land.",
     painsLede: "It's rule number one — the one you repeat to your clients. It applies to you too.",
     pains: [
@@ -504,7 +504,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    offerKicker: "§ 03 — The offer",
+    offerKicker: "The offer",
     offerTitle: "An agency-grade site. At a price agencies can't match.",
     offerBlurb:
       "One price, agreed up front. Nothing paid in advance: you see it finished, then you decide. If it doesn't convince you, you pay nothing.",
@@ -531,7 +531,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     expressNote: "Secure payment · invoice included",
     expressOfferLabel: "Fast lane — online activation",
 
-    pathsKicker: "§ 04 — The paths",
+    pathsKicker: "The paths",
     pathsTitle: "One counterpart. Three ways to work together.",
     pathsLede:
       "Alpacode isn't just your site vendor: it's a development studio, a partner network and a school. Pick the relationship you need today — or combine them.",
@@ -556,7 +556,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    stepsKicker: "§ 05 — How it works",
+    stepsKicker: "How it works",
     stepsTitle: "Three steps. Zero hassle.",
     steps: [
       {
@@ -576,7 +576,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    guarKicker: "§ 06 — No risk",
+    guarKicker: "No risk",
     guarTitle: "Why it's an easy yes.",
     guarantees: [
       {
@@ -597,12 +597,12 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    trustKicker: "§ 07 — Credentials",
+    trustKicker: "Credentials",
     trustTitle: "Trust is built on facts.",
     trustLede:
       "No grand claims: infrastructure, method and verifiable results. We let the projects say the rest.",
 
-    faqKicker: "§ 08 — Objections",
+    faqKicker: "Objections",
     faqTitle: "You've already thought them. We answer.",
     faq: [
       {
@@ -631,14 +631,14 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       },
     ],
 
-    formKicker: "§ 09 — Apply",
+    formKicker: "Apply",
     formTitle: "Take your seat.",
     formLede:
       "Fill the form: we'll reach out to get started. No commitment, no payment until you see the finished site.",
     privacyLink: "How we handle your data →",
     offerVariantLabel: "Personal site — all-inclusive",
 
-    finalKicker: "§ 10 — One last thing",
+    finalKicker: "One last thing",
     finalLine1: "The next brand",
     finalLine2: "to launch is yours.",
     finalSub:

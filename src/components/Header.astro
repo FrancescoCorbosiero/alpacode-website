@@ -24,8 +24,6 @@ const itHref = localizePath(slug, "it");
 const enHref = localizePath(slug, "en");
 const contattiHref = localizePath("contatti", lang);
 
-const status = lang === "it" ? "DISPONIBILE · Q3 2026" : "AVAILABLE · Q3 2026";
-
 const mobileNavItems: MobileNavItem[] = PAGES.map((p) => {
   const item: MobileNavItem = {
     num: p.num,
@@ -64,10 +62,6 @@ const mobileNavLabels: MobileNavLabels = {
       <span class="brand-mark">
         <span class="brand-name">ALPACODE</span>
         <span class="brand-strut" aria-hidden="true"></span>
-        <span class="brand-meta">
-          <span class="status-dot" aria-hidden="true"></span>
-          {status}
-        </span>
       </span>
     </a>
 
@@ -81,9 +75,8 @@ const mobileNavLabels: MobileNavLabels = {
             return (
               <div class="mega-wrap">
                 <a class={cls} href={href} aria-current={isActive ? "page" : undefined}>
-                  <span class="num">{p.num}</span>
                   {p.label[lang]}
-                  <span class="caret" aria-hidden="true">▾</span>
+                  <span class="caret" aria-hidden="true" />
                 </a>
                 <Mega menu={megaByKey(p.mega)} lang={lang} />
               </div>
@@ -91,7 +84,6 @@ const mobileNavLabels: MobileNavLabels = {
           }
           return (
             <a class={cls} href={href} aria-current={isActive ? "page" : undefined}>
-              <span class="num">{p.num}</span>
               {p.label[lang]}
             </a>
           );
@@ -101,19 +93,24 @@ const mobileNavLabels: MobileNavLabels = {
 
     <div class="nav-actions">
       <button
-        class="kbd theme-toggle"
+        class="icon-btn theme-toggle"
         type="button"
         data-theme-toggle
         aria-label={ui.themeToggle[lang]}
         aria-pressed="false"
       >
-        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
           <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle>
           <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path>
         </svg>
       </button>
-      <button class="kbd" data-cmdk-open type="button" aria-label={ui.searchOpen[lang]}>
-        <span data-cmd-mod>⌘</span><span>K</span>
+      {/* Search — the ⌘K / Ctrl+K palette. The shortcut still works; the
+          header just shows a plain magnifier instead of a keyboard chip. */}
+      <button class="icon-btn" data-cmdk-open type="button" aria-label={ui.searchOpen[lang]}>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+          <path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="square"></path>
+        </svg>
       </button>
       <LangToggle client:load lang={lang} itHref={itHref} enHref={enHref} label={ui.langLabel[lang]} />
       <BookCall label={ui.ctaShort[lang]} journey="header" lang={lang} class="btn-sm" />

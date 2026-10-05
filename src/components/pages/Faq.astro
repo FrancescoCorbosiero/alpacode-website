@@ -16,7 +16,9 @@ const t = faq[lang];
 
 <section class="section" style="padding-top:24px">
   <div class="wrap-wide">
-    <FaqList client:visible faqs={t.faqs} />
+    <div data-reveal>
+      <FaqList client:visible faqs={t.faqs} />
+    </div>
   </div>
 </section>
 

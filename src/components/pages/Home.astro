@@ -15,6 +15,7 @@ import Coverage from "../home/Coverage.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import Ticker from "../Ticker.astro";
 import Cases from "../islands/Cases.tsx";
+import Br from "../Br.astro";
 
 interface Props {
   lang: Lang;
@@ -50,7 +51,7 @@ const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
 ---
 
 <Hero lang={lang} />
-<Ticker items={tickerItems} />
+<Ticker items={tickerItems} variant="xl" />
 <Pitch lang={lang} />
 <Verbs lang={lang} />
 <Values lang={lang} />
@@ -61,11 +62,13 @@ const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
     <div class="section-head">
       <div>
         <div class="sec-num">{c.num}</div>
-        <h2 style="white-space:pre-line">{c.heading}</h2>
+        <h2><Br text={c.heading} /></h2>
       </div>
       <p class="lede">{c.lede}</p>
     </div>
-    <Cases client:visible cases={caseList} labels={caseLabels} />
+    <div data-reveal>
+      <Cases client:visible cases={caseList} labels={caseLabels} />
+    </div>
     <div class="band-cta">
       <a class="btn btn-ghost" href={lavoriHref}>{casesCta} <span class="arrow">→</span></a>
     </div>

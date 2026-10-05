@@ -1,178 +1,173 @@
 /* ============================================================
-   Motion
-   Restrained: things slide up, bars wipe horizontally, masks
-   reveal text. Everything keyed off [data-reveal] + IO.
-   Honors prefers-reduced-motion.
+   Motion — the CSS half of the engine (lib/motion.ts is the other).
+
+   Two layers:
+
+   1. INTRO — above the fold, pure CSS keyframes, so the first screen
+      animates on first paint without waiting for JavaScript (and
+      replays after every view-transition navigation, for free):
+        .intro-lines   each .line > span rises out of its own mask
+        [data-intro]   fades up; --intro-d sets the delay
+
+   2. SCROLL — below the fold, GSAP ScrollTrigger + SplitText with Lenis
+      smooth scrolling, wired in lib/motion.ts. Nothing below the fold
+      is hidden by CSS: if the script never runs, the page is simply
+      static. The attribute API (data-split, data-scrub, data-speed,
+      data-progress, …) is documented at the top of motion.ts.
+
+   prefers-reduced-motion: every intro and scroll effect is off.
    ============================================================ */
 
-[data-reveal] {
-  --d: 0ms;
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity var(--dur-1) var(--ease) var(--d),
-    transform var(--dur-1) var(--ease) var(--d);
-  will-change: opacity, transform;
+/* ---------- Lenis (smooth scroll) — upstream lenis.css ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
-[data-reveal][data-shown] {
-  opacity: 1;
-  transform: none;
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
 }
-
-[data-reveal="bar"] {
-  opacity: 1;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--dur-2) var(--ease) var(--d);
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
-[data-reveal="bar"][data-shown] {
-  transform: scaleX(1);
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
-[data-reveal="mask"] {
-  opacity: 1;
-  transform: none;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path var(--dur-3) var(--ease-out) var(--d);
+/* ---------- 1. Intro ---------- */
+/* Line masks. The padding/negative-margin pair grows each mask enough to
+   keep accents and descenders while leaving the layout untouched. */
+.intro-lines .line {
+  display: block;
+  overflow: hidden;
+  padding: 0.1em 0 0.12em;
+  margin: -0.1em 0 -0.12em;
 }
-[data-reveal="mask"][data-shown] {
-  clip-path: inset(0 0 0 0);
-}
-
-[data-reveal="rise"] {
-  opacity: 0;
-  transform: translateY(40px);
-  transition:
-    opacity var(--dur-2) var(--ease) var(--d),
-    transform var(--dur-2) var(--ease) var(--d);
-}
-[data-reveal="rise"][data-shown] {
-  opacity: 1;
-  transform: none;
-}
-
-[data-reveal="fade"] {
-  transform: none;
-  transition: opacity var(--dur-2) var(--ease) var(--d);
-}
-[data-reveal="fade"][data-shown] {
-  opacity: 1;
-}
-
-/* Hero on-load stagger — bypasses IO; [data-loaded] set after first paint */
-.hero[data-hero] .hero-meta {
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 600ms var(--ease) 80ms,
-    transform 600ms var(--ease) 80ms;
-}
-.hero[data-hero] .hero-wordmark .row.row-1 > span {
+.intro-lines .line > span {
   display: inline-block;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1100ms var(--ease-out) 200ms;
-}
-.hero[data-hero] .hero-bar {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 900ms var(--ease) 900ms;
-}
-.hero[data-hero] .hero-wordmark .row.row-2 > span {
-  display: inline-block;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 900ms var(--ease-out) 1200ms;
-}
-.hero[data-hero] .hero-wordmark .row.row-2 > span + span {
-  transition-delay: 1350ms;
-}
-.hero[data-hero] .hero-claim {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 700ms var(--ease) 1500ms,
-    transform 700ms var(--ease) 1500ms;
-}
-.hero[data-hero] .hero-ctas {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 700ms var(--ease) 1700ms,
-    transform 700ms var(--ease) 1700ms;
-}
-.hero[data-hero] .hero-meta-row {
-  opacity: 0;
-  transition: opacity 800ms var(--ease) 1900ms;
-}
-.hero[data-hero] .hero-meta-row .cell {
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 500ms var(--ease),
-    transform 500ms var(--ease);
-}
-.hero[data-hero][data-loaded] .hero-meta {
-  opacity: 1;
-  transform: none;
-}
-.hero[data-hero][data-loaded] .hero-wordmark .row.row-1 > span,
-.hero[data-hero][data-loaded] .hero-wordmark .row.row-2 > span {
-  clip-path: inset(0 0 0 0);
-}
-.hero[data-hero][data-loaded] .hero-bar {
-  transform: scaleX(1);
-}
-.hero[data-hero][data-loaded] .hero-claim,
-.hero[data-hero][data-loaded] .hero-ctas {
-  opacity: 1;
-  transform: none;
-}
-.hero[data-hero][data-loaded] .hero-meta-row {
-  opacity: 1;
-}
-.hero[data-hero][data-loaded] .hero-meta-row .cell {
-  opacity: 1;
-  transform: none;
-  transition-delay: calc(2000ms + var(--cell-i, 0) * 90ms);
 }
 
-/* Page-hero h1 — rise + bar wipe */
-.page-hero h1 {
-  opacity: 0;
-  transform: translateY(24px);
+@media (prefers-reduced-motion: no-preference) {
+  .intro-lines .line > span {
+    animation: introLine 1.15s var(--ease-expo) both;
+    animation-delay: calc(0.12s + var(--line-i, 0) * 0.09s);
+  }
+  .intro-lines .line:nth-child(2) > span {
+    --line-i: 1;
+  }
+  .intro-lines .line:nth-child(3) > span {
+    --line-i: 2;
+  }
+  .intro-lines .line:nth-child(4) > span {
+    --line-i: 3;
+  }
+
+  [data-intro] {
+    animation: introFade 0.95s var(--ease-expo) both;
+    animation-delay: var(--intro-d, 0.55s);
+  }
+  /* Order of arrival: kicker, headline lines, text, actions, facts. */
+  .label[data-intro],
+  .crumb[data-intro] {
+    --intro-d: 0.02s;
+  }
+  .clb-hero-ctas[data-intro],
+  .sus-hero-ctas[data-intro],
+  .rep-hero-ctas[data-intro] {
+    --intro-d: 0.66s;
+  }
+  .clb-facts[data-intro],
+  .sus-hero-meta[data-intro],
+  .rep-hero-meta[data-intro] {
+    --intro-d: 0.78s;
+  }
+
+  /* Home hero lockup: the logo assembles after the claim. */
+  [data-hero] .hero-wordmark .row {
+    overflow: hidden;
+    padding: 0.06em 0 0.04em;
+    margin: -0.06em 0 -0.04em;
+  }
+  [data-hero] .hero-wordmark .row > span {
+    display: inline-block;
+    animation: introLine 1.3s var(--ease-expo) both;
+    animation-delay: 0.35s;
+  }
+  [data-hero] .hero-wordmark .row-2 > span {
+    animation-delay: 0.7s;
+  }
+  [data-hero] .hero-wordmark .row-2 > span + span {
+    animation-delay: 0.78s;
+  }
+  [data-hero] .hero-bar {
+    animation: introBar 1.2s var(--ease-expo) 0.55s both;
+  }
+
+  /* Inner-page hero bar. */
+  .page-hero h1 .bar {
+    animation: introBar 1s var(--ease-expo) 0.45s both;
+  }
+}
+
+@keyframes introLine {
+  from {
+    transform: translateY(120%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes introFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes introBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- 2. Scroll helpers (state set by motion.ts) ---------- */
+/* SplitText line masks (headings): grow each mask enough to keep accents
+   and descenders — the display face runs at line-height < 1. */
+.split-line-mask {
+  padding: 0.1em 0 0.12em;
+  margin: -0.1em 0 -0.12em;
+}
+/* Footer wordmark letters rise out of their own masks. */
+.foot-char-mask {
+  padding-bottom: 0.04em;
+  margin-bottom: -0.04em;
+}
+
+/* Scrubbed statement — words start dim and light up with scroll. Without
+   the script the paragraph is simply full-strength text. */
+.statement {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(30px, 4.4vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0;
+  max-width: 22em;
+}
+
+/* Progress rails ([data-progress]) — steps light up as the fill passes. */
+[data-progress-step] {
   transition:
-    opacity 800ms var(--ease) 250ms,
-    transform 800ms var(--ease) 250ms;
+    opacity 0.5s var(--ease),
+    color 0.5s var(--ease);
 }
-.page-hero h1 .bar {
-  transform: scaleX(0);
-  transform-origin: left center;
-  display: inline-block;
-  transition: transform 700ms var(--ease) 700ms;
-}
-.page-hero[data-loaded] h1 {
-  opacity: 1;
-  transform: none;
-}
-.page-hero[data-loaded] h1 .bar {
-  transform: scaleX(1);
-}
-.page-hero .lede {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 700ms var(--ease) 800ms,
-    transform 700ms var(--ease) 800ms;
-}
-.page-hero[data-loaded] .lede {
-  opacity: 1;
-  transform: none;
-}
-.page-hero .crumb {
-  opacity: 0;
-  transition: opacity 600ms var(--ease) 80ms;
-}
-.page-hero[data-loaded] .crumb {
-  opacity: 1;
+.has-motion [data-progress-step]:not(.is-reached) {
+  opacity: 0.38;
 }
 
 /* Case picker crossfade on tab switch */
@@ -191,43 +186,19 @@
   animation: caseSwap 500ms var(--ease) both;
 }
 
-/* Header strut shrinks slightly when scrolled, then settles */
-.site-header .header-strut {
-  transition: height 280ms var(--ease);
-}
-.site-header.scrolled .header-strut {
-  height: 3px;
-}
-
 /* Verb hover: strut grows */
 .verb .v-strut {
   transition:
-    width 350ms var(--ease),
+    width 0.6s var(--ease-expo),
     background 200ms;
 }
 .verb:hover .v-strut {
   width: 128px;
 }
 
-/* Nav item underline animate-in */
-.nav-item::after {
-  transform-origin: left center;
-}
-.nav-item.is-active::after {
-  animation: navUnderline 500ms var(--ease) both;
-}
-@keyframes navUnderline {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 /* Blog row arrow nudges */
 .blog-row .arr {
-  transition: transform 220ms var(--ease);
+  transition: transform 0.45s var(--ease-expo);
   display: inline-block;
 }
 .blog-row:hover .arr {
@@ -235,20 +206,18 @@
   color: var(--blue);
 }
 
-/* Work card hover lift */
+/* Work card hover: the image breathes, the card doesn't jump. */
 .work {
-  transition:
-    background 240ms var(--ease),
-    transform 240ms var(--ease);
-}
-.work:hover {
-  transform: translateY(-2px);
+  transition: background 0.4s var(--ease);
 }
 .work .img-slot {
-  transition: filter 240ms var(--ease);
+  overflow: hidden;
 }
-.work:hover .img-slot {
-  filter: contrast(1.04);
+.work .img-slot img {
+  transition: transform 1.2s var(--ease-expo);
+}
+.work:hover .img-slot img {
+  transform: scale(1.04);
 }
 
 /* Course card: price reveals on hover */
@@ -261,7 +230,7 @@
 
 /* Button arrow nudges */
 .btn .arrow {
-  transition: transform 200ms var(--ease);
+  transition: transform 0.45s var(--ease-expo);
   display: inline-block;
 }
 .btn:hover .arrow {
@@ -299,39 +268,10 @@
   }
 }
 
-/* Mega menu enter handled via .mega-wrap:hover transition in components.css */
-
-/* Status dot pulses, but politely */
-@keyframes statusBlink {
-  0%,
-  60% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0.35;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.hero-meta .right .label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.hero-meta .right .label::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: var(--blue);
-  display: inline-block;
-  border-radius: 50%;
-  animation: statusBlink 3.6s infinite var(--ease);
-}
-
-/* Scroll-progress strut — the blue strut as connective tissue, growing down
-   the left edge with scroll. Native scroll-timeline; hidden where unsupported
-   (stays scaleY(0)) and under reduced-motion. */
+/* Scroll-progress strut — the blue strut growing down the left edge with
+   scroll. Native scroll-timeline (Lenis drives the real scroll position,
+   so this stays in sync); hidden where unsupported and under reduced
+   motion. */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -355,22 +295,37 @@
     }
   }
 }
+
+/* ---------- Page transitions (Astro view transitions) ---------- */
+/* The outgoing page lifts away, the new one settles in. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vtOut 0.32s var(--ease) both;
+  }
+  ::view-transition-new(root) {
+    animation: vtIn 0.5s var(--ease-expo) both;
+  }
+}
+@keyframes vtOut {
+  to {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+@keyframes vtIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .scroll-progress {
     display: none;
   }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal],
-  .hero[data-hero] *,
-  .page-hero * {
-    transition: none !important;
+  .hero::before {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: none !important;
   }
   .case-info,
   .case-media .tag,
@@ -388,5 +343,8 @@
      with reduced motion it must simply not move (WCAG 2.2.2). */
   .ticker-track {
     animation: none !important;
+  }
+  .site-header {
+    transition: none;
   }
 }

@@ -9,8 +9,16 @@ body {
   margin: 0;
   padding: 0;
 }
-html {
+/* Native smooth scrolling only without the Lenis engine (no JS / reduced
+   motion): Lenis animates the scroll itself and needs the native behaviour
+   to stay "auto" or every frame would be eased twice. */
+html:not(.lenis) {
   scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not(.lenis) {
+    scroll-behavior: auto;
+  }
 }
 body {
   font-family: var(--sans);
@@ -51,9 +59,10 @@ img {
   background: var(--ink);
   color: var(--paper);
   padding: 12px 16px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
 }
 .skip-link:focus {
   left: 8px;
@@ -73,12 +82,38 @@ img {
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.eyebrow {
-  font-family: var(--t-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--mute-2);
+/* Kicker — the short line above a title. Body face, sentence case, led by
+   a short blue strut (the bar from the logo). It replaces the v2 mono
+   micro-label ("§ 01 — COSA FACCIAMO"): no numbering, no tracking, no caps.
+   Landings with their own accent recolor the strut via --kicker-strut. */
+.eyebrow,
+.sec-num,
+.label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--label);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--ink);
+}
+.eyebrow::before,
+.sec-num::before,
+.label::before {
+  content: "";
+  flex: none;
+  width: 24px;
+  height: 3px;
+  background: var(--kicker-strut, var(--blue));
+  transform: scaleX(var(--kick, 1));
+  transform-origin: left center;
+}
+.label--on-ink {
+  color: var(--paper);
 }
 .rule {
   height: 1px;
@@ -109,54 +144,96 @@ img {
 
 /* ---------- Buttons ---------- */
 .btn {
+  --btn-fill: var(--blue);
+  --btn-fill-text: #fff;
+  --btn-fill-border: var(--blue);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
+  padding: 15px 22px;
   border: 1.5px solid var(--ink);
   background: var(--ink);
   color: var(--paper);
   font-family: var(--sans);
   font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   border-radius: 0;
+  transition:
+    color 0.45s var(--ease-expo),
+    border-color 0.45s var(--ease-expo),
+    transform 0.1s;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: var(--btn-fill);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.45s var(--ease-expo);
+}
+.btn:hover {
+  color: var(--btn-fill-text);
+  border-color: var(--btn-fill-border);
+}
+.btn:hover::before {
+  transform: scaleY(1);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn .arrow {
+  font-family: var(--label);
+  font-weight: 400;
+}
+
+.btn-ghost {
+  --btn-fill: var(--ink);
+  --btn-fill-text: var(--paper);
+  --btn-fill-border: var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-blue {
+  --btn-fill: var(--ink);
+  --btn-fill-text: var(--paper);
+  --btn-fill-border: var(--ink);
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* Bespoke landing buttons (SMM, partner, product pages) paint their own
+   hover state against their own accent: no rising fill there. */
+.btn.smm-btn-accent,
+.btn.smm-btn-ghost,
+.btn.smm-express-btn,
+.btn.ptn-btn-accent,
+.btn.ptn-btn-ghost,
+.btn.btn-accent,
+.btn.btn-ghost-on-dark {
+  --btn-fill: transparent;
   transition:
     background 0.15s,
     color 0.15s,
     border-color 0.15s,
     transform 0.1s;
 }
-.btn:hover {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
-}
-.btn:active {
-  transform: translateY(1px);
-}
-.btn .arrow {
-  font-family: var(--t-mono);
-  font-weight: 400;
-}
 
-.btn-ghost {
+/* Ghost button for ink bands. */
+.btn-on-ink {
+  --btn-fill: var(--paper);
+  --btn-fill-text: var(--ink);
+  --btn-fill-border: var(--paper);
   background: transparent;
-  color: var(--ink);
-}
-.btn-ghost:hover {
-  background: var(--ink);
+  border-color: rgba(244, 241, 232, 0.4);
   color: var(--paper);
-}
-
-.btn-blue {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
-}
-.btn-blue:hover {
-  background: var(--blue-deep);
-  border-color: var(--blue-deep);
 }
 
 .btn-sm {
@@ -172,10 +249,10 @@ img {
   background: var(--paper-2);
   border: 1px dashed var(--rule);
   color: var(--mute);
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   padding: 16px;
 }
 .img-slot img {
@@ -202,16 +279,7 @@ img {
   color: #fff;
 }
 
-/* Paper grain — a faint fixed noise overlay for a tactile, printed feel.
-   Sits above content backgrounds but below the header and modals; never
-   intercepts clicks. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* (The v2 fixed paper-grain overlay is gone: a full-viewport
+   mix-blend-mode layer repaints on every scrolled frame, which is exactly
+   what made smooth scrolling stutter — and the "printed grain" was one of
+   the template tells.) */

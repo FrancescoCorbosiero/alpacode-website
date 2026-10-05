@@ -11,11 +11,12 @@ const { crumb, line1, line2, lede, bar = true } = Astro.props;
 
 <section class="page-hero">
   <div class="wrap-wide">
-    <div class="crumb">{crumb}</div>
-    <h1>
-      {bar && <span class="bar" aria-hidden="true"></span>}
-      {line1}{line2 && <Fragment><br />{line2}</Fragment>}
+    <p class="crumb label" data-intro>{crumb}</p>
+    {/* Each line is its own mask for the on-load rise (styles/motion.css). */}
+    <h1 class="intro-lines">
+      <span class="line"><span>{bar && <span class="bar" aria-hidden="true" />}{line1}</span></span>
+      {line2 && <span class="line"><span>{line2}</span></span>}
     </h1>
-    {lede && <p class="lede">{lede}</p>}
+    {lede && <p class="lede" data-intro>{lede}</p>}
   </div>
 </section>

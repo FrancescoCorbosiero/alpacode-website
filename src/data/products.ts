@@ -6,7 +6,7 @@ export interface ProductMeta {
 }
 export interface Product {
   n: string;
-  /** Short badge, e.g. "PRODOTTO DI PUNTA", "KIT DIGITALE", "PREZZO FISSO". */
+  /** Short badge, e.g. "Prodotto di punta", "Kit digitale", "Prezzo fisso". */
   tag: string;
   t: string;
   d: string;
@@ -34,7 +34,7 @@ export interface ProdottiPageData {
 
 export const prodotti: Record<Lang, ProdottiPageData> = {
   it: {
-    crumb: "03 · PRODOTTI",
+    crumb: "Prodotti",
     h1Line1: "Prodotti &",
     h1Line2: "pacchetti.",
     lede: "I nostri prodotti digitali e i pacchetti pronti, con un prezzo deciso prima di partire. Scegli il punto da cui iniziare: al resto pensiamo insieme.",
@@ -47,7 +47,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         list: [
           {
             n: "01",
-            tag: "PRODOTTO DI PUNTA",
+            tag: "Prodotto di punta",
             t: "Hive Commerce",
             d: "Il nostro plugin per WooCommerce che automatizza la gestione del tuo e-commerce. Funzionalità complete e tema grafico incluso: tutto il necessario per avviare un'attività commerciale online.",
             forWho: "Per chi avvia un e-commerce",
@@ -61,7 +61,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "02",
-            tag: "KIT DIGITALE",
+            tag: "Kit digitale",
             t: "Alpacode Pro Kit",
             d: "Il kit completo per iniziare la carriera da Web Master: guide, PDF, risorse, repository, codice e kit di sviluppo WordPress, più una dashboard gestionale. Letteralmente tutto.",
             forWho: "Per chi vuole diventare Web Master",
@@ -75,7 +75,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "03",
-            tag: "ASSISTENTE AI",
+            tag: "Assistente AI",
             t: "Paco",
             d: "L'assistente AI che fa da tramite tra te e il tuo sito web. Il sito lo genera lui, tu lo gestisci scrivendogli su WhatsApp: aggiornamenti, offerte e risposte ai clienti, tutto in chat.",
             forWho: "Per chi vuole un sito senza pensieri",
@@ -95,7 +95,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         list: [
           {
             n: "04",
-            tag: "PREZZO FISSO",
+            tag: "Prezzo fisso",
             t: "Sito Pronto",
             d: "Il sito della tua attività, pronto in poche settimane. Design su misura, veloce e pensato per portarti clienti.",
             forWho: "Per professionisti e piccole imprese",
@@ -108,7 +108,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "05",
-            tag: "PREZZO FISSO",
+            tag: "Prezzo fisso",
             t: "E-commerce Starter",
             d: "Un negozio online pronto a vendere: catalogo, pagamenti e spedizioni già configurati e collaudati.",
             forWho: "Per chi vuole iniziare a vendere online",
@@ -121,7 +121,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "06",
-            tag: "PREZZO FISSO",
+            tag: "Prezzo fisso",
             t: "Brand Kit",
             d: "Logo, colori e identità visiva pronti all'uso. Tutto quello che serve per presentarti bene, ovunque.",
             forWho: "Per chi parte da zero o rinnova",
@@ -134,7 +134,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "07",
-            tag: "PREZZO FISSO",
+            tag: "Prezzo fisso",
             t: "Landing & ADV",
             d: "Una pagina pensata per convertire e una campagna pubblicitaria avviata e tracciata. Per un lancio o una promozione.",
             forWho: "Per lanci, eventi e promozioni",
@@ -150,7 +150,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
     ],
   },
   en: {
-    crumb: "03 · PRODUCTS",
+    crumb: "Products",
     h1Line1: "Products &",
     h1Line2: "packages.",
     lede: "Our digital products and ready-made packages, with a price agreed before we start. Pick where to begin — we'll figure out the rest together.",
@@ -163,7 +163,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         list: [
           {
             n: "01",
-            tag: "FLAGSHIP PRODUCT",
+            tag: "Flagship product",
             t: "Hive Commerce",
             d: "Our WooCommerce plugin that automates your e-commerce. Full feature set and a graphic theme included: everything you need to launch an online business.",
             forWho: "For launching an e-commerce",
@@ -177,7 +177,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "02",
-            tag: "DIGITAL KIT",
+            tag: "Digital kit",
             t: "Alpacode Pro Kit",
             d: "The complete kit to start a career as a Web Master: guides, PDFs, resources, repositories, code and WordPress dev kits, plus a management dashboard. Literally everything.",
             forWho: "For becoming a Web Master",
@@ -191,7 +191,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "03",
-            tag: "AI CONCIERGE",
+            tag: "AI concierge",
             t: "Paco",
             d: "The AI concierge that sits between you and your website. It generates the site, you run it by texting on WhatsApp: updates, offers and customer replies, all in chat.",
             forWho: "For a website with zero overhead",
@@ -211,7 +211,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
         list: [
           {
             n: "04",
-            tag: "FIXED PRICE",
+            tag: "Fixed price",
             t: "Ready Site",
             d: "Your business website, ready in a few weeks. Custom design, fast, and built to bring you clients.",
             forWho: "For professionals and small businesses",
@@ -224,7 +224,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "05",
-            tag: "FIXED PRICE",
+            tag: "Fixed price",
             t: "E-commerce Starter",
             d: "An online shop ready to sell: catalog, payments and shipping already set up and tested.",
             forWho: "For those starting to sell online",
@@ -237,7 +237,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "06",
-            tag: "FIXED PRICE",
+            tag: "Fixed price",
             t: "Brand Kit",
             d: "Logo, colors and a visual identity ready to use. Everything you need to present yourself well, everywhere.",
             forWho: "For starting from scratch or refreshing",
@@ -250,7 +250,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
           },
           {
             n: "07",
-            tag: "FIXED PRICE",
+            tag: "Fixed price",
             t: "Landing & ADV",
             d: "A page built to convert and an advertising campaign launched and tracked. For a launch or a promotion.",
             forWho: "For launches, events and promotions",

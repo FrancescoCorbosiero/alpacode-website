@@ -17,6 +17,9 @@ export interface PartnerFormLabels {
   messagePlaceholder: string;
   send: string;
   consent: string;
+  /** Optional second required checkbox — an explicit acknowledgement the
+   *  sender must tick (e.g. "this is not a job application"). */
+  ack?: string;
   confirm: string;
   error: string;
 }
@@ -46,20 +49,6 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
       window.history.replaceState({}, "", url);
     }
   }, []);
-
-  // Pages can pre-select the profession (the "candidati come" cards on
-  // /lavora-con-noi): picks made before this client:visible island hydrates
-  // are recorded on window, later ones arrive as events.
-  useEffect(() => {
-    const seed = (window as { __professionSeed?: string }).__professionSeed;
-    if (seed && labels.professions.includes(seed)) setProfession(seed);
-    const onSeed = (e: Event) => {
-      const detail = (e as CustomEvent<string>).detail;
-      if (labels.professions.includes(detail)) setProfession(detail);
-    };
-    window.addEventListener("profession-seed", onSeed as EventListener);
-    return () => window.removeEventListener("profession-seed", onSeed as EventListener);
-  }, [labels.professions]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -110,15 +99,15 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
       />
 
       <div className="field">
-        <label htmlFor="pf-name">— {labels.name}</label>
+        <label htmlFor="pf-name">{labels.name}</label>
         <input id="pf-name" name="name" required placeholder={labels.namePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="pf-email">— {labels.email}</label>
+        <label htmlFor="pf-email">{labels.email}</label>
         <input id="pf-email" name="email" type="email" required placeholder={labels.emailPlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="pf-profession">— {labels.profession}</label>
+        <label htmlFor="pf-profession">{labels.profession}</label>
         <select
           id="pf-profession"
           name="profession"
@@ -134,18 +123,24 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
         </select>
       </div>
       <div className="field">
-        <label htmlFor="pf-zone">— {labels.zone}</label>
+        <label htmlFor="pf-zone">{labels.zone}</label>
         <input id="pf-zone" name="zone" placeholder={labels.zonePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="pf-phone">— {labels.phone}</label>
+        <label htmlFor="pf-phone">{labels.phone}</label>
         <input id="pf-phone" name="phone" type="tel" placeholder={labels.phonePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="pf-message">— {labels.message}</label>
+        <label htmlFor="pf-message">{labels.message}</label>
         <textarea id="pf-message" name="message" rows={3} placeholder={labels.messagePlaceholder} />
       </div>
 
+      {labels.ack && (
+        <div className="contact-consent contact-consent--ack">
+          <input type="checkbox" required id="pf-ack" name="ack" />
+          <label htmlFor="pf-ack">{labels.ack}</label>
+        </div>
+      )}
       <div className="contact-consent">
         <input type="checkbox" required id="pf-consent" name="consent" />
         <label htmlFor="pf-consent">{labels.consent}</label>
@@ -156,8 +151,8 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
           {labels.send} <span className="arrow">→</span>
         </button>
         <span role="status" aria-live="polite">
-          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+          {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">{labels.error}</span>}
         </span>
       </div>
     </form>

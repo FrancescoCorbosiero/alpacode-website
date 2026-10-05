@@ -1,0 +1,11 @@
+---
+/** Renders the "\n" in a copy string as <br>, so a heading can carry its
+ *  own line breaks. (It used to rely on white-space: pre-line, which the
+ *  motion engine's line splitter collapses.) */
+interface Props {
+  text: string;
+}
+const lines = Astro.props.text.split("\n");
+---
+
+{lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}

@@ -17,17 +17,17 @@ const reportHref = localizePath("sostenibilita-ambientale-report", lang);
   {/* ---------- HERO ---------- */}
   <section class="page-hero sus-hero">
     <div class="wrap-wide">
-      <div class="crumb">{t.hero.crumb}</div>
-      <h1>
-        <span class="bar" aria-hidden="true"></span>
-        {t.hero.line1}<br />{t.hero.line2}
+      <p class="crumb label" data-intro>{t.hero.crumb}</p>
+      <h1 class="intro-lines">
+        <span class="line"><span><span class="bar" aria-hidden="true" />{t.hero.line1}</span></span>
+        <span class="line"><span>{t.hero.line2}</span></span>
       </h1>
-      <p class="lede">{t.hero.lede}</p>
-      <div class="sus-hero-ctas">
+      <p class="lede" data-intro>{t.hero.lede}</p>
+      <div class="sus-hero-ctas" data-intro>
         <a class="btn btn-blue" href={reportHref}>{t.hero.cta1} <span class="arrow">→</span></a>
         <a class="btn btn-ghost" href="#metodo">{t.hero.cta2} <span class="arrow">↓</span></a>
       </div>
-      <div class="sus-hero-meta">
+      <div class="sus-hero-meta" data-intro>
         {
           t.hero.meta.map((m) => (
             <div class="sus-hero-cell">

@@ -55,19 +55,19 @@ function ContactForm({ lang, labels }: Props) {
       />
 
       <div className="field">
-        <label htmlFor="cf-name">— {labels.name}</label>
+        <label htmlFor="cf-name">{labels.name}</label>
         <input id="cf-name" name="name" required placeholder={labels.namePlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-company">— {labels.company}</label>
+        <label htmlFor="cf-company">{labels.company}</label>
         <input id="cf-company" name="company" placeholder={labels.companyPlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-email">— {labels.email}</label>
+        <label htmlFor="cf-email">{labels.email}</label>
         <input id="cf-email" name="email" type="email" required placeholder={labels.emailPlaceholder} />
       </div>
       <div className="field">
-        <label htmlFor="cf-topic">— {labels.topic}</label>
+        <label htmlFor="cf-topic">{labels.topic}</label>
         <select id="cf-topic" name="topic" defaultValue="">
           <option value="" disabled>
             {labels.topicPlaceholder}
@@ -78,7 +78,7 @@ function ContactForm({ lang, labels }: Props) {
         </select>
       </div>
       <div className="field">
-        <label htmlFor="cf-budget">— {labels.budget}</label>
+        <label htmlFor="cf-budget">{labels.budget}</label>
         <select id="cf-budget" name="budget" defaultValue="">
           <option value="" disabled>
             {labels.budgetPlaceholder}
@@ -89,7 +89,7 @@ function ContactForm({ lang, labels }: Props) {
         </select>
       </div>
       <div className="field">
-        <label htmlFor="cf-message">— {labels.msg}</label>
+        <label htmlFor="cf-message">{labels.msg}</label>
         <textarea id="cf-message" name="message" rows={4} required placeholder={labels.msgPlaceholder} />
       </div>
 
@@ -103,8 +103,8 @@ function ContactForm({ lang, labels }: Props) {
           {labels.send} <span className="arrow">→</span>
         </button>
         <span role="status" aria-live="polite">
-          {status === "sent" && <span className="contact-confirm">● {labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">● {labels.error}</span>}
+          {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
+          {status === "error" && <span className="contact-error">{labels.error}</span>}
         </span>
       </div>
     </form>

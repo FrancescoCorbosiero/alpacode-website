@@ -1,5 +1,36 @@
 # Handoff — Alpacode Soluzioni Digitali · site v2
 
+> ## v3 update — read this before the v2 spec below
+>
+> The v2 handoff below was a generated prototype, and parts of it read as
+> one. v3 keeps the brand (logo-derived palette, the blue strut, Archivo
+> Black + Manrope, square corners) and **supersedes** these v2 rules:
+>
+> - **No monospace micro-labels.** JetBrains Mono, 11px, uppercase,
+>   0.18em tracking is retired from the UI (the token is now `--label`,
+>   the body face). Kickers (`.sec-num` / `.eyebrow` / `.label`) are
+>   sentence case, never numbered (`§ 01 —`, `02 ·` are gone), led by a
+>   short blue strut. No `●` status dots, no numbered nav, no ⌘K chip
+>   (a search icon opens the palette; the shortcut still works), no
+>   version stamp in the footer, no paper-grain overlay.
+> - **Motion is GSAP + Lenis** (`src/lib/motion.ts`, CSS half in
+>   `src/styles/motion.css`): smooth wheel scrolling, headings rising
+>   line by line, blocks fading up in staggered batches, struts drawing
+>   in, scrubbed statements, a scroll-reactive marquee, a header that
+>   steps aside while you read. Above-the-fold intros are pure CSS so
+>   the first paint never waits on JavaScript. Everything is off under
+>   `prefers-reduced-motion`. The header of `motion.ts` documents the
+>   attribute API (`data-split`, `data-reveal`, `data-scrub`,
+>   `data-speed`, `data-progress`, `data-strut`).
+> - **Home hero**: the claim is the headline; the ALPACODE lockup is a
+>   full-width signature on the bottom edge. Optional background video:
+>   set `heroVideo` in `src/data/home.ts` (specs in the comment there),
+>   files in `public/media/`.
+> - **/lavora-con-noi is now /collabora-con-noi** (301 from the old
+>   URL): Alpacode does not hire; the page explains how professionals
+>   with their own business can propose a collaboration. Copy rules are
+>   at the top of `src/data/collabora-con-noi.ts`.
+
 ## Overview
 
 This package contains a complete, working high-fidelity design for the

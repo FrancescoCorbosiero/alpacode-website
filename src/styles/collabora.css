@@ -1,0 +1,503 @@
+/* ============================================================
+   Collabora con noi — the collaboration page (ex /lavora-con-noi).
+   Built to answer "are you hiring?" before anyone has to ask:
+   ink hero with the answer as the headline, an is / isn't split,
+   a scrubbed statement, a progress rail for how it happens, the
+   crafts as a typographic index (not job cards), the legal forms
+   and the pact, FAQ, and the proposal form.
+   ============================================================ */
+
+/* ---------- Hero (ink band — pinned light palette, tokens.css) ---------- */
+.clb-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(64px, 11vh, 132px) 0 0;
+}
+.clb-hero-h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(50px, 9.6vw, 164px);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin: 28px 0 0;
+}
+.clb-hero-accent {
+  color: var(--blue);
+}
+.clb-hero-tail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 40px;
+  margin-top: clamp(32px, 6vh, 56px);
+}
+.clb-hero-lede {
+  margin: 0;
+  max-width: 660px;
+  font-size: 19px;
+  line-height: 1.6;
+  color: rgba(244, 241, 232, 0.78);
+}
+.clb-hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.clb-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: clamp(48px, 9vh, 88px) 0 0;
+  border-top: 1px solid rgba(244, 241, 232, 0.18);
+}
+.clb-fact {
+  padding: 26px 24px 34px 0;
+}
+.clb-fact + .clb-fact {
+  padding-left: 24px;
+  border-left: 1px solid rgba(244, 241, 232, 0.18);
+}
+.clb-fact dt {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(244, 241, 232, 0.55);
+}
+.clb-fact dd {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+/* ---------- What it is / what it isn't ---------- */
+.clb-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1.5px solid var(--ink);
+}
+.clb-col {
+  padding: 40px 48px 8px 0;
+}
+.clb-col + .clb-col {
+  padding: 40px 0 8px 48px;
+  border-left: 1px solid var(--rule);
+}
+.clb-col h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin: 0 0 28px;
+}
+.clb-col--not h3 {
+  color: var(--mute);
+}
+.clb-col--is h3 {
+  color: var(--blue);
+}
+.clb-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.clb-col li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 18px;
+  line-height: 1.45;
+}
+/* Markers: a thin grey dash for what it isn't, the blue strut for what it is. */
+.clb-col li::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  background: var(--mute);
+  transform: translateY(-6px);
+}
+.clb-col--not li {
+  color: var(--mute-2);
+}
+.clb-col--is li {
+  font-weight: 600;
+}
+.clb-col--is li::before {
+  height: 4px;
+  background: var(--blue);
+}
+
+/* ---------- Statement (ink band, words light up with scroll) ---------- */
+.clb-statement {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(96px, 17vh, 200px) 0;
+}
+
+/* ---------- How it happens: steps along a progress rail ---------- */
+.clb-steps {
+  position: relative;
+}
+.clb-steps-rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--rule);
+}
+.clb-steps-rail span {
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  transform: scaleX(var(--p, 1));
+  transform-origin: left center;
+}
+.clb-steps ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.clb-step {
+  position: relative;
+  padding: 44px 32px 0 0;
+}
+/* The stop on the rail. */
+.clb-step::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: var(--paper-2);
+  border: 3px solid var(--rule);
+  transition:
+    background 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+.clb-step.is-reached::before,
+html:not(.has-motion) .clb-step::before {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.clb-step-no {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.clb-step h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  margin: 14px 0 12px;
+}
+.clb-step p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+
+/* ---------- Crafts — a typographic index, deliberately not clickable ---------- */
+.clb-crafts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1.5px solid var(--ink);
+}
+.clb-craft {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: baseline;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.clb-craft-t {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.7vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.clb-craft-d {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+
+/* ---------- The two forms + the pact ---------- */
+.clb-forms {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  border: 1.5px solid var(--ink);
+}
+.clb-form-card {
+  padding: 40px;
+  background: var(--paper);
+}
+.clb-form-card + .clb-form-card {
+  border-left: 1.5px solid var(--ink);
+}
+.clb-form-card--main {
+  background: var(--ink);
+  color: var(--paper);
+}
+.clb-form-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.clb-form-card--main .clb-form-tag {
+  background: var(--blue);
+  color: #fff;
+}
+.clb-form-card h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(26px, 2.7vw, 40px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 22px 0 14px;
+}
+.clb-form-card p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+.clb-form-card--main p {
+  color: rgba(244, 241, 232, 0.76);
+}
+.clb-form-card .clb-form-note {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.clb-form-card--main .clb-form-note {
+  border-top-color: rgba(244, 241, 232, 0.2);
+  color: var(--paper);
+}
+/* In dark mode --ink is the light tone: keep the main card's copy legible. */
+:root[data-theme="dark"] .clb-form-card--main p {
+  color: rgba(18, 17, 15, 0.76);
+}
+:root[data-theme="dark"] .clb-form-card--main .clb-form-note {
+  border-top-color: rgba(18, 17, 15, 0.2);
+}
+
+.clb-pact {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  margin-top: clamp(72px, 10vh, 112px);
+  padding-top: 56px;
+  border-top: 1.5px solid var(--ink);
+}
+.clb-pact-head h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 4.2vw, 60px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  margin: 22px 0 18px;
+}
+.clb-pact-head p {
+  margin: 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--mute-2);
+}
+.clb-pact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.clb-pact-list li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 17px;
+  line-height: 1.5;
+}
+.clb-pact-list li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: var(--blue);
+  transform: translateY(1px);
+}
+
+/* ---------- Partner cross-link ---------- */
+.clb-cross {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 48px;
+  align-items: end;
+  padding: 44px 0 40px;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.clb-cross-tag {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mute-2);
+}
+.clb-cross-title {
+  font-family: var(--display);
+  font-size: clamp(34px, 5vw, 80px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  transition: color 0.35s var(--ease);
+}
+.clb-cross-body {
+  grid-column: 1;
+  max-width: 660px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+.clb-cross-cta {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.clb-cross-cta .arrow {
+  transition: transform 0.45s var(--ease-expo);
+}
+.clb-cross:hover .clb-cross-title,
+.clb-cross:hover .clb-cross-cta {
+  color: var(--blue);
+}
+.clb-cross:hover .clb-cross-cta .arrow {
+  transform: translateX(6px);
+}
+
+/* ---------- Proposal form ---------- */
+.clb-form {
+  max-width: 820px;
+}
+/* The "this is not a job application" checkbox stands out on purpose. */
+.contact-consent--ack {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper-2);
+}
+.contact-consent--ack label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .clb-steps ol {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+}
+@media (max-width: 900px) {
+  .clb-hero-tail,
+  .clb-split,
+  .clb-forms,
+  .clb-pact,
+  .clb-cross {
+    grid-template-columns: 1fr;
+  }
+  .clb-hero-tail {
+    align-items: start;
+  }
+  .clb-facts {
+    grid-template-columns: 1fr;
+  }
+  .clb-fact {
+    padding: 20px 0;
+  }
+  .clb-fact + .clb-fact {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(244, 241, 232, 0.18);
+  }
+  .clb-col,
+  .clb-col + .clb-col {
+    padding: 32px 0 8px;
+    border-left: 0;
+  }
+  .clb-col + .clb-col {
+    border-top: 1px solid var(--rule);
+  }
+  /* The rail turns vertical. */
+  .clb-steps {
+    padding-left: 36px;
+  }
+  .clb-steps-rail {
+    top: 0;
+    bottom: 0;
+    left: 6px;
+    right: auto;
+    width: 4px;
+    height: auto;
+  }
+  .clb-steps-rail span {
+    transform: scaleY(var(--p, 1));
+    transform-origin: top center;
+  }
+  .clb-steps ol {
+    grid-template-columns: 1fr;
+    row-gap: 36px;
+  }
+  .clb-step {
+    padding: 0;
+  }
+  .clb-step::before {
+    top: 2px;
+    left: -36px;
+  }
+  .clb-craft {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .clb-form-card {
+    padding: 32px 24px;
+  }
+  .clb-form-card + .clb-form-card {
+    border-left: 0;
+    border-top: 1.5px solid var(--ink);
+  }
+  .clb-pact {
+    gap: 28px;
+  }
+  .clb-cross-cta {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 8px;
+  }
+}

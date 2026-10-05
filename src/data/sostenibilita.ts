@@ -92,7 +92,7 @@ export interface SustainData {
 export const sostenibilita: Record<Lang, SustainData> = {
   it: {
     hero: {
-      crumb: "§ 10 — Sostenibilità ambientale",
+      crumb: "Sostenibilità ambientale",
       line1: "La nostra impronta",
       line2: "è piccola come noi.",
       lede: "Siamo uno studio digitale piccolo e vogliamo che anche la nostra impronta lo sia. L'impegno parte dal modo in cui lavoriamo: remote-native, senza pendolarismo quotidiano né uffici energivori, e completamente paperless — documenti, contratti e fatture solo in digitale.",
@@ -115,7 +115,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "REPORT PUBBLICO",
     ],
 
-    savingKicker: "§ 01 — Dove sta il risparmio",
+    savingKicker: "Dove sta il risparmio",
     savingTitle: "L'impatto minore è quello che non generi.",
     savingLede:
       "Non abbiamo inventato una tecnologia verde. Abbiamo tolto le tre cose che, in uno studio come il nostro, pesano davvero: il tragitto, la sede e la carta.",
@@ -146,7 +146,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       },
     ],
 
-    howKicker: "§ 02 — Il metodo",
+    howKicker: "Il metodo",
     howTitle: "Come lavoriamo davvero.",
     howLede:
       "Nessuna di queste è una scelta eroica: sono le condizioni normali di uno studio nato remote. Le scriviamo perché siano verificabili, non perché siano straordinarie.",
@@ -178,7 +178,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       },
     ],
 
-    limitsKicker: "§ 03 — Onestà",
+    limitsKicker: "Onestà",
     limitsTitle: "Quello che non diciamo.",
     limitsLede:
       "Un impegno serio si riconosce anche da quello che non promette. Quattro cose che non affermiamo, per non farvele leggere tra le righe.",
@@ -189,7 +189,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "I numeri del report sono stime interne, calcolate con un metodo scritto e rifacibile da chiunque. Non sono un bilancio verificato da terzi.",
     ],
 
-    pledgeKicker: "§ 04 — Impegni",
+    pledgeKicker: "Impegni",
     pledgeTitle: "Cosa ci impegniamo a fare.",
     pledgeLede: "Pochi, concreti, verificabili. Il report annuale dice se li abbiamo rispettati.",
     pledges: [
@@ -231,7 +231,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "Chilometri di pendolarismo non percorsi, documenti non stampati, trasferte effettuate e sottratte dal saldo. Con il metodo di calcolo e i fattori usati, in fondo alla pagina.",
     crossCta: "Apri il report",
 
-    faqKicker: "§ 05 — Domande",
+    faqKicker: "Domande",
     faqTitle: "Le domande scomode.",
     faq: [
       {
@@ -259,7 +259,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
 
   en: {
     hero: {
-      crumb: "§ 10 — Environmental sustainability",
+      crumb: "Environmental sustainability",
       line1: "Our footprint",
       line2: "is as small as we are.",
       lede: "We're a small digital studio and we want our footprint to be small too. The commitment starts with how we work: remote-native, with no daily commuting and no energy-hungry offices, and entirely paperless — documents, contracts and invoices in digital form only.",
@@ -282,7 +282,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "PUBLISHED REPORT",
     ],
 
-    savingKicker: "§ 01 — Where the saving is",
+    savingKicker: "Where the saving is",
     savingTitle: "The smallest impact is the one you never create.",
     savingLede:
       "We haven't invented a green technology. We removed the three things that actually weigh in a studio like ours: the commute, the office and the paper.",
@@ -313,7 +313,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       },
     ],
 
-    howKicker: "§ 02 — The method",
+    howKicker: "The method",
     howTitle: "How we actually work.",
     howLede:
       "None of this is heroic: these are the ordinary conditions of a studio born remote. We write them down so they can be checked, not because they're extraordinary.",
@@ -345,7 +345,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       },
     ],
 
-    limitsKicker: "§ 03 — Honesty",
+    limitsKicker: "Honesty",
     limitsTitle: "What we don't claim.",
     limitsLede:
       "A serious commitment shows in what it refuses to promise. Four things we do not assert, so you don't read them between the lines.",
@@ -356,7 +356,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "The report figures are internal estimates, calculated with a written method anyone can redo. They are not third-party assured accounts.",
     ],
 
-    pledgeKicker: "§ 04 — Commitments",
+    pledgeKicker: "Commitments",
     pledgeTitle: "What we commit to.",
     pledgeLede: "Few, concrete, checkable. The annual report says whether we kept them.",
     pledges: [
@@ -398,7 +398,7 @@ export const sostenibilita: Record<Lang, SustainData> = {
       "Commuting kilometres never driven, documents never printed, business travel actually taken and subtracted from the balance. With the calculation method and the factors used, at the foot of the page.",
     crossCta: "Open the report",
 
-    faqKicker: "§ 05 — Questions",
+    faqKicker: "Questions",
     faqTitle: "The awkward questions.",
     faq: [
       {
@@ -793,7 +793,7 @@ export const report: Record<Lang, ReportCopy> = {
     yearLabel: "Anno",
     archiveLabel: "Archivio",
 
-    kpiKicker: "§ 01 — Sintesi dell'anno",
+    kpiKicker: "Sintesi dell'anno",
     kpiTitle: "I numeri, in quattro righe.",
     kpiLede:
       "Somma dei trimestri chiusi. I trimestri ancora aperti non contribuiscono: nessuna proiezione, nessuna stima anticipata.",
@@ -821,7 +821,7 @@ export const report: Record<Lang, ReportCopy> = {
     ],
     partialNote: "Dato parziale: comprende solo i trimestri chiusi.",
 
-    chartKicker: "§ 02 — Saldo trimestrale",
+    chartKicker: "Saldo trimestrale",
     chartTitle: "Evitate sopra, emesse sotto.",
     chartLede:
       "Ogni trimestre su una scala comune, in kg CO₂e. Sopra la linea quello che non abbiamo prodotto, sotto quello che abbiamo prodotto muovendoci. La differenza è il saldo netto.",
@@ -832,7 +832,7 @@ export const report: Record<Lang, ReportCopy> = {
     chartCaption:
       "Sopra e sotto la linea la scala è la stessa: un millimetro vale gli stessi kg in entrambe le direzioni. Le barre sotto i 3 pixel sono portate a 3 per restare visibili; i valori esatti sono nella tabella qui sotto.",
 
-    quartersKicker: "§ 03 — Trimestre per trimestre",
+    quartersKicker: "Trimestre per trimestre",
     quartersTitle: "Il dettaglio.",
     quartersLede:
       "Gli stessi indicatori per ogni trimestre, così che due anni diversi restino confrontabili.",
@@ -847,11 +847,11 @@ export const report: Record<Lang, ReportCopy> = {
       netKg: "Saldo netto",
     },
 
-    pledgeKicker: "§ 04 — Stato degli impegni",
+    pledgeKicker: "Stato degli impegni",
     pledgeTitle: "Cosa abbiamo mantenuto.",
     pledgeState: { done: "Rispettato", doing: "In corso", planned: "Programmato" },
 
-    methodKicker: "§ 05 — Metodo",
+    methodKicker: "Metodo",
     methodTitle: "Come sono calcolati questi numeri.",
     methodLede:
       "Tre formule e tre fattori. Nessun dato è misurato da strumenti: sono conteggi operativi interni moltiplicati per fattori di emissione pubblici. Chiunque può rifare i conti.",
@@ -880,7 +880,7 @@ export const report: Record<Lang, ReportCopy> = {
     ],
     sourcesTitle: "Da dove vengono i fattori",
 
-    boundaryKicker: "§ 06 — Perimetro e limiti",
+    boundaryKicker: "Perimetro e limiti",
     boundaryTitle: "Cosa non c'è in questi numeri.",
     boundaryLede:
       "Il perimetro è stretto di proposito: contiamo solo quello di cui abbiamo evidenza diretta. Il resto è dichiarato, non stimato.",
@@ -923,7 +923,7 @@ export const report: Record<Lang, ReportCopy> = {
     yearLabel: "Year",
     archiveLabel: "Archive",
 
-    kpiKicker: "§ 01 — Year summary",
+    kpiKicker: "Year summary",
     kpiTitle: "The numbers, in four lines.",
     kpiLede:
       "The sum of the closed quarters. Quarters still running contribute nothing: no projections, no early estimates.",
@@ -951,7 +951,7 @@ export const report: Record<Lang, ReportCopy> = {
     ],
     partialNote: "Partial figure: closed quarters only.",
 
-    chartKicker: "§ 02 — Quarterly balance",
+    chartKicker: "Quarterly balance",
     chartTitle: "Avoided above, emitted below.",
     chartLede:
       "Each quarter on a shared scale, in kg CO₂e. Above the line what we didn't produce, below it what we produced by travelling. The difference is the net balance.",
@@ -962,7 +962,7 @@ export const report: Record<Lang, ReportCopy> = {
     chartCaption:
       "Above and below the line the scale is the same: a millimetre is worth the same kg in both directions. Bars under 3 pixels are raised to 3 so they stay visible; the exact figures are in the table below.",
 
-    quartersKicker: "§ 03 — Quarter by quarter",
+    quartersKicker: "Quarter by quarter",
     quartersTitle: "The detail.",
     quartersLede:
       "The same indicators for every quarter, so that two different years stay comparable.",
@@ -977,11 +977,11 @@ export const report: Record<Lang, ReportCopy> = {
       netKg: "Net balance",
     },
 
-    pledgeKicker: "§ 04 — Status of the commitments",
+    pledgeKicker: "Status of the commitments",
     pledgeTitle: "What we kept.",
     pledgeState: { done: "Kept", doing: "In progress", planned: "Scheduled" },
 
-    methodKicker: "§ 05 — Method",
+    methodKicker: "Method",
     methodTitle: "How these numbers are calculated.",
     methodLede:
       "Three formulas and three factors. Nothing here is instrument-measured: these are internal operational counts multiplied by public emission factors. Anyone can redo the arithmetic.",
@@ -1010,7 +1010,7 @@ export const report: Record<Lang, ReportCopy> = {
     ],
     sourcesTitle: "Where the factors come from",
 
-    boundaryKicker: "§ 06 — Boundary and limits",
+    boundaryKicker: "Boundary and limits",
     boundaryTitle: "What these numbers leave out.",
     boundaryLede:
       "The boundary is deliberately narrow: we count only what we have direct evidence for. The rest is declared, not estimated.",

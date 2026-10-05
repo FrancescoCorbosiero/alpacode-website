@@ -71,10 +71,10 @@
 }
 .sus-hero-cell .k,
 .rep-hero-cell .k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .sus-hero-cell .v,
@@ -110,16 +110,17 @@
   background: var(--paper-2);
 }
 .sus-saving-no {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.02em;
   color: var(--blue);
 }
 .sus-saving-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .sus-saving h3 {
@@ -261,9 +262,10 @@
   border-bottom: 1px solid var(--rule);
 }
 .sus-pledge-no {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.02em;
   color: var(--blue);
   padding-top: 6px;
 }
@@ -283,10 +285,10 @@
 .sus-pledge-when {
   justify-self: end;
   align-self: start;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
   border: 1px solid var(--rule);
   padding: 7px 12px;
@@ -311,10 +313,10 @@
   transform: translateY(-2px);
 }
 .sus-cross-tag {
-  font-family: var(--t-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--blue);
 }
 .sus-cross-title {
@@ -349,16 +351,17 @@
 }
 .rep-archive-label,
 .rep-year-label {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .rep-archive a {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   border-bottom: 1px solid var(--rule);
   padding-bottom: 2px;
 }
@@ -382,9 +385,10 @@
   letter-spacing: -0.03em;
 }
 .rep-year-status {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   color: var(--mute-2);
   margin-left: auto;
 }
@@ -411,10 +415,10 @@
   border-right: 0;
 }
 .rep-kpi-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .rep-kpi-v {
@@ -425,9 +429,10 @@
   font-variant-numeric: tabular-nums;
 }
 .rep-kpi-u {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   color: var(--mute-2);
 }
 .rep-kpi-strut {
@@ -445,10 +450,10 @@
 }
 .rep-partial {
   margin: 18px 0 0;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 
@@ -474,10 +479,10 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute-2);
 }
 .rep-swatch {
@@ -493,9 +498,10 @@
 }
 .rep-legend-unit {
   margin-left: auto;
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .rep-plot {
@@ -549,9 +555,9 @@
   background: var(--sus-down);
 }
 .rep-val {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
 }
@@ -562,10 +568,10 @@
 .rep-nodata {
   margin-top: auto;
   margin-bottom: 8px;
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .rep-col.is-empty {
@@ -588,9 +594,10 @@
   line-height: 1;
 }
 .rep-col-m {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .rep-chart-cap {
@@ -641,17 +648,18 @@
   letter-spacing: -0.02em;
 }
 .rep-q-months {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .rep-q-state {
   margin-left: auto;
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
   border: 1px solid var(--rule);
   padding: 4px 8px;
@@ -680,7 +688,7 @@
 }
 .rep-q-row dd {
   margin: 0;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -694,10 +702,10 @@
   border-top: var(--strut) solid var(--blue);
 }
 .rep-q-net .k {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .rep-q-net .v {
@@ -742,10 +750,10 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute-2);
 }
 .rep-pledge-dot {
@@ -800,7 +808,7 @@
 }
 .rep-formula-f {
   display: block;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
   line-height: 1.6;
   color: var(--blue);
@@ -822,11 +830,10 @@
   padding-top: 40px;
 }
 .rep-factors-col h3 {
-  font-family: var(--t-mono);
-  font-size: 11px;
+  font-family: var(--label);
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--mute);
   margin: 0 0 16px;
 }
@@ -846,7 +853,7 @@
 }
 .rep-factor-row dd {
   margin: 0;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 14px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -905,10 +912,10 @@
   margin: 24px 0 0;
   padding-top: 18px;
   border-top: 1px solid var(--rule);
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .rep-sibling a {
@@ -943,16 +950,17 @@
   border-right: 0;
 }
 .soc-pillar-no {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.02em;
   color: var(--blue);
 }
 .soc-pillar-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .soc-pillar h3 {
@@ -983,11 +991,10 @@
    it so the percentage is never the only evidence.
    ============================================================ */
 .soc-meters-title {
-  font-family: var(--t-mono);
-  font-size: 11px;
+  font-family: var(--label);
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--mute);
   margin: 56px 0 18px;
 }
@@ -1032,9 +1039,9 @@
   background: var(--blue);
 }
 .soc-meter-c {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   color: var(--mute-2);
   font-variant-numeric: tabular-nums;
 }
@@ -1073,10 +1080,10 @@
   font-size: 16px;
 }
 .soc-facet-u {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .soc-facet-plot {
@@ -1113,18 +1120,18 @@
   background: var(--blue);
 }
 .soc-fval {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
 }
 .soc-fnodata {
   margin-top: auto;
   margin-bottom: 6px;
-  font-family: var(--t-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .soc-fq {

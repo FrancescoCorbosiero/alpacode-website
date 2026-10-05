@@ -53,7 +53,7 @@ export interface ContattiData {
 
 export const contatti: Record<Lang, ContattiData> = {
   it: {
-    crumb: "08 · CONTATTI",
+    crumb: "Contatti",
     h1Line1: "Parliamone,",
     h1Line2: "con calma.",
     lede: "Compila il modulo o scrivici direttamente. Ti rispondiamo entro mezza giornata lavorata, in italiano, da una persona vera.",
@@ -74,8 +74,8 @@ export const contatti: Record<Lang, ContattiData> = {
       msgPlaceholder: "Una riga sul progetto, il problema, l'obiettivo.",
       send: "Invia il messaggio",
       consent: "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
-      confirm: "GRAZIE — TI RISPONDIAMO PRESTO",
-      error: "QUALCOSA È ANDATO STORTO — RIPROVA O SCRIVICI VIA EMAIL",
+      confirm: "Grazie: ti rispondiamo presto.",
+      error: "Qualcosa è andato storto: riprova o scrivici via email.",
     },
     info: {
       h: "Diretto.",
@@ -89,7 +89,7 @@ export const contatti: Record<Lang, ContattiData> = {
       hoursV: "Lun — Ven · 09:00 — 18:00 CET",
       reply: "Tempo di risposta",
       replyV: "< mezza giornata lavorata",
-      availableLabel: "DISPONIBILE",
+      availableLabel: "Disponibile",
       availableV: "Stiamo prendendo nuovi progetti per Q3 2026.",
     },
     person: {
@@ -119,7 +119,7 @@ export const contatti: Record<Lang, ContattiData> = {
     },
   },
   en: {
-    crumb: "08 · CONTACT",
+    crumb: "Contact",
     h1Line1: "Let's talk,",
     h1Line2: "calmly.",
     lede: "Fill the form or write directly. We reply within half a worked day, in English or Italian, from a real person.",
@@ -140,8 +140,8 @@ export const contatti: Record<Lang, ContattiData> = {
       msgPlaceholder: "A line about the project, the problem, the goal.",
       send: "Send message",
       consent: "I have read the privacy policy and consent to data processing to be contacted back.",
-      confirm: "THANKS — WE'LL REPLY SOON",
-      error: "SOMETHING WENT WRONG — RETRY OR EMAIL US",
+      confirm: "Thanks: we'll reply soon.",
+      error: "Something went wrong: retry or email us.",
     },
     info: {
       h: "Direct.",
@@ -155,7 +155,7 @@ export const contatti: Record<Lang, ContattiData> = {
       hoursV: "Mon — Fri · 09:00 — 18:00 CET",
       reply: "Response time",
       replyV: "< half a worked day",
-      availableLabel: "AVAILABLE",
+      availableLabel: "Available",
       availableV: "We're taking new projects for Q3 2026.",
     },
     person: {
