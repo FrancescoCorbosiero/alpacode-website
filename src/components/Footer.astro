@@ -21,7 +21,7 @@ const cookiePrefsLabel = lang === "it" ? "Preferenze cookie" : "Cookie preferenc
 /* Secondary navigation — the program/marketing pages kept out of the
    primary nav on purpose. This strip is their internal-link home. */
 const collabLinks = [
-  { href: localizePath("lavora-con-noi", lang), label: footer.workWithUs[lang] },
+  { href: localizePath("collabora-con-noi", lang), label: footer.collaborate[lang] },
   { href: localizePath("partner", lang), label: footer.partnerProgram[lang] },
   { href: localizePath("social-media-manager", lang), label: footer.smmOffer[lang] },
 ];
@@ -43,10 +43,7 @@ const commitmentLinks = [
   <div class="wrap-wide">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="big">ALPACODE</div>
-        <div class="big-bar"></div>
-        <div class="big big-sub">SOLUZIONI DIGITALI</div>
-        <p>{tagline[lang]}</p>
+        <p class="foot-claim">{tagline[lang]}</p>
       </div>
 
       <div class="foot-col">
@@ -124,13 +121,14 @@ const commitmentLinks = [
 
     <div class="foot-bottom">
       <span>{footer.rights[lang]}</span>
-      <span>{footer.bottomLocation}</span>
       <span class="foot-clock" data-studio-root>
-        <span data-studio-dot aria-hidden="true">●</span>
-        <span data-studio-time>—:—</span> CET
+        {footer.clock[lang]} <span data-studio-time>—:—</span>
       </span>
-      <span>{footer.version}</span>
     </div>
+  </div>
+  {/* The signature: the wordmark at full width, letters rising into view. */}
+  <div class="foot-wordmark-wrap" aria-hidden="true">
+    <div class="foot-wordmark">ALPACODE</div>
   </div>
 </footer>
 

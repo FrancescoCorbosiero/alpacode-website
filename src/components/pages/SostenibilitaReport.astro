@@ -75,17 +75,17 @@ function columns(quarters: Quarter[]): Column[] {
   {/* ---------- HERO ---------- */}
   <section class="page-hero rep-hero">
     <div class="wrap-wide">
-      <div class="crumb">{t.hero.crumb}</div>
-      <h1>
-        <span class="bar" aria-hidden="true"></span>
-        {t.hero.line1}<br />{t.hero.line2}
+      <p class="crumb label" data-intro>{t.hero.crumb}</p>
+      <h1 class="intro-lines">
+        <span class="line"><span><span class="bar" aria-hidden="true" />{t.hero.line1}</span></span>
+        <span class="line"><span>{t.hero.line2}</span></span>
       </h1>
-      <p class="lede">{t.hero.lede}</p>
-      <div class="rep-hero-ctas">
+      <p class="lede" data-intro>{t.hero.lede}</p>
+      <div class="rep-hero-ctas" data-intro>
         <a class="btn btn-blue" href="#trimestri">{t.hero.cta1} <span class="arrow">↓</span></a>
         <a class="btn btn-ghost" href="#metodo">{t.hero.cta2} <span class="arrow">↓</span></a>
       </div>
-      <div class="rep-hero-meta">
+      <div class="rep-hero-meta" data-intro>
         <div class="rep-hero-cell">
           <span class="k">{t.scopeLabel}</span>
           <span class="v">{t.scopeValue}</span>

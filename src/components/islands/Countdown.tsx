@@ -61,7 +61,7 @@ function Countdown({ deadlineISO, labels, closedLabel }: Props) {
   }, [deadline]);
 
   if (r?.done) {
-    return <div className="countdown countdown--closed">● {closedLabel}</div>;
+    return <div className="countdown countdown--closed">{closedLabel}</div>;
   }
 
   const cells: { v: string; l: string }[] = [

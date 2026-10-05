@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import { coverage } from "../../data/home";
 import { italyMap } from "../../data/italyMap";
 import BookCall from "../BookCall.astro";
+import Br from "../Br.astro";
 
 interface Props {
   lang: Lang;
@@ -30,7 +31,7 @@ const anchorFor = (x: number) => (x < hq.x ? "end" : "start");
     <div class="section-head">
       <div>
         <div class="sec-num">{num}</div>
-        <h2 style="white-space:pre-line">{t.heading}</h2>
+        <h2><Br text={t.heading} /></h2>
       </div>
       <p class="lede">{t.lede}</p>
     </div>
@@ -80,11 +81,11 @@ const anchorFor = (x: number) => (x < hq.x ? "end" : "start");
 
       <div class="coverage-info">
         <div class="cov-block">
-          <span class="k">— {t.baseLabel}</span>
+          <span class="k">{t.baseLabel}</span>
           <span class="v">{t.baseValue}</span>
         </div>
         <div class="cov-block">
-          <span class="k">— {t.reachLabel}</span>
+          <span class="k">{t.reachLabel}</span>
           <span class="v">{t.reachValue}</span>
         </div>
         <p class="cov-note">{t.note}</p>

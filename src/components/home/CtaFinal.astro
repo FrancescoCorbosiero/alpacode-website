@@ -21,7 +21,7 @@ const resolve = (href?: string) => {
 
 <section class="cta-final">
   <div class="wrap-wide">
-    <div class="sec-num eyebrow" style="color:var(--blue);letter-spacing:0.2em;margin-bottom:20px">{t.num}</div>
+    <p class="sec-num">{t.num}</p>
     <div class="display">
       {t.line1}<br /><span class="underline">{t.underline}</span>
     </div>
@@ -43,7 +43,7 @@ const resolve = (href?: string) => {
         })
       }
     </div>
-    <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+    <div class="cta-final-actions">
       <BookCall label={bookLabel} journey="cta-final" lang={lang} class="btn-blue" />
       <a class="btn btn-ghost" href={contattiHref}>{t.cta}</a>
     </div>

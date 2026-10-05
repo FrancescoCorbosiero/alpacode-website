@@ -345,7 +345,7 @@ export interface ImpactCopy {
 export const impatto: Record<Lang, ImpactCopy> = {
   it: {
     hero: {
-      crumb: "§ 11 — Report di impatto sociale",
+      crumb: "Report di impatto sociale",
       line1: "Report di",
       line2: "impatto sociale.",
       lede: "Il divario digitale in Italia non riguarda solo le persone: riguarda le piccole attività che non possono permettersi la digitalizzazione, o che ne sono state scottate. Il nostro impatto sociale è tutto lì. Quattro trimestri, conteggi interni, con la definizione di ogni indicatore in fondo alla pagina.",
@@ -361,7 +361,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     yearLabel: "Anno",
     archiveLabel: "Archivio",
 
-    gapKicker: "§ 01 — Il divario",
+    gapKicker: "Il divario",
     gapTitle: "Tre cose, non venti.",
     gapLede:
       "Un impatto sociale credibile è corto. Il nostro sta in tre righe, e ogni riga ha dei numeri che la seguono nel resto della pagina.",
@@ -386,7 +386,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
       },
     ],
 
-    kpiKicker: "§ 02 — Sintesi dell'anno",
+    kpiKicker: "Sintesi dell'anno",
     kpiTitle: "I numeri, in quattro righe.",
     kpiLede:
       "Somma dei trimestri chiusi. I trimestri ancora aperti non contribuiscono: nessuna proiezione, nessuna stima anticipata.",
@@ -431,7 +431,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     ],
     meterOf: "su",
 
-    chartKicker: "§ 03 — Andamento trimestrale",
+    chartKicker: "Andamento trimestrale",
     chartTitle: "Come si distribuisce l'anno.",
     chartLede:
       "Due grandezze diverse, due grafici separati: mettere progetti e ore sullo stesso asse le farebbe sembrare confrontabili, e non lo sono.",
@@ -443,7 +443,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     chartCaption:
       "Ogni grafico ha la sua scala, perché misura una cosa diversa: le altezze si leggono dentro un riquadro, mai tra un riquadro e l'altro. I valori esatti sono nella tabella qui sotto.",
 
-    quartersKicker: "§ 04 — Trimestre per trimestre",
+    quartersKicker: "Trimestre per trimestre",
     quartersTitle: "Il dettaglio.",
     quartersLede:
       "Gli stessi indicatori per ogni trimestre, così che due anni diversi restino confrontabili.",
@@ -459,11 +459,11 @@ export const impatto: Record<Lang, ImpactCopy> = {
       freeResources: "Risorse gratuite pubblicate",
     },
 
-    pledgeKicker: "§ 05 — Stato degli impegni",
+    pledgeKicker: "Stato degli impegni",
     pledgeTitle: "Cosa abbiamo mantenuto.",
     pledgeState: { done: "Rispettato", doing: "In corso", planned: "Programmato" },
 
-    methodKicker: "§ 06 — Metodo",
+    methodKicker: "Metodo",
     methodTitle: "Cosa vuol dire ogni numero.",
     methodLede:
       "Qui non ci sono formule: ci sono definizioni. Un indicatore la cui definizione non sta in una riga è un indicatore che serve a gonfiare, e non lo mettiamo.",
@@ -502,7 +502,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
       },
     ],
 
-    boundaryKicker: "§ 07 — Perimetro e limiti",
+    boundaryKicker: "Perimetro e limiti",
     boundaryTitle: "Cosa non c'è in questi numeri.",
     boundaryLede:
       "Le voci che mancano sono quelle che farebbero più bella figura. Mancano apposta.",
@@ -527,7 +527,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
 
   en: {
     hero: {
-      crumb: "§ 11 — Social impact report",
+      crumb: "Social impact report",
       line1: "Social impact",
       line2: "report.",
       lede: "Italy's digital divide isn't only about people: it's about the small businesses that can't afford digitalisation, or that got burned by it. That's where our social impact sits. Four quarters, internal counts, with the definition of every indicator at the foot of the page.",
@@ -543,7 +543,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     yearLabel: "Year",
     archiveLabel: "Archive",
 
-    gapKicker: "§ 01 — The gap",
+    gapKicker: "The gap",
     gapTitle: "Three things, not twenty.",
     gapLede:
       "A credible social impact is short. Ours fits in three lines, and every line has numbers following it through the rest of the page.",
@@ -568,7 +568,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
       },
     ],
 
-    kpiKicker: "§ 02 — Year summary",
+    kpiKicker: "Year summary",
     kpiTitle: "The numbers, in four lines.",
     kpiLede:
       "The sum of the closed quarters. Quarters still running contribute nothing: no projections, no early estimates.",
@@ -613,7 +613,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     ],
     meterOf: "of",
 
-    chartKicker: "§ 03 — Quarterly pattern",
+    chartKicker: "Quarterly pattern",
     chartTitle: "How the year is spread.",
     chartLede:
       "Two different quantities, two separate charts: putting projects and hours on one axis would make them look comparable, and they are not.",
@@ -625,7 +625,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     chartCaption:
       "Each chart has its own scale, because each measures a different thing: heights read within a panel, never across panels. The exact figures are in the table below.",
 
-    quartersKicker: "§ 04 — Quarter by quarter",
+    quartersKicker: "Quarter by quarter",
     quartersTitle: "The detail.",
     quartersLede:
       "The same indicators for every quarter, so that two different years stay comparable.",
@@ -641,11 +641,11 @@ export const impatto: Record<Lang, ImpactCopy> = {
       freeResources: "Free resources published",
     },
 
-    pledgeKicker: "§ 05 — Status of the commitments",
+    pledgeKicker: "Status of the commitments",
     pledgeTitle: "What we kept.",
     pledgeState: { done: "Kept", doing: "In progress", planned: "Scheduled" },
 
-    methodKicker: "§ 06 — Method",
+    methodKicker: "Method",
     methodTitle: "What each number means.",
     methodLede:
       "There are no formulas here: there are definitions. An indicator whose definition doesn't fit on one line is an indicator built to inflate, and we leave it out.",
@@ -684,7 +684,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
       },
     ],
 
-    boundaryKicker: "§ 07 — Boundary and limits",
+    boundaryKicker: "Boundary and limits",
     boundaryTitle: "What these numbers leave out.",
     boundaryLede:
       "The missing items are the ones that would look best. They're missing on purpose.",

@@ -73,11 +73,11 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 }
 .smm .sec-num.smm-kicker {
   color: var(--smm-accent);
-  letter-spacing: 0.22em;
+  --kicker-strut: currentColor;
 }
 .smm .sec-num.smm-kicker-deep {
   color: var(--smm-accent-deep);
-  letter-spacing: 0.22em;
+  --kicker-strut: currentColor;
 }
 .smm-head-gap {
   margin-top: 96px;
@@ -143,10 +143,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
 }
 .smm-eyebrow {
   display: inline-flex;
@@ -233,9 +233,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 /* Mono note under the lede — the partner program, visible from second one */
 .smm-hero-partner {
   margin-top: 18px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   color: var(--smm-fg-faint);
 }
 .smm-hero-partner a {
@@ -271,10 +272,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   border-right: 0;
 }
 .smm-hero-scar-cell .k {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--smm-fg-faint);
 }
 .smm-hero-scar-cell .v {
@@ -288,9 +289,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   font-weight: 400;
 }
 .smm-hero-scar-cell .s {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--smm-fg-mute);
 }
 /* Big, luminous countdown on dark */
@@ -341,10 +343,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   margin-bottom: 48px;
 }
 .smm-try-label {
-  font-family: var(--t-mono);
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--smm-accent);
   white-space: nowrap;
 }
@@ -390,10 +392,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: var(--smm-accent);
 }
 .smm-stage-tag {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   margin-bottom: 16px;
 }
 .smm-stage-tag--social {
@@ -404,9 +406,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
 }
 .smm-stage-foot {
   margin-top: 16px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--smm-fg-mute);
 }
 
@@ -436,7 +439,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: var(--smm-fg);
 }
 .smm-phone-handle {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--smm-fg);
@@ -498,7 +501,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   min-width: 0;
   background: var(--smm-bg);
   border: 1px solid var(--smm-rule);
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
   color: var(--smm-fg-faint);
   padding: 6px 12px;
@@ -542,10 +545,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   justify-content: flex-end;
 }
 .smm-site-nav span {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute-2);
 }
 .smm-site-strut {
@@ -563,10 +566,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   overflow-wrap: anywhere;
 }
 .smm-site-role {
-  font-family: var(--t-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute-2);
 }
 /* Mini media-kit stats — makes the preview feel like a real site */
@@ -592,10 +595,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: var(--ink);
 }
 .smm-site-stat .k {
-  font-family: var(--t-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 
@@ -621,9 +624,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   background: var(--blue);
 }
 .smm-site-tile-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 9px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .smm-site-tile-t {
@@ -655,7 +659,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   white-space: nowrap;
 }
 .smm-site-mail {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 11px;
   color: var(--mute-2);
   min-width: 0;
@@ -708,9 +712,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   background: var(--smm-bg-2);
 }
 .smm-pain-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.02em;
   color: var(--smm-fg-faint);
 }
 .smm-pain-strut {
@@ -794,7 +799,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: var(--smm-accent-deep);
 }
 .smm-price-per {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 15px;
   color: var(--mute);
 }
@@ -821,10 +826,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   border-left: 1px solid var(--rule);
 }
 .smm-scar-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .smm-seats-v {
@@ -837,10 +842,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   font-weight: 400;
 }
 .smm-includes-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
   margin-bottom: 20px;
 }
@@ -899,9 +904,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   letter-spacing: -0.01em;
 }
 .smm-express-pay {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .smm-express-body {
@@ -927,9 +933,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: #fff;
 }
 .smm-express-note {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 
@@ -1014,7 +1021,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   position: absolute;
   right: 4px;
   top: 16px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   color: var(--smm-accent);
   font-size: 22px;
 }
@@ -1064,7 +1071,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   max-width: 280px;
 }
 .smm-form-privacy a {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--smm-accent-deep);
@@ -1111,10 +1118,10 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   background: var(--paper-2);
 }
 .smm-path-n {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--mute);
 }
 .smm-path-strut {
@@ -1251,7 +1258,7 @@ body:has(.smm) .campaign-header .btn-blue:hover {
   color: #fff;
 }
 .smm-sticky-btn .arrow {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-weight: 400;
 }
 

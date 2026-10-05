@@ -183,10 +183,10 @@
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   flex-wrap: wrap;
 }
 .pp-crumb {
@@ -326,11 +326,11 @@
   position: absolute;
   top: 14px;
   left: 14px;
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--pp-fg-mute);
-  text-transform: uppercase;
 }
 
 .pp-hero-meta {
@@ -352,10 +352,10 @@
   border-right: 0;
 }
 .pp-hero-cell .k {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--pp-fg-faint);
 }
 .pp-hero-cell .v {
@@ -381,13 +381,23 @@
   align-items: end;
   margin-bottom: 56px;
 }
+/* Same kicker as the rest of the site (base.css), in the product accent. */
 .pp-sec-num {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 15px;
   color: var(--pp-accent);
   margin-bottom: 20px;
+}
+.pp-sec-num::before {
+  content: "";
+  flex: none;
+  width: 24px;
+  height: 3px;
+  background: currentColor;
 }
 .pp-h2 {
   font-size: clamp(36px, 5vw, 60px);
@@ -457,9 +467,10 @@
   margin-bottom: 24px;
 }
 .pp-feature-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.02em;
   color: var(--pp-fg-faint);
 }
 .pp-feature-strut {
@@ -512,9 +523,10 @@
   border-right: 0;
 }
 .pp-ea-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.02em;
   color: var(--pp-accent);
 }
 .pp-ea-strut {
@@ -647,7 +659,7 @@
   border-color: var(--pp-accent-deep);
 }
 .pp-sticky .pp-sticky-btn .arrow {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-weight: 400;
 }
 

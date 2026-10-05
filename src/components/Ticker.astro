@@ -1,13 +1,16 @@
 ---
 interface Props {
   items: string[];
+  /** "band" — the slim ink strip (default). "xl" — display-size words on
+   *  paper that follow the scroll (speed and direction, see motion.ts). */
+  variant?: "band" | "xl";
 }
-const { items } = Astro.props;
-// Duplicate the set so the keyframe can loop seamlessly at translateX(-50%).
+const { items, variant = "band" } = Astro.props;
+// Duplicate the set so the loop can wrap seamlessly at -50%.
 const loop = [...items, ...items];
 ---
 
-<div class="ticker" aria-hidden="true" style={`--items:${items.length}`}>
+<div class:list={["ticker", { "ticker--xl": variant === "xl" }]} aria-hidden="true" style={`--items:${items.length}`}>
   <div class="ticker-track">
     {
       loop.map((t) => (

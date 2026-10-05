@@ -23,9 +23,12 @@ export const footer = {
   contact: { it: "Scrivici", en: "Write us" },
   legal: { it: "Legale", en: "Legal" },
   rights: {
-    it: "© 2026 ALPACODE · Tutti i diritti riservati",
-    en: "© 2026 ALPACODE · All rights reserved",
+    it: "© 2026 Alpacode · Tutti i diritti riservati",
+    en: "© 2026 Alpacode · All rights reserved",
   },
+  /* Footer studio clock: "Monza, ore 19:44" — the time comes from
+     Footer.astro's ticking script. */
+  clock: { it: "Monza, ore", en: "Monza, local time" },
   base: {
     it: "Sede operativa · Monza · Milano · IT",
     en: "Studio · Monza · Milan · IT",
@@ -38,9 +41,9 @@ export const footer = {
   bookCall: { it: "Prenota una call", en: "Book a call" },
   /* Secondary nav strip — indexes the marketing/program pages that
      deliberately have no primary-nav slot. */
-  collab: { it: "Collabora", en: "Work with us" },
+  collab: { it: "Collabora", en: "Collaborate" },
   offers: { it: "Offerte su misura", en: "Tailored offers" },
-  workWithUs: { it: "Lavora con noi", en: "Work with us" },
+  collaborate: { it: "Collabora con noi", en: "Collaborate with us" },
   partnerProgram: { it: "Programma partner", en: "Partner program" },
   smmOffer: { it: "Per social media manager", en: "For social media managers" },
   commitment: { it: "Impegno", en: "Commitment" },
@@ -50,8 +53,7 @@ export const footer = {
   privacy: { it: "Privacy", en: "Privacy" },
   cookies: { it: "Cookie", en: "Cookies" },
   terms: { it: "Termini", en: "Terms" },
-  bottomLocation: "ALPACODE · MZ — MI · IT",
-  version: "v2.0 · 05.2026",
+  bottomLocation: "Monza · Milano · Italia",
 } satisfies Record<string, Localized | string>;
 
 export const cmdk = {
@@ -74,14 +76,14 @@ export const cmdk = {
 
 /** <title> and meta description per page. */
 export const meta: Record<PageKey, { title: Localized; description: Localized }> = {
-  "lavora-con-noi": {
+  "collabora-con-noi": {
     title: {
-      it: "Lavora con noi · Collaborazioni remote-native — Alpacode",
-      en: "Work with us · Remote-native collaborations — Alpacode",
+      it: "Collabora con noi · Non assumiamo, collaboriamo — Alpacode",
+      en: "Collaborate with us · We don't hire, we collaborate — Alpacode",
     },
     description: {
-      it: "Cerchiamo grafici, designer, sviluppatori, marketer e social media manager per task e progetti interi. Remote-native, da tutta Italia, con accordi chiari e per iscritto.",
-      en: "We're looking for graphic artists, designers, developers, marketers and social media managers for single tasks and entire projects. Remote-native, from anywhere in Italy, with clear written agreements.",
+      it: "Alpacode non assume e non pubblica annunci di lavoro. Collaboriamo con professionisti indipendenti — freelance, studi, piccole agenzie — su incarichi definiti, con accordo scritto e compenso concordato prima. Qui puoi proporci una collaborazione.",
+      en: "Alpacode doesn't hire and publishes no job ads. We collaborate with independent professionals — freelancers, studios, small agencies — on defined assignments, with a written agreement and compensation agreed up front. Propose a collaboration here.",
     },
   },
   "sostenibilita-ambientale": {

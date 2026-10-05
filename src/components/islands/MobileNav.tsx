@@ -164,7 +164,6 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
                   aria-current={isActive ? "page" : undefined}
                   onClick={() => setOpen(false)}
                 >
-                  <span className="num">{p.num}</span>
                   <span className="ttl">{p.label}</span>
                 </a>
               );
@@ -178,7 +177,6 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setOpen(false)}
                   >
-                    <span className="num">{p.num}</span>
                     <span className="ttl">{p.label}</span>
                   </a>
                   <button
@@ -200,7 +198,6 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
                           {col.items.map((it) => (
                             <li key={it.n}>
                               <a href={p.href} onClick={() => setOpen(false)}>
-                                <span className="num">{it.n}</span>
                                 <span>
                                   <span className="ttl">{it.t}</span>
                                   <span className="desc">{it.d}</span>

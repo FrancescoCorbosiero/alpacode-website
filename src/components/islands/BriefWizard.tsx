@@ -140,11 +140,11 @@ function BriefWizard({ lang, labels, prenotaHref }: Props) {
 
           <div className="bw-fields">
             <div className="field">
-              <label htmlFor="bw-name">— {labels.name}</label>
+              <label htmlFor="bw-name">{labels.name}</label>
               <input id="bw-name" name="name" required placeholder={labels.namePlaceholder} />
             </div>
             <div className="field">
-              <label htmlFor="bw-email">— {labels.email}</label>
+              <label htmlFor="bw-email">{labels.email}</label>
               <input
                 id="bw-email"
                 name="email"
@@ -168,7 +168,7 @@ function BriefWizard({ lang, labels, prenotaHref }: Props) {
               {labels.back}
             </button>
             <span role="status" aria-live="polite">
-              {status === "error" && <span className="contact-error">● {labels.error}</span>}
+              {status === "error" && <span className="contact-error">{labels.error}</span>}
             </span>
           </div>
           <p className="bw-note">{labels.note}</p>

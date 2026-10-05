@@ -5,8 +5,6 @@ import "@fontsource/manrope/500.css";
 import "@fontsource/manrope/600.css";
 import "@fontsource/manrope/700.css";
 import "@fontsource/manrope/800.css";
-import "@fontsource/jetbrains-mono/400.css";
-import "@fontsource/jetbrains-mono/500.css";
 import "../styles/global.css";
 
 import { ClientRouter } from "astro:transitions";
@@ -104,7 +102,7 @@ const cmdItems: CmdItem[] = [
     href: localizePath(p.slug, lang),
   })),
   // Program/marketing pages — no primary-nav slot, but searchable.
-  { kind: "page", num: "09", ttl: footer.workWithUs[lang], sub: pageSub("lavora-con-noi"), href: localizePath("lavora-con-noi", lang) },
+  { kind: "page", num: "09", ttl: footer.collaborate[lang], sub: pageSub("collabora-con-noi"), href: localizePath("collabora-con-noi", lang) },
   { kind: "page", num: "P1", ttl: footer.partnerProgram[lang], sub: pageSub("partner"), href: localizePath("partner", lang) },
   { kind: "page", num: "P2", ttl: footer.smmOffer[lang], sub: pageSub("social-media-manager"), href: localizePath("social-media-manager", lang) },
   { kind: "page", num: "S1", ttl: footer.sustainability[lang], sub: pageSub("sostenibilita-ambientale"), href: localizePath("sostenibilita-ambientale", lang) },

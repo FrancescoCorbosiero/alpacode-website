@@ -23,7 +23,7 @@ function FaqList({ faqs }: Props) {
               id={`faq-q-${i}`}
               onClick={() => setOpen(isOpen ? -1 : i)}
             >
-              <span className="num">— {String(i + 1).padStart(2, "0")}</span>
+              <span className="num">{String(i + 1).padStart(2, "0")}</span>
               <span className="q">{f.q}</span>
               <span className="ic" aria-hidden="true">
                 {isOpen ? "—" : "+"}

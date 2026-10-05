@@ -20,7 +20,11 @@
   /* Type */
   --display: "Archivo Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --sans: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --t-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Small labels — kickers, meta keys, tags, form labels. The body face,
+     sentence case, never a monospace: the v2 micro-labels (JetBrains Mono,
+     11px, uppercase, 0.2em tracking) read as template furniture and are
+     retired. */
+  --label: var(--sans);
 
   /* Scale */
   --strut: 6px; /* the blue bar height */
@@ -30,6 +34,8 @@
   /* Motion */
   --ease: cubic-bezier(0.2, 0.72, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* expo-out — the long, soft landing the GSAP reveals use (power4.out) */
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --dur-1: 600ms;
   --dur-2: 800ms;
   --dur-3: 1000ms;
@@ -74,11 +80,11 @@
    whole page, campaign chrome included, is designed against the light
    token values and must not follow the theme. */
 :root[data-theme="dark"] .manifesto,
-:root[data-theme="dark"] .ticker,
+:root[data-theme="dark"] .ticker:not(.ticker--xl),
 :root[data-theme="dark"] .site-footer,
 :root[data-theme="dark"] .band-dark,
-:root[data-theme="dark"] .lcn-hero,
-:root[data-theme="dark"] .lcn-quote,
+:root[data-theme="dark"] .clb-hero,
+:root[data-theme="dark"] .clb-statement,
 :root[data-theme="dark"] .sus-limits,
 :root[data-theme="dark"] .rep-boundary,
 :root[data-theme="dark"] .product--featured,

@@ -57,13 +57,13 @@ const labels: BlogLabels =
 const t =
   lang === "it"
     ? {
-        crumb: "06 · BLOG",
+        crumb: "Blog",
         line1: "Note,",
         line2: "guide e riflessioni.",
         lede: "Note, guide e riflessioni. Contenuti per chi vuole digitalizzare la propria attività, per chi la digitalizzazione la costruisce ogni giorno, e per chi vuole leggere uno sguardo informato sul digitale.",
       }
     : {
-        crumb: "06 · BLOG",
+        crumb: "Blog",
         line1: "Notes,",
         line2: "guides and insights.",
         lede: "Notes, guides and insights. Content for those looking to digitalize their business, for those who build digital every day, and for anyone after an informed view on the industry.",
@@ -74,7 +74,9 @@ const t =
 
 <section class="section" style="padding-top:24px">
   <div class="wrap-wide">
-    <BlogList client:load posts={posts} tabs={tabs} labels={labels} />
+    <div data-reveal>
+      <BlogList client:load posts={posts} tabs={tabs} labels={labels} />
+    </div>
   </div>
 </section>
 

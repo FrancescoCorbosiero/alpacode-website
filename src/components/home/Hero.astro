@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../../i18n/types";
-import { hero } from "../../data/home";
+import { hero, heroVideo } from "../../data/home";
 import { localizePath } from "../../i18n/utils";
 import BookCall from "../BookCall.astro";
 
@@ -10,59 +10,61 @@ interface Props {
 const { lang } = Astro.props;
 const t = hero[lang];
 const lavoriHref = localizePath("lavori", lang);
+const video = heroVideo;
+
+/* "Digitalizziamo *privati*" → text + highlighted segments. */
+const segments = (line: string) =>
+  line.split(/(\*[^*]+\*)/).filter(Boolean).map((part) =>
+    part.startsWith("*") ? { em: true, text: part.slice(1, -1) } : { em: false, text: part },
+  );
 ---
 
-<section class="hero">
-  <div class="wrap-wide">
-    <div class="hero-meta">
-      <div class="left">
-        <span class="eyebrow">{t.eyebrow}</span>
+<section class:list={["hero", { "hero--video": video }]} data-hero>
+  {
+    video && (
+      <div class="hero-media" aria-hidden="true">
+        {/* Sources are attached by motion.ts only when motion is welcome and
+            the connection isn't on Save-Data; otherwise the poster stays. */}
+        <video class="hero-video" muted loop playsinline preload="none" poster={video.poster} data-hero-video>
+          {video.webm && <source data-src={video.webm} type="video/webm" />}
+          <source data-src={video.mp4} type="video/mp4" />
+        </video>
+        <div class="hero-scrim" />
       </div>
-      <div class="right">
-        <span class="label">{t.statusLabel}</span>
-        <span class="val">{t.statusVal}</span>
-      </div>
-    </div>
+    )
+  }
 
-    {/* The wordmark is a visual lockup (and Italian-only), so the h1 goes on
-        the localized claim below — the wordmark used to be the h1, which on
-        /en/ made the page's main heading untranslated brand furniture. */}
-    <div class="hero-monogram" style="margin-top:56px">
-      <div class="hero-wordmark">
-        <div class="row row-1"><span>ALPACODE</span></div>
-        <div class="hero-bar" aria-hidden="true"></div>
-        <div class="row row-2">
-          <span>SOLUZIONI</span><span>DIGITALI</span>
-        </div>
-      </div>
-    </div>
+  <div class="wrap-wide hero-inner" data-hero-content>
+    <p class:list={["label", { "label--on-ink": video }]} data-intro>{t.kicker}</p>
 
-    <div class="hero-sub-row" style="margin-top:72px">
-      <h1 class="hero-claim">
-        {
-          lang === "it" ? (
-            <Fragment>Digitalizziamo <em>privati</em> e imprese,<br />in tutta Italia.</Fragment>
-          ) : (
-            <Fragment>We digitalize <em>people</em> and businesses,<br />right across Italy.</Fragment>
-          )
-        }
-      </h1>
-      <div class="hero-ctas">
-        <BookCall label={t.cta1} journey="hero" lang={lang} />
-        <a class="btn btn-ghost" href={lavoriHref}>{t.cta2}</a>
-      </div>
-    </div>
-
-    <div class="hero-meta-row">
+    {/* The wordmark below is brand furniture (and Italian-only), so the h1
+        is the localized claim. Each line is its own mask for the intro. */}
+    <h1 class="hero-claim intro-lines">
       {
-        t.meta.map((m, i) => (
-          <div class="cell" style={`--cell-i:${i}`}>
-            <span class="k">{m.k}</span>
-            <span class="v">{m.v}</span>
-            <span class="d">{m.d}</span>
-          </div>
+        t.claim.map((line) => (
+          <span class="line">
+            <span>
+              {segments(line).map((s) => (s.em ? <em>{s.text}</em> : s.text))}
+            </span>
+          </span>
         ))
       }
+    </h1>
+
+    <div class="hero-row" data-intro>
+      <p class="hero-lede">{t.lede}</p>
+      <div class="hero-ctas">
+        <BookCall label={t.cta1} journey="hero" lang={lang} class="btn-blue" />
+        <a class:list={["btn", video ? "btn-on-ink" : "btn-ghost"]} href={lavoriHref}>{t.cta2} <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap-wide hero-lockup" aria-hidden="true" data-hero-lockup>
+    <div class="hero-wordmark">
+      <div class="row row-1"><span>ALPACODE</span></div>
+      <div class="hero-bar"></div>
+      <div class="row row-2"><span>SOLUZIONI</span><span>DIGITALI</span></div>
     </div>
   </div>
 </section>

@@ -78,8 +78,13 @@ magenta) and Partner (`ptn` prefix, green):
    define a scoped palette. Accents already taken: blue (brand),
    yellow (Hive), coral (Pro Kit), magenta `#ff2e88` (SMM), green
    `#2fe08a` (Partner) — pick a new one, dark bg `#0a0a0a`, and keep
-   the brutalist DNA: square corners, 1px rules, the 6px strut, mono
-   kickers (`§ 0N — …`), Archivo Black / Manrope / JetBrains Mono.
+   the brand DNA: square corners, 1px rules, the 6px strut, Archivo
+   Black for display and Manrope for everything else. Kickers use the
+   shared `.sec-num` (sentence case, no numbering, a short strut led by
+   `--kicker-strut: currentColor` in the landing accent) — no
+   monospace micro-labels, no `§ 0N —` prefixes. Motion comes from
+   `src/lib/motion.ts` for free (see its header for `data-split`,
+   `data-reveal`, `data-scrub`…); don't add a second animation system.
    Paint the body via `body:has(.<root>) { background: var(--ink) }`
    and recolor the minimal header CTA to the landing accent.
 4. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:

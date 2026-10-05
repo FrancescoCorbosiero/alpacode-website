@@ -156,12 +156,12 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "UN PARTNER PER AREA",
     ],
 
-    thesisKicker: "§ 01 — La tesi",
+    thesisKicker: "La tesi",
     thesisLead: "Il passaparola è il canale di vendita più potente del mondo. Quasi nessuno lo progetta.",
     thesisBody:
       "Chi lavora coi clienti ogni giorno — chi gestisce i loro social, i loro conti, le loro vendite — ha in mano la cosa più difficile da costruire: la fiducia. Noi abbiamo quella più difficile da improvvisare: un laboratorio che progetta siti, e-commerce e automazioni. Il programma partner collega le due cose. Con regole chiare, per iscritto.",
 
-    symbKicker: "§ 02 — La collaborazione",
+    symbKicker: "La collaborazione",
     symbTitle: "Un canale che gira in due direzioni.",
     symbLede:
       "Tre modelli. Puoi sceglierne uno, combinarli, o iniziare con un solo cliente per provare. Sotto, cosa scorre da una parte e cosa torna dall'altra.",
@@ -214,7 +214,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    whoKicker: "§ 03 — Per chi è",
+    whoKicker: "Per chi è",
     whoTitle: "Stesso profilo, mestieri diversi.",
     whoLede:
       "Se hai clienti che si fidano di te, il programma funziona. Questi sono i profili con cui gira meglio.",
@@ -245,7 +245,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    dealKicker: "§ 04 — Patti chiari",
+    dealKicker: "Patti chiari",
     dealTitle: "Cosa ci guadagni. Cosa ci guadagniamo.",
     dealLede:
       "Una collaborazione funziona solo se conviene a tutti e due. Ecco il conto, alla luce del sole.",
@@ -264,7 +264,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "Progetti veri, invece di budget bruciati in pubblicità",
     ],
 
-    stepsKicker: "§ 05 — Come funziona",
+    stepsKicker: "Come funziona",
     stepsTitle: "Tre passi. Nero su bianco.",
     steps: [
       {
@@ -284,7 +284,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    prinKicker: "§ 06 — I principi",
+    prinKicker: "I principi",
     prinTitle: "Le regole che rendono facile fidarsi.",
     principles: [
       {
@@ -305,7 +305,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    faqKicker: "§ 07 — Obiezioni",
+    faqKicker: "Obiezioni",
     faqTitle: "Le domande giuste. Le risposte dritte.",
     faq: [
       {
@@ -334,7 +334,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    trustKicker: "§ 08 — Credenziali",
+    trustKicker: "Credenziali",
     trustTitle: "La fiducia si costruisce coi fatti.",
     trustLede:
       "Il tuo nome finirà accanto al nostro lavoro: hai il diritto di sapere su cosa poggia. Infrastruttura, metodo e risultati verificabili.",
@@ -350,18 +350,18 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "Alpacode è anche scuola: corsi su WordPress, sviluppo e AI, tenuti da chi li applica ogni giorno in studio. Molti partner iniziano da qui — capire il mestiere rende più facile venderlo.",
     trainCta: "Vedi i corsi",
     collabTag: "Produci, invece di portare clienti?",
-    collabTitle: "Lavora con noi, su progetto.",
+    collabTitle: "Collabora con noi, su progetto.",
     collabBody:
-      "Grafico, designer, sviluppatore, marketer: collaboriamo su task e progetti interi, da remoto e con accordi scritti. Tu metti il mestiere, noi clienti e infrastruttura.",
+      "Hai un'attività tua come grafico, designer, sviluppatore o marketer? Quando un progetto lo richiede collaboriamo su incarichi definiti, da remoto e con accordi scritti. Non sono assunzioni: è lavoro autonomo tra professionisti.",
     collabCta: "Scopri come collaborare",
 
-    formKicker: "§ 09 — Candidati",
+    formKicker: "Candidati",
     formTitle: "Riserva la tua area.",
     formLede:
       "Raccontaci chi sei e con che clienti lavori. Ti rispondiamo entro mezza giornata lavorata — e se la tua nicchia è libera, la riserviamo per te.",
     privacyLink: "Come trattiamo i tuoi dati →",
 
-    finalKicker: "§ 10 — Ultima cosa",
+    finalKicker: "Ultima cosa",
     finalLine1: "Da soli si vende.",
     finalLine2: "Insieme si cresce.",
     finalSub:
@@ -402,12 +402,12 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "ONE PARTNER PER AREA",
     ],
 
-    thesisKicker: "§ 01 — The thesis",
+    thesisKicker: "The thesis",
     thesisLead: "Word of mouth is the most powerful sales channel in the world. Almost nobody engineers it.",
     thesisBody:
       "People who work with clients every day — running their socials, their books, their sales — hold the hardest thing to build: trust. We hold the hardest thing to improvise: a studio that designs websites, e-commerce and automations. The partner program connects the two. With clear rules, in writing.",
 
-    symbKicker: "§ 02 — The collaboration",
+    symbKicker: "The collaboration",
     symbTitle: "A channel that flows both ways.",
     symbLede:
       "Three models. Pick one, combine them, or start with a single client to test the waters. Below: what flows one way, and what comes back.",
@@ -460,7 +460,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    whoKicker: "§ 03 — Who it's for",
+    whoKicker: "Who it's for",
     whoTitle: "Same profile, different trades.",
     whoLede:
       "If you have clients who trust you, the program works. These are the profiles it runs best with.",
@@ -491,7 +491,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    dealKicker: "§ 04 — Open ledger",
+    dealKicker: "Open ledger",
     dealTitle: "What you gain. What we gain.",
     dealLede: "A collaboration only works if it pays for both sides. Here's the ledger, in the open.",
     yoursLabel: "For you",
@@ -509,7 +509,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "Real projects, instead of budgets burned on ads",
     ],
 
-    stepsKicker: "§ 05 — How it works",
+    stepsKicker: "How it works",
     stepsTitle: "Three steps. In writing.",
     steps: [
       {
@@ -529,7 +529,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    prinKicker: "§ 06 — The principles",
+    prinKicker: "The principles",
     prinTitle: "The rules that make trust easy.",
     principles: [
       {
@@ -550,7 +550,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    faqKicker: "§ 07 — Objections",
+    faqKicker: "Objections",
     faqTitle: "The right questions. Straight answers.",
     faq: [
       {
@@ -579,7 +579,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       },
     ],
 
-    trustKicker: "§ 08 — Credentials",
+    trustKicker: "Credentials",
     trustTitle: "Trust is built on facts.",
     trustLede:
       "Your name will sit next to our work: you have the right to know what it rests on. Infrastructure, method and verifiable results.",
@@ -595,18 +595,18 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       "Alpacode is also a school: courses on WordPress, development and AI, taught by the people who apply them in the studio every day. Many partners start here — knowing the craft makes it easier to sell.",
     trainCta: "See the courses",
     collabTag: "Producing, rather than bringing clients?",
-    collabTitle: "Work with us, project-based.",
+    collabTitle: "Collaborate with us, project-based.",
     collabBody:
-      "Graphic artist, designer, developer, marketer: we collaborate on tasks and entire projects, remotely and with written agreements. You bring the craft, we bring clients and infrastructure.",
+      "Running your own business as a designer, developer or marketer? When a project calls for it we collaborate on defined assignments, remotely and with written agreements. It isn't hiring: it's autonomous work between professionals.",
     collabCta: "See how to collaborate",
 
-    formKicker: "§ 09 — Apply",
+    formKicker: "Apply",
     formTitle: "Reserve your area.",
     formLede:
       "Tell us who you are and what clients you work with. We reply within half a worked day — and if your niche is free, we reserve it for you.",
     privacyLink: "How we handle your data →",
 
-    finalKicker: "§ 10 — One last thing",
+    finalKicker: "One last thing",
     finalLine1: "Alone, you sell.",
     finalLine2: "Together, you grow.",
     finalSub:

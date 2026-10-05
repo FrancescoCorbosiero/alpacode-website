@@ -15,6 +15,10 @@ export default defineConfig({
   redirects: {
     '/scuola': '/learning/',
     '/en/scuola': '/en/learning/',
+    // "Lavora con noi" read as a careers page; the collaboration page lives
+    // at /collabora-con-noi now. Keep old links (and indexed URLs) working.
+    '/lavora-con-noi': '/collabora-con-noi/',
+    '/en/lavora-con-noi': '/en/collabora-con-noi/',
   },
   markdown: {
     shikiConfig: {

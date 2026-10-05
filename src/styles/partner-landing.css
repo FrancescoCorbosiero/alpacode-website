@@ -71,11 +71,11 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
 }
 .ptn .sec-num.ptn-kicker {
   color: var(--ptn-accent);
-  letter-spacing: 0.22em;
+  --kicker-strut: currentColor;
 }
 .ptn .sec-num.ptn-kicker-deep {
   color: var(--ptn-accent-deep);
-  letter-spacing: 0.22em;
+  --kicker-strut: currentColor;
 }
 .ptn-head-gap {
   margin-top: 96px;
@@ -140,10 +140,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
 }
 .ptn-eyebrow {
   display: inline-flex;
@@ -246,10 +246,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   border-right: 0;
 }
 .ptn-hero-cell .k {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--ptn-fg-faint);
 }
 .ptn-hero-cell .v {
@@ -327,10 +327,11 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   border-left: 1.5px solid var(--ptn-fg);
 }
 .ptn-tab-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-weight: 400;
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   opacity: 0.6;
 }
 .ptn-tab.is-active {
@@ -375,10 +376,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   line-height: 1;
 }
 .ptn-node-sub {
-  font-family: var(--t-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   color: var(--ptn-fg-faint);
 }
 .ptn-rails {
@@ -392,10 +393,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   min-width: 0;
 }
 .ptn-rail-label {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--ptn-fg-mute);
   white-space: nowrap;
   overflow: hidden;
@@ -447,7 +448,7 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   100% { left: 0; opacity: 0; }
 }
 .ptn-rail-arrow {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 16px;
   color: var(--ptn-accent);
 }
@@ -558,9 +559,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   background: var(--paper-2);
 }
 .ptn-who-n {
-  font-family: var(--t-mono);
+  font-family: var(--label);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 .ptn-who-strut {
@@ -595,10 +597,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   color: var(--paper);
 }
 .ptn-deal-k {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--ptn-accent-deep);
   margin-bottom: 22px;
 }
@@ -717,7 +719,7 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   position: absolute;
   right: 4px;
   top: 16px;
-  font-family: var(--t-mono);
+  font-family: var(--label);
   color: var(--ptn-accent);
   font-size: 22px;
 }
@@ -760,10 +762,10 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   background: linear-gradient(90deg, var(--cross-tint-hover), transparent 70%);
 }
 .ptn-cross-tag {
-  font-family: var(--t-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--cross-accent);
 }
 .ptn-cross-title {
@@ -823,7 +825,7 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   margin-top: 24px;
 }
 .ptn-form-privacy a {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--ptn-accent-deep);
@@ -937,7 +939,7 @@ body:has(.ptn) .campaign-header .btn-blue:hover {
   color: #fff;
 }
 .ptn-sticky-btn .arrow {
-  font-family: var(--t-mono);
+  font-family: var(--label);
   font-weight: 400;
 }
 

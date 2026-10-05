@@ -17,12 +17,12 @@ const signUp = lang === "it" ? "Iscriviti" : "Sign up";
 
 <section class="section" style="padding-top:24px">
   <div class="wrap-wide">
-    <div class="eyebrow" style="margin-bottom:32px">● {t.target}</div>
+    <p class="eyebrow learning-target">{t.target}</p>
     <div class="courses">
       {
         t.courses.map((c) => (
           <div class="course">
-            <span class="lvl">— {c.lvl}</span>
+            <span class="lvl">{c.lvl}</span>
             <h3>{c.t}</h3>
             <div class="price">{c.price}</div>
             <div class="eyebrow">{c.h}</div>

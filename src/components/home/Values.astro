@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { values } from "../../data/home";
 import { localizePath } from "../../i18n/utils";
+import Br from "../Br.astro";
 
 interface Props {
   lang: Lang;
@@ -20,7 +21,7 @@ const cta = lang === "it" ? "Parliamone" : "Let's talk";
     <div class="section-head">
       <div>
         <div class="sec-num">{num}</div>
-        <h2 style="white-space:pre-line">{t.heading}</h2>
+        <h2><Br text={t.heading} /></h2>
       </div>
       <p class="lede">{t.lede}</p>
     </div>
@@ -29,7 +30,7 @@ const cta = lang === "it" ? "Parliamone" : "Let's talk";
       {
         t.groups.map((g) => (
           <div class="value-group">
-            <div class="value-group-label">— {g.label}</div>
+            <div class="value-group-label">{g.label}</div>
             <div class="value-cards">
               {g.items.map((v, i) => (
                 <div class="value">

@@ -44,7 +44,7 @@ function Cases({ cases, labels }: Props) {
             onClick={() => setI(idx)}
             onKeyDown={(e) => rovingTabKey(e, idx, cases.length, selectTab)}
           >
-            <span className="num">— 0{idx + 1}</span>
+            <span className="num">0{idx + 1}</span>
             <span className="nm">{c.nm}</span>
             <span className="ind">{c.ind}</span>
           </button>

@@ -31,7 +31,7 @@ export interface ProductPage {
   /** Path under public/, e.g. "/og-hive-commerce.png". */
   ogImage: string;
 
-  /** Page header crumb, e.g. "PRODOTTI · HIVE COMMERCE". */
+  /** Page header crumb, e.g. "Prodotti · Hive Commerce". */
   crumb: string;
   /** Pre-launch eyebrow, e.g. "EARLY ACCESS · Q3 2026". */
   eyebrow: string;
@@ -85,8 +85,8 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       "Hive Commerce è il plugin che automatizza la gestione del tuo e-commerce su WooCommerce: tema grafico incluso, set di funzionalità completo, aggiornamenti continui. Early access da Q3 2026.",
     ogImage: "/og-hive-commerce.png",
 
-    crumb: "PRODOTTI · 01 HIVE COMMERCE",
-    eyebrow: "EARLY ACCESS · Q3 2026",
+    crumb: "Prodotti · Hive Commerce",
+    eyebrow: "Early access · Q3 2026",
     h1Line1: "Il tuo e-commerce,",
     h1Line2: "che si gestisce da solo.",
     lede:
@@ -100,13 +100,13 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       { k: "Licenza", v: "Su richiesta" },
     ],
 
-    pitchEyebrow: "§ 01 — PERCHÉ HIVE",
+    pitchEyebrow: "Perché Hive",
     pitchLead:
       "La maggior parte degli e-commerce muore per stanchezza, non per concorrenza.",
     pitchBody:
       "Aggiornare prezzi, smaltire ordini, rispondere ai clienti, sincronizzare il magazzino: è un secondo lavoro a tempo pieno. Hive Commerce nasce per togliertelo. Zero gergo, niente abbonamenti a sorpresa, e un tema grafico che non sembra del 2014.",
 
-    featuresEyebrow: "§ 02 — DENTRO IL PLUGIN",
+    featuresEyebrow: "Dentro il plugin",
     featuresHeading: "Cosa fa, in concreto.",
     features: [
       {
@@ -131,7 +131,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "Entra prima.",
     eaLede:
       "Lancio pubblico nel terzo trimestre 2026. Chi sale a bordo adesso non aspetta — e non paga come gli altri.",
@@ -154,7 +154,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     ],
     eaCta: "Richiedi l'early access",
 
-    ctaFinalEyebrow: "§ 04 — INIZIA",
+    ctaFinalEyebrow: "Inizia",
     ctaFinalLine1: "Pronto a smettere",
     ctaFinalLine2: "di gestire il negozio a mano?",
     ctaFinalSub:
@@ -171,8 +171,8 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       "Hive Commerce is the plugin that automates the operations of your WooCommerce store: graphic theme included, complete feature set, continuous updates. Early access from Q3 2026.",
     ogImage: "/og-hive-commerce.png",
 
-    crumb: "PRODUCTS · 01 HIVE COMMERCE",
-    eyebrow: "EARLY ACCESS · Q3 2026",
+    crumb: "Products · Hive Commerce",
+    eyebrow: "Early access · Q3 2026",
     h1Line1: "Your e-commerce,",
     h1Line2: "running on its own.",
     lede:
@@ -186,12 +186,12 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       { k: "License", v: "On request" },
     ],
 
-    pitchEyebrow: "§ 01 — WHY HIVE",
+    pitchEyebrow: "Why Hive",
     pitchLead: "Most e-commerce stores die of exhaustion, not competition.",
     pitchBody:
       "Updating prices, shipping orders, replying to customers, syncing stock: it's a full-time second job. Hive Commerce exists to take it away from you. No jargon, no surprise subscriptions, and a theme that doesn't look like it's from 2014.",
 
-    featuresEyebrow: "§ 02 — INSIDE THE PLUGIN",
+    featuresEyebrow: "Inside the plugin",
     featuresHeading: "What it does, concretely.",
     features: [
       {
@@ -216,7 +216,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "Get in early.",
     eaLede:
       "Public launch is Q3 2026. Coming on board now means you don't wait — and you don't pay like everyone else.",
@@ -239,7 +239,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     ],
     eaCta: "Request early access",
 
-    ctaFinalEyebrow: "§ 04 — START",
+    ctaFinalEyebrow: "Start",
     ctaFinalLine1: "Ready to stop",
     ctaFinalLine2: "running the store by hand?",
     ctaFinalSub:
@@ -261,8 +261,8 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       "Alpacode Pro Kit: guide, PDF, repository, kit di sviluppo WordPress e dashboard gestionale. Tutto quello che serve per iniziare la carriera da Web Master. Early access da Q3 2026.",
     ogImage: "/og-alpacode-pro-kit.png",
 
-    crumb: "PRODOTTI · 02 ALPACODE PRO KIT",
-    eyebrow: "EARLY ACCESS · Q3 2026",
+    crumb: "Prodotti · Alpacode Pro Kit",
+    eyebrow: "Early access · Q3 2026",
     h1Line1: "Tutto quello",
     h1Line2: "che ti serve. Davvero.",
     lede:
@@ -276,13 +276,13 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       { k: "Disponibile", v: "Q3 2026" },
     ],
 
-    pitchEyebrow: "§ 01 — PERCHÉ IL KIT",
+    pitchEyebrow: "Perché il kit",
     pitchLead:
       "I corsi ti insegnano. Il Pro Kit ti dà gli strumenti per lavorare.",
     pitchBody:
       "Quasi tutti i corsi finiscono dove inizia il lavoro vero. Il Pro Kit parte da lì. Dentro c'è quello che usiamo noi in studio ogni giorno: codice già scritto, template WordPress pronti, kit di sviluppo, contratti, una dashboard per gestire i tuoi progetti.",
 
-    featuresEyebrow: "§ 02 — DENTRO IL KIT",
+    featuresEyebrow: "Dentro il kit",
     featuresHeading: "Quello che apri il primo giorno.",
     features: [
       {
@@ -307,7 +307,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "Sei tra i primi.",
     eaLede:
       "Lancio pubblico nel terzo trimestre 2026. Chi entra adesso porta a casa l'edizione fondatori — e ha voce in capitolo.",
@@ -330,7 +330,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     ],
     eaCta: "Richiedi l'early access",
 
-    ctaFinalEyebrow: "§ 04 — INIZIA",
+    ctaFinalEyebrow: "Inizia",
     ctaFinalLine1: "Pronto a smettere",
     ctaFinalLine2: "di reinventare la ruota?",
     ctaFinalSub:
@@ -347,8 +347,8 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       "Alpacode Pro Kit: guides, PDFs, repositories, WordPress dev kits and a management dashboard. Everything you need to start your Web Master career. Early access from Q3 2026.",
     ogImage: "/og-alpacode-pro-kit.png",
 
-    crumb: "PRODUCTS · 02 ALPACODE PRO KIT",
-    eyebrow: "EARLY ACCESS · Q3 2026",
+    crumb: "Products · Alpacode Pro Kit",
+    eyebrow: "Early access · Q3 2026",
     h1Line1: "Everything",
     h1Line2: "you need. For real.",
     lede:
@@ -362,12 +362,12 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       { k: "Available", v: "Q3 2026" },
     ],
 
-    pitchEyebrow: "§ 01 — WHY THE KIT",
+    pitchEyebrow: "Why the kit",
     pitchLead: "Courses teach you. The Pro Kit gives you the tools to work.",
     pitchBody:
       "Most courses end where the real work begins. The Pro Kit starts there. Inside it is what we use in the studio every day: pre-written code, ready WordPress templates, dev kits, contracts, a dashboard to run your projects.",
 
-    featuresEyebrow: "§ 02 — INSIDE THE KIT",
+    featuresEyebrow: "Inside the kit",
     featuresHeading: "What you open on day one.",
     features: [
       {
@@ -392,7 +392,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "You're among the first.",
     eaLede:
       "Public launch is Q3 2026. Joining now means you get the founders' edition — and you get a say.",
@@ -415,7 +415,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     ],
     eaCta: "Request early access",
 
-    ctaFinalEyebrow: "§ 04 — START",
+    ctaFinalEyebrow: "Start",
     ctaFinalLine1: "Ready to stop",
     ctaFinalLine2: "reinventing the wheel?",
     ctaFinalSub:
@@ -438,8 +438,8 @@ export const paco: Record<Lang, ProductPage> = {
       "Paco è l'assistente AI che genera e gestisce il tuo sito web da WhatsApp: tu scrivi in chat, lui aggiorna il sito e risponde ai tuoi clienti. Early access da Q4 2026.",
     ogImage: "/og-paco.png",
 
-    crumb: "PRODOTTI · 03 PACO",
-    eyebrow: "EARLY ACCESS · Q4 2026",
+    crumb: "Prodotti · Paco",
+    eyebrow: "Early access · Q4 2026",
     h1Line1: "Il tuo sito web,",
     h1Line2: "in una chat.",
     lede:
@@ -453,13 +453,13 @@ export const paco: Record<Lang, ProductPage> = {
       { k: "Licenza", v: "Su richiesta" },
     ],
 
-    pitchEyebrow: "§ 01 — PERCHÉ PACO",
+    pitchEyebrow: "Perché Paco",
     pitchLead:
       "Il problema non è avere un sito. È tutto quello che viene dopo.",
     pitchBody:
       "Aggiornare gli orari, cambiare una foto, pubblicare l'offerta del mese: piccole cose che restano indietro, finché il sito non racconta più la tua attività. Paco ribalta il rapporto. Il sito lo genera l'AI, e da lì in poi ogni modifica passa da WhatsApp: scrivi a Paco come scriveresti a un collaboratore, e lui lo fa. E quando un cliente scrive, risponde lui — con le informazioni del sito, sempre aggiornate.",
 
-    featuresEyebrow: "§ 02 — DENTRO PACO",
+    featuresEyebrow: "Dentro Paco",
     featuresHeading: "Cosa fa, in concreto.",
     features: [
       {
@@ -484,7 +484,7 @@ export const paco: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "In lista, prima degli altri.",
     eaLede:
       "Lancio pubblico nel quarto trimestre 2026. Chi entra adesso affida il proprio sito a Paco prima di tutti — a condizioni da fondatore.",
@@ -507,7 +507,7 @@ export const paco: Record<Lang, ProductPage> = {
     ],
     eaCta: "Richiedi l'early access",
 
-    ctaFinalEyebrow: "§ 04 — INIZIA",
+    ctaFinalEyebrow: "Inizia",
     ctaFinalLine1: "Pronto ad avere un sito",
     ctaFinalLine2: "che ti risponde?",
     ctaFinalSub:
@@ -524,8 +524,8 @@ export const paco: Record<Lang, ProductPage> = {
       "Paco is the AI concierge that generates and runs your website from WhatsApp: you text in chat, it updates the site and answers your customers. Early access from Q4 2026.",
     ogImage: "/og-paco.png",
 
-    crumb: "PRODUCTS · 03 PACO",
-    eyebrow: "EARLY ACCESS · Q4 2026",
+    crumb: "Products · Paco",
+    eyebrow: "Early access · Q4 2026",
     h1Line1: "Your website,",
     h1Line2: "in a chat.",
     lede:
@@ -539,12 +539,12 @@ export const paco: Record<Lang, ProductPage> = {
       { k: "License", v: "On request" },
     ],
 
-    pitchEyebrow: "§ 01 — WHY PACO",
+    pitchEyebrow: "Why Paco",
     pitchLead: "The problem isn't having a website. It's everything that comes after.",
     pitchBody:
       "Updating opening hours, swapping a photo, publishing this month's offer: small things that pile up until the site no longer tells your story. Paco flips the relationship. The AI generates the site, and from then on every change goes through WhatsApp: text Paco like you'd text a collaborator, and it gets done. And when a customer writes, Paco answers — with the site's information, always current.",
 
-    featuresEyebrow: "§ 02 — INSIDE PACO",
+    featuresEyebrow: "Inside Paco",
     featuresHeading: "What it does, concretely.",
     features: [
       {
@@ -569,7 +569,7 @@ export const paco: Record<Lang, ProductPage> = {
       },
     ],
 
-    eaEyebrow: "§ 03 — EARLY ACCESS",
+    eaEyebrow: "Early access",
     eaHeading: "On the list, before everyone.",
     eaLede:
       "Public launch is Q4 2026. Joining now means Paco takes over your website before anyone else's — on founder terms.",
@@ -592,7 +592,7 @@ export const paco: Record<Lang, ProductPage> = {
     ],
     eaCta: "Request early access",
 
-    ctaFinalEyebrow: "§ 04 — START",
+    ctaFinalEyebrow: "Start",
     ctaFinalLine1: "Ready for a website",
     ctaFinalLine2: "that texts you back?",
     ctaFinalSub:
