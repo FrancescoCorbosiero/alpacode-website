@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import { servizi } from "../../data/services";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
+import Statement from "../Statement.astro";
 import Process from "../home/Process.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 
@@ -56,6 +57,8 @@ const prodottiLabel =
     </a>
   </div>
 </section>
+
+<Statement text={t.statement} />
 
 <Process lang={lang} bare />
 <CtaFinal lang={lang} />

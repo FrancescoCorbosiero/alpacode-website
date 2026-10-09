@@ -17,7 +17,9 @@
      the lockup drift apart as the page scrolls away.
 
    Attribute API for new markup:
-     data-split             heading — line-by-line mask reveal
+     data-split[="variant"] heading — split reveal; variant is lines,
+                            wipe, words, blur or chars (default: dealt
+                            in turn down the page)
      data-reveal            any block — fade-up when it enters
      data-scrub             paragraph — words light up with scroll
      data-speed="0.15"      parallax drift, as a fraction of own height
@@ -62,6 +64,10 @@ const HEADINGS = [
   ".sus-limits-title",
   ".rep-boundary-title",
   ".clb-pact-head h2",
+  ".svc-group-verb",
+  ".pp-h2",
+  ".pp-pitch-lead",
+  ".ptn-thesis-lead",
   "[data-split]",
 ].join(",");
 
@@ -112,6 +118,15 @@ const BLOCKS = [
   ".clb-pact-list li",
   ".clb-cross",
   ".clb-form",
+  ".smm-pain",
+  ".smm-path",
+  ".smm-step",
+  ".smm-offer-grid",
+  ".ptn-step",
+  ".ptn-mode-grid",
+  ".pp-feature",
+  ".cmp-pain",
+  ".cmp-step",
   ".foot-col",
   ".foot-index",
   "[data-reveal]",
@@ -124,6 +139,9 @@ const STRUTS = [
   ".step-strut",
   ".value-strut",
   ".manifesto-sig-bar",
+  ".smm-pain-strut",
+  ".smm-path-strut",
+  ".pp-feature-strut",
   "[data-strut]",
 ].join(",");
 
@@ -249,22 +267,87 @@ let ctx: gsap.Context | null = null;
 let pageBody: HTMLElement | null = null;
 let cleanups: (() => void)[] = [];
 
+/* Headings don't all enter the same way: each one gets a variant, either
+   asked for (data-split="wipe") or dealt in turn down the page, so two
+   neighbouring sections never repeat the same move. All of them are
+   SplitText + one tween — no extra libraries.
+     lines  each line rises out of its mask
+     wipe   each line is uncovered left to right
+     words  words pop up out of their own masks, tilted slightly
+     blur   lines come into focus while drifting up
+     chars  letters settle one by one (short headings only) */
+type HeadingVariant = "lines" | "wipe" | "words" | "blur" | "chars";
+const CYCLE: HeadingVariant[] = ["lines", "wipe", "words", "blur", "chars"];
+
+function headingVariant(el: HTMLElement, index: number): HeadingVariant {
+  const asked = el.dataset.split as HeadingVariant | undefined;
+  if (asked && CYCLE.includes(asked)) return asked;
+  const v = CYCLE[index % CYCLE.length];
+  // Letter-by-letter only reads well on a few words.
+  return v === "chars" && (el.textContent ?? "").trim().length > 26 ? "words" : v;
+}
+
+function headingTween(self: SplitText, v: HeadingVariant, trigger: HTMLElement): gsap.core.Tween {
+  const scrollTrigger = { trigger, start: "top 88%", once: true };
+  switch (v) {
+    case "wipe":
+      return gsap.fromTo(
+        self.lines,
+        { clipPath: "inset(-20% 100% -20% 0%)" },
+        { clipPath: "inset(-20% 0% -20% 0%)", duration: 1.3, ease: "power3.inOut", stagger: 0.12, clearProps: "clipPath", scrollTrigger },
+      );
+    case "words":
+      return gsap.from(self.words, {
+        yPercent: 110,
+        rotate: 4,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.035,
+        scrollTrigger,
+      });
+    case "blur":
+      return gsap.from(self.lines, {
+        opacity: 0,
+        y: 28,
+        filter: "blur(14px)",
+        duration: 1.2,
+        ease: "power2.out",
+        stagger: 0.1,
+        clearProps: "filter",
+        scrollTrigger,
+      });
+    case "chars":
+      return gsap.from(self.chars, {
+        opacity: 0,
+        yPercent: 60,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.022,
+        scrollTrigger,
+      });
+    default:
+      return gsap.from(self.lines, {
+        yPercent: 115,
+        duration: 1.15,
+        ease: EASE,
+        stagger: 0.085,
+        scrollTrigger,
+      });
+  }
+}
+
 function splitHeadings(): void {
+  let n = 0;
   gsap.utils.toArray<HTMLElement>(HEADINGS).forEach((el) => {
     if (skipIntro(el) || inFirstView(el)) return;
+    const v = headingVariant(el, n++);
     SplitText.create(el, {
-      type: "lines",
-      mask: "lines",
+      type: v === "words" ? "words,lines" : v === "chars" ? "chars,words" : "lines",
+      mask: v === "lines" ? "lines" : v === "words" ? "words" : undefined,
       linesClass: "split-line",
+      wordsClass: "split-word",
       autoSplit: true,
-      onSplit: (self) =>
-        gsap.from(self.lines, {
-          yPercent: 115,
-          duration: 1.15,
-          ease: EASE,
-          stagger: 0.085,
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
-        }),
+      onSplit: (self) => headingTween(self, v, el),
     });
   });
 }

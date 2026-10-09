@@ -13,6 +13,8 @@ export interface LearningPageData {
   h1Line2: string;
   lede: string;
   target: string;
+  /** The scrubbed sentence after the course grid. */
+  statement: string;
   courses: Course[];
 }
 
@@ -23,6 +25,7 @@ export const learning: Record<Lang, LearningPageData> = {
     h1Line2: "quello che sappiamo.",
     lede: "Corsi e percorsi pratici per chi vuole imparare a muoversi nel digitale — dai primi passi fino agli approfondimenti, AI inclusa.",
     target: "Per professionisti, team aziendali, studenti.",
+    statement: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa.",
     courses: [
       { lvl: "Fondamenta", t: "WordPress Gutenberg", price: "Su richiesta", h: "24 ore · 6 settimane", items: ["Blocchi nativi & custom", "theme.json a fondo", "Full-site editing", "Performance & accessibilità", "Progetto finale guidato"] },
       { lvl: "Intermedio", t: "Front-end moderno", price: "Su richiesta", h: "32 ore · 8 settimane", items: ["HTML semantico, CSS moderno", "JavaScript senza framework", "Accessibilità (WCAG)", "Design systems & token", "Build & deploy"] },
@@ -41,6 +44,7 @@ export const learning: Record<Lang, LearningPageData> = {
     h1Line2: "what we know.",
     lede: "Practical courses and paths for anyone who wants to find their way in digital — from first steps to deeper dives, AI included.",
     target: "For professionals, internal teams, students.",
+    statement: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away.",
     courses: [
       { lvl: "Foundation", t: "WordPress Gutenberg", price: "On request", h: "24 hours · 6 weeks", items: ["Native & custom blocks", "theme.json in depth", "Full-site editing", "Performance & accessibility", "Guided final project"] },
       { lvl: "Intermediate", t: "Modern front-end", price: "On request", h: "32 hours · 8 weeks", items: ["Semantic HTML, modern CSS", "JavaScript without frameworks", "Accessibility (WCAG)", "Design systems & tokens", "Build & deploy"] },

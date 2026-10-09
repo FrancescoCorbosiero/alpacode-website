@@ -21,7 +21,10 @@
 >   the first paint never waits on JavaScript. Everything is off under
 >   `prefers-reduced-motion`. The header of `motion.ts` documents the
 >   attribute API (`data-split`, `data-reveal`, `data-scrub`,
->   `data-speed`, `data-progress`, `data-strut`).
+>   `data-speed`, `data-progress`, `data-strut`). Section titles take
+>   turns between five entrances (lines, wipe, words, blur, letters) so
+>   neighbours never repeat; `<Statement>` is the scroll-lit sentence band
+>   (one per page at most: home, servizi, lavori, learning, collabora).
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Optional background video:
 >   set `heroVideo` in `src/data/home.ts` (specs in the comment there),

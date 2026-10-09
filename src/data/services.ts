@@ -20,6 +20,8 @@ export interface ServiziPageData {
   h1Line1: string;
   h1Line2: string;
   lede: string;
+  /** The scrubbed sentence between the services and the method. */
+  statement: string;
   groups: ServiceGroup[];
 }
 
@@ -29,6 +31,8 @@ export const servizi: Record<Lang, ServiziPageData> = {
     h1Line1: "Costruire. Far crescere.",
     h1Line2: "Insegnare.",
     lede: "Tre aree, un solo metodo: capire cosa ti serve davvero e trovare la soluzione più adatta — anche al tuo budget. Compreso quello che di solito chiedi a un'agenzia.",
+    statement:
+      "Non lavoriamo a listino: partiamo dal tuo obiettivo e dal tuo budget, anche quando è contenuto, e cerchiamo la soluzione più adatta.",
     groups: [
       {
         verb: "Costruire",
@@ -175,6 +179,8 @@ export const servizi: Record<Lang, ServiziPageData> = {
     h1Line1: "Build. Grow.",
     h1Line2: "Teach.",
     lede: "Three areas, one method: understand what you actually need and find the right fit — for your budget too. Including the things you'd normally ask an agency for.",
+    statement:
+      "We don't work from a price list: we start from your goal and your budget, even a modest one, and look for the solution that fits best.",
     groups: [
       {
         verb: "Build",

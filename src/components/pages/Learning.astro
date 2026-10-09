@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/types";
 import { learning } from "../../data/courses";
 import PageHero from "../PageHero.astro";
+import Statement from "../Statement.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import BookCall from "../BookCall.astro";
 
@@ -38,5 +39,7 @@ const signUp = lang === "it" ? "Iscriviti" : "Sign up";
     </div>
   </div>
 </section>
+
+<Statement text={t.statement} tone="paper" />
 
 <CtaFinal lang={lang} />

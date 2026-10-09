@@ -3,6 +3,7 @@ import type { Lang } from "../../i18n/types";
 import { collabora } from "../../data/collabora-con-noi";
 import { localizePath } from "../../i18n/utils";
 import PartnerForm from "../islands/PartnerForm.tsx";
+import Statement from "../Statement.astro";
 
 interface Props {
   lang: Lang;
@@ -66,11 +67,7 @@ const pad = (i: number) => String(i + 1).padStart(2, "0");
   </section>
 
   {/* ---------- STATEMENT — words light up with scroll ---------- */}
-  <section class="clb-statement">
-    <div class="wrap-wide">
-      <p class="statement" data-scrub>{t.statement}</p>
-    </div>
-  </section>
+  <Statement text={t.statement} />
 
   {/* ---------- HOW IT HAPPENS — a rail that fills as you read ---------- */}
   <section class="section section--tint">
