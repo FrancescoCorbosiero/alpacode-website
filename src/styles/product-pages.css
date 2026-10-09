@@ -14,7 +14,7 @@
   --pp-bg-2: #141414;
   --pp-bg-3: #1c1c1c;
   --pp-surface: #181818;
-  --pp-fg: #f4f1e8;
+  --pp-fg: #f0f3f9;
   --pp-fg-mute: #b3b0a8;
   --pp-fg-faint: #6e6c66;
   --pp-rule: #2a2a2a;
@@ -23,10 +23,10 @@
   --pp-accent-deep: #e5b800;
   --pp-accent-ink: #0a0a0a; /* text color over the accent */
   /* invert section flips contrast back the other way */
-  --pp-invert-bg: #f4f1e8;
+  --pp-invert-bg: #f0f3f9;
   --pp-invert-fg: #0a0a0a;
-  --pp-invert-mute: #54524c;
-  --pp-invert-rule: #c9c3b1;
+  --pp-invert-mute: #465065;
+  --pp-invert-rule: #bec8da;
   /* Hero "stage" tinting */
   --pp-stage-grid: rgba(255, 212, 0, 0.08);
   --pp-stage-card-bg: #0f0f0f;
@@ -35,25 +35,25 @@
 
 .pp--pro-kit {
   /* paper + coral red */
-  --pp-bg: #f4f1e8;
-  --pp-bg-2: #ebe7da;
-  --pp-bg-3: #ddd8c7;
+  --pp-bg: #f0f3f9;
+  --pp-bg-2: #e4e9f3;
+  --pp-bg-3: #d5dcea;
   --pp-surface: #fbfaf4;
   --pp-fg: #0a0a0a;
-  --pp-fg-mute: #54524c;
+  --pp-fg-mute: #465065;
   --pp-fg-faint: #8a857a;
-  --pp-rule: #c9c3b1;
+  --pp-rule: #bec8da;
   --pp-rule-strong: #0a0a0a;
   --pp-accent: #e63422;
   --pp-accent-deep: #b5251a;
   --pp-accent-ink: #ffffff; /* text color over the accent */
   --pp-invert-bg: #0a0a0a;
-  --pp-invert-fg: #f4f1e8;
+  --pp-invert-fg: #f0f3f9;
   --pp-invert-mute: #b3b0a8;
   --pp-invert-rule: #2a2a2a;
   --pp-stage-grid: rgba(230, 52, 34, 0.1);
   --pp-stage-card-bg: #fbfaf4;
-  --pp-stage-card-border: #c9c3b1;
+  --pp-stage-card-border: #bec8da;
 }
 
 .pp--paco {

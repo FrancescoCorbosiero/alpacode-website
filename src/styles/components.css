@@ -691,7 +691,7 @@
   display: block;
 }
 .cmdk-item.is-on .cmdk-sub {
-  color: rgba(244, 241, 232, 0.7);
+  color: rgba(240, 243, 249, 0.7);
 }
 .cmdk-item .cmdk-kind {
   font-family: var(--label);
@@ -867,7 +867,7 @@
   color: #8fb0f5;
 }
 .hero--video .hero-lede {
-  color: rgba(244, 241, 232, 0.82);
+  color: rgba(240, 243, 249, 0.82);
 }
 
 /* ---------- Sections ---------- */
@@ -1190,18 +1190,18 @@
   color: var(--paper);
 }
 .manifesto .section-head .lede {
-  color: rgba(244, 241, 232, 0.7);
+  color: rgba(240, 243, 249, 0.7);
 }
 .pillars {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
 }
 .pillar {
   padding: 36px 28px 32px;
-  border-right: 1px solid rgba(244, 241, 232, 0.18);
-  border-bottom: 1px solid rgba(244, 241, 232, 0.18);
+  border-right: 1px solid rgba(240, 243, 249, 0.18);
+  border-bottom: 1px solid rgba(240, 243, 249, 0.18);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1226,7 +1226,7 @@
 .pillar p {
   font-size: 16px;
   line-height: 1.55;
-  color: rgba(244, 241, 232, 0.78);
+  color: rgba(240, 243, 249, 0.78);
   margin: 0;
 }
 .pillar .p-strut {
@@ -1472,7 +1472,7 @@
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0;
-  color: rgba(244, 241, 232, 0.5);
+  color: rgba(240, 243, 249, 0.5);
   margin: 0 0 18px;
 }
 .foot-col h4.spaced {
@@ -1500,7 +1500,7 @@
   background-size: 100% 1px;
 }
 .foot-bottom {
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
   padding: 24px 0;
   display: flex;
   justify-content: space-between;
@@ -1509,7 +1509,7 @@
   font-family: var(--label);
   font-weight: 500;
   font-size: 14px;
-  color: rgba(244, 241, 232, 0.6);
+  color: rgba(240, 243, 249, 0.6);
 }
 /* The signature: ALPACODE at full width, cropped by the page's bottom
    edge; motion.ts raises the letters as the footer scrolls in. */
@@ -2632,7 +2632,7 @@ cal-modal-box iframe,
   color: var(--paper);
 }
 .band-dark .section-head .lede {
-  color: rgba(244, 241, 232, 0.7);
+  color: rgba(240, 243, 249, 0.7);
 }
 
 /* ---------- Scale (interactive path, dark band) ---------- */
@@ -2649,13 +2649,13 @@ cal-modal-box iframe,
   z-index: 0;
   --s: clamp(120px, 11vw, 180px);
   background:
-    repeating-conic-gradient(from 30deg, #0000 0 120deg, rgba(244, 241, 232, 0.045) 0 180deg)
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, rgba(240, 243, 249, 0.045) 0 180deg)
       calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
     repeating-conic-gradient(
       from 30deg,
       rgba(59, 114, 233, 0.12) 0 60deg,
-      rgba(244, 241, 232, 0.02) 0 120deg,
-      rgba(244, 241, 232, 0.05) 0 180deg
+      rgba(240, 243, 249, 0.02) 0 120deg,
+      rgba(240, 243, 249, 0.05) 0 180deg
     );
   background-size: var(--s) calc(var(--s) * 0.577);
   -webkit-mask-image: radial-gradient(80% 130% at 100% 0%, #000 8%, transparent 70%);
@@ -2686,7 +2686,7 @@ cal-modal-box iframe,
 }
 .scale-rail {
   right: 0;
-  background: rgba(244, 241, 232, 0.18);
+  background: rgba(240, 243, 249, 0.18);
 }
 .scale-rail-fill {
   width: var(--scale-pct, 0%);
@@ -2709,7 +2709,7 @@ cal-modal-box iframe,
   height: 16px;
   border-radius: 50%;
   background: var(--ink);
-  border: 2px solid rgba(244, 241, 232, 0.4);
+  border: 2px solid rgba(240, 243, 249, 0.4);
   position: relative;
   z-index: 1;
   transition:
@@ -2736,7 +2736,7 @@ cal-modal-box iframe,
   font-variant-numeric: tabular-nums;
   font-size: 11px;
   letter-spacing: 0.02em;
-  color: rgba(244, 241, 232, 0.5);
+  color: rgba(240, 243, 249, 0.5);
 }
 .scale-stop.is-on .scale-n {
   color: var(--blue-soft);
@@ -2746,7 +2746,7 @@ cal-modal-box iframe,
   font-size: clamp(15px, 1.5vw, 21px);
   line-height: 1;
   letter-spacing: -0.01em;
-  color: rgba(244, 241, 232, 0.6);
+  color: rgba(240, 243, 249, 0.6);
   transition: color 0.2s var(--ease);
 }
 .scale-stop.is-on .scale-tab,
@@ -2757,7 +2757,7 @@ cal-modal-box iframe,
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: 48px;
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
   padding-top: 36px;
   animation: caseSwap 500ms var(--ease) both;
 }
@@ -2778,7 +2778,7 @@ cal-modal-box iframe,
 .scale-panel-main p {
   font-size: 17px;
   line-height: 1.6;
-  color: rgba(244, 241, 232, 0.8);
+  color: rgba(240, 243, 249, 0.8);
   margin: 0;
   max-width: 52ch;
 }
@@ -2793,7 +2793,7 @@ cal-modal-box iframe,
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.01em;
-  color: rgba(244, 241, 232, 0.5);
+  color: rgba(240, 243, 249, 0.5);
   display: block;
   margin-bottom: 12px;
 }
@@ -2821,7 +2821,7 @@ cal-modal-box iframe,
 .scale-ideal p {
   font-size: 15px;
   line-height: 1.5;
-  color: rgba(244, 241, 232, 0.8);
+  color: rgba(240, 243, 249, 0.8);
   margin: 0;
 }
 .scale-foot {
@@ -2837,7 +2837,7 @@ cal-modal-box iframe,
   font-family: var(--label);
   font-weight: 600;
   font-size: 15px;
-  color: rgba(244, 241, 232, 0.75);
+  color: rgba(240, 243, 249, 0.75);
 }
 
 /* ---------- In-block CTAs ---------- */
@@ -3034,13 +3034,13 @@ cal-modal-box iframe,
   z-index: 0;
   --s: 120px;
   background:
-    repeating-conic-gradient(from 30deg, #0000 0 120deg, rgba(244, 241, 232, 0.05) 0 180deg)
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, rgba(240, 243, 249, 0.05) 0 180deg)
       calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
     repeating-conic-gradient(
       from 30deg,
       rgba(59, 114, 233, 0.16) 0 60deg,
-      rgba(244, 241, 232, 0.02) 0 120deg,
-      rgba(244, 241, 232, 0.05) 0 180deg
+      rgba(240, 243, 249, 0.02) 0 120deg,
+      rgba(240, 243, 249, 0.05) 0 180deg
     );
   background-size: var(--s) calc(var(--s) * 0.577);
   -webkit-mask-image: radial-gradient(70% 80% at 100% 0%, #000 4%, transparent 60%);
@@ -3066,16 +3066,16 @@ cal-modal-box iframe,
   color: var(--blue-soft);
 }
 .product--featured .product-desc {
-  color: rgba(244, 241, 232, 0.82);
+  color: rgba(240, 243, 249, 0.82);
 }
 .product--featured .product-items {
-  color: rgba(244, 241, 232, 0.92);
+  color: rgba(240, 243, 249, 0.92);
 }
 .product--featured .product-meta {
-  border-top-color: rgba(244, 241, 232, 0.2);
+  border-top-color: rgba(240, 243, 249, 0.2);
 }
 .product--featured .product-meta .k {
-  color: rgba(244, 241, 232, 0.55);
+  color: rgba(240, 243, 249, 0.55);
 }
 .product--featured .product-meta .v {
   color: var(--paper);
@@ -3248,8 +3248,8 @@ cal-modal-box iframe,
   inset: 0;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(244, 241, 232, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 241, 232, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(240, 243, 249, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240, 243, 249, 0.05) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(92% 120% at 0% 0%, #000 8%, transparent 72%);
   mask-image: radial-gradient(92% 120% at 0% 0%, #000 8%, transparent 72%);
@@ -3569,7 +3569,7 @@ cal-modal-box iframe,
     align-items: center;
     gap: 12px;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(244, 241, 232, 0.14);
+    border-bottom: 1px solid rgba(240, 243, 249, 0.14);
   }
   .scale-panel {
     grid-template-columns: 1fr;
@@ -3933,7 +3933,7 @@ cal-modal-box iframe,
 
 /* ---------- Footer secondary nav (program/marketing pages index) ---------- */
 .foot-index {
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
   padding: 24px 0;
   margin-bottom: 32px;
   display: grid;
@@ -3950,7 +3950,7 @@ cal-modal-box iframe,
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.01em;
-  color: rgba(244, 241, 232, 0.5);
+  color: rgba(240, 243, 249, 0.5);
   flex: 0 0 180px;
 }
 .foot-index-row nav {
@@ -3960,7 +3960,7 @@ cal-modal-box iframe,
 }
 .foot-index-row nav a {
   font-size: 13px;
-  color: rgba(244, 241, 232, 0.7);
+  color: rgba(240, 243, 249, 0.7);
   transition: color 0.15s;
 }
 .foot-index-row nav a:hover {
@@ -4275,5 +4275,5 @@ cal-modal-box iframe,
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.01em;
-  color: rgba(244, 241, 232, 0.55);
+  color: rgba(240, 243, 249, 0.55);
 }

@@ -13,6 +13,10 @@
 >   short blue strut. No `●` status dots, no numbered nav, no ⌘K chip
 >   (a search icon opens the palette; the shortcut still works), no
 >   version stamp in the footer, no paper-grain overlay.
+> - **Palette: blueprint paper.** The warm cream (`#F4F1E8`) and its
+>   warm greys are gone: paper is a cool off-white with a breath of the
+>   brand blue (`#F0F3F9`), ink a blue-black (`#0B0E14`). The v2 colour
+>   table below is historical.
 > - **Motion is GSAP + Lenis** (`src/lib/motion.ts`, CSS half in
 >   `src/styles/motion.css`): smooth wheel scrolling, headings rising
 >   line by line, blocks fading up in staggered batches, struts drawing

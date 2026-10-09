@@ -20,7 +20,7 @@
      --sus-down  emitted   (terracotta, the negative direction)
 
    The pair is validated for CVD separation and for contrast
-   against both surfaces (light #F4F1E8, dark #12110F); the dark
+   against both surfaces (light #f0f3f9, dark #0c0f16); the dark
    steps are chosen, not auto-flipped. Do not reuse these two
    anywhere else — outside the chart they carry no meaning.
    ============================================================ */
@@ -206,7 +206,7 @@
   margin: 24px 0 0;
   max-width: 62ch;
   font-size: 18px;
-  color: rgba(244, 241, 232, 0.72);
+  color: rgba(240, 243, 249, 0.72);
 }
 .sus-limits-list,
 .rep-boundary-list {
@@ -216,7 +216,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
 }
 .sus-limits-list li,
 .rep-boundary-list li {
@@ -225,15 +225,15 @@
   gap: 16px;
   align-items: start;
   padding: 26px 32px 26px 0;
-  border-bottom: 1px solid rgba(244, 241, 232, 0.18);
-  color: rgba(244, 241, 232, 0.86);
+  border-bottom: 1px solid rgba(240, 243, 249, 0.18);
+  color: rgba(240, 243, 249, 0.86);
   font-size: 16px;
   line-height: 1.55;
 }
 .sus-limits-list li:nth-child(2n),
 .rep-boundary-list li:nth-child(2n) {
   padding-left: 32px;
-  border-left: 1px solid rgba(244, 241, 232, 0.18);
+  border-left: 1px solid rgba(240, 243, 249, 0.18);
 }
 .sus-limits-mark,
 .rep-boundary-mark {

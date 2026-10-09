@@ -3,12 +3,12 @@
 #cc-main {
   --cc-font-family: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --cc-bg: #f4f1e8;
+  --cc-bg: #f0f3f9;
   --cc-primary-color: #0a0a0a;
-  --cc-secondary-color: #54524c;
+  --cc-secondary-color: #465065;
 
   --cc-btn-primary-bg: #0a0a0a;
-  --cc-btn-primary-color: #f4f1e8;
+  --cc-btn-primary-color: #f0f3f9;
   --cc-btn-primary-border-color: #0a0a0a;
   --cc-btn-primary-hover-bg: #3b72e9;
   --cc-btn-primary-hover-color: #ffffff;
@@ -17,15 +17,15 @@
   --cc-btn-secondary-bg: transparent;
   --cc-btn-secondary-color: #0a0a0a;
   --cc-btn-secondary-border-color: #0a0a0a;
-  --cc-btn-secondary-hover-bg: #ebe7da;
+  --cc-btn-secondary-hover-bg: #e4e9f3;
   --cc-btn-secondary-hover-color: #0a0a0a;
 
-  --cc-separator-border-color: #c9c3b1;
-  --cc-cookie-category-block-bg: #ebe7da;
-  --cc-cookie-category-block-bg-hover: #ddd8c7;
+  --cc-separator-border-color: #bec8da;
+  --cc-cookie-category-block-bg: #e4e9f3;
+  --cc-cookie-category-block-bg-hover: #d5dcea;
 
   --cc-toggle-on-bg: #3b72e9;
-  --cc-toggle-off-bg: #7d7a72;
+  --cc-toggle-off-bg: #687387;
 
   --cc-btn-border-radius: 0;
   --cc-modal-border-radius: 0;
@@ -55,27 +55,27 @@
    inversion (this sheet deliberately uses literals, so it needs its own
    dark values). */
 :root[data-theme="dark"] #cc-main {
-  --cc-bg: #1b1a17;
-  --cc-primary-color: #f2efe6;
-  --cc-secondary-color: #c9c5b9;
+  --cc-bg: #141924;
+  --cc-primary-color: #eef2f9;
+  --cc-secondary-color: #bcc5d5;
 
-  --cc-btn-primary-bg: #f2efe6;
+  --cc-btn-primary-bg: #eef2f9;
   --cc-btn-primary-color: #0a0a0a;
-  --cc-btn-primary-border-color: #f2efe6;
+  --cc-btn-primary-border-color: #eef2f9;
 
-  --cc-btn-secondary-color: #f2efe6;
-  --cc-btn-secondary-border-color: #f2efe6;
-  --cc-btn-secondary-hover-bg: #262420;
-  --cc-btn-secondary-hover-color: #f2efe6;
+  --cc-btn-secondary-color: #eef2f9;
+  --cc-btn-secondary-border-color: #eef2f9;
+  --cc-btn-secondary-hover-bg: #1d2433;
+  --cc-btn-secondary-hover-color: #eef2f9;
 
-  --cc-separator-border-color: #33312c;
-  --cc-cookie-category-block-bg: #262420;
+  --cc-separator-border-color: #2a3346;
+  --cc-cookie-category-block-bg: #1d2433;
   --cc-cookie-category-block-bg-hover: #2e2c28;
 
-  --cc-toggle-off-bg: #54524c;
+  --cc-toggle-off-bg: #465065;
 }
 :root[data-theme="dark"] #cc-main .cm,
 :root[data-theme="dark"] #cc-main .pm {
-  border-color: #33312c;
+  border-color: #2a3346;
   border-top-color: #3b72e9;
 }
