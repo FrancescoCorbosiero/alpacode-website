@@ -1,18 +1,21 @@
 /* ============================================================
    Alpacode — design tokens
-   Palette sampled from the logo. The blue strut (#3B72E9) is the
-   brand's connective tissue. Do not invent new colors.
+   The blue strut (#3B72E9, sampled from the logo) is the brand's
+   connective tissue. Neutrals are "blueprint paper": a cool off-white
+   with a breath of the brand blue in it, and a blue-black ink — they
+   replace v2's warm cream (#F4F1E8), the default of a thousand
+   generated prototypes. Don't reintroduce warm neutrals.
    ============================================================ */
 :root {
-  /* Palette — extracted from logo */
-  --ink: #0a0a0a;
-  --ink-2: #1b1b1b;
-  --paper: #f4f1e8;
-  --paper-2: #ebe7da;
-  --paper-3: #ddd8c7;
-  --rule: #c9c3b1;
-  --mute: #7d7a72;
-  --mute-2: #54524c;
+  /* Palette */
+  --ink: #0b0e14;
+  --ink-2: #1a1f2b;
+  --paper: #f0f3f9;
+  --paper-2: #e4e9f3;
+  --paper-3: #d5dcea;
+  --rule: #bec8da;
+  --mute: #687387;
+  --mute-2: #465065;
   --blue: #3b72e9;
   --blue-deep: #2756c2;
   --blue-soft: #dce5fa;
@@ -62,14 +65,14 @@
    own scoped palettes and are untouched.
    ============================================================ */
 :root[data-theme="dark"] {
-  --ink: #f2efe6;
-  --ink-2: #dedbd0;
-  --paper: #12110f;
-  --paper-2: #1b1a17;
-  --paper-3: #262420;
-  --rule: #33312c;
-  --mute: #9b978d;
-  --mute-2: #c9c5b9;
+  --ink: #eef2f9;
+  --ink-2: #d4dbe8;
+  --paper: #0c0f16;
+  --paper-2: #141924;
+  --paper-3: #1d2433;
+  --rule: #2a3346;
+  --mute: #8b95a8;
+  --mute-2: #bcc5d5;
   --blue-soft: #1a2740;
 
   color-scheme: dark;
@@ -91,13 +94,13 @@
 :root[data-theme="dark"] .cmdk-item.is-on,
 :root[data-theme="dark"] body:has(.smm),
 :root[data-theme="dark"] body:has(.ptn) {
-  --ink: #0a0a0a;
-  --ink-2: #1b1b1b;
-  --paper: #f4f1e8;
-  --paper-2: #ebe7da;
-  --paper-3: #ddd8c7;
-  --rule: #c9c3b1;
-  --mute: #7d7a72;
-  --mute-2: #54524c;
+  --ink: #0b0e14;
+  --ink-2: #1a1f2b;
+  --paper: #f0f3f9;
+  --paper-2: #e4e9f3;
+  --paper-3: #d5dcea;
+  --rule: #bec8da;
+  --mute: #687387;
+  --mute-2: #465065;
   --blue-soft: #dce5fa;
 }

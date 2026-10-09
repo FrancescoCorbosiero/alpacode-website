@@ -38,7 +38,7 @@
   max-width: 660px;
   font-size: 19px;
   line-height: 1.6;
-  color: rgba(244, 241, 232, 0.78);
+  color: rgba(240, 243, 249, 0.78);
 }
 .clb-hero-ctas {
   display: flex;
@@ -49,20 +49,20 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: clamp(48px, 9vh, 88px) 0 0;
-  border-top: 1px solid rgba(244, 241, 232, 0.18);
+  border-top: 1px solid rgba(240, 243, 249, 0.18);
 }
 .clb-fact {
   padding: 26px 24px 34px 0;
 }
 .clb-fact + .clb-fact {
   padding-left: 24px;
-  border-left: 1px solid rgba(244, 241, 232, 0.18);
+  border-left: 1px solid rgba(240, 243, 249, 0.18);
 }
 .clb-fact dt {
   margin: 0 0 10px;
   font-size: 14px;
   font-weight: 600;
-  color: rgba(244, 241, 232, 0.55);
+  color: rgba(240, 243, 249, 0.55);
 }
 .clb-fact dd {
   margin: 0;
@@ -274,7 +274,7 @@ html:not(.has-motion) .clb-step::before {
   color: var(--mute-2);
 }
 .clb-form-card--main p {
-  color: rgba(244, 241, 232, 0.76);
+  color: rgba(240, 243, 249, 0.76);
 }
 .clb-form-card .clb-form-note {
   margin-top: 22px;
@@ -285,7 +285,7 @@ html:not(.has-motion) .clb-step::before {
   color: var(--ink);
 }
 .clb-form-card--main .clb-form-note {
-  border-top-color: rgba(244, 241, 232, 0.2);
+  border-top-color: rgba(240, 243, 249, 0.2);
   color: var(--paper);
 }
 /* In dark mode --ink is the light tone: keep the main card's copy legible. */
@@ -437,7 +437,7 @@ html:not(.has-motion) .clb-step::before {
   .clb-fact + .clb-fact {
     padding-left: 0;
     border-left: 0;
-    border-top: 1px solid rgba(244, 241, 232, 0.18);
+    border-top: 1px solid rgba(240, 243, 249, 0.18);
   }
   .clb-col,
   .clb-col + .clb-col {

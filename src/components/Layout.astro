@@ -155,7 +155,7 @@ const cmdLabels: CmdLabels = {
       themeColor ? (
         <meta name="theme-color" content={themeColor} data-fixed />
       ) : (
-        <meta name="theme-color" content="#F4F1E8" />
+        <meta name="theme-color" content="#f0f3f9" />
       )
     }
     <script is:inline>
@@ -166,7 +166,7 @@ const cmdLabels: CmdLabels = {
          without persisting (handy for sharing/screenshots). */
       (() => {
         const KEY = "alpacode_theme";
-        const CHROME = { light: "#F4F1E8", dark: "#12110F" };
+        const CHROME = { light: "#f0f3f9", dark: "#0c0f16" };
         const current = () => {
           const q = new URLSearchParams(location.search).get("theme");
           if (q === "dark" || q === "light") return q;
