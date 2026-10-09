@@ -13,8 +13,9 @@ import type { PartnerFormLabels } from "../components/islands/PartnerForm";
 
    Three iron rules for this page's copy:
 
-   1. NOT HIRING — SAID EARLY AND PLAINLY. The hero, the first
-      section and the first FAQ all say it. Never use recruiting
+   1. NOT HIRING — SAID EARLY, CLEARLY AND KINDLY. The hero, the
+      first section and the first FAQ all say it, in a warm tone (no
+      "we don't hire" slammed in the face). Never use recruiting
       vocabulary: "candidati", "candidatura", "posizioni aperte",
       "cerchiamo", "sempre aperte", "assunzione", "stipendio" —
       and "CV" only to say we don't evaluate them.
@@ -95,34 +96,34 @@ export const collabora: Record<Lang, CollaboraData> = {
   it: {
     hero: {
       label: "Collabora con noi",
-      line1: "Non assumiamo.",
-      line2: "Collaboriamo.",
-      lede: "Alpacode non ha posizioni aperte e non seleziona personale. Questa pagina è per professionisti con un'attività propria — freelance, studi, piccole agenzie — che vogliono proporci una collaborazione: quando un progetto richiede il loro mestiere, lavoriamo insieme con un accordo scritto.",
+      line1: "Collaborazioni,",
+      line2: "non assunzioni.",
+      lede: "Siamo uno studio piccolo e non abbiamo posizioni aperte. Però ci piace lavorare con bravi professionisti: se hai un'attività tua — freelance, studio, piccola agenzia — e ti va di proporci una collaborazione, qui trovi come funziona. Quando un progetto chiede il tuo mestiere, lavoriamo insieme con un accordo chiaro e scritto.",
       cta1: "Proponi una collaborazione",
       cta2: "Cosa è, e cosa no",
       facts: [
-        { k: "Posizioni aperte", v: "Nessuna" },
-        { k: "Annunci di lavoro", v: "Nessuno" },
-        { k: "Collaborazioni", v: "Tra professionisti autonomi" },
+        { k: "Con chi", v: "Professionisti con un'attività propria" },
+        { k: "Quando", v: "Se un progetto lo richiede" },
+        { k: "Come", v: "Da remoto, con accordo scritto" },
       ],
     },
 
-    isLabel: "Prima di scriverci",
+    isLabel: "Per partire col piede giusto",
     isTitle: "Cosa è, e cosa no.",
-    isLede: "Lo diciamo subito, così nessuno perde tempo: né tu, né noi.",
+    isLede: "Due righe di chiarezza prima di scriverci: ci aiutano a rispondere bene, e ti evitano di aspettare qualcosa che non possiamo offrire.",
     isNot: {
       title: "Non è",
       items: [
-        "Un'offerta di lavoro o un annuncio.",
-        "Una selezione del personale: non valutiamo CV.",
-        "Un impiego da dipendente, full-time o part-time.",
-        "Uno stage, un tirocinio o un primo impiego.",
+        "Un annuncio o un'offerta di lavoro.",
+        "Una selezione: i curriculum non servono.",
+        "Un posto da dipendente, full-time o part-time.",
+        "Uno stage o un percorso di primo impiego.",
       ],
     },
     is: {
       title: "È",
       items: [
-        "Una collaborazione tra professionisti autonomi.",
+        "Un lavoro insieme, tra professionisti autonomi.",
         "Su incarichi definiti, quando un progetto lo richiede.",
         "Regolata da un accordo scritto, prima di iniziare.",
         "Da remoto, con i tuoi strumenti e i tuoi tempi.",
@@ -135,7 +136,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     howLabel: "Come succede",
     howTitle: "Nascono dai progetti.",
     howLede:
-      "Non c'è un processo di selezione, perché non c'è una selezione. C'è una porta aperta e un modo semplice di passarci.",
+      "Niente colloqui o graduatorie: solo una porta aperta e un modo semplice di bussare.",
     howSteps: [
       {
         t: "Ci proponi una collaborazione",
@@ -143,7 +144,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         t: "La leggiamo e la teniamo presente",
-        d: "Nessun colloquio, nessuna graduatoria: la tua proposta resta tra i professionisti a cui pensiamo quando serve.",
+        d: "Con calma e con attenzione: la tua proposta resta tra i professionisti a cui pensiamo quando serve.",
       },
       {
         t: "Quando c'è un progetto, ti scriviamo noi",
@@ -158,7 +159,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     craftsLabel: "Gli ambiti",
     craftsTitle: "Dove capita di collaborare.",
     craftsNote:
-      "Non sono posizioni aperte: sono i mestieri che i nostri progetti chiedono più spesso. Se fai qualcosa di raro e lo fai bene, scrivici lo stesso.",
+      "Sono i mestieri che i nostri progetti chiedono più spesso. Se fai qualcosa di diverso e lo fai bene, scrivici lo stesso: le belle sorprese ci piacciono.",
     crafts: [
       {
         t: "Grafica e illustrazione",
@@ -204,7 +205,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     pactLabel: "Il patto",
     pactTitle: "Quattro impegni, uguali per tutti.",
     pactBody:
-      "Alpacode opera in regime forfettario e non assume personale dipendente: ogni collaborazione è lavoro autonomo, nelle forme previste dalla legge. Nessuna zona grigia.",
+      "Alpacode opera in regime forfettario e non ha personale dipendente: ogni collaborazione è lavoro autonomo, nelle forme previste dalla legge. Regole chiare, uguali per tutti, così si lavora tranquilli.",
     pactPoints: [
       "Nessun rapporto di lavoro dipendente, dichiarato o mascherato.",
       "Accordo scritto sempre: oggetto, scadenza, compenso e diritti d'uso, prima di iniziare.",
@@ -217,15 +218,15 @@ export const collabora: Record<Lang, CollaboraData> = {
     faq: [
       {
         q: "State assumendo?",
-        a: "No. Alpacode non assume personale dipendente: non abbiamo posizioni aperte, non pubblichiamo annunci di lavoro e non facciamo selezioni. Offriamo solo collaborazioni tra professionisti autonomi.",
+        a: "No: Alpacode non ha posizioni da dipendente aperte e non pubblica annunci di lavoro. Quello che offriamo sono collaborazioni tra professionisti autonomi, quando un progetto le richiede.",
       },
       {
         q: "Posso mandarvi il mio CV?",
-        a: "Non serve: non facciamo selezioni, quindi non valutiamo curriculum. Se hai un'attività tua, mandaci invece una proposta di collaborazione con il tuo portfolio.",
+        a: "Non è necessario: non facendo selezioni, il curriculum ci dice poco. Se hai un'attività tua, ci aiuta molto di più un portfolio con due righe su come immagini la collaborazione.",
       },
       {
         q: "Offrite stage o tirocini?",
-        a: "No. Non attiviamo stage, tirocini o percorsi di inserimento.",
+        a: "Al momento no: non attiviamo stage, tirocini o percorsi di inserimento.",
       },
       {
         q: "Serve la partita IVA?",
@@ -233,7 +234,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         q: "Mi risponderete?",
-        a: "Leggiamo ogni proposta, ma scriviamo quando c'è un progetto concreto in cui ha senso coinvolgerti. Se non ti contattiamo subito non è un no: vuol dire che quel progetto, per ora, non c'è.",
+        a: "Leggiamo ogni proposta con attenzione e ti scriviamo quando c'è un progetto in cui ha senso lavorare insieme. Può volerci un po': se non ti sentiamo subito, non è un no — è solo che quel progetto non è ancora arrivato.",
       },
       {
         q: "Come funziona il compenso?",
@@ -251,7 +252,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     formLabel: "Proposta",
     formTitle: "Proponi una collaborazione.",
     formLede:
-      "Per professionisti con un'attività propria. Raccontaci chi sei, cosa fai e come immagini la collaborazione: se arriva il progetto giusto, ti scriviamo noi.",
+      "Raccontaci chi sei, cosa fai e come immagini di lavorare con noi. Bastano poche righe e un link ai tuoi lavori: quando arriva il progetto giusto, ti scriviamo noi.",
     formLabels: {
       name: "Nome e cognome, o studio",
       namePlaceholder: "Maria Rossi · Studio Rossi",
@@ -276,7 +277,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       send: "Invia la proposta",
       consent:
         "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
-      ack: "Ho capito che non è un'offerta di lavoro: propongo una collaborazione come professionista autonomo.",
+      ack: "Ho capito che si tratta di una collaborazione tra professionisti, non di un'offerta di lavoro.",
       confirm: "Grazie, proposta ricevuta. Se arriva il progetto giusto, ti scriviamo noi.",
       error: "Qualcosa è andato storto: riprova o scrivici via email.",
     },
@@ -285,28 +286,28 @@ export const collabora: Record<Lang, CollaboraData> = {
   en: {
     hero: {
       label: "Collaborate with us",
-      line1: "We don't hire.",
-      line2: "We collaborate.",
-      lede: "Alpacode has no open positions and runs no recruitment. This page is for professionals with a business of their own — freelancers, studios, small agencies — who want to propose a collaboration: when a project needs their craft, we work together under a written agreement.",
+      line1: "Collaborations,",
+      line2: "not job openings.",
+      lede: "We're a small studio with no open positions. But we enjoy working with good professionals: if you run a business of your own — freelancer, studio, small agency — and you'd like to propose a collaboration, this is how it works. When a project needs your craft, we work together under a clear, written agreement.",
       cta1: "Propose a collaboration",
       cta2: "What it is, and what it isn't",
       facts: [
-        { k: "Open positions", v: "None" },
-        { k: "Job ads", v: "None" },
-        { k: "Collaborations", v: "Between independent professionals" },
+        { k: "With whom", v: "Professionals with their own business" },
+        { k: "When", v: "When a project calls for it" },
+        { k: "How", v: "Remotely, with a written agreement" },
       ],
     },
 
-    isLabel: "Before you write",
+    isLabel: "To start on the right foot",
     isTitle: "What it is, and what it isn't.",
-    isLede: "We say it up front, so nobody wastes time: neither you, nor us.",
+    isLede: "A little clarity before you write: it helps us answer well, and saves you waiting for something we can't offer.",
     isNot: {
       title: "It isn't",
       items: [
         "A job offer or a job ad.",
-        "A recruitment process: we don't evaluate CVs.",
+        "A recruitment process: no CV needed.",
         "Employment, full-time or part-time.",
-        "An internship, a traineeship or a first job.",
+        "An internship or a first-job programme.",
       ],
     },
     is: {
@@ -325,7 +326,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     howLabel: "How it happens",
     howTitle: "They start from projects.",
     howLede:
-      "There's no selection process, because there's no selection. There's an open door and a simple way through it.",
+      "No interviews, no rankings: just an open door and a simple way to knock.",
     howSteps: [
       {
         t: "You propose a collaboration",
@@ -333,7 +334,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         t: "We read it and keep it in mind",
-        d: "No interviews, no rankings: your proposal stays among the professionals we think of when the need comes up.",
+        d: "Calmly and carefully: your proposal stays among the professionals we think of when the need comes up.",
       },
       {
         t: "When there's a project, we write to you",
@@ -348,7 +349,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     craftsLabel: "The crafts",
     craftsTitle: "Where collaborations happen.",
     craftsNote:
-      "These aren't open positions: they're the crafts our projects ask for most often. If you do something rare and do it well, write anyway.",
+      "These are the crafts our projects ask for most often. If you do something different and do it well, write anyway: we like good surprises.",
     crafts: [
       {
         t: "Graphic design & illustration",
@@ -394,7 +395,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     pactLabel: "The pact",
     pactTitle: "Four commitments, the same for everyone.",
     pactBody:
-      "Alpacode operates under Italy's flat-rate regime and does not employ staff: every collaboration is autonomous work, in the forms provided by law. No grey areas.",
+      "Alpacode operates under Italy's flat-rate regime and has no employees: every collaboration is autonomous work, in the forms provided by law. Clear rules, the same for everyone, so everyone works at ease.",
     pactPoints: [
       "No employment relationships, declared or disguised.",
       "Always a written agreement: scope, deadline, compensation and usage rights, before starting.",
@@ -407,15 +408,15 @@ export const collabora: Record<Lang, CollaboraData> = {
     faq: [
       {
         q: "Are you hiring?",
-        a: "No. Alpacode doesn't employ staff: we have no open positions, publish no job ads and run no recruitment. We only offer collaborations between independent professionals.",
+        a: "No: Alpacode has no employee positions open and publishes no job ads. What we offer are collaborations between independent professionals, when a project calls for them.",
       },
       {
         q: "Can I send you my CV?",
-        a: "There's no need: we don't recruit, so we don't evaluate résumés. If you run your own business, send us a collaboration proposal with your portfolio instead.",
+        a: "It isn't necessary: since we don't recruit, a résumé tells us little. If you run your own business, a portfolio and a couple of lines on how you picture the collaboration help much more.",
       },
       {
         q: "Do you offer internships?",
-        a: "No. We don't offer internships, traineeships or placement programmes.",
+        a: "Not at the moment: we don't offer internships, traineeships or placement programmes.",
       },
       {
         q: "Do I need a VAT number?",
@@ -423,7 +424,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         q: "Will you reply?",
-        a: "We read every proposal, but we write when there's a concrete project where involving you makes sense. If we don't get in touch right away it isn't a no: it means that project doesn't exist yet.",
+        a: "We read every proposal carefully and write to you when there's a project where working together makes sense. It can take a while: if you don't hear from us right away, it isn't a no — that project just hasn't arrived yet.",
       },
       {
         q: "How does compensation work?",
@@ -441,7 +442,7 @@ export const collabora: Record<Lang, CollaboraData> = {
     formLabel: "Proposal",
     formTitle: "Propose a collaboration.",
     formLede:
-      "For professionals with a business of their own. Tell us who you are, what you do and how you picture the collaboration: if the right project comes along, we'll write to you.",
+      "Tell us who you are, what you do and how you picture working with us. A few lines and a link to your work are enough: when the right project comes along, we'll write to you.",
     formLabels: {
       name: "Full name, or studio",
       namePlaceholder: "Maria Rossi · Studio Rossi",
@@ -466,7 +467,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       send: "Send the proposal",
       consent:
         "I have read the privacy policy and consent to data processing to be contacted back.",
-      ack: "I understand this is not a job offer: I'm proposing a collaboration as an independent professional.",
+      ack: "I understand this is a collaboration between professionals, not a job offer.",
       confirm: "Thanks, proposal received. If the right project comes along, we'll write to you.",
       error: "Something went wrong: retry or email us.",
     },

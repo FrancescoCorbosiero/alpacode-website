@@ -142,6 +142,10 @@ html.lenis body {
   padding: 0.1em 0 0.12em;
   margin: -0.1em 0 -0.12em;
 }
+.split-word-mask {
+  padding: 0.1em 0.02em 0.12em;
+  margin: -0.1em -0.02em -0.12em;
+}
 /* Footer wordmark letters rise out of their own masks. */
 .foot-char-mask {
   padding-bottom: 0.04em;
@@ -150,6 +154,19 @@ html.lenis body {
 
 /* Scrubbed statement — words start dim and light up with scroll. Without
    the script the paragraph is simply full-strength text. */
+.statement-band {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(96px, 17vh, 200px) 0;
+}
+.statement-band--paper {
+  background: transparent;
+  color: var(--ink);
+  padding: clamp(72px, 12vh, 144px) 0;
+}
+.statement-band .label {
+  margin-bottom: 32px;
+}
 .statement {
   font-family: var(--display);
   font-weight: 400;

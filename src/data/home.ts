@@ -49,6 +49,12 @@ export interface HeroVideo {
 
 export const heroVideo: HeroVideo | null = null;
 
+/* ---------------- Statement (between the pitch and the services) ---------------- */
+export const homeStatement: Record<Lang, string> = {
+  it: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — con un prezzo deciso prima di iniziare e nessun costo a sorpresa.",
+  en: "A good-looking site isn't enough. We work so it's visible, credible and brings in clients — at a price agreed before we start, with no surprise costs.",
+};
+
 /* ---------------- 01 Verbs ---------------- */
 export interface Verb {
   num: string;

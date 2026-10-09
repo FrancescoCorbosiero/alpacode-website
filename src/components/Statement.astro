@@ -1,0 +1,20 @@
+---
+/** A single big sentence that lights up word by word as it scrolls
+ *  through (motion.ts, [data-scrub]). Use one per page at most — it's the
+ *  pause between sections, not a section of its own. */
+interface Props {
+  text: string;
+  /** Optional kicker above the sentence. */
+  label?: string;
+  /** "ink" (default) — dark band; "paper" — on the page background. */
+  tone?: "ink" | "paper";
+}
+const { text, label, tone = "ink" } = Astro.props;
+---
+
+<section class:list={["statement-band", { "statement-band--paper": tone === "paper" }]}>
+  <div class="wrap-wide">
+    {label && <p class:list={["label", { "label--on-ink": tone === "ink" }]}>{label}</p>}
+    <p class="statement" data-scrub>{text}</p>
+  </div>
+</section>

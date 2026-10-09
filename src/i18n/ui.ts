@@ -78,12 +78,12 @@ export const cmdk = {
 export const meta: Record<PageKey, { title: Localized; description: Localized }> = {
   "collabora-con-noi": {
     title: {
-      it: "Collabora con noi · Non assumiamo, collaboriamo — Alpacode",
-      en: "Collaborate with us · We don't hire, we collaborate — Alpacode",
+      it: "Collabora con noi · Collaborazioni tra professionisti — Alpacode",
+      en: "Collaborate with us · Collaborations between professionals — Alpacode",
     },
     description: {
-      it: "Alpacode non assume e non pubblica annunci di lavoro. Collaboriamo con professionisti indipendenti — freelance, studi, piccole agenzie — su incarichi definiti, con accordo scritto e compenso concordato prima. Qui puoi proporci una collaborazione.",
-      en: "Alpacode doesn't hire and publishes no job ads. We collaborate with independent professionals — freelancers, studios, small agencies — on defined assignments, with a written agreement and compensation agreed up front. Propose a collaboration here.",
+      it: "Alpacode non ha posizioni da dipendente aperte né annunci di lavoro: collaboriamo con professionisti indipendenti — freelance, studi, piccole agenzie — su incarichi definiti, con accordo scritto e compenso concordato prima. Qui puoi proporci una collaborazione.",
+      en: "Alpacode has no employee positions open and no job ads: we collaborate with independent professionals — freelancers, studios, small agencies — on defined assignments, with a written agreement and compensation agreed up front. Propose a collaboration here.",
     },
   },
   "sostenibilita-ambientale": {

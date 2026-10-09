@@ -84,7 +84,7 @@
 :root[data-theme="dark"] .site-footer,
 :root[data-theme="dark"] .band-dark,
 :root[data-theme="dark"] .clb-hero,
-:root[data-theme="dark"] .clb-statement,
+:root[data-theme="dark"] .statement-band:not(.statement-band--paper),
 :root[data-theme="dark"] .sus-limits,
 :root[data-theme="dark"] .rep-boundary,
 :root[data-theme="dark"] .product--featured,

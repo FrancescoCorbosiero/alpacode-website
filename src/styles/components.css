@@ -803,7 +803,7 @@
 .hero-lockup {
   margin-top: auto;
   padding-top: clamp(40px, 7vh, 72px);
-  padding-bottom: clamp(20px, 3vh, 32px);
+  padding-bottom: clamp(56px, 9vh, 104px);
 }
 /* Sized to fill the content width: "ALPACODE" in Archivo Black at this
    tracking is ~5.7em wide (5.95 leaves room for a desktop scrollbar). */
