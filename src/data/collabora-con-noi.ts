@@ -96,8 +96,8 @@ export const collabora: Record<Lang, CollaboraData> = {
   it: {
     hero: {
       label: "Collabora con noi",
-      line1: "Collaborazioni,",
-      line2: "non assunzioni.",
+      line1: "Collaborazioni",
+      line2: "tra professionisti.",
       lede: "Siamo uno studio piccolo e non abbiamo posizioni aperte. Però ci piace lavorare con bravi professionisti: se hai un'attività tua — freelance, studio, piccola agenzia — e ti va di proporci una collaborazione, qui trovi come funziona. Quando un progetto chiede il tuo mestiere, lavoriamo insieme con un accordo chiaro e scritto.",
       cta1: "Proponi una collaborazione",
       cta2: "Cosa è, e cosa no",
@@ -286,8 +286,8 @@ export const collabora: Record<Lang, CollaboraData> = {
   en: {
     hero: {
       label: "Collaborate with us",
-      line1: "Collaborations,",
-      line2: "not job openings.",
+      line1: "Collaborations",
+      line2: "between professionals.",
       lede: "We're a small studio with no open positions. But we enjoy working with good professionals: if you run a business of your own — freelancer, studio, small agency — and you'd like to propose a collaboration, this is how it works. When a project needs your craft, we work together under a clear, written agreement.",
       cta1: "Propose a collaboration",
       cta2: "What it is, and what it isn't",
