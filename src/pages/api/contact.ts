@@ -31,9 +31,16 @@ function rateLimited(ip: string): boolean {
   return recent.length > RATE_LIMIT;
 }
 
-/** Client IP. Caddy appends the real client to X-Forwarded-For, so the
- *  last entry is the one our own proxy wrote (earlier ones are forgeable). */
+/** Client IP. Behind Cloudflare, Caddy's X-Forwarded-For entry is a
+ *  Cloudflare edge address shared by many visitors — rate-limiting on it
+ *  locks everyone out after five forms — so prefer CF-Connecting-IP. That
+ *  header is only trustworthy because the origin firewall accepts
+ *  Cloudflare traffic alone. Without Cloudflare: Caddy appends the real
+ *  client to X-Forwarded-For, so the last entry is the one our own proxy
+ *  wrote (earlier ones are forgeable). */
 function clientIp(request: Request, fallback: string): string {
+  const cf = request.headers.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
   const xff = request.headers.get("x-forwarded-for");
   const last = xff?.split(",").pop()?.trim();
   return last || fallback;
