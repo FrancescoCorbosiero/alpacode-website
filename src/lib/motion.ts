@@ -127,8 +127,8 @@ const BLOCKS = [
   ".pp-feature",
   ".cmp-pain",
   ".cmp-step",
+  ".foot-brand",
   ".foot-col",
-  ".foot-index",
   "[data-reveal]",
 ].join(",");
 
@@ -592,21 +592,17 @@ function mapRoutes(): void {
   });
 }
 
+/** Footer wordmark: Footer.astro already sets the letters in their masks
+ *  (hand-kerned, which a split would undo), so they only need to rise. */
 function footerWordmark(): void {
   gsap.utils.toArray<HTMLElement>(".foot-wordmark").forEach((el) => {
     if (inFirstView(el)) return;
-    SplitText.create(el, {
-      type: "chars",
-      mask: "chars",
-      charsClass: "foot-char",
-      onSplit: (self) =>
-        gsap.from(self.chars, {
-          yPercent: 105,
-          duration: 1.2,
-          ease: EASE,
-          stagger: 0.045,
-          scrollTrigger: { trigger: el, start: "top 98%", once: true },
-        }),
+    gsap.from(el.querySelectorAll(".foot-char"), {
+      yPercent: 110,
+      duration: 1.2,
+      ease: EASE,
+      stagger: 0.045,
+      scrollTrigger: { trigger: el, start: "top 98%", once: true },
     });
   });
 }

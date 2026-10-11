@@ -23,6 +23,7 @@ export interface ContattiData {
     send: string;
     consent: string;
     confirm: string;
+    /** "{email}" renders as a mailto link (FormError). */
     error: string;
   };
   info: {
@@ -75,7 +76,7 @@ export const contatti: Record<Lang, ContattiData> = {
       send: "Invia il messaggio",
       consent: "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
       confirm: "Grazie: ti rispondiamo presto.",
-      error: "Qualcosa è andato storto: riprova o scrivici via email.",
+      error: "Qualcosa è andato storto: riprova o scrivici a {email}.",
     },
     info: {
       h: "Diretto.",
@@ -141,7 +142,7 @@ export const contatti: Record<Lang, ContattiData> = {
       send: "Send message",
       consent: "I have read the privacy policy and consent to data processing to be contacted back.",
       confirm: "Thanks: we'll reply soon.",
-      error: "Something went wrong: retry or email us.",
+      error: "Something went wrong: try again or email us at {email}.",
     },
     info: {
       h: "Direct.",

@@ -37,6 +37,13 @@
 >   URL): Alpacode does not hire; the page explains how professionals
 >   with their own business can propose a collaboration. Copy rules are
 >   at the top of `src/data/collabora-con-noi.ts`.
+> - **Footer**: one 12-column grid (brand block with the claim, the
+>   email, the call button and the studio facts; three link columns of
+>   matching height), a fine-print bar, then the ALPACODE wordmark
+>   spanning the text grid edge to edge with one gutter under it. The
+>   letters are set one by one in `Footer.astro` (kerning applied by
+>   hand; SplitText would drop it) and the line is `text-box`-trimmed to
+>   cap height and baseline, so the spacing is identical on every OS.
 
 ## Overview
 

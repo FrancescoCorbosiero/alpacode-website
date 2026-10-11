@@ -18,9 +18,10 @@ export const ui = {
 } satisfies Record<string, Localized>;
 
 export const footer = {
-  info: { it: "Informazioni", en: "Information" },
   nav: { it: "Naviga", en: "Navigate" },
-  contact: { it: "Scrivici", en: "Write us" },
+  /* Accessible name of the footer's link columns (one nav landmark). */
+  sitemap: { it: "Mappa del sito", en: "Site map" },
+  follow: { it: "Seguici", en: "Follow us" },
   legal: { it: "Legale", en: "Legal" },
   rights: {
     it: "© 2026 Alpacode · Tutti i diritti riservati",

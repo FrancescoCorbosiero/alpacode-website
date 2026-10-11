@@ -1,6 +1,7 @@
 import { memo, useState, type FormEvent } from "react";
 import type { Lang } from "../../i18n/types";
 import type { WizardData } from "../../data/wizard";
+import FormError from "./FormError";
 
 interface Props {
   lang: Lang;
@@ -168,7 +169,7 @@ function BriefWizard({ lang, labels, prenotaHref }: Props) {
               {labels.back}
             </button>
             <span role="status" aria-live="polite">
-              {status === "error" && <span className="contact-error">{labels.error}</span>}
+              {status === "error" && <FormError text={labels.error} />}
             </span>
           </div>
           <p className="bw-note">{labels.note}</p>

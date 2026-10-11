@@ -1436,6 +1436,8 @@
 }
 
 /* ---------- Footer ---------- */
+/* .site-footer is shared with the campaign landings' slim footer
+   (campaign.css); the .foot-* rules below are the full footer. */
 .site-footer {
   background: var(--ink);
   color: var(--paper);
@@ -1452,82 +1454,205 @@
   height: var(--strut);
   background: var(--blue);
 }
-.foot-top {
+/* One 12-column grid: the brand block (claim, the two ways to reach us,
+   studio facts) on the left, three link columns of about the same height
+   on the right. */
+.foot-main {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 56px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 56px var(--gutter);
+  padding-bottom: 88px;
+}
+.foot-brand {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
 }
 .foot-claim {
   margin: 0;
-  max-width: 380px;
-  font-size: 22px;
+  max-width: 21em;
+  font-size: clamp(22px, 1.2rem + 0.55vw, 28px);
   font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
   color: var(--paper);
 }
-.foot-col h4 {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0;
-  color: rgba(240, 243, 249, 0.5);
-  margin: 0 0 18px;
+.foot-reach {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
 }
-.foot-col h4.spaced {
-  margin-top: 24px;
+/* The address is the footer's loudest link: display face on a blue rule. */
+.foot-mail {
+  font-family: var(--display);
+  font-size: clamp(20px, 1.05rem + 0.45vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  padding-bottom: 5px;
+  background: linear-gradient(var(--blue), var(--blue)) 0 100% / 100% 2px no-repeat;
+  transition: color 0.2s var(--ease);
 }
-.foot-col ul {
+.foot-mail:hover {
+  color: #8fb0f5;
+}
+.foot-facts {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(240, 243, 249, 0.6);
+}
+.foot-cols {
+  grid-column: 7 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  gap: 40px var(--gutter);
+}
+.foot-col {
+  display: grid;
+  align-content: start;
+  gap: 36px;
+}
+.foot-h {
+  margin: 0 0 16px;
+  font-family: var(--label);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: rgba(240, 243, 249, 0.5);
+}
+.foot-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   gap: 10px;
 }
-.foot-col a {
+.foot-group a {
   font-size: 15px;
+  line-height: 1.35;
   color: var(--paper);
-}
-.foot-col a {
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
   transition:
     background-size 0.45s var(--ease-expo),
     color 0.2s var(--ease);
 }
-.foot-col a:hover {
+.foot-group a:hover {
   color: #8fb0f5;
   background-size: 100% 1px;
 }
+/* Fine print: rights, legal, the studio clock. */
 .foot-bottom {
-  border-top: 1px solid rgba(240, 243, 249, 0.18);
-  padding: 24px 0;
+  border-top: 1px solid rgba(240, 243, 249, 0.16);
+  padding: 22px 0;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
   flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 32px;
   font-family: var(--label);
   font-weight: 500;
-  font-size: 14px;
-  color: rgba(240, 243, 249, 0.6);
+  font-size: 13px;
+  color: rgba(240, 243, 249, 0.55);
 }
-/* The signature: ALPACODE at full width, cropped by the page's bottom
-   edge; motion.ts raises the letters as the footer scrolls in. */
+.foot-legal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.foot-legal a {
+  transition: color 0.2s var(--ease);
+}
+.foot-legal a:hover {
+  color: var(--paper);
+}
+/* The signature: ALPACODE spanning the grid edge to edge, with the space
+   under it as exact as the space beside it. Each letter rises out of its
+   own mask (motion.ts). Measured on Archivo Black: the word's ink is
+   5.617em wide (-0.04em tracking, PA/AC kerned by hand in Footer.astro)
+   and starts 0.01em into the A; change the word, re-measure. text-box
+   trims the line to cap height and baseline, so no platform's line
+   metrics can shift it (Windows reads taller ones for this font). */
 .foot-wordmark-wrap {
   max-width: 1480px;
   margin: 0 auto;
-  padding: 0 var(--gutter);
+  padding: clamp(32px, 4.5vw, 64px) var(--gutter) var(--gutter);
+  container-type: inline-size;
 }
 .foot-wordmark {
   font-family: var(--display);
-  font-size: min(238px, calc((100vw - 2 * var(--gutter)) / 5.95));
-  line-height: 0.74;
+  font-size: min(252px, calc((100vw - 2 * var(--gutter)) / 5.617));
+  font-size: calc(100cqi / 5.617);
+  line-height: 0.688;
   letter-spacing: -0.04em;
-  text-align: center;
   white-space: nowrap;
   color: var(--paper);
-  margin-bottom: -0.04em;
+  margin-left: -0.01em;
+  text-box: trim-both cap alphabetic;
   user-select: none;
+}
+/* The padding, cancelled by the margin, keeps overshoots out of the clip:
+   the A's leg runs 0.03em past its tracked box, C and O dip below the
+   baseline. --kern carries the hand kerning. */
+.foot-mask {
+  display: inline-block;
+  overflow: clip;
+  text-box: trim-both cap alphabetic;
+  padding: 0.03em 0.06em;
+  margin: -0.03em calc(var(--kern, 0em) - 0.06em) -0.03em -0.06em;
+}
+.foot-char {
+  display: inline-block;
+}
+/* Column widths follow the longest labels (EN: ~64 / 196 / 233px), so
+   links stay on one line down to 360px screens. */
+@media (max-width: 1279px) {
+  .foot-brand,
+  .foot-cols {
+    grid-column: 1 / -1;
+  }
+  .foot-cols {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+}
+/* Rights, legal links and clock share one row only from ~830px. */
+@media (max-width: 1023px) {
+  .foot-bottom {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+@media (max-width: 759px) {
+  .site-footer:not(.campaign-footer) {
+    padding-top: 64px;
+  }
+  .foot-main {
+    gap: 48px var(--gutter);
+    padding-bottom: 64px;
+  }
+  .foot-brand {
+    gap: 32px;
+  }
+  .foot-cols {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 40px;
+  }
+  .foot-col:last-child {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ---------- Generic page hero ---------- */
@@ -2407,9 +2532,18 @@ cal-modal-box iframe,
 }
 .contact-submit {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   padding-top: 18px;
+}
+/* The button keeps its size; a status message takes the rest of the row,
+   or a row of its own on narrow screens. */
+.contact-submit .btn {
+  flex: none;
+}
+.contact-submit [role="status"]:not(:empty) {
+  flex: 1 1 220px;
 }
 .contact-confirm,
 .contact-error {
@@ -2421,6 +2555,10 @@ cal-modal-box iframe,
 }
 .contact-error {
   color: var(--blue-deep);
+}
+.contact-error a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .contact-info {
   padding-left: 0;
@@ -3470,9 +3608,6 @@ cal-modal-box iframe,
   .work {
     border-right: 0;
   }
-  .foot-top {
-    grid-template-columns: 1fr 1fr;
-  }
   .cta-grid {
     grid-template-columns: 1fr;
   }
@@ -3508,14 +3643,6 @@ cal-modal-box iframe,
   }
   .hero-lede {
     font-size: 17px;
-  }
-  .foot-top {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .foot-bottom {
-    flex-direction: column;
-    gap: 10px;
   }
   .svc-row .meta {
     grid-template-columns: 1fr;
@@ -3747,12 +3874,11 @@ cal-modal-box iframe,
   text-underline-offset: 3px;
 }
 .foot-link-btn {
-  font-size: 15px;
-  color: var(--paper);
   text-decoration: none;
+  transition: color 0.2s var(--ease);
 }
 .foot-link-btn:hover {
-  color: var(--blue);
+  color: var(--paper);
 }
 .legal .prose .cookie-link {
   color: var(--blue);
@@ -3929,51 +4055,6 @@ cal-modal-box iframe,
 }
 @media (max-width: 600px) {
   .blog-tab-label { flex: 1; min-width: 0; }
-}
-
-/* ---------- Footer secondary nav (program/marketing pages index) ---------- */
-.foot-index {
-  border-top: 1px solid rgba(240, 243, 249, 0.18);
-  padding: 24px 0;
-  margin-bottom: 32px;
-  display: grid;
-  gap: 14px;
-}
-.foot-index-row {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.foot-index-label {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: rgba(240, 243, 249, 0.5);
-  flex: 0 0 180px;
-}
-.foot-index-row nav {
-  display: flex;
-  gap: 8px 24px;
-  flex-wrap: wrap;
-}
-.foot-index-row nav a {
-  font-size: 13px;
-  color: rgba(240, 243, 249, 0.7);
-  transition: color 0.15s;
-}
-.foot-index-row nav a:hover {
-  color: var(--blue);
-}
-@media (max-width: 700px) {
-  .foot-index-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .foot-index-label {
-    flex: none;
-  }
 }
 
 /* ---------- Brief wizard (60 secondi) ---------- */

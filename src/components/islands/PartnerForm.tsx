@@ -1,5 +1,6 @@
 import { memo, useEffect, useState, type FormEvent } from "react";
 import type { Lang } from "../../i18n/types";
+import FormError from "./FormError";
 
 export interface PartnerFormLabels {
   name: string;
@@ -21,6 +22,7 @@ export interface PartnerFormLabels {
    *  sender must tick (e.g. "this is not a job application"). */
   ack?: string;
   confirm: string;
+  /** "{email}" renders as a mailto link (FormError). */
   error: string;
 }
 
@@ -152,7 +154,7 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
         </button>
         <span role="status" aria-live="polite">
           {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">{labels.error}</span>}
+          {status === "error" && <FormError text={labels.error} />}
         </span>
       </div>
     </form>
