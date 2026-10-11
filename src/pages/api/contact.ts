@@ -67,6 +67,31 @@ function readEnv(key: string): string | undefined {
 let sesClient: SESv2Client | null = null;
 const getSes = (region: string) => (sesClient ??= new SESv2Client({ region }));
 
+/* What to fix for the SES failures a deploy typically hits. AWS's own
+   messages say what failed, not always why — least of all the classic
+   trap of pasting SES *SMTP* credentials where API keys belong. */
+const SES_HINTS: Record<string, string> = {
+  CredentialsProviderError:
+    "no AWS credentials reached the container: set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, then `docker compose up -d`",
+  UnrecognizedClientException: "AWS_ACCESS_KEY_ID is not an active IAM access key",
+  InvalidClientTokenId: "AWS_ACCESS_KEY_ID is not an active IAM access key",
+  InvalidSignatureException:
+    "AWS_SECRET_ACCESS_KEY doesn't match the key id (an SES SMTP password is not a secret access key)",
+  SignatureDoesNotMatch:
+    "AWS_SECRET_ACCESS_KEY doesn't match the key id (an SES SMTP password is not a secret access key)",
+  AccessDeniedException: "the IAM user's policy must allow ses:SendEmail",
+  MessageRejected:
+    "verify the sender in this region (and, while in the SES sandbox, the recipient too)",
+};
+
+function describeSesError(err: unknown): string {
+  const e = (err ?? {}) as { name?: string; message?: string; $metadata?: { httpStatusCode?: number } };
+  const name = e.name ?? "Error";
+  const status = e.$metadata?.httpStatusCode;
+  const hint = SES_HINTS[name];
+  return `${name}${status ? ` (HTTP ${status})` : ""}: ${e.message ?? String(err)}${hint ? ` → ${hint}` : ""}`;
+}
+
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   // The forms send JSON; anything else (e.g. a no-preflight text/plain
   // cross-site POST) has no business here.
@@ -179,7 +204,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     );
     return json({ ok: true, delivered: true });
   } catch (err) {
-    console.error("[contact] SES error", err);
-    return json({ ok: false, error: "send_failed" }, 502);
+    // One greppable line that names the fix, then the submission itself:
+    // a mail misconfiguration must not cost the lead.
+    console.error(`[contact] SES send failed (region ${region}, from ${from}, to ${to}): ${describeSesError(err)}`);
+    console.error("[contact] undelivered submission:\n" + lines);
+    // 503, not 502: Cloudflare swaps an origin's 502/504 for its own
+    // "Bad gateway" page, which hides this JSON and reads as an outage.
+    return json({ ok: false, error: "send_failed" }, 503);
   }
 };

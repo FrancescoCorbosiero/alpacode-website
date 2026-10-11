@@ -279,7 +279,7 @@ export const collabora: Record<Lang, CollaboraData> = {
         "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
       ack: "Ho capito che si tratta di una collaborazione tra professionisti, non di un'offerta di lavoro.",
       confirm: "Grazie, proposta ricevuta. Se arriva il progetto giusto, ti scriviamo noi.",
-      error: "Qualcosa è andato storto: riprova o scrivici via email.",
+      error: "Qualcosa è andato storto: riprova o scrivici a {email}.",
     },
   },
 
@@ -469,7 +469,7 @@ export const collabora: Record<Lang, CollaboraData> = {
         "I have read the privacy policy and consent to data processing to be contacted back.",
       ack: "I understand this is a collaboration between professionals, not a job offer.",
       confirm: "Thanks, proposal received. If the right project comes along, we'll write to you.",
-      error: "Something went wrong: retry or email us.",
+      error: "Something went wrong: try again or email us at {email}.",
     },
   },
 };

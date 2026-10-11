@@ -35,6 +35,7 @@ export interface WizardData {
   successTitle: string;
   successBody: string;
   successCta: string;
+  /** "{email}" renders as a mailto link (FormError). */
   error: string;
   restart: string;
 }
@@ -90,7 +91,7 @@ export const wizard: Record<Lang, WizardData> = {
     successBody:
       "Ti rispondiamo entro mezza giornata lavorata, da persona vera. Se preferisci parlarne a voce, la call è gratis.",
     successCta: "Prenota una call di 30 minuti",
-    error: "Qualcosa è andato storto: riprova o scrivici via email.",
+    error: "Qualcosa è andato storto: riprova o scrivici a {email}.",
     restart: "Ricomincia",
   },
   en: {
@@ -139,7 +140,7 @@ export const wizard: Record<Lang, WizardData> = {
     successBody:
       "We reply within half a working day, from a real person. If you'd rather talk it through, the call is free.",
     successCta: "Book a 30-minute call",
-    error: "Something went wrong: retry or email us.",
+    error: "Something went wrong: try again or email us at {email}.",
     restart: "Start over",
   },
 };

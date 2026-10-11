@@ -1,6 +1,7 @@
 import { memo, useEffect, useState, type FormEvent } from "react";
 import type { Lang } from "../../i18n/types";
 import type { VariantId } from "../../data/campaigns";
+import FormError from "./FormError";
 
 export interface CampaignFormLabels {
   name: string;
@@ -17,6 +18,7 @@ export interface CampaignFormLabels {
   send: string;
   consent: string;
   confirm: string;
+  /** "{email}" renders as a mailto link (FormError). */
   error: string;
   /** Maps a variant id to its human label, for the read-only "chosen offer" line. */
   variants: Record<VariantId, string>;
@@ -144,7 +146,7 @@ function CampaignForm({ lang, campaign, audience, price, labels }: Props) {
         </button>
         <span role="status" aria-live="polite">
           {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">{labels.error}</span>}
+          {status === "error" && <FormError text={labels.error} />}
         </span>
       </div>
     </form>

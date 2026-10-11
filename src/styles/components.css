@@ -2407,9 +2407,18 @@ cal-modal-box iframe,
 }
 .contact-submit {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   padding-top: 18px;
+}
+/* The button keeps its size; a status message takes the rest of the row,
+   or a row of its own on narrow screens. */
+.contact-submit .btn {
+  flex: none;
+}
+.contact-submit [role="status"]:not(:empty) {
+  flex: 1 1 220px;
 }
 .contact-confirm,
 .contact-error {
@@ -2421,6 +2430,10 @@ cal-modal-box iframe,
 }
 .contact-error {
   color: var(--blue-deep);
+}
+.contact-error a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .contact-info {
   padding-left: 0;

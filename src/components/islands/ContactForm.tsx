@@ -1,6 +1,7 @@
 import { memo, useEffect, useState, type FormEvent } from "react";
 import type { Lang } from "../../i18n/types";
 import type { ContattiData } from "../../data/contatti";
+import FormError from "./FormError";
 
 interface Props {
   lang: Lang;
@@ -104,7 +105,7 @@ function ContactForm({ lang, labels }: Props) {
         </button>
         <span role="status" aria-live="polite">
           {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
-          {status === "error" && <span className="contact-error">{labels.error}</span>}
+          {status === "error" && <FormError text={labels.error} />}
         </span>
       </div>
     </form>
