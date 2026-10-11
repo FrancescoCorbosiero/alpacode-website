@@ -81,7 +81,7 @@ const SES_HINTS: Record<string, string> = {
     "AWS_SECRET_ACCESS_KEY doesn't match the key id (an SES SMTP password is not a secret access key)",
   AccessDeniedException: "the IAM user's policy must allow ses:SendEmail",
   MessageRejected:
-    "verify the sender in this region (and, while in the SES sandbox, the recipient too)",
+    "the identity isn't verified in this region: check AWS_REGION, and that the domain's three DKIM CNAMEs are still in DNS (in the SES sandbox the recipient must be verified too)",
 };
 
 function describeSesError(err: unknown): string {
