@@ -23,7 +23,7 @@ export function organizationSchema(siteUrl: string) {
       addressRegion: "MB",
       addressCountry: "IT",
     },
-    sameAs: [business.social.linkedin, business.social.github],
+    sameAs: [business.social.linkedin],
   };
 }
 

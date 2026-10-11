@@ -13,8 +13,7 @@ export const business = {
   locationsEn: "Monza · Milan · IT",
   hoursShort: "09:00 — 18:00 CET",
   social: {
-    linkedin: "https://www.linkedin.com/",
-    github: "https://github.com/",
+    linkedin: "https://www.linkedin.com/company/soluzioni-digitali-alpacode/",
   },
   founded: "2025",
 } as const;

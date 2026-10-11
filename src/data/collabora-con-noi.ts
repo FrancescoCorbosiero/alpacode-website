@@ -270,7 +270,7 @@ export const collabora: Record<Lang, CollaboraData> = {
         "Altro",
       ],
       zone: "Portfolio o sito (opzionale)",
-      zonePlaceholder: "sito, Behance, GitHub, profilo…",
+      zonePlaceholder: "sito, Behance, Dribbble, profilo…",
       message: "La tua proposta",
       messagePlaceholder:
         "La tua attività (partita IVA, studio, agenzia), cosa proponi e come immagini la collaborazione.",
@@ -460,7 +460,7 @@ export const collabora: Record<Lang, CollaboraData> = {
         "Other",
       ],
       zone: "Portfolio or website (optional)",
-      zonePlaceholder: "website, Behance, GitHub, profile…",
+      zonePlaceholder: "website, Behance, Dribbble, profile…",
       message: "Your proposal",
       messagePlaceholder:
         "Your business (VAT number, studio, agency), what you propose and how you picture the collaboration.",
