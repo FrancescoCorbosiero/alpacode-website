@@ -146,11 +146,6 @@ html.lenis body {
   padding: 0.1em 0.02em 0.12em;
   margin: -0.1em -0.02em -0.12em;
 }
-/* Footer wordmark letters rise out of their own masks. */
-.foot-char-mask {
-  padding-bottom: 0.04em;
-  margin-bottom: -0.04em;
-}
 
 /* Scrubbed statement — words start dim and light up with scroll. Without
    the script the paragraph is simply full-strength text. */

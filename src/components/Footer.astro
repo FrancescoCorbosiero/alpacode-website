@@ -5,130 +5,149 @@ import { CAMPAIGNS, t as tr } from "../data/campaigns";
 import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
 import { business, tagline } from "../data/business";
-import { CAL_LINK, CAL_NAMESPACE, CAL_CONFIG, CAL_CONFIGURED } from "../lib/calcom";
+import BookCall from "./BookCall.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const prenotaHref = localizePath("prenota", lang);
-const contattiHref = localizePath("contatti", lang);
-const privacyHref = localizePath("privacy", lang);
-const cookieHref = localizePath("cookie", lang);
-const terminiHref = localizePath("termini", lang);
 const cookiePrefsLabel = lang === "it" ? "Preferenze cookie" : "Cookie preferences";
 
-/* Secondary navigation — the program/marketing pages kept out of the
-   primary nav on purpose. This strip is their internal-link home. */
-const collabLinks = [
-  { href: localizePath("collabora-con-noi", lang), label: footer.collaborate[lang] },
-  { href: localizePath("partner", lang), label: footer.partnerProgram[lang] },
-  { href: localizePath("social-media-manager", lang), label: footer.smmOffer[lang] },
+interface FootLink {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+interface FootGroup {
+  title: string;
+  links: FootLink[];
+}
+
+/* Three link columns of about the same height. The program/marketing pages
+   have no primary-nav slot on purpose: these columns are their
+   internal-link home. */
+const columns: FootGroup[][] = [
+  [
+    {
+      title: footer.nav[lang],
+      links: PAGES.map((p) => ({ href: localizePath(p.slug, lang), label: p.label[lang] })),
+    },
+  ],
+  [
+    {
+      title: footer.collab[lang],
+      links: [
+        { href: localizePath("collabora-con-noi", lang), label: footer.collaborate[lang] },
+        { href: localizePath("partner", lang), label: footer.partnerProgram[lang] },
+        { href: localizePath("social-media-manager", lang), label: footer.smmOffer[lang] },
+      ],
+    },
+    {
+      title: footer.commitment[lang],
+      links: [
+        { href: localizePath("sostenibilita-ambientale", lang), label: footer.sustainability[lang] },
+        {
+          href: localizePath("sostenibilita-ambientale-report", lang),
+          label: footer.sustainabilityReport[lang],
+        },
+        { href: localizePath("impatto-sociale-report", lang), label: footer.impactReport[lang] },
+      ],
+    },
+  ],
+  [
+    {
+      title: footer.offers[lang],
+      links: CAMPAIGNS.map((c) => ({
+        href: localizePath(`offerta/${c.slug}`, lang),
+        label: tr(c.audience, lang),
+      })),
+    },
+    {
+      title: footer.follow[lang],
+      links: [
+        { href: business.social.linkedin, label: "LinkedIn", external: true },
+        { href: business.social.github, label: "GitHub", external: true },
+      ],
+    },
+  ],
 ];
-const offerLinks = CAMPAIGNS.map((c) => ({
-  href: localizePath(`offerta/${c.slug}`, lang),
-  label: tr(c.audience, lang),
+
+const legalLinks: FootLink[] = [
+  { href: localizePath("privacy", lang), label: footer.privacy[lang] },
+  { href: localizePath("cookie", lang), label: footer.cookies[lang] },
+  { href: localizePath("termini", lang), label: footer.terms[lang] },
+];
+
+/* The wordmark is set letter by letter so each letter can rise out of its
+   own mask (motion.ts). Separate boxes can't kern, so Archivo Black's
+   pairs for this word (GPOS: PA −85, AC −18 units) are applied by hand. */
+const KERN: Record<string, string> = { PA: "-0.085em", AC: "-0.018em" };
+const letters = [...business.wordmark].map((ch, i, all) => ({
+  ch,
+  kern: KERN[ch + (all[i + 1] ?? "")],
 }));
-const commitmentLinks = [
-  { href: localizePath("sostenibilita-ambientale", lang), label: footer.sustainability[lang] },
-  {
-    href: localizePath("sostenibilita-ambientale-report", lang),
-    label: footer.sustainabilityReport[lang],
-  },
-  { href: localizePath("impatto-sociale-report", lang), label: footer.impactReport[lang] },
-];
 ---
 
 <footer class="site-footer">
   <div class="wrap-wide">
-    <div class="foot-top">
+    <div class="foot-main">
       <div class="foot-brand">
         <p class="foot-claim">{tagline[lang]}</p>
-      </div>
-
-      <div class="foot-col">
-        <h4>{footer.info[lang]}</h4>
-        <ul>
+        <div class="foot-reach">
+          <a class="foot-mail" href={`mailto:${business.email}`}>{business.email}</a>
+          <BookCall label={footer.bookCall[lang]} journey="footer" lang={lang} class="btn-blue btn-sm" />
+        </div>
+        <ul class="foot-facts">
           <li>{footer.base[lang]}</li>
-          <li>{footer.vat[lang]}</li>
           <li>{footer.hours[lang]}</li>
+          <li>{footer.vat[lang]}</li>
         </ul>
       </div>
 
-      <div class="foot-col">
-        <h4>{footer.nav[lang]}</h4>
-        <ul>
-          {PAGES.map((p) => (
-            <li>
-              <a href={localizePath(p.slug, lang)}>{p.label[lang]}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="foot-col">
-        <h4>{footer.contact[lang]}</h4>
-        <ul>
-          <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
-          <li>
-            {
-              CAL_CONFIGURED ? (
-                <a
-                  href={prenotaHref}
-                  data-cal-link={CAL_LINK}
-                  data-cal-namespace={CAL_NAMESPACE}
-                  data-cal-config={CAL_CONFIG}
-                  data-journey="footer"
-                >{footer.bookCall[lang]}</a>
-              ) : (
-                <a href={contattiHref}>{footer.bookCall[lang]}</a>
-              )
-            }
-          </li>
-          <li><a href={business.social.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
-          <li><a href={business.social.github} rel="me noopener" target="_blank">GitHub</a></li>
-        </ul>
-        <h4 class="spaced">{footer.legal[lang]}</h4>
-        <ul>
-          <li><a href={privacyHref}>{footer.privacy[lang]}</a></li>
-          <li><a href={cookieHref}>{footer.cookies[lang]}</a></li>
-          <li><a href={terminiHref}>{footer.terms[lang]}</a></li>
-          <li><button type="button" class="foot-link-btn" data-cookie-prefs>{cookiePrefsLabel}</button></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="foot-index">
-      <div class="foot-index-row">
-        <span class="foot-index-label">{footer.collab[lang]}</span>
-        <nav aria-label={footer.collab[lang]}>
-          {collabLinks.map((l) => <a href={l.href}>{l.label}</a>)}
-        </nav>
-      </div>
-      <div class="foot-index-row">
-        <span class="foot-index-label">{footer.offers[lang]}</span>
-        <nav aria-label={footer.offers[lang]}>
-          {offerLinks.map((l) => <a href={l.href}>{l.label}</a>)}
-        </nav>
-      </div>
-      <div class="foot-index-row">
-        <span class="foot-index-label">{footer.commitment[lang]}</span>
-        <nav aria-label={footer.commitment[lang]}>
-          {commitmentLinks.map((l) => <a href={l.href}>{l.label}</a>)}
-        </nav>
-      </div>
+      <nav class="foot-cols" aria-label={footer.sitemap[lang]}>
+        {
+          columns.map((groups) => (
+            <div class="foot-col">
+              {groups.map((g) => (
+                <div class="foot-group">
+                  <h2 class="foot-h">{g.title}</h2>
+                  <ul>
+                    {g.links.map((l) => (
+                      <li>
+                        {l.external ? (
+                          <a href={l.href} rel="me noopener" target="_blank">{l.label}</a>
+                        ) : (
+                          <a href={l.href}>{l.label}</a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </nav>
     </div>
 
     <div class="foot-bottom">
       <span>{footer.rights[lang]}</span>
+      <ul class="foot-legal" aria-label={footer.legal[lang]}>
+        {legalLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        <li><button type="button" class="foot-link-btn" data-cookie-prefs>{cookiePrefsLabel}</button></li>
+      </ul>
       <span class="foot-clock" data-studio-root>
         {footer.clock[lang]} <span data-studio-time>—:—</span>
       </span>
     </div>
   </div>
-  {/* The signature: the wordmark at full width, letters rising into view. */}
+  {/* The signature: the wordmark spanning the grid, letters rising into view. */}
   <div class="foot-wordmark-wrap" aria-hidden="true">
-    <div class="foot-wordmark">ALPACODE</div>
+    <div class="foot-wordmark">
+      {letters.map(({ ch, kern }) => (
+        <span class="foot-mask" style={kern ? `--kern:${kern}` : undefined}><span class="foot-char">{ch}</span></span>
+      ))}
+    </div>
   </div>
 </footer>
 
