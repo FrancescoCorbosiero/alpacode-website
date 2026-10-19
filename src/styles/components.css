@@ -1182,9 +1182,31 @@
 
 /* ---------- Manifesto ---------- */
 .manifesto {
+  position: relative;
+  overflow: hidden;
   background: var(--ink);
   color: var(--paper);
   padding: 96px 0;
+}
+.manifesto > .wrap-wide {
+  position: relative;
+  z-index: 1;
+}
+/* The alpaca of the name, one shade off the ink, hooves on the band's lower
+   edge — the voucher's finale, at home (motion.ts walks it in). */
+.manifesto-alpaca {
+  position: absolute;
+  right: clamp(-40px, -2vw, 0px);
+  bottom: calc(clamp(220px, 26vw, 420px) * -0.02);
+  width: clamp(220px, 26vw, 420px);
+  height: auto;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .manifesto-alpaca {
+    opacity: 0.6;
+  }
 }
 .manifesto .section-head h2 {
   color: var(--paper);
@@ -1292,6 +1314,19 @@
   background: var(--blue);
   flex-shrink: 0;
 }
+/* The alpaca leading each set (Ticker alpaca): it stands on the words'
+   baseline, its head in the band's padding so the band keeps its height,
+   and walks with the band (motion.ts). */
+.ticker-item--alpaca {
+  align-items: baseline;
+}
+.ticker-alpaca {
+  flex: none;
+  width: 20px;
+  height: auto;
+  margin-top: -10px;
+  color: var(--blue);
+}
 @keyframes tickerMove {
   to {
     transform: translateX(-50%);
@@ -1333,6 +1368,10 @@
 .ticker--xl .ticker-item .tick {
   width: 0.62em;
   height: 0.13em;
+}
+.ticker--xl .ticker-alpaca {
+  width: 0.74em;
+  margin-top: -0.2em;
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker {
@@ -1617,6 +1656,29 @@
 .foot-char {
   display: inline-block;
 }
+/* The alpaca on the P — al-PACO-de, where the name hides Paco — looking
+   along the rest of the word. Hooves on the P's flat top (the cap line,
+   the trimmed top of the word), placed and sized in the word's own em so
+   it tracks the letters at every width (the P's box runs 1.365–2.047em)
+   and fits the padding above; clear of the floating buttons, which sit
+   over the E on phones. The spot clips only below the cap line: the
+   alpaca rises from behind the P (motion.ts) and keeps room above for
+   its ears and hops. */
+.foot-wordmark {
+  position: relative;
+}
+.foot-alpaca-spot {
+  position: absolute;
+  bottom: 100%;
+  left: 1.46em;
+  width: 0.2em;
+  clip-path: inset(-60% -50% 0 -50%);
+}
+.foot-alpaca {
+  width: 100%;
+  height: auto;
+  color: var(--blue);
+}
 /* Column widths follow the longest labels (EN: ~64 / 196 / 233px), so
    links stay on one line down to 360px screens. */
 @media (max-width: 1279px) {
@@ -1731,6 +1793,26 @@
   width: 120px;
   background: var(--blue);
   margin: 28px auto;
+}
+/* The alpaca that took a wrong turn, standing on the strut. It steps up on
+   load (CSS, no waiting on the script); motion.ts has it look around. */
+.error-bar--lost {
+  position: relative;
+  margin-top: 96px;
+}
+.error-alpaca {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 60px;
+  height: auto;
+  margin: 0 0 -1px -30px;
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .error-alpaca {
+    animation: introFade 0.9s var(--ease-expo) 0.45s backwards;
+  }
 }
 .error-h {
   font-family: var(--display);
