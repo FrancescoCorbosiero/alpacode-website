@@ -6,6 +6,7 @@ import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
 import { business, tagline } from "../data/business";
 import BookCall from "./BookCall.astro";
+import Alpaca from "./Alpaca.astro";
 
 interface Props {
   lang: Lang;
@@ -140,12 +141,16 @@ const letters = [...business.wordmark].map((ch, i, all) => ({
       </span>
     </div>
   </div>
-  {/* The signature: the wordmark spanning the grid, letters rising into view. */}
+  {/* The signature: the wordmark spanning the grid, letters rising into
+      view — and the alpaca of the name standing on its P (al-PACO-de),
+      looking along the word. It rises from behind the P a beat after the
+      letters. */}
   <div class="foot-wordmark-wrap" aria-hidden="true">
     <div class="foot-wordmark">
       {letters.map(({ ch, kern }) => (
         <span class="foot-mask" style={kern ? `--kern:${kern}` : undefined}><span class="foot-char">{ch}</span></span>
       ))}
+      <span class="foot-alpaca-spot"><Alpaca class="foot-alpaca" width={52} data-alpaca /></span>
     </div>
   </div>
 </footer>

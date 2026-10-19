@@ -15,6 +15,10 @@
    - Header: .scrolled past 8px, .is-hidden while reading downwards.
    - Home hero: video sources attached only when welcome; the claim and
      the lockup drift apart as the page scrolls away.
+   - The alpacas (components/Alpaca.astro, moves in lib/alpaca.ts — the
+     same files as alpacode-voucher): one walks along the home marquee and
+     turns round with it, one walks into the manifesto band, one rises
+     from behind the P of the footer wordmark, one is lost on the 404.
 
    Attribute API for new markup:
      data-split[="variant"] heading — split reveal; variant is lines,
@@ -27,7 +31,12 @@
                             scrubbed (--p, 0→1) and [data-progress-step]
                             children get .is-reached as it passes
      data-strut             bar — draws in from the left
-     .ticker--xl            marquee that follows scroll speed/direction
+     .ticker--xl            marquee that follows scroll speed/direction;
+                            its [data-alpaca-walker] alpacas walk with it
+     data-alpaca            a living alpaca: little signs of life, leans in
+                            when hovered, skips when tapped;
+                            ="walk-in" walks into place first,
+                            ="lost" looks around first (404)
 
    Rules of the house:
    - Nothing is hidden by CSS. Blocks are hidden here, at init, and only
@@ -47,6 +56,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Lenis from "lenis";
+import { rigOf, idle, playful, walkIn, lookAround, marchers } from "./alpaca";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -492,12 +502,14 @@ function progressRails(): void {
 }
 
 /** XL marquee: drifts on its own, speeds up with the scroll and follows
- *  its direction. Driven by the GSAP ticker only while on screen. */
+ *  its direction; the alpaca riding it faces the way it runs and walks
+ *  with it. Driven by the GSAP ticker only while on screen. */
 function marquees(): void {
   gsap.utils.toArray<HTMLElement>(".ticker--xl").forEach((root) => {
     const track = root.querySelector<HTMLElement>(".ticker-track");
     if (!track) return;
     track.style.animation = "none";
+    const crew = marchers(root.querySelectorAll<SVGSVGElement>("[data-alpaca-walker]"));
     let x = 0;
     let dir = -1;
     let boost = 0;
@@ -507,10 +519,12 @@ function marquees(): void {
     const BASE = 70; // px/s
     const tick = (_time: number, dt: number): void => {
       if (!active || hovered) return;
-      x += dir * (BASE + boost) * (dt / 1000);
+      const dx = dir * (BASE + boost) * (dt / 1000);
+      x += dx;
       if (x <= -half) x += half;
       else if (x > 0) x -= half;
       track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      crew.move(dx, dt);
       boost *= 0.94;
     };
     gsap.ticker.add(tick);
@@ -593,17 +607,58 @@ function mapRoutes(): void {
 }
 
 /** Footer wordmark: Footer.astro already sets the letters in their masks
- *  (hand-kerned, which a split would undo), so they only need to rise. */
+ *  (hand-kerned, which a split would undo), so they only need to rise —
+ *  and, as they land, the alpaca rises from behind the P: the same move,
+ *  a beat later. */
 function footerWordmark(): void {
   gsap.utils.toArray<HTMLElement>(".foot-wordmark").forEach((el) => {
     if (inFirstView(el)) return;
-    gsap.from(el.querySelectorAll(".foot-char"), {
-      yPercent: 110,
-      duration: 1.2,
-      ease: EASE,
-      stagger: 0.045,
-      scrollTrigger: { trigger: el, start: "top 98%", once: true },
-    });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 98%", once: true } });
+    tl.from(el.querySelectorAll(".foot-char"), { yPercent: 110, duration: 1.2, ease: EASE, stagger: 0.045 });
+    const alpaca = el.querySelector<SVGSVGElement>(".foot-alpaca");
+    if (alpaca) tl.from(alpaca, { yPercent: 104, duration: 1, ease: "power3.out" }, 0.75);
+  });
+}
+
+/* Living alpacas: little signs of life while on screen (an ear, the tail,
+   a nod), a lean when hovered, a skip when tapped. data-alpaca="walk-in"
+   walks into place from the dark once it is well in view; ="lost" (the
+   404) looks around first. */
+function alpacas(): void {
+  gsap.utils.toArray<SVGSVGElement>("svg[data-alpaca]").forEach((svg) => {
+    const rig = rigOf(svg);
+    if (!rig) return;
+    const awake = (): boolean => !document.hidden && ScrollTrigger.isInViewport(svg, 0.05);
+    const page = document.body;
+    const live = (): void => {
+      if (pageBody !== page) return; // a walk that ended after the page changed
+      cleanups.push(idle(rig, awake), playful(rig));
+    };
+    const mode = svg.dataset.alpaca;
+    if (mode === "walk-in" && !inFirstView(svg)) {
+      // It walks in from the dark, a few strides from the left, once it is
+      // well into view — up to the opacity its stylesheet sets.
+      const opacity = Number(getComputedStyle(svg).opacity) || 1;
+      gsap.set(svg, { opacity: 0 });
+      ScrollTrigger.create({
+        // Its own middle, not its section's top: in a tall band the section
+        // starts long before the alpaca (at the bottom) is on screen.
+        trigger: svg,
+        start: "center 75%",
+        once: true,
+        onEnter: () => {
+          walkIn(rig, svg.getBoundingClientRect().width * 0.42, { fade: true, opacity, duration: 2.1 }).eventCallback("onComplete", live);
+        },
+      });
+      return;
+    }
+    if (mode === "lost") {
+      gsap.delayedCall(1.6, () => {
+        lookAround(rig).eventCallback("onComplete", live);
+      });
+      return;
+    }
+    live();
   });
 }
 
@@ -638,6 +693,7 @@ function initPage(): void {
     marquees();
     mapRoutes();
     footerWordmark();
+    alpacas();
   });
   // Fonts change line breaks and heights: measure again once they're in.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());

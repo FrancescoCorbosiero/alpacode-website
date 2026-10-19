@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/types";
 import Layout from "../components/Layout.astro";
+import Alpaca from "../components/Alpaca.astro";
 import { localizePath } from "../i18n/utils";
 
 // Server-rendered so it can mirror the requested locale.
@@ -32,7 +33,8 @@ const t =
   <section class="error-hero">
     <div class="wrap-wide">
       <div class="error-num">404</div>
-      <div class="error-bar"></div>
+      {/* The alpaca that took a wrong turn: it looks around, then waits. */}
+      <div class="error-bar error-bar--lost" aria-hidden="true"><Alpaca class="error-alpaca" width={60} data-alpaca="lost" /></div>
       <h1 class="error-h">{t.h}</h1>
       <p class="error-sub">{t.sub}</p>
       <div class="error-ctas">

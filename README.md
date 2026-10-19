@@ -29,6 +29,15 @@
 >   turns between five entrances (lines, wipe, words, blur, letters) so
 >   neighbours never repeat; `<Statement>` is the scroll-lit sentence band
 >   (one per page at most: home, servizi, lavori, learning, collabora).
+> - **The alpaca.** The animal in the name shows up in four places, never
+>   inside the logo: walking along the home marquee (it turns round when
+>   the scroll does), walking into the manifesto band (a silhouette one
+>   shade off the ink, hooves on the band's edge — the finale of the
+>   «Segnala un amico» landing), standing on the P of the footer wordmark
+>   (al-PACO-de) and lost on the 404. One rigged silhouette
+>   (`src/components/Alpaca.astro`, at rest the flyer's exact shape) and
+>   its moves (`src/lib/alpaca.ts`), both kept identical in
+>   alpacode-voucher; `data-alpaca` is in the `motion.ts` header.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Optional background video:
 >   set `heroVideo` in `src/data/home.ts` (specs in the comment there),
