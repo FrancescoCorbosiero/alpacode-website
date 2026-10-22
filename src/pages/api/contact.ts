@@ -1,124 +1,27 @@
 import type { APIRoute } from "astro";
-import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
-import { business } from "../../data/business";
+import { sendMail } from "../../lib/server/mail";
+import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "../../lib/server/guard";
 
 // This route runs on demand (form POST), the rest of the site is static.
 export const prerender = false;
 
 /* ---- Abuse guards ----------------------------------------------------
-   This endpoint is public and every accepted submission sends an SES
-   email, so it needs caps: on payload size, on field lengths, and on
-   submissions per IP. The limiter is in-memory, which is exactly right
-   for the single-process standalone node server this deploys as. */
-const MAX_BODY_BYTES = 20_000;
-const MAX_FIELD = 200; // per short field (name, company, …)
+   Payload and field caps live in lib/server/guard.ts (shared with
+   /api/referral); this form allows five submissions per IP per ten
+   minutes. */
 const MAX_MESSAGE = 5_000;
-const RATE_LIMIT = 5; // submissions…
-const RATE_WINDOW_MS = 10 * 60_000; // …per IP per window
+const rateLimited = rateLimiter(5, 10 * 60_000);
 
-const hits = new Map<string, number[]>();
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const cutoff = now - RATE_WINDOW_MS;
-  const recent = (hits.get(ip) ?? []).filter((t) => t > cutoff);
-  recent.push(now);
-  hits.set(ip, recent);
-  if (hits.size > 1000) {
-    for (const [k, v] of hits) {
-      if (!v.some((t) => t > cutoff)) hits.delete(k);
-    }
-  }
-  return recent.length > RATE_LIMIT;
-}
-
-/** Client IP. Behind Cloudflare, Caddy's X-Forwarded-For entry is a
- *  Cloudflare edge address shared by many visitors — rate-limiting on it
- *  locks everyone out after five forms — so prefer CF-Connecting-IP. That
- *  header is only trustworthy because the origin firewall accepts
- *  Cloudflare traffic alone. Without Cloudflare: Caddy appends the real
- *  client to X-Forwarded-For, so the last entry is the one our own proxy
- *  wrote (earlier ones are forgeable). */
-function clientIp(request: Request, fallback: string): string {
-  const cf = request.headers.get("cf-connecting-ip")?.trim();
-  if (cf) return cf;
-  const xff = request.headers.get("x-forwarded-for");
-  const last = xff?.split(",").pop()?.trim();
-  return last || fallback;
-}
-
-const json = (data: unknown, status = 200) =>
-  new Response(JSON.stringify(data), {
-    status,
-    headers: { "content-type": "application/json" },
-  });
-
-const isEmail = (v: string) => v.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-/** JSON fields are attacker-controlled: coerce to string and cap length. */
-const str = (v: unknown, max = MAX_FIELD): string =>
-  (typeof v === "string" ? v : "").trim().slice(0, max);
-
-function readEnv(key: string): string | undefined {
-  const fromProcess =
-    typeof process !== "undefined" ? process.env?.[key] : undefined;
-  return fromProcess ?? (import.meta.env as Record<string, string | undefined>)[key];
-}
-
-let sesClient: SESv2Client | null = null;
-const getSes = (region: string) => (sesClient ??= new SESv2Client({ region }));
-
-/* What to fix for the SES failures a deploy typically hits. AWS's own
-   messages say what failed, not always why — least of all the classic
-   trap of pasting SES *SMTP* credentials where API keys belong. */
-const SES_HINTS: Record<string, string> = {
-  CredentialsProviderError:
-    "no AWS credentials reached the container: set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, then `docker compose up -d`",
-  UnrecognizedClientException: "AWS_ACCESS_KEY_ID is not an active IAM access key",
-  InvalidClientTokenId: "AWS_ACCESS_KEY_ID is not an active IAM access key",
-  InvalidSignatureException:
-    "AWS_SECRET_ACCESS_KEY doesn't match the key id (an SES SMTP password is not a secret access key)",
-  SignatureDoesNotMatch:
-    "AWS_SECRET_ACCESS_KEY doesn't match the key id (an SES SMTP password is not a secret access key)",
-  AccessDeniedException: "the IAM user's policy must allow ses:SendEmail",
-  MessageRejected:
-    "the identity isn't verified in this region: check AWS_REGION, and that the domain's three DKIM CNAMEs are still in DNS (in the SES sandbox the recipient must be verified too)",
-};
-
-function describeSesError(err: unknown): string {
-  const e = (err ?? {}) as { name?: string; message?: string; $metadata?: { httpStatusCode?: number } };
-  const name = e.name ?? "Error";
-  const status = e.$metadata?.httpStatusCode;
-  const hint = SES_HINTS[name];
-  return `${name}${status ? ` (HTTP ${status})` : ""}: ${e.message ?? String(err)}${hint ? ` → ${hint}` : ""}`;
-}
-
-export const POST: APIRoute = async ({ request, clientAddress }) => {
-  // The forms send JSON; anything else (e.g. a no-preflight text/plain
-  // cross-site POST) has no business here.
-  if (!request.headers.get("content-type")?.includes("application/json")) {
-    return json({ ok: false, error: "unsupported_media_type" }, 415);
-  }
-
-  let addr = "unknown";
-  try {
-    addr = clientIp(request, clientAddress);
-  } catch {
-    /* clientAddress can throw on prerendered/misconfigured setups */
-  }
-  if (rateLimited(addr)) {
+export const POST: APIRoute = async (context) => {
+  const { request } = context;
+  const wrongType = notJson(request);
+  if (wrongType) return wrongType;
+  // clientAddress is read lazily: its getter throws where it's unavailable.
+  if (rateLimited(clientIp(request, () => context.clientAddress))) {
     return json({ ok: false, error: "rate_limited" }, 429);
   }
-
-  let body: Record<string, unknown>;
-  try {
-    const raw = await request.text();
-    if (raw.length > MAX_BODY_BYTES) {
-      return json({ ok: false, error: "payload_too_large" }, 413);
-    }
-    body = JSON.parse(raw) as Record<string, unknown>;
-  } catch {
-    return json({ ok: false, error: "invalid_body" }, 400);
-  }
+  const body = await readJson(request);
+  if (body instanceof Response) return body;
 
   // Honeypot — silently accept and drop bot submissions.
   if (str(body.website) !== "") {
@@ -174,42 +77,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     .filter((l) => l !== null)
     .join("\n");
 
-  // AWS SES. Credentials come from the standard provider chain
-  // (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY env vars or an IAM role);
-  // AWS_REGION is the toggle for "SES is configured".
-  const region = readEnv("AWS_REGION") ?? readEnv("AWS_DEFAULT_REGION");
-  const to = readEnv("CONTACT_TO_EMAIL") ?? business.email;
-  const from = readEnv("CONTACT_FROM_EMAIL") ?? business.email;
-
-  // No region configured (e.g. local dev) — log and succeed so the form is
-  // testable end to end without AWS credentials.
-  if (!region) {
-    console.info("[contact] (no AWS_REGION — not sent via SES)\n" + lines);
-    return json({ ok: true, delivered: false });
-  }
-
-  try {
-    await getSes(region).send(
-      new SendEmailCommand({
-        FromEmailAddress: from,
-        Destination: { ToAddresses: [to] },
-        ReplyToAddresses: [email],
-        Content: {
-          Simple: {
-            Subject: { Data: subject, Charset: "UTF-8" },
-            Body: { Text: { Data: lines, Charset: "UTF-8" } },
-          },
-        },
-      }),
-    );
-    return json({ ok: true, delivered: true });
-  } catch (err) {
-    // One greppable line that names the fix, then the submission itself:
-    // a mail misconfiguration must not cost the lead.
-    console.error(`[contact] SES send failed (region ${region}, from ${from}, to ${to}): ${describeSesError(err)}`);
-    console.error("[contact] undelivered submission:\n" + lines);
+  const sent = await sendMail({ tag: "contact", subject, text: lines, replyTo: email });
+  if (sent === "failed") {
     // 503, not 502: Cloudflare swaps an origin's 502/504 for its own
     // "Bad gateway" page, which hides this JSON and reads as an outage.
     return json({ ok: false, error: "send_failed" }, 503);
   }
+  return json({ ok: true, delivered: sent === "sent" });
 };

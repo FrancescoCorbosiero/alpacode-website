@@ -4,11 +4,12 @@ import Layout from "../components/Layout.astro";
 import Alpaca from "../components/Alpaca.astro";
 import { localizePath } from "../i18n/utils";
 
-// Server-rendered so it can mirror the requested locale.
+// Server-rendered so it can mirror the requested locale — of the URL that
+// was asked for, when a page rewrote to this one (/en/voucher/<not a code>).
 export const prerender = false;
 
-const lang: Lang =
-  Astro.url.pathname === "/en" || Astro.url.pathname.startsWith("/en/") ? "en" : "it";
+const asked = Astro.originPathname || Astro.url.pathname;
+const lang: Lang = asked === "/en" || asked.startsWith("/en/") ? "en" : "it";
 Astro.response.status = 404;
 
 const t =

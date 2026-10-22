@@ -6,19 +6,26 @@ interface Props {
   /** "band" — the slim ink strip (default). "xl" — display-size words on
    *  paper that follow the scroll (speed and direction, see motion.ts). */
   variant?: "band" | "xl";
+  /** Band only: follow the scroll like the xl marquee does (the referral
+   *  pages, whose alpaca walks with the words). */
+  follow?: boolean;
   /** Alpacas in place of a tick, per set (true = 1): they walk along with
    *  the words and turn round when they do (motion.ts). Evenly spaced from
    *  the second item, so the first is mid-screen when the band arrives. */
   alpaca?: boolean | number;
 }
-const { items, variant = "band", alpaca = false } = Astro.props;
+const { items, variant = "band", follow = false, alpaca = false } = Astro.props;
 // Duplicate the set so the loop can wrap seamlessly at -50%.
 const loop = [...items, ...items];
 const herd = Math.min(Number(alpaca), items.length);
 const walkers = new Set(Array.from({ length: herd }, (_, k) => (1 + Math.floor((k * items.length) / herd)) % items.length));
 ---
 
-<div class:list={["ticker", { "ticker--xl": variant === "xl" }]} aria-hidden="true" style={`--items:${items.length}`}>
+<div
+  class:list={["ticker", { "ticker--xl": variant === "xl", "ticker--follow": follow && variant !== "xl" }]}
+  aria-hidden="true"
+  style={`--items:${items.length}`}
+>
   <div class="ticker-track">
     {
       loop.map((t, i) => {

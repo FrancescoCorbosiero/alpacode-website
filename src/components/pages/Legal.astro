@@ -1,17 +1,22 @@
 ---
 import type { Lang } from "../../i18n/types";
-import { legal, type LegalKind } from "../../data/legal";
+import { legal, type LegalDoc, type LegalKind } from "../../data/legal";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 
 interface Props {
   lang: Lang;
-  kind: LegalKind;
+  /** One of the site's own notices… */
+  kind?: LegalKind;
+  /** …or a notice that lives with its program (voucher/privacy). */
+  doc?: LegalDoc;
+  /** Where the closing link goes (defaults to the home page). */
+  back?: { href: string; label: string };
 }
-const { lang, kind } = Astro.props;
-const t = legal[kind][lang];
-const homeHref = localizePath("", lang);
-const backLabel = lang === "it" ? "Torna alla home" : "Back to home";
+const { lang, kind, doc, back } = Astro.props;
+const t = doc ?? legal[kind ?? "privacy"][lang];
+const backHref = back?.href ?? localizePath("", lang);
+const backLabel = back?.label ?? (lang === "it" ? "Torna alla home" : "Back to home");
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
@@ -28,7 +33,7 @@ const backLabel = lang === "it" ? "Torna alla home" : "Back to home";
         ))
       }
       <p class="legal-updated">{t.updated}</p>
-      <a class="article-back" href={homeHref}>← {backLabel}</a>
+      <a class="article-back" href={backHref}>← {backLabel}</a>
     </div>
   </div>
 </section>

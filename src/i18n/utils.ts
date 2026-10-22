@@ -37,3 +37,8 @@ export function otherLang(lang: Lang): Lang {
 export function pick<T>(value: Record<Lang, T>, lang: Lang): T {
   return value[lang];
 }
+
+/** Replace {key} placeholders in a copy string ("{name} ti ha consigliato…"). */
+export function fill(template: string, values: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (m, k: string) => values[k] ?? m);
+}
