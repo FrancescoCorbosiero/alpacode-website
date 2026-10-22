@@ -49,9 +49,13 @@
 >   exported from `motion.ts`), styles scoped in `src/styles/voucher.css`.
 >   Everything about it: `docs/voucher.md`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
->   full-width signature on the bottom edge. Optional background video:
->   set `heroVideo` in `src/data/home.ts` (specs in the comment there),
->   files in `public/media/`.
+>   full-width signature on the bottom edge. Behind it, the "blueprint"
+>   video: blue ink spreading in milk, graded into a duotone of the brand
+>   blue so the paper type holds AA with no scrim, with a pause button;
+>   reduced-motion and Save-Data visitors get the poster. Source in
+>   `tools/media/hero-source.mp4`, web encodes by `npm run hero-video`
+>   (needs ffmpeg) into `public/media/`; `heroVideo = null` in
+>   `src/data/home.ts` brings back the typographic hero.
 > - **/lavora-con-noi is now /collabora-con-noi** (301 from the old
 >   URL): Alpacode does not hire; the page explains how professionals
 >   with their own business can propose a collaboration. Copy rules are

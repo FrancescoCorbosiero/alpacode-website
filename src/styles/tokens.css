@@ -99,6 +99,7 @@
    pinned at body level — their whole page, campaign chrome included, is
    designed against the light token values and must not follow the theme. */
 :root[data-theme="dark"] .manifesto,
+:root[data-theme="dark"] .hero--video,
 :root[data-theme="dark"] .ticker:not(.ticker--xl),
 :root[data-theme="dark"] .site-footer,
 :root[data-theme="dark"] .band-dark,

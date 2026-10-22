@@ -11,6 +11,10 @@ const { lang } = Astro.props;
 const t = hero[lang];
 const lavoriHref = localizePath("lavori", lang);
 const video = heroVideo;
+const videoLabels =
+  lang === "it"
+    ? { pause: "Metti in pausa il video di sfondo", play: "Riprendi il video di sfondo" }
+    : { pause: "Pause the background video", play: "Play the background video" };
 
 /* "Digitalizziamo *privati*" → text + highlighted segments. */
 const segments = (line: string) =>
@@ -25,12 +29,35 @@ const segments = (line: string) =>
       <div class="hero-media" aria-hidden="true">
         {/* Sources are attached by motion.ts only when motion is welcome and
             the connection isn't on Save-Data; otherwise the poster stays. */}
-        <video class="hero-video" muted loop playsinline preload="none" poster={video.poster} data-hero-video>
+        <video class="hero-video" muted loop playsinline disablepictureinpicture preload="none" poster={video.poster} data-hero-video>
           {video.webm && <source data-src={video.webm} type="video/webm" />}
           <source data-src={video.mp4} type="video/mp4" />
         </video>
         <div class="hero-scrim" />
       </div>
+    )
+  }
+  {
+    /* A looping video needs a way to stop it (WCAG 2.2.2): shown by
+       motion.ts once the video actually plays. */
+    video && (
+      <button
+        class="hero-video-toggle"
+        type="button"
+        hidden
+        aria-pressed="false"
+        aria-label={videoLabels.pause}
+        data-label-pause={videoLabels.pause}
+        data-label-play={videoLabels.play}
+        data-hero-video-toggle
+      >
+        <svg class="hero-video-pause" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+          <path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z" />
+        </svg>
+        <svg class="hero-video-play" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+          <path d="M4 2.2 13.4 8 4 13.8z" />
+        </svg>
+      </button>
     )
   }
 

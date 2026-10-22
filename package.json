@@ -12,6 +12,7 @@
     "og": "node tools/og/render.mjs",
     "icons": "node tools/icons/render.mjs",
     "media": "node tools/media/render.mjs",
+    "hero-video": "node tools/media/hero-video.mjs",
     "astro": "astro"
   },
   "dependencies": {
