@@ -11,7 +11,7 @@
    it didn't (noted inline). House rules: docs/landing-factory.md —
    direct, concrete, zero hype, no invented numbers. The friend-facing
    promises are the ones alpacode.it already makes (free first call,
-   price agreed up front, no hidden costs, payments in instalments).
+   a written proposal within days, one point of contact, instalments).
    ============================================================ */
 import type { Lang } from "../../i18n/types";
 
@@ -234,7 +234,7 @@ export const shared: Record<Lang, SharedCopy> = {
     steps: {
       kicker: "In quattro passi",
       title: "Come funziona?",
-      lede: "Tu fai una cosa sola: ci presenti una persona. Al resto pensiamo noi, e ti teniamo aggiornato.",
+      lede: "Tu fai una cosa sola: ci presenti una persona. Noi la richiamiamo, verifichiamo la segnalazione e ti teniamo aggiornato.",
       items: [
         {
           icon: "link",
@@ -337,9 +337,9 @@ export const shared: Record<Lang, SharedCopy> = {
           d: "Trenta minuti per capire cosa serve. Niente vendite, niente impegno.",
         },
         {
-          icon: "tag",
-          t: "Prezzo deciso prima",
-          d: "Scope, tempi e prezzo nero su bianco, prima di firmare qualsiasi cosa. Niente costi nascosti.",
+          icon: "quote",
+          t: "Proposta scritta",
+          d: "Entro pochi giorni dalla call ricevi un documento con cosa faremo, in quanto tempo e a che costo.",
         },
         {
           icon: "layers",
@@ -437,7 +437,7 @@ export const shared: Record<Lang, SharedCopy> = {
     steps: {
       kicker: "Four steps",
       title: "How does it work?",
-      lede: "You do one thing: introduce someone. We handle the rest, and keep you posted.",
+      lede: "You do one thing: introduce someone. We call them back, validate the referral and keep you posted.",
       items: [
         {
           icon: "link",
@@ -539,9 +539,9 @@ export const shared: Record<Lang, SharedCopy> = {
           d: "Thirty minutes to understand what's needed. No sales pitch, no commitment.",
         },
         {
-          icon: "tag",
-          t: "Price agreed up front",
-          d: "Scope, timing and price in writing before signing anything. No hidden costs.",
+          icon: "quote",
+          t: "Written proposal",
+          d: "Within a few days of the call you get a document with what we'll do, how long it takes and what it costs.",
         },
         {
           icon: "layers",

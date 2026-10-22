@@ -104,7 +104,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     pitchLead:
       "La maggior parte degli e-commerce muore per stanchezza, non per concorrenza.",
     pitchBody:
-      "Aggiornare prezzi, smaltire ordini, rispondere ai clienti, sincronizzare il magazzino: è un secondo lavoro a tempo pieno. Hive Commerce nasce per togliertelo. Zero gergo, niente abbonamenti a sorpresa, e un tema grafico che non sembra del 2014.",
+      "Aggiornare prezzi, smaltire ordini, rispondere ai clienti, sincronizzare il magazzino: è un secondo lavoro a tempo pieno. Hive Commerce nasce per togliertelo: automatizza la gestione, senza gergo tecnico, con un tema grafico che non sembra del 2014.",
 
     featuresEyebrow: "Dentro il plugin",
     featuresHeading: "Cosa fa, in concreto.",
@@ -144,7 +144,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       {
         n: "02",
         t: "Prezzo fondatori",
-        d: "Tariffa bloccata a vita. La pagi una volta sola, quando entri.",
+        d: "Tariffa bloccata a vita. La paghi una volta sola, quando entri.",
       },
       {
         n: "03",
@@ -189,7 +189,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     pitchEyebrow: "Why Hive",
     pitchLead: "Most e-commerce stores die of exhaustion, not competition.",
     pitchBody:
-      "Updating prices, shipping orders, replying to customers, syncing stock: it's a full-time second job. Hive Commerce exists to take it away from you. No jargon, no surprise subscriptions, and a theme that doesn't look like it's from 2014.",
+      "Updating prices, shipping orders, replying to customers, syncing stock: it's a full-time second job. Hive Commerce exists to take it off your hands: it automates the management, without the jargon, with a theme that doesn't look like it's from 2014.",
 
     featuresEyebrow: "Inside the plugin",
     featuresHeading: "What it does, concretely.",
@@ -497,7 +497,7 @@ export const paco: Record<Lang, ProductPage> = {
       {
         n: "02",
         t: "Prezzo fondatori",
-        d: "Tariffa bloccata a vita, finché resti a bordo. Niente sorprese in fattura.",
+        d: "Tariffa bloccata a vita, finché resti a bordo.",
       },
       {
         n: "03",
@@ -582,7 +582,7 @@ export const paco: Record<Lang, ProductPage> = {
       {
         n: "02",
         t: "Founder pricing",
-        d: "Rate locked for life, for as long as you stay on board. No surprises on the invoice.",
+        d: "Rate locked for life, for as long as you stay on board.",
       },
       {
         n: "03",

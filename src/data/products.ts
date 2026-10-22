@@ -37,8 +37,8 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
     crumb: "Prodotti",
     h1Line1: "Prodotti &",
     h1Line2: "pacchetti.",
-    lede: "I nostri prodotti digitali e i pacchetti pronti, con un prezzo deciso prima di partire. Scegli il punto da cui iniziare: al resto pensiamo insieme.",
-    intro: "Prezzo chiaro fin dall'inizio. Se ti serve qualcosa di più su misura, ci sono i servizi.",
+    lede: "I nostri prodotti digitali e i pacchetti pronti: soluzioni già definite, da cui partire subito. Scegli il punto da cui iniziare: il resto lo decidiamo insieme.",
+    intro: "Ogni pacchetto dice cosa contiene e in quanto tempo arriva. Se ti serve qualcosa di più su misura, ci sono i servizi.",
     groups: [
       {
         label: "Prodotti digitali",
@@ -78,7 +78,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             tag: "Assistente AI",
             t: "Paco",
             d: "L'assistente AI che fa da tramite tra te e il tuo sito web. Il sito lo genera lui, tu lo gestisci scrivendogli su WhatsApp: aggiornamenti, offerte e risposte ai clienti, tutto in chat.",
-            forWho: "Per chi vuole un sito senza pensieri",
+            forWho: "Per chi vuole gestire il sito da WhatsApp",
             items: ["Sito web generato dall'AI", "Gestione in chat, su WhatsApp", "Risponde ai tuoi clienti", "Zero pannelli di controllo", "Sempre aggiornato"],
             meta: [
               { k: "Tipo", v: "Chatbot AI" },
@@ -102,7 +102,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Design su misura", "Fino a 5 pagine", "Ottimizzato per mobile", "SEO di base + Google", "Modulo contatti", "Formazione all'uso"],
             meta: [
               { k: "Tempi", v: "2 — 3 settimane" },
-              { k: "Prezzo", v: "Fisso, deciso prima" },
+              { k: "Prezzo", v: "Fisso" },
               { k: "Dopo", v: "Manutenzione opzionale" },
             ],
           },
@@ -115,7 +115,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Catalogo prodotti", "Pagamenti sicuri", "Spedizioni & magazzino", "Gestione ordini", "Pronto da mobile", "Formazione all'uso"],
             meta: [
               { k: "Tempi", v: "3 — 5 settimane" },
-              { k: "Prezzo", v: "Fisso, deciso prima" },
+              { k: "Prezzo", v: "Fisso" },
               { k: "Base", v: "WooCommerce / Shopify" },
             ],
           },
@@ -128,7 +128,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Logo e varianti", "Palette e font", "Linee guida d'uso", "Template per i social", "Biglietti & firme email"],
             meta: [
               { k: "Tempi", v: "~ 2 settimane" },
-              { k: "Prezzo", v: "Fisso, deciso prima" },
+              { k: "Prezzo", v: "Fisso" },
               { k: "Consegna", v: "File pronti all'uso" },
             ],
           },
@@ -153,8 +153,8 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
     crumb: "Products",
     h1Line1: "Products &",
     h1Line2: "packages.",
-    lede: "Our digital products and ready-made packages, with a price agreed before we start. Pick where to begin — we'll figure out the rest together.",
-    intro: "A clear price from the start. If you need something more bespoke, that's what services are for.",
+    lede: "Our digital products and ready-made packages: solutions already defined, ready to start from. Pick where to begin — we'll work out the rest together.",
+    intro: "Each package spells out what's inside and how long it takes. If you need something more bespoke, that's what services are for.",
     groups: [
       {
         label: "Digital products",
@@ -194,7 +194,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             tag: "AI concierge",
             t: "Paco",
             d: "The AI concierge that sits between you and your website. It generates the site, you run it by texting on WhatsApp: updates, offers and customer replies, all in chat.",
-            forWho: "For a website with zero overhead",
+            forWho: "For running your site from WhatsApp",
             items: ["AI-generated website", "Managed in chat, on WhatsApp", "Answers your customers", "Zero control panels", "Always up to date"],
             meta: [
               { k: "Type", v: "AI chatbot" },
@@ -218,7 +218,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Custom design", "Up to 5 pages", "Mobile-optimized", "Basic SEO + Google", "Contact form", "Hands-on training"],
             meta: [
               { k: "Lead time", v: "2 — 3 weeks" },
-              { k: "Price", v: "Fixed, agreed first" },
+              { k: "Price", v: "Fixed" },
               { k: "After", v: "Optional maintenance" },
             ],
           },
@@ -231,7 +231,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Product catalog", "Secure payments", "Shipping & stock", "Order management", "Mobile-ready", "Hands-on training"],
             meta: [
               { k: "Lead time", v: "3 — 5 weeks" },
-              { k: "Price", v: "Fixed, agreed first" },
+              { k: "Price", v: "Fixed" },
               { k: "Base", v: "WooCommerce / Shopify" },
             ],
           },
@@ -244,7 +244,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             items: ["Logo and variants", "Palette and fonts", "Usage guidelines", "Social templates", "Cards & email signatures"],
             meta: [
               { k: "Lead time", v: "~ 2 weeks" },
-              { k: "Price", v: "Fixed, agreed first" },
+              { k: "Price", v: "Fixed" },
               { k: "Delivery", v: "Ready-to-use files" },
             ],
           },

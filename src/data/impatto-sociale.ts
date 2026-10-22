@@ -148,7 +148,7 @@ export const REPORT_YEARS: ReportYear[] = [
     ],
     pledges: [
       {
-        t: { it: "Prezzo deciso prima, sempre", en: "Price agreed up front, always" },
+        t: { it: "Solo progetti a prezzo fisso", en: "Fixed-price projects only" },
         state: "done",
         note: {
           it: "Tutti i progetti dei trimestri chiusi sono partiti con il prezzo pieno concordato per iscritto.",
@@ -370,7 +370,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
         n: "01",
         k: "Accessibilità",
         t: "Rendiamo la digitalizzazione accessibile.",
-        d: "Lavoriamo con privati, artigiani e piccole imprese con prezzi chiari decisi prima di partire e soluzioni proporzionate al budget — senza preventivi da capogiro. Una piccola attività digitalizzata bene resta aperta, assume, tiene vivo il territorio.",
+        d: "Lavoriamo con privati, artigiani e piccole imprese a prezzo fisso, con soluzioni proporzionate al budget. Una piccola attività digitalizzata bene resta aperta, assume, tiene vivo il territorio.",
       },
       {
         n: "02",
@@ -417,7 +417,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     metersTitle: "Le tre quote che ci interessano",
     meters: [
       {
-        k: "Progetti a prezzo deciso prima",
+        k: "Progetti a prezzo fisso",
         d: "Prezzo pieno concordato per iscritto prima di iniziare il lavoro.",
       },
       {
@@ -451,7 +451,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     rows: {
       projects: "Progetti avviati",
       firstTimeOnline: "Prime volte online",
-      fixedPriceProjects: "A prezzo deciso prima",
+      fixedPriceProjects: "A prezzo fisso",
       handoverDocumented: "Consegne documentate",
       projectsOutsideMetro: "Fuori dalle grandi città",
       trainingHours: "Ore di formazione",
@@ -477,7 +477,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
         d: "Il cliente non aveva un sito proprio prima di lavorare con noi. Una pagina Facebook o un profilo Instagram non contano come sito.",
       },
       {
-        t: "Prezzo deciso prima",
+        t: "Prezzo fisso",
         d: "Il prezzo pieno del lavoro è concordato per iscritto prima di iniziare. Le varianti richieste in corsa vengono quotate a parte e non tolgono il progetto dal conteggio.",
       },
       {
@@ -552,7 +552,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
         n: "01",
         k: "Access",
         t: "We make digitalisation affordable.",
-        d: "We work with individuals, artisans and small businesses at clear prices agreed before starting, with solutions sized to the budget — no eye-watering quotes. A small business that is digitalised well stays open, hires, and keeps its area alive.",
+        d: "We work with individuals, artisans and small businesses at a fixed price, with solutions sized to the budget. A small business that is digitalised well stays open, hires, and keeps its area alive.",
       },
       {
         n: "02",
@@ -599,7 +599,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     metersTitle: "The three shares we care about",
     meters: [
       {
-        k: "Projects priced up front",
+        k: "Fixed-price projects",
         d: "Full price agreed in writing before the work started.",
       },
       {
@@ -633,7 +633,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
     rows: {
       projects: "Projects started",
       firstTimeOnline: "First time online",
-      fixedPriceProjects: "Priced up front",
+      fixedPriceProjects: "Fixed price",
       handoverDocumented: "Documented handovers",
       projectsOutsideMetro: "Outside the big cities",
       trainingHours: "Training hours",
@@ -659,7 +659,7 @@ export const impatto: Record<Lang, ImpactCopy> = {
         d: "The client had no site of their own before working with us. A Facebook page or an Instagram profile does not count as a site.",
       },
       {
-        t: "Priced up front",
+        t: "Fixed price",
         d: "The full price of the work is agreed in writing before it starts. Changes requested mid-way are quoted separately and don't remove the project from the count.",
       },
       {

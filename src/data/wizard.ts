@@ -4,10 +4,10 @@ import type { Lang } from "../i18n/types";
    Brief wizard — "il progetto in 60 secondi".
 
    Three taps + a contact: the low-friction alternative to the
-   full form. Deliberately NOT a quote configurator: the brand
-   promise is "prezzo deciso prima, per iscritto" — so the
-   wizard collects a structured brief and a human answers with
-   the number. Never add automatic pricing here.
+   full form. Deliberately NOT a quote configurator: a person
+   reads the brief and answers, and the number comes with the
+   written proposal after the call (faq.ts). Never add
+   automatic pricing here.
    ============================================================ */
 
 export interface WizardStep {
@@ -86,7 +86,7 @@ export const wizard: Record<Lang, WizardData> = {
       "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
     send: "Invia — ti leggiamo a breve",
     sending: "Invio…",
-    note: "Nessun preventivo automatico: ti risponde una persona, con un numero deciso prima e messo per iscritto.",
+    note: "Nessun preventivo automatico: ti risponde una persona che ha letto il tuo brief.",
     successTitle: "Ricevuto. Ora tocca a noi.",
     successBody:
       "Ti rispondiamo entro mezza giornata lavorata, da persona vera. Se preferisci parlarne a voce, la call è gratis.",
@@ -135,7 +135,7 @@ export const wizard: Record<Lang, WizardData> = {
       "I have read the privacy policy and consent to data processing to be contacted back.",
     send: "Send — we'll read it shortly",
     sending: "Sending…",
-    note: "No automatic quotes: a person answers, with a number agreed first and put in writing.",
+    note: "No automatic quotes: a person who has read your brief answers.",
     successTitle: "Got it. Our turn now.",
     successBody:
       "We reply within half a working day, from a real person. If you'd rather talk it through, the call is free.",

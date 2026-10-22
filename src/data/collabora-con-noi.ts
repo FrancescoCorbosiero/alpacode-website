@@ -152,7 +152,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         t: "Accordo scritto, poi si parte",
-        d: "Oggetto, scadenza, compenso e diritti d'uso nero su bianco, prima di iniziare. Poi lavori in autonomia.",
+        d: "Oggetto, scadenza, compenso e diritti d'uso, definiti prima di iniziare. Poi lavori in autonomia.",
       },
     ],
 
@@ -342,7 +342,7 @@ export const collabora: Record<Lang, CollaboraData> = {
       },
       {
         t: "Written agreement, then we start",
-        d: "Scope, deadline, compensation and usage rights in black and white, before starting. Then you work autonomously.",
+        d: "Scope, deadline, compensation and usage rights, set before starting. Then you work autonomously.",
       },
     ],
 

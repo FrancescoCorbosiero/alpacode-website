@@ -86,7 +86,7 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
     },
     description: {
       it: "Alpacode non ha posizioni da dipendente aperte né annunci di lavoro: collaboriamo con professionisti indipendenti — freelance, studi, piccole agenzie — su incarichi definiti, con accordo scritto e compenso concordato prima. Qui puoi proporci una collaborazione.",
-      en: "Alpacode has no employee positions open and no job ads: we collaborate with independent professionals — freelancers, studios, small agencies — on defined assignments, with a written agreement and compensation agreed up front. Propose a collaboration here.",
+      en: "Alpacode has no employee positions open and no job ads: we collaborate with independent professionals — freelancers, studios, small agencies — on defined assignments, with a written agreement and the fee set before work starts. Propose a collaboration here.",
     },
   },
   "sostenibilita-ambientale": {
@@ -125,8 +125,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Alpacode · Digital solutions for people & businesses in Italy",
     },
     description: {
-      it: "Digitalizziamo privati e imprese in tutta Italia: siti, e-commerce, branding, pubblicità, software e formazione. Prezzo deciso prima, niente sorprese.",
-      en: "We digitalize individuals and businesses across Italy: websites, e-commerce, branding, advertising, software and training. Price agreed up front, no surprises.",
+      it: "Digitalizziamo privati e imprese in tutta Italia: siti, e-commerce, branding, pubblicità, software e formazione, da un solo studio a Monza e Milano.",
+      en: "We digitalize individuals and businesses across Italy: websites, e-commerce, branding, advertising, software and training, from one studio in Monza and Milan.",
     },
   },
   servizi: {
@@ -135,8 +135,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Services · Alpacode Digital Solutions",
     },
     description: {
-      it: "Costruire, far crescere, insegnare: siti, e-commerce, software, branding, design, pubblicità e SEO. Anche quello che chiedi a un'agenzia, a un prezzo deciso prima.",
-      en: "Build, grow, teach: websites, e-commerce, software, branding, design, advertising and SEO. Even what you'd ask an agency for, at a price agreed up front.",
+      it: "Costruire, far crescere, insegnare: siti, e-commerce, software, branding, design, pubblicità e SEO. Anche quello che chiedi a un'agenzia, con un solo referente.",
+      en: "Build, grow, teach: websites, e-commerce, software, branding, design, advertising and SEO. Even what you'd ask an agency for, with one point of contact.",
     },
   },
   prodotti: {

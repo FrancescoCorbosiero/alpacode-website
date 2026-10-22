@@ -42,13 +42,13 @@
     <rect x="880" y="434" width="157" height="12" fill="#3B72E9"/>
   </g>
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" letter-spacing="1.8" fill="#7D7A72">
-    <text x="880" y="322">PREZZO DECISO PRIMA</text>
+    <text x="880" y="322">PROGETTI A PREZZO FISSO</text>
     <text x="880" y="374">CONSEGNE DOCUMENTATE</text>
     <text x="880" y="426">FUORI DALLE GRANDI CITTÀ</text>
   </g>
   <!-- Lede -->
   <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="22" fill="#54524C">
-    <text x="80" y="522">Prezzi decisi prima, persone rese autonome, competenze sul territorio.</text>
+    <text x="80" y="522">Digitale accessibile, persone rese autonome, competenze sul territorio.</text>
   </g>
   <!-- Foot meta -->
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" letter-spacing="2.4" fill="#7D7A72">
