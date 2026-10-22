@@ -15,6 +15,7 @@
    and a photo in PNG is well over that. Everything else is PNG.
 
    Run after adding or editing a card:   npm run og
+   Only some cards (no blog covers):     npm run og -- og-hosting og-ai
    Chrome is auto-detected; override with OG_CHROME=/path/to/chrome.
 
    Chrome's new headless mode reserves ~87px of --window-size for
@@ -116,7 +117,12 @@ async function renderSvgTo(svgText, outFile, label) {
   console.log(`✓ ${label} (${meta.width}×${meta.height}, ${kb} kB)`);
 }
 
-const sources = readdirSync(here).filter((f) => f.endsWith(".svg")).sort();
+/* Names on the command line narrow the run to those cards (and skip the
+   blog covers): re-rendering untouched PNGs only churns the repo. */
+const only = process.argv.slice(2).map((a) => a.replace(/\.svg$/, ""));
+const sources = readdirSync(here)
+  .filter((f) => f.endsWith(".svg") && (only.length === 0 || only.includes(f.replace(/\.svg$/, ""))))
+  .sort();
 if (sources.length === 0) {
   console.error("No .svg sources in tools/og/ — nothing to render.");
   process.exit(1);
@@ -135,7 +141,7 @@ try {
   //    referenced by each post's `cover` frontmatter (page + og:image).
   const coversDir = join(root, "src", "assets", "blog");
   mkdirSync(coversDir, { recursive: true });
-  for (const spec of COVERS) {
+  for (const spec of only.length ? [] : COVERS) {
     const png = join(coversDir, `${spec.slug}.png`);
     await renderSvgTo(coverSvg(spec), png, `cover:${spec.slug} -> src/assets/blog/${spec.slug}.png`);
   }

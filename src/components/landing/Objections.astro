@@ -1,0 +1,33 @@
+---
+/* The questions people actually ask, answered in full — open, not
+   folded away: the title holds still while they scroll past. */
+import type { Objection } from "../../data/landing/shared";
+import Lines from "./Lines.astro";
+
+interface Props {
+  title: string;
+  items: Objection[];
+  plate?: "paper" | "print" | "ink";
+  id?: string;
+}
+const { title, items, plate = "paper", id = "domande" } = Astro.props;
+---
+
+<section class:list={["lnd-plate", `lnd-plate--${plate}`]} id={id}>
+  <div class="lnd-wrap lnd-qa">
+    <div class="lnd-qa-head">
+      <h2 class="lnd-title" data-split><Lines text={title} /></h2>
+      <slot />
+    </div>
+    <ol class="lnd-qa-list">
+      {
+        items.map((o) => (
+          <li class="lnd-qa-item" data-reveal>
+            <h3 class="lnd-qa-q">{o.q}</h3>
+            <p class="lnd-qa-a">{o.a}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

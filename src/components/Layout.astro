@@ -110,6 +110,9 @@ const cmdItems: CmdItem[] = [
   { kind: "page", num: "P2", ttl: footer.smmOffer[lang], sub: pageSub("social-media-manager"), href: localizePath("social-media-manager", lang) },
   { kind: "page", num: "P3", ttl: footer.referral[lang], sub: pageSub("voucher"), href: localizePath("voucher", lang) },
   { kind: "page", num: "P4", ttl: footer.referralNew[lang], sub: pageSub("voucher/nuova-attivita"), href: localizePath("voucher/nuova-attivita", lang) },
+  { kind: "page", num: "P5", ttl: footer.builders[lang], sub: pageSub("per-chi-fa-siti"), href: localizePath("per-chi-fa-siti", lang) },
+  { kind: "page", num: "P6", ttl: footer.buildersHosting[lang], sub: pageSub("per-chi-fa-siti/hosting"), href: localizePath("per-chi-fa-siti/hosting", lang) },
+  { kind: "page", num: "P7", ttl: footer.buildersAi[lang], sub: pageSub("per-chi-fa-siti/ai"), href: localizePath("per-chi-fa-siti/ai", lang) },
   { kind: "page", num: "S1", ttl: footer.sustainability[lang], sub: pageSub("sostenibilita-ambientale"), href: localizePath("sostenibilita-ambientale", lang) },
   { kind: "page", num: "S2", ttl: footer.sustainabilityReport[lang], sub: pageSub("sostenibilita-ambientale-report"), href: localizePath("sostenibilita-ambientale-report", lang) },
   { kind: "page", num: "S3", ttl: footer.impactReport[lang], sub: pageSub("impatto-sociale-report"), href: localizePath("impatto-sociale-report", lang) },
@@ -276,7 +279,7 @@ const cmdLabels: CmdLabels = {
     </main>
     {
       minimal ? (
-        <footer class="site-footer campaign-footer">
+        <footer class="site-footer campaign-footer" data-sticky-hide>
           <div class="footer-strut" />
           <div class="wrap-wide">
             <div class="campaign-foot-row">

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="g" patternUnits="userSpaceOnUse" width="24" height="24"><path d="M24 0H0V24" fill="none" stroke="#F0F3F9" stroke-opacity="0.05"/></pattern>
+    <pattern id="G" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M120 0H0V120" fill="none" stroke="#F0F3F9" stroke-opacity="0.11"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#12306F"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#G)"/>
+  <g stroke="#F0F3F9" stroke-opacity="0.45" stroke-width="1.5" fill="none">
+    <path d="M22 40V22H40"/><path d="M1160 22H1178V40"/><path d="M22 590V608H40"/><path d="M1160 608H1178V590"/>
+  </g>
+  <text x="80" y="96" font-family="Archivo Black" font-size="24" fill="#F0F3F9">ALPACODE</text>
+  <rect x="80" y="106" width="46" height="5" fill="#3B72E9"/>
+  <text x="80" y="200" font-family="Caveat" font-weight="600" font-size="38" fill="#8FB0F5" transform="rotate(-2 80 200)">per sviluppatori e web designer</text>
+  <g font-family="Archivo Black" font-size="84" fill="#F0F3F9">
+    <text x="80" y="300">Fai siti</text>
+    <text x="80" y="390">per i clienti?</text>
+  </g>
+  <g font-family="Manrope" font-weight="800" font-size="26">
+    <rect x="80" y="440" width="470" height="96" fill="none" stroke="#F0F3F9" stroke-opacity="0.6" stroke-width="2"/>
+    <rect x="80" y="440" width="470" height="7" fill="#2EE6C5"/>
+    <text x="108" y="480" font-family="Caveat" font-weight="600" font-size="28" fill="#2EE6C5">Hosting</text>
+    <text x="108" y="516" fill="#F0F3F9">Un server tuo, niente canoni</text>
+    <rect x="576" y="440" width="470" height="96" fill="none" stroke="#F0F3F9" stroke-opacity="0.6" stroke-width="2"/>
+    <rect x="576" y="440" width="470" height="7" fill="#FF6B1A"/>
+    <text x="604" y="480" font-family="Caveat" font-weight="600" font-size="28" fill="#FF6B1A">AI</text>
+    <text x="604" y="516" fill="#F0F3F9">Siti in serie, non in fotocopia</text>
+  </g>
+  <text x="1120" y="580" text-anchor="end" font-family="Manrope" font-weight="700" font-size="20" fill="#F0F3F9" fill-opacity="0.7">alpacode.it/per-chi-fa-siti</text>
+</svg>

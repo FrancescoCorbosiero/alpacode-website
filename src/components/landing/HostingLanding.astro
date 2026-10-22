@@ -1,0 +1,258 @@
+---
+/* /per-chi-fa-siti/hosting — copy in data/landing/hosting.ts, the kit's
+   pieces in components/landing/, the scenes in lib/landing/scenes.ts
+   (receipt, pack, stack), the sums in lib/landing/calc.ts. */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { hosting } from "../../data/landing/hosting";
+import { leadForm } from "../../data/landing/shared";
+import { portals } from "../../data/audiences";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import Lines from "./Lines.astro";
+import ProfileSwitch from "./ProfileSwitch.astro";
+import Formula from "./Formula.astro";
+import Objections from "./Objections.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Sticky from "./Sticky.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = hosting[lang];
+const h = c.hero;
+const k = c.calc;
+const money = new Intl.NumberFormat(lang === "en" ? "en-IE" : "it-IT", {
+  style: "currency",
+  currency: "EUR",
+  maximumFractionDigits: 0,
+});
+const today = (k.charge.value - k.pay.value) * k.sites.value * 12;
+const own = (k.charge.value * k.sites.value - k.server.value) * 12;
+const inputs = [
+  ["sites", k.sites],
+  ["pay", k.pay],
+  ["charge", k.charge],
+  ["server", k.server],
+] as const;
+const fill = (v: number, min: number, max: number) => `${((v - min) / (max - min)) * 100}%`;
+const layersTopDown = c.stack.layers.map((l, i) => ({ ...l, i })).reverse();
+const totalLabel = lang === "it" ? "Totale" : "Total";
+---
+
+<div class="lnd lnd--hosting" data-profile="dev">
+  {/* ---------- Hero ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-hero" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-ac" style={`--i:${h.lines.length}`}>
+          {h.accent.before}<Mark kind="underline">{h.accent.mark}</Mark>{h.accent.after}
+        </span>
+      </h1>
+      <div class="lnd-hero-row">
+        <div class="lnd-hero-copy">
+          <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+          <div class="lnd-actions" data-intro style="--i:4">
+            <a class="btn btn-ac btn-lg" href="#formula" data-magnetic>{h.cta} <span class="arrow">→</span></a>
+            <a class="lnd-link" href="#conti">{h.alt} <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="lnd-hero-machine" data-scene="receipt" aria-hidden="true">
+          <div class="lnd-receipt">
+            <div class="lnd-receipt-head">
+              <strong>{h.receipt.head}</strong>
+              <span>{h.receipt.sub}</span>
+            </div>
+            <ol class="lnd-receipt-rows">
+              {
+                h.receipt.rows.map((row) => (
+                  <li>
+                    <span>{row}</span>
+                    <i />
+                    <span>{h.receipt.fee}</span>
+                  </li>
+                ))
+              }
+            </ol>
+            <div class="lnd-receipt-total">
+              <span>{totalLabel}</span>
+              <Mark kind="circle">{h.receipt.total}</Mark>
+            </div>
+          </div>
+          <Hand class="lnd-receipt-note" arrow="up">{h.receipt.note}</Hand>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- Twenty plans, one server ---------- */}
+  <section class="lnd-scene lnd-pack" data-scene="pack" style="--len:3.4" aria-labelledby="pack-title">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-pack-grid">
+        <div class="lnd-beats">
+          {
+            c.pack.beats.map((b, i) => (
+              <div class="lnd-beat" data-beat={i}>
+                <h2 class="lnd-title" id={i === 0 ? "pack-title" : undefined}>
+                  <Lines text={b.title} />
+                </h2>
+                <p class="lnd-lede">{b.body}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="lnd-pack-board" aria-hidden="true">
+          <ul class="lnd-bills">
+            {
+              c.pack.clients.map((name) => (
+                <li class="lnd-bill">
+                  <span class="lnd-bill-name">{name}</span>
+                  <span class="lnd-bill-fee">{c.pack.fee}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="lnd-server">
+            <div class="lnd-server-unit">
+              <div class="lnd-server-leds">{c.pack.clients.map(() => <i class="lnd-led" />)}</div>
+              <div class="lnd-server-meta">
+                <strong>{c.pack.server}</strong>
+                <span>{c.pack.serverSub}</span>
+              </div>
+            </div>
+            <Hand class="lnd-server-note" arrow="up">{c.pack.note}</Hand>
+          </div>
+          <div class="lnd-pack-count">
+            <span class="lnd-pack-before"><Mark kind="strike" tone="ink">{c.pack.before}</Mark></span>
+            <span class="lnd-pack-after lnd-hand">{c.pack.after}</span>
+          </div>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  {/* ---------- Do the maths ---------- */}
+  <section class="lnd-plate lnd-plate--ink lnd-calc" id="conti" data-calc data-lang={lang}>
+    <div class="lnd-wrap lnd-calc-grid">
+      <div class="lnd-calc-intro">
+        <h2 class="lnd-title" data-split><Lines text={k.title} /></h2>
+        <p class="lnd-lede">{k.lede}</p>
+      </div>
+      <div class="lnd-calc-board">
+        <div class="lnd-sliders">
+          {
+            inputs.map(([key, inp]) => (
+              <label class="lnd-slider">
+                <span class="lnd-slider-top">
+                  <span>{inp.label}</span>
+                  <output data-out={key}>
+                    {inp.value} {inp.unit}
+                  </output>
+                </span>
+                <input
+                  type="range"
+                  min={inp.min}
+                  max={inp.max}
+                  step={inp.step}
+                  value={inp.value}
+                  data-calc-input={key}
+                  data-unit={inp.unit}
+                  style={`--fill:${fill(inp.value, inp.min, inp.max)}`}
+                />
+              </label>
+            ))
+          }
+        </div>
+        <div class="lnd-results" aria-live="polite">
+          <div class="lnd-result">
+            <span>{k.today}</span>
+            <strong data-result="today">{money.format(today)}</strong>
+            <i class="lnd-bar" data-bar="today" style={`--w:${Math.max(0, today) / Math.max(today, own, 1)}`}></i>
+          </div>
+          <div class="lnd-result lnd-result--own">
+            <span>{k.own}</span>
+            <strong data-result="own">{money.format(own)}</strong>
+            <i class="lnd-bar" data-bar="own" style={`--w:${Math.max(0, own) / Math.max(today, own, 1)}`}></i>
+          </div>
+          <div class="lnd-result lnd-result--diff">
+            <span>{k.diff}</span>
+            <strong data-result="diff">{money.format(own - today)}</strong>
+            <Hand arrow="left">{k.note}</Hand>
+          </div>
+        </div>
+        <p class="lnd-calc-fine">{k.fine}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- What's in the codebase ---------- */}
+  <section class="lnd-scene lnd-stack lnd-plate--print lnd-grid-bg" data-scene="stack" style="--len:3.2" id="codebase">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-stack-grid">
+        <div class="lnd-stack-copy">
+          <h2 class="lnd-title"><Lines text={c.stack.title} /></h2>
+          <p class="lnd-lede">{c.stack.lede}</p>
+          <ProfileSwitch lang={lang} id="profile-stack" />
+          <ol class="lnd-layers">
+            {
+              layersTopDown.map((l) => (
+                <li class="lnd-layer-item" data-layer={l.i}>
+                  <h3 class="lnd-layer-name">{l.name}</h3>
+                  <p data-for="designer">{l.plain}</p>
+                  <p data-for="dev">{l.tech}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+        <div class="lnd-iso" aria-hidden="true">
+          <div class="lnd-iso-stack">
+            {
+              c.stack.layers.map((l, i) => (
+                <div class="lnd-slab" style={`--z:${i}`}>
+                  <span>{l.name}</span>
+                </div>
+              ))
+            }
+          </div>
+          <Hand class="lnd-iso-note" arrow="down-left">{c.stack.note}</Hand>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <Formula copy={c.formula} formHref="#parliamone" />
+
+  <Objections title={c.qa.title} items={c.qa.items} />
+
+  <LeadForm
+    lang={lang}
+    campaign="per-chi-fa-siti-hosting"
+    audience={lang === "it" ? "Sviluppatori e web designer" : "Developers and web designers"}
+    topic={c.lead.topic}
+    title={c.lead.title}
+    lede={c.lead.lede}
+    tiers={c.formula.tiers}
+    profile
+    sites={{ label: c.lead.sites, ph: c.lead.sitesPh }}
+  />
+
+  <Portals
+    title={lang === "it" ? "Fai siti per i clienti? C'è anche questo" : "Building sites for clients? There's this too"}
+    items={portals(["per-chi-fa-siti/ai", "learning", "alpacode-pro-kit"], lang)}
+  />
+
+  <Sticky href="#formula" label={leadForm[lang].sticky} />
+</div>
+
+<script>
+  import "../../lib/landing/profile";
+  import "../../lib/landing/calc";
+</script>

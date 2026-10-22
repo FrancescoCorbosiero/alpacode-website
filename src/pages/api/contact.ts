@@ -59,6 +59,11 @@ export const POST: APIRoute = async (context) => {
   const topic = str(body.topic);
   const budget = str(body.budget);
   const lang = str(body.lang);
+  // The campaign landings add a few labelled answers of their own
+  // ("Profilo: Web designer", "Siti dei clienti: 15"…).
+  const details = Array.isArray(body.details)
+    ? body.details.slice(0, 8).map((d) => str(d, 200)).filter(Boolean)
+    : [];
   const lines = [
     `Nome: ${name}`,
     company ? `Azienda: ${company}` : null,
@@ -70,6 +75,7 @@ export const POST: APIRoute = async (context) => {
     price ? `Prezzo: ${price}` : null,
     topic ? `Argomento: ${topic}` : null,
     budget ? `Budget: ${budget}` : null,
+    ...details,
     lang ? `Lingua: ${lang}` : null,
     message ? "" : null,
     message || null,

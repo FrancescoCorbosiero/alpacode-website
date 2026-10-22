@@ -2,7 +2,7 @@
 /* Sticky CTA pill — appears once the hero is gone, steps aside while
    anything marked [data-sticky-hide] is on screen: the form (and after the
    form has done its job), the finale that repeats the same call, the
-   terms' fine print. Behaviour: lib/voucher/sticky.ts. */
+   terms' fine print. Behaviour: lib/sticky.ts. */
 interface Props {
   label: string;
   href: string;
@@ -15,5 +15,5 @@ const { label, href } = Astro.props;
 </div>
 
 <script>
-  import "../../lib/voucher/sticky.ts";
+  import "../../lib/sticky.ts";
 </script>

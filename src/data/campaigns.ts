@@ -58,6 +58,8 @@ export interface Campaign {
   /** Audience-specific reasons / pains the offer answers. */
   pains: { k: Localized; v: Localized }[];
   meta: { title: Localized; description: Localized };
+  /** The line other landings use to point here (data/audiences.ts). */
+  portal: Localized;
 }
 
 /** Build an Unsplash URL at a sensible delivery size.
@@ -370,6 +372,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: { it: "Mostra il tuo lavoro", en: "Show your work" }, v: { it: "Portfolio, collaborazioni e media kit sempre aggiornati.", en: "Portfolio, collabs and media kit always up to date." } },
       { k: { it: "Fatti trovare dai brand", en: "Get found by brands" }, v: { it: "Chi ti cerca su Google trova te, non altri.", en: "People searching you on Google find you, not others." } },
     ],
+    portal: { it: "Il sito per social media manager e creator.", en: "The site for social media managers and creators." },
     meta: {
       title: {
         it: "Sito per social media manager e creator · 300 €/anno tutto incluso — Alpacode",
@@ -410,6 +413,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: { it: "Prenotazioni integrate", en: "Built-in booking" }, v: { it: "Calendario e modulo contatti per riempire l'agenda.", en: "Calendar and contact form to fill your agenda." } },
       { k: { it: "Racconta i risultati", en: "Tell your results" }, v: { it: "Testimonianze e casi che convincono al posto tuo.", en: "Testimonials and cases that persuade for you." } },
     ],
+    portal: { it: "Il sito per coach, consulenti e formatori.", en: "The site for coaches, consultants and trainers." },
     meta: {
       title: {
         it: "Sito per coach e consulenti · 350 €/anno tutto incluso — Alpacode",
@@ -450,6 +454,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: { it: "Conforme e sicuro", en: "Compliant and secure" }, v: { it: "Privacy, cookie e dati trattati a norma.", en: "Privacy, cookies and data handled to standard." } },
       { k: { it: "Nuovi contatti", en: "New leads" }, v: { it: "Modulo riservato per richieste e primi appuntamenti.", en: "A private form for requests and first appointments." } },
     ],
+    portal: { it: "Il sito per chi è iscritto a un albo.", en: "The site for licensed professionals." },
     meta: {
       title: {
         it: "Sito per liberi professionisti · 450 €/anno tutto incluso — Alpacode",
@@ -490,6 +495,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: { it: "Basta link sparsi", en: "No more scattered links" }, v: { it: "Form di Google, Calendly, pagine social: tutto in un unico posto, professionale e tuo.", en: "Google Forms, Calendly, social pages: everything in one place, professional and yours." } },
       { k: { it: "Percorsi chiari, clienti decisi", en: "Clear programs, decided clients" }, v: { it: "Metodo, percorsi e prezzi spiegati bene: chi ti scrive ha già capito e scelto.", en: "Method, programs and prices well explained: whoever writes has already understood and chosen." } },
     ],
+    portal: { it: "Il sito per educatori cinofili.", en: "The site for dog trainers." },
     meta: {
       title: {
         it: "Sito per educatori cinofili · 300 €/anno tutto incluso — Alpacode",
@@ -530,6 +536,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: { it: "Le tue pratiche, in chiaro", en: "Your practices, made clear" }, v: { it: "Discipline, percorsi, orari e prezzi ordinati — non sparsi tra post e stories.", en: "Disciplines, paths, schedules and prices organised — not scattered across posts and stories." } },
       { k: { it: "Chi cerca benessere ti trova", en: "Wellness seekers find you" }, v: { it: "Su Google, col tuo nome e la tua disciplina — anche chi non ti segue ancora.", en: "On Google, by your name and your discipline — even people who don't follow you yet." } },
     ],
+    portal: { it: "Il sito per yoga e discipline olistiche.", en: "The site for yoga and holistic practitioners." },
     meta: {
       title: {
         it: "Sito per yoga e discipline olistiche · 300 €/anno tutto incluso — Alpacode",

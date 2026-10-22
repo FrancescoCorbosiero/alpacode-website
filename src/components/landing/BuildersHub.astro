@@ -1,0 +1,86 @@
+---
+/* /per-chi-fa-siti — the group page: two doors (hosting, AI), the
+   formula they share, the form. Copy in data/landing/hub.ts. */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { hub } from "../../data/landing/hub";
+import { leadForm } from "../../data/landing/shared";
+import { LANDINGS, portals } from "../../data/audiences";
+import { localizePath } from "../../i18n/utils";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import ProfileSwitch from "./ProfileSwitch.astro";
+import Formula from "./Formula.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Sticky from "./Sticky.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = hub[lang];
+const h = c.hero;
+const accentOf = (slug: string) => LANDINGS.find((l) => l.slug === slug)?.accent ?? "#3b72e9";
+const band = `${c.band[0]} · ${c.band[1]} · `;
+---
+
+<div class="lnd lnd--hub" data-profile="dev">
+  <section class="lnd-plate lnd-plate--print lnd-hero lnd-hero--hub" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-hub-accent" style={`--i:${h.lines.length}`}>
+          {h.accent.before}<Mark kind="underline">{h.accent.mark}</Mark>{h.accent.after}
+        </span>
+      </h1>
+      <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+      <ul class="lnd-doors">
+        {
+          c.doors.map((d, i) => (
+            <li data-intro style={`--i:${4 + i}`}>
+              <a class="lnd-door" href={localizePath(d.slug, lang)} style={`--dc:${accentOf(d.slug)}`}>
+                <span class="lnd-door-tag">{d.tag}</span>
+                <span class="lnd-door-title">{d.title}</span>
+                <span class="lnd-door-body">{d.body}</span>
+                <span class="lnd-door-cta">
+                  {d.cta} <span aria-hidden="true">→</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="lnd-band lnd-plate--ink" data-kinetic aria-label={c.band.join(", ")}>
+    <span class="lnd-band-line" data-kinetic-line="1" aria-hidden="true">{band.repeat(4)}</span>
+    <span class="lnd-band-line lnd-band-line--out" data-kinetic-line="-1" aria-hidden="true">{band.repeat(4)}</span>
+  </section>
+
+  <Formula copy={c.formula} formHref="#parliamone">
+    <ProfileSwitch lang={lang} id="profile-hub" />
+  </Formula>
+
+  <LeadForm
+    lang={lang}
+    campaign="per-chi-fa-siti"
+    audience={lang === "it" ? "Sviluppatori e web designer" : "Developers and web designers"}
+    topic={c.lead.topic}
+    title={c.lead.title}
+    lede={c.lead.lede}
+    tiers={c.formula.tiers}
+    profile
+  />
+
+  <Portals title={c.portalsTitle} items={portals(["learning", "alpacode-pro-kit", "partner"], lang)} />
+
+  <Sticky href="#formula" label={leadForm[lang].sticky} />
+</div>
+
+<script>
+  import "../../lib/landing/profile";
+</script>

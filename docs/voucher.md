@@ -82,7 +82,7 @@ writing the same file would need a shared store instead.
 | Privacy notice (**draft to validate**) | `src/data/voucher/privacy.ts` |
 | Doors, paths, invite links | `src/lib/voucher/program.ts` |
 | Page pieces | `src/components/voucher/*` (views: `Landing.astro`, `Invite.astro`) |
-| Behaviour | `src/lib/voucher/landing.ts`, `invite.ts`, `sticky.ts`, `forms.ts` |
+| Behaviour | `src/lib/voucher/landing.ts`, `invite.ts`, `forms.ts` (the sticky pill: `src/lib/sticky.ts`, shared with the campaign landings) |
 | Styles (scoped under `.rf`, shipped with these pages only) | `src/styles/voucher.css` |
 | API and server helpers | `src/pages/api/referral.ts`, `src/lib/server/*` |
 | Motion (the sticker, the decoding link, the QR that prints, the burst, the steps' alpaca) | `src/lib/motion.ts` — the one engine |

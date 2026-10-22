@@ -1,0 +1,35 @@
+---
+/* "Come lavori?" — developer or web designer. The page then shows the
+   copy written for that reader ([data-for]) and points the formula at
+   the tier that suits them (lib/landing/profile.ts). The choice is
+   remembered across these pages, and ?per=designer (or dev) in a link
+   presets it — an ad aimed at designers lands on the designers' page. */
+import type { Lang } from "../../i18n/types";
+import { profiles, type ProfileId } from "../../data/landing/shared";
+import Hand from "./Hand.astro";
+
+interface Props {
+  lang: Lang;
+  /** The radio group's name: one switch per page, or the same name twice. */
+  id: string;
+  hand?: boolean;
+}
+const { lang, id, hand = true } = Astro.props;
+const p = profiles[lang];
+const ids: ProfileId[] = ["dev", "designer"];
+---
+
+<div class="lnd-profile-row">
+  <fieldset class="lnd-switch" data-profile-switch>
+    <legend class="visually-hidden">{p.legend}</legend>
+    {
+      ids.map((pid, i) => (
+        <label>
+          <input type="radio" name={id} value={pid} checked={i === 0} />
+          <span>{p.options[pid]}</span>
+        </label>
+      ))
+    }
+  </fieldset>
+  {hand && <Hand arrow="left">{p.hand}</Hand>}
+</div>
