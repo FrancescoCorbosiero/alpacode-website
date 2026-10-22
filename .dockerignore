@@ -11,7 +11,8 @@ dist
 data
 design_reference
 README.md
-CLAUDE_CODE_PROMPT.md
+CLAUDE.md
+docs
 Dockerfile
 docker-compose.yml
 .dockerignore

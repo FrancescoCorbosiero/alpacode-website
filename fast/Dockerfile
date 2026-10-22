@@ -1,6 +1,6 @@
 # Alpacode FAST — the static site at fast.alpacode.it (fast/).
-# Built from the repo root, it shares the lockfile:
-#   docker compose --profile fast up -d --build
+# Built from the repo root (it shares the lockfile) by the same
+# `docker compose up -d --build` as the studio.
 
 # ---------- build ----------
 FROM node:22-alpine AS build

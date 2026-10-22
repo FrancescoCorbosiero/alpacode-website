@@ -1,5 +1,8 @@
 # Handoff — Alpacode Soluzioni Digitali · site v2
 
+> Working on this repo with Claude Code? Start from `CLAUDE.md` and
+> `docs/status.md`.
+
 > ## v3 update — read this before the v2 spec below
 >
 > The v2 handoff below was a generated prototype, and parts of it read as
@@ -63,7 +66,7 @@
 >   `docs/landing-factory.md` (and the `new-landing` skill).
 > - **Alpacode FAST — `fast.alpacode.it`.** The social register lives on
 >   its own subdomain and its own static site (`fast/`, same repo and
->   lockfile, its own container behind the `fast` compose profile): the
+>   lockfile, its own container in the same `docker compose up -d`): the
 >   fear of AI named and turned around, DM keywords (`FAST`, `SITO`, `AI`,
 >   `CODE`, `BIO`, `AMICO`), small products — a site guide (22 €) and its
 >   marketing module (+48 €), a crash course for freelancers — and doors

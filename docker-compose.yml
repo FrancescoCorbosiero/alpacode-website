@@ -76,12 +76,11 @@ services:
       start_period: 20s
 
   # Alpacode FAST (fast.alpacode.it) — the social-first sibling: a static
-  # site in its own container (fast/Dockerfile, fast/README.md). Opt-in, so
-  # a plain deploy of the studio doesn't ask Caddy for a certificate the
-  # DNS can't back yet. Point FAST_DOMAIN's DNS at the VPS, then:
-  #   docker compose --profile fast up -d --build
+  # site in its own container (fast/Dockerfile, fast/README.md), up with
+  # the rest on the same `docker compose up -d --build`. Point FAST_DOMAIN's
+  # DNS at the VPS: until it resolves, Caddy keeps retrying the certificate
+  # for that domain alone (alpacode.it is unaffected).
   alpacode-fast:
-    profiles: ["fast"]
     build:
       context: .
       dockerfile: fast/Dockerfile

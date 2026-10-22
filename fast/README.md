@@ -72,11 +72,11 @@ WhatsApp: check the PNGs before committing.
 ## Deploy
 
 Its own container (`fast/Dockerfile`: build with Node, serve with Caddy,
-`fast/Caddyfile`), behind the same caddy-docker-proxy as the studio,
-started only with the `fast` profile:
-
-1. Point `fast.alpacode.it` (or `FAST_DOMAIN`) at the VPS.
-2. `docker compose --profile fast up -d --build`
+`fast/Caddyfile`), behind the same caddy-docker-proxy as the studio, in
+the same `docker-compose.yml`: the usual `docker compose up -d --build`
+brings up both. Point `fast.alpacode.it` (or `FAST_DOMAIN`) at the VPS
+first — until it resolves, Caddy retries that one certificate and the
+studio is unaffected.
 
 `FAST_DOMAIN` also sets the canonical URLs, the sitemap and
 `robots.txt` (build argument `FAST_SITE`).
