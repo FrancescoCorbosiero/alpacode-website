@@ -8,6 +8,7 @@ dist
 .env
 .env.*
 !.env.example
+data
 design_reference
 README.md
 CLAUDE_CODE_PROMPT.md

@@ -1,0 +1,48 @@
+---
+/* The flyer's footer, kept at the bottom of every program page, just
+   above the site's own: the studio's three values, then «Note e
+   condizioni» (#condizioni — the forms link here) and the program's
+   privacy notice. Ink band, blue strut on top; the site's campaign
+   footer follows on the same ink. */
+import type { Lang } from "../../i18n/types";
+import { shared } from "../../data/voucher/shared";
+import { terms } from "../../data/voucher/terms";
+import { localizePath } from "../../i18n/utils";
+import { PRIVACY_SLUG } from "../../lib/voucher/program";
+import Icon from "./Icon.astro";
+import Alpaca from "../Alpaca.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = shared[lang].terms;
+---
+
+<section class="rf-terms" id="condizioni" aria-labelledby="condizioni-title" data-sticky-hide>
+  <div class="wrap-wide">
+    <div class="rf-terms-top">
+      <ul class="rf-values">
+        {
+          c.values.map((v) => (
+            <li class="rf-value">
+              <Icon name={v.icon} size={30} class="rf-value-icon" />
+              <span>{v.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <Alpaca class="rf-terms-alpaca" width={46} data-alpaca />
+    </div>
+
+    <div class="rf-terms-body">
+      <h2 class="rf-terms-title" id="condizioni-title">{c.title}</h2>
+      <ol class="rf-terms-list">
+        {terms[lang].map((t) => <li>{t}</li>)}
+      </ol>
+      <a class="rf-terms-privacy" href={localizePath(PRIVACY_SLUG, lang)}>
+        {c.programPrivacy} <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

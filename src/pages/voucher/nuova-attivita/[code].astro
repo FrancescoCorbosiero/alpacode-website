@@ -1,0 +1,12 @@
+---
+import InviteRoute from "../../../components/voucher/InviteRoute.astro";
+import { inviteGuard } from "../../../lib/voucher/invite-route";
+
+// Rendered on demand: the referrer's name comes from the URL.
+export const prerender = false;
+
+const stop = inviteGuard(Astro);
+if (stop) return stop;
+---
+
+<InviteRoute lang="it" program="nuova-attivita" raw={Astro.params.code} />

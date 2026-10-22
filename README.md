@@ -34,10 +34,20 @@
 >   the scroll does), walking into the manifesto band (a silhouette one
 >   shade off the ink, hooves on the band's edge — the finale of the
 >   «Segnala un amico» landing), standing on the P of the footer wordmark
->   (al-PACO-de) and lost on the 404. One rigged silhouette
->   (`src/components/Alpaca.astro`, at rest the flyer's exact shape) and
->   its moves (`src/lib/alpaca.ts`), both kept identical in
->   alpacode-voucher; `data-alpaca` is in the `motion.ts` header.
+>   (al-PACO-de) and lost on the 404 — plus its own moments in the referral
+>   program. One rigged silhouette (`src/components/Alpaca.astro`, at rest
+>   the flyer's exact shape) and its moves (`src/lib/alpaca.ts`);
+>   `data-alpaca` is in the `motion.ts` header.
+> - **«Segnala un amico» — `/voucher`.** The referral program (up to €100
+>   cashback per referred client) moved in from its own repo
+>   (alpacode-voucher): one program with two doors — `/voucher/`, the
+>   printed flyer, for someone who needs a website, and
+>   `/voucher/nuova-attivita/`, for someone who just opened a business and
+>   needs all of the digital side — personal invite links
+>   (`/voucher/<CODE>`), `POST /api/referral` and a JSONL ledger on a
+>   Docker volume. Same tokens, same motion engine (its effects are
+>   exported from `motion.ts`), styles scoped in `src/styles/voucher.css`.
+>   Everything about it: `docs/voucher.md`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Optional background video:
 >   set `heroVideo` in `src/data/home.ts` (specs in the comment there),

@@ -1,0 +1,49 @@
+---
+/* Shared body of the invite routes (/voucher/[code], /voucher/nuova-attivita/[code]
+   and their /en/ twins): validates the code, derives the referrer's first
+   name and renders the page with a personalised <title> — which is what
+   WhatsApp, Telegram & co. show as the bold line of the link preview
+   ("Mario ti ha consigliato Alpacode"). A segment shaped like a code but
+   not valid (a link cut short in a chat) still opens the invite, just an
+   anonymous one; the page files send anything else to the 404 and set the
+   response headers (both only work in a page). */
+import Layout from "../Layout.astro";
+import Invite from "./Invite.astro";
+import { invite } from "../../data/voucher/invite";
+import { fill } from "../../i18n/utils";
+import { normalizeCode, nameFromCode, firstName } from "../../lib/voucher/referral-code";
+import { programSlug, type ProgramId } from "../../lib/voucher/program";
+import { referrerByCode } from "../../lib/server/ledger";
+import type { Lang } from "../../i18n/types";
+
+interface Props {
+  lang: Lang;
+  program: ProgramId;
+  raw: string | undefined;
+}
+const { lang, program, raw } = Astro.props;
+
+const code = normalizeCode(raw);
+// The name as the referrer typed it (accents included) when the ledger knows
+// the code; otherwise the ASCII prefix of the code itself ("NICCOLO").
+const owner = code ? await referrerByCode(code) : null;
+const name = owner ? firstName(owner.name) || nameFromCode(code ?? "") : code ? nameFromCode(code) : null;
+const c = invite[program][lang];
+const title = name ? fill(c.meta.title, { name }) : c.meta.titleAnon;
+---
+
+<Layout
+  lang={lang}
+  slug={`${programSlug(program)}/${code ?? raw}`}
+  title={title}
+  description={c.meta.description}
+  ogImage={c.meta.ogImage}
+  ogAlt={c.meta.ogAlt}
+  noindex
+  minimal
+  themeColor="#f0f3f9"
+  ctaLabel={c.headerCta}
+  ctaHref="#progetto"
+>
+  <Invite lang={lang} program={program} code={code} name={name} />
+</Layout>
