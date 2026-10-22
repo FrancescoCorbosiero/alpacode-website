@@ -20,6 +20,9 @@ pnpm-debug.log*
 .env.production
 .env.local
 
+# referral ledger written by /api/referral in local runs
+/data/
+
 # os
 .DS_Store
 Thumbs.db

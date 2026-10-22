@@ -1,0 +1,26 @@
+---
+import Layout from "../../../components/Layout.astro";
+import Landing from "../../../components/voucher/Landing.astro";
+import { landing } from "../../../data/voucher/landing";
+import { landingJsonLd } from "../../../lib/voucher/schema";
+
+const lang = "it" as const;
+const program = "nuova-attivita" as const;
+const c = landing[program][lang];
+---
+
+<Layout
+  lang={lang}
+  slug="voucher/nuova-attivita"
+  title={c.meta.title}
+  description={c.meta.description}
+  ogImage={c.meta.ogImage}
+  ogAlt={c.meta.ogAlt}
+  jsonLd={landingJsonLd(program, lang, Astro.site ?? new URL("https://alpacode.it"))}
+  minimal
+  themeColor="#f0f3f9"
+  ctaLabel={c.headerCta}
+  ctaHref="#segnala"
+>
+  <Landing lang={lang} program={program} />
+</Layout>

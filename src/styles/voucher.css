@@ -1,0 +1,2561 @@
+/* ============================================================
+   «Segnala un amico» — the referral program (/voucher/…), prefix
+   rf- (for referral). Imported by its two views (components/voucher/
+   Landing.astro, Invite.astro), so it ships with the program's pages
+   only. Every rule is scoped under .rf, the pages' root.
+
+   The flyer's composition, in the house DNA: square corners, 1px
+   rules, the 6px strut, Archivo Black + Manrope (+ the flyer's hand,
+   --hand, for one line). Palette: the flyer's own — brand blue on
+   blueprint paper, ink bands for the QR strip, the finale and the
+   terms. Pinned to the light theme (tokens.css, body:has(.rf)).
+   ============================================================ */
+
+/* ---------- Module base ---------- */
+/* Zero-specificity resets the components were drawn against. */
+:where(.rf) :is(h1, h2, h3, h4, p) {
+  margin: 0;
+}
+:where(.rf) svg {
+  display: block;
+  max-width: 100%;
+}
+/* Anchored sections clear the sticky header. */
+:where(.rf) [id] {
+  scroll-margin-top: 96px;
+}
+/* On phones the WhatsApp button would sit on the hero CTAs: it waits
+   below the fold (motion.ts sets .is-past-fold). */
+@media (max-width: 600px) {
+  body:has(.rf) .fab:not(.is-past-fold) .fab-wa {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+  }
+}
+
+.rf {
+  /* The partner program's accent — used only on the portal card that
+     points there, as the house rule for cross-links asks. */
+  --partner: #2fe08a;
+  position: relative;
+  overflow-x: clip;
+}
+
+/* ---------- Section rhythm ---------- */
+.rf .rf-section {
+  padding: clamp(72px, 8vw, 112px) 0;
+}
+.rf .section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: end;
+  margin-bottom: clamp(36px, 4vw, 56px);
+}
+.rf .section-head .sec-num {
+  margin-bottom: 20px;
+}
+.rf .section-head h2 {
+  text-wrap: balance;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 66px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  max-width: 16ch;
+}
+.rf .section-head .lede {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  max-width: 470px;
+  justify-self: end;
+}
+
+/* =============================================================
+   HERO
+   ============================================================= */
+.rf .rf-hero {
+  --hero-pt: clamp(28px, 3.2vw, 44px);
+  --hero-pb: clamp(56px, 6vw, 88px);
+  position: relative;
+  padding: var(--hero-pt) 0 var(--hero-pb);
+  overflow: clip;
+}
+.rf .rf-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: stretch;
+}
+.rf .rf-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 12px 0 0;
+}
+.rf .rf-h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 4.9vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.034em;
+  margin: 18px 0 22px;
+}
+.rf .rf-h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+.rf .rf-lede {
+  max-width: 31em;
+  font-size: clamp(18px, 1.4vw, 21px);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.rf .rf-lede strong {
+  display: block;
+  margin-top: 4px;
+  font-weight: 800;
+  color: var(--blue-deep);
+}
+.rf .rf-hero-sticker {
+  margin: clamp(30px, 2.6vw, 36px) 0 clamp(38px, 3.2vw, 46px);
+  padding-left: clamp(30px, 3vw, 46px);
+}
+.rf .rf-payline {
+  max-width: 36em;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--mute-2);
+}
+.rf .rf-payline strong {
+  font-weight: 800;
+  color: var(--blue-deep);
+}
+.rf .rf-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+/* The photo bleeds off the right edge and dissolves into the paper on the
+   left, as on the flyer. It fills the row the copy defines (absolute), so
+   its tall portrait ratio never stretches the hero. */
+.rf .rf-hero-media {
+  position: relative;
+  z-index: 1;
+  margin-left: -6%;
+  margin-right: calc(-1 * var(--gutter));
+  min-height: 540px;
+}
+.rf .rf-photo {
+  position: absolute;
+  inset: calc(-1 * var(--hero-pt)) 0 calc(-1 * var(--hero-pb));
+  margin: 0;
+  /* The photo settles closer as the page scrolls (motion.ts): keep it in its frame. */
+  overflow: hidden;
+}
+.rf .rf-photo picture {
+  display: block;
+  height: 100%;
+}
+.rf .rf-photo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 58%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 24%);
+}
+
+/* ---------- The 100€ sticker ---------- */
+.rf .rf-sticker {
+  --tilt: -4deg;
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+.rf .rf-sticker-body {
+  display: block;
+  font-size: clamp(84px, 9.2vw, 140px);
+  line-height: 1;
+  padding: 0.1em 0.3em 0.04em 0.24em;
+  background: var(--ink);
+  transform: rotate(var(--tilt));
+  transition: transform 0.6s var(--ease-back);
+}
+.rf .rf-sticker-amount {
+  display: grid;
+  font-family: var(--display);
+  letter-spacing: -0.055em;
+  font-variant-numeric: tabular-nums;
+}
+.rf .rf-sticker-size,
+.rf .rf-sticker-live {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+.rf .rf-sticker-size {
+  visibility: hidden;
+}
+.rf .rf-sticker-live {
+  text-align: center;
+}
+.rf .rf-sticker-pre,
+.rf .rf-sticker-post {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--display);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--blue);
+  color: #fff;
+  transform: rotate(var(--r));
+  transition: transform 0.6s var(--ease-back);
+}
+.rf .rf-sticker-pre {
+  --r: -8deg;
+  left: -0.55em;
+  top: -0.7em;
+  font-size: clamp(21px, 2.1vw, 32px);
+  padding: 0.28em 0.55em 0.22em;
+}
+.rf .rf-sticker-post {
+  --r: -5deg;
+  right: -1.15em;
+  bottom: -0.78em;
+  font-size: clamp(22px, 2.4vw, 38px);
+  padding: 0.26em 0.6em 0.2em;
+}
+.rf .rf-sticker--narrow .rf-sticker-body {
+  padding-left: 0.42em;
+  padding-right: 0.6em;
+}
+.rf .rf-sticker--narrow .rf-sticker-pre {
+  left: -0.4em;
+}
+.rf .rf-sticker--narrow .rf-sticker-post {
+  right: auto;
+  left: 1.1em;
+}
+.rf .rf-sticker-post .arrow {
+  display: inline-block;
+  transition: transform 0.45s var(--ease-expo);
+}
+.rf .rf-sticker:hover .rf-sticker-body {
+  transform: rotate(-2deg) scale(1.02);
+}
+.rf .rf-sticker:hover .rf-sticker-post {
+  transform: rotate(-3deg) translateX(4px);
+}
+.rf .rf-sticker:hover .rf-sticker-post .arrow {
+  transform: translateX(5px);
+}
+.rf .rf-sticker:focus-visible {
+  outline: none;
+}
+.rf .rf-sticker:focus-visible .rf-sticker-body {
+  outline: 3px solid var(--blue);
+  outline-offset: 6px;
+}
+
+/* Burst: short blue struts flying off the sides. Each <i> is rotated and
+   pushed out from the side's midpoint; its ::before draws in. */
+.rf .rf-burst {
+  position: absolute;
+  top: 46%;
+  width: 0;
+  height: 0;
+  z-index: -1;
+}
+.rf .rf-burst--l {
+  left: -0.2em;
+}
+.rf .rf-burst--r {
+  right: 0;
+  top: 8%;
+}
+.rf .rf-burst i {
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: clamp(22px, 2.4vw, 36px);
+  height: 6px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--a)) translateX(var(--d, 22px));
+}
+.rf .rf-burst i::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform-origin: 0 50%;
+}
+.rf .rf-burst--l i:nth-child(1) {
+  --a: 146deg;
+  --i: 0;
+}
+.rf .rf-burst--l i:nth-child(2) {
+  --a: 168deg;
+  --i: 1;
+}
+.rf .rf-burst--l i:nth-child(3) {
+  --a: 192deg;
+  --i: 2;
+}
+.rf .rf-burst--l i:nth-child(4) {
+  --a: 214deg;
+  --i: 3;
+}
+.rf .rf-burst--r i:nth-child(1) {
+  --a: -52deg;
+  --i: 0;
+  --d: 30px;
+}
+.rf .rf-burst--r i:nth-child(2) {
+  --a: -28deg;
+  --i: 1;
+  --d: 34px;
+}
+.rf .rf-burst--r i:nth-child(3) {
+  --a: -4deg;
+  --i: 2;
+  --d: 30px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rf .rf-sticker-body {
+    animation: rfStamp 0.8s var(--ease-back) 0.45s backwards;
+  }
+  .rf .rf-sticker-pre {
+    animation: rfTag 0.7s var(--ease-expo) 0.85s backwards;
+  }
+  .rf .rf-sticker-post {
+    animation: rfTag 0.7s var(--ease-expo) 0.98s backwards;
+  }
+  .rf .rf-burst i::before {
+    animation: rfBurst 0.55s var(--ease-expo) backwards;
+    animation-delay: calc(1.05s + var(--i) * 70ms);
+  }
+}
+@keyframes rfStamp {
+  from {
+    opacity: 0;
+    transform: rotate(-14deg) scale(1.4);
+  }
+  55% {
+    opacity: 1;
+  }
+}
+@keyframes rfTag {
+  from {
+    opacity: 0;
+    transform: translateY(16px) rotate(var(--r)) scale(0.86);
+  }
+}
+@keyframes rfBurst {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* =============================================================
+   PAYOUT — "Scegli come riceverlo"
+   ============================================================= */
+.rf .rf-payout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+.rf .rf-payout-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  align-items: start;
+  gap: 16px 20px;
+  padding: 32px 28px 26px;
+  border-left: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background 0.3s var(--ease);
+}
+.rf .rf-payout-option:first-of-type {
+  border-left: 0;
+}
+.rf .rf-payout-option::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: var(--strut);
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease-expo);
+}
+.rf .rf-payout-option:hover {
+  background: var(--paper);
+}
+.rf .rf-payout-option:has(input:checked)::before {
+  transform: scaleX(1);
+}
+.rf .rf-payout-option:has(input:focus-visible) {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+.rf .rf-payout-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: var(--blue);
+  color: #fff;
+  transition: background 0.3s var(--ease);
+}
+.rf .rf-payout-option:has(input:checked) .rf-payout-icon {
+  background: var(--ink);
+}
+.rf .rf-payout-text {
+  display: grid;
+  gap: 6px;
+}
+.rf .rf-payout-title {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.25;
+  color: var(--blue-deep);
+}
+.rf .rf-payout-body {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+.rf .rf-payout-note {
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--mute-2);
+}
+.rf .rf-payout-state {
+  grid-column: 2;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.rf .rf-payout-state-off {
+  color: var(--mute-2);
+}
+.rf .rf-payout-state-on {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue-deep);
+}
+.rf .rf-payout-option:has(input:checked) .rf-payout-state-on {
+  display: inline-flex;
+}
+.rf .rf-payout-option:has(input:checked) .rf-payout-state-off {
+  display: none;
+}
+
+/* =============================================================
+   STEPS — "Come funziona?"
+   ============================================================= */
+.rf .rf-steps-sec {
+  padding-top: 0;
+}
+.rf .rf-steps-head {
+  /* room for the alpaca standing on the first tile */
+  margin-bottom: clamp(60px, 5vw, 76px);
+}
+.rf .rf-steps-title {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 32px);
+  margin-top: 20px;
+}
+.rf .rf-steps-title h2 {
+  flex: none;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 66px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+.rf .rf-steps-rule {
+  flex: 1;
+  height: 2px;
+  background: var(--blue);
+  transform-origin: left center;
+}
+.rf .rf-steps-lede {
+  margin-top: 18px;
+  max-width: 40em;
+  font-size: 18px;
+  color: var(--mute-2);
+}
+.rf .rf-steps-track {
+  position: relative;
+}
+.rf .rf-steps-rail {
+  position: absolute;
+  left: 0;
+  /* stop at the last step's icon tile (64 + 10 + 64px into its column) */
+  right: calc((100% - 3 * var(--steps-gap)) / 4 - 138px);
+  top: 31px;
+  height: 2px;
+  background: var(--rule);
+}
+.rf .rf-steps-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform: scaleX(var(--p, 1));
+  transform-origin: left center;
+}
+.rf .rf-steps-track {
+  --steps-gap: clamp(20px, 2.4vw, 36px);
+}
+/* The alpaca on the number tile of step --here (0 = the first), centred
+   on the 64px tile; on desktop it leaps along the tiles (motion.ts). */
+.rf .rf-steps-runner {
+  position: absolute;
+  z-index: 2;
+  bottom: 100%;
+  left: calc(var(--here, 0) * ((100% - 3 * var(--steps-gap)) / 4 + var(--steps-gap)) + 14px);
+  width: 36px;
+  height: auto;
+  margin-bottom: -1px;
+  color: var(--ink);
+  pointer-events: none;
+}
+.rf .rf-steps {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--steps-gap);
+}
+.rf .rf-step-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.rf .rf-step-n {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--display);
+  font-size: 30px;
+  line-height: 1;
+  transition: background 0.4s var(--ease);
+}
+.rf .rf-step-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  color: var(--ink);
+}
+.rf .rf-step-arrow {
+  margin-left: auto;
+  padding: 0 4px 0 12px;
+  background: var(--paper);
+  color: var(--blue);
+  font-size: 26px;
+  line-height: 1;
+}
+.rf .rf-step h3 {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.rf .rf-step p {
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--mute-2);
+  max-width: 24em;
+}
+.rf .rf-step-here {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+.rf .rf-step.is-here .rf-step-n {
+  background: var(--ink);
+}
+
+/* =============================================================
+   STUDIO — the personal link / direct referral
+   ============================================================= */
+.rf .rf-studio {
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.rf .rf-studio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: start;
+}
+.rf .rf-studio-intro {
+  position: sticky;
+  top: 96px;
+}
+.rf .rf-studio-intro h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin: 20px 0;
+}
+.rf .rf-studio-lede {
+  font-size: 18px;
+  color: var(--mute-2);
+  max-width: 30em;
+}
+.rf .rf-studio-points {
+  list-style: none;
+  margin: 24px 0 36px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.rf .rf-studio-points li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 15.5px;
+}
+.rf .rf-studio-points li::before {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 3px;
+  background: var(--blue);
+  transform: translateY(-4px);
+}
+
+/* Live preview — what lands in the friend's chat. */
+.rf .rf-preview {
+  margin: 0;
+  max-width: 440px;
+}
+.rf .rf-preview-label {
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mute-2);
+}
+.rf .rf-preview-screen {
+  position: relative;
+  padding: 22px 18px 20px 40px;
+  border: 1px solid var(--rule);
+  background-color: #e6ebf4;
+  background-image: radial-gradient(rgba(59, 114, 233, 0.12) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+.rf .rf-bubble {
+  position: relative;
+  margin-left: auto;
+  max-width: 360px;
+  padding: 7px 7px 6px;
+  background: #d9e5fb;
+}
+.rf .rf-bubble::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -9px;
+  border-top: 10px solid #d9e5fb;
+  border-right: 10px solid transparent;
+}
+.rf .rf-bubble-text {
+  padding: 3px 6px 8px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.rf .rf-bubble-card {
+  display: grid;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+}
+.rf .rf-bubble-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+.rf .rf-bubble-card-body {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px 10px;
+}
+.rf .rf-bubble-card-title {
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.rf .rf-bubble-card-desc {
+  font-size: 13px;
+  color: var(--mute-2);
+}
+.rf .rf-bubble-card-domain {
+  font-size: 12px;
+  color: var(--mute-2);
+}
+.rf .rf-bubble-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 5px 4px 0;
+  font-size: 11px;
+  color: var(--mute-2);
+}
+.rf .rf-bubble-meta svg {
+  color: var(--blue);
+}
+
+/* The form box */
+.rf .rf-studio-box {
+  position: relative;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+.rf .rf-studio-box::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: var(--strut);
+  background: var(--blue);
+  z-index: 1;
+}
+.rf .rf-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--rule);
+}
+.rf .rf-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 22px 18px;
+  border: 0;
+  border-left: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--mute-2);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  text-align: left;
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.rf .rf-tab:first-child {
+  border-left: 0;
+}
+.rf .rf-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-expo);
+}
+.rf .rf-tab:hover {
+  color: var(--ink);
+}
+.rf .rf-tab[aria-selected="true"] {
+  background: #fff;
+  color: var(--ink);
+}
+.rf .rf-tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+.rf .rf-tab .icon {
+  flex: none;
+  color: var(--blue);
+}
+.rf .rf-tab-badge {
+  margin-left: auto;
+  padding: 4px 8px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  font-size: 11.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.rf .rf-panel {
+  padding: clamp(24px, 3vw, 40px);
+}
+
+/* ---------- Result: the share panel ---------- */
+.rf .rf-result {
+  display: grid;
+  gap: 22px;
+  padding: clamp(28px, 3.2vw, 44px);
+}
+.rf .rf-result[hidden] {
+  display: none;
+}
+.rf .rf-result-notice {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.rf .rf-result-notice[hidden] {
+  display: none;
+}
+.rf .rf-result-notice strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 19px;
+  color: #8fb0f5;
+}
+.rf .rf-result-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.rf .rf-result-title:focus {
+  outline: none;
+}
+.rf .rf-result-lede {
+  margin-top: -8px;
+  color: var(--mute-2);
+}
+.rf .rf-mini-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--mute-2);
+}
+.rf .rf-linkbox-row {
+  display: flex;
+}
+.rf .rf-link-input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1.5px solid var(--ink);
+  border-right: 0;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 700 16px/1.2 var(--sans);
+}
+.rf .rf-link-input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -3px;
+}
+.rf .rf-copy {
+  flex: none;
+  gap: 8px;
+}
+.rf .rf-copy.is-copied {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.rf .rf-code {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--mute-2);
+}
+.rf .rf-code strong {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.rf .rf-message textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 15px/1.5 var(--sans);
+  resize: vertical;
+}
+.rf .rf-message textarea:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -1px;
+}
+.rf .rf-share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rf .rf-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1;
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.rf .rf-share-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rf .rf-share-btn[hidden] {
+  display: none;
+}
+.rf .rf-share-btn--wa {
+  background: var(--blue-fill);
+  border-color: var(--blue-fill);
+  color: #fff;
+}
+.rf .rf-share-btn--wa:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.rf .rf-result-qr {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.rf .rf-result-qr-code {
+  position: relative;
+}
+.rf .rf-result-qr-code svg {
+  width: 132px;
+  height: 132px;
+}
+.rf .rf-result-qr-text strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+.rf .rf-result-qr-text p {
+  font-size: 14.5px;
+  color: var(--mute-2);
+}
+.rf .rf-keep {
+  font-size: 13.5px;
+  color: var(--mute);
+}
+.rf .rf-reset {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--blue-deep);
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rf .rf-reset:hover {
+  color: var(--ink);
+}
+
+/* =============================================================
+   QR BAND (ink, inset — as on the flyer)
+   ============================================================= */
+.rf .rf-qr-sec {
+  padding: clamp(64px, 7vw, 104px) 0;
+}
+.rf .rf-qr-band {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+  padding: clamp(26px, 3vw, 40px) clamp(24px, 3.4vw, 52px);
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.rf .rf-qr-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--strut);
+  background: var(--blue);
+}
+.rf .rf-qr-tile {
+  position: relative;
+  width: clamp(132px, 12vw, 172px);
+  aspect-ratio: 1;
+  padding: 6px;
+  background: #fff;
+}
+.rf .rf-qr-tile svg {
+  width: 100%;
+  height: 100%;
+}
+.rf .rf-qr-band.is-personal .rf-qr-tile {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.rf .rf-qr-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.rf .rf-qr-body {
+  margin-top: 6px;
+  max-width: 32em;
+  font-size: 17px;
+  color: var(--on-ink-mute);
+}
+.rf .rf-qr-hint {
+  margin-top: 10px;
+  max-width: 36em;
+  font-size: 14px;
+  color: var(--on-ink-faint);
+}
+.rf .rf-qr-visit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  font-weight: 600;
+  color: var(--on-ink-mute);
+}
+.rf .rf-qr-visit .icon {
+  color: var(--on-ink-mute);
+}
+.rf .rf-qr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  background: var(--blue-fill);
+  color: #fff;
+  font-weight: 800;
+  transition: background 0.2s var(--ease);
+}
+.rf .rf-qr-pill:hover {
+  background: var(--blue-deep);
+}
+.rf .rf-qr-pill .arrow {
+  transition: transform 0.45s var(--ease-expo);
+}
+.rf .rf-qr-pill:hover .arrow {
+  transform: translateX(4px);
+}
+.rf .rf-qr-sign {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 32px);
+  padding-left: clamp(24px, 3vw, 48px);
+  border-left: 1px solid var(--on-ink-rule);
+}
+.rf .rf-qr-alpaca {
+  flex: none;
+  color: var(--blue);
+}
+
+/* The handwritten campaign line. */
+.rf .rf-hand {
+  position: relative;
+  display: grid;
+  font-family: var(--hand);
+  font-weight: 600;
+  font-size: clamp(25px, 2.2vw, 33px);
+  line-height: 1.06;
+  color: var(--on-ink);
+  transform: rotate(-6deg);
+}
+.rf .rf-hand-swoosh {
+  width: 80%;
+  height: 14px;
+  margin-top: 4px;
+  color: var(--blue);
+  overflow: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .has-motion .rf .rf-hand-swoosh path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.2s var(--ease-expo) 0.3s;
+  }
+  .has-motion .rf .rf-hand.is-drawn .rf-hand-swoosh path {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* =============================================================
+   WHY — "Il tuo amico è in buone mani"
+   ============================================================= */
+.rf .rf-why {
+  padding-top: 0;
+}
+.rf .rf-why-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(28px, 3vw, 48px);
+}
+.rf .rf-why-item .strut-short {
+  width: 64px;
+  margin-bottom: 26px;
+}
+.rf .rf-why-icon {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--blue);
+}
+.rf .rf-why-item h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(21px, 1.8vw, 26px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.rf .rf-why-item p {
+  font-size: 15.5px;
+  color: var(--mute-2);
+}
+
+/* =============================================================
+   FAQ
+   ============================================================= */
+.rf .rf-faq {
+  border-top: 1px solid var(--rule);
+}
+.rf .rf-faq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.rf .rf-faq-head {
+  display: block;
+  margin: 0;
+  position: sticky;
+  top: 96px;
+}
+.rf .rf-faq-head h2 {
+  max-width: 12ch;
+  font-size: clamp(32px, 3.8vw, 54px);
+  line-height: 1;
+}
+.rf .rf-faq-list {
+  border-bottom: 1px solid var(--rule);
+}
+.rf .rf-faq-item {
+  border-top: 1px solid var(--rule);
+}
+.rf .rf-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--display);
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  transition: color 0.2s var(--ease);
+}
+.rf .rf-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.rf .rf-faq-item summary:hover {
+  color: var(--blue-deep);
+}
+.rf .rf-faq-ic {
+  position: relative;
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+.rf .rf-faq-ic::before,
+.rf .rf-faq-ic::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 18px;
+  height: 2px;
+  background: var(--blue);
+  transition: transform 0.35s var(--ease-expo);
+}
+.rf .rf-faq-ic::after {
+  transform: rotate(90deg);
+}
+.rf .rf-faq-item[open] .rf-faq-ic::after {
+  transform: rotate(0deg);
+}
+/* motion.ts keeps [open] until the answer has folded away: the icon turns
+   back to "+" as soon as the closing starts. */
+.rf .rf-faq-item.is-closing .rf-faq-ic::after {
+  transform: rotate(90deg);
+}
+.rf .rf-faq-item p {
+  max-width: 46em;
+  padding: 0 40px 26px 0;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--mute-2);
+}
+
+/* =============================================================
+   CROSS-LINK — the bordered portal card
+   ============================================================= */
+.rf .rf-cross-sec {
+  padding: 0 0 clamp(72px, 8vw, 112px);
+}
+.rf .rf-cross {
+  --cross-accent: var(--blue);
+  --cross-accent-deep: var(--blue-deep);
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: clamp(26px, 3vw, 40px) clamp(24px, 3vw, 44px);
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+.rf .rf-cross::before {
+  content: "";
+  position: absolute;
+  left: -1.5px;
+  right: -1.5px;
+  top: -1.5px;
+  height: var(--strut);
+  background: var(--cross-accent);
+}
+.rf .rf-cross--partner {
+  --cross-accent: var(--partner);
+  --cross-accent-deep: #0f8a50;
+}
+.rf .rf-cross-tag {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--cross-accent-deep);
+}
+.rf .rf-cross-title {
+  text-wrap: balance;
+  font-family: var(--display);
+  font-size: clamp(26px, 2.8vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.rf .rf-cross-body {
+  max-width: 52em;
+  color: var(--mute-2);
+  transition: color 0.35s var(--ease);
+}
+.rf .rf-cross-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-weight: 800;
+}
+.rf .rf-cross-cta .arrow {
+  transition: transform 0.45s var(--ease-expo);
+}
+.rf .rf-cross:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rf .rf-cross:hover .rf-cross-body {
+  color: var(--on-ink-mute);
+}
+.rf .rf-cross:hover .rf-cross-tag,
+.rf .rf-cross:hover .rf-cross-cta {
+  color: var(--cross-accent);
+}
+.rf .rf-cross:hover .rf-cross-cta .arrow {
+  transform: translateX(5px);
+}
+
+/* =============================================================
+   FINAL CTA (ink)
+   ============================================================= */
+.rf .rf-final {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(88px, 11vw, 168px) 0;
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.rf .rf-final .wrap-wide {
+  position: relative;
+  z-index: 1;
+}
+.rf .rf-final .sec-num {
+  color: var(--on-ink-mute);
+}
+.rf .rf-final-display {
+  text-wrap: balance;
+  margin: 28px 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 6.4vw, 100px);
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+}
+.rf .rf-final-accent {
+  color: var(--blue);
+}
+.rf .rf-final-sub {
+  max-width: 34em;
+  font-size: 19px;
+  color: var(--on-ink-mute);
+}
+.rf .rf-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+.rf .rf-final-alpaca {
+  position: absolute;
+  right: clamp(-40px, -2vw, 0px);
+  /* hooves on the footer's strut */
+  bottom: -2px;
+  width: clamp(260px, 30vw, 460px);
+  height: auto;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+
+/* =============================================================
+   STICKY CTA
+   ============================================================= */
+.rf .rf-sticky {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 65;
+  transform: translate(-50%, 160%);
+  transition: transform 0.55s var(--ease-expo);
+}
+.rf .rf-sticky.is-visible {
+  transform: translate(-50%, 0);
+}
+.rf .rf-sticky-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 26px;
+  border: 1.5px solid var(--blue-fill);
+  background: var(--blue-fill);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  white-space: nowrap;
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.rf .rf-sticky-btn:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+@media (max-width: 1180px) {
+  .rf .rf-why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rf .rf-qr-band {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .rf .rf-qr-sign {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding: 24px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--on-ink-rule);
+  }
+}
+@media (max-width: 1024px) {
+  .rf .rf-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 48px;
+  }
+  .rf .rf-steps-rail,
+  .rf .rf-step-arrow,
+  .rf .rf-steps-runner {
+    display: none;
+  }
+  .rf .rf-steps-head {
+    margin-bottom: clamp(40px, 4vw, 60px);
+  }
+  .rf .rf-studio-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-studio-intro {
+    position: static;
+  }
+  .rf .rf-preview {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .rf .rf-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-hero-media {
+    margin: 40px calc(-1 * var(--gutter)) 0;
+    min-height: 0;
+  }
+  .rf .rf-photo {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 4 / 5;
+    max-height: 640px;
+    width: 100%;
+  }
+  .rf .rf-photo-img {
+    object-position: 50% 56%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .rf .section-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .section-head .lede {
+    justify-self: start;
+  }
+  .rf .rf-payout-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-payout-option {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rf .rf-payout-option:first-of-type {
+    border-top: 0;
+  }
+  .rf .rf-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-faq-head {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .rf .rf-h1 {
+    font-size: clamp(30px, 8.2vw, 44px);
+  }
+  .rf .rf-hero-sticker {
+    padding-left: 26px;
+    margin-bottom: 44px;
+  }
+  .rf .rf-burst--l {
+    left: 0;
+  }
+  .rf .rf-sticker-post {
+    right: -0.5em;
+  }
+  .rf .rf-hero-ctas .btn,
+  .rf .rf-final-actions .btn {
+    flex: 1 1 100%;
+  }
+  .rf .rf-steps {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 36px;
+  }
+  .rf .rf-step-top {
+    margin-bottom: 16px;
+  }
+  .rf .rf-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-tab {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rf .rf-tab:first-child {
+    border-top: 0;
+  }
+  .rf .rf-result-qr {
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+  .rf .rf-result-qr-code svg {
+    width: 104px;
+    height: 104px;
+  }
+  .rf .rf-linkbox-row {
+    flex-direction: column;
+  }
+  .rf .rf-link-input {
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 0;
+  }
+  .rf .rf-why-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-qr-band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-qr-tile {
+    width: 156px;
+  }
+  .rf .rf-qr-sign {
+    grid-column: auto;
+  }
+  .rf .rf-sticky {
+    left: 14px;
+    right: 74px;
+    bottom: 14px;
+    transform: translateY(160%);
+  }
+  .rf .rf-sticky.is-visible {
+    transform: none;
+  }
+  .rf .rf-sticky-btn {
+    width: 100%;
+  }
+  .rf .rf-final-alpaca {
+    opacity: 0.6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rf .rf-sticker-body,
+  .rf .rf-sticker-pre,
+  .rf .rf-sticker-post,
+  .rf .rf-sticky {
+    transition: none;
+  }
+}
+
+/* =============================================================
+   FORMS — the site's field language (label over a display-face
+   input, a 1px rule that a blue strut draws along on focus), plus
+   chips for short choices and the consent rows.
+   ============================================================= */
+.rf .rf-form {
+  display: grid;
+}
+.rf .rf-form-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.rf .rf-form-intro {
+  margin: 8px 0 10px;
+  color: var(--mute-2);
+  font-size: 15.5px;
+}
+
+.rf .field {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.rf .field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-expo);
+}
+.rf .field:focus-within::after {
+  transform: scaleX(1);
+}
+.rf .field label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--mute-2);
+}
+.rf .field input,
+.rf .field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 1.3;
+}
+.rf .field textarea {
+  resize: vertical;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 16.5px;
+  line-height: 1.5;
+}
+.rf .field input::placeholder,
+.rf .field textarea::placeholder {
+  color: var(--mute);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 16.5px;
+}
+.rf .field.is-invalid {
+  border-bottom-color: var(--blue-deep);
+}
+.rf .field.is-invalid::after {
+  transform: scaleX(1);
+  background: var(--blue-deep);
+  height: 3px;
+}
+.rf .field.is-invalid label {
+  color: var(--blue-deep);
+}
+.rf .rf-field-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 24px;
+}
+.rf .rf-hint {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--mute);
+}
+
+.rf .rf-group {
+  min-width: 0;
+  margin: 22px 0 0;
+  padding: 0;
+  border: 0;
+}
+.rf .rf-group > legend {
+  padding: 0;
+  margin-bottom: 2px;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+/* Chips: radios that look like toggles. */
+.rf .rf-choice {
+  min-width: 0;
+  margin: 0;
+  padding: 18px 0 4px;
+  border: 0;
+}
+.rf .rf-choice > legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--mute-2);
+}
+.rf .rf-chips {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rf .rf-chip {
+  position: relative;
+  display: inline-flex;
+}
+.rf .rf-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.rf .rf-chip span {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1.5px solid var(--rule);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+.rf .rf-chip:hover span {
+  border-color: var(--ink);
+}
+.rf .rf-chip input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.rf .rf-chip input:focus-visible + span {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.rf .rf-consent {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding-top: 16px;
+}
+.rf .rf-consent input {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+.rf .rf-consent label {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mute-2);
+  cursor: pointer;
+}
+.rf .rf-consent a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--blue);
+  text-underline-offset: 3px;
+}
+.rf .rf-consent.is-invalid label {
+  color: var(--blue-deep);
+  font-weight: 700;
+}
+.rf .rf-consent.is-invalid input {
+  outline: 2px solid var(--blue-deep);
+  outline-offset: 2px;
+}
+
+.rf .rf-submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  padding-top: 26px;
+}
+.rf .rf-status {
+  flex: 1 1 220px;
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--blue-deep);
+}
+.rf .rf-status:empty {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .rf .rf-field-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-submit .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* =============================================================
+   INVITE — the friend's side. Reuses the landing's language; only
+   the promise list, the "invited by" tag and the success panel's
+   referral nudge are new.
+   ============================================================= */
+.rf .rf-promise {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rf .rf-promise li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+.rf .rf-promise svg {
+  color: var(--blue);
+}
+.rf.rf--invite .rf-hero-sticker {
+  margin-bottom: clamp(44px, 4vw, 56px);
+}
+.rf .rf-invited {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 12px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 14.5px;
+}
+.rf .rf-invited .icon {
+  color: #8fb0f5;
+}
+.rf .rf-invited.is-anon {
+  background: #fff;
+  color: var(--mute-2);
+  border: 1px solid var(--rule);
+}
+.rf .rf-invited.is-anon .icon {
+  color: var(--blue);
+}
+.rf .rf-result-refer {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  margin-top: 6px;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.rf .rf-result-refer strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.1;
+}
+.rf .rf-result-refer p {
+  color: var(--mute-2);
+  margin-bottom: 8px;
+}
+.rf.rf--invite .rf-why {
+  padding-top: clamp(72px, 8vw, 112px);
+}
+
+/* =============================================================
+   CROSS-LINKS — two portal cards side by side on the landings
+   ============================================================= */
+.rf .rf-cross-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+.rf .rf-cross-grid .rf-cross {
+  align-content: start;
+}
+@media (max-width: 900px) {
+  .rf .rf-cross-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =============================================================
+   KIT — "Che attività ha aperto?" (the new-business door)
+   The types are radios styled as the home's case-picker tabs (ink
+   when chosen, the strut on the left edge); the board for the chosen
+   one shows, its four items settling in one after another. Swapped
+   by :has(:checked) — [data-kit-active] (set by the script) covers
+   browsers without :has.
+   ============================================================= */
+.rf .rf-kit {
+  border-top: 1px solid var(--rule);
+}
+.rf .rf-kit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(24px, 3.4vw, 56px);
+  align-items: start;
+}
+.rf .rf-kit-picker {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.rf .rf-kit-legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 0;
+  font-family: var(--display);
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.rf .rf-kit-types {
+  clear: both;
+  display: grid;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.rf .rf-kit-type {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--rule);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15.5px;
+  line-height: 1.25;
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+.rf .rf-kit-type:first-child {
+  border-top: 0;
+}
+.rf .rf-kit-type::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--strut);
+  background: var(--blue);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 0.45s var(--ease-expo);
+}
+.rf .rf-kit-type:hover {
+  background: var(--paper-2);
+}
+.rf .rf-kit-type-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  color: var(--blue);
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+.rf .rf-kit-type:has(input:checked) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rf .rf-kit-type:has(input:checked)::before {
+  transform: scaleY(1);
+}
+.rf .rf-kit-type:has(input:checked) .rf-kit-type-icon {
+  background: var(--blue-fill);
+  border-color: var(--blue-fill);
+  color: #fff;
+}
+.rf .rf-kit-type:has(input:focus-visible) {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.rf .rf-kit-stage {
+  position: relative;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+.rf .rf-kit-stage::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: var(--strut);
+  background: var(--blue);
+  z-index: 1;
+}
+.rf .rf-kit-board {
+  display: none;
+  padding: clamp(24px, 3vw, 40px) clamp(22px, 3vw, 40px) 0;
+}
+.rf .rf-kit:has(input[value="negozio"]:checked) [data-board="negozio"],
+.rf .rf-kit:has(input[value="locale"]:checked) [data-board="locale"],
+.rf .rf-kit:has(input[value="studio"]:checked) [data-board="studio"],
+.rf .rf-kit:has(input[value="benessere"]:checked) [data-board="benessere"],
+.rf .rf-kit:has(input[value="artigiano"]:checked) [data-board="artigiano"],
+.rf .rf-kit:has(input[value="ecommerce"]:checked) [data-board="ecommerce"],
+.rf .rf-kit:has(input[value="altro"]:checked) [data-board="altro"] {
+  display: block;
+}
+@supports not selector(:has(*)) {
+  .rf .rf-kit[data-kit-active="negozio"] [data-board="negozio"],
+  .rf .rf-kit[data-kit-active="locale"] [data-board="locale"],
+  .rf .rf-kit[data-kit-active="studio"] [data-board="studio"],
+  .rf .rf-kit[data-kit-active="benessere"] [data-board="benessere"],
+  .rf .rf-kit[data-kit-active="artigiano"] [data-board="artigiano"],
+  .rf .rf-kit[data-kit-active="ecommerce"] [data-board="ecommerce"],
+  .rf .rf-kit[data-kit-active="altro"] [data-board="altro"] {
+    display: block;
+  }
+}
+.rf .rf-kit-board-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mute-2);
+}
+.rf .rf-kit-board-head strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.rf .rf-kit-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+}
+.rf .rf-kit-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  gap: 4px 16px;
+  padding: 24px 24px 26px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.rf .rf-kit-item:nth-child(even) {
+  padding-left: 24px;
+  padding-right: 0;
+  border-left: 1px solid var(--rule);
+}
+.rf .rf-kit-item:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+.rf .rf-kit-n {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--display);
+  font-size: 15px;
+  line-height: 1;
+  color: var(--blue);
+}
+.rf .rf-kit-item:nth-child(even) .rf-kit-n {
+  right: 0;
+}
+.rf .rf-kit-icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+}
+.rf .rf-kit-item h3 {
+  padding-right: 28px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 17.5px;
+  line-height: 1.25;
+}
+.rf .rf-kit-item p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rf .rf-kit-board-head strong {
+    animation: rfKitIn 0.55s var(--ease-expo) both;
+  }
+  .rf .rf-kit-item {
+    animation: rfKitIn 0.7s var(--ease-expo) both;
+    animation-delay: calc(0.06s + var(--i, 0) * 0.07s);
+  }
+  .rf .rf-kit-icon {
+    animation: rfKitPop 0.8s var(--ease-back) both;
+    animation-delay: calc(0.12s + var(--i, 0) * 0.07s);
+  }
+}
+@keyframes rfKitIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes rfKitPop {
+  from {
+    transform: scale(0.4) rotate(-12deg);
+  }
+}
+.rf .rf-kit-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin: 0 clamp(22px, 3vw, 40px);
+  padding: 22px 0 clamp(22px, 3vw, 34px);
+  border-top: 1px solid var(--rule);
+}
+.rf .rf-kit-note {
+  flex: 1 1 280px;
+  max-width: 40em;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--mute-2);
+}
+@media (max-width: 900px) {
+  .rf .rf-kit-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-kit-types {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rf .rf-kit-type:nth-child(2) {
+    border-top: 0;
+  }
+  .rf .rf-kit-type:nth-child(even) {
+    border-left: 1px solid var(--rule);
+  }
+}
+@media (max-width: 640px) {
+  .rf .rf-kit-type {
+    gap: 10px;
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+  .rf .rf-kit-type-icon {
+    width: 34px;
+    height: 34px;
+  }
+  .rf .rf-kit-items {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-kit-item,
+  .rf .rf-kit-item:nth-child(even) {
+    padding: 20px 0 22px;
+    border-left: 0;
+  }
+  .rf .rf-kit-item:nth-last-child(2) {
+    border-bottom: 1px solid var(--rule);
+  }
+  .rf .rf-kit-n,
+  .rf .rf-kit-item:nth-child(even) .rf-kit-n {
+    top: 20px;
+    right: 0;
+  }
+  .rf .rf-kit-foot .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* =============================================================
+   THE SHOP SIGN — the new-business door's hero image
+   It hangs from the blue strut (the rail), flips from CHIUSO to
+   APERTO as the page opens and swings to rest; the alpaca stands on
+   the rail. The stage is the photo's frame, over the blueprint cube
+   field of the home hero.
+   ============================================================= */
+.rf .rf-sign-stage {
+  position: absolute;
+  inset: calc(-1 * var(--hero-pt)) 0 calc(-1 * var(--hero-pb));
+  overflow: hidden;
+  border-left: 1px solid var(--rule);
+}
+.rf .rf-sign-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --s: clamp(110px, 10vw, 170px);
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--paper-3) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(from 30deg, var(--blue-soft) 0 60deg, var(--paper) 0 120deg, var(--paper-3) 0 180deg);
+  background-size: var(--s) calc(var(--s) * 0.577);
+  -webkit-mask-image: radial-gradient(85% 70% at 60% 55%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(85% 70% at 60% 55%, #000 10%, transparent 75%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.rf .rf-sign-stage {
+  /* Where the rail runs: a little above the middle of the frame. */
+  --rail: max(56px, calc(36% - 150px));
+}
+.rf .rf-sign-rail {
+  position: absolute;
+  z-index: 1;
+  top: var(--rail);
+  left: 12%;
+  right: 12%;
+  height: var(--strut);
+  background: var(--blue);
+}
+.rf .rf-sign-alpaca {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--rail) - 70px);
+  right: calc(12% + 10px);
+  width: 58px;
+  height: auto;
+  margin-top: 1px;
+  color: var(--ink);
+}
+.rf .rf-sign {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: calc(var(--rail) + var(--strut) - 2px);
+  width: min(76%, 440px);
+  translate: -50% 0;
+}
+.rf .rf-sign-swing {
+  position: relative;
+  transform-origin: 50% 0;
+}
+.rf .rf-sign-hook {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 14px;
+  height: 14px;
+  translate: -50% 0;
+  background: var(--ink);
+}
+.rf .rf-sign-cords {
+  display: block;
+  width: 100%;
+  height: clamp(54px, 6vw, 84px);
+  color: var(--ink);
+  overflow: visible;
+}
+.rf .rf-sign-card {
+  display: grid;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+.rf .rf-sign-face {
+  grid-area: 1 / 1;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+  padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2vw, 28px) clamp(20px, 2.4vw, 30px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  text-align: center;
+}
+.rf .rf-sign-face--front {
+  position: relative;
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.rf .rf-sign-face--front::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--strut);
+  background: var(--blue);
+}
+.rf .rf-sign-face--back {
+  border: 1.5px solid var(--ink);
+  background: var(--paper-2);
+  color: var(--ink);
+  transform: rotateY(180deg);
+}
+.rf .rf-sign-kicker {
+  font-weight: 800;
+  font-size: clamp(12px, 1vw, 14px);
+  letter-spacing: 0.02em;
+  color: var(--on-ink-mute);
+}
+.rf .rf-sign-word {
+  font-family: var(--display);
+  font-size: clamp(46px, 5.6vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.rf .rf-sign-hours {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: clamp(13px, 1.1vw, 15px);
+  color: #8fb0f5;
+}
+.rf .rf-sign-hours::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rf .rf-sign-card {
+    animation: rfSignFlip 1.1s var(--ease-back) 0.95s backwards;
+  }
+  .rf .rf-sign-swing {
+    animation: rfSignSwing 3.4s cubic-bezier(0.3, 0.6, 0.4, 1) 0.4s both;
+  }
+  .rf .rf-sign-rail {
+    transform-origin: left center;
+    animation: introBar 1.1s var(--ease-expo) 0.15s both;
+  }
+}
+@keyframes rfSignFlip {
+  from {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes rfSignSwing {
+  0% {
+    transform: translateY(-115%) rotate(-10deg);
+  }
+  20% {
+    transform: translateY(0) rotate(7deg);
+  }
+  38% {
+    transform: rotate(-5deg);
+  }
+  56% {
+    transform: rotate(3deg);
+  }
+  72% {
+    transform: rotate(-1.6deg);
+  }
+  86% {
+    transform: rotate(0.7deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+/* The flyer's handwritten line, under the sign, in ink on the paper. */
+.rf .rf-sign-hand {
+  position: absolute;
+  z-index: 1;
+  left: 18%;
+  bottom: clamp(36px, 9%, 96px);
+  color: var(--ink);
+}
+@media (max-width: 900px) {
+  .rf .rf-sign-stage {
+    --rail: 72px;
+    position: relative;
+    inset: auto;
+    height: clamp(440px, 112vw, 620px);
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rf .rf-sign-hand {
+    left: 12%;
+    bottom: 28px;
+  }
+  .rf .rf-sign {
+    width: min(78%, 420px);
+  }
+}
+
+/* =============================================================
+   TERMS — the flyer's footer: values, «Note e condizioni»
+   ============================================================= */
+.rf .rf-terms {
+  position: relative;
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: 64px 0 40px;
+}
+.rf .rf-terms::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--strut);
+  background: var(--blue);
+}
+.rf .rf-terms-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--on-ink-rule);
+}
+.rf .rf-values {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.rf .rf-value {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 28px;
+  border-left: 1px solid var(--on-ink-rule);
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--on-ink-mute);
+}
+.rf .rf-value:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.rf .rf-value-icon {
+  flex: none;
+  color: var(--blue);
+}
+.rf .rf-value span {
+  max-width: 18em;
+}
+.rf .rf-terms-alpaca {
+  color: var(--on-ink);
+}
+.rf .rf-terms-body {
+  padding-top: 36px;
+}
+.rf .rf-terms-title {
+  margin-bottom: 16px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.rf .rf-terms-list {
+  margin: 0;
+  padding-left: 1.4em;
+  columns: 2;
+  column-gap: 56px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--on-ink-mute);
+}
+.rf .rf-terms-list li {
+  break-inside: avoid;
+  padding: 0 0 8px 4px;
+}
+.rf .rf-terms-list li::marker {
+  color: var(--blue);
+  font-weight: 800;
+}
+.rf .rf-terms-privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--on-ink);
+  border-bottom: 1px solid var(--blue);
+  transition: color 0.2s var(--ease);
+}
+.rf .rf-terms-privacy:hover {
+  color: #8fb0f5;
+}
+.rf .rf-terms-privacy .arrow {
+  transition: transform 0.45s var(--ease-expo);
+}
+.rf .rf-terms-privacy:hover .arrow {
+  transform: translateX(4px);
+}
+/* The site's campaign footer carries on the same ink, under a rule
+   instead of a second strut. */
+body:has(.rf) .campaign-footer::before {
+  display: none;
+}
+body:has(.rf) .campaign-footer .wrap-wide {
+  border-top: 1px solid var(--on-ink-rule);
+}
+@media (max-width: 1080px) {
+  .rf .rf-values {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 760px) {
+  .rf .rf-terms-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rf .rf-values {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .rf .rf-value {
+    border-left: 0;
+    padding: 0;
+  }
+  .rf .rf-terms-alpaca {
+    display: none;
+  }
+  .rf .rf-terms-list {
+    columns: 1;
+  }
+}

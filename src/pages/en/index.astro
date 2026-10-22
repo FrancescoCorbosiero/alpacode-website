@@ -2,10 +2,13 @@
 import Layout from "../../components/Layout.astro";
 import Home from "../../components/pages/Home.astro";
 import { meta } from "../../i18n/ui";
+import { heroVideo } from "../../data/home";
 const lang = "en" as const;
 const m = meta.home;
 ---
 
 <Layout lang={lang} active="home" slug="" title={m.title[lang]} description={m.description[lang]}>
+  {/* The hero's poster is the first thing painted: fetch it with the HTML. */}
+  {heroVideo && <link slot="head" rel="preload" as="image" href={heroVideo.poster} type="image/webp" fetchpriority="high" />}
   <Home lang={lang} />
 </Layout>

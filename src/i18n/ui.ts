@@ -46,6 +46,8 @@ export const footer = {
   offers: { it: "Offerte su misura", en: "Tailored offers" },
   collaborate: { it: "Collabora con noi", en: "Collaborate with us" },
   partnerProgram: { it: "Programma partner", en: "Partner program" },
+  referral: { it: "Segnala un amico", en: "Refer a friend" },
+  referralNew: { it: "Segnala una nuova attività", en: "Refer a new business" },
   smmOffer: { it: "Per social media manager", en: "For social media managers" },
   commitment: { it: "Impegno", en: "Commitment" },
   sustainability: { it: "Sostenibilità ambientale", en: "Environmental sustainability" },

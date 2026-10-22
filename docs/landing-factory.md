@@ -6,7 +6,7 @@ two tracks. Pick the cheapest one that fits.
 | Track | When | Cost | Examples |
 | --- | --- | --- | --- |
 | **A — Campaign** | Selling the site offer to a new audience | 1 data entry, ~10 min | `/offerta/educatori-cinofili`, `/offerta/olistica-yoga` |
-| **B — Bespoke** | A different pitch (new product, program, offer structure) | 5 small files, ~1–2 h | `/social-media-manager`, `/partner` |
+| **B — Bespoke** | A different pitch (new product, program, offer structure) | 5 small files, ~1–2 h | `/social-media-manager`, `/partner`, `/voucher` |
 
 Both tracks ship IT + EN, SEO meta, lead form wired to `/api/contact`
 with per-campaign attribution, and the house design system. No new
@@ -75,9 +75,10 @@ magenta) and Partner (`ptn` prefix, green):
      `prefers-reduced-motion` fallback.
 3. **Styles** — `src/styles/<name>-landing.css`, imported in
    `src/styles/global.css`. Scope everything under one root class and
-   define a scoped palette. Accents already taken: blue (brand),
-   yellow (Hive), coral (Pro Kit), magenta `#ff2e88` (SMM), green
-   `#2fe08a` (Partner) — pick a new one, dark bg `#0a0a0a`, and keep
+   define a scoped palette. Accents already taken: blue (brand — and
+   the referral program, the flyer's own paper-and-blue), yellow (Hive),
+   coral (Pro Kit), magenta `#ff2e88` (SMM), green `#2fe08a` (Partner)
+   — pick a new one, dark bg `#0a0a0a`, and keep
    the brand DNA: square corners, 1px rules, the 6px strut, Archivo
    Black for display and Manrope for everything else. Kickers use the
    shared `.sec-num` (sentence case, no numbering, a short strut led by
@@ -118,3 +119,10 @@ magenta) and Partner (`ptn` prefix, green):
   accent color.
 - Every form posts to `/api/contact` with a distinct `campaign` value
   so leads are attributable per landing.
+- A landing that is a whole program (several pages, its own API) is a
+  module: `/voucher` (`docs/voucher.md`) keeps its pieces in
+  `components/voucher/`, its copy in `data/voucher/`, its scripts in
+  `lib/voucher/`, and imports its stylesheet from its views
+  (`styles/voucher.css`, scoped under `.rf`) so other pages don't carry
+  it. A new door for an existing program is a data entry there, not a
+  new landing (`/voucher/nuova-attivita/` is `program: "nuova-attivita"`).

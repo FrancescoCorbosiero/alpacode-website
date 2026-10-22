@@ -13,6 +13,12 @@ networks:
   caddy:
     external: true
 
+volumes:
+  # The referral program's ledger (/voucher): one JSON per line, the
+  # program's memory ("already referred?", "whose code is this?"). Back it
+  # up; `docker compose down -v` would delete it.
+  referral-data:
+
 services:
   alpacode-website:
     build:
@@ -29,6 +35,8 @@ services:
       - caddy
     expose:
       - "4321"
+    volumes:
+      - referral-data:/app/data
     environment:
       HOST: "0.0.0.0"
       PORT: "4321"
@@ -41,6 +49,12 @@ services:
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
       CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-info@alpacode.it}"
       CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-info@alpacode.it}"
+      # Referral program (/voucher, /api/referral) — see docs/voucher.md.
+      REFERRAL_SECRET: "${REFERRAL_SECRET:-}"
+      REFERRAL_LEDGER: "${REFERRAL_LEDGER:-/app/data/referrals.jsonl}"
+      REFERRAL_CONFIRM_EMAILS: "${REFERRAL_CONFIRM_EMAILS:-0}"
+      # Origin of the invite links the API hands out (default: the site's).
+      SITE_URL: "${SITE_URL:-}"
     labels:
       # caddy-docker-proxy: route the domain to this container's :4321 and
       # compress responses. HTTP->HTTPS redirect and TLS are automatic.

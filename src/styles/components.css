@@ -832,13 +832,18 @@
   transform-origin: left center;
 }
 
-/* Video skin. */
+/* Video skin — "blueprint". The footage (blue ink spreading in milk) is
+   graded at encode time into a duotone of the brand blue
+   (tools/media/hero-video.mjs): milk becomes #2f63d6, ink near-black blue.
+   That blue is the brightest any frame gets, so the paper type holds AA
+   (4.8:1) everywhere without a scrim; the scrim only deepens the edges.
+   The field behind the poster is the same blue. */
 .hero-media {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: var(--ink);
+  background: #2f63d6;
 }
 .hero-video {
   position: absolute;
@@ -848,26 +853,78 @@
   object-fit: cover;
   transform-origin: 50% 40%;
 }
-/* Ink scrim: dark enough under the type for AA contrast, lighter in the
-   middle so the footage still reads. */
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(10, 10, 10, 0.62) 0%, rgba(10, 10, 10, 0.3) 45%, rgba(10, 10, 10, 0.78) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 14, 20, 0.2) 0%,
+    rgba(11, 14, 20, 0) 32%,
+    rgba(11, 14, 20, 0) 62%,
+    rgba(11, 14, 20, 0.3) 100%
+  );
 }
 .hero--video::before {
   display: none;
 }
+.hero--video {
+  /* Kicker strut and logo strut: blue on blue would vanish. */
+  --kicker-strut: var(--paper);
+}
 .hero--video .hero-claim,
-.hero--video .hero-wordmark {
+.hero--video .hero-wordmark,
+.hero--video .hero-lede {
   color: var(--paper);
 }
+/* The highlighted word: a light tint of the blue, 3.5:1 on the brightest
+   frame (large text). */
 .hero--video .hero-claim em {
-  color: #8fb0f5;
+  color: #bcd0fa;
 }
-.hero--video .hero-lede {
-  color: rgba(240, 243, 249, 0.82);
+.hero--video .hero-bar {
+  background: var(--paper);
+}
+/* The primary call to action turns paper, so it doesn't melt into the
+   field; it still fills with ink on hover. */
+.hero--video .btn-blue {
+  --btn-fill: var(--ink);
+  --btn-fill-text: var(--paper);
+  --btn-fill-border: var(--ink);
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+/* Pause / play (WCAG 2.2.2). motion.ts unhides it once the video runs. */
+.hero-video-toggle {
+  position: absolute;
+  z-index: 2;
+  top: clamp(16px, 3vh, 28px);
+  right: var(--gutter);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(240, 243, 249, 0.5);
+  background: rgba(11, 14, 20, 0.28);
+  color: var(--paper);
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.hero-video-toggle:hover {
+  border-color: var(--paper);
+  background: var(--ink);
+}
+.hero-video-toggle[hidden] {
+  display: none;
+}
+.hero-video-play,
+.hero-video-toggle[aria-pressed="true"] .hero-video-pause {
+  display: none;
+}
+.hero-video-toggle[aria-pressed="true"] .hero-video-play {
+  display: block;
 }
 
 /* ---------- Sections ---------- */

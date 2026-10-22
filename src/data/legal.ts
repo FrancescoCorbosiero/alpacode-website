@@ -25,7 +25,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       updated: "Ultimo aggiornamento · 05.2026",
       sections: [
         { h: "Titolare del trattamento", body: "<p>Soluzioni Digitali Alpacode (di seguito “Alpacode”).<br>Sede operativa: Monza · Milano · IT.<br>P. IVA: 14463350968.<br>Email: <a href=\"mailto:info@alpacode.it\">info@alpacode.it</a>.</p>" },
-        { h: "Quali dati raccogliamo", body: "<p>Raccogliamo solo i dati che ci fornisci direttamente attraverso il modulo di contatto (nome, email, azienda, argomento, budget, messaggio) o la prenotazione di una call. Non utilizziamo profilazione né tracciamenti cross-site.</p>" },
+        { h: "Quali dati raccogliamo", body: "<p>Raccogliamo solo i dati che ci fornisci direttamente attraverso il modulo di contatto (nome, email, azienda, argomento, budget, messaggio) o la prenotazione di una call. Non utilizziamo profilazione né tracciamenti cross-site.</p><p>Il programma «Segnala un amico» raccoglie anche i dati di chi viene segnalato: per quello vale la sua <a href=\"/voucher/privacy/\">informativa dedicata</a>.</p>" },
         { h: "Base giuridica", body: "<ul><li>Consenso (art. 6.1.a GDPR) per il modulo di contatto.</li><li>Esecuzione del contratto (art. 6.1.b GDPR) per i nostri clienti.</li><li>Legittimo interesse (art. 6.1.f GDPR) per la sicurezza del sito e gli analytics anonimi e aggregati.</li></ul>" },
         { h: "Conservazione", body: "<p>I dati vengono conservati per il tempo necessario a rispondere alla tua richiesta e a gestire l'eventuale rapporto contrattuale, e comunque non oltre i termini previsti dalle norme civilistiche e fiscali applicabili.</p>" },
         { h: "Servizi di terze parti", body: "<p>Per consegnare le email utilizziamo <strong>Amazon Web Services (SES)</strong>. Per la prenotazione delle call utilizziamo <strong>Cal.com</strong>. Per analytics anonimi (su tuo consenso) utilizziamo <strong>Umami</strong> in self-hosting. Ognuno è autonomo titolare del trattamento per i dati che gestisce direttamente.</p>" },
@@ -42,7 +42,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       updated: "Last updated · 05.2026",
       sections: [
         { h: "Data controller", body: "<p>Soluzioni Digitali Alpacode (“Alpacode”).<br>Studio: Monza · Milan · IT.<br>VAT: 14463350968.<br>Email: <a href=\"mailto:info@alpacode.it\">info@alpacode.it</a>.</p>" },
-        { h: "What we collect", body: "<p>We only collect the data you provide us directly through the contact form (name, email, company, topic, budget, message) or when you book a call. No profiling, no cross-site tracking.</p>" },
+        { h: "What we collect", body: "<p>We only collect the data you provide us directly through the contact form (name, email, company, topic, budget, message) or when you book a call. No profiling, no cross-site tracking.</p><p>The refer-a-friend program also collects the data of the people being referred: its <a href=\"/en/voucher/privacy/\">own privacy notice</a> applies there.</p>" },
         { h: "Legal basis", body: "<ul><li>Consent (Art. 6.1.a GDPR) for the contact form.</li><li>Performance of the contract (Art. 6.1.b GDPR) for clients.</li><li>Legitimate interest (Art. 6.1.f GDPR) for site security and aggregated, anonymous analytics.</li></ul>" },
         { h: "Retention", body: "<p>Data is kept for the time needed to reply to your request and manage any contractual relationship, and in any case no longer than required by applicable civil and tax laws.</p>" },
         { h: "Third-party services", body: "<p>To deliver email we use <strong>Amazon Web Services (SES)</strong>. For call booking we use <strong>Cal.com</strong>. For anonymous analytics (with your consent) we use <strong>Umami</strong>, self-hosted. Each is an independent data controller for the data it directly processes.</p>" },
@@ -61,7 +61,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       updated: "Ultimo aggiornamento · 05.2026",
       sections: [
         { h: "Cosa sono i cookie", body: "<p>I cookie sono piccoli file di testo che il sito archivia sul tuo dispositivo per ricordare preferenze o raccogliere statistiche d'uso.</p>" },
-        { h: "Cookie tecnici (sempre attivi)", body: "<p>Necessari al funzionamento del sito — preferenza di lingua, gestione del consenso, sicurezza. Non richiedono il tuo consenso e non possono essere disattivati.</p>" },
+        { h: "Cookie tecnici (sempre attivi)", body: "<p>Necessari al funzionamento del sito — preferenza di lingua, gestione del consenso, sicurezza. Non richiedono il tuo consenso e non possono essere disattivati. Allo stesso modo, se generi un link del programma «Segnala un amico», il tuo nome e il tuo codice restano salvati nel tuo browser (localStorage) per mostrartelo di nuovo quando torni: puoi cancellarli con «Genera un altro link».</p>" },
         { h: "Cookie di analytics (opzionali)", body: "<p>Conteggi anonimi delle visite tramite <strong>Umami</strong> self-hosted. Si attivano solo se li accetti dal banner. Non profilano gli utenti né condividono dati con terze parti.</p>" },
         { h: "Servizi di terze parti", body: "<p>Quando avvii la prenotazione di una call, <strong>Cal.com</strong> imposta cookie tecnici sul suo dominio per gestire la sessione di booking.</p>" },
         { h: "Gestione del consenso", body: "<p>Puoi rivedere le tue preferenze in qualsiasi momento <button type=\"button\" class=\"cookie-link\" data-cookie-prefs>aprendo le impostazioni dei cookie</button>.</p>" },
@@ -76,7 +76,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       updated: "Last updated · 05.2026",
       sections: [
         { h: "What cookies are", body: "<p>Cookies are small text files the site stores on your device to remember preferences or collect usage statistics.</p>" },
-        { h: "Strictly necessary (always on)", body: "<p>Required for the site to work — language preference, consent management, security. They don't need your consent and can't be disabled.</p>" },
+        { h: "Strictly necessary (always on)", body: "<p>Required for the site to work — language preference, consent management, security. They don't need your consent and can't be disabled. Likewise, if you get a refer-a-friend link, your name and code stay in your browser (localStorage) to show it again when you come back: “Get another link” clears them.</p>" },
         { h: "Analytics (optional)", body: "<p>Anonymous visit counts via self-hosted <strong>Umami</strong>. Activated only if you accept from the banner. No user profiling, no data shared with third parties.</p>" },
         { h: "Third-party services", body: "<p>When you start booking a call, <strong>Cal.com</strong> sets technical cookies on its own domain to manage the booking session.</p>" },
         { h: "Managing consent", body: "<p>You can review your preferences any time by <button type=\"button\" class=\"cookie-link\" data-cookie-prefs>opening cookie settings</button>.</p>" },

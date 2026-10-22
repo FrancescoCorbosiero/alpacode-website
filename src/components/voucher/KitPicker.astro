@@ -1,0 +1,94 @@
+---
+/* ============================================================
+   The new-business door's signature element: "Che attività ha
+   aperto?". Pick the kind of business and the board shows the four
+   things we'd usually start from (data/voucher/kit.ts — real
+   services only); on the landing the message for the friend follows
+   ("Ho saputo che hai aperto il locale…"), on the invite the form's
+   own question is answered with it (lib/voucher/*.ts).
+
+   Works without JavaScript: the chips are radios and the boards
+   swap on :has(:checked) — the script only keeps the twins in sync
+   and mirrors the choice in [data-kit-active] (for browsers without
+   :has). Each board's items settle in on swap (voucher.css). It has its
+   own call to action, so the sticky pill steps aside meanwhile.
+   ============================================================ */
+import type { Lang } from "../../i18n/types";
+import { kit } from "../../data/voucher/kit";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  copy: { kicker: string; title: string; lede: string; legend: string; board: string; note: string; cta: string };
+  /** Where the CTA goes: the link studio, or the invite's form. */
+  ctaHref: string;
+}
+const { lang, copy, ctaHref } = Astro.props;
+const { items, types } = kit[lang];
+const first = types[0]?.id ?? "altro";
+---
+
+<section class="rf-section rf-kit" id="kit" aria-labelledby="kit-title" data-kit data-kit-active={first} data-sticky-hide>
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{copy.kicker}</div>
+        <h2 id="kit-title">{copy.title}</h2>
+      </div>
+      <p class="lede">{copy.lede}</p>
+    </div>
+
+    <div class="rf-kit-grid">
+      <fieldset class="rf-kit-picker">
+        <legend class="rf-kit-legend">{copy.legend}</legend>
+        <div class="rf-kit-types">
+          {
+            types.map((t, i) => (
+              <label class="rf-kit-type">
+                <input class="visually-hidden" type="radio" name="kit-type" value={t.id} checked={i === 0} />
+                <span class="rf-kit-type-icon" aria-hidden="true">
+                  <Icon name={t.icon} size={22} />
+                </span>
+                <span class="rf-kit-type-label">{t.label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <div class="rf-kit-stage">
+        {
+          types.map((t) => (
+            <div class="rf-kit-board" data-board={t.id}>
+              <p class="rf-kit-board-head">
+                <span>{copy.board}</span>
+                <strong>{t.label}</strong>
+              </p>
+              <ol class="rf-kit-items">
+                {t.kit.map((id, i) => {
+                  const it = items[id];
+                  return (
+                    <li class="rf-kit-item" style={`--i:${i}`}>
+                      <span class="rf-kit-n" aria-hidden="true">
+                        {i + 1}
+                      </span>
+                      <span class="rf-kit-icon" aria-hidden="true">
+                        <Icon name={it.icon} size={26} />
+                      </span>
+                      <h3>{it.t}</h3>
+                      <p>{it.d}</p>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          ))
+        }
+        <div class="rf-kit-foot">
+          <p class="rf-kit-note">{copy.note}</p>
+          <a class="btn btn-blue" href={ctaHref}>{copy.cta} <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

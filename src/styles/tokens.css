@@ -19,6 +19,15 @@
   --blue: #3b72e9;
   --blue-deep: #2756c2;
   --blue-soft: #dce5fa;
+  /* The brand blue a hair deeper, for fills that carry small white text
+     (buttons, pills): #3b72e9 gives 4.4:1 with white, this gives 4.6:1 —
+     WCAG AA — and reads as the same blue. */
+  --blue-fill: #376fe4;
+  /* Ink-band tints (paper at reduced strength on --ink). */
+  --on-ink: #f0f3f9;
+  --on-ink-mute: rgba(240, 243, 249, 0.66);
+  --on-ink-faint: rgba(240, 243, 249, 0.42);
+  --on-ink-rule: rgba(240, 243, 249, 0.16);
 
   /* Type */
   --display: "Archivo Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -28,6 +37,10 @@
      11px, uppercase, 0.2em tracking) read as template furniture and are
      retired. */
   --label: var(--sans);
+  /* The referral program's handwritten line ("Più persone nel mondo
+     digitale. Insieme.") — the one deliberate third face, as on the printed
+     flyer. Loaded only by the pages that use it (voucher/HandLine.astro). */
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
   /* Scale */
   --strut: 6px; /* the blue bar height */
@@ -39,6 +52,8 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   /* expo-out — the long, soft landing the GSAP reveals use (power4.out) */
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  /* back-out — a small overshoot, for things that stamp or snap in */
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --dur-1: 600ms;
   --dur-2: 800ms;
   --dur-3: 1000ms;
@@ -79,10 +94,12 @@
 }
 
 /* Ink-by-design surfaces: restore the light palette inside. The two
-   bespoke dark landings (SMM, Partner) are pinned at body level — their
-   whole page, campaign chrome included, is designed against the light
-   token values and must not follow the theme. */
+   bespoke dark landings (SMM, Partner) and the referral program (.rf, the
+   printed flyer's paper-and-ink composition, white cards included) are
+   pinned at body level — their whole page, campaign chrome included, is
+   designed against the light token values and must not follow the theme. */
 :root[data-theme="dark"] .manifesto,
+:root[data-theme="dark"] .hero--video,
 :root[data-theme="dark"] .ticker:not(.ticker--xl),
 :root[data-theme="dark"] .site-footer,
 :root[data-theme="dark"] .band-dark,
@@ -93,7 +110,8 @@
 :root[data-theme="dark"] .product--featured,
 :root[data-theme="dark"] .cmdk-item.is-on,
 :root[data-theme="dark"] body:has(.smm),
-:root[data-theme="dark"] body:has(.ptn) {
+:root[data-theme="dark"] body:has(.ptn),
+:root[data-theme="dark"] body:has(.rf) {
   --ink: #0b0e14;
   --ink-2: #1a1f2b;
   --paper: #f0f3f9;
@@ -103,4 +121,7 @@
   --mute: #687387;
   --mute-2: #465065;
   --blue-soft: #dce5fa;
+}
+:root[data-theme="dark"] body:has(.rf) {
+  color-scheme: light;
 }

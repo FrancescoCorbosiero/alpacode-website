@@ -1,0 +1,170 @@
+---
+/* ============================================================
+   A door of «Segnala un amico» — the referrer's page. For "sito"
+   (/voucher/) it is the printed flyer, top to bottom:
+     hero (headline, 100€ sticker, payout line, photo)
+     · "Scegli come riceverlo" · "Come funziona?"
+     · [new] the link studio (personal link / direct referral)
+     · the QR band · [new] why recommend us · [new] FAQ
+     · [new] cross-links · [new] final CTA
+     · the flyer's footer: values and "Note e condizioni".
+   "nuova-attivita" (/voucher/nuova-attivita/) is the same page for
+   someone who just opened a business: the shop sign instead of the
+   photo, and the kit board (what they'll need) before the payout.
+   ============================================================ */
+import "../../styles/voucher.css";
+import type { Lang } from "../../i18n/types";
+import { landing } from "../../data/voucher/landing";
+import { shared } from "../../data/voucher/shared";
+import { business } from "../../data/business";
+import { localizePath } from "../../i18n/utils";
+import { programPath, type ProgramId } from "../../lib/voucher/program";
+import Sticker from "./Sticker.astro";
+import HeroPhoto from "./HeroPhoto.astro";
+import OpenSign from "./OpenSign.astro";
+import Ticker from "../Ticker.astro";
+import KitPicker from "./KitPicker.astro";
+import PayoutPicker from "./PayoutPicker.astro";
+import Steps from "./Steps.astro";
+import ReferralStudio from "./ReferralStudio.astro";
+import QrBand from "./QrBand.astro";
+import Why from "./Why.astro";
+import Faq from "./Faq.astro";
+import CrossCard from "./CrossCard.astro";
+import StickyCta from "./StickyCta.astro";
+import Terms from "./Terms.astro";
+import Alpaca from "../Alpaca.astro";
+
+interface Props {
+  lang: Lang;
+  program: ProgramId;
+}
+const { lang, program } = Astro.props;
+const c = landing[program][lang];
+const s = shared[lang];
+const h = c.hero;
+const lastLine = h.lines.length - 1;
+/* "… tramite **bonifico**, **PayPal** o **buono acquisto**, …" as one run of
+   text — no template whitespace sneaking in before the commas. */
+const methods = h.payoutMethods;
+const payline: { t: string; strong?: boolean }[] = [{ t: h.payoutBefore }];
+methods.forEach((m, i) => {
+  payline.push({ t: m, strong: true });
+  if (i < methods.length - 2) payline.push({ t: h.payoutJoin.comma });
+  else if (i === methods.length - 2) payline.push({ t: h.payoutJoin.or });
+});
+payline.push({ t: h.payoutAfter });
+const crossHref = (to: (typeof c.cross)[number]["to"]) =>
+  to === "partner" ? localizePath("partner", lang) : programPath(to, lang);
+---
+
+<div class:list={["rf", `rf--${program}`]} data-page="landing">
+  {/* ---------- HERO ---------- */}
+  <section class="rf-hero" data-hero aria-labelledby="hero-title">
+    <div class="wrap-wide rf-hero-grid">
+      <div class="rf-hero-copy" data-hero-content>
+        <p class="sec-num rf-hero-kicker" data-intro style="--intro-d:0.02s">{h.kicker}</p>
+        <h1 class="rf-h1 intro-lines" id="hero-title">
+          {
+            h.lines.map((l, i) => (
+              <span class="line">
+                <span>
+                  {l}
+                  {i === lastLine && (
+                    <>
+                      {" "}
+                      <em>{h.accent}</em>
+                    </>
+                  )}
+                </span>
+              </span>
+            ))
+          }
+        </h1>
+        <p class="rf-lede" data-intro style="--intro-d:0.42s">
+          {h.lede} <strong>{h.ledeStrong}</strong>
+        </p>
+
+        <div class="rf-hero-sticker">
+          <Sticker pre={h.sticker.pre} amount={h.sticker.amount} post={h.sticker.post} aria={h.sticker.aria} href="#cashback" />
+        </div>
+
+        <p class="rf-payline" data-intro style="--intro-d:1.05s">
+          {payline.map((part) => (part.strong ? <strong>{part.t}</strong> : part.t))}
+        </p>
+
+        <div class="rf-hero-ctas" data-intro style="--intro-d:1.15s">
+          <a class="btn btn-blue btn-lg" href="#segnala">{h.ctaPrimary} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost btn-lg" href={h.ctaSecondary.href}>{h.ctaSecondary.label} <span class="arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <div class="rf-hero-media" data-intro style="--intro-d:0.2s">
+        {program === "nuova-attivita" ? <OpenSign lang={lang} /> : <HeroPhoto alt={s.photoAlt} />}
+      </div>
+    </div>
+  </section>
+
+  <Ticker items={c.ticker} follow alpaca />
+
+  {c.kit && <KitPicker lang={lang} copy={c.kit} ctaHref="#segnala" />}
+
+  <PayoutPicker
+    kicker={s.payout.kicker}
+    title={s.payout.title}
+    lede={s.payout.lede}
+    options={s.payouts}
+    chosen={s.payout.chosen}
+    choose={s.payout.choose}
+  />
+
+  <Steps kicker={s.steps.kicker} title={s.steps.title} lede={s.steps.lede} items={s.steps.items} />
+
+  <div data-sticky-hide>
+    <ReferralStudio lang={lang} program={program} />
+  </div>
+
+  <QrBand lang={lang} program={program} />
+
+  <Why kicker={s.why.landing.kicker} title={s.why.landing.title} lede={s.why.landing.lede} items={s.why.items} />
+
+  <Faq kicker={c.faq.kicker} title={c.faq.title} items={c.faq.items} />
+
+  <section class="rf-cross-sec" aria-label={c.cross.map((x) => x.title).join(" · ")}>
+    <div class="wrap-wide rf-cross-grid">
+      {
+        c.cross.map((x) => (
+          <CrossCard href={crossHref(x.to)} tag={x.tag} title={x.title} body={x.body} cta={x.cta} accent={x.to === "partner" ? "partner" : "blue"} />
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ---------- FINAL CTA ---------- */}
+  <section class="rf-final" aria-labelledby="final-title" data-sticky-hide>
+    <Alpaca class="rf-final-alpaca" width={460} data-alpaca="walk-in" />
+    <div class="wrap-wide">
+      <div class="sec-num rf-final-kicker">{c.final.kicker}</div>
+      <h2 class="rf-final-display" id="final-title" data-split="pop">
+        {c.final.line1}
+        <br />
+        <span class="rf-final-accent">{c.final.line2}</span>
+      </h2>
+      <p class="rf-final-sub">{c.final.sub}</p>
+      <div class="rf-final-actions">
+        <a class="btn btn-blue btn-lg" href="#segnala">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-on-ink btn-lg" href={`mailto:${business.email}?subject=${encodeURIComponent(c.final.altSubject)}`}>
+          {c.final.alt} <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Terms lang={lang} />
+
+  <StickyCta label={c.sticky} href="#segnala" />
+</div>
+
+<script>
+  import "../../lib/voucher/landing.ts";
+</script>

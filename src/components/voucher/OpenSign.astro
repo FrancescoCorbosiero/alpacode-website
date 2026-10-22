@@ -1,0 +1,46 @@
+---
+/* The new-business door's hero image: the shop sign every opening
+   starts with. It hangs from the blue strut, flips from CHIUSO to APERTO
+   as the page opens, swings to rest and leans toward the pointer
+   (data-tilt); the alpaca of the name stands on the rail, and the
+   flyer's handwritten line sits underneath. Pure CSS (voucher.css) —
+   under reduced motion it simply reads APERTO. Decorative: the h1 says
+   it. */
+import type { Lang } from "../../i18n/types";
+import { shared } from "../../data/voucher/shared";
+import Alpaca from "../Alpaca.astro";
+import HandLine from "./HandLine.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t =
+  lang === "it"
+    ? { kicker: "Nuova attività", open: "APERTO", closed: "CHIUSO", hours: "Siamo online" }
+    : { kicker: "New business", open: "OPEN", closed: "CLOSED", hours: "Now online" };
+---
+
+<div class="rf-sign-stage" aria-hidden="true">
+  <span class="rf-sign-rail"></span>
+  <Alpaca class="rf-sign-alpaca" width={58} data-alpaca />
+  <div class="rf-sign" data-tilt>
+    <div class="rf-sign-swing">
+      <svg class="rf-sign-cords" viewBox="0 0 100 40" preserveAspectRatio="none">
+        <path d="M50 1 8 40M50 1l42 39" fill="none" stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke"></path>
+      </svg>
+      <span class="rf-sign-hook"></span>
+      <div class="rf-sign-card">
+        <div class="rf-sign-face rf-sign-face--front">
+          <span class="rf-sign-kicker">{t.kicker}</span>
+          <span class="rf-sign-word">{t.open}</span>
+          <span class="rf-sign-hours">{t.hours}</span>
+        </div>
+        <div class="rf-sign-face rf-sign-face--back">
+          <span class="rf-sign-word">{t.closed}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <HandLine lines={shared[lang].campaignLine} class="rf-sign-hand" />
+</div>

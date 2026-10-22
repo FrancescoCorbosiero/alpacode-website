@@ -28,15 +28,18 @@ export const hero: Record<Lang, HeroData> = {
   },
 };
 
-/* ---------------- Hero background video (optional) ----------------
+/* ---------------- Hero background video ----------------
    null → the typographic hero (brand lockup over the cube field).
-   Set it → the hero becomes full-bleed video under an ink scrim, with
-   paper-colored type. Files go in public/media/. Specs that keep the page
-   fast: 1920×1080 (or 1600×900), 8–20 s seamless loop, no audio track,
-   H.264 MP4 ≤ 6 MB (+ optional VP9/AV1 WebM, usually ~40% smaller), and
-   a JPG/WebP poster of the first frame. Reduced-motion visitors and
-   Save-Data connections get the poster only. Example:
-     { mp4: "/media/hero.mp4", webm: "/media/hero.webm", poster: "/media/hero-poster.jpg" } */
+   Set → the "blueprint" hero: full-bleed video in a duotone of the brand
+   blue, paper-colored type (components.css, .hero--video). The footage
+   (blue ink spreading in milk) is made web-ready by
+   tools/media/hero-video.mjs (`npm run hero-video`, needs ffmpeg) from
+   tools/media/hero-source.mp4: a seamless crossfaded loop, the blue grade
+   that keeps the type AA without a scrim, VP9 WebM + H.264 MP4 with no
+   audio, and the first frame as poster. Replace the source and re-run it;
+   another clip works as long as it gets the same grade. Reduced-motion
+   visitors and Save-Data connections get the poster only; everyone else
+   gets a pause button (WCAG 2.2.2). */
 export interface HeroVideo {
   /** H.264 MP4 — required, plays everywhere. */
   mp4: string;
@@ -47,7 +50,11 @@ export interface HeroVideo {
   poster: string;
 }
 
-export const heroVideo: HeroVideo | null = null;
+export const heroVideo: HeroVideo | null = {
+  mp4: "/media/hero.mp4",
+  webm: "/media/hero.webm",
+  poster: "/media/hero-poster.webp",
+};
 
 /* ---------------- Statement (between the pitch and the services) ---------------- */
 export const homeStatement: Record<Lang, string> = {

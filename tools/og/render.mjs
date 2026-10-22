@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 /* ============================================================
-   OG card renderer — tools/og/*.svg  ->  public/*.png
+   OG card renderer — tools/og/*.svg  ->  public/*.png (or .jpg)
 
    Link-preview scrapers (WhatsApp, Facebook, LinkedIn, X…) do
    not render SVG og:images, so the SVG sources in this folder
    are design masters only. This script rasterises them to the
-   1200×630 PNGs the site actually serves, using headless
+   1200×630 images the site actually serves, using headless
    Chrome with the real brand fonts (@fontsource packages)
    inlined — no extra npm dependencies.
+
+   Cards that carry a photo ({{PHOTO}} in the SVG: the referral
+   program's flyer photo, public/media/amici-laptop-800.jpg) come
+   out as JPEG — WhatsApp drops preview images much above ~300 kB,
+   and a photo in PNG is well over that. Everything else is PNG.
 
    Run after adding or editing a card:   npm run og
    Chrome is auto-detected; override with OG_CHROME=/path/to/chrome.
@@ -31,18 +36,25 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const outDir = join(root, "public");
 
-/* The three brand families. The SVGs only use regular weight; the
-   latin subset covers Italian diacritics, "·", "—" and "€". */
+/* The brand families, at the weights the SVGs use (Manrope 500–800 and
+   the flyer's hand are the referral program's cards). The latin subset
+   covers Italian diacritics, "·", "—" and "€". */
 const FONTS = [
-  ["Archivo Black", "@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2"],
-  ["Manrope", "@fontsource/manrope/files/manrope-latin-400-normal.woff2"],
-  ["JetBrains Mono", "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2"],
+  ["Archivo Black", 400, "@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2"],
+  ["Manrope", 400, "@fontsource/manrope/files/manrope-latin-400-normal.woff2"],
+  ["Manrope", 500, "@fontsource/manrope/files/manrope-latin-500-normal.woff2"],
+  ["Manrope", 700, "@fontsource/manrope/files/manrope-latin-700-normal.woff2"],
+  ["Manrope", 800, "@fontsource/manrope/files/manrope-latin-800-normal.woff2"],
+  ["JetBrains Mono", 400, "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2"],
+  ["Caveat", 600, "@fontsource/caveat/files/caveat-latin-600-normal.woff2"],
 ];
 
-const fontCss = FONTS.map(([family, rel]) => {
+const fontCss = FONTS.map(([family, weight, rel]) => {
   const woff2 = readFileSync(join(root, "node_modules", rel)).toString("base64");
-  return `@font-face{font-family:"${family}";font-style:normal;font-weight:400;src:url(data:font/woff2;base64,${woff2}) format("woff2")}`;
+  return `@font-face{font-family:"${family}";font-style:normal;font-weight:${weight};src:url(data:font/woff2;base64,${woff2}) format("woff2")}`;
 }).join("\n");
+
+const PHOTO = `data:image/jpeg;base64,${readFileSync(join(root, "public", "media", "amici-laptop-800.jpg")).toString("base64")}`;
 
 function findChrome() {
   const candidates = [
@@ -66,7 +78,7 @@ const chrome = findChrome();
 const work = mkdtempSync(join(tmpdir(), "og-"));
 let shots = 0;
 
-async function renderSvgTo(svgText, outPng, label) {
+async function renderSvgTo(svgText, outFile, label) {
   const html = `<!doctype html><meta charset="utf-8"><style>${fontCss}\nhtml,body{margin:0;padding:0}svg{display:block}</style>${svgText}`;
   const page = join(work, `page-${shots}.html`);
   const shot = join(work, `shot-${shots}.png`);
@@ -92,16 +104,15 @@ async function renderSvgTo(svgText, outPng, label) {
     { stdio: "pipe" },
   );
 
-  await sharp(shot)
-    .extract({ left: 0, top: 0, width: WIDTH, height: HEIGHT })
-    .png()
-    .toFile(outPng);
+  const cropped = sharp(shot).extract({ left: 0, top: 0, width: WIDTH, height: HEIGHT });
+  await (outFile.endsWith(".jpg") ? cropped.jpeg({ quality: 86, mozjpeg: true, chromaSubsampling: "4:4:4" }) : cropped.png()).toFile(outFile);
 
-  const meta = await sharp(outPng).metadata();
+  const meta = await sharp(outFile).metadata();
   if (meta.width !== WIDTH || meta.height !== HEIGHT) {
     throw new Error(`${label}: rendered ${meta.width}×${meta.height}, expected ${WIDTH}×${HEIGHT}`);
   }
-  const kb = Math.round(readFileSync(outPng).length / 1024);
+  const kb = Math.round(readFileSync(outFile).length / 1024);
+  if (kb > 300) console.warn(`! ${label}: ${kb} kB — WhatsApp may skip previews above ~300 kB`);
   console.log(`✓ ${label} (${meta.width}×${meta.height}, ${kb} kB)`);
 }
 
@@ -112,11 +123,12 @@ if (sources.length === 0) {
 }
 
 try {
-  // 1) Static cards: tools/og/*.svg -> public/*.png (og:image assets).
+  // 1) Static cards: tools/og/*.svg -> public/*.png|jpg (og:image assets).
   for (const svgFile of sources) {
-    const svg = readFileSync(join(here, svgFile), "utf8");
-    const png = join(outDir, svgFile.replace(/\.svg$/, ".png"));
-    await renderSvgTo(svg, png, `${svgFile} -> public/${svgFile.replace(/\.svg$/, ".png")}`);
+    const raw = readFileSync(join(here, svgFile), "utf8");
+    const ext = raw.includes("{{PHOTO}}") ? ".jpg" : ".png";
+    const out = svgFile.replace(/\.svg$/, ext);
+    await renderSvgTo(raw.replaceAll("{{PHOTO}}", PHOTO), join(outDir, out), `${svgFile} -> public/${out}`);
   }
 
   // 2) Blog covers: generated from specs -> src/assets/blog/<slug>.png,

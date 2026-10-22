@@ -1,0 +1,24 @@
+---
+import Layout from "../../../components/Layout.astro";
+import Legal from "../../../components/pages/Legal.astro";
+import { privacy } from "../../../data/voucher/privacy";
+import { landing } from "../../../data/voucher/landing";
+import { programPath, PRIVACY_SLUG } from "../../../lib/voucher/program";
+
+const lang = "en" as const;
+const c = privacy[lang];
+---
+
+<Layout
+  lang={lang}
+  slug={PRIVACY_SLUG}
+  title={c.title}
+  description={c.description}
+  ogImage={landing.sito[lang].meta.ogImage}
+  ogAlt={landing.sito[lang].meta.ogAlt}
+  minimal
+  ctaLabel={landing.sito[lang].headerCta}
+  ctaHref={`${programPath("sito", lang)}#segnala`}
+>
+  <Legal lang={lang} doc={c} back={{ href: programPath("sito", lang), label: c.back }} />
+</Layout>
