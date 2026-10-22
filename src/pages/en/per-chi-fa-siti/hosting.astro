@@ -1,0 +1,35 @@
+---
+import Layout from "../../../components/Layout.astro";
+import HostingLanding from "../../../components/landing/HostingLanding.astro";
+import { hosting } from "../../../data/landing/hosting";
+import { leadForm } from "../../../data/landing/shared";
+import { landingJsonLd } from "../../../lib/landing/schema";
+
+const lang = "en" as const;
+const c = hosting[lang];
+const GROUP = { it: "Per chi fa siti", en: "For people who build sites" };
+---
+
+<Layout
+  lang={lang}
+  slug="per-chi-fa-siti/hosting"
+  title={c.meta.title}
+  description={c.meta.description}
+  ogImage="/og-hosting.png"
+  ogAlt={c.meta.ogAlt}
+  jsonLd={landingJsonLd({
+    lang,
+    site: Astro.site ?? new URL("https://alpacode.it"),
+    crumbs: [
+      { name: GROUP[lang], slug: "per-chi-fa-siti" },
+      { name: "Hosting", slug: "per-chi-fa-siti/hosting" },
+    ],
+    faq: c.qa.items,
+  })}
+  minimal
+  themeColor="#f0f3f9"
+  ctaLabel={leadForm[lang].sticky}
+  ctaHref="#formula"
+>
+  <HostingLanding lang={lang} />
+</Layout>

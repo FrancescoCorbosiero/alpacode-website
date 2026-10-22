@@ -1,0 +1,303 @@
+---
+/* /social-media-manager — copy in data/smm-landing.ts (price, seats and
+   the round from the social-media-manager campaign). The mirror's typing
+   is lib/landing/mirror.ts; its links moving into the site and the
+   rented-land notifications are scenes (lib/landing/scenes.ts). */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { smmLanding, SMM_CAMPAIGN } from "../../data/smm-landing";
+import { COPY, offerVariants, t } from "../../data/campaigns";
+import { portals } from "../../data/audiences";
+import { fill } from "../../i18n/utils";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import Lines from "./Lines.astro";
+import Objections from "./Objections.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Sticky from "./Sticky.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = smmLanding[lang];
+const camp = SMM_CAMPAIGN;
+const h = c.hero;
+const m = c.mirror;
+const variants = offerVariants(camp.price);
+
+/* The mirror's first paint, from the placeholder name (lib/landing/mirror.ts
+   does the same as you type). */
+const slugify = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "")
+    .slice(0, 24);
+const initialsOf = (s: string) =>
+  s
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+const defName = m.inputPlaceholder;
+const defSlug = slugify(defName);
+const mailbox = lang === "it" ? "ciao" : "hi";
+
+const deadline = new Date(camp.deadlineISO);
+const date = new Intl.DateTimeFormat(lang === "it" ? "it-IT" : "en-GB", { day: "numeric", month: "long" }).format(deadline);
+const round =
+  fill(t(COPY.round, lang), { n: String(camp.seats), date }) +
+  (camp.seatsLeft < camp.seats ? ` · ${fill(t(COPY.left, lang), { n: String(camp.seatsLeft) })}` : "");
+const TINTS = ["#ff2e88", "#ffd400", "#2ee6c5", "#8fb0f5", "#ff6b1a", "#2fe08a"];
+const band = `${c.band.join(" · ")} · `;
+---
+
+<div class="lnd lnd--smm">
+  {/* ---------- Hero ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-hero" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-ac" style={`--i:${h.lines.length}`}><Mark kind="underline">{h.accent.replace(/\?$/, "")}</Mark>?</span>
+      </h1>
+      <div class="lnd-hero-row">
+        <div class="lnd-hero-copy">
+          <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+          <div class="lnd-actions" data-intro style="--i:4">
+            <a class="btn btn-ac btn-lg" href="#parliamone" data-magnetic>{h.cta} <span class="arrow">→</span></a>
+            <a class="lnd-link" href="#specchio">{h.alt} <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="lnd-round" data-intro style="--i:5" data-round data-deadline={camp.deadlineISO} data-closed={t(COPY.closed, lang)}>
+            {round}
+          </p>
+        </div>
+        <div class="lnd-hero-machine lnd-feedbox" aria-hidden="true">
+          <div class="lnd-feedphone">
+            <div class="lnd-feed-me">
+              <span class="lnd-feed-avatar">{initialsOf(defName)}</span>
+              <span>
+                <b>{h.me}</b>
+                <small>0 post</small>
+              </span>
+            </div>
+            <div class="lnd-feed-window">
+              <ul class="lnd-feed">
+                {
+                  [...h.feed, ...h.feed].map((handle, i) => (
+                    <li class="lnd-post">
+                      <span class="lnd-post-who">{handle}</span>
+                      <i style={`--t:${TINTS[i % TINTS.length]}`} />
+                      <span class="lnd-post-likes">♥ {(1.2 + (i % 6) * 0.7).toFixed(1).replace(".", lang === "it" ? "," : ".")}K</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+          <Hand class="lnd-feed-note" arrow="left">{h.note}</Hand>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lnd-band lnd-plate--ink" data-kinetic aria-label={c.band.join(", ")}>
+    <span class="lnd-band-line" data-kinetic-line="1" aria-hidden="true">{band.repeat(3)}</span>
+    <span class="lnd-band-line lnd-band-line--out" data-kinetic-line="-1" aria-hidden="true">{band.repeat(3)}</span>
+  </section>
+
+  {/* ---------- The mirror ---------- */}
+  <section class="lnd-plate lnd-mirror" id="specchio" data-mirror data-tld={m.tld} data-mailbox={mailbox} data-fallback={defName}>
+    <div class="lnd-wrap">
+      <div class="lnd-mirror-head">
+        <h2 class="lnd-title lnd-title--md" data-split><Lines text={m.title} /></h2>
+        <div>
+          <p class="lnd-lede" data-reveal>{m.lede}</p>
+          <label class="lnd-try">
+            <span>{m.inputLabel}</span>
+            <input type="text" maxlength="26" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder={m.inputPlaceholder} data-mirror-name />
+          </label>
+        </div>
+      </div>
+      <div class="lnd-mirror-stage" data-scene="mirror">
+        <div class="lnd-mirror-col">
+          <span class="lnd-mirror-tag">{m.leftTag}</span>
+          <div class="lnd-bio" aria-hidden="true">
+            <div class="lnd-bio-avatar"><span data-m-initials>{initialsOf(defName)}</span></div>
+            <div class="lnd-bio-handle" data-m-handle>@{defSlug}</div>
+            <div class="lnd-bio-sub">{m.leftBio}</div>
+            <div class="lnd-bio-links">{m.leftLinks.map((l) => <span class="lnd-bio-link">{l}</span>)}</div>
+          </div>
+          <p class="lnd-mirror-foot">{m.leftFoot}</p>
+        </div>
+        <div class="lnd-mirror-plus" aria-hidden="true">+</div>
+        <div class="lnd-mirror-col">
+          <span class="lnd-mirror-tag lnd-mirror-tag--own">{m.rightTag}</span>
+          <div class="lnd-browser" aria-hidden="true">
+            <div class="lnd-browser-bar">
+              <i></i><i></i><i></i>
+              <span>https://<strong data-m-domain>{defSlug}{m.tld}</strong></span>
+            </div>
+            <div class="lnd-site">
+              <div class="lnd-site-top">
+                <span class="lnd-site-brand" data-m-name-short>{defName.split(/\s+/)[0]}</span>
+                <nav class="lnd-site-nav">{m.rightNav.map((n) => <span data-fly>{n}</span>)}</nav>
+              </div>
+              <div class="lnd-site-name" data-m-name>{defName}</div>
+              <div class="lnd-site-role">{m.rightRole}</div>
+              <div class="lnd-site-stats">
+                {
+                  m.rightStats.map((s) => (
+                    <div data-fly>
+                      <b>{s.v}</b>
+                      <span>{s.k}</span>
+                    </div>
+                  ))
+                }
+              </div>
+              <div class="lnd-site-tiles">{m.rightTiles.map((tile) => <span data-fly>{tile}</span>)}</div>
+              <div class="lnd-site-foot">
+                <span class="lnd-site-btn" data-fly>{m.rightCta} →</span>
+                <span class="lnd-site-mail">{mailbox}@<span data-m-domain>{defSlug}{m.tld}</span></span>
+              </div>
+            </div>
+          </div>
+          <p class="lnd-mirror-foot lnd-mirror-foot--own">{m.rightFoot}</p>
+        </div>
+      </div>
+      <p class="lnd-mirror-caption">
+        <Hand arrow="right">{m.caption}</Hand>
+        <a class="lnd-link" href="#parliamone">{h.cta} →</a>
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- Rented land ---------- */}
+  <section class="lnd-scene lnd-rent lnd-plate--ink" data-scene="rent" style="--len:3">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-rent-grid">
+        <div class="lnd-rent-copy">
+          <Hand kicker>{c.rent.kicker}</Hand>
+          <h2 class="lnd-title lnd-title--md"><Lines text={c.rent.title} /></h2>
+          <div class="lnd-beats">
+            {
+              c.rent.beats.map((b) => (
+                <div class="lnd-beat">
+                  <h3 class="lnd-sub">{b.t}</h3>
+                  <p class="lnd-body">{b.d}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="lnd-lock" aria-hidden="true">
+          <div class="lnd-lock-time">9:41</div>
+          <ul class="lnd-notes">
+            {
+              c.rent.notes.map((n) => (
+                <li class="lnd-note">
+                  <span class="lnd-note-app">{n.app}</span>
+                  <span class="lnd-note-text">{n.text}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  {/* ---------- The offer ---------- */}
+  <section class="lnd-plate lnd-plate--paper-2 lnd-offer" id="offerta">
+    <div class="lnd-wrap lnd-offer-grid">
+      <div class="lnd-offer-copy">
+        <h2 class="lnd-title" data-split><Lines text={c.offer.title} /></h2>
+        <p class="lnd-lede lnd-offer-blurb" data-reveal>{c.offer.blurb}</p>
+        <p class="lnd-body lnd-offer-why" data-reveal>{c.offer.why}</p>
+        <div class="lnd-express" data-reveal>
+          <div class="lnd-express-head">
+            <h3 class="lnd-sub">{c.offer.express.title}</h3>
+            <span>{c.offer.express.pay}</span>
+          </div>
+          <p class="lnd-body">{c.offer.express.body}</p>
+          <div class="lnd-actions">
+            <a class="btn btn-line" href="#parliamone" data-pick-tier="premium-extras">{c.offer.express.cta} <span class="arrow">→</span></a>
+            <span class="lnd-express-note">{c.offer.express.note}</span>
+          </div>
+        </div>
+      </div>
+      <div class="lnd-sheet-wrap" data-scene="stamp">
+        <article class="lnd-sheet">
+          <header class="lnd-sheet-head">
+            <span>{t(COPY.proposal, lang)}</span>
+            <span>{t(camp.audience, lang)}</span>
+          </header>
+          <h3 class="lnd-sheet-title">{t(variants[0].headline, lang)}</h3>
+          <div class="lnd-sheet-price">
+            <strong>{camp.price} €</strong>
+            <span>{t(COPY.perYear, lang)}</span>
+          </div>
+          <p class="lnd-sheet-note">{c.offer.priceNote}</p>
+          <p class="lnd-sheet-k">{c.offer.includesLabel}</p>
+          <ul class="lnd-sheet-list">{c.offer.includes.map((it) => <li>{it}</li>)}</ul>
+          <a class="btn btn-ac" href="#parliamone" data-pick-tier="all-inclusive">{c.offer.cta} <span class="arrow">→</span></a>
+        </article>
+        <div class="lnd-stamp" aria-hidden="true"><span>{t(COPY.stamp, lang)}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lnd-plate lnd-steps-plate">
+    <div class="lnd-wrap">
+      <h2 class="lnd-title" data-split><Lines text={c.steps.title} /></h2>
+      <ol class="lnd-track lnd-track--3">
+        {
+          c.steps.items.map((s) => (
+            <li class="lnd-track-step" data-reveal>
+              <span class="lnd-track-dot" aria-hidden="true" />
+              <h3 class="lnd-sub">{s.t}</h3>
+              <p class="lnd-body">{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <Objections title={c.qa.title} items={c.qa.items} variant="chat" />
+
+  <LeadForm
+    lang={lang}
+    campaign="smm-landing"
+    audience={t(camp.audience, lang)}
+    topic={`Offerta · ${t(camp.audience, lang)}`}
+    title={c.lead.title}
+    lede={c.lead.lede}
+    choices={[
+      { id: "all-inclusive", name: c.lead.choices[0] },
+      { id: "premium-extras", name: c.lead.choices[1] },
+    ]}
+    choiceLegend={c.lead.choiceLegend}
+    unsure={false}
+    phone
+    price={`${camp.price} €/anno`}
+    company={c.lead.company}
+    message={c.lead.message}
+  />
+
+  <Portals title={c.portalsTitle} items={portals(["partner", "learning", "collabora-con-noi"], lang)} />
+
+  <Sticky href="#parliamone" label={c.sticky} />
+</div>
+
+<script>
+  import "../../lib/landing/mirror";
+  import "../../lib/landing/offer";
+  import "../../lib/landing/formula";
+</script>

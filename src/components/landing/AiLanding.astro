@@ -1,0 +1,278 @@
+---
+/* /per-chi-fa-siti/ai — copy in data/landing/ai.ts, the kit's pieces in
+   components/landing/, the scenes in lib/landing/scenes.ts (press,
+   shift, line, knoll), the make-of panel in lib/landing/makeof.ts. */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { ai } from "../../data/landing/ai";
+import { leadForm } from "../../data/landing/shared";
+import { portals } from "../../data/audiences";
+import { localizePath } from "../../i18n/utils";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import Lines from "./Lines.astro";
+import ProfileSwitch from "./ProfileSwitch.astro";
+import Formula from "./Formula.astro";
+import Objections from "./Objections.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Sticky from "./Sticky.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = ai[lang];
+const h = c.hero;
+const d = c.line.demo;
+const hostingHref = localizePath("per-chi-fa-siti/hosting", lang);
+
+/* The press's cards: a different site per client, three layouts. */
+const TINTS = ["#ff6b1a", "#2ee6c5", "#ffd400", "#ff2e88", "#8fb0f5", "#2fe08a"];
+
+/* The make-of panel shows this page's own data — the hero, as it is in
+   data/landing/ai.ts — not a mock-up of it. */
+const q = (s: string) => JSON.stringify(s);
+const wrapLede = (s: string, width = 46) => {
+  const out: string[] = [];
+  let line = "";
+  for (const w of s.split(" ")) {
+    if ((line + " " + w).trim().length > width) {
+      out.push(line.trim());
+      line = w;
+    } else line += " " + w;
+  }
+  if (line.trim()) out.push(line.trim());
+  return out;
+};
+const ledeLines = wrapLede(h.lede);
+
+const ICONS = [
+  '<circle cx="6.5" cy="12" r="3.5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="12" r="3.5"/>',
+  '<rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M9 9v11"/>',
+  '<rect x="3" y="4" width="18" height="16"/><path d="M7 10l3 2-3 2M12.5 15H17"/>',
+  '<path d="M8.5 4C6.5 4 6 5 6 7v2c0 1.2-.7 2.3-2 3 1.3.7 2 1.8 2 3v2c0 2 .5 3 2.5 3M15.5 4c2 0 2.5 1 2.5 3v2c0 1.2.7 2.3 2 3-1.3.7-2 1.8-2 3v2c0 2-.5 3-2.5 3"/>',
+  '<path d="M4 7.5l2 2 4-4M4 16l2 2 4-4M13 7.5h7M13 16.5h7"/>',
+  '<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+];
+---
+
+<div class="lnd lnd--ai" data-profile="dev">
+  {/* ---------- Hero ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-hero" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-ac" style={`--i:${h.lines.length}`}>
+          {h.accent.before}<Mark kind="underline">{h.accent.mark}</Mark>{h.accent.after}
+        </span>
+      </h1>
+      <div class="lnd-hero-row">
+        <div class="lnd-hero-copy">
+          <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+          <div class="lnd-actions" data-intro style="--i:4">
+            <a class="btn btn-ac btn-lg" href="#formula" data-magnetic>{h.cta} <span class="arrow">→</span></a>
+            <a class="lnd-link" href="#catena">{h.alt} <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="lnd-hero-machine" data-scene="press" aria-hidden="true">
+          <div class="lnd-press">
+            <div class="lnd-press-beam"></div>
+            <div class="lnd-press-ram"><span>ALPACODE</span></div>
+            <div class="lnd-press-posts"><i></i><i></i></div>
+            <div class="lnd-press-cards">
+              {
+                h.clients.map((name, i) => (
+                  <div class="lnd-press-card" data-v={i % 3} style={`--t:${TINTS[i % TINTS.length]}`}>
+                    <b>{name}</b>
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                ))
+              }
+            </div>
+            <div class="lnd-belt"></div>
+            <span class="lnd-press-stamp lnd-hand">{h.stamp}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- The craft has changed ---------- */}
+  <section class="lnd-scene lnd-shift" data-scene="shift" style="--len:2.8" aria-labelledby="shift-title">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-shift-grid">
+        <div class="lnd-beats">
+          {
+            c.shift.beats.map((b, i) => (
+              <div class="lnd-beat">
+                <h2 class="lnd-title" id={i === 0 ? "shift-title" : undefined}>
+                  <Lines text={b.title} />
+                </h2>
+                <p class="lnd-lede">{b.body}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="lnd-lanes" aria-hidden="true">
+          <div class="lnd-lane" data-lane="you">
+            <span class="lnd-lane-k">{c.shift.you}</span>
+            <ul class="lnd-chips">
+              {c.shift.tasks.map((t) => <li class="lnd-chip" data-keep={t.keep ? "" : undefined}><span>{t.t}</span></li>)}
+            </ul>
+            <div class="lnd-time"><span>{c.shift.time}</span><i></i></div>
+          </div>
+          <div class="lnd-lane lnd-lane--ai" data-lane="ai">
+            <span class="lnd-lane-k">{c.shift.ai}</span>
+            <ul class="lnd-chips">
+              {c.shift.tasks.filter((t) => !t.keep).map((t) => <li class="lnd-chip"><span>{t.t}</span></li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  {/* ---------- The assembly line ---------- */}
+  <section class="lnd-scene lnd-line lnd-plate--ink" data-scene="line" style="--len:4" id="catena">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-line-wrap">
+        <div class="lnd-line-head">
+          <h2 class="lnd-title"><Lines text={c.line.title} /></h2>
+          <p class="lnd-lede">{c.line.lede}</p>
+        </div>
+        <div class="lnd-line-floor">
+          <div class="lnd-product is-s1 is-s2 is-s3 is-s4 is-s5" aria-hidden="true">
+            <div class="lnd-product-bar">
+              <i></i><i></i><i></i>
+              <span class="lnd-product-url">{d.domain}</span>
+              <b class="lnd-product-live">{d.live}</b>
+            </div>
+            <div class="lnd-product-body">
+              <div class="lnd-p-note">{d.brief.map((l) => <span>{l}</span>)}</div>
+              <div class="lnd-p-top"><span class="lnd-p-logo">{d.name}</span><span class="lnd-p-nav"><i></i><i></i><i></i></span></div>
+              <div class="lnd-p-hero">
+                <span class="lnd-p-h">{d.headline}</span>
+                <span class="lnd-p-sub"><i></i><i></i></span>
+                <span class="lnd-p-btn">{d.cta}</span>
+              </div>
+              <div class="lnd-p-grid"><i></i><i></i><i></i></div>
+              <div class="lnd-p-pen"><svg viewBox="0 0 120 60"><path d="M8 34 C 20 6, 96 4, 112 28 C 120 44, 70 56, 30 50 C 10 47, 4 40, 14 28" /></svg><span class="lnd-hand">{d.pen}</span></div>
+              <ul class="lnd-p-checks">{d.checks.map((ch) => <li>{ch}</li>)}</ul>
+            </div>
+          </div>
+          <ol class="lnd-stations">
+            {
+              c.line.stations.map((s, i) => (
+                <li class="lnd-station" data-station={i}>
+                  <span class="lnd-station-dot" aria-hidden="true"></span>
+                  <h3 class="lnd-station-name">{s.name}</h3>
+                  <p>{s.d}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  {/* ---------- This page came off the same line ---------- */}
+  <section class="lnd-plate lnd-makeof" data-makeof>
+    <div class="lnd-wrap lnd-makeof-grid">
+      <div class="lnd-makeof-copy">
+        <h2 class="lnd-title lnd-title--md" data-split><Lines text={c.makeof.title} /></h2>
+        <p class="lnd-lede" data-reveal>{c.makeof.body}</p>
+        <button
+          class="btn btn-line"
+          type="button"
+          data-makeof-toggle
+          aria-pressed="false"
+          data-label-show={c.makeof.show}
+          data-label-hide={c.makeof.hide}
+        >
+          {c.makeof.show}
+        </button>
+      </div>
+      <div class="lnd-flip" data-flip>
+        <div class="lnd-flip-face lnd-flip-page" data-face="page">
+          <span class="lnd-mini-kicker">{h.kicker}</span>
+          <span class="lnd-mini-h">{h.lines.join(" ")} <em>{h.accent.mark}.</em></span>
+          <span class="lnd-mini-lede">{h.lede}</span>
+          <span class="lnd-mini-btn">{h.cta} →</span>
+          <span class="lnd-flip-tag">{c.makeof.page}</span>
+        </div>
+        <pre class="lnd-flip-face lnd-flip-code" data-face="data" aria-hidden="true"><code><span class="t-c">// src/data/landing/ai.ts</span>
+<span class="t-k">hero</span>: {"{"}
+  <span class="t-k">kicker</span>: <span class="t-s">{q(h.kicker)}</span>,
+  <span class="t-k">lines</span>: [{h.lines.map((l, i) => <Fragment>{i > 0 && ", "}<span class="t-s">{q(l)}</span></Fragment>)}],
+  <span class="t-k">accent</span>: {"{"} <span class="t-k">mark</span>: <span class="t-s">{q(h.accent.mark)}</span> {"}"},
+  <span class="t-k">lede</span>:
+{ledeLines.map((l, i) => <Fragment>    <span class="t-s">{q(l + (i < ledeLines.length - 1 ? " " : ""))}</span>{i < ledeLines.length - 1 ? " +\n" : ",\n"}</Fragment>)}  <span class="t-k">cta</span>: <span class="t-s">{q(h.cta)}</span>,
+{"}"}<span class="lnd-flip-tag">{c.makeof.data}</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- The kit ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-grid-bg lnd-kit" id="codebase">
+    <div class="lnd-wrap">
+      <div class="lnd-kit-head">
+        <h2 class="lnd-title" data-split><Lines text={c.kit.title} /></h2>
+        <div>
+          <p class="lnd-lede" data-reveal>{c.kit.lede}</p>
+          <ProfileSwitch lang={lang} id="profile-kit" />
+        </div>
+      </div>
+      <ul class="lnd-knoll" data-scene="knoll">
+        {
+          c.kit.items.map((it, i) => (
+            <li class="lnd-tool">
+              <svg class="lnd-tool-icon" viewBox="0 0 24 24" aria-hidden="true" set:html={ICONS[i]} />
+              <h3 class="lnd-sub">{it.name}</h3>
+              <p class="lnd-body">{it.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="lnd-kit-hosting">
+        <Hand arrow="right">{c.kit.hosting.q}</Hand>
+        <a class="lnd-link" href={hostingHref}>{c.kit.hosting.link} →</a>
+      </p>
+    </div>
+  </section>
+
+  <Formula copy={c.formula} formHref="#parliamone" />
+
+  <Objections title={c.qa.title} items={c.qa.items} />
+
+  <LeadForm
+    lang={lang}
+    campaign="per-chi-fa-siti-ai"
+    audience={lang === "it" ? "Sviluppatori e web designer" : "Developers and web designers"}
+    topic={c.lead.topic}
+    title={c.lead.title}
+    lede={c.lead.lede}
+    choices={c.formula.tiers}
+    profile
+    extra={{ name: "sites", label: c.lead.sites, ph: c.lead.sitesPh, numeric: true }}
+  />
+
+  <Portals
+    title={lang === "it" ? "Fai siti per i clienti? C'è anche questo" : "Building sites for clients? There's this too"}
+    items={portals(["per-chi-fa-siti/hosting", "learning", "alpacode-pro-kit"], lang)}
+  />
+
+  <Sticky href="#formula" label={leadForm[lang].sticky} />
+</div>
+
+<script>
+  import "../../lib/landing/profile";
+  import "../../lib/landing/makeof";
+</script>

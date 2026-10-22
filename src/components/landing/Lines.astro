@@ -1,0 +1,10 @@
+---
+/* A heading's copy with its line breaks ("Venti clienti,\nventi canoni."):
+   the data says where a title breaks, the markup doesn't have to. */
+interface Props {
+  text: string;
+}
+const parts = Astro.props.text.split("\n");
+---
+
+{parts.map((p, i) => (i === 0 ? p : <Fragment><br />{p}</Fragment>))}

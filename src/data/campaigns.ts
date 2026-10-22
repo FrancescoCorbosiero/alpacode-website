@@ -4,14 +4,17 @@ import type { Lang, Localized } from "../i18n/types";
    Campaigns — data-driven advertising landing pages.
 
    Each entry in CAMPAIGNS generates one pre-rendered landing
-   page at /offerta/<slug> (IT) and /en/offerta/<slug> (EN).
+   page at /offerta/<slug> (IT) and /en/offerta/<slug> (EN), on
+   the landing kit (components/landing/OfferLanding.astro).
 
    To launch a new target: add one object to CAMPAIGNS. Copy,
-   price, scarcity and SEO all live here — no new components.
+   price, the round and SEO all live here — no new components.
 
-   The shared offer, stats, steps, guarantees and FAQ are kept
-   in SHARED so every campaign stays consistent; only the
-   audience-specific bits (hero, pains, price, seats) differ.
+   The shared offer, stats, steps, promises and FAQ are kept in
+   one place so every campaign stays consistent; only the
+   audience-specific bits (hero, pains, search, price) differ.
+   Copy rules: docs/landing-factory.md — say what's included
+   and how it's done, never the price-reassurance tic.
    ============================================================ */
 
 export type CampaignSlug =
@@ -21,14 +24,14 @@ export type CampaignSlug =
   | "educatori-cinofili"
   | "olistica-yoga";
 
-/** The two offer strategies, shown as a toggle on every page. */
+/** The two versions of the offer, shown as tabs on every page. */
 export type VariantId = "all-inclusive" | "premium-extras";
 
 export interface OfferVariant {
   id: VariantId;
-  /** Short label for the toggle control. */
+  /** Short label for the tab (and the lead form's choice). */
   tab: Localized;
-  /** Headline shown when this variant is active. */
+  /** Headline on the proposal sheet. */
   headline: Localized;
   blurb: Localized;
   /** What's included — the checklist. */
@@ -41,23 +44,36 @@ export interface Campaign {
   slug: CampaignSlug;
   /** Audience name, used in headings and the lead tag. */
   audience: Localized;
-  /** Mono kicker above the hero headline. */
+  /** The handwritten kicker above the hero headline. */
   eyebrow: Localized;
-  /** Yearly, all-inclusive price in euro. */
+  /** Yearly price in euro: site, domain, hosting, email, first-year care. */
   price: number;
-  /** Total seats in the cohort (for the scarcity badge). */
+  /** Seats in the round. */
   seats: number;
-  /** Seats still open — EDIT THIS BY HAND as people sign up. */
+  /** Seats still open — EDIT THIS BY HAND as people sign up. Shown only
+   *  once it's below `seats`. */
   seatsLeft: number;
-  /** Offer deadline (ISO, with timezone). Drives the countdown. */
+  /** When the round closes (ISO, with timezone). */
   deadlineISO: string;
-  hero: { line1: Localized; line2: Localized; lede: Localized };
+  hero: {
+    line1: Localized;
+    line2: Localized;
+    lede: Localized;
+    /** The pen corrects line 2: `strike` (a piece of it) is struck
+     *  through and `write` (may be empty) handwritten above it. Without
+     *  it, line 2 is underlined. */
+    fix?: { strike: Localized; write: Localized };
+  };
   /** Hero image. `id` resolves to src/assets/campaigns/<id>.<ext> when that
    *  file exists (optimized by Astro); otherwise `src` (Unsplash) is used. */
   heroImage: { id: string; src: string; alt: Localized };
-  /** Audience-specific reasons / pains the offer answers. */
+  /** What their clients type into Google (the search scene). */
+  search: Localized;
+  /** Audience-specific reasons the offer answers: exactly three. */
   pains: { k: Localized; v: Localized }[];
   meta: { title: Localized; description: Localized };
+  /** The line other landings use to point here (data/audiences.ts). */
+  portal: Localized;
 }
 
 /** Build an Unsplash URL at a sensible delivery size.
@@ -65,21 +81,11 @@ export interface Campaign {
 export const unsplash = (id: string, w = 900) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
 
-/** Shared image for the AI section.
- *  Local override: drop src/assets/campaigns/ai.<ext> to replace the hotlink. */
-export const AI_IMAGE = {
-  id: "ai",
-  src: unsplash("1677442136019-21780ecad995", 900),
-  alt: {
-    it: "Intelligenza artificiale al lavoro: tecnologia che rende il digitale accessibile",
-    en: "Artificial intelligence at work: technology making digital accessible",
-  } as Localized,
-};
-
 /* ---------- Shared building blocks ---------- */
 
-/** Italy's digital gap — real, citable figures. Attribution shown. */
-export const STATS: { value: string; label: Localized; source: string }[] = [
+/** Italy's digital gap — real, citable figures. Attribution shown; `bar`
+ *  draws Italy against the EU where the source gives both. */
+export const STATS: { value: string; label: Localized; source: string; bar?: { it: number; eu: number } }[] = [
   {
     value: "45,8%",
     label: {
@@ -87,6 +93,7 @@ export const STATS: { value: string; label: Localized; source: string }[] = [
       en: "of Italians have basic digital skills (EU: 55.5%)",
     },
     source: "ISTAT 2025",
+    bar: { it: 45.8, eu: 55.5 },
   },
   {
     value: "13%",
@@ -95,6 +102,7 @@ export const STATS: { value: string; label: Localized; source: string }[] = [
       en: "of Italian SMEs sell online (EU average: 19.1%)",
     },
     source: "DESI 2024",
+    bar: { it: 13, eu: 19.1 },
   },
   {
     value: "≈ 1 su 2",
@@ -106,19 +114,19 @@ export const STATS: { value: string; label: Localized; source: string }[] = [
   },
 ];
 
-/** The two strategies, parameterised by price. */
+/** The two versions, parameterised by price. */
 export function offerVariants(price: number): OfferVariant[] {
   return [
     {
       id: "all-inclusive",
-      tab: { it: "Prezzo tutto incluso", en: "All-inclusive price" },
+      tab: { it: "Il sito completo", en: "The complete site" },
       headline: {
-        it: "Un sito completo, online e tuo. Tutto incluso.",
-        en: "A complete website, online and yours. All included.",
+        it: "Un sito completo, online e tuo.",
+        en: "A complete site, online and yours.",
       },
       blurb: {
-        it: "Un prezzo solo, deciso prima. Niente costi a sorpresa, niente abbonamenti nascosti.",
-        en: "One price, agreed up front. No surprise costs, no hidden subscriptions.",
+        it: "Progettato e scritto su misura, con tutto quello che serve per stare online: lo costruiamo, lo pubblichiamo e lo seguiamo per un anno.",
+        en: "Designed and written for you, with everything it takes to be online: we build it, publish it and look after it for a year.",
       },
       includes: [
         { it: "Sito web completo, scritto e progettato su misura", en: "Complete website, written and designed for you" },
@@ -129,23 +137,23 @@ export function offerVariants(price: number): OfferVariant[] {
         { it: "Certificato SSL e backup automatici", en: "SSL certificate and automatic backups" },
       ],
       priceNote: {
-        it: `${price} € all'anno — tutto compreso, niente altro da pagare.`,
-        en: `€${price} per year — everything included, nothing else to pay.`,
+        it: `${price} € all'anno: sito, dominio, hosting, email e manutenzione.`,
+        en: `€${price} a year: site, domain, hosting, email and maintenance.`,
       },
     },
     {
       id: "premium-extras",
-      tab: { it: "Stesso prezzo + extra premium", en: "Same price + premium extras" },
+      tab: { it: "Il sito + gli extra", en: "The site + extras" },
       headline: {
-        it: "Lo stesso prezzo, con i servizi premium in regalo.",
-        en: "The same price, with premium services on the house.",
+        it: "Lo stesso sito, con i servizi che lo fanno trovare.",
+        en: "The same site, with the services that get it found.",
       },
       blurb: {
-        it: "Tutto quello del pacchetto base, più i servizi di contorno che di solito si pagano a parte. Gratis, per chi entra ora.",
-        en: "Everything in the base package, plus the add-on services usually billed separately. Free, for those who join now.",
+        it: "Tutto il sito completo, più i servizi di contorno che di solito si pagano a parte: compresi, per chi entra in questa tornata.",
+        en: "Everything in the complete site, plus the add-on services usually billed separately: included, for those who join this round.",
       },
       includes: [
-        { it: "Tutto il pacchetto «tutto incluso»", en: "Everything in the all-inclusive package" },
+        { it: "Tutto il sito completo", en: "Everything in the complete site" },
         { it: "Ottimizzazione SEO di base per farti trovare su Google", en: "Basic SEO so people find you on Google" },
         { it: "Profilo Google Business impostato e ottimizzato", en: "Google Business profile set up and optimised" },
         { it: "Collegamento ai tuoi canali social", en: "Connected to your social channels" },
@@ -153,198 +161,216 @@ export function offerVariants(price: number): OfferVariant[] {
         { it: "Report mensile di visite e contatti", en: "Monthly report on visits and leads" },
       ],
       priceNote: {
-        it: `${price} € all'anno — stesso prezzo, extra inclusi senza sovrapprezzo.`,
-        en: `€${price} per year — same price, extras at no surcharge.`,
+        it: `${price} € all'anno, con gli extra compresi.`,
+        en: `€${price} a year, extras included.`,
       },
     },
   ];
 }
 
-/** How the offer works, in plain language. */
-export const STEPS: { n: string; t: Localized; d: Localized }[] = [
+/** From the first message to the site online. */
+export const STEPS: { t: Localized; d: Localized }[] = [
   {
-    n: "01",
     t: { it: "Ci scrivi", en: "You write to us" },
     d: {
-      it: "Compili il modulo qui sotto. Ti ricontattiamo entro mezza giornata lavorata, da persona vera.",
-      en: "You fill the form below. We get back within half a worked day, from a real person.",
+      it: "Due minuti di modulo, qui sotto. Ti ricontatta una persona entro mezza giornata lavorativa.",
+      en: "A two-minute form, below. A person gets back to you within half a working day.",
     },
   },
   {
-    n: "02",
-    t: { it: "Costruiamo il sito", en: "We build the site" },
+    t: { it: "Lo costruiamo", en: "We build it" },
     d: {
-      it: "Pensiamo a tutto noi: testi, grafica, dominio, hosting. Tu continui a lavorare.",
-      en: "We handle everything: copy, design, domain, hosting. You keep working.",
+      it: "Testi, grafica, dominio, hosting: partiamo da quello che fai e ce ne occupiamo noi.",
+      en: "Copy, design, domain, hosting: we start from what you do and take care of it.",
     },
   },
   {
-    n: "03",
-    t: { it: "Vedi, poi paghi", en: "You see it, then pay" },
+    t: { it: "Lo vedi finito", en: "You see it finished" },
     d: {
-      it: "Ti mostriamo il sito finito. Se ti piace, paghi e va online. Se non ti piace, non paghi nulla.",
-      en: "We show you the finished site. If you like it, you pay and it goes live. If not, you pay nothing.",
+      it: "Ti mostriamo il sito completo, prima di qualsiasi pagamento.",
+      en: "We show you the complete site, before any payment.",
+    },
+  },
+  {
+    t: { it: "Va online", en: "It goes live" },
+    d: {
+      it: "Se ti convince, paghi e lo pubblichiamo. Se non ti convince, non paghi nulla.",
+      en: "If it convinces you, you pay and we publish it. If not, you pay nothing.",
     },
   },
 ];
 
-/** Risk-reversal points, straight from the offer concepts. */
-export const GUARANTEES: { t: Localized; d: Localized }[] = [
+/** The proposal's terms — facts from the FAQ, not slogans. */
+export const PROMISES: { t: Localized; d: Localized }[] = [
   {
-    t: { it: "Prima vedi, poi paghi", en: "See it first, pay later" },
+    t: { it: "Paghi dopo averlo visto", en: "You pay after seeing it" },
     d: {
-      it: "Ti mostriamo il sito completo prima di qualsiasi pagamento. Se non ti convince, non paghi niente.",
-      en: "We show you the complete site before any payment. If you're not convinced, you pay nothing.",
+      it: "Il sito lo giudichi finito, non su una promessa. Se non ti convince, non paghi nulla.",
+      en: "You judge the site finished, not on a promise. If it doesn't convince you, you pay nothing.",
     },
   },
   {
-    t: { it: "Prezzo deciso prima", en: "Price agreed up front" },
+    t: { it: "Il primo anno è seguito", en: "The first year is looked after" },
     d: {
-      it: "Un numero solo, scritto chiaro. Niente preventivi da capogiro, niente sorprese in fattura.",
-      en: "One clear number. No sky-high quotes, no surprises on the invoice.",
+      it: "Manutenzione e aggiornamenti per tutto il primo anno sono nel prezzo.",
+      en: "Maintenance and updates for the whole first year are in the price.",
     },
   },
   {
-    t: { it: "Qualità da agency", en: "Agency-grade quality" },
+    t: { it: "Le piccole modifiche le facciamo noi", en: "We make the small changes" },
     d: {
-      it: "Stessa cura di un'agenzia, a un prezzo pensato per la realtà dei professionisti italiani.",
-      en: "The care of an agency, at a price built for Italian professionals' reality.",
+      it: "Un orario nuovo, un servizio in più: ce lo scrivi e lo sistemiamo.",
+      en: "New opening hours, one more service: you tell us and we sort it.",
     },
   },
   {
-    t: { it: "Al resto pensiamo noi", en: "We handle the rest" },
+    t: { it: "Se vuoi fare da te, puoi", en: "If you'd rather do it yourself, you can" },
     d: {
-      it: "Dominio, hosting, email, aggiornamenti, sicurezza. Tu ti concentri sul tuo lavoro.",
-      en: "Domain, hosting, email, updates, security. You focus on your work.",
+      it: "Ti lasciamo gli accessi e una breve guida per gestire i contenuti.",
+      en: "We hand over access and a short guide to manage the content.",
     },
   },
 ];
 
-/** The AI section — why quality no longer costs thousands. */
-export const AI = {
-  kicker: { it: "Come è possibile", en: "How it's possible" },
-  title: {
-    it: "L'AI ha cambiato le regole. Il prezzo, di conseguenza.",
-    en: "AI changed the rules. So did the price.",
-  },
-  lede: {
-    it: "L'intelligenza artificiale ha rivoluzionato il web e il mondo digitale: per un lavoro di qualità non servono più migliaia di euro. Noi usiamo l'AI per tenere alta la qualità e contenere il prezzo finale — così molte più figure possono finalmente avere il proprio spazio digitale.",
-    en: "AI has transformed the web and the digital world: quality work no longer costs thousands. We use AI to keep quality high and the final price low — so many more people can finally have their own digital space.",
-  },
-  points: [
-    {
-      k: { it: "Qualità, non scorciatoie", en: "Quality, not shortcuts" },
-      v: {
-        it: "L'AI accelera il lavoro ripetitivo. Le scelte, la cura e il controllo finale restano umani.",
-        en: "AI speeds up the repetitive work. The decisions, the care and the final check stay human.",
+/** How it's done: a method, not a template. */
+export function how(price: number) {
+  return {
+    kicker: { it: "come lavoriamo", en: "how we work" } as Localized,
+    title: { it: "Un metodo,\nnon un template.", en: "A method,\nnot a template." } as Localized,
+    lede: {
+      it: `Ogni sito parte dal nostro sistema e prende la tua identità. L'AI fa il lavoro ripetitivo, le persone fanno le scelte: per questo un sito fatto bene arriva presto, e può costare ${price} € l'anno.`,
+      en: `Every site starts from our system and takes on your identity. AI does the repetitive work, people make the choices: that's why a well-made site arrives quickly, and can cost €${price} a year.`,
+    } as Localized,
+    points: [
+      {
+        k: { it: "L'AI dove serve", en: "AI where it helps" },
+        v: {
+          it: "Strutture, varianti, controlli: li automatizziamo. Testi, scelte e verifica finale restano nostri.",
+          en: "Structures, variants, checks: we automate them. Copy, choices and the final check stay ours.",
+        },
       },
-    },
-    {
-      k: { it: "Meno costi, meno prezzo", en: "Lower cost, lower price" },
-      v: {
-        it: "Lavorando in modo più efficiente, abbattiamo i costi. E quel risparmio finisce nel tuo prezzo.",
-        en: "By working more efficiently, we cut costs. And that saving ends up in your price.",
+      {
+        k: { it: "Lo stesso sistema dei progetti grandi", en: "The same system as the big projects" },
+        v: {
+          it: "La stessa cura e la stessa infrastruttura dei nostri lavori più impegnativi: veloce, accessibile, ben fatto.",
+          en: "The same care and infrastructure as our most demanding work: fast, accessible, well made.",
+        },
       },
-    },
-    {
-      k: { it: "Il digitale per tutti", en: "Digital for everyone" },
-      v: {
-        it: "Un sito di qualità non è più un lusso da grandi budget: ora è alla portata di ogni professionista.",
-        en: "A quality website is no longer a big-budget luxury: now it's within reach of every professional.",
+      {
+        k: { it: "Il risparmio va nel prezzo", en: "The saving goes into the price" },
+        v: {
+          it: "Lavorare così costa meno anche a noi: è quello che rende possibile questa cifra.",
+          en: "Working this way costs us less too: that's what makes this figure possible.",
+        },
       },
-    },
-  ],
-} satisfies { kicker: Localized; title: Localized; lede: Localized; points: { k: Localized; v: Localized }[] };
+    ] as { k: Localized; v: Localized }[],
+  };
+}
 
 export const FAQ: { q: Localized; a: Localized }[] = [
   {
-    q: { it: "Devo pagare qualcosa in anticipo?", en: "Do I have to pay anything up front?" },
+    q: { it: "Devo pagare qualcosa prima?", en: "Do I pay anything up front?" },
     a: {
-      it: "No. Costruiamo il sito, te lo mostriamo finito e solo allora decidi. Se non ti piace, non paghi nulla. In alcuni casi il primo anno è addirittura gratuito.",
-      en: "No. We build the site, show it to you finished, and only then you decide. If you don't like it, you pay nothing. In some cases the first year is even free.",
+      it: "No. Costruiamo il sito, te lo mostriamo finito e solo allora decidi. Se non ti convince, non paghi nulla.",
+      en: "No. We build the site, show it to you finished, and only then you decide. If it doesn't convince you, you pay nothing.",
     },
   },
   {
-    q: { it: "Cosa comprende esattamente il prezzo?", en: "What exactly does the price cover?" },
+    q: { it: "Cosa comprende il prezzo?", en: "What does the price cover?" },
     a: {
-      it: "Sito completo, dominio, hosting, email professionali e manutenzione per il primo anno. Niente costi nascosti: il prezzo che vedi è tutto quello che paghi.",
-      en: "Complete site, domain, hosting, professional email and first-year maintenance. No hidden costs: the price you see is all you pay.",
+      it: "Il sito completo, il dominio, l'hosting, le caselle email professionali e la manutenzione per il primo anno.",
+      en: "The complete site, the domain, hosting, professional email and maintenance for the first year.",
     },
   },
   {
-    q: { it: "E gli anni successivi?", en: "What about the following years?" },
+    q: { it: "E dal secondo anno?", en: "And from the second year?" },
     a: {
-      it: "Dal secondo anno si rinnova alla stessa cifra annuale, sempre tutto incluso. Quando saldi il secondo anno ti regaliamo i mesi che mancano fino a fine anno, così dal terzo il rinnovo cade nel mese che preferisci.",
-      en: "From the second year it renews at the same yearly figure, still all-inclusive. When you settle the second year we gift you the months left until year-end, so from the third year renewal falls in the month you prefer.",
+      it: "Si rinnova alla stessa cifra annuale, con gli stessi servizi. Quando saldi il secondo anno ti regaliamo i mesi che mancano fino a fine anno, così dal terzo il rinnovo cade nel mese che preferisci.",
+      en: "It renews at the same yearly figure, with the same services. When you settle the second year we gift you the months left until year-end, so from the third year renewal falls in the month you prefer.",
     },
   },
   {
-    q: { it: "Perché così conveniente?", en: "Why so affordable?" },
+    q: { it: "Come fate a farlo a questo prezzo?", en: "How can you do it at this price?" },
     a: {
-      it: "Perché sfruttiamo l'AI e lavoriamo in modo snello: l'intelligenza artificiale ha abbattuto i costi del lavoro digitale di qualità. Quel risparmio lo giriamo a te. La qualità resta da agency; il prezzo è pensato per la situazione economica dei professionisti italiani.",
-      en: "Because we leverage AI and work lean: artificial intelligence has cut the cost of quality digital work. We pass that saving on to you. The quality stays agency-grade; the price is built for Italian professionals' economic reality.",
+      it: "Con un metodo: partiamo da un sistema collaudato, usiamo l'AI per il lavoro ripetitivo e mettiamo il tempo nelle scelte. Lavorare così costa meno anche a noi, e la differenza finisce nel prezzo.",
+      en: "With a method: we start from a proven system, use AI for the repetitive work and put the time into the choices. Working this way costs us less too, and the difference goes into the price.",
     },
   },
   {
     q: { it: "Posso aggiornare i contenuti?", en: "Can I update the content?" },
     a: {
-      it: "Sì. Piccole modifiche le facciamo noi, comprese nel servizio. Se preferisci gestire da solo, ti lasciamo gli accessi e una breve guida.",
+      it: "Sì. Le piccole modifiche le facciamo noi, comprese nel servizio. Se preferisci gestire da solo, ti lasciamo gli accessi e una breve guida.",
       en: "Yes. We make small changes for you, included in the service. If you prefer to manage it yourself, we hand over access and a short guide.",
     },
   },
 ];
 
+/** The search scene's other results — what people find instead of you. */
+export const SEARCH = {
+  others: [
+    { k: { it: "Directory", en: "Directory" }, t: { it: "I 10 migliori in zona — recensioni", en: "The 10 best near you — reviews" } },
+    { k: { it: "Social", en: "Social" }, t: { it: "Un profilo, qualche post, un link in bio", en: "A profile, a few posts, a link in bio" } },
+    { k: { it: "Un concorrente", en: "A competitor" }, t: { it: "Chi ha un sito, e quindi viene scelto", en: "Someone with a site, who gets chosen" } },
+  ],
+  you: {
+    k: { it: "tuonome.it", en: "yourname.com" },
+    t: { it: "Il tuo nome — il sito ufficiale", en: "Your name — the official site" },
+    hand: { it: "tu", en: "you" },
+  },
+  sections: {
+    it: ["Chi sono", "Il metodo", "Percorsi e prezzi", "Prenota"],
+    en: ["About", "The method", "Programmes and prices", "Book"],
+  },
+};
+
 /** UI strings local to the campaign pages. */
 export const COPY = {
-  statsKicker: { it: "Perché adesso", en: "Why now" },
+  statsKicker: { it: "perché adesso", en: "why now" },
   statsTitle: {
-    it: "L'Italia è ancora indietro. È un'occasione.",
-    en: "Italy is still behind. That's an opportunity.",
+    it: "L'Italia è ancora indietro.\nÈ un'occasione.",
+    en: "Italy is still behind.\nThat's an opportunity.",
   },
   statsLede: {
     it: "Alpacode nasce per rendere l'Italia un po' più digitale, partendo da chi ci lavora ogni giorno: i professionisti.",
     en: "Alpacode exists to make Italy a little more digital, starting with the people who work in it every day: professionals.",
   },
-  offerKicker: { it: "L'offerta", en: "The offer" },
-  offerTitle: { it: "Due modi di entrare. Tu scegli.", en: "Two ways in. You choose." },
+  italy: { it: "Italia", en: "Italy" },
+  eu: { it: "UE", en: "EU" },
+  offerTitle: { it: "Due versioni,\nlo stesso prezzo.", en: "Two versions,\nthe same price." },
   includesLabel: { it: "Cosa ricevi", en: "What you get" },
-  stepsKicker: { it: "Come funziona", en: "How it works" },
-  stepsTitle: { it: "Semplice, in tre passi.", en: "Simple, in three steps." },
-  guaranteesKicker: { it: "Senza rischi", en: "No risk" },
-  guaranteesTitle: { it: "Perché puoi fidarti.", en: "Why you can trust it." },
-  faqKicker: { it: "Domande", en: "Questions" },
-  faqTitle: { it: "Le risposte rapide.", en: "Quick answers." },
-  seatsLabel: { it: "Posti rimasti", en: "Seats left" },
-  ofLabel: { it: "su", en: "of" },
-  deadlineLabel: { it: "L'offerta si chiude tra", en: "Offer closes in" },
-  countdown: {
-    days: { it: "giorni", en: "days" },
-    hours: { it: "ore", en: "hours" },
-    minutes: { it: "min", en: "min" },
-    seconds: { it: "sec", en: "sec" },
-  },
-  closed: { it: "Iscrizioni chiuse per questa tornata", en: "Sign-ups closed for this round" },
-  ctaPrimary: { it: "Blocca il mio posto", en: "Claim my seat" },
-  ctaSecondary: { it: "Porta il tuo business online", en: "Bring your business online" },
-  formKicker: { it: "Candidati", en: "Apply" },
-  formTitle: { it: "Prendi il tuo posto.", en: "Take your seat." },
+  proposal: { it: "Proposta", en: "Proposal" },
+  perYear: { it: "/anno", en: "/year" },
+  stamp: { it: "Paghi solo se ti convince", en: "Pay only if it convinces you" },
+  stepsTitle: { it: "Dal primo messaggio\nal sito online.", en: "From the first message\nto the site online." },
+  faqTitle: { it: "Le domande\nche ci fanno.", en: "The questions\nwe get asked." },
+  ctaPrimary: { it: "Voglio il mio sito", en: "I want my site" },
+  ctaSecondary: { it: "Guarda l'offerta", en: "See the offer" },
+  formTitle: { it: "Parliamone.", en: "Let's talk." },
   formLede: {
-    it: "Compila il modulo: ti ricontattiamo per partire. Nessun impegno, nessun pagamento finché non vedi il sito.",
-    en: "Fill the form: we'll reach out to get started. No commitment, no payment until you see the site.",
+    it: "Compila il modulo: ti ricontattiamo per partire. Nessun impegno: paghi solo quando hai visto il sito finito.",
+    en: "Fill in the form: we'll get back to you to start. No commitment: you pay only once you've seen the site finished.",
   },
-  chosenOffer: { it: "Offerta scelta", en: "Chosen offer" },
-} satisfies Record<string, Localized | Record<string, Localized>>;
+  choiceLegend: { it: "La versione che ti interessa", en: "The version you're interested in" },
+  /** "{n}" seats, "{date}" the round's close. */
+  round: { it: "{n} posti in questa tornata · iscrizioni fino al {date}", en: "{n} seats this round · sign-ups until {date}" },
+  left: { it: "ne restano {n}", en: "{n} left" },
+  closed: {
+    it: "Questa tornata è chiusa: scrivici e ti teniamo un posto nella prossima.",
+    en: "This round is closed: write to us and we'll keep you a seat in the next one.",
+  },
+  portals: { it: "Non è il tuo caso? C'è anche questo", en: "Not quite you? There's this too" },
+} satisfies Record<string, Localized>;
 
 /* ---------- The campaigns ---------- */
 
-// End of Q3 2026 (Q3 = 1 Jul – 30 Sep). +02:00 = CEST, valid in September.
-const DEADLINE = "2026-09-30T23:59:59+02:00";
+// The round in progress: Q4 2026 (1 Oct – 31 Dec). +01:00 = CET, valid in December.
+const DEADLINE = "2026-12-31T23:59:59+01:00";
 
 export const CAMPAIGNS: Campaign[] = [
   {
     slug: "social-media-manager",
     audience: { it: "Social media manager & creator", en: "Social media managers & creators" },
-    eyebrow: { it: "Per chi vive di contenuti", en: "For people who live on content" },
+    eyebrow: { it: "per chi vive di contenuti", en: "for people who live on content" },
     price: 300,
     seats: 30,
     seatsLeft: 30,
@@ -353,8 +379,8 @@ export const CAMPAIGNS: Campaign[] = [
       line1: { it: "Hai un pubblico.", en: "You have an audience." },
       line2: { it: "Ti manca una casa tua.", en: "You're missing a home of your own." },
       lede: {
-        it: "Vivi sui social, ma le piattaforme non sono tue. Un sito personale è lo spazio che controlli davvero: portfolio, contatti, link, tutto in un posto solo. Lo costruiamo noi, a 300 € l'anno, tutto incluso.",
-        en: "You live on social, but the platforms aren't yours. A personal site is the space you truly control: portfolio, contacts, links, all in one place. We build it for you, at €300 a year, all included.",
+        it: "Vivi sui social, ma le piattaforme non sono tue. Un sito personale è lo spazio che controlli davvero: portfolio, contatti, link, tutto in un posto solo. Lo costruiamo noi: 300 € l'anno, con dominio, hosting ed email.",
+        en: "You live on social, but the platforms aren't yours. A personal site is the space you truly control: portfolio, contacts, links, all in one place. We build it: €300 a year, with domain, hosting and email.",
       },
     },
     heroImage: {
@@ -365,6 +391,7 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Creator working on their content on a smartphone",
       },
     },
+    search: { it: "social media manager milano", en: "social media manager milan" },
     pains: [
       { k: { it: "Niente più «link in bio»", en: "No more “link in bio”" }, v: { it: "Un indirizzo tuo, professionale, da mettere ovunque.", en: "Your own professional address, to put everywhere." } },
       { k: { it: "Mostra il tuo lavoro", en: "Show your work" }, v: { it: "Portfolio, collaborazioni e media kit sempre aggiornati.", en: "Portfolio, collabs and media kit always up to date." } },
@@ -372,19 +399,20 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     meta: {
       title: {
-        it: "Sito per social media manager e creator · 300 €/anno tutto incluso — Alpacode",
-        en: "Website for social media managers & creators · €300/yr all-inclusive — Alpacode",
+        it: "Sito per social media manager e creator · 300 €/anno con dominio e hosting — Alpacode",
+        en: "Website for social media managers & creators · €300/yr with domain and hosting — Alpacode",
       },
       description: {
-        it: "Il tuo spazio online personale, gestito da noi: sito, dominio, hosting. 300 € l'anno, tutto incluso. Vedi il sito, poi paghi. Solo 30 posti.",
-        en: "Your personal online space, managed by us: site, domain, hosting. €300 a year, all included. See it first, then pay. Only 30 seats.",
+        it: "Il tuo spazio online personale, gestito da noi: sito, dominio, hosting ed email a 300 € l'anno. Lo vedi finito, poi decidi se pagare.",
+        en: "Your personal online space, managed by us: site, domain, hosting and email at €300 a year. You see it finished, then decide whether to pay.",
       },
     },
+    portal: { it: "Il sito per social media manager e creator.", en: "The site for social media managers and creators." },
   },
   {
     slug: "coach-consulenti",
     audience: { it: "Coach, consulenti & formatori", en: "Coaches, consultants & trainers" },
-    eyebrow: { it: "Per chi vende competenza", en: "For people who sell expertise" },
+    eyebrow: { it: "per chi vende competenza", en: "for people who sell expertise" },
     price: 350,
     seats: 30,
     seatsLeft: 30,
@@ -393,9 +421,10 @@ export const CAMPAIGNS: Campaign[] = [
       line1: { it: "La tua competenza vale.", en: "Your expertise is worth it." },
       line2: { it: "Il tuo sito dovrebbe dirlo.", en: "Your website should say so." },
       lede: {
-        it: "Coach, consulente, formatore: il primo colloquio oggi avviene online. Un sito curato fa la differenza tra «ci penso» e «prenoto». Lo costruiamo noi, a 350 € l'anno, tutto incluso.",
-        en: "Coach, consultant, trainer: the first conversation now happens online. A polished site is the difference between “I'll think about it” and “I'll book”. We build it for you, at €350 a year, all included.",
+        it: "Coach, consulente, formatore: il primo colloquio oggi avviene online. Un sito curato fa la differenza tra «ci penso» e «prenoto». Lo costruiamo noi: 350 € l'anno, con dominio, hosting ed email.",
+        en: "Coach, consultant, trainer: the first conversation now happens online. A polished site is the difference between “I'll think about it” and “I'll book”. We build it: €350 a year, with domain, hosting and email.",
       },
+      fix: { strike: { it: "dovrebbe dirlo", en: "should say so" }, write: { it: "lo dice", en: "says so" } },
     },
     heroImage: {
       id: "coach-consulenti",
@@ -405,6 +434,7 @@ export const CAMPAIGNS: Campaign[] = [
         en: "One-to-one consulting session in an office",
       },
     },
+    search: { it: "coach professionale vicino a me", en: "business coach near me" },
     pains: [
       { k: { it: "Autorevolezza, subito", en: "Authority, instantly" }, v: { it: "Un sito serio comunica valore prima ancora di parlare.", en: "A serious site communicates value before you even speak." } },
       { k: { it: "Prenotazioni integrate", en: "Built-in booking" }, v: { it: "Calendario e modulo contatti per riempire l'agenda.", en: "Calendar and contact form to fill your agenda." } },
@@ -412,19 +442,20 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     meta: {
       title: {
-        it: "Sito per coach e consulenti · 350 €/anno tutto incluso — Alpacode",
-        en: "Website for coaches & consultants · €350/yr all-inclusive — Alpacode",
+        it: "Sito per coach e consulenti · 350 €/anno con dominio e hosting — Alpacode",
+        en: "Website for coaches & consultants · €350/yr with domain and hosting — Alpacode",
       },
       description: {
-        it: "Sito professionale per coach, consulenti e formatori: dominio, hosting, prenotazioni. 350 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
-        en: "Professional site for coaches, consultants and trainers: domain, hosting, booking. €350 a year, all included. See it first, then pay. Only 30 seats.",
+        it: "Sito professionale per coach, consulenti e formatori: dominio, hosting, prenotazioni. 350 € l'anno. Lo vedi finito, poi decidi se pagare.",
+        en: "Professional site for coaches, consultants and trainers: domain, hosting, booking. €350 a year. You see it finished, then decide whether to pay.",
       },
     },
+    portal: { it: "Il sito per coach, consulenti e formatori.", en: "The site for coaches, consultants and trainers." },
   },
   {
     slug: "liberi-professionisti",
     audience: { it: "Liberi professionisti", en: "Licensed professionals" },
-    eyebrow: { it: "Per chi è iscritto a un albo", en: "For licensed professionals" },
+    eyebrow: { it: "per chi è iscritto a un albo", en: "for licensed professionals" },
     price: 450,
     seats: 30,
     seatsLeft: 30,
@@ -433,8 +464,8 @@ export const CAMPAIGNS: Campaign[] = [
       line1: { it: "I clienti ti cercano online.", en: "Clients look for you online." },
       line2: { it: "Ti trovano?", en: "Do they find you?" },
       lede: {
-        it: "Avvocato, commercialista, architetto, psicologo: chi ha bisogno di te parte da una ricerca. Senza un sito tuo, finisci nelle mani delle directory. Ne costruiamo uno serio, a 450 € l'anno, tutto incluso.",
-        en: "Lawyer, accountant, architect, psychologist: whoever needs you starts with a search. Without your own site, you end up in the hands of directories. We build a serious one, at €450 a year, all included.",
+        it: "Avvocato, commercialista, architetto, psicologo: chi ha bisogno di te parte da una ricerca. Senza un sito tuo, finisci nelle mani delle directory. Ne costruiamo uno serio: 450 € l'anno, con dominio, hosting ed email.",
+        en: "Lawyer, accountant, architect, psychologist: whoever needs you starts with a search. Without your own site, you end up in the hands of directories. We build a serious one: €450 a year, with domain, hosting and email.",
       },
     },
     heroImage: {
@@ -445,6 +476,7 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Professionals shaking hands after a meeting",
       },
     },
+    search: { it: "commercialista monza", en: "accountant monza" },
     pains: [
       { k: { it: "Presenza credibile", en: "Credible presence" }, v: { it: "Uno studio online all'altezza del tuo lavoro.", en: "An online practice worthy of your work." } },
       { k: { it: "Conforme e sicuro", en: "Compliant and secure" }, v: { it: "Privacy, cookie e dati trattati a norma.", en: "Privacy, cookies and data handled to standard." } },
@@ -452,19 +484,20 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     meta: {
       title: {
-        it: "Sito per liberi professionisti · 450 €/anno tutto incluso — Alpacode",
-        en: "Website for licensed professionals · €450/yr all-inclusive — Alpacode",
+        it: "Sito per liberi professionisti · 450 €/anno con dominio e hosting — Alpacode",
+        en: "Website for licensed professionals · €450/yr with domain and hosting — Alpacode",
       },
       description: {
-        it: "Sito professionale per avvocati, commercialisti, architetti e psicologi: dominio, hosting, conformità. 450 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
-        en: "Professional site for lawyers, accountants, architects and psychologists: domain, hosting, compliance. €450 a year, all included. See it first, then pay. Only 30 seats.",
+        it: "Sito professionale per avvocati, commercialisti, architetti e psicologi: dominio, hosting, conformità. 450 € l'anno. Lo vedi finito, poi decidi se pagare.",
+        en: "Professional site for lawyers, accountants, architects and psychologists: domain, hosting, compliance. €450 a year. You see it finished, then decide whether to pay.",
       },
     },
+    portal: { it: "Il sito per chi è iscritto a un albo.", en: "The site for licensed professionals." },
   },
   {
     slug: "educatori-cinofili",
     audience: { it: "Educatori & addestratori cinofili", en: "Dog trainers & educators" },
-    eyebrow: { it: "Per chi lavora con i cani", en: "For people who work with dogs" },
+    eyebrow: { it: "per chi lavora con i cani", en: "for people who work with dogs" },
     price: 300,
     seats: 30,
     seatsLeft: 30,
@@ -473,9 +506,10 @@ export const CAMPAIGNS: Campaign[] = [
       line1: { it: "Bravissimo sul campo.", en: "Brilliant in the field." },
       line2: { it: "Invisibile su Google.", en: "Invisible on Google." },
       lede: {
-        it: "Il passaparola riempie i corsi, i social tengono vivo il gruppo. Ma chi cerca «educatore cinofilo» nella tua zona trova altri. Un sito tuo mette ordine: chi sei, il metodo, i percorsi, le recensioni e le prenotazioni — senza form di Google e link Calendly sparsi. Lo costruiamo noi, a 300 € l'anno, tutto incluso.",
-        en: "Word of mouth fills your classes, socials keep the group alive. But whoever searches “dog trainer” in your area finds someone else. Your own site puts it in order: who you are, your method, programs, reviews and bookings — no scattered Google Forms and Calendly links. We build it for you, at €300 a year, all included.",
+        it: "Il passaparola riempie i corsi, i social tengono vivo il gruppo. Ma chi cerca «educatore cinofilo» nella tua zona trova altri. Un sito tuo mette ordine: chi sei, il metodo, i percorsi, le recensioni e le prenotazioni — senza form di Google e link Calendly sparsi. Lo costruiamo noi: 300 € l'anno, con dominio, hosting ed email.",
+        en: "Word of mouth fills your classes, socials keep the group alive. But whoever searches “dog trainer” in your area finds someone else. Your own site puts it in order: who you are, your method, programmes, reviews and bookings — no scattered Google Forms and Calendly links. We build it: €300 a year, with domain, hosting and email.",
       },
+      fix: { strike: { it: "Invisibile", en: "Invisible" }, write: { it: "trovabile", en: "found" } },
     },
     heroImage: {
       id: "educatori-cinofili",
@@ -485,26 +519,28 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Dog trainer walking dogs during a lesson",
       },
     },
+    search: { it: "educatore cinofilo vicino a me", en: "dog trainer near me" },
     pains: [
       { k: { it: "Fatti trovare, non solo seguire", en: "Get found, not just followed" }, v: { it: "Chi ha appena preso un cucciolo parte da Google, non da Instagram. Senza sito, trova i tuoi concorrenti.", en: "New puppy owners start from Google, not Instagram. Without a site, they find your competitors." } },
       { k: { it: "Basta link sparsi", en: "No more scattered links" }, v: { it: "Form di Google, Calendly, pagine social: tutto in un unico posto, professionale e tuo.", en: "Google Forms, Calendly, social pages: everything in one place, professional and yours." } },
-      { k: { it: "Percorsi chiari, clienti decisi", en: "Clear programs, decided clients" }, v: { it: "Metodo, percorsi e prezzi spiegati bene: chi ti scrive ha già capito e scelto.", en: "Method, programs and prices well explained: whoever writes has already understood and chosen." } },
+      { k: { it: "Percorsi chiari, clienti decisi", en: "Clear programmes, decided clients" }, v: { it: "Metodo, percorsi e prezzi spiegati bene: chi ti scrive ha già capito e scelto.", en: "Method, programmes and prices well explained: whoever writes has already understood and chosen." } },
     ],
     meta: {
       title: {
-        it: "Sito per educatori cinofili · 300 €/anno tutto incluso — Alpacode",
-        en: "Website for dog trainers · €300/yr all-inclusive — Alpacode",
+        it: "Sito per educatori cinofili · 300 €/anno con dominio e hosting — Alpacode",
+        en: "Website for dog trainers · €300/yr with domain and hosting — Alpacode",
       },
       description: {
-        it: "Sito professionale per educatori e addestratori cinofili: metodo, percorsi, recensioni e prenotazioni in un posto solo. 300 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
-        en: "Professional site for dog trainers and educators: method, programs, reviews and bookings in one place. €300 a year, all included. See it first, then pay. Only 30 seats.",
+        it: "Sito professionale per educatori e addestratori cinofili: metodo, percorsi, recensioni e prenotazioni in un posto solo. 300 € l'anno. Lo vedi finito, poi decidi.",
+        en: "Professional site for dog trainers and educators: method, programmes, reviews and bookings in one place. €300 a year. You see it finished, then decide.",
       },
     },
+    portal: { it: "Il sito per educatori cinofili.", en: "The site for dog trainers." },
   },
   {
     slug: "olistica-yoga",
     audience: { it: "Yoga, olistica & benessere", en: "Yoga, holistic & wellness" },
-    eyebrow: { it: "Per chi cura corpo e mente", en: "For those who care for body and mind" },
+    eyebrow: { it: "per chi cura corpo e mente", en: "for those who care for body and mind" },
     price: 300,
     seats: 30,
     seatsLeft: 30,
@@ -513,9 +549,10 @@ export const CAMPAIGNS: Campaign[] = [
       line1: { it: "Il tuo lavoro è unico.", en: "Your work is one of a kind." },
       line2: { it: "Online, non si vede.", en: "Online, it doesn't show." },
       lede: {
-        it: "Discipline, percorsi, sensibilità: nessuno lavora come te. Ma sui social tutto scorre e tutto si somiglia. Un sito tuo dà casa e ordine a quello che fai: chi sei, le pratiche, gli orari, le prenotazioni. Lo costruiamo noi, a 300 € l'anno, tutto incluso.",
-        en: "Disciplines, paths, sensibility: nobody works like you. But on social media everything scrolls by and looks the same. Your own site gives what you do a home and an order: who you are, your practices, schedules, bookings. We build it for you, at €300 a year, all included.",
+        it: "Discipline, percorsi, sensibilità: nessuno lavora come te. Ma sui social tutto scorre e tutto si somiglia. Un sito tuo dà casa e ordine a quello che fai: chi sei, le pratiche, gli orari, le prenotazioni. Lo costruiamo noi: 300 € l'anno, con dominio, hosting ed email.",
+        en: "Disciplines, paths, sensibility: nobody works like you. But on social media everything scrolls by and looks the same. Your own site gives what you do a home and an order: who you are, your practices, schedules, bookings. We build it: €300 a year, with domain, hosting and email.",
       },
+      fix: { strike: { it: "non", en: "doesn't" }, write: { it: "", en: "does" } },
     },
     heroImage: {
       id: "olistica-yoga",
@@ -525,6 +562,7 @@ export const CAMPAIGNS: Campaign[] = [
         en: "Outdoor yoga practice at sunset",
       },
     },
+    search: { it: "lezioni di yoga vicino a me", en: "yoga classes near me" },
     pains: [
       { k: { it: "Uno spazio che ti somiglia", en: "A space that feels like you" }, v: { it: "Niente template freddi: un sito che rispecchia il tuo modo di lavorare e la tua energia.", en: "No cold templates: a site that mirrors how you work and your energy." } },
       { k: { it: "Le tue pratiche, in chiaro", en: "Your practices, made clear" }, v: { it: "Discipline, percorsi, orari e prezzi ordinati — non sparsi tra post e stories.", en: "Disciplines, paths, schedules and prices organised — not scattered across posts and stories." } },
@@ -532,14 +570,15 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     meta: {
       title: {
-        it: "Sito per yoga e discipline olistiche · 300 €/anno tutto incluso — Alpacode",
-        en: "Website for yoga & holistic practitioners · €300/yr all-inclusive — Alpacode",
+        it: "Sito per yoga e discipline olistiche · 300 €/anno con dominio e hosting — Alpacode",
+        en: "Website for yoga & holistic practitioners · €300/yr with domain and hosting — Alpacode",
       },
       description: {
-        it: "Sito professionale per insegnanti di yoga e operatori olistici: pratiche, orari e prenotazioni in un posto solo, con la tua identità. 300 € l'anno, tutto incluso. Prima vedi, poi paghi. Solo 30 posti.",
-        en: "Professional site for yoga teachers and holistic practitioners: practices, schedules and bookings in one place, with your identity. €300 a year, all included. See it first, then pay. Only 30 seats.",
+        it: "Sito professionale per insegnanti di yoga e operatori olistici: pratiche, orari e prenotazioni in un posto solo, con la tua identità. 300 € l'anno. Lo vedi finito, poi decidi.",
+        en: "Professional site for yoga teachers and holistic practitioners: practices, schedules and bookings in one place, with your identity. €300 a year. You see it finished, then decide.",
       },
     },
+    portal: { it: "Il sito per yoga e discipline olistiche.", en: "The site for yoga and holistic practitioners." },
   },
 ];
 

@@ -55,8 +55,8 @@ export interface InviteCopy {
 
 const STICKER_IT = { pre: "Prima call", amount: "0€", post: "senza impegno", aria: "Prima call gratuita, senza impegno" };
 const STICKER_EN = { pre: "First call", amount: "€0", post: "no commitment", aria: "Free first call, no commitment" };
-const CHIPS_IT = ["Prezzo deciso prima", "Niente costi nascosti", "Pagamenti rateizzabili"];
-const CHIPS_EN = ["Price agreed up front", "No hidden costs", "Pay in instalments"];
+const CHIPS_IT = ["Proposta scritta in pochi giorni", "Un solo referente", "Pagamenti rateizzabili"];
+const CHIPS_EN = ["Written proposal within days", "One point of contact", "Pay in instalments"];
 
 export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
   sito: {
@@ -65,7 +65,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         title: "{name} ti ha consigliato Alpacode · Siti web ed e-commerce",
         titleAnon: "Ti hanno consigliato Alpacode · Siti web ed e-commerce",
         description:
-          "Siti web, e-commerce, software e formazione. Prima call gratuita, prezzo deciso prima, niente costi nascosti. Raccontaci il tuo progetto.",
+          "Siti web, e-commerce, software e formazione. Prima call gratuita e proposta scritta in pochi giorni. Raccontaci il tuo progetto.",
         ogImage: "/og-voucher-invito.jpg",
         ogAlt: "Ti hanno consigliato Alpacode — siti web ed e-commerce, prima call gratuita",
       },
@@ -87,9 +87,9 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         "E-COMMERCE",
         "SOFTWARE",
         "FORMAZIONE",
+        "SEO",
+        "MANUTENZIONE",
         "PRIMA CALL GRATUITA",
-        "PREZZO DECISO PRIMA",
-        "NIENTE COSTI NASCOSTI",
         "PAGAMENTI RATEIZZABILI",
       ],
       form: {
@@ -122,7 +122,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         title: "{name} recommended Alpacode to you · Websites and online stores",
         titleAnon: "Alpacode was recommended to you · Websites and online stores",
         description:
-          "Websites, online stores, software and training. Free first call, price agreed up front, no hidden costs. Tell us about your project.",
+          "Websites, online stores, software and training. Free first call and a written proposal within days. Tell us about your project.",
         ogImage: "/og-voucher-invito-en.jpg",
         ogAlt: "Alpacode was recommended to you — websites and online stores, free first call",
       },
@@ -144,9 +144,9 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         "ONLINE STORES",
         "SOFTWARE",
         "TRAINING",
+        "SEO",
+        "MAINTENANCE",
         "FREE FIRST CALL",
-        "PRICE AGREED UP FRONT",
-        "NO HIDDEN COSTS",
         "PAY IN INSTALMENTS",
       ],
       form: {
@@ -182,7 +182,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         title: "{name} ti ha consigliato Alpacode · Tutto il digitale per la tua nuova attività",
         titleAnon: "Ti hanno consigliato Alpacode · Tutto il digitale per la tua nuova attività",
         description:
-          "Logo, sito, Google, e-commerce, pubblicità e gestionali per chi ha appena aperto. Prima call gratuita, prezzo deciso prima, niente costi nascosti.",
+          "Logo, sito, Google, e-commerce, pubblicità e gestionali per chi ha appena aperto, con un unico interlocutore. Prima call gratuita.",
         ogImage: "/og-voucher-nuova-attivita-invito.png",
         ogAlt: "Ti hanno consigliato Alpacode — tutto il digitale per la tua nuova attività, prima call gratuita",
       },
@@ -209,7 +209,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         "GESTIONALI",
         "FORMAZIONE",
         "PRIMA CALL GRATUITA",
-        "PREZZO DECISO PRIMA",
+        "UN UNICO INTERLOCUTORE",
       ],
       kit: {
         kicker: "Il kit di partenza",
@@ -253,7 +253,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         title: "{name} recommended Alpacode to you · All things digital for your new business",
         titleAnon: "Alpacode was recommended to you · All things digital for your new business",
         description:
-          "Logo, website, Google, online store, advertising and management tools for new businesses. Free first call, price agreed up front, no hidden costs.",
+          "Logo, website, Google, online store, advertising and management tools for new businesses, with one point of contact. Free first call.",
         ogImage: "/og-voucher-nuova-attivita-invito-en.png",
         ogAlt: "Alpacode was recommended to you — all things digital for your new business, free first call",
       },
@@ -280,7 +280,7 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         "MANAGEMENT TOOLS",
         "TRAINING",
         "FREE FIRST CALL",
-        "PRICE AGREED UP FRONT",
+        "ONE POINT OF CONTACT",
       ],
       kit: {
         kicker: "The starter kit",

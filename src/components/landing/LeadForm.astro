@@ -1,0 +1,195 @@
+---
+/* The landing's lead form, on a blueprint plate. Posts to /api/contact
+   with the page's attribution (campaign, audience, topic), the chosen
+   path as the offer and the extra answers as labelled details
+   (lib/landing/lead.ts). Works without JS? No — it needs the script to
+   send JSON; the mail address in the error line is the fallback. */
+import type { Lang } from "../../i18n/types";
+import { leadForm, profiles, type ProfileId } from "../../data/landing/shared";
+import { business } from "../../data/business";
+import { localizePath } from "../../i18n/utils";
+import Lines from "./Lines.astro";
+
+interface Props {
+  lang: Lang;
+  /** Attribution: which landing the lead comes from. */
+  campaign: string;
+  audience: string;
+  topic: string;
+  title: string;
+  lede: string;
+  /** The paths (formula tiers) or versions to choose from; the choice is
+   *  sent as the lead's offer. */
+  choices?: { id: string; name: string }[];
+  choiceLegend?: string;
+  /** Offer "not sure yet" (checked by default); without it the first
+   *  choice is. */
+  unsure?: boolean;
+  /** Ask whether they're a developer or a web designer. */
+  profile?: boolean;
+  /** One more short answer, sent as a labelled detail (e.g. how many
+   *  client sites, or the area someone works in). */
+  extra?: { name: string; label: string; ph: string; numeric?: boolean };
+  /** Ask for a phone number (optional field). */
+  phone?: boolean;
+  /** Sent with the lead, e.g. "300 €/anno". */
+  price?: string;
+  message?: { label: string; ph: string };
+  /** Relabel the "studio or business" field (e.g. a social handle). */
+  company?: { label: string; ph: string };
+  id?: string;
+}
+const {
+  lang,
+  campaign,
+  audience,
+  topic,
+  title,
+  lede,
+  choices,
+  choiceLegend,
+  unsure = true,
+  profile = false,
+  extra,
+  phone = false,
+  price,
+  message,
+  company,
+  id = "parliamone",
+} = Astro.props;
+const f = leadForm[lang];
+const p = profiles[lang];
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const consentHtml = esc(f.consent).replace(
+  "{privacy}",
+  `<a href="${localizePath("privacy", lang)}" target="_blank" rel="noopener">${esc(f.privacy)}</a>`,
+);
+const errorHtml = esc(f.error).replace("{email}", `<a href="mailto:${business.email}">${business.email}</a>`);
+const profileIds: ProfileId[] = ["dev", "designer"];
+---
+
+<section class="lnd-plate lnd-plate--print lnd-lead" id={id} data-sticky-hide>
+  <div class="lnd-crop" aria-hidden="true"></div>
+  <div class="lnd-wrap lnd-form-grid">
+    <div class="lnd-form-intro">
+      <h2 class="lnd-title" data-split><Lines text={title} /></h2>
+      <p class="lnd-lede">{lede}</p>
+      <slot />
+    </div>
+    <div class="lnd-form-box">
+      <form
+        class="lnd-form"
+        data-lead
+        data-campaign={campaign}
+        data-audience={audience}
+        data-topic={topic}
+        data-price={price}
+        data-lang={lang}
+        data-error-invalid={f.invalid}
+        data-error-send={errorHtml}
+        data-label-send={f.send}
+        data-label-sending={f.sending}
+        novalidate
+      >
+        <input class="lnd-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="lnd-form-row">
+          <label class="lnd-field">
+            <span>{f.name}</span>
+            <input name="name" autocomplete="name" required placeholder={f.namePh} />
+          </label>
+          <label class="lnd-field">
+            <span>{f.email}</span>
+            <input name="email" type="email" autocomplete="email" required placeholder={f.emailPh} />
+          </label>
+        </div>
+        <div class:list={["lnd-form-row", { "lnd-form-row--one": !phone }]}>
+          <label class="lnd-field">
+            <span>{company?.label ?? f.company}</span>
+            <input name="company" autocomplete="organization" placeholder={company?.ph ?? f.companyPh} />
+          </label>
+          {
+            phone && (
+              <label class="lnd-field">
+                <span>{f.phone}</span>
+                <input name="phone" type="tel" autocomplete="tel" placeholder={f.phonePh} />
+              </label>
+            )
+          }
+        </div>
+        {
+          profile && (
+            <fieldset class="lnd-fieldset" data-detail={f.profileLegend}>
+              <legend class="lnd-legend">{f.profileLegend}</legend>
+              <div class="lnd-choices">
+                {profileIds.map((pid, i) => (
+                  <label class="lnd-choice">
+                    <input type="radio" name="profile" value={pid} data-label={p.options[pid]} checked={i === 0} />
+                    <span>{p.options[pid]}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          )
+        }
+        {
+          choices && (
+            <fieldset class="lnd-fieldset">
+              <legend class="lnd-legend">{choiceLegend ?? f.tierLegend}</legend>
+              <div class="lnd-choices">
+                {choices.map((t, i) => (
+                  <label class="lnd-choice">
+                    <input type="radio" name="tier" value={t.id} data-label={t.name} checked={!unsure && i === 0} />
+                    <span>{t.name}</span>
+                  </label>
+                ))}
+                {unsure && (
+                  <label class="lnd-choice">
+                    <input type="radio" name="tier" value="" checked />
+                    <span>{f.tierUnsure}</span>
+                  </label>
+                )}
+              </div>
+            </fieldset>
+          )
+        }
+        {
+          extra && (
+            <label class="lnd-field lnd-field--short">
+              <span>{extra.label}</span>
+              <input
+                name="extra"
+                inputmode={extra.numeric ? "numeric" : undefined}
+                maxlength={extra.numeric ? 6 : 120}
+                placeholder={extra.ph}
+                data-detail={extra.label.replace(/\s*\((facoltativo|optional)\)/i, "")}
+              />
+            </label>
+          )
+        }
+        <label class="lnd-field">
+          <span>{message?.label ?? f.message}</span>
+          <textarea name="message" rows="3" placeholder={message?.ph ?? f.messagePh}></textarea>
+        </label>
+        <label class="lnd-consent">
+          <input type="checkbox" name="consent" required />
+          <span set:html={consentHtml} />
+        </label>
+        <div class="lnd-form-foot">
+          <button class="btn btn-ac btn-lg" type="submit">
+            <span data-send-label>{f.send}</span> <span class="arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+        <p class="lnd-form-error" role="alert" hidden></p>
+      </form>
+      <div class="lnd-done" hidden data-lead-done tabindex="-1">
+        <h3 class="lnd-title">{f.doneTitle}</h3>
+        <p class="lnd-lede">{f.doneBody}</p>
+        <button type="button" class="lnd-link lnd-link--button" data-lead-again>{f.doneAgain}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../lib/landing/lead";
+</script>

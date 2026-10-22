@@ -109,8 +109,7 @@
 :root[data-theme="dark"] .rep-boundary,
 :root[data-theme="dark"] .product--featured,
 :root[data-theme="dark"] .cmdk-item.is-on,
-:root[data-theme="dark"] body:has(.smm),
-:root[data-theme="dark"] body:has(.ptn),
+:root[data-theme="dark"] body:has(.lnd),
 :root[data-theme="dark"] body:has(.rf) {
   --ink: #0b0e14;
   --ink-2: #1a1f2b;
@@ -122,6 +121,7 @@
   --mute-2: #465065;
   --blue-soft: #dce5fa;
 }
+:root[data-theme="dark"] body:has(.lnd),
 :root[data-theme="dark"] body:has(.rf) {
   color-scheme: light;
 }

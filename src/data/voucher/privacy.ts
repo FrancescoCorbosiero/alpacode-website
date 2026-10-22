@@ -25,7 +25,7 @@ export const privacy: Record<Lang, ProgramPrivacy> = {
     crumb: "Segnala un amico · Privacy",
     h1Line1: "Informativa",
     h1Line2: "privacy.",
-    lede: "Quali dati raccogliamo quando segnali qualcuno o ci scrivi da un invito, perché e per quanto. Linguaggio semplice, niente sorprese.",
+    lede: "Quali dati raccogliamo quando segnali qualcuno o ci scrivi da un invito, perché e per quanto. Linguaggio semplice.",
     updated: "Ultimo aggiornamento · 10.2026",
     sections: [
       {
@@ -69,7 +69,7 @@ export const privacy: Record<Lang, ProgramPrivacy> = {
     crumb: "Refer a friend · Privacy",
     h1Line1: "Privacy",
     h1Line2: "notice.",
-    lede: "What data we collect when you refer someone or write to us from an invite, why, and for how long. Plain language, no surprises.",
+    lede: "What data we collect when you refer someone or write to us from an invite, why, and for how long. Plain language.",
     updated: "Last updated · 10.2026",
     sections: [
       {

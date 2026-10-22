@@ -48,6 +48,19 @@
 >   Docker volume. Same tokens, same motion engine (its effects are
 >   exported from `motion.ts`), styles scoped in `src/styles/voucher.css`.
 >   Everything about it: `docs/voucher.md`.
+> - **Campaign landings: one kit.** Every marketing page (`/offerta/*`,
+>   `/social-media-manager`, `/partner`, `/per-chi-fa-siti/*`) is built
+>   on the landing kit: `src/styles/landing.css` (scoped under `.lnd`,
+>   imported by the views only), `src/components/landing/`,
+>   `src/lib/landing/`. Blueprint and paper plates, the studio's pen on
+>   the copy (highlight, underline, strike, circles; margin notes in
+>   Caveat), scenes pinned and scrubbed by GSAP in a chunk only these
+>   pages load — and without motion every scene laid out in its end
+>   state. The pages come in audience groups (`src/data/audiences.ts`:
+>   business owners, people with clients, referrers, people who build
+>   sites), which also feed the "other doors" at the foot of each page.
+>   No countdowns, no price-reassurance phrases. How to make a new one:
+>   `docs/landing-factory.md` (and the `new-landing` skill).
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

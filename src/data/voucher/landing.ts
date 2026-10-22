@@ -161,7 +161,7 @@ const PARTNER_EN = {
 const FINAL_IT = {
   kicker: "Ultima cosa",
   line2: "Fino a 100 € per te.",
-  sub: "Generi il tuo link in un minuto, lo mandi su WhatsApp e al resto pensiamo noi.",
+  sub: "Generi il tuo link in un minuto, lo mandi su WhatsApp e da lì continuiamo noi.",
   cta: "Genera il tuo link",
   alt: "Domande? Scrivici",
   altSubject: "Domanda sul programma Segnala un amico",

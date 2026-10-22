@@ -1,0 +1,36 @@
+---
+import Layout from "../../components/Layout.astro";
+import AiLanding from "../../components/landing/AiLanding.astro";
+import { ai } from "../../data/landing/ai";
+import { leadForm } from "../../data/landing/shared";
+import { landingJsonLd } from "../../lib/landing/schema";
+
+const lang = "it" as const;
+const c = ai[lang];
+const GROUP = { it: "Per chi fa siti", en: "For people who build sites" };
+const CRUMB = { it: "Siti con l'AI", en: "Sites with AI" };
+---
+
+<Layout
+  lang={lang}
+  slug="per-chi-fa-siti/ai"
+  title={c.meta.title}
+  description={c.meta.description}
+  ogImage="/og-ai.png"
+  ogAlt={c.meta.ogAlt}
+  jsonLd={landingJsonLd({
+    lang,
+    site: Astro.site ?? new URL("https://alpacode.it"),
+    crumbs: [
+      { name: GROUP[lang], slug: "per-chi-fa-siti" },
+      { name: CRUMB[lang], slug: "per-chi-fa-siti/ai" },
+    ],
+    faq: c.qa.items,
+  })}
+  minimal
+  themeColor="#f0f3f9"
+  ctaLabel={leadForm[lang].sticky}
+  ctaHref="#formula"
+>
+  <AiLanding lang={lang} />
+</Layout>

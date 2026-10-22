@@ -21,7 +21,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       crumb: "Legale · Privacy",
       h1Line1: "Privacy",
       h1Line2: "policy.",
-      lede: "Come trattiamo i tuoi dati personali. Linguaggio semplice, niente sorprese.",
+      lede: "Come trattiamo i tuoi dati personali. Linguaggio semplice.",
       updated: "Ultimo aggiornamento · 05.2026",
       sections: [
         { h: "Titolare del trattamento", body: "<p>Soluzioni Digitali Alpacode (di seguito “Alpacode”).<br>Sede operativa: Monza · Milano · IT.<br>P. IVA: 14463350968.<br>Email: <a href=\"mailto:info@alpacode.it\">info@alpacode.it</a>.</p>" },
@@ -38,7 +38,7 @@ export const legal: Record<LegalKind, Record<Lang, LegalDoc>> = {
       crumb: "Legal · Privacy",
       h1Line1: "Privacy",
       h1Line2: "policy.",
-      lede: "How we handle your personal data. Plain language, no surprises.",
+      lede: "How we handle your personal data. Plain language.",
       updated: "Last updated · 05.2026",
       sections: [
         { h: "Data controller", body: "<p>Soluzioni Digitali Alpacode (“Alpacode”).<br>Studio: Monza · Milan · IT.<br>VAT: 14463350968.<br>Email: <a href=\"mailto:info@alpacode.it\">info@alpacode.it</a>.</p>" },

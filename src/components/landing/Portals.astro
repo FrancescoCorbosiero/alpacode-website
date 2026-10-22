@@ -1,0 +1,32 @@
+---
+/* The other doors: the landings next to this one in its audience group,
+   and the ones for the reader's neighbours (data/audiences.ts). Each
+   fills with its own page's accent. */
+import type { Portal } from "../../data/audiences";
+import Hand from "./Hand.astro";
+
+interface Props {
+  title: string;
+  items: Portal[];
+}
+const { title, items } = Astro.props;
+---
+
+<section class="lnd-plate lnd-portals-plate">
+  <div class="lnd-wrap">
+    <Hand kicker>{title}</Hand>
+    <ul class="lnd-portals">
+      {
+        items.map((p) => (
+          <li class="lnd-portal">
+            <a href={p.href} style={`--pc:${p.accent};--pc-on:${p.accentOn}`}>
+              <span class="lnd-portal-for">{p.for}</span>
+              <span class="lnd-portal-title">{p.title}</span>
+              <span class="lnd-portal-go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

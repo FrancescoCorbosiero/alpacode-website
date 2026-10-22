@@ -15,14 +15,14 @@ export const hero: Record<Lang, HeroData> = {
   it: {
     kicker: "Studio digitale a Monza e Milano",
     claim: ["Digitalizziamo *privati*", "e imprese,", "in tutta Italia."],
-    lede: "Siti, e-commerce, branding, pubblicità, software e formazione: tutto il digitale della tua attività, con un prezzo deciso prima.",
+    lede: "Siti, e-commerce, branding, pubblicità, software e formazione: tutto il digitale della tua attività, da un solo studio.",
     cta1: "Prenota una call",
     cta2: "Esplora i lavori",
   },
   en: {
     kicker: "Digital studio in Monza & Milan",
     claim: ["We digitalize *people*", "and businesses,", "right across Italy."],
-    lede: "Websites, e-commerce, branding, advertising, software and training: all the digital side of your business, at a price agreed up front.",
+    lede: "Websites, e-commerce, branding, advertising, software and training: all the digital side of your business, from one studio.",
     cta1: "Book a call",
     cta2: "See the work",
   },
@@ -58,8 +58,8 @@ export const heroVideo: HeroVideo | null = {
 
 /* ---------------- Statement (between the pitch and the services) ---------------- */
 export const homeStatement: Record<Lang, string> = {
-  it: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — con un prezzo deciso prima di iniziare e nessun costo a sorpresa.",
-  en: "A good-looking site isn't enough. We work so it's visible, credible and brings in clients — at a price agreed before we start, with no surprise costs.",
+  it: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti: lo progettiamo, lo costruiamo e lo seguiamo anche dopo il lancio.",
+  en: "A good-looking site isn't enough. We work so it's visible, credible and brings in clients: we design it, build it, and look after it once it's live.",
 };
 
 /* ---------------- 01 Verbs ---------------- */
@@ -276,7 +276,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
     lede: "La nostra missione è una: abbattere la barriera dei costi e dei tecnicismi, e digitalizzare privati e imprese in tutta Italia.",
     pillars: [
       { n: "I", label: "Pilastro I", t: "Il digitale è per tutti.", d: "Un sito o un'app non devono essere un lusso da migliaia di euro. Troviamo soluzioni alla portata di privati e piccole imprese, non solo dei grandi." },
-      { n: "II", label: "Pilastro II", t: "Trasparenza, dall'inizio.", d: "Prezzi, tempi e scelte sul tavolo prima di partire. Sai sempre cosa stai pagando e perché — nessun costo a sorpresa." },
+      { n: "II", label: "Pilastro II", t: "Si sceglie insieme.", d: "Ogni scelta tecnica te la spieghiamo in parole semplici, prima di farla: cosa costruiamo, in che ordine e perché. A decidere sei tu." },
       { n: "III", label: "Pilastro III", t: "Conta il risultato.", d: "Un sito bello non basta. Lavoriamo perché sia visibile, credibile e porti clienti — e lo misuriamo con numeri veri." },
       { n: "IV", label: "Pilastro IV", t: "Condividiamo quello che sappiamo.", d: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa." },
     ],
@@ -288,7 +288,7 @@ export const manifesto: Record<Lang, ManifestoData> = {
     lede: "Our mission is simple: break down the barrier of cost and jargon, and digitalize individuals and businesses across Italy.",
     pillars: [
       { n: "I", label: "Pillar I", t: "Digital is for everyone.", d: "A website or an app shouldn't be a thousands-of-euros luxury. We find solutions within reach for individuals and small businesses, not just the big players." },
-      { n: "II", label: "Pillar II", t: "Transparent from the start.", d: "Prices, timing and choices on the table before we begin. You always know what you're paying and why — no surprise costs." },
+      { n: "II", label: "Pillar II", t: "We choose together.", d: "We explain every technical choice in plain words before we make it: what we build, in what order and why. You have the final say." },
       { n: "III", label: "Pillar III", t: "Results are what count.", d: "A good-looking site isn't enough. We work so it's visible, credible and brings clients — and we measure it with real numbers." },
       { n: "IV", label: "Pillar IV", t: "We share what we know.", d: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away." },
     ],
@@ -356,8 +356,8 @@ export const pitch: Record<Lang, PitchData> = {
     intro: "Se lavori online, hai bisogno di un sito dedicato alla tua attività: visibile su Google, credibile, fatto per portarti clienti. Un sito datato, invece, li allontana.",
     objection: "Ma come, se i preventivi superano le migliaia di euro?",
     answer: "Alpacode è qui per questo.",
-    body: "Abbattiamo la barriera dei costi e dei tecnicismi. Niente parcelle da agenzia, niente sorprese: un prezzo chiaro, deciso prima di partire e calibrato su quello che ti serve davvero. E usiamo l'AI dove fa la differenza, per accelerare il lavoro e tenere bassi i costi.",
-    chips: ["Prezzo deciso prima", "Niente costi nascosti", "Pagamenti rateizzabili", "Prima call gratuita"],
+    body: "Abbattiamo la barriera dei costi e dei tecnicismi. Partiamo da cosa ti serve davvero e dal budget che hai, anche quando è contenuto, e costruiamo quello. L'AI la usiamo dove accelera il lavoro ripetitivo: il tempo, e il tuo investimento, vanno nelle scelte che contano.",
+    chips: ["Prima call gratuita", "Proposta scritta in pochi giorni", "Pagamenti rateizzabili", "Un solo referente"],
   },
   en: {
     num: "Alpacode for digital professionals",
@@ -365,8 +365,8 @@ export const pitch: Record<Lang, PitchData> = {
     intro: "If you work online, you need a website dedicated to your business: visible on Google, credible, built to bring you clients. A dated site, instead, pushes them away.",
     objection: "But how, when quotes run into the thousands of euros?",
     answer: "That's exactly why Alpacode exists.",
-    body: "We tear down the barrier of cost and jargon. No agency-sized invoices, no surprises: a clear price, agreed before we start and sized to what you actually need. And we use AI where it counts, to move faster and keep costs down.",
-    chips: ["Price agreed up front", "No hidden costs", "Installments available", "First call free"],
+    body: "We tear down the barrier of cost and jargon. We start from what you actually need and the budget you have, even a small one, and build exactly that. We use AI where it speeds up the repetitive work: the time, and your money, go into the decisions that matter.",
+    chips: ["First call free", "Written proposal within days", "Installments available", "One point of contact"],
   },
 };
 
@@ -397,7 +397,7 @@ export const values: Record<Lang, ValuesData> = {
         items: [
           { t: "Professionalità", d: "Persone vere, metodo chiaro, consegne nei tempi. Tratti con chi costruisce, non con un centralino." },
           { t: "Affidabilità", d: "Diciamo quello che facciamo e facciamo quello che diciamo. Anche dopo la consegna restiamo al tuo fianco." },
-          { t: "Convenienza", d: "Il giusto lavoro al giusto prezzo. Niente sovrapprezzi da agenzia, niente voci che non ti servono." },
+          { t: "Convenienza", d: "Ti proponiamo solo il lavoro che serve alla tua attività: quello che non ti porta niente non finisce nel preventivo." },
         ],
       },
       {
@@ -420,7 +420,7 @@ export const values: Record<Lang, ValuesData> = {
         items: [
           { t: "Professionalism", d: "Real people, a clear method, delivered on time. You deal with the people who build, not a call center." },
           { t: "Reliability", d: "We say what we do and do what we say. And we stay by your side long after launch." },
-          { t: "Value", d: "The right work at the right price. No agency markup, no line items you don't need." },
+          { t: "Value", d: "We only propose the work your business needs: anything that brings you nothing stays out of the quote." },
         ],
       },
       {
@@ -555,14 +555,14 @@ export interface ProductsTeaserData {
 export const productsTeaser: Record<Lang, ProductsTeaserData> = {
   it: {
     num: "Prodotti",
-    heading: "Pacchetti pronti,\nprezzo deciso prima.",
-    lede: "Non solo lavori su misura: pacchetti già pronti, con un prezzo chiaro fin dall'inizio. Per partire in fretta, senza preventivi infiniti.",
+    heading: "Pacchetti pronti,\nper partire subito.",
+    lede: "Non solo lavori su misura: pacchetti con contenuti e tempi già definiti, per partire in fretta.",
     cta: "Vedi tutti i prodotti",
   },
   en: {
     num: "Products",
-    heading: "Ready packages,\nprice agreed up front.",
-    lede: "Not only bespoke work: ready-made packages with a clear price from the start. To get going fast, without endless quotes.",
+    heading: "Ready packages,\nto start right away.",
+    lede: "Not only bespoke work: packages with scope and timing already set, to get going fast.",
     cta: "See all products",
   },
 };
@@ -584,10 +584,10 @@ export const process: Record<Lang, ProcessData> = {
   it: {
     num: "Metodo",
     heading: "Come si parte.",
-    lede: "Quattro passi, zero sorprese. Il prezzo lo conosci prima di firmare qualsiasi cosa.",
+    lede: "Dalla prima call al lancio, in quattro passi.",
     steps: [
       { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno." },
-      { n: "02", t: "Proposta chiara", d: "Scope, tempi e prezzo deciso prima. In parole semplici, nero su bianco." },
+      { n: "02", t: "Proposta scritta", d: "Entro pochi giorni: cosa faremo, in quanto tempo e a che costo, in parole semplici." },
       { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu." },
       { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono." },
     ],
@@ -595,10 +595,10 @@ export const process: Record<Lang, ProcessData> = {
   en: {
     num: "Method",
     heading: "How it starts.",
-    lede: "Four steps, zero surprises. You know the price before you sign anything.",
+    lede: "From the first call to launch, in four steps.",
     steps: [
       { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment." },
-      { n: "02", t: "Clear proposal", d: "Scope, timing and a price agreed up front. In plain words, in writing." },
+      { n: "02", t: "Written proposal", d: "Within a few days: what we'll do, how long it takes and what it costs, in plain words." },
       { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide." },
       { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them." },
     ],

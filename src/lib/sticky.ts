@@ -1,8 +1,9 @@
 /* ============================================================
-   Referral pages — the sticky CTA pill. It appears once the hero
+   The sticky call to action — the referral pages' pill and the
+   campaign landings' button. It appears once the hero ([data-hero])
    is gone and steps aside while anything marked [data-sticky-hide]
    is on screen: the form (and after the form has done its job),
-   the finale that repeats the same call, the terms' fine print.
+   a finale that repeats the same call, fine print.
 
    Runs once as a module; set up again on every astro:page-load,
    and its observers go with the page they watched.

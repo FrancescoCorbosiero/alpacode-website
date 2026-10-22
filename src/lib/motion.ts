@@ -24,6 +24,10 @@
    - The referral program's moments: the sticker you can tug, the link
      that decodes itself, the QR that prints, the burst when a link is
      ready (exported below for its page scripts, lib/voucher/*).
+   - The campaign landings (.lnd, components/landing): their pinned and
+     scrubbed scenes, the hand-drawn marks and the kinetic type live in
+     lib/landing/scenes.ts, a chunk loaded only by those pages (see
+     landingScenes below).
 
    Attribute API for new markup:
    ─ Reveals
@@ -107,7 +111,6 @@ const HEADINGS = [
   ".svc-group-verb",
   ".pp-h2",
   ".pp-pitch-lead",
-  ".ptn-thesis-lead",
   "[data-split]",
 ].join(",");
 
@@ -158,15 +161,7 @@ const BLOCKS = [
   ".clb-pact-list li",
   ".clb-cross",
   ".clb-form",
-  ".smm-pain",
-  ".smm-path",
-  ".smm-step",
-  ".smm-offer-grid",
-  ".ptn-step",
-  ".ptn-mode-grid",
   ".pp-feature",
-  ".cmp-pain",
-  ".cmp-step",
   ".rf-steps-lede",
   ".rf-payout-option",
   ".rf-step",
@@ -196,8 +191,6 @@ const STRUTS = [
   ".step-strut",
   ".value-strut",
   ".manifesto-sig-bar",
-  ".smm-pain-strut",
-  ".smm-path-strut",
   ".pp-feature-strut",
   "[data-strut]",
 ].join(",");
@@ -1229,6 +1222,23 @@ function initPage(): void {
   ScrollTrigger.sort();
   // Fonts change line breaks and heights: measure again once they're in.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  landingScenes();
+}
+
+/* The campaign landings' scenes (lib/landing/scenes.ts) and the GSAP
+   plugins they need are a separate chunk, fetched only by pages that
+   have them, and built inside this page's context and matchMedia so
+   they go with the page. */
+function landingScenes(): void {
+  if (!document.querySelector(".lnd")) return;
+  const body = document.body;
+  import("./landing/scenes").then(({ runScenes }) => {
+    if (pageBody !== body || !ctx || !mm) return;
+    const media = mm;
+    ctx.add(() => runScenes(media, { on, fine: fine(), cleanup: (fn) => cleanups.push(fn) }));
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  });
 }
 
 function teardownPage(): void {

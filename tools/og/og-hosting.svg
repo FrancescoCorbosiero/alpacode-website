@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="g" patternUnits="userSpaceOnUse" width="24" height="24"><path d="M24 0H0V24" fill="none" stroke="#F0F3F9" stroke-opacity="0.05"/></pattern>
+    <pattern id="G" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M120 0H0V120" fill="none" stroke="#F0F3F9" stroke-opacity="0.11"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#12306F"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#G)"/>
+  <g stroke="#F0F3F9" stroke-opacity="0.45" stroke-width="1.5" fill="none">
+    <path d="M22 40V22H40"/><path d="M1160 22H1178V40"/><path d="M22 590V608H40"/><path d="M1160 608H1178V590"/>
+  </g>
+  <text x="80" y="96" font-family="Archivo Black" font-size="24" fill="#F0F3F9">ALPACODE</text>
+  <rect x="80" y="106" width="46" height="5" fill="#3B72E9"/>
+  <!-- the bill -->
+  <g transform="translate(846 66) rotate(4)">
+    <rect width="276" height="262" fill="#F0F3F9"/>
+    <g font-family="JetBrains Mono" font-size="13" fill="#0B0E14" letter-spacing="1">
+      <text x="20" y="34" font-weight="400">CANONI HOSTING</text>
+      <rect x="20" y="46" width="236" height="2" fill="#0B0E14"/>
+      <text x="20" y="78">Pizzeria</text><text x="256" y="78" text-anchor="end" fill="#687387">canone</text>
+      <text x="20" y="106">Studio legale</text><text x="256" y="106" text-anchor="end" fill="#687387">canone</text>
+      <text x="20" y="134">Palestra</text><text x="256" y="134" text-anchor="end" fill="#687387">canone</text>
+      <text x="20" y="162">Fiorista</text><text x="256" y="162" text-anchor="end" fill="#687387">canone</text>
+      <path d="M20 184H256" stroke="#0B0E14" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="20" y="216" font-size="15">TOTALE</text><text x="250" y="216" text-anchor="end" font-size="15">4 CANONI</text>
+    </g>
+    <path d="M150 196 C 196 188, 262 194, 262 214 C 262 234, 196 238, 158 232 C 132 228, 140 204, 170 200" fill="none" stroke="#FF5C4D" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="80" y="214" font-family="Caveat" font-weight="600" font-size="38" fill="#2EE6C5" transform="rotate(-2 80 214)">per chi fa siti ai clienti</text>
+  <g font-family="Archivo Black" font-size="66" fill="#F0F3F9">
+    <text x="80" y="310">Paghi un hosting</text>
+    <text x="80" y="384">per ogni cliente?</text>
+  </g>
+  <text x="80" y="460" font-family="Archivo Black" font-size="66" fill="#2EE6C5">Stai perdendo soldi.</text>
+  <rect x="246" y="474" width="600" height="7" fill="#2EE6C5"/>
+  <text x="80" y="566" font-family="Manrope" font-weight="700" font-size="21" fill="#F0F3F9" fill-opacity="0.78">Un server tuo, una codebase pronta · Codebase, corso o formazione 1:1</text>
+</svg>
