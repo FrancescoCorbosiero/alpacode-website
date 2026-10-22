@@ -1,0 +1,22 @@
+---
+/* The door back to the studio, at the foot of every page. */
+interface Props {
+  title: string;
+  text: string;
+  href: string;
+  label: string;
+}
+const { title, text, href, label } = Astro.props;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap">
+    <div class="fx-studio" data-rise>
+      <div>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <a class="fx-btn fx-btn--ghost" href={href}>{label} <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

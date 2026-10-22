@@ -1,0 +1,30 @@
+---
+/* The chooser — where the bio link and the FAST keyword land. */
+import Fast from "../layouts/Fast.astro";
+import Hero from "../components/Hero.astro";
+import Dm from "../components/Dm.astro";
+import Band from "../components/Band.astro";
+import Chooser from "../components/Chooser.astro";
+import Signed from "../components/Signed.astro";
+import StudioDoor from "../components/StudioDoor.astro";
+import { DOORS } from "../data/doors";
+import { studio } from "../data/site";
+
+const door = DOORS.home;
+---
+
+<Fast door={door}>
+  <Hero door={door}>
+    <Dm keyword={door.keyword} />
+    <a class="fx-link fx-hero-more" href="#scegli">Oppure scegli da dove parti <span aria-hidden="true">↓</span></a>
+  </Hero>
+  <Band words={["Non temere l'AI", "Cavalcala", "Scrivi FAST"]} />
+  <Chooser />
+  <Signed door="home" />
+  <StudioDoor
+    title="Preferisci che lo facciamo noi?"
+    text="Lo studio fa il tuo sito, con dominio e hosting: tu pensi alla tua attività."
+    href={studio("/servizi/", "home")}
+    label="Lo studio"
+  />
+</Fast>

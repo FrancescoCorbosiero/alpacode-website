@@ -1,3 +1,8 @@
+> **Historical.** The prompt the site was first built from (v2). Much of it
+> no longer holds — hosting is a VPS with Docker and Caddy, mail goes
+> through AWS SES, the email is info@alpacode.it, motion is GSAP + Lenis.
+> Current context: `CLAUDE.md` and `docs/status.md`.
+
 # Prompt for Claude Code
 
 Paste this into Claude Code, in a fresh directory, with the

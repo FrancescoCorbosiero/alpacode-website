@@ -199,6 +199,10 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
           a: "Dipende dal modello: provvigione sulla segnalazione, margine libero sulla rivendita, scambio alla pari sui lead. I numeri esatti li definiamo insieme alla prima call e finiscono per iscritto — prima di qualunque progetto.",
         },
         {
+          q: "Con l'AI, i miei clienti non faranno tutto da soli?",
+          a: "Qualcuno ci proverà. Gli altri vogliono un sito che funzioni senza pensarci, e lo chiedono a chi conoscono già: a te. Con lo studio dietro, quella richiesta diventa un servizio tuo.",
+        },
+        {
           q: "Devo saper vendere siti web?",
           a: "No. Ti prepariamo noi: listino chiaro, materiale da mostrare, demo funzionanti. E alla call col cliente, se vuoi, ci siamo anche noi — presentati da te.",
         },
@@ -358,6 +362,10 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
         {
           q: "How much can I earn?",
           a: "It depends on the model: commission on referrals, free margin on resale, an even swap on leads. We set the exact numbers together on the first call and put them in writing — before any project.",
+        },
+        {
+          q: "With AI, won't my clients just do it all themselves?",
+          a: "Some will try. The rest want a site that works without thinking about it, and they ask someone they already know: you. With the studio behind you, that request becomes a service of yours.",
         },
         {
           q: "Do I need to know how to sell websites?",

@@ -11,9 +11,12 @@ dist
 data
 design_reference
 README.md
-CLAUDE_CODE_PROMPT.md
+CLAUDE.md
+docs
 Dockerfile
 docker-compose.yml
 .dockerignore
 npm-debug.log*
 _audit.mjs
+fast/dist
+fast/.astro

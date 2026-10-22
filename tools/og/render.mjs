@@ -16,6 +16,7 @@
 
    Run after adding or editing a card:   npm run og
    Only some cards (no blog covers):     npm run og -- og-hosting og-ai
+   Alpacode FAST's cards (fast.mjs → fast/public/):  npm run og -- fast
    Chrome is auto-detected; override with OG_CHROME=/path/to/chrome.
 
    Chrome's new headless mode reserves ~87px of --window-size for
@@ -29,6 +30,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { COVERS, coverSvg } from "./covers.mjs";
+import { FAST_CARDS, fastSvg } from "./fast.mjs";
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -123,8 +125,10 @@ const only = process.argv.slice(2).map((a) => a.replace(/\.svg$/, ""));
 const sources = readdirSync(here)
   .filter((f) => f.endsWith(".svg") && (only.length === 0 || only.includes(f.replace(/\.svg$/, ""))))
   .sort();
-if (sources.length === 0) {
-  console.error("No .svg sources in tools/og/ — nothing to render.");
+// "fast" picks all of FAST's cards; their names pick one by one.
+const fastCards = FAST_CARDS.filter((c) => only.length === 0 || only.includes("fast") || only.includes(c.name));
+if (sources.length === 0 && fastCards.length === 0) {
+  console.error("No card matches — nothing to render.");
   process.exit(1);
 }
 
@@ -137,7 +141,14 @@ try {
     await renderSvgTo(raw.replaceAll("{{PHOTO}}", PHOTO), join(outDir, out), `${svgFile} -> public/${out}`);
   }
 
-  // 2) Blog covers: generated from specs -> src/assets/blog/<slug>.png,
+  // 2) Alpacode FAST: generated from specs -> fast/public/<name>.png.
+  const fastOut = join(root, "fast", "public");
+  mkdirSync(fastOut, { recursive: true });
+  for (const card of fastCards) {
+    await renderSvgTo(fastSvg(card), join(fastOut, `${card.name}.png`), `fast:${card.name} -> fast/public/${card.name}.png`);
+  }
+
+  // 3) Blog covers: generated from specs -> src/assets/blog/<slug>.png,
   //    referenced by each post's `cover` frontmatter (page + og:image).
   const coversDir = join(root, "src", "assets", "blog");
   mkdirSync(coversDir, { recursive: true });

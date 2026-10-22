@@ -24,3 +24,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+      # Alpacode FAST (fast/), its own static site.
+      - run: npm run fast:check
+      - run: npm run fast:build

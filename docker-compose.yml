@@ -74,3 +74,33 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+
+  # Alpacode FAST (fast.alpacode.it) — the social-first sibling: a static
+  # site in its own container (fast/Dockerfile, fast/README.md), up with
+  # the rest on the same `docker compose up -d --build`. Point FAST_DOMAIN's
+  # DNS at the VPS: until it resolves, Caddy keeps retrying the certificate
+  # for that domain alone (alpacode.it is unaffected).
+  alpacode-fast:
+    build:
+      context: .
+      dockerfile: fast/Dockerfile
+      args:
+        FAST_SITE: "https://${FAST_DOMAIN:-fast.alpacode.it}"
+        PUBLIC_UMAMI_SRC: "${PUBLIC_UMAMI_SRC:-}"
+        PUBLIC_UMAMI_FAST_ID: "${PUBLIC_UMAMI_FAST_ID:-}"
+    image: alpacode-fast:latest
+    container_name: alpacode-fast
+    restart: unless-stopped
+    networks:
+      - caddy
+    expose:
+      - "80"
+    labels:
+      caddy: "${FAST_DOMAIN:-fast.alpacode.it}"
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

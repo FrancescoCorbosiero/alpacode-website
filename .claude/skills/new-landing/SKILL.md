@@ -1,6 +1,6 @@
 ---
 name: new-landing
-description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience or audience group, or build a bespoke pitch page on the landing kit (like /partner, /social-media-manager, /per-chi-fa-siti).
+description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience or audience group, build a bespoke pitch page on the landing kit (like /partner, /social-media-manager, /per-chi-fa-siti), or add a social door on Alpacode FAST (fast.alpacode.it: DM keywords, small digital products, "scrivi X in DM").
 ---
 
 # New landing
@@ -21,6 +21,10 @@ This skill is the operational checklist.
 - **Track B** — anything else (product, program, partnership,
   formula): data file + view on the kit + a CSS block in
   `landing.css` + its scenes + IT/EN pages + OG card.
+- **Track C** — the social register (a reel's hook, a DM keyword, a
+  small product, the fear of AI turned around): a door on Alpacode FAST
+  (`fast/`, fast.alpacode.it), never on alpacode.it. Follow
+  `fast/README.md` and the rules in `docs/marketing-map.md`.
 
 If the brief doesn't clearly say which, default to Track A and say so
 in the reply.
