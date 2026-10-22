@@ -111,7 +111,6 @@ const HEADINGS = [
   ".svc-group-verb",
   ".pp-h2",
   ".pp-pitch-lead",
-  ".ptn-thesis-lead",
   "[data-split]",
 ].join(",");
 
@@ -162,15 +161,7 @@ const BLOCKS = [
   ".clb-pact-list li",
   ".clb-cross",
   ".clb-form",
-  ".smm-pain",
-  ".smm-path",
-  ".smm-step",
-  ".smm-offer-grid",
-  ".ptn-step",
-  ".ptn-mode-grid",
   ".pp-feature",
-  ".cmp-pain",
-  ".cmp-step",
   ".rf-steps-lede",
   ".rf-payout-option",
   ".rf-step",
@@ -200,8 +191,6 @@ const STRUTS = [
   ".step-strut",
   ".value-strut",
   ".manifesto-sig-bar",
-  ".smm-pain-strut",
-  ".smm-path-strut",
   ".pp-feature-strut",
   "[data-strut]",
 ].join(",");

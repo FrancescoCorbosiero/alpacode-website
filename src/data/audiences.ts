@@ -156,8 +156,10 @@ export function portals(slugs: string[], lang: Lang): Portal[] {
   });
 }
 
-/** The other landings of an audience group, this page left out. */
-export function siblings(slug: string): string[] {
-  const own = LANDINGS.find((l) => l.slug === slug);
-  return own ? LANDINGS.filter((l) => l.audience === own.audience && l.slug !== slug).map((l) => l.slug) : [];
+/** The other landings of an audience group, this page left out. A page
+ *  that isn't in the registry (the SMM campaign's twin of
+ *  /social-media-manager) names its group. */
+export function siblings(slug: string, audience?: AudienceId): string[] {
+  const group = LANDINGS.find((l) => l.slug === slug)?.audience ?? audience;
+  return group ? LANDINGS.filter((l) => l.audience === group && l.slug !== slug).map((l) => l.slug) : [];
 }

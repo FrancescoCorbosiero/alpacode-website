@@ -1,31 +1,30 @@
 ---
 import Layout from "../components/Layout.astro";
-import PartnerLanding from "../components/pages/PartnerLanding.astro";
+import PartnerLanding from "../components/landing/PartnerLanding.astro";
 import { partnerLanding } from "../data/partner-landing";
+import { landingJsonLd } from "../lib/landing/schema";
 
 const lang = "it" as const;
-const data = partnerLanding[lang];
-
-const faqSchema = {
-  "@type": "FAQPage",
-  mainEntity: data.faq.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
+const c = partnerLanding[lang];
+const CRUMB = { it: "Programma partner", en: "Partner program" };
 ---
 
 <Layout
   lang={lang}
   slug="partner"
-  title={data.title}
-  description={data.description}
-  ogImage={data.ogImage}
-  jsonLd={[faqSchema]}
+  title={c.title}
+  description={c.description}
+  ogImage={c.ogImage}
+  ogAlt={c.ogAlt}
+  jsonLd={landingJsonLd({
+    lang,
+    site: Astro.site ?? new URL("https://alpacode.it"),
+    crumbs: [{ name: CRUMB[lang], slug: "partner" }],
+    faq: c.qa.items,
+  })}
   minimal
-  themeColor="#0A0A0A"
-  ctaLabel={data.stickyCta}
+  themeColor="#f0f3f9"
+  ctaLabel={c.sticky}
   ctaHref="#candidatura"
 >
   <PartnerLanding lang={lang} />

@@ -61,6 +61,8 @@ export interface LeadFormCopy {
   emailPh: string;
   company: string;
   companyPh: string;
+  phone: string;
+  phonePh: string;
   message: string;
   messagePh: string;
   profileLegend: string;
@@ -88,6 +90,8 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     emailPh: "nome@studio.it",
     company: "Studio o attività (facoltativo)",
     companyPh: "Ferri Web",
+    phone: "Telefono (facoltativo)",
+    phonePh: "+39 …",
     message: "Due righe su come lavori oggi (facoltativo)",
     messagePh: "Che siti fai, per chi, con quali strumenti.",
     profileLegend: "Ti riconosci di più in",
@@ -111,6 +115,8 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     emailPh: "name@studio.com",
     company: "Studio or business (optional)",
     companyPh: "Ferri Web",
+    phone: "Phone (optional)",
+    phonePh: "+39 …",
     message: "A couple of lines on how you work today (optional)",
     messagePh: "What sites you build, for whom, with which tools.",
     profileLegend: "You're more of a",

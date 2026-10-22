@@ -1,8 +1,8 @@
 ---
 import Layout from "../../../components/Layout.astro";
-import Offerta from "../../../components/pages/Offerta.astro";
+import OfferLanding from "../../../components/landing/OfferLanding.astro";
 import { CAMPAIGNS, COPY, FAQ, t, type Campaign } from "../../../data/campaigns";
-import { faqPageSchema } from "../../../lib/schema";
+import { landingJsonLd } from "../../../lib/landing/schema";
 
 export function getStaticPaths() {
   return CAMPAIGNS.map((campaign) => ({
@@ -14,7 +14,6 @@ export function getStaticPaths() {
 const lang = "en" as const;
 const { campaign } = Astro.props as { campaign: Campaign };
 const slug = `offerta/${campaign.slug}`;
-const faqSchema = faqPageSchema(FAQ.map((f) => ({ q: t(f.q, lang), a: t(f.a, lang) })));
 ---
 
 <Layout
@@ -22,9 +21,16 @@ const faqSchema = faqPageSchema(FAQ.map((f) => ({ q: t(f.q, lang), a: t(f.a, lan
   slug={slug}
   title={t(campaign.meta.title, lang)}
   description={t(campaign.meta.description, lang)}
-  jsonLd={[faqSchema]}
+  jsonLd={landingJsonLd({
+    lang,
+    site: Astro.site ?? new URL("https://alpacode.it"),
+    crumbs: [{ name: t(campaign.audience, lang), slug }],
+    faq: FAQ.map((f) => ({ q: t(f.q, lang), a: t(f.a, lang) })),
+  })}
   minimal
+  themeColor="#f0f3f9"
   ctaLabel={t(COPY.ctaPrimary, lang)}
+  ctaHref="#parliamone"
 >
-  <Offerta lang={lang} campaign={campaign} />
+  <OfferLanding lang={lang} campaign={campaign} />
 </Layout>

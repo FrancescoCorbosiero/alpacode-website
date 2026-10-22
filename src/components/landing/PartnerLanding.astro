@@ -1,0 +1,292 @@
+---
+/* /partner — copy in data/partner-landing.ts. The scenes (lib/landing/
+   scenes.ts): the hero's loop between you and us, the channel's three
+   models, the scale that balances, the pact that gets signed. */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { partnerLanding } from "../../data/partner-landing";
+import { portals } from "../../data/audiences";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import Lines from "./Lines.astro";
+import Objections from "./Objections.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Sticky from "./Sticky.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = partnerLanding[lang];
+const h = c.hero;
+const band = `${c.band.join(" · ")} · `;
+const LOOP = "M110 150 C 110 34, 410 34, 410 150 C 410 266, 110 266, 110 150 Z";
+/* The tokens, evenly spaced along the loop: square on the way to us (a
+   client), round on the way back (what you gain). Placed here by arc
+   length, so the scene (lib/landing/scenes.ts) starts each one exactly
+   where it sits without motion. */
+const ARCS: [number, number][][] = [
+  [[110, 150], [110, 34], [410, 34], [410, 150]],
+  [[410, 150], [410, 266], [110, 266], [110, 150]],
+];
+const bez = (p: [number, number][], t: number): [number, number] => {
+  const u = 1 - t;
+  const k = [u * u * u, 3 * u * u * t, 3 * u * t * t, t * t * t];
+  return [0, 1].map((d) => k.reduce((sum, w, i) => sum + w * p[i][d], 0)) as [number, number];
+};
+const samples: { x: number; y: number; len: number }[] = [];
+let run = 0;
+let prev = bez(ARCS[0], 0);
+for (const arc of ARCS) {
+  for (let s = 1; s <= 120; s++) {
+    const pt = bez(arc, s / 120);
+    run += Math.hypot(pt[0] - prev[0], pt[1] - prev[1]);
+    samples.push({ x: pt[0], y: pt[1], len: run });
+    prev = pt;
+  }
+}
+const TOKENS = Array.from({ length: 12 }, (_, i) => {
+  const at = (i + 0.5) / 12;
+  const pt = samples.find((sm) => sm.len >= at * run) ?? samples[samples.length - 1];
+  return { at, x: pt.x.toFixed(1), y: pt.y.toFixed(1), back: at >= 0.5 };
+});
+const SIGN =
+  "M8 44 C 18 12, 30 8, 31 36 C 32 58, 42 22, 52 30 C 60 37, 63 46, 72 30 C 78 18, 86 20, 88 38 C 90 52, 101 32, 110 27 C 119 22, 124 42, 134 35 C 148 26, 158 18, 180 30";
+---
+
+<div class="lnd lnd--partner">
+  {/* ---------- Hero ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-hero" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-ac" style={`--i:${h.lines.length}`}><Mark kind="underline">{h.accent.replace(/\.$/, "")}</Mark>.</span>
+      </h1>
+      <div class="lnd-hero-row">
+        <div class="lnd-hero-copy">
+          <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+          <div class="lnd-actions" data-intro style="--i:4">
+            <a class="btn btn-ac btn-lg" href="#candidatura" data-magnetic>{h.cta} <span class="arrow">→</span></a>
+            <a class="lnd-link" href="#canale">{h.alt} <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="lnd-hero-machine lnd-loop" data-scene="loop" aria-hidden="true">
+          <svg class="lnd-loop-svg" viewBox="0 0 520 300">
+            <path class="lnd-loop-path" d={LOOP}></path>
+            <path class="lnd-loop-arrow" d="M250 53 L264 63 L250 73"></path>
+            <path class="lnd-loop-arrow" d="M270 227 L256 237 L270 247"></path>
+            {
+              TOKENS.map((tk) => (
+                <rect
+                  class:list={["lnd-token", { "lnd-token--back": tk.back }]}
+                  x="-9"
+                  y="-9"
+                  width="18"
+                  height="18"
+                  rx={tk.back ? 9 : 2}
+                  transform={`translate(${tk.x} ${tk.y})`}
+                  data-at={tk.at}
+                />
+              ))
+            }
+          </svg>
+          <span class="lnd-node lnd-node--you"><b>{h.you}</b><small>{h.youSub}</small></span>
+          <span class="lnd-node lnd-node--us"><b>{h.us}</b><small>{h.usSub}</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lnd-band lnd-plate--ink" data-kinetic aria-label={c.band.join(", ")}>
+    <span class="lnd-band-line" data-kinetic-line="1" aria-hidden="true">{band.repeat(3)}</span>
+    <span class="lnd-band-line lnd-band-line--out" data-kinetic-line="-1" aria-hidden="true">{band.repeat(3)}</span>
+  </section>
+
+  {/* ---------- The thesis ---------- */}
+  <section class="lnd-plate lnd-thesis">
+    <div class="lnd-wrap">
+      <Hand kicker>{c.thesis.kicker}</Hand>
+      <p class="lnd-thesis-lead" data-scrub>{c.thesis.lead}</p>
+      <p class="lnd-lede lnd-thesis-body" data-reveal>{c.thesis.body}</p>
+    </div>
+  </section>
+
+  {/* ---------- The channel ---------- */}
+  <section class="lnd-scene lnd-channel lnd-plate--print lnd-grid-bg" data-scene="channel" style="--len:3.2" id="canale">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-channel-wrap">
+        <div class="lnd-channel-head">
+          <div>
+            <Hand kicker>{c.channel.kicker}</Hand>
+            <h2 class="lnd-title lnd-title--md"><Lines text={c.channel.title} /></h2>
+            <p class="lnd-lede lnd-channel-lede lnd-aside-sm">{c.channel.lede}</p>
+          </div>
+          <ol class="lnd-modes" aria-hidden="true">
+            {c.channel.modes.map((mo, i) => <li data-mode={i}>{mo.tab}</li>)}
+          </ol>
+        </div>
+        <div class="lnd-rails" aria-hidden="true">
+          <span class="lnd-rail-node"><b>{h.you}</b><small>{h.youSub}</small></span>
+          <div class="lnd-rail-tracks">
+            <div class="lnd-rail lnd-rail--to">
+              <i></i><i></i><i></i>
+              <span class="lnd-rail-labels">{c.channel.modes.map((mo, i) => <span data-mode={i}>{mo.flowTo} →</span>)}</span>
+            </div>
+            <div class="lnd-rail lnd-rail--from">
+              <i></i><i></i><i></i>
+              <span class="lnd-rail-labels">{c.channel.modes.map((mo, i) => <span data-mode={i}>← {mo.flowFrom}</span>)}</span>
+            </div>
+          </div>
+          <span class="lnd-rail-node lnd-rail-node--us"><b>{h.us}</b><small>{h.usSub}</small></span>
+        </div>
+        <div class="lnd-beats">
+          {
+            c.channel.modes.map((mo) => (
+              <div class="lnd-beat lnd-mode">
+                <div>
+                  <span class="lnd-mode-tab lnd-aside-sm">{mo.tab}</span>
+                  <h3 class="lnd-sub">{mo.headline}</h3>
+                  <p class="lnd-body">{mo.blurb}</p>
+                  <p class="lnd-mode-flow">
+                    <span>{mo.flowTo} →</span>
+                    <span>← {mo.flowFrom}</span>
+                  </p>
+                </div>
+                <ul class="lnd-mode-list lnd-aside-sm">
+                  {mo.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  {/* ---------- Who it's for ---------- */}
+  <section class="lnd-plate lnd-who">
+    <div class="lnd-wrap">
+      <div class="lnd-who-head">
+        <h2 class="lnd-title" data-split><Lines text={c.who.title} /></h2>
+        <p class="lnd-lede" data-reveal>{c.who.lede}</p>
+      </div>
+      <ul class="lnd-trades" data-scene="trades">
+        {
+          c.who.professions.map((p) => (
+            <li class="lnd-trade">
+              <span class="lnd-trade-t">{p.t}</span>
+              <span class="lnd-trade-d">{p.d}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- The scale ---------- */}
+  <section class="lnd-scene lnd-deal lnd-plate--paper-2" data-scene="scale" style="--len:2.6">
+    <div class="lnd-stage">
+      <div class="lnd-wrap lnd-deal-wrap">
+        <div class="lnd-deal-head">
+          <Hand kicker>{c.deal.kicker}</Hand>
+          <h2 class="lnd-title lnd-title--md"><Lines text={c.deal.title} /></h2>
+          <p class="lnd-lede lnd-aside-sm">{c.deal.lede}</p>
+        </div>
+        <div class="lnd-scale">
+          <div class="lnd-scale-beam">
+            <div class="lnd-pan lnd-pan--left">
+              <span class="lnd-pan-k">{c.deal.yoursLabel}</span>
+              <ul>{c.deal.yours.map((y) => <li class="lnd-weight">{y}</li>)}</ul>
+            </div>
+            <div class="lnd-pan lnd-pan--right">
+              <span class="lnd-pan-k">{c.deal.oursLabel}</span>
+              <ul>{c.deal.ours.map((o) => <li class="lnd-weight">{o}</li>)}</ul>
+            </div>
+          </div>
+          <div class="lnd-scale-post" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="lnd-progress" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="lnd-plate lnd-steps-plate">
+    <div class="lnd-wrap">
+      <h2 class="lnd-title" data-split><Lines text={c.steps.title} /></h2>
+      <ol class="lnd-track lnd-track--3">
+        {
+          c.steps.items.map((s) => (
+            <li class="lnd-track-step" data-reveal>
+              <span class="lnd-track-dot" aria-hidden="true" />
+              <h3 class="lnd-sub">{s.t}</h3>
+              <p class="lnd-body">{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* ---------- The pact ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-pact-plate">
+    <div class="lnd-wrap">
+      <article class="lnd-pact" data-scene="pact">
+        <Hand kicker>{c.pact.kicker}</Hand>
+        <h2 class="lnd-title">{c.pact.title}</h2>
+        <ol class="lnd-clauses">
+          {
+            c.pact.clauses.map((cl) => (
+              <li data-reveal>
+                <h3>{cl.t}</h3>
+                <p>{cl.d}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="lnd-signs">
+          <div class="lnd-sign">
+            <span class="lnd-sign-line"></span>
+            <span class="lnd-sign-k">{h.you}</span>
+          </div>
+          <div class="lnd-sign">
+            <svg class="lnd-sign-svg" viewBox="0 0 190 60" aria-hidden="true"><path d={SIGN}></path></svg>
+            <span class="lnd-sign-line"></span>
+            <span class="lnd-sign-k">{c.pact.sign}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <Objections title={c.qa.title} items={c.qa.items} />
+
+  <LeadForm
+    lang={lang}
+    campaign="partner-landing"
+    audience={lang === "it" ? "Partner" : "Partners"}
+    topic="Partnership"
+    title={c.lead.title}
+    lede={c.lead.lede}
+    choices={c.channel.modes.map((mo) => ({ id: mo.id, name: mo.tab }))}
+    choiceLegend={c.lead.modelLegend}
+    phone
+    company={c.lead.profession}
+    extra={{ name: "zone", ...c.lead.zone }}
+    message={c.lead.message}
+    id="candidatura"
+  />
+
+  <Portals title={c.portalsTitle} items={portals(["social-media-manager", "learning", "collabora-con-noi"], lang)} />
+
+  <Sticky href="#candidatura" label={c.sticky} />
+</div>
+
+<script>
+  import "../../lib/landing/formula";
+</script>

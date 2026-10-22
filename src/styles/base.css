@@ -212,13 +212,8 @@ img {
   color: #fff;
 }
 
-/* Bespoke landing buttons (SMM, partner, product pages) paint their own
-   hover state against their own accent: no rising fill there. */
-.btn.smm-btn-accent,
-.btn.smm-btn-ghost,
-.btn.smm-express-btn,
-.btn.ptn-btn-accent,
-.btn.ptn-btn-ghost,
+/* Bespoke buttons (product pages) paint their own hover state against
+   their own accent: no rising fill there. */
 .btn.btn-accent,
 .btn.btn-ghost-on-dark {
   --btn-fill: transparent;

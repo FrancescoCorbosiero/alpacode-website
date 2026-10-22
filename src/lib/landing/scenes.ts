@@ -20,6 +20,17 @@
        shift    the repetitive jobs move to the agents' lane
        line     a site travels the six stations of the assembly line
        knoll    the kit's tools fall into place, laid out side by side
+       found    offers: the search their clients make, and the result
+                that's finally them
+       bars     offers: Italy against the EU, bar by bar
+       stamp    offers: the proposal gets its stamp
+       mirror   SMM: the link-in-bio's links move into the site
+       rent     SMM: rented land, one notification at a time
+       loop     partner hero: clients go round from you to us and back
+       channel  partner: the three models, one rail each way
+       trades   partner: the professions slide in from both sides
+       scale    partner: what each side gains, until it balances
+       pact     partner: the clauses, and our signature
    - Kinetic bands ([data-kinetic]): their lines slide across in
      opposite directions as the band crosses the screen.
    Rules: things are hidden here, at init, and only below the fold
@@ -30,8 +41,9 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 type On = <K extends keyof HTMLElementEventMap>(
   el: HTMLElement,
@@ -46,7 +58,25 @@ export interface Kit {
 }
 type Scene = (root: HTMLElement, media: gsap.MatchMedia, kit: Kit) => void;
 
-const SCENES: Record<string, Scene> = { receipt, pack, stack, press, shift, line, knoll };
+const SCENES: Record<string, Scene> = {
+  receipt,
+  pack,
+  stack,
+  press,
+  shift,
+  line,
+  knoll,
+  found,
+  bars,
+  stamp,
+  mirror,
+  rent,
+  loop,
+  channel,
+  trades,
+  scale,
+  pact,
+};
 
 export function runScenes(media: gsap.MatchMedia, kit: Kit): void {
   marks(kit);
@@ -243,6 +273,8 @@ function scrubbed(root: HTMLElement, extra: ScrollTrigger.Vars = {}): gsap.core.
       end: "bottom bottom",
       scrub: 0.6,
       invalidateOnRefresh: true,
+      // While the stage is pinned (on a phone the sticky button waits).
+      toggleClass: { targets: root, className: "is-pinned" },
       onUpdate: (st) => bar?.style.setProperty("--p", st.progress.toFixed(3)),
       ...extra,
     },
@@ -535,5 +567,219 @@ function kinetic(): void {
         },
       );
     });
+  });
+}
+
+/** Offers: the query types itself, the usual results, then theirs. */
+function found(root: HTMLElement): void {
+  const q = root.querySelector<HTMLElement>(".lnd-serp-q");
+  const others = gsap.utils.toArray<HTMLElement>(".lnd-serp-item:not(.lnd-serp-item--you)", root);
+  const you = root.querySelector<HTMLElement>(".lnd-serp-item--you");
+  const hand = root.querySelector<HTMLElement>(".lnd-serp-hand");
+  const site = root.querySelector<HTMLElement>(".lnd-serp-site");
+  const tl = scrubbed(root);
+  beats(tl, root, [0.36, 0.7]);
+  if (q) {
+    const n = (q.textContent ?? "").length || 20;
+    tl.fromTo(q, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.12, ease: `steps(${n})` }, 0.02);
+  }
+  tl.fromTo(others, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.06, stagger: 0.03, ease: "power2.out" }, 0.14);
+  if (you) {
+    tl.fromTo(
+      you,
+      { height: 0, autoAlpha: 0, paddingTop: 0, paddingBottom: 0 },
+      { height: "auto", autoAlpha: 1, paddingTop: 14, paddingBottom: 14, duration: 0.1, ease: "power2.out" },
+      0.38,
+    );
+  }
+  if (hand) tl.fromTo(hand, { clipPath: "inset(-30% 100% -30% -8%)" }, { clipPath: "inset(-30% -8% -30% -8%)", duration: 0.08 }, 0.5);
+  if (site) tl.fromTo(site, { yPercent: 104 }, { yPercent: 0, duration: 0.14, ease: "power3.out" }, 0.72);
+  tl.to({}, { duration: 0.12 }, 0.88);
+}
+
+/** Offers: each pair of bars grows to its figure, Italy then the EU. */
+function bars(root: HTMLElement): void {
+  if (!below(root)) return;
+  const rows = gsap.utils.toArray<HTMLElement>(".lnd-vs i", root);
+  gsap.set(rows, { scaleX: 0 });
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top 78%",
+    once: true,
+    onEnter: () =>
+      gsap.to(rows, {
+        scaleX: (_i, el: HTMLElement) => Number(getComputedStyle(el).getPropertyValue("--v")) || 0,
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.12,
+        clearProps: "transform",
+      }),
+  });
+}
+
+/** Offers: the stamp comes down on the proposal, the sheet takes the hit. */
+function stamp(root: HTMLElement): void {
+  if (!below(root)) return;
+  const mark = root.querySelector<HTMLElement>(".lnd-stamp");
+  if (!mark) return;
+  gsap.set(mark, { autoAlpha: 0, scale: 2.6, rotation: -32 });
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top 55%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      tl.to(mark, { autoAlpha: 1, scale: 1, rotation: -11, duration: 0.42, ease: "power4.in" })
+        .to(root.querySelectorAll(".lnd-sheet"), { x: 5, duration: 0.05, yoyo: true, repeat: 3, ease: "power1.inOut" })
+        .set(mark, { clearProps: "transform,opacity,visibility" });
+    },
+  });
+}
+
+/** SMM: the bio's links light up one by one and the site assembles
+ *  itself from that side — the links become its sections. */
+function mirror(root: HTMLElement): void {
+  if (!below(root)) return;
+  const links = gsap.utils.toArray<HTMLElement>(".lnd-bio-link", root);
+  const parts = gsap.utils.toArray<HTMLElement>("[data-fly]", root);
+  const plus = root.querySelector<HTMLElement>(".lnd-mirror-plus");
+  gsap.set(parts, { x: -140, autoAlpha: 0 });
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top 70%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      tl.to(links, { backgroundColor: "rgba(255, 46, 136, 0.9)", color: "#0b0e14", duration: 0.18, stagger: 0.12, yoyo: true, repeat: 1 })
+        .fromTo(plus ?? {}, { rotation: 0, scale: 1 }, { rotation: 180, scale: 1.25, duration: 0.5, ease: "back.out(2)" }, 0.2)
+        .to(parts, { x: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", stagger: 0.05, clearProps: "transform,opacity,visibility" }, 0.35)
+        .to(plus ?? {}, { scale: 1, duration: 0.3 }, ">-0.3")
+        .set(links, { clearProps: "backgroundColor,color" });
+    },
+  });
+}
+
+/** SMM: rented land — a notification lands with each beat. */
+function rent(root: HTMLElement): void {
+  const notes = gsap.utils.toArray<HTMLElement>(".lnd-note", root);
+  const tl = scrubbed(root);
+  beats(tl, root, [0.4, 0.72]);
+  notes.forEach((n, i) => {
+    tl.fromTo(
+      n,
+      { autoAlpha: 0, y: -40, scale: 0.94 },
+      { autoAlpha: 1, y: 0, scale: 1, duration: 0.07, ease: "back.out(1.6)" },
+      [0.08, 0.42, 0.74][i] ?? i / notes.length,
+    );
+  });
+  tl.to({}, { duration: 0.12 }, 0.88);
+}
+
+/** Partner hero: the tokens run round the loop while the hero is on
+ *  screen — a client on the way to us, what you gain on the way back:
+ *  each one changes shape as it passes a node, and the node takes it. */
+function loop(root: HTMLElement): void {
+  const path = root.querySelector<SVGPathElement>(".lnd-loop-path");
+  const tokens = gsap.utils.toArray<SVGRectElement>(".lnd-token", root);
+  if (!path || !tokens.length) return;
+  const you = root.querySelector<HTMLElement>(".lnd-node--you");
+  const us = root.querySelector<HTMLElement>(".lnd-node--us");
+  const take = (node: HTMLElement | null) =>
+    node && gsap.fromTo(node, { scale: 1.08 }, { scale: 1, duration: 0.8, ease: "elastic.out(1, 0.4)", overwrite: "auto" });
+  const runs = tokens.map((tk) => {
+    const at = Number(tk.dataset.at) || 0;
+    let back = tk.classList.contains("lnd-token--back");
+    const run: gsap.core.Tween = gsap.to(tk, {
+      motionPath: { path, start: at, end: at + 1 },
+      duration: 14,
+      ease: "none",
+      repeat: -1,
+      paused: true,
+      onUpdate: () => {
+        const now = (at + run.progress()) % 1 >= 0.5;
+        if (now === back) return;
+        back = now;
+        tk.classList.toggle("lnd-token--back", now);
+        tk.setAttribute("rx", now ? "9" : "2");
+        take(now ? us : you);
+      },
+    });
+    return run;
+  });
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top bottom",
+    end: "bottom top",
+    onToggle: (st) => runs.forEach((r) => (st.isActive ? r.play() : r.pause())),
+  });
+}
+
+/** Partner: the three models, one at a time; the tabs and the rails
+ *  follow — what travels each way changes with the model. */
+function channel(root: HTMLElement): void {
+  const n = root.querySelectorAll(".lnd-mode").length || 3;
+  let active = -1;
+  const show = (i: number) => {
+    if (i === active) return;
+    active = i;
+    root.dataset.on = String(i);
+    root.querySelectorAll<HTMLElement>("[data-mode]").forEach((el) => el.classList.toggle("is-on", Number(el.dataset.mode) === i));
+  };
+  show(0);
+  const tl = scrubbed(root);
+  beats(tl, root, [1 / 3, 2 / 3]);
+  tl.to({}, { duration: 0.1 }, 0.9);
+  tl.eventCallback("onUpdate", () => show(Math.min(n - 1, Math.floor(tl.progress() * n))));
+}
+
+/** Partner: the trades come in from alternate sides. */
+function trades(root: HTMLElement): void {
+  if (!below(root)) return;
+  const rows = gsap.utils.toArray<HTMLElement>(".lnd-trade", root);
+  rows.forEach((r, i) => gsap.set(r, { x: i % 2 ? 120 : -120, autoAlpha: 0 }));
+  ScrollTrigger.batch(rows, {
+    start: "top 92%",
+    once: true,
+    onEnter: (batch) =>
+      gsap.to(batch, { x: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out", stagger: 0.08, clearProps: "transform,opacity,visibility" }),
+  });
+}
+
+/** Partner: what each side gains drops into its pan, in turn; the beam
+ *  dips under each one and ends level. */
+function scale(root: HTMLElement): void {
+  const beam = root.querySelector<HTMLElement>(".lnd-scale-beam");
+  if (!beam) return;
+  const left = gsap.utils.toArray<HTMLElement>(".lnd-pan--left .lnd-weight", root);
+  const right = gsap.utils.toArray<HTMLElement>(".lnd-pan--right .lnd-weight", root);
+  const n = Math.max(left.length, right.length);
+  const tl = scrubbed(root);
+  // The beam's tilt starts level (CSS); every tween on it waits its turn.
+  const tilt = (from: number, to: number, at: number) =>
+    tl.fromTo(beam, { "--tilt": `${from}deg` }, { "--tilt": `${to}deg`, duration: 0.06, ease: "power2.out", immediateRender: false }, at);
+  for (let i = 0; i < n; i++) {
+    const at = 0.04 + (i / n) * 0.8;
+    if (left[i]) {
+      tl.fromTo(left[i], { y: -90, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.07, ease: "bounce.out" }, at);
+      tilt(0, -8, at + 0.04);
+    }
+    if (right[i]) {
+      tl.fromTo(right[i], { y: -90, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.07, ease: "bounce.out" }, at + 0.1);
+      tilt(left[i] ? -8 : 0, 0, at + 0.14);
+    }
+  }
+  tl.to({}, { duration: 0.08 }, 0.92);
+}
+
+/** Partner: the pact gets our signature as it comes into view. */
+function pact(root: HTMLElement): void {
+  const sign = root.querySelector<SVGPathElement>(".lnd-sign-svg path");
+  if (!sign || !below(root)) return;
+  gsap.set(sign, { drawSVG: "0%" });
+  ScrollTrigger.create({
+    trigger: sign,
+    start: "top 80%",
+    once: true,
+    onEnter: () => gsap.to(sign, { drawSVG: "100%", duration: 1.6, ease: "power1.inOut", delay: 0.2 }),
   });
 }

@@ -1,6 +1,8 @@
 ---
 /* The questions people actually ask, answered in full — open, not
-   folded away: the title holds still while they scroll past. */
+   folded away: the title holds still while they scroll past. The
+   "chat" variant sets them as a conversation (question in, answer
+   out), for the pages whose readers live in their DMs. */
 import type { Objection } from "../../data/landing/shared";
 import Lines from "./Lines.astro";
 
@@ -8,9 +10,10 @@ interface Props {
   title: string;
   items: Objection[];
   plate?: "paper" | "print" | "ink";
+  variant?: "list" | "chat";
   id?: string;
 }
-const { title, items, plate = "paper", id = "domande" } = Astro.props;
+const { title, items, plate = "paper", variant = "list", id = "domande" } = Astro.props;
 ---
 
 <section class:list={["lnd-plate", `lnd-plate--${plate}`]} id={id}>
@@ -19,7 +22,7 @@ const { title, items, plate = "paper", id = "domande" } = Astro.props;
       <h2 class="lnd-title" data-split><Lines text={title} /></h2>
       <slot />
     </div>
-    <ol class="lnd-qa-list">
+    <ol class:list={["lnd-qa-list", { "lnd-qa-list--chat": variant === "chat" }]}>
       {
         items.map((o) => (
           <li class="lnd-qa-item" data-reveal>

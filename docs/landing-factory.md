@@ -1,128 +1,216 @@
 # Landing factory — how to mint a new landing page
 
-This repo is built to churn out campaign landing pages fast. There are
-two tracks. Pick the cheapest one that fits.
+Every campaign page is built on one kit — the landing kit, `.lnd`:
+blueprint and paper plates, the studio's pen on the copy, scenes that
+move with the scroll. There are two tracks. Pick the cheapest one that
+fits.
 
 | Track | When | Cost | Examples |
 | --- | --- | --- | --- |
-| **A — Campaign** | Selling the site offer to a new audience | 1 data entry, ~10 min | `/offerta/educatori-cinofili`, `/offerta/olistica-yoga` |
-| **B — Bespoke** | A different pitch (new product, program, offer structure) | 5 small files, ~1–2 h | `/social-media-manager`, `/partner`, `/voucher` |
+| **A — Campaign** | Selling the site offer to a new audience | 1 data entry, ~15 min | `/offerta/educatori-cinofili`, `/offerta/olistica-yoga` |
+| **B — Bespoke** | A different pitch (product, program, formula) | data file + view + CSS block + 2 pages + OG card, half a day | `/social-media-manager`, `/partner`, `/per-chi-fa-siti/*` |
 
-Both tracks ship IT + EN, SEO meta, lead form wired to `/api/contact`
-with per-campaign attribution, and the house design system. No new
-framework code is ever needed.
+Both tracks ship IT + EN, SEO meta with FAQPage + BreadcrumbList
+JSON-LD, a lead form wired to `/api/contact` with per-landing
+attribution, and the same motion. No new framework code is needed.
 
 ---
+
+## Audiences first
+
+The marketing pages come in groups, one per kind of reader. The
+registry is `src/data/audiences.ts`:
+
+| Group | Who | Pages |
+| --- | --- | --- |
+| `attivita` | own a business or a practice, need it online | `/offerta/*`, `/social-media-manager` |
+| `professionisti` | work with clients and would bring them digital work | `/partner`, `/collabora-con-noi` |
+| `segnalatori` | know someone who needs it | `/voucher`, `/voucher/nuova-attivita` |
+| `chi-fa-siti` | build sites for clients (developers, web designers) | `/per-chi-fa-siti`, `/hosting`, `/ai` |
+
+- **Every landing is one entry in `LANDINGS`**: slug, group, the line
+  other pages use to point at it, its accent. The "other doors"
+  (`Portals.astro`, via `portals([...slugs], lang)`) and the footer
+  read it; `siblings(slug)` gives the rest of a group.
+- **A new group gets an audience-first path**: a hub at its root
+  (`/per-chi-fa-siti/`: the doors, a band, the shared formula) and one
+  page per pitch under it. Pages that already exist keep their URLs —
+  ads point at them.
+- **One reader, two profiles?** Use the profile switch, not two pages:
+  `ProfileSwitch.astro` + `[data-for="dev|designer"]` copy, remembered
+  across the group (`alpacode_profile`), preset by `?per=designer` so an
+  ad can aim at one of them (`lib/landing/profile.ts`).
+
+## The kit
+
+- **Styles** — `src/styles/landing.css`, imported by the views only
+  (other pages don't carry it). The root is `.lnd`, each landing adds
+  `.lnd--<name>` with its accent:
+  - `--ac` fills, marks, the pen · `--ac-ink` the accent as text on
+    paper (≥ 4.5:1) · `--ac-on` text on an accent fill · `--ac-soft`
+    the highlighter band;
+  - `body:has(.lnd--<name>) { --lnd-header-cta; --lnd-header-cta-on }`
+    paints the minimal header's button.
+  - Plates: `.lnd-plate` (paper), `--print` (blueprint), `--ink`,
+    `--paper-2`; `.lnd-grid-bg` (drafting grid), `.lnd-crop` (crop
+    marks). Type: `.lnd-display`, `.lnd-title` (`--md`), `.lnd-sub`,
+    `.lnd-lede`, `.lnd-body`, `.lnd-hand` (`--kicker`) for the margin
+    notes.
+  - Accents taken: brand blue (offers on the blueprint `#8fb0f5`; the
+    hub; the referral program), teal `#2ee6c5` (hosting), orange
+    `#ff6b1a` (AI), magenta `#ff2e88` (SMM), green `#2fe08a` (partner),
+    yellow (Hive), coral `#e63422` (Pro Kit). A new landing picks a new
+    one.
+- **Components** — `src/components/landing/`:
+  - `Mark` (`kind`: highlight, underline, strike, circle, box) — the pen
+    on a word; `Hand` (`arrow`, `kicker`) — a note in the margin;
+    `Lines` — a title split on `\n`.
+  - `Formula` — the three-step ladder (each tier carries the one
+    below, the one that suits the reader marked by hand; a tier's
+    button ticks it in the form). Copy in `data/landing/*`.
+  - `Objections` (`variant`: list or chat), `LeadForm` (see below),
+    `Portals`, `Sticky` (the pill after the hero, hidden on the form
+    and the footer), `ProfileSwitch`.
+  - The views: `OfferLanding` (Track A), `SmmLanding`, `PartnerLanding`,
+    `HostingLanding`, `AiLanding`, `BuildersHub`.
+- **Scripts** — `src/lib/landing/`: `lead.ts` (the form), `formula.ts`,
+  `profile.ts`, `offer.ts` (tabs; the round's "closed" state),
+  `calc.ts`, `makeof.ts`, `mirror.ts`, `schema.ts`
+  (`landingJsonLd({ lang, site, crumbs, faq })`), `scenes.ts`.
+- **The lead form** posts `{ campaign, audience, topic, offer, price,
+  details[] }` with the person's fields to `/api/contact`. `choices`
+  become the offer; `extra` and `profile` arrive as labelled details;
+  `id` sets the anchor (`#parliamone` by default; `/partner` keeps
+  `#candidatura`, which its old links use).
+
+## Motion: scenes
+
+- **Above the fold it's CSS** — `[data-intro]` with `--i`, the
+  display's lines, the hero's marks. The first paint never waits on
+  JavaScript.
+- **Below the fold it's a scene** — `data-scene="<name>"` runs the
+  function of that name in `SCENES` (`lib/landing/scenes.ts`, a chunk
+  `motion.ts` loads only on `.lnd` pages, inside the page's
+  `gsap.context()`, reverted on navigation). Two kinds:
+  - *Pinned*: `<section class="lnd-scene" data-scene="x" style="--len:3">`
+    with a `.lnd-stage` inside — the stage sticks for `--len` screens
+    of scroll while `scrubbed(root)` plays; `beats(tl, root, [...])`
+    hands the text over, `.lnd-progress` draws the rule.
+  - *Machines*: a hero object that plays on its own (the press, the
+    loop) — pause it off screen.
+- **Rules that keep scenes correct**:
+  - In scrubbed timelines use `fromTo` — the timeline owns its start
+    states; later tweens on the same target take
+    `immediateRender: false`.
+  - Measure from layout (`centre(el, within)`), not transformed boxes,
+    so a refresh mid-scene stays right.
+  - Hide things only in JS, at init, and only below the fold
+    (`below(el)`). **Nothing is hidden by CSS**: under reduced motion
+    the chunk never runs and `landing.css` lays every scene out in its
+    end state. Look at the reduced-motion still of every page.
+  - Phones: a pinned stage must fit about 660px of height (Safari's
+    small viewport) — shoot it at 390×664. Secondary copy can step out
+    of sight there with the visually-hidden pattern under
+    `.has-motion [data-scene="x"]` (never `display: none`: screen
+    readers keep it).
+- The site-wide hooks still work inside landings: `data-split`,
+  `data-reveal`, `data-scrub` (`motion.ts` header).
 
 ## Track A — Campaign landing (`/offerta/<slug>`)
 
 Everything lives in `src/data/campaigns.ts`. One entry in `CAMPAIGNS`
-generates `/offerta/<slug>` and `/en/offerta/<slug>` at build time,
-with the shared machinery for free: countdown + seats scarcity, the
-two offer variants, the Italy-digital-gap stats, the AI section,
-steps, guarantees, FAQ and the lead form (leads arrive tagged with the
-campaign slug).
-
-Recipe:
+generates `/offerta/<slug>` and `/en/offerta/<slug>` on
+`OfferLanding`: the pen's correction in the hero, the search scene
+(what their clients type, and the result that's finally them), the
+stats, the proposal sheet with the two versions as tabs, the steps,
+the objections and the form, plus the group's other doors.
 
 1. Extend the `CampaignSlug` union with the new slug.
-2. Add one `Campaign` object to `CAMPAIGNS`. Copy an existing entry
-   and rewrite the audience-specific fields:
+2. Add one `Campaign` to `CAMPAIGNS` — copy an entry and rewrite:
    - `audience`, `eyebrow` — who it's for, in their own words.
-   - `price` — current tiers for reference: 300 € (consumer-facing
-     micro-businesses: SMM, dog trainers, yoga), 350 € (coaches &
-     consultants), 450 € (licensed professionals). `seats`/`seatsLeft`
-     default 30/30 — **edit `seatsLeft` by hand as people sign up**.
-   - `deadlineISO` — reuse the shared `DEADLINE` constant unless the
-     campaign has its own window.
-   - `hero.line1` / `hero.line2` — a two-beat mirror of their pain
-     ("Bravissimo sul campo." / "Invisibile su Google."). `lede` ends
-     with the price and "tutto incluso".
-   - `pains` — exactly 3, drawn from the audience's real workflow
-     (what they cobble together today: Google Forms, Calendly, link
-     in bio…), not generic marketing.
-   - `heroImage` — `unsplash("<photo-id>")` hotlink. To use a real
-     photo instead, drop `src/assets/campaigns/<slug>.jpg` (any of
-     jpg/png/webp/avif) — it overrides the hotlink automatically. If
-     the remote image fails, a clean placeholder renders; nothing
-     breaks.
-   - `meta.title` / `meta.description` — follow the pattern
-     "Sito per X · N €/anno tutto incluso — Alpacode".
-3. Verify: `npm run check && npm run build` — the new pages must
-   appear under `dist/client/offerta/<slug>/`.
+   - `price` — tiers for reference: 300 € (consumer-facing
+     micro-businesses), 350 € (coaches and consultants), 450 €
+     (licensed professionals).
+   - `seats` / `seatsLeft` — edit `seatsLeft` by hand as people sign
+     up; it shows only once it's below `seats`. `deadlineISO` reuses
+     `DEADLINE`, a round date (the end of a quarter): the page names the
+     round calmly and turns to "closed" by itself. **No countdowns.**
+   - `hero.line1` / `line2` — a two-beat mirror of their situation
+     ("Bravissimo sul campo." / "Invisibile su Google."); `hero.fix`
+     (optional): the pen strikes `strike` out of line 2 and writes
+     `write` above it. `lede` says what's included, plainly ("con
+     hosting ed email").
+   - `search` — what their clients type into Google.
+   - `pains` — exactly three, from the audience's real workflow (what
+     they cobble together today), not generic marketing.
+   - `heroImage` — `unsplash("<photo-id>")`, or drop
+     `src/assets/campaigns/<id>.jpg` to override it.
+   - `meta.title` — "Sito per X · N €/anno con dominio e hosting —
+     Alpacode"; `meta.description`; `portal` — the line other pages use
+     to point here.
+3. Verify: `npm run check && npm run build` — the pages must appear in
+   `dist/client/offerta/<slug>/`.
 
-## Track B — Bespoke landing (top-level slug)
+## Track B — Bespoke landing
 
-For a pitch that isn't "we build your site for N €/year". Clone the
-pattern of the two existing bespoke landings — SMM (`smm` prefix,
-magenta) and Partner (`ptn` prefix, green):
+For a pitch that isn't "we build your site for N €/year".
 
-1. **Data** — `src/data/<name>-landing.ts`: one typed interface, one
-   `Record<Lang, Copy>` with IT and EN. All copy lives here, never in
-   components.
-2. **Component** — `src/components/pages/<Name>Landing.astro`:
-   - Section heads reuse `.section-head` + `.sec-num` + `.lede`
-     classes → scroll reveals come free from `src/lib/motion.ts`.
-   - Reuse the shared pieces: `Ticker.astro`, `Countdown.tsx`,
-     `CampaignForm.tsx` (price offers) or `PartnerForm.tsx`
-     (applications), the sticky CTA pill + IntersectionObserver
-     script pattern (visible after hero, hidden on the form).
-   - Inline scripts must be `is:inline`, idempotent, and re-init on
-     `astro:page-load` (view transitions).
-   - **One signature interactive element per landing** — the thing
-     that makes it memorable (SMM: type-your-name mirror; Partner:
-     two-way flow diagram). Vanilla JS only, no dependencies,
-     `prefers-reduced-motion` fallback.
-3. **Styles** — `src/styles/<name>-landing.css`, imported in
-   `src/styles/global.css`. Scope everything under one root class and
-   define a scoped palette. Accents already taken: blue (brand — and
-   the referral program, the flyer's own paper-and-blue), yellow (Hive),
-   coral (Pro Kit), magenta `#ff2e88` (SMM), green `#2fe08a` (Partner)
-   — pick a new one, dark bg `#0a0a0a`, and keep
-   the brand DNA: square corners, 1px rules, the 6px strut, Archivo
-   Black for display and Manrope for everything else. Kickers use the
-   shared `.sec-num` (sentence case, no numbering, a short strut led by
-   `--kicker-strut: currentColor` in the landing accent) — no
-   monospace micro-labels, no `§ 0N —` prefixes. Motion comes from
-   `src/lib/motion.ts` for free (see its header for `data-split`,
-   `data-reveal`, `data-scrub`…); don't add a second animation system.
-   Paint the body via `body:has(.<root>) { background: var(--ink) }`
-   and recolor the minimal header CTA to the landing accent.
-4. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
-   `Layout` with `minimal` chrome, `ctaHref` pointing at the form
-   anchor, FAQPage JSON-LD built from the data file.
-5. **OG card** — `tools/og/og-<name>.svg` following the existing
-   ones, then `npm run og` to rasterise it (link-preview scrapers —
-   WhatsApp, Facebook, LinkedIn — don't render SVG, so the site
-   serves the generated `public/og-<name>.png`; point `ogImage` at
-   the `.png`). Keep each headline line under ~20 chars and stack
-   the accent word on its own line — display fonts overflow
-   otherwise. Eyeball the generated PNG before committing it.
-6. **Verify** — `npm run check && npm run build`, serve
-   `dist/server/entry.mjs`, screenshot at 1440px and 390px, click the
-   interactive element, submit the form end-to-end (without
-   `AWS_REGION` the API logs the lead and returns ok — check the
-   server log shows the right campaign attribution).
+1. **Registry** — one `LANDINGS` entry in `data/audiences.ts` (a new
+   group if the reader is new; see above).
+2. **Data** — `src/data/<name>-landing.ts` (or `data/landing/<name>.ts`
+   for a group's pages): one typed interface, `Record<Lang, Copy>`, IT
+   and EN. All copy lives here, never in components.
+3. **View** — `src/components/landing/<Name>Landing.astro`: import
+   `landing.css`, root `<div class="lnd lnd--<name>">`, plates in
+   sequence — hero (copy + its machine), a kinetic band, the scenes
+   that tell the pitch, steps, objections, the form, the portals, the
+   sticky pill. **At least one scene of its own**, the thing that makes
+   it memorable (SMM: the link-in-bio's links move into the site;
+   partner: the loop between you and us, the scale that balances).
+4. **Styles** — a block at the end of `landing.css` headed by the
+   landing's name: the `.lnd--<name>` accent, the header CTA, the
+   scene's pieces, then its `@media` rules.
+5. **Scenes** — the functions in `scenes.ts`, listed in its header and
+   in `SCENES`.
+6. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
+   `Layout` with `minimal`, `themeColor="#f0f3f9"`, `ctaHref` at the
+   form's anchor, `jsonLd={landingJsonLd({ … faq })}`.
+7. **OG card** — `tools/og/og-<name>.svg` on the blueprint (see
+   `og-hosting.svg`, `og-partner.svg`), then `npm run og -- og-<name>`
+   (only those cards; link-preview scrapers don't render SVG, the site
+   serves `public/og-<name>.png`). Keep each headline line under ~20
+   characters; eyeball the PNG before committing it.
+8. **Verify** — `npm run check && npm run build`, serve
+   `dist/server/entry.mjs`, tour the page at 1440 and 390 (and the
+   pinned scenes at 390×664), the reduced-motion still, and submit the
+   form: without `AWS_REGION` the API logs the lead — check its
+   campaign and details.
 
 ## House rules (both tracks)
 
-- Copy voice: direct, concrete, zero hype. Prices stated plainly.
-  Never invent numbers, stats, commissions or delivery promises that
-  aren't already agreed — write "condizioni definite per iscritto"
-  instead.
-- Risk reversal is the brand: "prima vedi, poi paghi" appears on
-  every offer.
-- No emoji in UI (the linktree parody inside the SMM mirror is the
-  one deliberate exception — it depicts the *rented* world).
-- Cross-link related landings with the bordered "portal" card pattern
-  (see `.smm-bridge` / `.ptn-cross`), using the target landing's
-  accent color.
-- Every form posts to `/api/contact` with a distinct `campaign` value
-  so leads are attributable per landing.
+- **Voice**: direct, concrete, zero hype. Say what's included and how
+  it's done. Never invent numbers, stats, commissions or delivery
+  promises; where terms aren't fixed, say they're agreed on the first
+  call and put in writing.
+- **Banned: the price-reassurance tic.** "Prezzo deciso prima",
+  "prezzo chiaro", "niente costi nascosti", "nessuna sorpresa",
+  "nessun costo a sorpresa", "tutto incluso" and kin (EN "price agreed
+  up front", "no hidden costs", "no surprises", "all included") read
+  cheap. Name the things instead: "con dominio, hosting ed email",
+  "una proposta scritta dopo la prima call". (A real term of an offer
+  — the Pro Kit founders' locked price — is not the tic.)
+- **No countdowns, no fake scarcity.** A round has a date and a number
+  of places; the page says so once, calmly.
+- **Risk reversal is the brand**: "prima vedi, poi paghi" on every
+  offer of the site.
+- **No placeholder proof.** No logos, reviews or counts until they're
+  real.
+- No emoji in UI (the linktree parody in the SMM mirror depicts the
+  *rented* world on purpose).
+- Every form posts to `/api/contact` with its own `campaign` value.
 - A landing that is a whole program (several pages, its own API) is a
   module: `/voucher` (`docs/voucher.md`) keeps its pieces in
   `components/voucher/`, its copy in `data/voucher/`, its scripts in
-  `lib/voucher/`, and imports its stylesheet from its views
-  (`styles/voucher.css`, scoped under `.rf`) so other pages don't carry
-  it. A new door for an existing program is a data entry there, not a
-  new landing (`/voucher/nuova-attivita/` is `program: "nuova-attivita"`).
+  `lib/voucher/` and its stylesheet scoped under `.rf`. A new door for
+  an existing program is a data entry there, not a new landing
+  (`/voucher/nuova-attivita/` is `program: "nuova-attivita"`).

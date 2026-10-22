@@ -1,6 +1,6 @@
 ---
 name: new-landing
-description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience, or clone the SMM/partner landing pattern for a new pitch.
+description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience or audience group, or build a bespoke pitch page on the landing kit (like /partner, /social-media-manager, /per-chi-fa-siti).
 ---
 
 # New landing
@@ -8,23 +8,27 @@ description: Mint a new marketing landing page for an ad campaign. Use when aske
 Read `docs/landing-factory.md` first — it is the complete playbook.
 This skill is the operational checklist.
 
-## 1. Pick the track
+## 1. Place it: audience, then track
 
-- The pitch is "we build your website for N €/year" aimed at a new
-  audience → **Track A**: add one entry to `CAMPAIGNS` in
-  `src/data/campaigns.ts`. That is the whole job.
-- The pitch is anything else (product, program, partnership) →
-  **Track B**: clone the SMM/Partner pattern (data file + page
-  component + scoped stylesheet + IT/EN pages + OG card in
-  `tools/og/` rendered to PNG via `npm run og`).
+- **Audience** — which group in `src/data/audiences.ts` reads it
+  (`attivita`, `professionisti`, `segnalatori`, `chi-fa-siti`)? A new
+  kind of reader is a new group with an audience-first path and a hub
+  (`/per-chi-fa-siti/` is the model). One reader with two profiles is
+  the profile switch, not two pages.
+- **Track A** — the pitch is "we build your website for N €/year" for a
+  new audience: one entry in `CAMPAIGNS` (`src/data/campaigns.ts`).
+  That is the whole job.
+- **Track B** — anything else (product, program, partnership,
+  formula): data file + view on the kit + a CSS block in
+  `landing.css` + its scenes + IT/EN pages + OG card.
 
-If the user's brief doesn't clearly say which, default to Track A and
-say so in the reply.
+If the brief doesn't clearly say which, default to Track A and say so
+in the reply.
 
 ## 2. Gather from the brief (ask only if truly missing)
 
 - Audience and their current workaround (what they use instead of a
-  site today) — this drives hero + pains.
+  site today) — this drives the hero, the pains and the search scene.
 - Price tier (existing: 300/350/450 €). Default 300 € and flag it.
 - Slug (kebab-case, Italian).
 
@@ -32,20 +36,28 @@ say so in the reply.
 
 Follow `docs/landing-factory.md` for the track. Non-negotiables:
 
-- IT + EN always.
-- Copy in the data layer, never hardcoded in components.
-- No invented numbers/stats/promises; "prima vedi, poi paghi" present.
-- Track B: one signature interactive element, scoped palette with a
-  NEW accent, `body:has()` dark paint, sticky CTA pill, FAQ JSON-LD.
+- IT + EN always; copy in the data layer, never in components.
+- Register the page in `LANDINGS` (`data/audiences.ts`) and give it
+  portals to its group.
+- No invented numbers, stats or promises; "prima vedi, poi paghi" on
+  offers. None of the banned price-reassurance phrases, no countdowns,
+  no placeholder proof (the list is in the playbook's house rules).
+- Track B: a NEW accent (`.lnd--<name>` tokens + the header CTA), at
+  least one scene of its own in `lib/landing/scenes.ts`, the sticky
+  pill, `landingJsonLd` (FAQ + breadcrumb), OG card rendered with
+  `npm run og -- og-<name>`.
+- Scenes: `fromTo` in scrubbed timelines, hide only in JS and below
+  the fold, every scene laid out in its end state without motion.
 
 ## 4. Verify before pushing
 
 - `npm run check` and `npm run build` pass; new routes exist in
   `dist/client/`.
-- Serve `node ./dist/server/entry.mjs` and screenshot desktop (1440)
-  + mobile (390) with the pre-installed Playwright chromium.
+- Serve `node ./dist/server/entry.mjs` and, with the pre-installed
+  Playwright chromium, tour the page at 1440 and 390, shoot each pinned
+  scene at 390×664 (it must fit), and take the reduced-motion still.
 - Submit the lead form: the server log must show the new `campaign`
-  attribution.
+  and the details.
 
 ## 5. Deliver
 

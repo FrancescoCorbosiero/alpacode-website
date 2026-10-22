@@ -66,8 +66,8 @@ function wire(form: HTMLFormElement): void {
     const profile = checked(form, "profile");
     const legend = profile?.closest("fieldset")?.querySelector("legend")?.textContent?.trim();
     if (profile && legend) details.push(`${legend}: ${profile.dataset.label}`);
-    const sites = field(form, "sites");
-    if (sites && sites.value.trim()) details.push(`${sites.dataset.detail}: ${sites.value.trim()}`);
+    const extra = field(form, "extra");
+    if (extra && extra.value.trim()) details.push(`${extra.dataset.detail}: ${extra.value.trim()}`);
     details.push(`Pagina: ${location.pathname}`);
     const tier = checked(form, "tier");
 
@@ -82,6 +82,7 @@ function wire(form: HTMLFormElement): void {
           name,
           email,
           company: value(form, "company"),
+          phone: value(form, "phone"),
           message: value(form, "message"),
           consent: true,
           website: value(form, "website"),
@@ -90,6 +91,7 @@ function wire(form: HTMLFormElement): void {
           audience: d.audience,
           topic: d.topic,
           offer: tier?.value ? tier.dataset.label : undefined,
+          price: d.price,
           details,
         }),
       });

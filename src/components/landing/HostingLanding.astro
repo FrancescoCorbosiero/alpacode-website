@@ -239,9 +239,9 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
     topic={c.lead.topic}
     title={c.lead.title}
     lede={c.lead.lede}
-    tiers={c.formula.tiers}
+    choices={c.formula.tiers}
     profile
-    sites={{ label: c.lead.sites, ph: c.lead.sitesPh }}
+    extra={{ name: "sites", label: c.lead.sites, ph: c.lead.sitesPh, numeric: true }}
   />
 
   <Portals
