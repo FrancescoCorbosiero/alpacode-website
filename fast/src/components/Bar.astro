@@ -1,0 +1,35 @@
+---
+/* The answer that follows the reader once the hero is gone
+   (lib/bar.ts): the keyword in a DM. */
+import { ig, wa } from "../data/site";
+
+interface Props {
+  keyword: string;
+}
+const { keyword } = Astro.props;
+---
+
+<div class="fx-bar" data-bar>
+  <a
+    class="fx-btn"
+    href={wa(keyword)}
+    target="_blank"
+    rel="noopener"
+    data-umami-event="dm"
+    data-umami-event-keyword={keyword}
+    data-umami-event-channel="whatsapp-bar"
+  >
+    Scrivi <span class="fx-kw">{keyword}</span> su WhatsApp
+  </a>
+  {
+    ig && (
+      <a class="fx-btn fx-btn--ghost" href={ig} target="_blank" rel="noopener" aria-label="DM su Instagram">
+        IG
+      </a>
+    )
+  }
+</div>
+
+<script>
+  import "../lib/bar";
+</script>

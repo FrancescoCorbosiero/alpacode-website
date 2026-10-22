@@ -1,0 +1,27 @@
+---
+/* The first screen: the sticker, the hook that turns around, the lede,
+   the answer (the slot), and the page's keyword huge behind it. */
+import type { Door } from "../data/doors";
+import Turn from "./Turn.astro";
+import Chat from "./Chat.astro";
+
+interface Props {
+  door: Door;
+}
+const { door } = Astro.props;
+---
+
+<section class="fx-hero" data-hero>
+  <span class="fx-ghost" aria-hidden="true">{door.keyword}</span>
+  <div class="fx-wrap fx-hero-grid">
+    <div class="fx-hero-copy">
+      <span class="fx-sticker" data-intro style="--i:0">{door.sticker}</span>
+      <Turn turn={door.turn} said={door.said} />
+      <p class="fx-lede" data-intro style="--i:2">{door.lede}</p>
+      <div class="fx-hero-act" data-intro style="--i:3">
+        <slot />
+      </div>
+    </div>
+    <Chat keyword={door.keyword} reply={door.reply} />
+  </div>
+</section>

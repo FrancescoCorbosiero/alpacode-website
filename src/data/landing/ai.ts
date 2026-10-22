@@ -213,6 +213,10 @@ export const ai: Record<Lang, AiCopy> = {
       title: "Le domande\nche ci fanno.",
       items: [
         {
+          q: "E l'AI non finirà per togliermi il lavoro?",
+          a: "Lo toglie a chi la subisce. A chi la usa con un metodo toglie la parte ripetitiva, quella che i clienti non pagano, e lascia brief, scelte e revisione, che i clienti pagano. Nelle stesse ore, consegni più siti.",
+        },
+        {
           q: "Così i siti vengono tutti uguali?",
           a: "Uguali vengono i siti fatti con lo stesso template. Una catena parte da un sistema che adatti a ogni cliente: cambiano identità, struttura e contenuti; resta uguale solo il livello di qualità.",
         },
@@ -389,6 +393,10 @@ export const ai: Record<Lang, AiCopy> = {
     qa: {
       title: "The questions\nwe get asked.",
       items: [
+        {
+          q: "Won't AI end up taking my work away?",
+          a: "It takes work from people who sit back and let it happen. For people who use it with a method, it takes the repetitive part, the one clients don't pay for, and leaves the brief, the choices and the review, which clients do pay for. In the same hours, you deliver more sites.",
+        },
         {
           q: "Won't the sites all look alike?",
           a: "Sites made from the same template look alike. A line starts from a system you adapt to each client: identity, structure and content change; only the level of quality stays the same.",

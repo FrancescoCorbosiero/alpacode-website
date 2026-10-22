@@ -61,6 +61,14 @@
 >   sites), which also feed the "other doors" at the foot of each page.
 >   No countdowns, no price-reassurance phrases. How to make a new one:
 >   `docs/landing-factory.md` (and the `new-landing` skill).
+> - **Alpacode FAST — `fast.alpacode.it`.** The social register lives on
+>   its own subdomain and its own static site (`fast/`, same repo and
+>   lockfile, its own container behind the `fast` compose profile): the
+>   fear of AI named and turned around, DM keywords (`FAST`, `SITO`, `AI`,
+>   `CODE`, `BIO`, `AMICO`), small products — a site guide (22 €) and its
+>   marketing module (+48 €), a crash course for freelancers — and doors
+>   back to the studio. The map of both sites, audiences and keywords:
+>   `docs/marketing-map.md`; running it: `fast/README.md`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

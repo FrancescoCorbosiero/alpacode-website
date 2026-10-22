@@ -1,0 +1,47 @@
+---
+/* The ways to buy: a checkout when it's set, the keyword in a DM
+   otherwise (WhatsApp says which one). */
+import type { Offer } from "../data/products";
+import { euro, wa } from "../data/site";
+
+interface Props {
+  offers: Offer[];
+  keyword: string;
+}
+const { offers, keyword } = Astro.props;
+---
+
+<ul class="fx-offers">
+  {
+    offers.map((o) => (
+      <li class:list={["fx-offer", { "is-featured": o.featured }]} data-rise>
+        {o.featured && <span class="fx-sticker">Consigliato</span>}
+        <h3>{o.name}</h3>
+        {o.price !== null && <p class="fx-price">{euro(o.price)}</p>}
+        <p>{o.blurb}</p>
+        <ul class="fx-ticks">
+          {o.includes.map((i) => (
+            <li>{i}</li>
+          ))}
+        </ul>
+        {o.checkout ? (
+          <a class="fx-btn" href={o.checkout} data-umami-event="checkout" data-umami-event-offer={o.id}>
+            Compra{o.price !== null && ` · ${euro(o.price)}`} <span aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <a
+            class="fx-btn"
+            href={wa(`${keyword} · ${o.name}`)}
+            target="_blank"
+            rel="noopener"
+            data-umami-event="dm"
+            data-umami-event-keyword={keyword}
+            data-umami-event-offer={o.id}
+          >
+            La voglio: scrivi <span class="fx-kw">{keyword}</span>
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>

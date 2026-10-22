@@ -1,0 +1,19 @@
+---
+/* The mechanic, shown: the keyword goes out, the answer comes back.
+   CSS only — the bubbles arrive after the hook has turned. */
+interface Props {
+  keyword: string;
+  reply: string;
+}
+const { keyword, reply } = Astro.props;
+---
+
+<div class="fx-chat" aria-hidden="true">
+  <div class="fx-chat-head">
+    <span class="fx-chat-avatar">A</span>
+    <span><b>alpacode</b><small>Alpacode FAST</small></span>
+  </div>
+  <p class="fx-msg fx-msg--me">{keyword}</p>
+  <p class="fx-msg fx-msg--typing"><i></i><i></i><i></i></p>
+  <p class="fx-msg fx-msg--them">{reply}</p>
+</div>

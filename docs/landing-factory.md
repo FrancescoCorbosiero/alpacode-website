@@ -9,6 +9,12 @@ fits.
 | --- | --- | --- | --- |
 | **A — Campaign** | Selling the site offer to a new audience | 1 data entry, ~15 min | `/offerta/educatori-cinofili`, `/offerta/olistica-yoga` |
 | **B — Bespoke** | A different pitch (product, program, formula) | data file + view + CSS block + 2 pages + OG card, half a day | `/social-media-manager`, `/partner`, `/per-chi-fa-siti/*` |
+| **C — FAST door** | The social register: a hook for a reel, a DM keyword, a small product | 1 entry in `fast/src/data/doors.ts` + 1 card, ~20 min | fast.alpacode.it `/sito`, `/ai`, `/code` |
+
+Tracks A and B are alpacode.it, the studio's voice. Track C is
+Alpacode FAST, its own site (`fast/`): the aggressive register, the
+fear named and turned around, prices in the tens of euros — kept off
+the studio's domain on purpose (`docs/marketing-map.md`).
 
 Both tracks ship IT + EN, SEO meta with FAQPage + BreadcrumbList
 JSON-LD, a lead form wired to `/api/contact` with per-landing
@@ -186,7 +192,27 @@ For a pitch that isn't "we build your site for N €/year".
    form: without `AWS_REGION` the API logs the lead — check its
    campaign and details.
 
-## House rules (both tracks)
+## Track C — a FAST door (`fast.alpacode.it/<door>`)
+
+For a social campaign: a reel or a carousel ends on a keyword, the DM
+answers with the door's link. The playbook is `fast/README.md`; the
+strategy, the keywords and FAST's own rules are in
+`docs/marketing-map.md`.
+
+1. One `Door` in `fast/src/data/doors.ts`: the keyword (one per door),
+   the hook as a `turn` (the fear, struck, and what replaces it — in the
+   same line), the chat's reply (also the DM automation's suggested
+   answer), the chooser card, meta. Add it to `CHOOSER`, and to
+   `BRIDGES` if it hands over to a studio page (three punches + the
+   link) rather than selling a FAST product.
+2. A product of its own goes in `fast/src/data/products.ts` (price VAT
+   included, contents, `checkout` or none: then the keyword sells it)
+   with a page in `fast/src/pages/`.
+3. Its share card in `tools/og/fast.mjs`, then `npm run og -- fast`.
+4. `npm run fast:check && npm run fast:build`, then look at it at 390
+   (that's where it's read) and with reduced motion.
+
+## House rules (all tracks)
 
 - **Voice**: direct, concrete, zero hype. Say what's included and how
   it's done. Never invent numbers, stats, commissions or delivery
