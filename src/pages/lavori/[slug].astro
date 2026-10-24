@@ -22,6 +22,8 @@ const d = entry.data;
   slug={`lavori/${entry.id}`}
   title={`${d.title[lang]} · ${d.sector[lang]} — Lavori Alpacode`}
   description={d.descriptor[lang]}
+  ogImage={`/og-work-${entry.id}.jpg`}
+  ogAlt={d.title[lang]}
 >
   <Caso lang={lang} entry={entry} index={index} total={total} next={next} />
 </Layout>
