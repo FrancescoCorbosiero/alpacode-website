@@ -79,7 +79,6 @@ export interface LeadFormCopy {
   invalid: string;
   /** "{email}" becomes a mailto link. */
   error: string;
-  sticky: string;
 }
 
 export const leadForm: Record<Lang, LeadFormCopy> = {
@@ -106,7 +105,6 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     doneAgain: "Invia un'altra richiesta",
     invalid: "Controlla i campi evidenziati: nome, un'email valida e il consenso.",
     error: "Non siamo riusciti a inviare la richiesta. Riprova tra poco o scrivici a {email}.",
-    sticky: "Scegli come iniziare",
   },
   en: {
     name: "Full name",
@@ -131,7 +129,6 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     doneAgain: "Send another request",
     invalid: "Check the highlighted fields: name, a valid email and the consent.",
     error: "We couldn't send your request. Try again shortly or write to us at {email}.",
-    sticky: "Choose how to start",
   },
 };
 

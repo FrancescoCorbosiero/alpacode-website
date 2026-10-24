@@ -1,6 +1,6 @@
 ---
-/* /social-media-manager — copy in data/smm-landing.ts (price, seats and
-   the round from the social-media-manager campaign). The mirror's typing
+/* /social-media-manager — copy in data/smm-landing.ts (the price from
+   the social-media-manager campaign). The mirror's typing
    is lib/landing/mirror.ts; its links moving into the site and the
    rented-land notifications are scenes (lib/landing/scenes.ts). */
 import "../../styles/landing.css";
@@ -8,14 +8,12 @@ import type { Lang } from "../../i18n/types";
 import { smmLanding, SMM_CAMPAIGN } from "../../data/smm-landing";
 import { COPY, offerVariants, t } from "../../data/campaigns";
 import { portals } from "../../data/audiences";
-import { fill } from "../../i18n/utils";
 import Mark from "./Mark.astro";
 import Hand from "./Hand.astro";
 import Lines from "./Lines.astro";
 import Objections from "./Objections.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -47,12 +45,8 @@ const defName = m.inputPlaceholder;
 const defSlug = slugify(defName);
 const mailbox = lang === "it" ? "ciao" : "hi";
 
-const deadline = new Date(camp.deadlineISO);
-const date = new Intl.DateTimeFormat(lang === "it" ? "it-IT" : "en-GB", { day: "numeric", month: "long" }).format(deadline);
-const round =
-  fill(t(COPY.round, lang), { n: String(camp.seats), date }) +
-  (camp.seatsLeft < camp.seats ? ` · ${fill(t(COPY.left, lang), { n: String(camp.seatsLeft) })}` : "");
-const TINTS = ["#ff2e88", "#ffd400", "#2ee6c5", "#8fb0f5", "#ff6b1a", "#2fe08a"];
+// The links of the mirror, in the house's blues.
+const TINTS = ["#3b72e9", "#8fb0f5", "#2756c2", "#5b8af0", "#c7d6fa", "#1f4fbf"];
 const band = `${c.band.join(" · ")} · `;
 ---
 
@@ -73,9 +67,6 @@ const band = `${c.band.join(" · ")} · `;
             <a class="btn btn-ac btn-lg" href="#parliamone" data-magnetic>{h.cta} <span class="arrow">→</span></a>
             <a class="lnd-link" href="#specchio">{h.alt} <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="lnd-round" data-intro style="--i:5" data-round data-deadline={camp.deadlineISO} data-closed={t(COPY.closed, lang)}>
-            {round}
-          </p>
         </div>
         <div class="lnd-hero-machine lnd-feedbox" aria-hidden="true">
           <div class="lnd-feedphone">
@@ -232,7 +223,7 @@ const band = `${c.band.join(" · ")} · `;
           </div>
         </div>
       </div>
-      <div class="lnd-sheet-wrap" data-scene="stamp">
+      <div class="lnd-sheet-wrap">
         <article class="lnd-sheet">
           <header class="lnd-sheet-head">
             <span>{t(COPY.proposal, lang)}</span>
@@ -248,7 +239,6 @@ const band = `${c.band.join(" · ")} · `;
           <ul class="lnd-sheet-list">{c.offer.includes.map((it) => <li>{it}</li>)}</ul>
           <a class="btn btn-ac" href="#parliamone" data-pick-tier="all-inclusive">{c.offer.cta} <span class="arrow">→</span></a>
         </article>
-        <div class="lnd-stamp" aria-hidden="true"><span>{t(COPY.stamp, lang)}</span></div>
       </div>
     </div>
   </section>
@@ -292,8 +282,6 @@ const band = `${c.band.join(" · ")} · `;
   />
 
   <Portals title={c.portalsTitle} items={portals(["partner", "learning", "collabora-con-noi"], lang)} />
-
-  <Sticky href="#parliamone" label={c.sticky} />
 </div>
 
 <script>

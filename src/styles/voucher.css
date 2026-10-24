@@ -169,9 +169,11 @@
   mask-image: linear-gradient(90deg, transparent 0, #000 24%);
 }
 
-/* ---------- The 100€ sticker ---------- */
+/* ---------- The 100€ sticker ----------
+   The printed flyer's badge, so the page is recognised from it — set
+   straight and calm, in the house's way: no tilt, no burst, no stamp. */
 .rf .rf-sticker {
-  --tilt: -4deg;
+  --tilt: 0deg;
   position: relative;
   display: inline-block;
   color: #fff;
@@ -180,7 +182,7 @@
 }
 .rf .rf-sticker-body {
   display: block;
-  font-size: clamp(84px, 9.2vw, 140px);
+  font-size: clamp(64px, 7vw, 108px);
   line-height: 1;
   padding: 0.1em 0.3em 0.04em 0.24em;
   background: var(--ink);
@@ -265,101 +267,19 @@
 
 /* Burst: short blue struts flying off the sides. Each <i> is rotated and
    pushed out from the side's midpoint; its ::before draws in. */
-.rf .rf-burst {
-  position: absolute;
-  top: 46%;
-  width: 0;
-  height: 0;
-  z-index: -1;
-}
-.rf .rf-burst--l {
-  left: -0.2em;
-}
-.rf .rf-burst--r {
-  right: 0;
-  top: 8%;
-}
-.rf .rf-burst i {
-  position: absolute;
-  left: 0;
-  top: -3px;
-  width: clamp(22px, 2.4vw, 36px);
-  height: 6px;
-  transform-origin: 0 50%;
-  transform: rotate(var(--a)) translateX(var(--d, 22px));
-}
-.rf .rf-burst i::before {
-  content: "";
-  display: block;
-  height: 100%;
-  background: var(--blue);
-  transform-origin: 0 50%;
-}
-.rf .rf-burst--l i:nth-child(1) {
-  --a: 146deg;
-  --i: 0;
-}
-.rf .rf-burst--l i:nth-child(2) {
-  --a: 168deg;
-  --i: 1;
-}
-.rf .rf-burst--l i:nth-child(3) {
-  --a: 192deg;
-  --i: 2;
-}
-.rf .rf-burst--l i:nth-child(4) {
-  --a: 214deg;
-  --i: 3;
-}
-.rf .rf-burst--r i:nth-child(1) {
-  --a: -52deg;
-  --i: 0;
-  --d: 30px;
-}
-.rf .rf-burst--r i:nth-child(2) {
-  --a: -28deg;
-  --i: 1;
-  --d: 34px;
-}
-.rf .rf-burst--r i:nth-child(3) {
-  --a: -4deg;
-  --i: 2;
-  --d: 30px;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .rf .rf-sticker-body {
-    animation: rfStamp 0.8s var(--ease-back) 0.45s backwards;
+    animation: rfRise 0.9s var(--ease-expo) 0.45s backwards;
   }
-  .rf .rf-sticker-pre {
-    animation: rfTag 0.7s var(--ease-expo) 0.85s backwards;
-  }
+  .rf .rf-sticker-pre,
   .rf .rf-sticker-post {
-    animation: rfTag 0.7s var(--ease-expo) 0.98s backwards;
-  }
-  .rf .rf-burst i::before {
-    animation: rfBurst 0.55s var(--ease-expo) backwards;
-    animation-delay: calc(1.05s + var(--i) * 70ms);
+    animation: rfRise 0.8s var(--ease-expo) 0.75s backwards;
   }
 }
-@keyframes rfStamp {
+@keyframes rfRise {
   from {
     opacity: 0;
-    transform: rotate(-14deg) scale(1.4);
-  }
-  55% {
-    opacity: 1;
-  }
-}
-@keyframes rfTag {
-  from {
-    opacity: 0;
-    transform: translateY(16px) rotate(var(--r)) scale(0.86);
-  }
-}
-@keyframes rfBurst {
-  from {
-    transform: scaleX(0);
+    transform: translateY(18px) rotate(var(--r, 0deg));
   }
 }
 
@@ -1509,9 +1429,6 @@
   .rf .rf-hero-sticker {
     padding-left: 26px;
     margin-bottom: 44px;
-  }
-  .rf .rf-burst--l {
-    left: 0;
   }
   .rf .rf-sticker-post {
     right: -0.5em;

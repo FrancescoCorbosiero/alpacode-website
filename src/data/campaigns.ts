@@ -8,7 +8,7 @@ import type { Lang, Localized } from "../i18n/types";
    the landing kit (components/landing/OfferLanding.astro).
 
    To launch a new target: add one object to CAMPAIGNS. Copy,
-   price, the round and SEO all live here — no new components.
+   price and SEO all live here — no new components.
 
    The shared offer, stats, steps, promises and FAQ are kept in
    one place so every campaign stays consistent; only the
@@ -48,13 +48,6 @@ export interface Campaign {
   eyebrow: Localized;
   /** Yearly price in euro: site, domain, hosting, email, first-year care. */
   price: number;
-  /** Seats in the round. */
-  seats: number;
-  /** Seats still open — EDIT THIS BY HAND as people sign up. Shown only
-   *  once it's below `seats`. */
-  seatsLeft: number;
-  /** When the round closes (ISO, with timezone). */
-  deadlineISO: string;
   hero: {
     line1: Localized;
     line2: Localized;
@@ -149,8 +142,8 @@ export function offerVariants(price: number): OfferVariant[] {
         en: "The same site, with the services that get it found.",
       },
       blurb: {
-        it: "Tutto il sito completo, più i servizi di contorno che di solito si pagano a parte: compresi, per chi entra in questa tornata.",
-        en: "Everything in the complete site, plus the add-on services usually billed separately: included, for those who join this round.",
+        it: "Tutto il sito completo, più i servizi che lo fanno trovare: Google, i social collegati, le prenotazioni e un report al mese.",
+        en: "Everything in the complete site, plus the services that get it found: Google, your socials connected, bookings and a monthly report.",
       },
       includes: [
         { it: "Tutto il sito completo", en: "Everything in the complete site" },
@@ -340,7 +333,6 @@ export const COPY = {
   includesLabel: { it: "Cosa ricevi", en: "What you get" },
   proposal: { it: "Proposta", en: "Proposal" },
   perYear: { it: "/anno", en: "/year" },
-  stamp: { it: "Paghi solo se ti convince", en: "Pay only if it convinces you" },
   stepsTitle: { it: "Dal primo messaggio\nal sito online.", en: "From the first message\nto the site online." },
   faqTitle: { it: "Le domande\nche ci fanno.", en: "The questions\nwe get asked." },
   ctaPrimary: { it: "Voglio il mio sito", en: "I want my site" },
@@ -351,20 +343,10 @@ export const COPY = {
     en: "Fill in the form: we'll get back to you to start. No commitment: you pay only once you've seen the site finished.",
   },
   choiceLegend: { it: "La versione che ti interessa", en: "The version you're interested in" },
-  /** "{n}" seats, "{date}" the round's close. */
-  round: { it: "{n} posti in questa tornata · iscrizioni fino al {date}", en: "{n} seats this round · sign-ups until {date}" },
-  left: { it: "ne restano {n}", en: "{n} left" },
-  closed: {
-    it: "Questa tornata è chiusa: scrivici e ti teniamo un posto nella prossima.",
-    en: "This round is closed: write to us and we'll keep you a seat in the next one.",
-  },
   portals: { it: "Non è il tuo caso? C'è anche questo", en: "Not quite you? There's this too" },
 } satisfies Record<string, Localized>;
 
 /* ---------- The campaigns ---------- */
-
-// The round in progress: Q4 2026 (1 Oct – 31 Dec). +01:00 = CET, valid in December.
-const DEADLINE = "2026-12-31T23:59:59+01:00";
 
 export const CAMPAIGNS: Campaign[] = [
   {
@@ -372,9 +354,6 @@ export const CAMPAIGNS: Campaign[] = [
     audience: { it: "Social media manager & creator", en: "Social media managers & creators" },
     eyebrow: { it: "per chi vive di contenuti", en: "for people who live on content" },
     price: 300,
-    seats: 30,
-    seatsLeft: 30,
-    deadlineISO: DEADLINE,
     hero: {
       line1: { it: "Hai un pubblico.", en: "You have an audience." },
       line2: { it: "Ti manca una casa tua.", en: "You're missing a home of your own." },
@@ -414,9 +393,6 @@ export const CAMPAIGNS: Campaign[] = [
     audience: { it: "Coach, consulenti & formatori", en: "Coaches, consultants & trainers" },
     eyebrow: { it: "per chi vende competenza", en: "for people who sell expertise" },
     price: 350,
-    seats: 30,
-    seatsLeft: 30,
-    deadlineISO: DEADLINE,
     hero: {
       line1: { it: "La tua competenza vale.", en: "Your expertise is worth it." },
       line2: { it: "Il tuo sito dovrebbe dirlo.", en: "Your website should say so." },
@@ -457,9 +433,6 @@ export const CAMPAIGNS: Campaign[] = [
     audience: { it: "Liberi professionisti", en: "Licensed professionals" },
     eyebrow: { it: "per chi è iscritto a un albo", en: "for licensed professionals" },
     price: 450,
-    seats: 30,
-    seatsLeft: 30,
-    deadlineISO: DEADLINE,
     hero: {
       line1: { it: "I clienti ti cercano online.", en: "Clients look for you online." },
       line2: { it: "Ti trovano?", en: "Do they find you?" },
@@ -499,9 +472,6 @@ export const CAMPAIGNS: Campaign[] = [
     audience: { it: "Educatori & addestratori cinofili", en: "Dog trainers & educators" },
     eyebrow: { it: "per chi lavora con i cani", en: "for people who work with dogs" },
     price: 300,
-    seats: 30,
-    seatsLeft: 30,
-    deadlineISO: DEADLINE,
     hero: {
       line1: { it: "Bravissimo sul campo.", en: "Brilliant in the field." },
       line2: { it: "Invisibile su Google.", en: "Invisible on Google." },
@@ -542,9 +512,6 @@ export const CAMPAIGNS: Campaign[] = [
     audience: { it: "Yoga, olistica & benessere", en: "Yoga, holistic & wellness" },
     eyebrow: { it: "per chi cura corpo e mente", en: "for those who care for body and mind" },
     price: 300,
-    seats: 30,
-    seatsLeft: 30,
-    deadlineISO: DEADLINE,
     hero: {
       line1: { it: "Il tuo lavoro è unico.", en: "Your work is one of a kind." },
       line2: { it: "Online, non si vede.", en: "Online, it doesn't show." },

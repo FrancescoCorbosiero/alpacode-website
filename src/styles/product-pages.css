@@ -3,15 +3,17 @@
    Shared structure (.pp), variant palettes
    (.pp--hive / .pp--pro-kit / .pp--paco).
 
-   The variants override accent/background tokens; the layout
-   itself stays identical so we only maintain one structure.
+   The variants override background tokens; the layout itself stays
+   identical so we only maintain one structure. On alpacode.it every
+   accent is the house's blue: a product is a page of the house, not a
+   brand of its own.
    ============================================================ */
 
 /* ---------- Variant palettes ---------- */
 .pp--hive {
-  /* dark + amber-yellow */
-  --pp-bg: #0a0a0a;
-  --pp-bg-2: #141414;
+  /* the house's ink + its light blue */
+  --pp-bg: #0b0e14;
+  --pp-bg-2: #131823;
   --pp-bg-3: #1c1c1c;
   --pp-surface: #181818;
   --pp-fg: #f0f3f9;
@@ -19,22 +21,22 @@
   --pp-fg-faint: #6e6c66;
   --pp-rule: #2a2a2a;
   --pp-rule-strong: #3a3a3a;
-  --pp-accent: #ffd400;
-  --pp-accent-deep: #e5b800;
-  --pp-accent-ink: #0a0a0a; /* text color over the accent */
+  --pp-accent: #8fb0f5;
+  --pp-accent-deep: #3b72e9;
+  --pp-accent-ink: #0b0e14; /* text color over the accent */
   /* invert section flips contrast back the other way */
   --pp-invert-bg: #f0f3f9;
   --pp-invert-fg: #0a0a0a;
   --pp-invert-mute: #465065;
   --pp-invert-rule: #bec8da;
   /* Hero "stage" tinting */
-  --pp-stage-grid: rgba(255, 212, 0, 0.08);
+  --pp-stage-grid: rgba(143, 176, 245, 0.08);
   --pp-stage-card-bg: #0f0f0f;
   --pp-stage-card-border: #2a2a2a;
 }
 
 .pp--pro-kit {
-  /* paper + coral red */
+  /* paper + the house's blue */
   --pp-bg: #f0f3f9;
   --pp-bg-2: #e4e9f3;
   --pp-bg-3: #d5dcea;
@@ -44,39 +46,39 @@
   --pp-fg-faint: #8a857a;
   --pp-rule: #bec8da;
   --pp-rule-strong: #0a0a0a;
-  --pp-accent: #e63422;
-  --pp-accent-deep: #b5251a;
+  --pp-accent: #3b72e9;
+  --pp-accent-deep: #2756c2;
   --pp-accent-ink: #ffffff; /* text color over the accent */
   --pp-invert-bg: #0a0a0a;
   --pp-invert-fg: #f0f3f9;
   --pp-invert-mute: #b3b0a8;
   --pp-invert-rule: #2a2a2a;
-  --pp-stage-grid: rgba(230, 52, 34, 0.1);
+  --pp-stage-grid: rgba(59, 114, 233, 0.1);
   --pp-stage-card-bg: #fbfaf4;
   --pp-stage-card-border: #bec8da;
 }
 
 .pp--paco {
-  /* green-tinted dark + WhatsApp green */
-  --pp-bg: #0a0f0c;
-  --pp-bg-2: #101711;
-  --pp-bg-3: #182019;
-  --pp-surface: #121a14;
-  --pp-fg: #f0f4ee;
-  --pp-fg-mute: #a9b3a8;
-  --pp-fg-faint: #6a7268;
-  --pp-rule: #212a22;
-  --pp-rule-strong: #323d33;
-  --pp-accent: #25d366;
-  --pp-accent-deep: #1daf53;
-  --pp-accent-ink: #06130a; /* text color over the accent */
-  --pp-invert-bg: #f0f4ee;
-  --pp-invert-fg: #0a0f0c;
-  --pp-invert-mute: #4e564d;
-  --pp-invert-rule: #c3cbc0;
-  --pp-stage-grid: rgba(37, 211, 102, 0.09);
-  --pp-stage-card-bg: #0d130f;
-  --pp-stage-card-border: #212a22;
+  /* the house's ink + its light blue */
+  --pp-bg: #0b0e14;
+  --pp-bg-2: #131823;
+  --pp-bg-3: #1d2331;
+  --pp-surface: #131823;
+  --pp-fg: #f0f3f9;
+  --pp-fg-mute: #a3abbb;
+  --pp-fg-faint: #6b7487;
+  --pp-rule: #1d2331;
+  --pp-rule-strong: #2c3446;
+  --pp-accent: #8fb0f5;
+  --pp-accent-deep: #3b72e9;
+  --pp-accent-ink: #0b0e14; /* text color over the accent */
+  --pp-invert-bg: #f0f3f9;
+  --pp-invert-fg: #0b0e14;
+  --pp-invert-mute: #465065;
+  --pp-invert-rule: #bec8da;
+  --pp-stage-grid: rgba(143, 176, 245, 0.09);
+  --pp-stage-card-bg: #0f131b;
+  --pp-stage-card-border: #1d2331;
 }
 
 /* ---------- Root container ---------- */
@@ -223,7 +225,7 @@
 .pp-h1 {
   position: relative;
   margin-top: 56px;
-  font-size: clamp(42px, 6.5vw, 96px);
+  font-size: clamp(38px, 5vw, 76px);
   line-height: 0.98;
   letter-spacing: -0.015em;
   display: grid;

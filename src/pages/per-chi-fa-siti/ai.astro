@@ -2,7 +2,6 @@
 import Layout from "../../components/Layout.astro";
 import AiLanding from "../../components/landing/AiLanding.astro";
 import { ai } from "../../data/landing/ai";
-import { leadForm } from "../../data/landing/shared";
 import { landingJsonLd } from "../../lib/landing/schema";
 
 const lang = "it" as const;
@@ -27,10 +26,7 @@ const CRUMB = { it: "Siti con l'AI", en: "Sites with AI" };
     ],
     faq: c.qa.items,
   })}
-  minimal
   themeColor="#f0f3f9"
-  ctaLabel={leadForm[lang].sticky}
-  ctaHref="#formula"
 >
   <AiLanding lang={lang} />
 </Layout>

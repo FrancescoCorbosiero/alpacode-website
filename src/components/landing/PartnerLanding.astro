@@ -12,7 +12,6 @@ import Lines from "./Lines.astro";
 import Objections from "./Objections.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -283,8 +282,6 @@ const SIGN =
   />
 
   <Portals title={c.portalsTitle} items={portals(["social-media-manager", "learning", "collabora-con-noi"], lang)} />
-
-  <Sticky href="#candidatura" label={c.sticky} />
 </div>
 
 <script>

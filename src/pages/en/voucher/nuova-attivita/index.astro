@@ -17,10 +17,7 @@ const c = landing[program][lang];
   ogImage={c.meta.ogImage}
   ogAlt={c.meta.ogAlt}
   jsonLd={landingJsonLd(program, lang, Astro.site ?? new URL("https://alpacode.it"))}
-  minimal
   themeColor="#f0f3f9"
-  ctaLabel={c.headerCta}
-  ctaHref="#segnala"
 >
   <Landing lang={lang} program={program} />
 </Layout>

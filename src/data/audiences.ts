@@ -18,8 +18,8 @@
 
    The landings' "other doors" (components/landing/Portals.astro)
    and the footer read this registry, so a new landing is one entry
-   here. Accents are each page's own (styles/landing.css): a portal
-   fills with the colour of the page it leads to.
+   here. On the house every door is blue: the colours per reader are
+   the studio's (studio.alpacode.it).
    ============================================================ */
 import type { Lang, Localized } from "../i18n/types";
 import { localizePath } from "../i18n/utils";
@@ -49,6 +49,8 @@ export interface LandingEntry {
 
 const INK = "#0b0e14";
 const PAPER = "#f0f3f9";
+/** Every door of the house fills with its blue (the colours per reader are the studio's). */
+const BLUE = "#3b72e9";
 
 export const LANDINGS: LandingEntry[] = [
   {
@@ -56,32 +58,32 @@ export const LANDINGS: LandingEntry[] = [
     audience: "chi-fa-siti",
     title: { it: "Hosting tuo e siti con l'AI.", en: "Your own hosting, sites with AI." },
     for: { it: "Per sviluppatori e web designer", en: "For developers and web designers" },
-    accent: "#2ee6c5",
-    accentOn: INK,
+    accent: BLUE,
+    accentOn: "#ffffff",
   },
   {
     slug: "per-chi-fa-siti/hosting",
     audience: "chi-fa-siti",
     title: { it: "Smetti di pagare un hosting per ogni cliente.", en: "Stop paying a hosting plan per client." },
     for: { it: "Per chi fa siti ai clienti", en: "For people who build client sites" },
-    accent: "#2ee6c5",
-    accentOn: INK,
+    accent: BLUE,
+    accentOn: "#ffffff",
   },
   {
     slug: "per-chi-fa-siti/ai",
     audience: "chi-fa-siti",
     title: { it: "Sforna siti per i clienti, con l'AI.", en: "Turn out client sites, with AI." },
     for: { it: "Per sviluppatori e web designer", en: "For developers and web designers" },
-    accent: "#ff6b1a",
-    accentOn: INK,
+    accent: BLUE,
+    accentOn: "#ffffff",
   },
   {
     slug: "social-media-manager",
     audience: "attivita",
     title: { it: "Il sito per chi gestisce i social degli altri.", en: "The site for people who run other people's socials." },
     for: { it: "Per social media manager e creator", en: "For social media managers and creators" },
-    accent: "#ff2e88",
-    accentOn: INK,
+    accent: BLUE,
+    accentOn: "#ffffff",
   },
   ...CAMPAIGNS.filter((c) => c.slug !== "social-media-manager").map(
     (c): LandingEntry => ({
@@ -89,7 +91,7 @@ export const LANDINGS: LandingEntry[] = [
       audience: "attivita",
       title: c.portal,
       for: c.audience,
-      accent: "#3b72e9",
+      accent: BLUE,
       accentOn: "#ffffff",
     }),
   ),
@@ -98,15 +100,15 @@ export const LANDINGS: LandingEntry[] = [
     audience: "professionisti",
     title: { it: "Porta il digitale ai tuoi clienti, senza farlo tu.", en: "Bring digital to your clients without doing it yourself." },
     for: { it: "Per chi ha un portafoglio clienti", en: "For people with a client portfolio" },
-    accent: "#2fe08a",
-    accentOn: INK,
+    accent: BLUE,
+    accentOn: "#ffffff",
   },
   {
     slug: "collabora-con-noi",
     audience: "professionisti",
     title: { it: "Lavora ai nostri progetti, da indipendente.", en: "Work on our projects, as an independent." },
     for: { it: "Per professionisti con partita IVA", en: "For independent professionals" },
-    accent: "#3b72e9",
+    accent: BLUE,
     accentOn: "#ffffff",
   },
   {
@@ -114,7 +116,7 @@ export const LANDINGS: LandingEntry[] = [
     audience: "segnalatori",
     title: { it: "Segnala un amico: fino a 100 € per te.", en: "Refer a friend: up to €100 for you." },
     for: { it: "Per chi conosce qualcuno a cui serve un sito", en: "For people who know someone who needs a site" },
-    accent: "#3b72e9",
+    accent: BLUE,
     accentOn: "#ffffff",
   },
   {
@@ -122,7 +124,7 @@ export const LANDINGS: LandingEntry[] = [
     audience: "segnalatori",
     title: { it: "Conosci chi ha appena aperto? Segnalacelo.", en: "Know someone who just opened? Tell us." },
     for: { it: "Per chi conosce una nuova attività", en: "For people who know a new business" },
-    accent: "#3b72e9",
+    accent: BLUE,
     accentOn: "#ffffff",
   },
 ];
@@ -138,7 +140,7 @@ const RELATED: Record<string, Omit<LandingEntry, "slug" | "audience">> = {
   "alpacode-pro-kit": {
     title: { it: "Alpacode Pro Kit: il kit del web master.", en: "Alpacode Pro Kit: the web master's kit." },
     for: { it: "Prodotti", en: "Products" },
-    accent: "#e63422",
+    accent: BLUE,
     accentOn: "#ffffff",
   },
 };

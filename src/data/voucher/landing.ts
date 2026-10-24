@@ -79,7 +79,6 @@ export interface LandingCopy {
   faq: { kicker: string; title: string; items: { q: string; a: string }[] };
   cross: CrossLink[];
   final: { kicker: string; line1: string; line2: string; sub: string; cta: string; alt: string; altSubject: string };
-  sticky: string;
 }
 
 const STICKER_IT = { pre: "Fino a", amount: "100€", post: "di cashback", aria: "Fino a 100 euro di cashback" };
@@ -271,7 +270,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_IT, line1: "Un messaggio a un amico." },
-      sticky: "Genera il tuo link",
     },
     en: {
       meta: {
@@ -366,7 +364,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_EN, line1: "One message to a friend." },
-      sticky: "Get your link",
     },
   },
 
@@ -475,7 +472,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_IT, line1: "Un messaggio a chi apre." },
-      sticky: "Genera il tuo link",
     },
     en: {
       meta: {
@@ -580,7 +576,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_EN, line1: "One message to a new business." },
-      sticky: "Get your link",
     },
   },
 };

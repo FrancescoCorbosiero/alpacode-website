@@ -2,7 +2,6 @@
 import Layout from "../../../components/Layout.astro";
 import BuildersHub from "../../../components/landing/BuildersHub.astro";
 import { hub } from "../../../data/landing/hub";
-import { leadForm } from "../../../data/landing/shared";
 import { breadcrumbSchema } from "../../../lib/schema";
 import { localizePath } from "../../../i18n/utils";
 
@@ -20,10 +19,7 @@ const url = (slug: string) => new URL(localizePath(slug, lang), site).href;
   ogImage="/og-per-chi-fa-siti.png"
   ogAlt={c.meta.ogAlt}
   jsonLd={[breadcrumbSchema([{ name: "Alpacode", url: url("") }, { name: c.crumb, url: url("per-chi-fa-siti") }])]}
-  minimal
   themeColor="#f0f3f9"
-  ctaLabel={leadForm[lang].sticky}
-  ctaHref="#formula"
 >
   <BuildersHub lang={lang} />
 </Layout>

@@ -50,7 +50,6 @@ export interface InviteCopy {
     referBody: string;
   };
   cross: { tag: string; title: string; body: string; cta: string };
-  sticky: string;
 }
 
 const STICKER_IT = { pre: "Prima call", amount: "0€", post: "senza impegno", aria: "Prima call gratuita, senza impegno" };
@@ -115,7 +114,6 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         body: "Il programma è aperto a tutti: generi il tuo link personale, lo condividi e ricevi il cashback con bonifico, PayPal o buono acquisto.",
         cta: "Genera il tuo link",
       },
-      sticky: "Raccontaci il tuo progetto",
     },
     en: {
       meta: {
@@ -172,7 +170,6 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         body: "The program is open to everyone: get your personal link, share it and receive the cashback by bank transfer, PayPal or voucher.",
         cta: "Get your link",
       },
-      sticky: "Tell us about your project",
     },
   },
 
@@ -246,7 +243,6 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         body: "Il programma è aperto a tutti: generi il tuo link personale, lo condividi e ricevi il cashback con bonifico, PayPal o buono acquisto.",
         cta: "Genera il tuo link",
       },
-      sticky: "Raccontaci la tua attività",
     },
     en: {
       meta: {
@@ -317,7 +313,6 @@ export const invite: Record<ProgramId, Record<Lang, InviteCopy>> = {
         body: "The program is open to everyone: get your personal link, share it and receive the cashback by bank transfer, PayPal or voucher.",
         cta: "Get your link",
       },
-      sticky: "Tell us about your business",
     },
   },
 };
