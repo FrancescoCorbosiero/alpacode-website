@@ -1,0 +1,35 @@
+---
+/* The packages, with what's in them and how to start. */
+import Studio from "../layouts/Studio.astro";
+import Hero from "../components/Hero.astro";
+import Packages from "../components/Packages.astro";
+import Qa from "../components/Qa.astro";
+import Cta from "../components/Cta.astro";
+import { PAGES } from "../data/pages";
+import { PACKAGES, PACKAGES_QA } from "../data/packages";
+import { breadcrumbs, faqPage, organization } from "../lib/schema";
+
+const head = PAGES.pacchetti;
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[organization(), breadcrumbs([{ name: "Pacchetti", path: "/pacchetti/" }]), faqPage(PACKAGES_QA)]}
+>
+  <Hero head={head}>
+    <a class="fx-btn" href="#pacchetti">Guarda i pacchetti <span aria-hidden="true">↓</span></a>
+    <a class="fx-link fx-hero-more" href="/servizi/">O tutti i servizi</a>
+  </Hero>
+
+  <section class="fx-section" id="pacchetti">
+    <div class="fx-wrap">
+      <Packages packages={PACKAGES} />
+    </div>
+  </section>
+
+  <Qa title="Prima che tu lo chieda." items={PACKAGES_QA} />
+  <Cta title="Non trovi il tuo?" text="Raccontaci cosa vuoi far crescere: ne facciamo uno su misura, con una proposta scritta." />
+</Studio>

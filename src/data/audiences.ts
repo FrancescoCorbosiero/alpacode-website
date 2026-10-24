@@ -12,8 +12,9 @@
    New groups get an audience-first path (/per-chi-fa-siti/…); the
    older pages keep the URLs their ads point to.
 
-   The same groups, in the social register, are the doors of Alpacode
-   FAST (fast/, fast.alpacode.it): docs/marketing-map.md.
+   Alpacode Studio (sites/studio, studio.alpacode.it), the house's
+   marketing compartment, speaks to some of the same people in its own
+   register, and its doors lead back here: docs/marketing-map.md.
 
    The landings' "other doors" (components/landing/Portals.astro)
    and the footer read this registry, so a new landing is one entry

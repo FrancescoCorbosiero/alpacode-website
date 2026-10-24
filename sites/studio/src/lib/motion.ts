@@ -1,14 +1,14 @@
 /* ============================================================
-   FAST's motion. The hero's turn is CSS (above the fold, no wait on
-   this script); below it, GSAP:
+   The studio's motion, until the site moves to the alpacode-motion
+   engine (docs/status.md). The hero's turn is CSS (above the fold, no
+   wait on this script); below it, GSAP:
      [data-rise]       blocks rise as they come in
-     .fx-cards         the chooser's cards land from alternate sides;
-                       on hover their keyword scrambles
+     .fx-cards         the doors land from alternate sides
      [data-band]       the volt band leans with the scroll's speed
      [data-scene=meter] pinned: the needle swings from PAURA to LEVA,
                        the word scrambles, the beats hand over
    Under reduced motion none of it runs and everything sits in its
-   end state (styles/fast.css). Things are hidden here, at init, and
+   end state (styles/studio.css). Things are hidden here, at init, and
    only below the fold.
    ============================================================ */
 import { gsap } from "gsap";
@@ -18,7 +18,6 @@ import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 const below = (el: Element): boolean => el.getBoundingClientRect().top > window.innerHeight * 0.92;
-const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 function rise(): void {
   const els = gsap.utils.toArray<HTMLElement>("[data-rise]").filter(below);
@@ -52,15 +51,6 @@ function cards(): void {
         stagger: 0.09,
         clearProps: "transform,opacity,visibility",
       }),
-  });
-  if (!fine) return;
-  document.querySelectorAll<HTMLElement>("[data-card]").forEach((card) => {
-    const kw = card.querySelector<HTMLElement>("[data-scramble]");
-    const text = kw?.textContent ?? "";
-    if (!kw || !text) return;
-    card.addEventListener("mouseenter", () =>
-      gsap.to(kw, { scrambleText: { text, chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", speed: 1.2 }, duration: 0.55, overwrite: true }),
-    );
   });
 }
 

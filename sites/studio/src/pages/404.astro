@@ -1,22 +1,18 @@
 ---
-import Fast from "../layouts/Fast.astro";
-import Dm from "../components/Dm.astro";
-import Chooser from "../components/Chooser.astro";
-import { DOORS } from "../data/doors";
-
-const door = DOORS.home;
+import Studio from "../layouts/Studio.astro";
+import Doors from "../components/Doors.astro";
 ---
 
-<Fast door={door} title="Pagina non trovata — Alpacode FAST" noindex>
-  <section class="fx-hero" data-hero>
+<Studio title="Pagina non trovata — Alpacode Studio" description="Questa pagina non c'è. Le porte sì." noindex>
+  <section class="fx-hero fx-hero--solo" data-hero>
     <span class="fx-ghost" aria-hidden="true">404</span>
     <div class="fx-wrap">
       <span class="fx-sticker" data-intro style="--i:0">404</span>
       <h1 class="fx-hook" data-intro style="--i:1">Questa pagina non c'è. <span class="fx-volt">Le porte sì.</span></h1>
       <div class="fx-hero-act" data-intro style="--i:2">
-        <Dm keyword={door.keyword} />
+        <a class="fx-btn" href="/">Torna allo studio <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
-  <Chooser />
-</Fast>
+  <Doors kicker="da dove ripartiamo?" />
+</Studio>

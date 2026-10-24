@@ -7,6 +7,9 @@ interface ImportMetaEnv {
   readonly PUBLIC_CALCOM_EMBED_JS?: string;
   readonly PUBLIC_UMAMI_SRC?: string;
   readonly PUBLIC_UMAMI_ID?: string;
+  /** Where the compartments live (shared/data/compartments.ts). */
+  readonly PUBLIC_HOUSE_ORIGIN?: string;
+  readonly PUBLIC_STUDIO_ORIGIN?: string;
   readonly AWS_REGION?: string;
   readonly AWS_DEFAULT_REGION?: string;
   readonly AWS_ACCESS_KEY_ID?: string;

@@ -1,30 +1,116 @@
 ---
-/* The chooser — where the bio link and the FAST keyword land. */
-import Fast from "../layouts/Fast.astro";
+/* The studio's home: the hook, the doors, the three verbs, the
+   packages and the products, the house behind it. */
+import Studio from "../layouts/Studio.astro";
 import Hero from "../components/Hero.astro";
-import Dm from "../components/Dm.astro";
+import Feed from "../components/Feed.astro";
 import Band from "../components/Band.astro";
-import Chooser from "../components/Chooser.astro";
-import Signed from "../components/Signed.astro";
-import StudioDoor from "../components/StudioDoor.astro";
-import { DOORS } from "../data/doors";
-import { studio } from "../data/site";
+import Doors from "../components/Doors.astro";
+import House from "../components/House.astro";
+import Cta from "../components/Cta.astro";
+import { PAGES } from "../data/pages";
+import { GROUPS } from "../data/services";
+import { PACKAGES } from "../data/packages";
+import { PRODUCTS } from "../data/products";
+import { euro } from "../data/site";
+import { organization } from "../lib/schema";
 
-const door = DOORS.home;
+const head = PAGES.home;
 ---
 
-<Fast door={door}>
-  <Hero door={door}>
-    <Dm keyword={door.keyword} />
-    <a class="fx-link fx-hero-more" href="#scegli">Oppure scegli da dove parti <span aria-hidden="true">↓</span></a>
+<Studio title={head.meta.title} description={head.meta.description} og={head.meta.og} ogAlt={head.said} jsonld={[organization()]}>
+  <Hero head={head}>
+    <a class="fx-btn" href="/contatti/">Parliamone <span aria-hidden="true">→</span></a>
+    <a class="fx-link fx-hero-more" href="#porte">Oppure scegli da dove parti <span aria-hidden="true">↓</span></a>
+    <Feed slot="visual" />
   </Hero>
-  <Band words={["Non temere l'AI", "Cavalcala", "Scrivi FAST"]} />
-  <Chooser />
-  <Signed door="home" />
-  <StudioDoor
-    title="Preferisci che lo facciamo noi?"
-    text="Lo studio fa il tuo sito, con dominio e hosting: tu pensi alla tua attività."
-    href={studio("/servizi/", "home")}
-    label="Lo studio"
-  />
-</Fast>
+
+  <Band words={["Farsi vedere", "Farsi ricordare", "Farsi scegliere"]} />
+
+  <Doors />
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-choose-head" data-rise>
+        <span class="fx-hand">cosa facciamo</span>
+        <h2 class="fx-title">Il percorso del tuo cliente, in tre verbi.</h2>
+      </div>
+      <ul class="fx-verbs">
+        {
+          GROUPS.map((g, i) => (
+            <li data-rise>
+              <a class="fx-verb" href={`/servizi/#${g.id}`} style={`--ac:${g.accent}`}>
+                <span class="fx-verb-n">0{i + 1}</span>
+                <h3>{g.verb}</h3>
+                <p>{g.lede}</p>
+                <ul class="fx-verb-list">
+                  {g.services.map((s) => (
+                    <li>{s.t}</li>
+                  ))}
+                </ul>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="fx-section fx-paper">
+    <div class="fx-wrap">
+      <div class="fx-split">
+        <div class="fx-split-side" data-rise>
+          <span class="fx-hand">i pacchetti</span>
+          <h2 class="fx-title">Pronti da partire.</h2>
+          <p class="fx-lede">Un contenuto definito e tempi chiari: i social, il brand, una campagna. Il punto da cui cominciare.</p>
+          <a class="fx-btn" href="/pacchetti/">Guarda i pacchetti <span aria-hidden="true">→</span></a>
+        </div>
+        <ul class="fx-chapters">
+          {
+            PACKAGES.map((p) => (
+              <li class="fx-chapter" data-rise>
+                <h3>{p.name}</h3>
+                <p>{p.blurb}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-choose-head" data-rise>
+        <span class="fx-hand">fai da te</span>
+        <h2 class="fx-title">Il metodo, in mano tua.</h2>
+      </div>
+      <ul class="fx-products">
+        {
+          PRODUCTS.map((p) => (
+            <li data-rise>
+              <a class="fx-product" href={`/prodotti/${p.slug}/`} style={`--ac:${p.accent}`}>
+                <span class="fx-product-kind">{p.kind}</span>
+                <h3>{p.name}</h3>
+                <p>{p.line}</p>
+                <span class="fx-product-from">
+                  {p.from !== null ? (
+                    <>
+                      <small>da</small> {euro(p.from)}
+                    </>
+                  ) : (
+                    <small>Prezzo in arrivo</small>
+                  )}
+                </span>
+                <span class="fx-product-go">Scopri →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <House where="home" />
+  <Cta />
+</Studio>

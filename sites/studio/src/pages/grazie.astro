@@ -1,0 +1,24 @@
+---
+/* Where a payment provider brings the buyer back. Not for search. */
+import Studio from "../layouts/Studio.astro";
+import Cta from "../components/Cta.astro";
+import { business } from "../data/site";
+---
+
+<Studio title="Grazie — Alpacode Studio" description="Il tuo acquisto è arrivato." noindex>
+  <section class="fx-hero fx-hero--solo" data-hero>
+    <span class="fx-ghost" aria-hidden="true">GRAZIE</span>
+    <div class="fx-wrap">
+      <span class="fx-sticker" data-intro style="--i:0">Fatto</span>
+      <h1 class="fx-hook" data-intro style="--i:1">Grazie. <span class="fx-volt">È tuo.</span></h1>
+      <p class="fx-lede" data-intro style="--i:2">
+        Ti è arrivata un'email con il link per scaricarlo o per accedere. Se tra qualche minuto non la trovi, guarda nello spam;
+        poi scrivi a <a class="fx-link" href={`mailto:${business.email}`}>{business.email}</a>: lo sistemiamo.
+      </p>
+      <div class="fx-hero-act" data-intro style="--i:3">
+        <a class="fx-btn" href="/">Torna allo studio <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+  <Cta title="Vuoi una mano a farlo crescere?" text="Quando il sito è online, i clienti arrivano con il marketing: social, campagne, SEO. Parliamone." />
+</Studio>

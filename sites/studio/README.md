@@ -1,82 +1,105 @@
-# Alpacode FAST — fast.alpacode.it
+# Alpacode Studio — studio.alpacode.it
 
-The studio's social register: small digital products (a site guide, its
-marketing module, a crash course for freelancers) sold through DM
-keywords, and doors back to alpacode.it for the bigger jobs. Why it
-lives apart, who it speaks to and the tone it may use:
-[`docs/marketing-map.md`](../docs/marketing-map.md).
+The house's marketing compartment. alpacode.it is the house: it speaks
+for everything Alpacode does, in its own voice. The studio is the part
+that goes out to find clients — social and content, brand, UX and the
+user journey, campaigns, SEO, strategy — with its own register (young,
+direct, provocative and honest) and its own ways in: SEO, ads, products
+bought on the site. Why the house and its compartments are arranged this
+way: [`docs/marketing-map.md`](../../docs/marketing-map.md). The
+compartments themselves: `shared/data/compartments.ts`.
 
-Its own Astro site (static, Italian), in this repo for the shared
-lockfile and brand fonts. It imports nothing from the studio's `src/`.
+An Astro site of its own (Italian only), in this repo for the shared
+lockfile, `shared/` and the brand fonts. Pages are prerendered; the Node
+standalone adapter runs the contact form and the payment providers'
+webhooks.
 
 ```sh
-npm run fast:dev        # http://localhost:4321
-npm run fast:check
-npm run fast:build      # -> fast/dist
-npm run fast:preview
+npm run studio:dev      # http://localhost:4321
+npm run studio:check
+npm run studio:build    # -> sites/studio/dist
+npm run studio:start    # node sites/studio/dist/server/entry.mjs
 ```
 
 ## Pages
 
-| Path | Door | Keyword |
-| --- | --- | --- |
-| `/` | the chooser (where the bio link lands) | `FAST` |
-| `/sito/` | the site guide, 22 € · + marketing module, 48 € | `SITO` |
-| `/ai/` | the crash course · the site built in it, hosted free the first year | `AI` |
-| `/code/` · `/bio/` · `/amico/` | three punches, then the studio's page for that audience | `CODE` · `BIO` · `AMICO` |
+| Path | What |
+| --- | --- |
+| `/` | the hook, the doors (one per reader; the last ones open on the house), the three verbs, the packages, the products, the house behind it |
+| `/servizi/` | strategy first, then the three verbs — farsi vedere (social, formats), farsi ricordare (brand, positioning), farsi scegliere (UX, campaigns, SEO) — the method, the questions |
+| `/pacchetti/` | Social Start, Social ogni mese, Brand Kit, Landing & ADV |
+| `/prodotti/` | the do-it-yourself products: `/prodotti/guida-sito-vetrina/` (22 € + the marketing module, 48 €), `/prodotti/ai-al-lavoro/` (the crash course) |
+| `/contatti/` | the form (a link can choose the offer: `?pacchetto=<id>`, `?prodotto=<id>`), the call, email, WhatsApp |
+| `/grazie/` | where a payment provider brings the buyer back (`noindex`) |
+| `/privacy/`, `/cookie/`, `/condizioni-di-vendita/` | drafts; the site terms are the house's |
 
-Every page: the hook that turns the fear around (`components/Turn.astro`,
-CSS above the fold), a chat that shows the keyword being answered, the
-DM buttons (WhatsApp with the keyword already typed; Instagram once the
-handle is set), the bar that follows, the studio's signature and its
-door.
+Every page: the hook that turns the worry around (`components/Turn.astro`,
+CSS above the fold), the house's signature (`components/House.astro`) and
+a way to write. No DM keywords: the buttons are a website's — buy, ask,
+book a call. WhatsApp is one way to write among the others.
 
 ## Data — where to change things
 
-- `src/data/doors.ts` — each door's hook, keyword, chooser card, the
-  chat's reply (also the suggested auto-reply for the DM automation),
-  meta. A new door: an entry here (plus `CHOOSER` / `BRIDGES`), a card
-  in `tools/og/fast.mjs`, `npm run og -- fast`.
-- `src/data/products.ts` — prices (VAT included), contents (a draft: line
-  them up with the real products), checkout links. **No `checkout` = sold
-  through the keyword**: the buttons open WhatsApp. Paste a link from a
-  merchant of record (Lemon Squeezy, Gumroad, Paddle: they handle EU VAT
-  on digital products) and the button becomes "Compra". `COURSE.price`
-  and `HOSTING.yearTwo` are `null` until decided: the page then sends
-  the keyword and names the yearly fee without a figure.
-- `src/data/site.ts` — the studio's facts (in step with
-  `src/data/business.ts`), the Instagram handle (empty hides its
-  buttons), the links to alpacode.it (UTM-tagged:
-  `utm_source=fast&utm_medium=social&utm_campaign=<door>`).
+- `src/data/pages.ts` — each page's sticker, hook, lede and meta; the
+  doors of the home.
+- `src/data/services.ts` — the three verbs and their services, the
+  strategy, the method, the services' questions.
+- `src/data/packages.ts` — the packages; `price: null` shows "Su
+  richiesta" (the prices are still to be set).
+- `src/data/products.ts` — the products, their offers, prices (VAT
+  included), contents (a draft: line them up with the real products) and
+  their checkout.
+- `src/data/site.ts` — the navigation and the links into the house
+  (`house(path, where)`, tagged for the house's analytics).
+- `src/data/legal.ts` — the legal pages (drafts).
+- The company facts are the house's: `shared/data/business.ts`.
+
+## Buying on the site
+
+Every offer has a `checkout` in `src/data/products.ts` (packages in
+`src/data/packages.ts`): `null` until the product exists on a payment
+provider — the button then says "Chiedi" and opens the contact form with
+the offer chosen — or `{ provider, url }`:
+
+| Provider | `url` | On the page | Webhook (set it at the provider) | Secret (.env) |
+| --- | --- | --- | --- | --- |
+| `lemonsqueezy` | the product's checkout link | an overlay (lemon.js, fetched on intent) | `/api/checkout/lemonsqueezy`, event `order_created` | `LEMONSQUEEZY_WEBHOOK_SECRET` |
+| `gumroad` | the product's gumroad.com link | Gumroad's page | Ping URL `/api/checkout/gumroad?key=…` | `GUMROAD_WEBHOOK_KEY` (+ `GUMROAD_SELLER_ID`) |
+| `stripe` | a Payment Link | Stripe's page | `/api/checkout/stripe`, event `checkout.session.completed` | `STRIPE_WEBHOOK_SECRET` |
+
+Set the provider's success URL to `https://studio.alpacode.it/grazie/`.
+A merchant of record (Lemon Squeezy — now part of Stripe — or Gumroad)
+handles EU VAT on digital products and delivers the files; with Stripe
+alone the VAT is yours. A verified sale is appended to `ORDERS_LEDGER`
+(one JSON per line, the `studio-data` volume) and emailed to the studio;
+an unsigned or stale notification is refused (401), a provider without its
+secret gets 503 so it retries once configured.
+
+## Ads, consent, analytics
+
+Umami is cookieless: `PUBLIC_UMAMI_SRC` + `PUBLIC_UMAMI_STUDIO_ID` at
+build, no banner. The ad tags (`PUBLIC_META_PIXEL_ID`, `PUBLIC_GADS_ID`)
+ship only when set; then a consent banner asks once (`lib/consent.ts`)
+and the tags load only after a yes. Conversions (`lead`, `checkout`) go to
+Umami always and to the ad tags when allowed.
 
 ## Motion
 
-`src/lib/motion.ts` (GSAP: rising blocks, the chooser's cards landing,
-keywords scrambling on hover, the band leaning with the scroll, the
-`/ai` meter pinned and scrubbed) and `src/lib/bar.ts`. Under reduced
-motion nothing runs and every piece sits in its end state; the hook
-shows the old words struck through next to the new ones.
-
-## Analytics
-
-Umami, cookieless: set `PUBLIC_UMAMI_SRC` and `PUBLIC_UMAMI_FAST_ID` at
-build. Events: `dm` (keyword, channel: whatsapp, whatsapp-top,
-whatsapp-bar, instagram), `checkout` (keyword or offer).
+`src/lib/motion.ts` (GSAP: rising blocks, the doors landing, the band
+leaning with the scroll, the course's pinned meter) until the studio moves
+to the alpacode-motion engine with the house (docs/status.md). The hero is
+CSS. Under reduced motion nothing runs and every piece sits in its end
+state; the hooks show the old words struck through next to the new ones.
 
 ## Share cards
 
-`tools/og/fast.mjs` → `fast/public/og-fast*.png`:
-`npm run og -- fast` (or one card by name). Links travel in DMs and
-WhatsApp: check the PNGs before committing.
+`tools/og/studio.mjs` → `sites/studio/public/og-studio*.png`:
+`npm run og -- studio` (or one card by name). Check the PNGs.
 
 ## Deploy
 
-Its own container (`fast/Dockerfile`: build with Node, serve with Caddy,
-`fast/Caddyfile`), behind the same caddy-docker-proxy as the studio, in
-the same `docker-compose.yml`: the usual `docker compose up -d --build`
-brings up both. Point `fast.alpacode.it` (or `FAST_DOMAIN`) at the VPS
-first — until it resolves, Caddy retries that one certificate and the
-studio is unaffected.
-
-`FAST_DOMAIN` also sets the canonical URLs, the sitemap and
-`robots.txt` (build argument `FAST_SITE`).
+Its own container (`sites/studio/Dockerfile`, Node), behind the same
+caddy-docker-proxy as the house, in the same `docker-compose.yml`: the
+usual `docker compose up -d --build` brings up both. Point
+`studio.alpacode.it` (or `STUDIO_DOMAIN`) at the VPS first — or a
+wildcard `*.alpacode.it`, which covers every compartment to come.

@@ -1,0 +1,32 @@
+---
+/* A legal page (data/legal.ts). */
+import type { LegalDoc } from "../data/legal";
+
+interface Props {
+  doc: LegalDoc;
+}
+const { doc } = Astro.props;
+---
+
+<section class="fx-hero fx-hero--solo" data-hero>
+  <div class="fx-wrap">
+    <span class="fx-sticker" data-intro style="--i:0">Note legali</span>
+    <h1 class="fx-hook" data-intro style="--i:1">{doc.title}.</h1>
+    <p class="fx-lede" data-intro style="--i:2">{doc.lede}</p>
+    <p class="fx-updated" data-intro style="--i:3">{doc.updated}</p>
+  </div>
+</section>
+<section class="fx-section" style="padding-top:0">
+  <div class="fx-wrap">
+    <div class="fx-prose">
+      {
+        doc.sections.map((s) => (
+          <>
+            <h2>{s.h}</h2>
+            <Fragment set:html={s.body} />
+          </>
+        ))
+      }
+    </div>
+  </div>
+</section>

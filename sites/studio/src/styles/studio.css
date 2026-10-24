@@ -1,0 +1,2041 @@
+/* ============================================================
+   Alpacode Studio — the marketing compartment of the house.
+   Ink and volt: the feed's night mode, one electric colour for what
+   turns the worry around, and a colour per door (each reader has
+   theirs: magenta for the social, orange for the brand, teal for
+   the journey, the house's blue for the doors back to alpacode.it).
+   Archivo Black shouts the hooks, Manrope explains, Caveat signs
+   (the house's hand). Rounded where the house is square: a different
+   voice, the same name. Without motion every piece is in its end
+   state; the hero's turn is CSS, what moves below it is GSAP
+   (lib/motion.ts).
+   ============================================================ */
+
+:root {
+  --ink: #0b0e14;
+  --ink-2: #131823;
+  --ink-3: #1d2331;
+  --paper: #f0f3f9;
+  --paper-2: #ffffff;
+  --mute: #a3abbb;
+  --mute-ink: #4b5568;
+  --rule: rgba(240, 243, 249, 0.14);
+  --rule-ink: rgba(11, 14, 20, 0.12);
+  --volt: #d4ff3a;
+  --volt-soft: rgba(212, 255, 58, 0.16);
+  --heat: #ff5a3c;
+  --blue: #3b72e9;
+  --display: "Archivo Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sans: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --gutter: clamp(16px, 4.5vw, 48px);
+  --col: 1240px;
+  --top: 72px;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  background: var(--ink);
+  color: var(--paper);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--top) + 16px);
+}
+body {
+  margin: 0;
+  background: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  overflow-x: clip;
+}
+a {
+  color: inherit;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+:focus-visible {
+  outline: 3px solid var(--volt);
+  outline-offset: 3px;
+}
+.fx-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.fx-skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 50;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--volt);
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+.fx-skip:focus {
+  top: 12px;
+}
+.fx-wrap {
+  width: 100%;
+  max-width: var(--col);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.fx-section {
+  position: relative;
+  padding-block: clamp(48px, 9vh, 120px);
+}
+/* A paper plate: the light pages of the night-mode feed. */
+.fx-paper {
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+}
+.fx-paper .fx-lede,
+.fx-paper p {
+  color: var(--mute-ink);
+}
+
+/* ---------- Type ---------- */
+.fx-hook,
+.fx-title {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+.fx-hook {
+  font-size: clamp(44px, 10.5vw, 104px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+.fx-title {
+  font-size: clamp(32px, 5.4vw, 68px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+.fx-lede {
+  max-width: 34em;
+  margin: 0;
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--mute);
+  text-wrap: pretty;
+}
+.fx-lede strong {
+  color: var(--paper);
+}
+.fx-hand {
+  font-family: var(--hand);
+  font-weight: 600;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1;
+  color: var(--volt);
+}
+.fx-paper .fx-hand {
+  color: var(--blue);
+}
+.fx-volt {
+  color: var(--volt);
+}
+
+/* ---------- Stickers ---------- */
+.fx-sticker {
+  display: inline-block;
+  padding: 9px 15px 8px;
+  border-radius: 999px;
+  background: var(--volt);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+.fx-sticker--ghost {
+  background: transparent;
+  color: var(--volt);
+  box-shadow: inset 0 0 0 2px var(--volt);
+}
+
+/* ---------- Buttons ---------- */
+.fx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--volt);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    opacity 0.25s var(--ease);
+  box-shadow: 0 0 0 0 var(--volt-soft);
+}
+.fx-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 8px var(--volt-soft);
+}
+.fx-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+.fx-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.fx-btn--ghost {
+  background: transparent;
+  color: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--rule);
+}
+.fx-btn--ghost:hover {
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+.fx-paper .fx-btn--ghost {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--rule-ink);
+}
+.fx-paper .fx-btn--ghost:hover {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+.fx-btn--sm {
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 13px;
+  font-size: 15px;
+}
+.fx-btn--block {
+  width: 100%;
+}
+.fx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+}
+.fx-link {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--volt);
+}
+.fx-paper .fx-link {
+  text-decoration-color: var(--blue);
+}
+
+/* ---------- Header ---------- */
+.fx-top {
+  position: relative;
+  z-index: 10;
+}
+.fx-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  min-height: var(--top);
+}
+.fx-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+.fx-brand .fx-sticker {
+  font-size: 12px;
+  padding: 7px 11px 6px;
+}
+.fx-nav {
+  display: flex;
+  gap: 4px;
+  margin-inline: auto;
+}
+.fx-nav a {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--mute);
+  transition:
+    color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+.fx-nav a:hover,
+.fx-nav a[aria-current="page"] {
+  color: var(--paper);
+  background: var(--ink-2);
+}
+.fx-nav a[aria-current="page"] {
+  box-shadow: inset 0 -2px 0 var(--volt);
+}
+.fx-top-end {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.fx-top-house {
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--mute);
+  white-space: nowrap;
+}
+.fx-top-house:hover {
+  color: var(--paper);
+}
+.fx-menu {
+  display: none;
+  position: relative;
+}
+.fx-menu summary {
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  box-shadow: inset 0 0 0 2px var(--rule);
+  cursor: pointer;
+  list-style: none;
+}
+.fx-menu summary::-webkit-details-marker {
+  display: none;
+}
+.fx-menu summary span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--paper);
+  transition: transform 0.3s var(--ease);
+}
+.fx-menu[open] summary span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+.fx-menu[open] summary span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+.fx-menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  display: grid;
+  gap: 2px;
+  min-width: 240px;
+  padding: 10px;
+  border-radius: 20px;
+  background: var(--ink-2);
+  box-shadow:
+    inset 0 0 0 1.5px var(--rule),
+    0 30px 60px -30px rgba(0, 0, 0, 0.9);
+}
+.fx-menu-panel a {
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.fx-menu-panel a:hover,
+.fx-menu-panel a[aria-current="page"] {
+  background: var(--ink-3);
+}
+.fx-menu-house {
+  margin-top: 6px;
+  color: var(--mute);
+  box-shadow: inset 0 1px 0 var(--rule);
+  border-radius: 0 0 12px 12px !important;
+}
+
+/* ---------- Hero: the hook turns around ---------- */
+.fx-hero {
+  position: relative;
+  min-height: calc(100svh - var(--top));
+  display: flex;
+  align-items: center;
+  padding-block: clamp(28px, 6vh, 72px) clamp(56px, 10vh, 112px);
+  overflow: hidden;
+}
+.fx-hero--solo {
+  min-height: min(calc(100svh - var(--top)), 760px);
+}
+.fx-hero .fx-wrap {
+  position: relative;
+  z-index: 1;
+}
+.fx-hero .fx-sticker {
+  margin-bottom: clamp(22px, 3vw, 34px);
+}
+.fx-hero .fx-hook {
+  margin-bottom: clamp(26px, 3.4vw, 44px);
+}
+.fx-hero .fx-lede {
+  margin-bottom: clamp(28px, 3.4vw, 40px);
+}
+.fx-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 40px clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.fx-hero--solo .fx-hero-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.fx-hero--solo .fx-hero-copy {
+  max-width: 980px;
+}
+.fx-hero-act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+}
+.fx-hero-more {
+  font-size: 16px;
+}
+.fx-hero-visual {
+  justify-self: end;
+  width: 100%;
+  display: grid;
+  justify-items: end;
+}
+/* The page's word, huge and hollow, behind everything. */
+.fx-ghost {
+  position: absolute;
+  right: -4%;
+  bottom: -6%;
+  z-index: 0;
+  font-family: var(--display);
+  font-size: clamp(150px, 34vw, 520px);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(240, 243, 249, 0.08);
+  white-space: nowrap;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  user-select: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-ghost {
+    animation: fx-drift 18s ease-in-out infinite alternate;
+  }
+}
+@keyframes fx-drift {
+  to {
+    transform: rotate(-8deg) translateX(-6%);
+  }
+}
+
+/* A piece that changes: struck, gone, replaced. Without motion both
+   stay, the old one struck through. */
+.fx-from {
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--mute);
+  background: linear-gradient(var(--heat), var(--heat)) no-repeat 0 55% / 100% 0.11em;
+  font-size: 0.42em;
+  vertical-align: 0.6em;
+  margin-right: 0.18em;
+}
+.fx-to {
+  display: inline-block;
+  padding: 0.02em 0.14em 0;
+  border-radius: 0.14em;
+  background: var(--volt);
+  color: var(--ink);
+  transform: rotate(-1.5deg);
+}
+.fx-swap[data-quiet] .fx-from {
+  display: none;
+}
+/* Punctuation: inline, so it never wraps to a line of its own. */
+.fx-swap[data-quiet] .fx-to {
+  display: inline;
+  padding: 0;
+  background: none;
+  color: inherit;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-from {
+    white-space: normal;
+    font-size: 1em;
+    vertical-align: 0;
+    margin-right: 0;
+    color: inherit;
+    background-size: 0% 0.11em;
+    animation:
+      fx-strike 0.42s var(--ease) both,
+      fx-out 0.4s var(--ease) both;
+    animation-delay: calc(1s + var(--k, 0) * 0.16s), calc(1.5s + var(--k, 0) * 0.16s);
+  }
+  .fx-swap[data-quiet] .fx-from {
+    display: inline;
+    background: none;
+  }
+  .fx-to {
+    animation: fx-in 0.62s var(--ease) both;
+    animation-delay: calc(1.62s + var(--k, 0) * 0.16s);
+  }
+}
+@keyframes fx-strike {
+  to {
+    background-size: 100% 0.11em;
+    color: var(--mute);
+  }
+}
+@keyframes fx-out {
+  to {
+    font-size: 0;
+    opacity: 0;
+  }
+}
+@keyframes fx-in {
+  0% {
+    font-size: 0;
+    opacity: 0;
+    transform: rotate(-1.5deg) skewX(-14deg);
+  }
+  45% {
+    opacity: 1;
+    text-shadow:
+      0.05em 0 0 var(--heat),
+      -0.05em 0 0 var(--blue);
+  }
+  100% {
+    font-size: 1em;
+    opacity: 1;
+    transform: rotate(-1.5deg);
+    text-shadow: none;
+  }
+}
+/* The rest of the hero comes in first. */
+@media (prefers-reduced-motion: no-preference) {
+  .fx-hero [data-intro] {
+    animation: fx-rise 0.9s var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+  }
+}
+@keyframes fx-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* ---------- The feed (home hero) ---------- */
+.fx-feed {
+  position: relative;
+  width: min(100%, 360px);
+}
+.fx-feed-phone {
+  position: relative;
+  padding: 12px 12px 16px;
+  border-radius: 38px;
+  background: var(--ink-2);
+  box-shadow:
+    inset 0 0 0 1.5px var(--rule),
+    0 50px 100px -50px rgba(0, 0, 0, 0.95);
+  transform: rotate(2.5deg);
+}
+.fx-feed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 12px;
+  font-size: 13px;
+  color: var(--mute);
+}
+.fx-feed-bar i {
+  width: 22px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--ink-3);
+}
+.fx-feed-screen {
+  position: relative;
+  height: 470px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: var(--ink);
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+}
+.fx-feed-track {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+.fx-post {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--ink-2);
+}
+.fx-post-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fx-post-head i {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+.fx-post-head u,
+.fx-post-lines u {
+  display: block;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--ink-3);
+}
+.fx-post-head u {
+  width: 40%;
+}
+.fx-post-img {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  background: var(--ink-3);
+}
+.fx-post--b .fx-post-img {
+  aspect-ratio: 1;
+}
+.fx-post--c .fx-post-img {
+  aspect-ratio: 16 / 9;
+}
+.fx-post-lines {
+  display: grid;
+  gap: 6px;
+}
+.fx-post-lines u:last-child {
+  width: 62%;
+}
+/* The one that stays: the reader's brand, in colour. */
+.fx-post--you {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(100% - 24px);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 30px 60px -20px rgba(212, 255, 58, 0.35);
+  transform: translate(-50%, -50%) rotate(-3deg);
+}
+.fx-post--you .fx-post-head i {
+  background: var(--volt);
+}
+.fx-post--you .fx-post-head b {
+  font-size: 13px;
+  font-weight: 800;
+}
+.fx-post--you .fx-post-img {
+  background: var(--volt);
+}
+.fx-post--you .fx-post-lines u {
+  background: rgba(11, 14, 20, 0.16);
+}
+.fx-post-mark {
+  font-family: var(--display);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--ink);
+}
+/* Under the phone, pointing up at the brand. */
+.fx-feed-note {
+  position: absolute;
+  left: -4%;
+  bottom: -46px;
+  z-index: 2;
+  transform: rotate(-5deg);
+  white-space: nowrap;
+}
+.fx-feed-note::before {
+  content: "↑ ";
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 0.8em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-feed-track {
+    animation: fx-scroll 16s linear infinite;
+  }
+  .fx-post--you {
+    animation: fx-hold 1s var(--ease) both 2.2s;
+  }
+  .fx-feed-note {
+    animation: fx-rise 0.8s var(--ease) both 3s;
+  }
+}
+@keyframes fx-scroll {
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes fx-hold {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30%) rotate(4deg) scale(0.9);
+  }
+}
+
+/* ---------- The band ---------- */
+/* The band is tilted and wider than the page; its wrapper keeps the
+   page from scrolling sideways. */
+.fx-band-clip {
+  overflow: clip;
+  padding-block: clamp(28px, 4vw, 56px);
+}
+.fx-band {
+  overflow: hidden;
+  width: 104%;
+  margin-left: -2%;
+  padding-block: 18px;
+  background: var(--volt);
+  color: var(--ink);
+  transform: rotate(-2deg);
+}
+.fx-band-track {
+  display: flex;
+  width: max-content;
+  font-family: var(--display);
+  font-size: clamp(30px, 5.5vw, 64px);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fx-band-track span {
+  padding-right: 0.5em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-band-track {
+    animation: fx-marquee 22s linear infinite;
+  }
+}
+@keyframes fx-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- The doors ---------- */
+.fx-choose-head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.fx-choose-head .fx-title {
+  margin: 0;
+}
+.fx-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.fx-cards li:first-child {
+  grid-column: 1 / -1;
+}
+.fx-card {
+  --ac: var(--volt);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  height: 100%;
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 26px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  text-decoration: none;
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    background-color 0.4s var(--ease);
+}
+.fx-card:hover {
+  transform: translateY(-4px) rotate(-0.6deg);
+  box-shadow: inset 0 0 0 2px var(--ac);
+  background: var(--ink-3);
+}
+.fx-card-who {
+  font-family: var(--display);
+  font-size: clamp(24px, 2.8vw, 38px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  padding-right: 52px;
+}
+.fx-card-what {
+  font-weight: 800;
+  color: var(--ac);
+}
+.fx-card-house {
+  justify-self: start;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--ac);
+}
+/* The house's blue is too dark for text on ink: its doors say it in paper. */
+.fx-card--house .fx-card-what {
+  color: #8fb0f5;
+}
+.fx-card-go {
+  position: absolute;
+  top: clamp(20px, 3vw, 30px);
+  right: clamp(20px, 3vw, 30px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ac);
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 800;
+  transition: transform 0.4s var(--ease);
+}
+.fx-card--house .fx-card-go {
+  color: var(--paper);
+}
+.fx-card:hover .fx-card-go {
+  transform: rotate(-45deg);
+}
+.fx-card--house:hover .fx-card-go {
+  transform: scale(1.08);
+}
+
+/* ---------- Splits and lists ---------- */
+.fx-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.fx-split .fx-title {
+  margin: 0;
+}
+.fx-split-side {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+@media (min-width: 901px) {
+  .fx-split-side--sticky {
+    position: sticky;
+    top: calc(var(--top) + 24px);
+  }
+}
+.fx-chapters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: ch;
+  display: grid;
+  gap: 12px;
+}
+.fx-chapter {
+  counter-increment: ch;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 18px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-chapter::before {
+  content: counter(ch, decimal-leading-zero);
+  grid-row: span 2;
+  font-family: var(--display);
+  font-size: 30px;
+  line-height: 1;
+  color: var(--volt);
+}
+.fx-chapter h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.fx-chapter p {
+  margin: 0;
+  color: var(--mute);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.fx-paper .fx-chapter {
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule-ink);
+}
+.fx-paper .fx-chapter::before {
+  color: var(--ink);
+}
+
+/* ---------- The add-on ---------- */
+.fx-addon {
+  position: relative;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 32px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.fx-addon .fx-sticker {
+  position: absolute;
+  top: -16px;
+  right: clamp(20px, 4vw, 48px);
+  transform: rotate(4deg);
+}
+.fx-addon .fx-title {
+  margin-bottom: clamp(22px, 3vw, 36px);
+}
+.fx-addon .fx-chapter {
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule-ink);
+}
+.fx-addon .fx-chapter::before {
+  color: var(--ink);
+}
+.fx-addon .fx-chapter p {
+  color: var(--mute-ink);
+}
+.fx-addon .fx-chapters {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ---------- Offers (products) ---------- */
+.fx-offers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.fx-offer {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: clamp(24px, 3.4vw, 40px);
+  border-radius: 28px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-offer.is-featured {
+  box-shadow: inset 0 0 0 3px var(--volt);
+}
+.fx-offer .fx-sticker {
+  position: absolute;
+  top: -14px;
+  right: 24px;
+}
+.fx-offer h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+.fx-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--volt);
+}
+.fx-price small {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--mute);
+}
+.fx-offer p {
+  margin: 0;
+}
+.fx-ticks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.fx-ticks li {
+  position: relative;
+  padding-left: 30px;
+  font-weight: 600;
+}
+.fx-ticks li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.38em;
+  width: 14px;
+  height: 7px;
+  border-left: 3px solid var(--ac, var(--volt));
+  border-bottom: 3px solid var(--ac, var(--volt));
+  transform: rotate(-45deg);
+}
+.fx-offer .fx-btn {
+  margin-top: 6px;
+}
+
+/* ---------- Products index ---------- */
+.fx-products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.fx-product {
+  --ac: var(--volt);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  height: 100%;
+  padding: clamp(24px, 3.4vw, 40px);
+  border-radius: 28px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  text-decoration: none;
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+.fx-product:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 2px var(--ac);
+}
+.fx-product-kind {
+  font-weight: 800;
+  color: var(--ac);
+}
+.fx-product h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 0.96;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.fx-product p {
+  margin: 0;
+  color: var(--mute);
+}
+.fx-product-from {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1;
+  color: var(--paper);
+}
+.fx-product-from small {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mute);
+}
+.fx-product-go {
+  font-weight: 800;
+}
+
+/* ---------- Packages ---------- */
+.fx-packs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.fx-pack {
+  --ac: var(--volt);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: clamp(24px, 3.4vw, 40px);
+  border-radius: 28px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-pack.is-featured {
+  box-shadow: inset 0 0 0 3px var(--ac);
+}
+.fx-pack-tag {
+  justify-self: start;
+  padding: 6px 12px 5px;
+  border-radius: 999px;
+  background: var(--ac);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+.fx-pack h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.fx-pack p {
+  margin: 0;
+}
+.fx-pack-for {
+  font-weight: 800;
+  color: var(--ac);
+}
+.fx-pack-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 6px 0 0;
+}
+.fx-pack-meta div {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--ink);
+}
+.fx-pack-meta dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mute);
+}
+.fx-pack-meta dd {
+  margin: 2px 0 0;
+  font-weight: 800;
+}
+.fx-pack-price {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1;
+}
+.fx-pack-price small {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mute);
+}
+
+/* ---------- Services ---------- */
+.fx-verbs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.fx-verb {
+  --ac: var(--volt);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  height: 100%;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 26px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  text-decoration: none;
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+a.fx-verb:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 2px var(--ac);
+}
+.fx-verb-n {
+  font-family: var(--display);
+  font-size: 15px;
+  color: var(--ac);
+}
+.fx-verb h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.fx-verb p {
+  margin: 0;
+  color: var(--mute);
+}
+.fx-verb-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fx-verb-list li {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-group {
+  --ac: var(--volt);
+  scroll-margin-top: calc(var(--top) + 16px);
+}
+.fx-group + .fx-group {
+  border-top: 1.5px solid var(--rule);
+}
+.fx-group-head {
+  display: grid;
+  gap: 14px;
+}
+.fx-group-head .fx-title {
+  margin: 0;
+}
+.fx-group-head .fx-title span {
+  color: var(--ac);
+}
+.fx-services {
+  display: grid;
+  gap: 14px;
+}
+.fx-service {
+  display: grid;
+  gap: 12px;
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 24px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-service h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+.fx-service p {
+  margin: 0;
+  color: var(--mute);
+}
+.fx-strategy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px clamp(32px, 6vw, 96px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 32px;
+  background: var(--volt);
+  color: var(--ink);
+}
+.fx-strategy .fx-title {
+  margin: 0;
+}
+.fx-strategy p {
+  margin: 0;
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 600;
+}
+.fx-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: st;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.fx-step {
+  counter-increment: st;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 22px;
+  border-radius: 22px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-step::before {
+  content: counter(st, decimal-leading-zero);
+  font-family: var(--display);
+  font-size: 30px;
+  line-height: 1;
+  color: var(--volt);
+}
+.fx-step h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.fx-step p {
+  margin: 0;
+  color: var(--mute);
+  font-size: 16px;
+}
+
+/* ---------- The meter (the course) ---------- */
+.fx-scene {
+  position: relative;
+}
+.fx-stage {
+  position: relative;
+  padding-block: clamp(72px, 12vh, 140px);
+}
+.has-motion .fx-scene[data-scene] {
+  height: calc(var(--len, 3) * 100svh);
+}
+.has-motion .fx-scene[data-scene] > .fx-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-block: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.fx-meter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+.fx-gauge {
+  position: relative;
+  width: min(100%, 520px);
+  justify-self: center;
+}
+.fx-gauge-dial {
+  position: relative;
+  padding-bottom: 22px;
+}
+.fx-gauge svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.fx-gauge-arc {
+  fill: none;
+  stroke: url(#fx-heat);
+  stroke-width: 26;
+  stroke-linecap: round;
+}
+.fx-gauge-tick {
+  stroke: rgba(240, 243, 249, 0.35);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.fx-needle line {
+  stroke: var(--paper);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.fx-needle circle {
+  fill: var(--paper);
+}
+.fx-gauge-l,
+.fx-gauge-r {
+  position: absolute;
+  bottom: 0;
+  font-family: var(--display);
+  font-size: clamp(13px, 1.4vw, 16px);
+  letter-spacing: 0.04em;
+}
+.fx-gauge-l {
+  left: 0;
+  color: var(--heat);
+}
+.fx-gauge-r {
+  right: 0;
+  color: var(--volt);
+}
+.fx-gauge-word {
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(44px, 7vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--volt);
+}
+.fx-beats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 32px;
+}
+.has-motion [data-scene] .fx-beats {
+  gap: 0;
+}
+.has-motion [data-scene] .fx-beat {
+  grid-area: 1 / 1;
+}
+.fx-beat h3 {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.fx-beat p {
+  margin: 0;
+  max-width: 30em;
+  font-size: clamp(17px, 1.6vw, 21px);
+  color: var(--mute);
+}
+.fx-beat-k {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+/* With motion the gauge names the beat. */
+.has-motion [data-scene] .fx-beat-k {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- The free site (the course) ---------- */
+.fx-free {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 28px clamp(32px, 6vw, 96px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 32px;
+  background: var(--volt);
+  color: var(--ink);
+}
+.fx-free .fx-title {
+  margin-bottom: 18px;
+}
+.fx-free p {
+  margin: 0;
+  font-size: clamp(17px, 1.5vw, 20px);
+  font-weight: 600;
+}
+.fx-years {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.fx-years li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+}
+.fx-years b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 32px);
+  text-transform: uppercase;
+  color: var(--volt);
+}
+.fx-years li + li b {
+  color: var(--paper);
+  font-size: 18px;
+  font-family: var(--sans);
+  font-weight: 800;
+  text-transform: none;
+}
+
+/* ---------- The house's signature ---------- */
+.fx-signed {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px 48px;
+  align-items: end;
+  padding-block: clamp(36px, 5vw, 56px);
+  border-top: 1.5px solid var(--rule);
+  border-bottom: 1.5px solid var(--rule);
+}
+.fx-signed-mark {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.fx-signed-mark strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 7vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+.fx-signed-mark .fx-hand {
+  transform: rotate(-4deg);
+}
+.fx-signed p {
+  max-width: 38em;
+  margin: 18px 0 0;
+  color: var(--mute);
+}
+.fx-signed-act {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+/* ---------- The end of a page ---------- */
+.fx-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px 48px;
+  align-items: center;
+  padding: clamp(28px, 4.4vw, 60px);
+  border-radius: 32px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-cta .fx-title {
+  margin: 0 0 14px;
+}
+.fx-cta p {
+  margin: 0;
+  max-width: 36em;
+  color: var(--mute);
+}
+.fx-cta-act {
+  display: grid;
+  gap: 12px;
+}
+
+/* ---------- Questions ---------- */
+.fx-qa {
+  display: grid;
+  gap: 10px;
+}
+.fx-qa details {
+  border-radius: 20px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.fx-qa summary {
+  position: relative;
+  padding: 20px 60px 20px 22px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.fx-qa summary::-webkit-details-marker {
+  display: none;
+}
+.fx-qa summary::after {
+  content: "+";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--display);
+  font-size: 24px;
+  color: var(--volt);
+  transition: transform 0.3s var(--ease);
+}
+.fx-qa details[open] summary::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+.fx-qa p {
+  margin: 0;
+  padding: 0 22px 22px;
+  color: var(--mute);
+}
+
+/* ---------- The form ---------- */
+.fx-form {
+  display: grid;
+  gap: 18px;
+}
+.fx-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.fx-field {
+  display: grid;
+  gap: 8px;
+}
+.fx-field > span {
+  font-weight: 800;
+  font-size: 15px;
+}
+.fx-field small {
+  font-weight: 600;
+  color: var(--mute);
+}
+.fx-field input,
+.fx-field textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--ink-2);
+  color: var(--paper);
+  font: inherit;
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  transition: box-shadow 0.2s var(--ease);
+}
+.fx-field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+.fx-field input:focus,
+.fx-field textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--volt);
+}
+.fx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.fx-chips legend {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+  font-weight: 800;
+  font-size: 15px;
+}
+.fx-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.fx-chip span {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+.fx-chip input:checked + span {
+  background: var(--volt);
+  color: var(--ink);
+  box-shadow: none;
+}
+.fx-chip input:focus-visible + span {
+  outline: 3px solid var(--volt);
+  outline-offset: 3px;
+}
+.fx-form-offer {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--volt-soft);
+}
+.fx-check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  font-size: 15px;
+  color: var(--mute);
+}
+.fx-check input {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--volt);
+}
+.fx-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.fx-form-act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+.fx-form-status {
+  margin: 0;
+  font-weight: 700;
+  color: var(--mute);
+}
+.fx-form-status.is-bad {
+  color: var(--heat);
+}
+.fx-form-done {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: 28px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 2px var(--volt);
+}
+.fx-form-done h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+.fx-form-done p {
+  margin: 0;
+  color: var(--mute);
+}
+.fx-contact-side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.fx-contact-way {
+  display: grid;
+  gap: 4px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  text-decoration: none;
+  transition: box-shadow 0.3s var(--ease);
+}
+.fx-contact-way:hover {
+  box-shadow: inset 0 0 0 2px var(--volt);
+}
+.fx-contact-way small {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mute);
+}
+.fx-contact-way b {
+  font-size: 18px;
+}
+
+/* ---------- Prose (legal pages) ---------- */
+.fx-prose {
+  max-width: 760px;
+}
+.fx-prose h2 {
+  margin: 40px 0 12px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.fx-prose p,
+.fx-prose li {
+  color: var(--mute);
+}
+.fx-prose a {
+  color: var(--paper);
+  text-decoration-color: var(--volt);
+  text-underline-offset: 3px;
+}
+.fx-prose strong {
+  color: var(--paper);
+}
+.fx-prose ul {
+  padding-left: 20px;
+}
+.fx-updated {
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mute);
+}
+.fx-cookie-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--paper);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--volt);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ---------- The bar that follows ---------- */
+.fx-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(calc(100% - 24px), 560px);
+  padding: 8px 8px 8px 18px;
+  border-radius: 22px;
+  background: rgba(19, 24, 35, 0.86);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 0 0 1.5px var(--rule),
+    0 20px 40px -20px rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, 160%);
+  transition: transform 0.6s var(--ease);
+}
+.fx-bar.is-visible {
+  transform: translate(-50%, 0);
+}
+.fx-bar-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 800;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-bar .fx-btn {
+  flex: none;
+  min-height: 50px;
+  padding-inline: 18px;
+  font-size: 16px;
+}
+
+/* ---------- Footer ---------- */
+.fx-foot {
+  padding-block: clamp(48px, 7vw, 80px) 40px;
+  border-top: 1.5px solid var(--rule);
+  font-size: 15px;
+  color: var(--mute);
+}
+.fx-foot-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 32px clamp(24px, 4vw, 56px);
+}
+.fx-foot-brand {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  color: var(--paper);
+}
+.fx-foot-brand p {
+  margin: 0;
+  max-width: 30em;
+  color: var(--mute);
+}
+.fx-foot-brand p a {
+  color: var(--paper);
+  text-decoration-color: var(--volt);
+  text-underline-offset: 3px;
+}
+.fx-foot-col {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.fx-foot-col b {
+  color: var(--paper);
+  font-size: 14px;
+}
+.fx-foot-col a,
+.fx-foot-fine a {
+  text-decoration: none;
+}
+.fx-foot-col a:hover,
+.fx-foot-fine a:hover {
+  color: var(--paper);
+}
+.fx-foot-fine {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 14px 32px;
+  margin-top: clamp(40px, 6vw, 64px);
+  padding-top: 24px;
+  border-top: 1.5px solid var(--rule);
+  font-size: 14px;
+}
+.fx-foot-fine p {
+  margin: 0;
+}
+.fx-foot-fine nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .fx-top-house-l {
+    display: none;
+  }
+  .fx-verbs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fx-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fx-foot-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .fx-foot-brand {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 900px) {
+  .fx-nav,
+  .fx-top-house {
+    display: none;
+  }
+  .fx-menu {
+    display: block;
+  }
+  .fx-hero-grid,
+  .fx-split,
+  .fx-meter-grid,
+  .fx-free,
+  .fx-signed,
+  .fx-strategy,
+  .fx-cta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fx-cards,
+  .fx-offers,
+  .fx-products,
+  .fx-packs,
+  .fx-addon .fx-chapters,
+  .fx-form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fx-gauge {
+    width: min(100%, 360px);
+  }
+  .fx-hero {
+    align-items: flex-start;
+  }
+  .fx-hero-visual {
+    justify-self: start;
+    justify-items: start;
+  }
+  .fx-feed {
+    width: min(100%, 300px);
+    margin-left: 18%;
+  }
+  .fx-feed-screen {
+    height: 380px;
+  }
+}
+@media (max-width: 560px) {
+  .fx-top .fx-btn--sm {
+    display: none;
+  }
+  .fx-hero-act .fx-btn {
+    width: 100%;
+  }
+  .fx-steps,
+  .fx-foot-grid,
+  .fx-pack-meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fx-feed-note {
+    font-size: 22px;
+  }
+  /* A phone's pinned stage: the gauge above, one beat under it. */
+  .has-motion [data-scene="meter"] .fx-meter-grid {
+    gap: 22px;
+  }
+  .has-motion [data-scene="meter"] .fx-gauge {
+    width: min(100%, 300px);
+  }
+  .has-motion [data-scene="meter"] .fx-gauge-word {
+    margin-top: 10px;
+    font-size: 40px;
+  }
+  .has-motion [data-scene="meter"] .fx-beat h3 {
+    font-size: 26px;
+  }
+  .has-motion [data-scene="meter"] .fx-beat p {
+    font-size: 16px;
+  }
+}

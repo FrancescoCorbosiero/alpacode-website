@@ -1,23 +1,28 @@
-# CLAUDE.md — Alpacode FAST (`fast/`)
+# CLAUDE.md — Alpacode Studio (`sites/studio/`)
 
-The social-first sibling of alpacode.it, served at fast.alpacode.it: a
-static Astro site of its own, Italian only. Read `fast/README.md` (pages,
-data, motion, share cards, deploy) and `docs/marketing-map.md` (why it
-exists, the audiences, the DM keywords, FAST's rules). The repo-level
-`CLAUDE.md` and `docs/status.md` still apply — the open decisions about
-prices, checkout and the Instagram handle are listed there.
+studio.alpacode.it, the first compartment of the house (alpacode.it):
+the marketing — social and content, brand, UX and the user journey,
+campaigns, SEO, strategy — and the do-it-yourself products bought on the
+site. Italian only. Read `sites/studio/README.md` (pages, data, buying on
+the site, consent, deploy) and `docs/marketing-map.md` (the house and its
+compartments, who each speaks to). The repo-level `CLAUDE.md` and
+`docs/status.md` still apply.
 
-- Everything that changes is data: `src/data/doors.ts` (hooks, keywords,
-  chat replies, meta), `src/data/products.ts` (prices VAT included,
-  contents, checkout links), `src/data/site.ts` (facts, links, handle).
-- FAST imports nothing from the studio's `src/`; facts duplicated from
-  `src/data/business.ts` must stay in step.
-- The register is aggressive but honest: the fear named and turned
-  around in the same line; no countdowns, invented numbers or income
-  claims; "gratis" only where true; no digs at a group FAST also sells
-  to.
-- The hero's turn is CSS (above the fold); GSAP only below it
-  (`src/lib/motion.ts`). Reduced motion: every piece in its end state.
-- Verify: `npm run fast:check && npm run fast:build`, then
-  `npm run fast:preview` and look at 390×844 first (that's where it's
-  read), then 1440.
+- Everything that changes is data: `src/data/pages.ts` (hooks, doors,
+  meta), `src/data/services.ts`, `src/data/packages.ts`,
+  `src/data/products.ts` (prices VAT included, checkout), `src/data/site.ts`.
+  Company facts and the compartments come from `shared/`.
+- The register is the studio's: young, direct, provocative — and honest.
+  The worry named and turned around in the same line; no countdowns,
+  invented numbers, results or reach promised ("virale" is a way of
+  working, never a guarantee); "gratis" only where true; none of the
+  price-reassurance tic; no digs at anyone the studio also works with.
+- No DM keywords on the pages: the buttons are a website's (buy, ask,
+  book a call); WhatsApp is one way to write among the others.
+- Every page ends on the house (`components/House.astro`) or a way to
+  write; links into the house go through `house(path, where)`.
+- The hero is CSS (above the fold); GSAP only below it. Reduced motion:
+  every piece in its end state.
+- Verify: `npm run studio:check && npm run studio:build`, then
+  `npm run studio:start` (PORT=…) and look at 390×844 first, then 1440;
+  post the form once (without `AWS_REGION` the server logs it).

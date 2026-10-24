@@ -1,0 +1,93 @@
+---
+/* The services: strategy first, then the three verbs, the method,
+   the questions. */
+import Studio from "../layouts/Studio.astro";
+import Hero from "../components/Hero.astro";
+import Band from "../components/Band.astro";
+import Qa from "../components/Qa.astro";
+import House from "../components/House.astro";
+import Cta from "../components/Cta.astro";
+import { PAGES } from "../data/pages";
+import { GROUPS, SERVICES_QA, STEPS, STRATEGY } from "../data/services";
+import { breadcrumbs, faqPage, organization } from "../lib/schema";
+
+const head = PAGES.servizi;
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[organization(), breadcrumbs([{ name: "Servizi", path: "/servizi/" }]), faqPage(SERVICES_QA)]}
+>
+  <Hero head={head}>
+    <a class="fx-btn" href="/contatti/">Parliamone <span aria-hidden="true">→</span></a>
+    <a class="fx-link fx-hero-more" href="#vedere">I tre verbi <span aria-hidden="true">↓</span></a>
+  </Hero>
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-strategy" data-rise>
+        <h2 class="fx-title">{STRATEGY.title}</h2>
+        <p>{STRATEGY.text}</p>
+      </div>
+    </div>
+  </section>
+
+  {
+    GROUPS.map((g, i) => (
+      <section class="fx-section fx-group" id={g.id} style={`--ac:${g.accent}`}>
+        <div class="fx-wrap fx-split">
+          <div class="fx-split-side fx-split-side--sticky" data-rise>
+            <span class="fx-verb-n">0{i + 1}</span>
+            <div class="fx-group-head">
+              <h2 class="fx-title">
+                <span>{g.verb}</span>
+              </h2>
+              <p class="fx-lede">{g.lede}</p>
+            </div>
+          </div>
+          <div class="fx-services">
+            {g.services.map((s) => (
+              <article class="fx-service" id={s.id} data-rise>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+                <ul class="fx-ticks">
+                  {s.items.map((it) => (
+                    <li>{it}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <Band words={["Prima la strategia", "Poi i contenuti", "Sempre i numeri"]} />
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-choose-head" data-rise>
+        <span class="fx-hand">come lavoriamo</span>
+        <h2 class="fx-title">Quattro passi, ogni mese.</h2>
+      </div>
+      <ol class="fx-steps">
+        {
+          STEPS.map((s) => (
+            <li class="fx-step" data-rise>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <Qa title="Prima che tu lo chieda." items={SERVICES_QA} />
+  <House where="servizi" />
+  <Cta />
+</Studio>

@@ -65,7 +65,7 @@ const hasPixels = Boolean(pixels.meta || pixels.gads);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogUrl} />
-    {jsonld.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+    {jsonld.map((data) => <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />)}
     {
       /* Umami is cookieless: it ships when both values are set at build,
          without a banner. */

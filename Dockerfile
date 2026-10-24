@@ -12,9 +12,14 @@ RUN npm ci
 ARG PUBLIC_CALCOM_LINK="https://cal.eu/alpacode/30min"
 ARG PUBLIC_UMAMI_SRC=""
 ARG PUBLIC_UMAMI_ID=""
+# Where the compartments live: the doors from the house to them.
+ARG PUBLIC_HOUSE_ORIGIN="https://alpacode.it"
+ARG PUBLIC_STUDIO_ORIGIN="https://studio.alpacode.it"
 ENV PUBLIC_CALCOM_LINK=$PUBLIC_CALCOM_LINK \
     PUBLIC_UMAMI_SRC=$PUBLIC_UMAMI_SRC \
-    PUBLIC_UMAMI_ID=$PUBLIC_UMAMI_ID
+    PUBLIC_UMAMI_ID=$PUBLIC_UMAMI_ID \
+    PUBLIC_HOUSE_ORIGIN=$PUBLIC_HOUSE_ORIGIN \
+    PUBLIC_STUDIO_ORIGIN=$PUBLIC_STUDIO_ORIGIN
 COPY . .
 RUN npm run build
 

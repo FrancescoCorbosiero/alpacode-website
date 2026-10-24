@@ -1,0 +1,56 @@
+---
+/* The products sold from the site: one card each. */
+import Studio from "../../layouts/Studio.astro";
+import Hero from "../../components/Hero.astro";
+import House from "../../components/House.astro";
+import Cta from "../../components/Cta.astro";
+import { PAGES } from "../../data/pages";
+import { PRODUCTS } from "../../data/products";
+import { euro } from "../../data/site";
+import { breadcrumbs, organization } from "../../lib/schema";
+
+const head = PAGES.prodotti;
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[organization(), breadcrumbs([{ name: "Prodotti", path: "/prodotti/" }])]}
+>
+  <Hero head={head}>
+    <a class="fx-btn" href="#prodotti">Guarda i prodotti <span aria-hidden="true">↓</span></a>
+  </Hero>
+
+  <section class="fx-section" id="prodotti">
+    <div class="fx-wrap">
+      <ul class="fx-products">
+        {
+          PRODUCTS.map((p) => (
+            <li data-rise>
+              <a class="fx-product" href={`/prodotti/${p.slug}/`} style={`--ac:${p.accent}`}>
+                <span class="fx-product-kind">{p.kind}</span>
+                <h3>{p.name}</h3>
+                <p>{p.line}</p>
+                <span class="fx-product-from">
+                  {p.from !== null ? (
+                    <>
+                      <small>da</small> {euro(p.from)}
+                    </>
+                  ) : (
+                    <small>Prezzo in arrivo</small>
+                  )}
+                </span>
+                <span class="fx-product-go">Scopri →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <House where="prodotti" />
+  <Cta title="Preferisci che lo facciamo noi?" text="Siti, e-commerce e marketing fatti per te: scrivici, ti rispondiamo con una proposta scritta." />
+</Studio>

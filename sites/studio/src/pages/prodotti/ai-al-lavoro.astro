@@ -1,0 +1,102 @@
+---
+/* The crash course for freelancers, and the site they build in it:
+   hosted by Alpacode, free the first year. */
+import Studio from "../../layouts/Studio.astro";
+import Hero from "../../components/Hero.astro";
+import Band from "../../components/Band.astro";
+import Meter from "../../components/Meter.astro";
+import Chapters from "../../components/Chapters.astro";
+import Buy from "../../components/Buy.astro";
+import BuyBar from "../../components/BuyBar.astro";
+import Qa from "../../components/Qa.astro";
+import House from "../../components/House.astro";
+import Cta from "../../components/Cta.astro";
+import { PAGES } from "../../data/pages";
+import { COURSE, COURSE_QA, HOSTING } from "../../data/products";
+import { euro, house } from "../../data/site";
+import { breadcrumbs, faqPage, organization, product } from "../../lib/schema";
+
+const head = PAGES.corso;
+const priced = COURSE.price !== null;
+const qa = [
+  ...COURSE_QA,
+  {
+    q: "Quanto costa il corso?",
+    a: priced
+      ? `${euro(COURSE.price as number)}. E il sito che costruisci, il primo anno, è gratis.`
+      : "Il prezzo sta arrivando: scrivici e ti mandiamo il programma e la data.",
+  },
+];
+const name = `Crash course «${COURSE.name}»`;
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[
+    organization(),
+    breadcrumbs([
+      { name: "Prodotti", path: "/prodotti/" },
+      { name, path: "/prodotti/ai-al-lavoro/" },
+    ]),
+    product({
+      name,
+      description: head.meta.description,
+      path: "/prodotti/ai-al-lavoro/",
+      prices: priced && COURSE.checkout ? [COURSE.price as number] : [],
+    }),
+    faqPage(qa),
+  ]}
+>
+  <Hero head={head}>
+    <Buy
+      id="corso"
+      price={COURSE.price}
+      checkout={COURSE.checkout}
+      label={priced ? `Iscriviti · ${euro(COURSE.price as number)}` : undefined}
+      askLabel="Mandami il programma"
+    />
+  </Hero>
+
+  <Meter />
+
+  <section class="fx-section">
+    <div class="fx-wrap fx-split">
+      <div class="fx-split-side" data-rise>
+        <span class="fx-hand">il crash course</span>
+        <h2 class="fx-title">{COURSE.name}.</h2>
+        <p class="fx-lede">Quattro moduli: dal primo compito che le dai al lavoro nuovo che ti porta.</p>
+      </div>
+      <Chapters items={COURSE.modules} />
+    </div>
+  </section>
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-free" data-rise>
+        <div>
+          <h2 class="fx-title">Perché pagare migliaia di euro per un sito?</h2>
+          <p>Nel corso lo costruisci tu, con l'AI. Lo ospita Alpacode: il primo anno è gratis, paghi solo dal secondo.</p>
+        </div>
+        <ul class="fx-years">
+          <li><span>Primo anno</span><b>Gratis</b></li>
+          <li>
+            <span>Dal secondo anno</span><b>{HOSTING.yearTwo !== null ? `${euro(HOSTING.yearTwo)}/anno` : "il canone annuale"}</b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Band words={["Non temere l'AI", "Cavalcala", "Mettila al lavoro"]} />
+  <Qa title="Prima che tu lo chieda." items={qa} />
+  <House where="corso" />
+  <Cta
+    title="Hai clienti tuoi?"
+    text="Porta loro il digitale senza farlo tu: il programma partner di Alpacode."
+    primary={{ href: house("/partner/", "corso"), label: "Il programma partner" }}
+  />
+  <BuyBar slot="after" id="corso" name={name} price={COURSE.price} checkout={COURSE.checkout} />
+</Studio>
