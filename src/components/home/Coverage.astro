@@ -1,7 +1,17 @@
 ---
+/* Dove operiamo — Italy in dots, the base between Monza and Milano,
+   an arc to every place where a client is (src/data/places.ts, read
+   from the work entries: no city lit for the look of it), and beside
+   it, with the same weight, the sheet: base, reach, the clients by
+   place (each name opens its case), the call. One screen tall on a
+   desktop. The map scene ([data-scene="map"]) spreads the dots out
+   from the base and draws the arcs as the section comes in; laid out,
+   the map is whole. */
 import type { Lang } from "../../i18n/types";
 import { coverage } from "../../data/home";
-import { italyMap } from "../../data/italyMap";
+import { BASE, LOCAL, PLACES, PLACE_IDS, type PlaceId } from "../../data/places";
+import { works, workHref } from "../../data/work";
+import { arc, dotPath, mapBox, project } from "../../lib/italy-dots";
 import BookCall from "../BookCall.astro";
 import Br from "../Br.astro";
 
@@ -13,84 +23,109 @@ interface Props {
 const { lang, bare = false } = Astro.props;
 const t = coverage[lang];
 const num = bare ? t.num.replace(/^\d+\s*·\s*/, "") : t.num;
-const { viewBox, regions, hq, cities } = italyMap;
 
-const isLombardia = (n: string) => /lombard/i.test(n);
-// Milano is represented by the HQ marker, so skip it as a separate city.
-const pts = cities.filter((c) => c.n !== "Milano");
-const lines = pts.map((c, i) => {
-  const dx = c.x - hq.x;
-  const dy = c.y - hq.y;
-  return { x2: c.x, y2: c.y, len: Math.round(Math.hypot(dx, dy)), i };
-});
-const anchorFor = (x: number) => (x < hq.x ? "end" : "start");
+const list = await works();
+const byPlace = PLACE_IDS.map((id) => [id, list.filter((w) => w.data.place === id)] as const).filter(
+  ([, ws]) => ws.length > 0,
+);
+const dots = dotPath();
+const base = project(PLACES[BASE].lat, PLACES[BASE].lon);
+const at = (id: PlaceId) => project(PLACES[id].lat, PLACES[id].lon);
+// The far places get an arc and a label; the near ones are the cluster
+// round the base, named by its label.
+const far = byPlace.filter(([id]) => !LOCAL.includes(id)).map(([id]) => ({ id, ...at(id) }));
+const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([id]) => ({ id, ...at(id) }));
 ---
 
-<section class="section coverage">
-  <div class="wrap-wide">
-    <div class="section-head">
-      <div>
-        <div class="sec-num">{num}</div>
-        <h2><Br text={t.heading} /></h2>
-      </div>
-      <p class="lede">{t.lede}</p>
+<section class="section coverage" data-scene="map">
+  <div class="wrap-wide coverage-grid">
+    <figure class="map-figure">
+      <svg
+        class="map"
+        viewBox={`0 0 ${mapBox.w} ${mapBox.h}`}
+        role="img"
+        aria-label={lang === "it"
+          ? `Mappa dell'Italia: la base tra Monza e Milano, clienti a ${byPlace.map(([id]) => PLACES[id].name.it).join(", ")}`
+          : `Map of Italy: based between Monza and Milan, clients in ${byPlace.map(([id]) => PLACES[id].name.en).join(", ")}`}
+      >
+        <defs>
+          {/* The reach the map scene spreads out from the base. */}
+          <radialGradient id="map-reach-fade">
+            <stop offset="0.82" stop-color="#fff" />
+            <stop offset="1" stop-color="#fff" stop-opacity="0" />
+          </radialGradient>
+          <mask id="map-reach" maskUnits="userSpaceOnUse" x="0" y="0" width={mapBox.w} height={mapBox.h}>
+            <circle data-map-reach cx={base.x} cy={base.y} r={Math.hypot(mapBox.w, mapBox.h)} fill="url(#map-reach-fade)" />
+          </mask>
+        </defs>
+
+        <path class="map-dots" d={dots.d} data-map-dots />
+
+        <g class="map-arcs">
+          {far.map((p) => <path class="map-arc" d={arc(base, p)} pathLength="1" data-map-arc data-place={p.id} />)}
+        </g>
+
+        <g class="map-places">
+          {near.map((p) => <circle class="map-pt map-pt--near" cx={p.x} cy={p.y} r="2.2" data-map-place data-place={p.id} />)}
+          {
+            far.map((p) => (
+              <g class="map-place" data-map-place data-place={p.id}>
+                <circle class="map-pt" cx={p.x} cy={p.y} r="3.4" />
+                <text class="map-label" x={p.x + 8} y={p.y + 4}>
+                  {PLACES[p.id].name[lang]}
+                </text>
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="map-base" data-place={BASE}>
+          <circle class="map-ping" cx={base.x} cy={base.y} r="7" data-map-ping />
+          <circle class="map-hq" cx={base.x} cy={base.y} r="4.6" />
+          <text class="map-base-label" x={base.x} y={base.y - 14} text-anchor="middle">{t.hqLabel}</text>
+        </g>
+      </svg>
+    </figure>
+
+    <div class="coverage-head">
+      <div class="sec-num">{num}</div>
+      <h2 class="coverage-title" data-split><Br text={t.heading} /></h2>
+      <p class="coverage-lede">{t.lede}</p>
     </div>
 
-    <div class="coverage-grid">
-      <figure class="map-figure">
-        <svg
-          class="map"
-          viewBox={`0 0 ${viewBox.w} ${viewBox.h}`}
-          role="img"
-          aria-label={lang === "it"
-            ? "Mappa dell'Italia: base in Lombardia, copertura nazionale da remoto"
-            : "Map of Italy: based in Lombardy, nationwide coverage, remote"}
-        >
-          <g class="map-regions">
-            {regions.map((r) => <path class:list={["map-land", { "is-region": isLombardia(r.name) }]} d={r.d} />)}
-          </g>
-
-          {
-            lines.map((l) => (
-              <line
-                class="map-line"
-                x1={hq.x}
-                y1={hq.y}
-                x2={l.x2}
-                y2={l.y2}
-                pathLength={l.len}
-                style={`--len:${l.len};--i:${l.i}`}
-              />
-            ))
-          }
-
-          {pts.map((c) => <circle class="map-city" cx={c.x} cy={c.y} r="2.4" />)}
-          {
-            pts.map((c) => (
-              <text class="map-label" x={anchorFor(c.x) === "end" ? c.x - 6 : c.x + 6} y={c.y + 3} text-anchor={anchorFor(c.x)}>
-                {c.n}
-              </text>
-            ))
-          }
-
-          <circle class="map-ping" cx={hq.x} cy={hq.y} r="6" />
-          <circle class="map-hq" cx={hq.x} cy={hq.y} r="4.5" />
-          <text class="map-hq-label" x={hq.x} y={hq.y - 12} text-anchor="middle">{t.hqLabel}</text>
-        </svg>
-      </figure>
-
-      <div class="coverage-info">
-        <div class="cov-block">
-          <span class="k">{t.baseLabel}</span>
-          <span class="v">{t.baseValue}</span>
+    <div class="coverage-sheet">
+      <dl class="cov-sheet">
+        <div class="cov-row">
+          <dt>{t.baseLabel}</dt>
+          <dd>{t.baseValue}</dd>
         </div>
-        <div class="cov-block">
-          <span class="k">{t.reachLabel}</span>
-          <span class="v">{t.reachValue}</span>
+        <div class="cov-row">
+          <dt>{t.reachLabel}</dt>
+          <dd>{t.reachValue}</dd>
         </div>
-        <p class="cov-note">{t.note}</p>
-        <BookCall label={t.cta} journey="coverage" lang={lang} class="btn-blue" />
-      </div>
+        <div class="cov-row cov-row--clients">
+          <dt>{t.clientsLabel}</dt>
+          <dd>
+            <ul class="cov-clients">
+              {
+                byPlace.map(([id, ws]) => (
+                  <li class="cov-client" data-map-row={LOCAL.includes(id) ? BASE : id}>
+                    <span class="cov-place">{PLACES[id].name[lang]}</span>
+                    <span class="cov-names">
+                      {ws.map((w) => (
+                        <a href={workHref(w.id, lang)}>{w.data.title[lang]}</a>
+                      ))}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+        </div>
+      </dl>
+
+      <p class="cov-note">{t.note}</p>
+      <BookCall label={t.cta} journey="coverage" lang={lang} class="btn-blue" />
     </div>
   </div>
 </section>

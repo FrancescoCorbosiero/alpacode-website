@@ -1,9 +1,17 @@
 ---
-import { getCollection } from "astro:content";
-import type { ImageMetadata } from "astro";
+/* /lavori — the showcase. One row per project: its number, its name in
+   the display face, sector, place and year, a small frame of its site.
+   The filters (radio chips) sort by kind of work with CSS alone
+   (:has), and the flip-filter effect animates the change; with a mouse
+   the hover-preview effect floats a large frame of the row's site next
+   to the pointer. A row opens its case page, and its frame (the small
+   one, or the floating one) becomes the case page's frame on the way
+   (a view transition named after the project). */
 import type { Lang } from "../../i18n/types";
+import { PLACES } from "../../data/places";
+import { KIND_LABELS, WORK_KINDS, hostOf, no, shotFor, workHref, workLabels, works } from "../../data/work";
 import PageHero from "../PageHero.astro";
-import ImageSlot from "../ImageSlot.astro";
+import BrowserFrame from "../BrowserFrame.astro";
 import Coverage from "../home/Coverage.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 import Statement from "../Statement.astro";
@@ -12,18 +20,19 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
+const L = workLabels[lang];
+const list = await works();
 
-const works = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
-
-// Drop a file named <entry-id>.<ext> into src/assets/work/ (e.g.
-// studio-legale.jpg) and it's picked up here, optimized, automatically.
-const workImages = import.meta.glob<{ default: ImageMetadata }>(
-  "../../assets/work/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
-  { eager: true },
-);
-const imgFor = (id: string): ImageMetadata | undefined =>
-  Object.entries(workImages).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === id)?.[1]
-    .default;
+const kinds = WORK_KINDS.filter((k) => list.some((w) => w.data.kind === k));
+const chips = [
+  { value: "all", label: L.all, n: list.length },
+  ...kinds.map((k) => ({ value: k, label: KIND_LABELS[k][lang], n: list.filter((w) => w.data.kind === k).length })),
+];
+/* Filtering without a script: the checked chip hides the other kinds.
+   The flip-filter effect sets data-flip-on and takes over. */
+const filterCss = kinds
+  .map((k) => `.works:not([data-flip-on]):has(input[value="${k}"]:checked) .works-row:not([data-kind="${k}"]){display:none}`)
+  .join("");
 
 const t =
   lang === "it"
@@ -32,7 +41,6 @@ const t =
         line1: "I nostri",
         line2: "lavori.",
         lede: "Progetti reali in settori molto diversi — edilizia, streetwear, editoria, fitness, pesca, logistica — ognuno con la sua strategia di comunicazione su misura.",
-        placeholder: "Foto del progetto",
         statement:
           "Ogni progetto parte da un problema vero — farsi trovare, farsi scegliere, vendere online — e si misura con numeri veri, non con promesse.",
       }
@@ -41,7 +49,6 @@ const t =
         line1: "Our",
         line2: "work.",
         lede: "Real projects across very different sectors — construction, streetwear, publishing, fitness, fishing, logistics — each with its own tailored communication strategy.",
-        placeholder: "Project photo",
         statement:
           "Every project starts from a real problem — being found, being chosen, selling online — and is measured with real numbers, not promises.",
       };
@@ -49,33 +56,77 @@ const t =
 
 <PageHero crumb={t.crumb} line1={t.line1} line2={t.line2} lede={t.lede} />
 
-<section class="section" style="padding-top:56px">
+<section class="works" data-flip-filter>
+  <style is:inline set:html={filterCss}></style>
   <div class="wrap-wide">
-    <div class="work-grid">
+    <fieldset class="works-filter">
+      <legend class="visually-hidden">{L.filterBy}</legend>
       {
-        works.map((w, i) => (
-          <article class="work">
-            <ImageSlot placeholder={t.placeholder} src={imgFor(w.id)} alt={w.data.title[lang]} />
-            <div class="meta">
-              <span>{String(i + 1).padStart(2, "0")}</span>
-              <span>{w.data.year} · {w.data.sector[lang]}</span>
-            </div>
-            <h3>{w.data.title[lang]}</h3>
-            <p>{w.data.descriptor[lang]}</p>
-            <div class="tags">
-              {w.data.tags.map((tg) => (
-                <span class="tag">{tg}</span>
-              ))}
-            </div>
-            {w.data.quote && (
-              <figure class="work-quote">
-                <blockquote>{w.data.quote[lang]}</blockquote>
-                {w.data.quoteAttr && <figcaption>{w.data.quoteAttr}</figcaption>}
-              </figure>
-            )}
-          </article>
+        chips.map((c) => (
+          <label class="works-chip">
+            <input type="radio" name="work-kind" value={c.value} checked={c.value === "all"} data-filter={c.value} />
+            <span class="works-chip-label">{c.label}</span>
+            <span class="works-chip-n">{c.n}</span>
+          </label>
         ))
       }
+    </fieldset>
+
+    <ol class="works-list" data-hover-preview>
+      {
+        list.map((w, i) => {
+          const title = w.data.title[lang];
+          return (
+            <li
+              class="works-row"
+              data-kind={w.data.kind}
+              data-filter-item={w.data.kind}
+              data-preview
+              data-preview-label={hostOf(w.data.url) ?? title}
+              data-preview-vt={`work-${w.id}`}
+            >
+              <a class="works-link" href={workHref(w.id, lang)}>
+                <span class="works-no">{no(i)}</span>
+                <span class="works-name" style={`view-transition-name:work-title-${w.id}`}>
+                  {title}
+                </span>
+                <span class="works-meta">
+                  <span>{w.data.sector[lang]}</span>
+                  <span>{PLACES[w.data.place].name[lang]}</span>
+                  <span>{w.data.year}</span>
+                </span>
+                <span class="works-desc">
+                  {w.data.descriptor[lang]}
+                </span>
+                <span class="works-thumb" data-preview-thumb>
+                  <BrowserFrame
+                    shot={shotFor(w.id)}
+                    alt=""
+                    bar={hostOf(w.data.url) ?? title}
+                    sizes="(max-width: 700px) 100vw, (max-width: 1024px) 50vw, 160px"
+                    name={`work-${w.id}`}
+                  />
+                </span>
+                <span class="works-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    {/* The floating frame of the hover preview: empty and hidden until the
+        effect fills it with the rows' screenshots (a mouse only). */}
+    <div class="works-preview" data-preview-frame hidden aria-hidden="true">
+      <div class="bframe">
+        <div class="bframe-bar">
+          <span class="bframe-dots"><i></i><i></i><i></i></span>
+          <span class="bframe-addr" data-preview-addr></span>
+        </div>
+        <div class="bframe-view" data-preview-slot></div>
+      </div>
     </div>
   </div>
 </section>

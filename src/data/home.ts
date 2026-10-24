@@ -137,25 +137,13 @@ export const verbs: Record<Lang, VerbsData> = {
 };
 
 /* ---------------- 02 Cases ---------------- */
-export interface CaseStudy {
-  key: string;
-  ind: string;
-  nm: string;
-  problem: string;
-  ptext: string;
-  mBefore: { v: string; d: string };
-  mAfter: { v: string; d: string };
-  quote: string;
-  attr: string;
-  tag: string;
-  /** Resolved at build from src/assets/work/<key>.<ext> (see Home.astro). */
-  img?: string;
-}
+/* The cases themselves are work entries with `featured` and `case`
+   (src/content/work/*.md): the same story on the home and on the
+   case page. */
 export interface CasesData {
   num: string;
   heading: string;
   lede: string;
-  list: CaseStudy[];
 }
 
 export const cases: Record<Lang, CasesData> = {
@@ -163,93 +151,11 @@ export const cases: Record<Lang, CasesData> = {
     num: "Casi di studio",
     heading: "Quello che\nabbiamo costruito.",
     lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
-    list: [
-      {
-        key: "edilcalmi",
-        ind: "Impresa edile · Brianza",
-        nm: "EdilCalmi",
-        problem: "Maestri artigiani con anni di lavori alle spalle, ma invisibili online: i clienti arrivavano solo col passaparola.",
-        ptext:
-          "Una landing page diretta e senza fronzoli: i lavori in evidenza, la serietà dei maestri artigiani e il preventivo gratuito a un clic. Ogni sezione porta a un'unica azione — chiedere un preventivo — con i contatti sempre a portata di mano.",
-        mBefore: { v: "Offline", d: "solo passaparola" },
-        mAfter: { v: "24/7", d: "preventivi dal sito" },
-        quote: "«Ora i clienti ci trovano da soli e arrivano già con le idee chiare.»",
-        attr: "— Antonio, EdilCalmi",
-        tag: "2025 · Landing & lead",
-      },
-      {
-        key: "resellpiacenza",
-        ind: "Streetwear & sneakers · Piacenza",
-        nm: "ResellPiacenza",
-        problem: "Un negozio con un pubblico di veri appassionati, ma vendite ferme ai confini della città.",
-        ptext:
-          "Un e-commerce completo per vendere capi e sneakers da collezione in tutta Italia: saldi, categorie, pezzi autenticati e checkout rapido. Instagram, TikTok e WhatsApp integrati per trasformare i follower in clienti.",
-        mBefore: { v: "Locale", d: "vendite in negozio" },
-        mAfter: { v: "Online", d: "vendite in tutta Italia" },
-        quote: "«Vendiamo a clienti che non sarebbero mai entrati in negozio.»",
-        attr: "— ResellPiacenza",
-        tag: "2025 · E-commerce",
-      },
-      {
-        key: "cesana",
-        ind: "Broker assicurativo · Milano",
-        nm: "Cesana Assicuratori & Brokers",
-        problem: "Competenze assicurative di alto livello, raccontate da un sito che non rendeva loro giustizia.",
-        ptext:
-          "Un sito aziendale che trasmette autorevolezza e chiarezza: settori e servizi, convenzioni, angolo del consumatore e reclami, tutto navigabile. Un'architettura dei contenuti pensata per generare contatti qualificati nei comparti B2B.",
-        mBefore: { v: "Datato", d: "poco credibile" },
-        mAfter: { v: "8 aree", d: "per settore e comparto" },
-        quote: "«Finalmente il sito parla come parliamo noi ai nostri clienti.»",
-        attr: "— direzione, Cesana Assicuratori & Brokers",
-        tag: "2025 · Web aziendale",
-      },
-    ],
   },
   en: {
     num: "Case studies",
     heading: "What we have built.",
     lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
-    list: [
-      {
-        key: "edilcalmi",
-        ind: "Construction firm · Brianza",
-        nm: "EdilCalmi",
-        problem: "Skilled craftsmen with years of work behind them, but invisible online: clients came only by word of mouth.",
-        ptext:
-          "A direct, no-frills landing page: the work front and center, the craftsmen's reputation, and a free quote one click away. Every section drives a single action — request a quote — with contacts always within reach.",
-        mBefore: { v: "Offline", d: "word-of-mouth only" },
-        mAfter: { v: "24/7", d: "quote requests online" },
-        quote: "“Now clients find us on their own and arrive with clear ideas.”",
-        attr: "— Antonio, EdilCalmi",
-        tag: "2025 · Landing & lead",
-      },
-      {
-        key: "resellpiacenza",
-        ind: "Streetwear & sneakers · Piacenza",
-        nm: "ResellPiacenza",
-        problem: "A shop with a passionate following, but sales stuck at the city limits.",
-        ptext:
-          "A full e-commerce to sell collectible apparel and sneakers across Italy: sales, categories, authenticated pieces and fast checkout. Instagram, TikTok and WhatsApp built in to turn followers into customers.",
-        mBefore: { v: "Local", d: "in-store sales" },
-        mAfter: { v: "Online", d: "sales across Italy" },
-        quote: "“We sell to customers who'd never have walked into the shop.”",
-        attr: "— ResellPiacenza",
-        tag: "2025 · E-commerce",
-      },
-      {
-        key: "cesana",
-        ind: "Insurance broker · Milan",
-        nm: "Cesana Assicuratori & Brokers",
-        problem: "High-level insurance expertise, told by a site that didn't do it justice.",
-        ptext:
-          "A corporate site that conveys authority and clarity: sectors and services, agreements, a consumer corner and complaints, all navigable. A content architecture built to generate qualified B2B leads.",
-        mBefore: { v: "Dated", d: "low credibility" },
-        mAfter: { v: "8 areas", d: "by sector & line" },
-        quote: "“At last the site speaks the way we speak to our clients.”",
-        attr: "— management, Cesana Assicuratori & Brokers",
-        tag: "2025 · Corporate web",
-      },
-    ],
   },
 };
 
@@ -572,6 +478,8 @@ export interface ProcessStep {
   n: string;
   t: string;
   d: string;
+  /** The dimension note on the step's drawing (Process.astro). */
+  note: string;
 }
 export interface ProcessData {
   num: string;
@@ -586,10 +494,10 @@ export const process: Record<Lang, ProcessData> = {
     heading: "Come si parte.",
     lede: "Dalla prima call al lancio, in quattro passi.",
     steps: [
-      { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno." },
-      { n: "02", t: "Proposta scritta", d: "Entro pochi giorni: cosa faremo, in quanto tempo e a che costo, in parole semplici." },
-      { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu." },
-      { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono." },
+      { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno.", note: "30 minuti" },
+      { n: "02", t: "Proposta scritta", d: "Entro pochi giorni: cosa faremo, in quanto tempo e a che costo, in parole semplici.", note: "cosa · tempi · costo" },
+      { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu.", note: "un aggiornamento a ogni passo" },
+      { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono.", note: "online, e restiamo" },
     ],
   },
   en: {
@@ -597,10 +505,10 @@ export const process: Record<Lang, ProcessData> = {
     heading: "How it starts.",
     lede: "From the first call to launch, in four steps.",
     steps: [
-      { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment." },
-      { n: "02", t: "Written proposal", d: "Within a few days: what we'll do, how long it takes and what it costs, in plain words." },
-      { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide." },
-      { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them." },
+      { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment.", note: "30 minutes" },
+      { n: "02", t: "Written proposal", d: "Within a few days: what we'll do, how long it takes and what it costs, in plain words.", note: "what · when · cost" },
+      { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide.", note: "an update at every step" },
+      { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them.", note: "live, and we stay" },
     ],
   },
 };
@@ -615,6 +523,8 @@ export interface CoverageData {
   reachLabel: string;
   reachValue: string;
   hqLabel: string;
+  /** The heading of the list of places with a client. */
+  clientsLabel: string;
   note: string;
   cta: string;
 }
@@ -628,7 +538,8 @@ export const coverage: Record<Lang, CoverageData> = {
     baseValue: "Monza · Milano · Brianza",
     reachLabel: "Copertura",
     reachValue: "Tutta Italia, da remoto",
-    hqLabel: "Milano · Brianza",
+    hqLabel: "Monza · Milano · Brianza",
+    clientsLabel: "Dove sono i clienti",
     note: "Per i progetti più grandi, veniamo volentieri da te.",
     cta: "Lavoriamo insieme",
   },
@@ -640,7 +551,8 @@ export const coverage: Record<Lang, CoverageData> = {
     baseValue: "Monza · Milan · Brianza",
     reachLabel: "Reach",
     reachValue: "All Italy, remotely",
-    hqLabel: "Milan · Brianza",
+    hqLabel: "Monza · Milan · Brianza",
+    clientsLabel: "Where our clients are",
     note: "For bigger projects, we're happy to come to you.",
     cta: "Let's work together",
   },

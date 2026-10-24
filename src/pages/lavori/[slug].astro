@@ -1,0 +1,27 @@
+---
+import Layout from "../../components/Layout.astro";
+import Caso from "../../components/pages/Caso.astro";
+import { works } from "../../data/work";
+
+export async function getStaticPaths() {
+  const list = await works();
+  return list.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: { entry, index, total: list.length, next: list[(index + 1) % list.length]! },
+  }));
+}
+
+const { entry, index, total, next } = Astro.props;
+const lang = "it" as const;
+const d = entry.data;
+---
+
+<Layout
+  lang={lang}
+  active="lavori"
+  slug={`lavori/${entry.id}`}
+  title={`${d.title[lang]} · ${d.sector[lang]} — Lavori Alpacode`}
+  description={d.descriptor[lang]}
+>
+  <Caso lang={lang} entry={entry} index={index} total={total} next={next} />
+</Layout>

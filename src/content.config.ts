@@ -1,5 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { PLACE_IDS } from "./data/places";
+import { WORK_KINDS } from "./data/work-kinds";
 
 const localized = z.object({ it: z.string(), en: z.string() });
 
@@ -38,9 +40,29 @@ const work = defineCollection({
     title: localized,
     descriptor: localized,
     tags: z.array(z.string()),
-    /** Client quote shown on the card. Keep it short and attributed. */
+    /** What kind of work it is: the filters of /lavori. */
+    kind: z.enum(WORK_KINDS),
+    /** Where the client is (src/data/places.ts): the map of "Dove operiamo". */
+    place: z.enum(PLACE_IDS),
+    /** The live site. Only once the client is happy to have it linked. */
+    url: z.string().url().optional(),
+    /** Told as a case on the home, in this order. Needs `case`. */
+    featured: z.number().optional(),
+    /** The case in short: the home's scene and the head of the case page.
+     *  The long story is the entry's body (Markdown), written later. */
+    case: z
+      .object({
+        problem: localized,
+        solution: localized,
+        before: z.object({ v: localized, d: localized }),
+        after: z.object({ v: localized, d: localized }),
+      })
+      .optional(),
+    /** A client quote. Kept here while it waits for the client's word:
+     *  it shows only with quoteConfirmed: true. */
     quote: localized.optional(),
     quoteAttr: z.string().optional(),
+    quoteConfirmed: z.boolean().default(false),
   }),
 });
 

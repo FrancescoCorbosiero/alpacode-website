@@ -1,0 +1,55 @@
+---
+/* A project's site in a browser window: the frame the showcase uses
+   everywhere (/lavori, the case pages, the home's cases).
+   The bar carries the site's address when the entry links it, the
+   project's name otherwise — never an address we made up.
+   With `full` (the whole page, top to bottom) and `scroll`, the page
+   scrolls inside the frame as the visitor scrolls ([data-frame-scroll],
+   the frame-scroll effect); without it the first screen fills the view. */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  shot?: ImageMetadata;
+  full?: ImageMetadata;
+  alt: string;
+  /** What the address bar shows. */
+  bar: string;
+  /** Scroll the whole page inside the frame (needs `full`). */
+  scroll?: boolean;
+  /** The `sizes` of the screenshot. */
+  sizes?: string;
+  /** Eager-load it: the frame is in the first view. */
+  eager?: boolean;
+  class?: string;
+  /** The view-transition name it shares with the case page's frame. */
+  name?: string;
+}
+const { shot, full, alt, bar, scroll = false, sizes = "(max-width: 900px) 100vw, 50vw", eager = false, class: cls, name } = Astro.props;
+const tall = scroll && full;
+const img = tall ? full : shot;
+---
+
+<figure class:list={["bframe", cls, { "bframe--tall": tall }]} style={name ? `view-transition-name:${name}` : undefined}>
+  <div class="bframe-bar" aria-hidden="true">
+    <span class="bframe-dots"><i></i><i></i><i></i></span>
+    <span class="bframe-addr">{bar}</span>
+  </div>
+  <div class="bframe-view" data-frame-scroll={tall ? "" : undefined}>
+    {
+      img ? (
+        <Image
+          src={img}
+          alt={alt}
+          widths={tall ? [720, 1080, 1440] : [480, 800, 1200, 1600]}
+          sizes={sizes}
+          loading={eager ? "eager" : "lazy"}
+          fetchpriority={eager ? "high" : undefined}
+          class="bframe-shot"
+        />
+      ) : (
+        <span class="bframe-empty">{alt}</span>
+      )
+    }
+  </div>
+</figure>

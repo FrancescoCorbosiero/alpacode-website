@@ -86,6 +86,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Lenis from "lenis";
 import { rigOf, idle, playful, walkIn, leapTo, hop, lookAround, marchers } from "./alpaca";
+import type { Kit } from "../engine/core/kit";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -132,7 +133,6 @@ const BLOCKS = [
   ".svc-row",
   ".pillars .pillar",
   ".manifesto-sig",
-  ".map-figure",
   ".coverage-info",
   ".cta-final .sub",
   ".cta-grid",
@@ -981,23 +981,6 @@ function heroVideo(root: HTMLElement, video: HTMLVideoElement): void {
 }
 
 /** Map routes (Coverage): hidden only now, drawn when the map enters. */
-function mapRoutes(): void {
-  gsap.utils.toArray<HTMLElement>(".map-figure").forEach((fig) => {
-    if (inFirstView(fig)) return;
-    fig.setAttribute("data-draw", "");
-    ScrollTrigger.create({
-      trigger: fig,
-      start: "top 75%",
-      once: true,
-      onEnter: () => fig.setAttribute("data-drawn", ""),
-    });
-    cleanups.push(() => {
-      fig.removeAttribute("data-draw");
-      fig.removeAttribute("data-drawn");
-    });
-  });
-}
-
 /** Footer wordmark: Footer.astro already sets the letters in their masks
  *  (hand-kerned, which a split would undo), so they only need to rise —
  *  and, as they land, the alpaca rises from behind the P: the same move,
@@ -1209,7 +1192,6 @@ function initPage(): void {
     parallax();
     progressRails(media);
     marquees();
-    mapRoutes();
     footerWordmark();
     chatPreview(media);
     coinFlips();
@@ -1223,6 +1205,7 @@ function initPage(): void {
   // Fonts change line breaks and heights: measure again once they're in.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
   landingScenes();
+  catalogEffects();
 }
 
 /* The campaign landings' scenes (lib/landing/scenes.ts) and the GSAP
@@ -1238,6 +1221,42 @@ function landingScenes(): void {
     ctx.add(() => runScenes(media, { on, fine: fine(), cleanup: (fn) => cleanups.push(fn) }));
     ScrollTrigger.sort();
     ScrollTrigger.refresh();
+  });
+}
+
+/* The showcase's moves are alpacode-motion entries (src/engine/effects,
+   the effect contract: a hook and init(kit)). Until the site runs on
+   that engine, this hands them a kit built on this page's context, and
+   fetches each one only where its hook is. */
+const CATALOG: { hook: string; load: () => Promise<{ init: (kit: Kit) => void }> }[] = [
+  { hook: '[data-scene="cases"]', load: () => import("../engine/effects/cases") },
+  { hook: '[data-scene="method"]', load: () => import("../engine/effects/method") },
+  { hook: '[data-scene="map"]', load: () => import("../engine/effects/map") },
+  { hook: "[data-hover-preview]", load: () => import("../engine/effects/hover-preview") },
+  { hook: "[data-flip-filter]", load: () => import("../engine/effects/flip-filter") },
+  { hook: "[data-frame-scroll]", load: () => import("../engine/effects/frame-scroll") },
+];
+
+function catalogEffects(): void {
+  const body = document.body;
+  CATALOG.forEach((entry) => {
+    if (!document.querySelector(entry.hook)) return;
+    entry.load().then(
+      (effect) => {
+        if (pageBody !== body || !ctx || !mm) return;
+        const kit: Kit = {
+          media: mm,
+          on,
+          fine: fine(),
+          cleanup: (fn) => void cleanups.push(fn),
+          query: <T extends Element = HTMLElement>(hook: string) => gsap.utils.toArray<T>(hook),
+        };
+        ctx.add(() => effect.init(kit));
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+      },
+      (err) => console.error(`motion: ${entry.hook} could not be loaded`, err),
+    );
   });
 }
 

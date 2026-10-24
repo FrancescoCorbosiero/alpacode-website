@@ -1,0 +1,165 @@
+---
+/* /lavori/<id>/ — a project's case page. The head (number, name,
+   descriptor, the facts) and the site in its frame — the same frame
+   the /lavori row had, carried over by the view transition. Then,
+   when the entry has them: the case in short (problem, what we did,
+   before and after), the long story (the entry's Markdown body, written
+   by the studio), the client's quote once confirmed. Last, the next
+   project. Only what the entry holds is shown: no section is filled
+   for the look of it. */
+import { render } from "astro:content";
+import type { Lang } from "../../i18n/types";
+import { localizePath } from "../../i18n/utils";
+import { PLACES } from "../../data/places";
+import { KIND_LABELS, fullShotFor, hostOf, no, shotFor, workHref, workLabels, type Work } from "../../data/work";
+import BrowserFrame from "../BrowserFrame.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+
+interface Props {
+  lang: Lang;
+  entry: Work;
+  index: number;
+  total: number;
+  next: Work;
+}
+const { lang, entry, index, total, next } = Astro.props;
+const L = workLabels[lang];
+const d = entry.data;
+const title = d.title[lang];
+const host = hostOf(d.url);
+const story = d.case;
+const hasBody = !!entry.body?.trim();
+const { Content } = hasBody ? await render(entry) : { Content: null };
+const quote = d.quoteConfirmed && d.quote ? d.quote[lang] : null;
+const nextTitle = next.data.title[lang];
+---
+
+<article class="case">
+  <header class="case-head">
+    <div class="wrap-wide">
+      <nav class="case-crumb" aria-label={L.back}>
+        <a class="case-back" href={localizePath("lavori", lang)}><span aria-hidden="true">←</span> {L.back}</a>
+        <span class="case-count">{no(index)} / {no(total - 1)}</span>
+      </nav>
+      <div class="case-grid">
+        <h1 class="case-title" style={`view-transition-name:work-title-${entry.id}`}>{title}</h1>
+        <p class="case-lede" data-intro>{d.descriptor[lang]}</p>
+        <div class="case-side" data-intro>
+          <dl class="case-facts">
+            <div>
+              <dt>{L.sector}</dt>
+              <dd>{d.sector[lang]}</dd>
+            </div>
+            <div>
+              <dt>{L.place}</dt>
+              <dd>{PLACES[d.place].name[lang]}</dd>
+            </div>
+            <div>
+              <dt>{L.year}</dt>
+              <dd>{d.year}</dd>
+            </div>
+            <div>
+              <dt>{L.kind}</dt>
+              <dd>{KIND_LABELS[d.kind][lang]}</dd>
+            </div>
+          </dl>
+          <ul class="case-tags" aria-label={L.services}>
+            {d.tags.map((tg) => <li>{tg}</li>)}
+          </ul>
+          {
+            d.url && (
+              <a class="btn btn-ghost case-visit" href={d.url} target="_blank" rel="noopener">
+                {L.open} <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="case-stage">
+    <div class="wrap-wide">
+      <BrowserFrame
+        shot={shotFor(entry.id)}
+        full={fullShotFor(entry.id)}
+        alt={lang === "it" ? `Il sito di ${title}` : `${title}'s website`}
+        bar={host ?? title}
+        scroll
+        eager
+        sizes="(max-width: 1480px) 100vw, 1416px"
+        name={`work-${entry.id}`}
+        class="case-frame"
+      />
+    </div>
+  </div>
+
+  {
+    story && (
+      <section class="case-story">
+        <div class="wrap-wide case-story-grid">
+          <div class="case-block">
+            <h2 class="label">{L.problem}</h2>
+            <p class="case-problem">{story.problem[lang]}</p>
+          </div>
+          <div class="case-block">
+            <h2 class="label">{L.solution}</h2>
+            <p class="case-solution">{story.solution[lang]}</p>
+          </div>
+          <div class="case-shift" role="group" aria-label={`${L.before} / ${L.after}`}>
+            <div class="case-shift-col">
+              <span class="case-shift-k">{L.before}</span>
+              <span class="case-shift-v is-before">{story.before.v[lang]}</span>
+              <span class="case-shift-d">{story.before.d[lang]}</span>
+            </div>
+            <span class="case-shift-ar" aria-hidden="true">→</span>
+            <div class="case-shift-col">
+              <span class="case-shift-k">{L.after}</span>
+              <span class="case-shift-v is-after">{story.after.v[lang]}</span>
+              <span class="case-shift-d">{story.after.d[lang]}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    Content && (
+      <section class="case-body">
+        <div class="wrap">
+          <div class="prose">
+            <Content />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    quote && (
+      <section class="case-quote-band">
+        <div class="wrap-wide">
+          <figure class="case-quote">
+            <blockquote>{quote}</blockquote>
+            {d.quoteAttr && <figcaption>{d.quoteAttr}</figcaption>}
+          </figure>
+        </div>
+      </section>
+    )
+  }
+
+  <nav class="case-next" aria-label={L.next}>
+    <div class="wrap-wide">
+      <a class="case-next-link" href={workHref(next.id, lang)}>
+        <span class="case-next-k">{L.next} <span aria-hidden="true">→</span></span>
+        <span class="case-next-name" style={`view-transition-name:work-title-${next.id}`}>
+          {nextTitle}
+        </span>
+        <span class="case-next-meta">{next.data.sector[lang]} · {PLACES[next.data.place].name[lang]}</span>
+      </a>
+    </div>
+  </nav>
+</article>
+
+<CtaFinal lang={lang} />

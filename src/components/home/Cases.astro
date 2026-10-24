@@ -1,0 +1,116 @@
+---
+/* Casi di studio (home) — the featured work entries, told as cases:
+   the site in its frame, the problem, what we did, before and after.
+   Laid out, it's the cases one under the other: a complete page with
+   no script, and the reduced-motion version. The cases scene
+   ([data-scene="cases"]) pins the stage and plays them in turn as the
+   visitor scrolls: each one's "before" is struck through and its
+   "after" comes in, then the next site wipes over the frame. */
+import type { Lang } from "../../i18n/types";
+import { localizePath } from "../../i18n/utils";
+import { cases } from "../../data/home";
+import { PLACES } from "../../data/places";
+import { featuredWorks, hostOf, no, shotFor, workHref, workLabels } from "../../data/work";
+import BrowserFrame from "../BrowserFrame.astro";
+import Br from "../Br.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = cases[lang];
+const L = workLabels[lang];
+const list = (await featuredWorks()).filter((w) => w.data.case);
+const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
+---
+
+<section class="section section--tint cases">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{c.num}</div>
+        <h2><Br text={c.heading} /></h2>
+      </div>
+      <p class="lede">{c.lede}</p>
+    </div>
+  </div>
+
+  <div class="cases-scene" data-scene="cases" style={`--len:${list.length + 1}`}>
+  <div class="cases-stage">
+    <div class="wrap-wide">
+      <ol class="cases-list">
+        {
+          list.map((w, i) => {
+            const d = w.data;
+            const s = d.case!;
+            const title = d.title[lang];
+            return (
+              <li class="cs" data-case>
+                <div class="cs-media" data-case-frame>
+                  <BrowserFrame
+                    shot={shotFor(w.id)}
+                    alt={lang === "it" ? `Il sito di ${title}` : `${title}'s website`}
+                    bar={hostOf(d.url) ?? title}
+                    sizes="(max-width: 900px) 100vw, 56vw"
+                    class="cs-frame"
+                  />
+                </div>
+                <div class="cs-text" data-case-text>
+                  <p class="cs-kicker">
+                    <span class="cs-no">
+                      {no(i)} / {no(list.length - 1)}
+                    </span>
+                    <span>
+                      {d.sector[lang]} · {PLACES[d.place].name[lang]} · {d.year}
+                    </span>
+                  </p>
+                  <h3 class="cs-name">{title}</h3>
+                  <p class="cs-problem">
+                    <span class="cs-k">{L.problem}</span>
+                    {s.problem[lang]}
+                  </p>
+                  <p class="cs-solution">{s.solution[lang]}</p>
+                  <div class="cs-shift" role="group" aria-label={`${L.before} / ${L.after}`}>
+                    <div class="cs-col cs-before">
+                      <span class="cs-k">{L.before}</span>
+                      <span class="cs-v">
+                        {s.before.v[lang]}
+                        <span class="cs-strike" data-case-strike aria-hidden="true" />
+                      </span>
+                      <span class="cs-d">{s.before.d[lang]}</span>
+                    </div>
+                    <span class="cs-ar" aria-hidden="true">
+                      →
+                    </span>
+                    <div class="cs-col cs-after">
+                      <span class="cs-k">{L.after}</span>
+                      <span class="cs-v" data-case-after>
+                        {s.after.v[lang]}
+                      </span>
+                      <span class="cs-d">{s.after.d[lang]}</span>
+                    </div>
+                  </div>
+                  <a class="cs-link" href={workHref(w.id, lang)}>
+                    {L.view} <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ol>
+      {/* The scene's progress: one bar per case. Decoration of the pinned
+          version only, so it waits hidden for the scene. */}
+      <div class="cs-progress" data-cases-progress hidden aria-hidden="true">
+        {list.map(() => <span><i /></span>)}
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="wrap-wide">
+    <div class="band-cta">
+      <a class="btn btn-ghost" href={localizePath("lavori", lang)}>{casesCta} <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
