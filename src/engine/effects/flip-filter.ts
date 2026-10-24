@@ -1,16 +1,16 @@
 /* ============================================================
    flip-filter — a filter that rearranges its list: what stays slides to
    its new place, what goes folds away, what comes back opens in.
-   Markup: data-flip-filter on the block; its radio inputs [data-filter]
-   (the value "all", or a kind); its items [data-filter-item="kind …"].
+   Markup: data-flip-filter on the block; its radio inputs (the value
+   "all", or a kind); its items [data-flip-filter-item="kind …"].
    Laid out, the block filters itself with CSS alone (:has on the
    checked input, the site's rules), so it works with no script and
-   under reduced motion, at once. The effect sets data-flip-on (the CSS
+   under reduced motion, at once. The effect sets data-flip-filter-on (the CSS
    rules stand down) and takes the filtering over: on each change it
    records where every item is, applies the filter (display: none), and
    Flip animates from the old layout to the new one; the list's height
    eases from the old to the new, so what follows it doesn't jump.
-   Sources: new — alpacode.it, /lavori.
+   Sources: A src/components/pages/Lavori.astro (new, /lavori).
    ============================================================ */
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
@@ -28,18 +28,18 @@ const RISE = 28; // px an item that comes back rises from
 
 export function init(kit: Kit): void {
   kit.query(hook).forEach((root) => {
-    const inputs = gsap.utils.toArray<HTMLInputElement>("input[data-filter]", root);
-    const items = gsap.utils.toArray<HTMLElement>("[data-filter-item]", root);
+    const inputs = gsap.utils.toArray<HTMLInputElement>('input[type="radio"]', root);
+    const items = gsap.utils.toArray<HTMLElement>("[data-flip-filter-item]", root);
     if (!inputs.length || !items.length) return;
     const shows = (value: string, el: HTMLElement): boolean =>
-      value === "all" || (el.dataset.filterItem ?? "").split(/\s+/).includes(value);
+      value === "all" || (el.dataset.flipFilterItem ?? "").split(/\s+/).includes(value);
     const apply = (value: string): void =>
       items.forEach((el) => (el.style.display = shows(value, el) ? "" : "none"));
 
-    root.setAttribute("data-flip-on", "");
+    root.setAttribute("data-flip-filter-on", "");
     apply(inputs.find((input) => input.checked)?.value ?? "all");
     kit.cleanup(() => {
-      root.removeAttribute("data-flip-on");
+      root.removeAttribute("data-flip-filter-on");
       items.forEach((el) => el.style.removeProperty("display"));
     });
 

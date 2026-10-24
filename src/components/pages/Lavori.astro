@@ -3,7 +3,7 @@
    the display face, sector, place and year, a small frame of its site.
    The filters (radio chips) sort by kind of work with CSS alone
    (:has), and the flip-filter effect animates the change; with a mouse
-   the hover-preview effect floats a large frame of the row's site next
+   the cursor-thumb effect floats a large frame of the row's site next
    to the pointer. A row opens its case page, and its frame (the small
    one, or the floating one) becomes the case page's frame on the way
    (a view transition named after the project). */
@@ -29,9 +29,9 @@ const chips = [
   ...kinds.map((k) => ({ value: k, label: KIND_LABELS[k][lang], n: list.filter((w) => w.data.kind === k).length })),
 ];
 /* Filtering without a script: the checked chip hides the other kinds.
-   The flip-filter effect sets data-flip-on and takes over. */
+   The flip-filter effect sets data-flip-filter-on and takes over. */
 const filterCss = kinds
-  .map((k) => `.works:not([data-flip-on]):has(input[value="${k}"]:checked) .works-row:not([data-kind="${k}"]){display:none}`)
+  .map((k) => `.works:not([data-flip-filter-on]):has(input[value="${k}"]:checked) .works-row:not([data-kind="${k}"]){display:none}`)
   .join("");
 
 const t =
@@ -64,7 +64,7 @@ const t =
       {
         chips.map((c) => (
           <label class="works-chip">
-            <input type="radio" name="work-kind" value={c.value} checked={c.value === "all"} data-filter={c.value} />
+            <input type="radio" name="work-kind" value={c.value} checked={c.value === "all"} />
             <span class="works-chip-label">{c.label}</span>
             <span class="works-chip-n">{c.n}</span>
           </label>
@@ -72,7 +72,7 @@ const t =
       }
     </fieldset>
 
-    <ol class="works-list" data-hover-preview>
+    <ol class="works-list" data-cursor-thumb>
       {
         list.map((w, i) => {
           const title = w.data.title[lang];
@@ -80,10 +80,10 @@ const t =
             <li
               class="works-row"
               data-kind={w.data.kind}
-              data-filter-item={w.data.kind}
-              data-preview
-              data-preview-label={hostOf(w.data.url) ?? title}
-              data-preview-vt={`work-${w.id}`}
+              data-flip-filter-item={w.data.kind}
+              data-cursor-thumb-row
+              data-cursor-thumb-label={hostOf(w.data.url) ?? title}
+              data-cursor-thumb-vt={`work-${w.id}`}
             >
               <a class="works-link" href={workHref(w.id, lang)}>
                 <span class="works-no">{no(i)}</span>
@@ -98,7 +98,7 @@ const t =
                 <span class="works-desc">
                   {w.data.descriptor[lang]}
                 </span>
-                <span class="works-thumb" data-preview-thumb>
+                <span class="works-thumb" data-cursor-thumb-pic>
                   <BrowserFrame
                     shot={shotFor(w.id)}
                     alt=""
@@ -119,13 +119,13 @@ const t =
 
     {/* The floating frame of the hover preview: empty and hidden until the
         effect fills it with the rows' screenshots (a mouse only). */}
-    <div class="works-preview" data-preview-frame hidden aria-hidden="true">
+    <div class="works-preview" data-cursor-thumb-frame hidden aria-hidden="true">
       <div class="bframe">
         <div class="bframe-bar">
           <span class="bframe-dots"><i></i><i></i><i></i></span>
-          <span class="bframe-addr" data-preview-addr></span>
+          <span class="bframe-addr" data-cursor-thumb-bar></span>
         </div>
-        <div class="bframe-view" data-preview-slot></div>
+        <div class="bframe-view" data-cursor-thumb-slot></div>
       </div>
     </div>
   </div>

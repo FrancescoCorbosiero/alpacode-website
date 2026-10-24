@@ -6,9 +6,9 @@
    steps' drawings laid one over the other; the steps
    [data-method-step], each with its drawing (an <svg>) and its text
    [data-method-text]. Every drawing is made of the same pieces, marked
-   [data-m="<key>"] (rects, circles, a path with as many points in
-   every drawing), plus its note [data-m-note]; the progress
-   [data-method-rail] (hidden, an i inside).
+   [data-method-piece="<key>"] (rects, circles, a path with as many
+   points in every drawing), plus its note [data-method-note]; the
+   progress [data-method-rail] (hidden, an i inside).
    The drawings are the states: the scene reads each piece's geometry
    from them (x y width height, cx cy r, d) and tweens the first
    drawing's pieces from one to the next — so a drawing is changed in
@@ -17,7 +17,8 @@
    .is-active; on a desktop the other texts stay readable, dimmed; on a
    phone they share one place and hand over. Laid out (no script,
    reduced motion), every step shows its own drawing.
-   Sources: new — alpacode.it, the home and /servizi (Metodo).
+   Sources: A src/components/home/Process.astro (new: the home and
+   /servizi, Metodo).
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -57,10 +58,10 @@ export function init(kit: Kit): void {
     const main = arts[0];
     const n = steps.length;
     if (n < 2 || !main || arts.some((a) => !a)) return;
-    const pieces = gsap.utils.toArray<SVGElement>("[data-m]", main);
+    const pieces = gsap.utils.toArray<SVGElement>("[data-method-piece]", main);
     const states = arts.map((svg) => {
       const map: Record<string, Geometry> = {};
-      svg!.querySelectorAll<SVGElement>("[data-m]").forEach((el) => (map[el.dataset.m ?? ""] = geometry(el)));
+      svg!.querySelectorAll<SVGElement>("[data-method-piece]").forEach((el) => (map[el.dataset.methodPiece ?? ""] = geometry(el)));
       return map;
     });
     const T = n - 1 + END;
@@ -83,7 +84,7 @@ export function init(kit: Kit): void {
       // The other drawings stand aside; their notes join the first one.
       gsap.set(arts.slice(1), { autoAlpha: 0 });
       const notes = arts.map((svg, s) => {
-        const note = svg!.querySelector<SVGGElement>("[data-m-note]");
+        const note = svg!.querySelector<SVGGElement>("[data-method-note]");
         if (!note || s === 0) return note;
         const copy = note.cloneNode(true) as SVGGElement;
         main.appendChild(copy);
@@ -106,7 +107,7 @@ export function init(kit: Kit): void {
       for (let s = 1; s < n; s++) {
         const at = s - TURN;
         pieces.forEach((el) => {
-          const key = el.dataset.m ?? "";
+          const key = el.dataset.methodPiece ?? "";
           const from = states[s - 1]?.[key];
           const to = states[s]?.[key];
           if (!from || !to) return;

@@ -11,7 +11,8 @@
    view's), a function value refreshed with the triggers, so it holds
    when the picture loads late or the width changes. Clamped: a frame in
    the first view starts at its top, not part-way down.
-   Sources: new — alpacode.it, the case pages (/lavori/<id>/).
+   Sources: A src/components/BrowserFrame.astro (new: the case pages,
+   /lavori/<id>/).
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

@@ -3,10 +3,10 @@
    then an arc reaches every place where a client is.
    Markup: data-scene="map" on the section; in its <svg>, the dots
    [data-map-dots] (one path), the mask circle [data-map-reach] (its r
-   is the full reach), the arcs [data-map-arc] (pathLength="1"), the
-   places [data-map-place], the ping [data-map-ping]; beside the map,
-   the rows [data-map-row="<place>"], and the places on the map carry
-   the same data-place.
+   is the full reach), the base [data-map-base="<key>"], the arcs
+   [data-map-arc="<key>"] (pathLength="1"), the places
+   [data-map-place="<key>"], the ping [data-map-ping]; beside the map,
+   the rows [data-map-row="<key>"].
    Below the fold, once, as it enters: the dots are masked by a circle
    growing from the base, the arcs draw out to their places one after
    another (nearest first, as the markup orders them), each place pops
@@ -15,7 +15,8 @@
    screen and the tab is shown. A row and its place light up together
    (.is-hot) when the row is hovered with a mouse or holds the focus.
    Laid out (no script, reduced motion), the map is whole.
-   Sources: new — alpacode.it, the home and /lavori (Dove operiamo).
+   Sources: A src/components/home/Coverage.astro (new: the home and
+   /lavori, Dove operiamo).
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,7 +43,9 @@ export function init(kit: Kit): void {
     // A row and its place, lit together.
     root.querySelectorAll<HTMLElement>("[data-map-row]").forEach((row) => {
       const id = row.dataset.mapRow;
-      const lit = id ? svg.querySelectorAll(`[data-place="${id}"]`) : [];
+      const lit = id
+        ? svg.querySelectorAll(`[data-map-place="${id}"], [data-map-arc="${id}"], [data-map-base="${id}"]`)
+        : [];
       const on = () => lit.forEach((el) => el.classList.add("is-hot"));
       const off = () => lit.forEach((el) => el.classList.remove("is-hot"));
       if (kit.fine) {

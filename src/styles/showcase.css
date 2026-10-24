@@ -5,7 +5,7 @@
    no script and under reduced motion. The pinned scenes switch to
    their sticky stage under .has-motion (set by the engine when motion
    runs), as the catalog's stage does; the other effects mark what they
-   take over (data-preview-on, data-flip-on, data-frame-scroll-on).
+   take over (data-cursor-thumb-on, data-flip-filter-on, data-frame-scroll-on).
    The moves are alpacode-motion entries (src/engine/effects).
    ============================================================ */
 
@@ -259,10 +259,10 @@
 .works > .wrap-wide {
   position: relative;
 }
-.works-list[data-preview-on] .works-thumb {
+.works-list[data-cursor-thumb-on] .works-thumb {
   transition: opacity 0.35s var(--ease);
 }
-.works-list[data-preview-on]:hover .works-thumb {
+.works-list[data-cursor-thumb-on]:hover .works-thumb {
   opacity: 0;
 }
 .works-preview {
@@ -1117,13 +1117,13 @@
   transform-origin: center;
   transition: transform 0.35s var(--ease-back);
 }
+/* The ping is moved by GSAP, which writes SVG transforms in the
+   drawing's own space: no transform-box on it (or on what it pops). */
 .map-ping {
   fill: none;
   stroke: var(--blue);
   stroke-width: 1.5;
   opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
 }
 .map-place.is-hot .map-pt,
 .map-base.is-hot .map-hq {

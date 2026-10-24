@@ -16,7 +16,8 @@
    stay focusable: when keyboard focus lands in a case still to come,
    the page scrolls to it. Laid out (no script, reduced motion), the
    cases stand one under the other, struck through and complete.
-   Sources: new — alpacode.it, the home (Casi di studio).
+   Sources: A src/components/home/Cases.astro (new: the home, Casi di
+   studio).
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

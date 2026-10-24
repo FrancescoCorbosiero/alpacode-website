@@ -1232,7 +1232,7 @@ const CATALOG: { hook: string; load: () => Promise<{ init: (kit: Kit) => void }>
   { hook: '[data-scene="cases"]', load: () => import("../engine/effects/cases") },
   { hook: '[data-scene="method"]', load: () => import("../engine/effects/method") },
   { hook: '[data-scene="map"]', load: () => import("../engine/effects/map") },
-  { hook: "[data-hover-preview]", load: () => import("../engine/effects/hover-preview") },
+  { hook: "[data-cursor-thumb]", load: () => import("../engine/effects/cursor-thumb") },
   { hook: "[data-flip-filter]", load: () => import("../engine/effects/flip-filter") },
   { hook: "[data-frame-scroll]", load: () => import("../engine/effects/frame-scroll") },
 ];

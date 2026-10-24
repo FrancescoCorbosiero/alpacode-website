@@ -144,13 +144,13 @@ const pathD = (pts: [number, number][]) => pts.map(([x, y], i) => `${i ? "L" : "
                     {/* the soft piece first: it sits behind the frame */}
                     {[1, 0, 2, 3, 4, 5, 6, 7].map((k) => {
                       const [x, y, w, h] = d.rects[k]!;
-                      return <rect class={RECT_CLASS[k]} data-m={k} x={x} y={y} width={w} height={h} />;
+                      return <rect class={RECT_CLASS[k]} data-method-piece={k} x={x} y={y} width={w} height={h} />;
                     })}
-                    <circle class="m-ring" data-m="ring" cx={d.ring[0]} cy={d.ring[1]} r={d.ring[2]} />
-                    <circle class="m-dot" data-m="dot" cx={d.dot[0]} cy={d.dot[1]} r={d.dot[2]} />
-                    <path class="m-path" data-m="path" d={pathD(d.path)} />
+                    <circle class="m-ring" data-method-piece="ring" cx={d.ring[0]} cy={d.ring[1]} r={d.ring[2]} />
+                    <circle class="m-dot" data-method-piece="dot" cx={d.dot[0]} cy={d.dot[1]} r={d.dot[2]} />
+                    <path class="m-path" data-method-piece="path" d={pathD(d.path)} />
                   </g>
-                  <g class="m-note" data-m-note>
+                  <g class="m-note" data-method-note>
                     <line class="m-dim" x1={d.dim[0]} y1={d.dim[1]} x2={d.dim[2]} y2={d.dim[3]} />
                     <line class="m-dim" x1={d.dim[0]} y1={d.dim[1] - 5} x2={d.dim[0]} y2={d.dim[1] + 5} />
                     <line class="m-dim" x1={d.dim[2]} y1={d.dim[3] - 5} x2={d.dim[2]} y2={d.dim[3] + 5} />

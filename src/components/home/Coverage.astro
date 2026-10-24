@@ -62,14 +62,20 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
         <path class="map-dots" d={dots.d} data-map-dots />
 
         <g class="map-arcs">
-          {far.map((p) => <path class="map-arc" d={arc(base, p)} pathLength="1" data-map-arc data-place={p.id} />)}
+          {far.map((p) => <path class="map-arc" d={arc(base, p)} pathLength="1" data-map-arc={p.id} />)}
         </g>
 
         <g class="map-places">
-          {near.map((p) => <circle class="map-pt map-pt--near" cx={p.x} cy={p.y} r="2.2" data-map-place data-place={p.id} />)}
+          {
+            near.map((p) => (
+              <g class="map-place" data-map-place={p.id}>
+                <circle class="map-pt map-pt--near" cx={p.x} cy={p.y} r="2.2" />
+              </g>
+            ))
+          }
           {
             far.map((p) => (
-              <g class="map-place" data-map-place data-place={p.id}>
+              <g class="map-place" data-map-place={p.id}>
                 <circle class="map-pt" cx={p.x} cy={p.y} r="3.4" />
                 <text class="map-label" x={p.x + 8} y={p.y + 4}>
                   {PLACES[p.id].name[lang]}
@@ -79,7 +85,7 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
           }
         </g>
 
-        <g class="map-base" data-place={BASE}>
+        <g class="map-base" data-map-base={BASE}>
           <circle class="map-ping" cx={base.x} cy={base.y} r="7" data-map-ping />
           <circle class="map-hq" cx={base.x} cy={base.y} r="4.6" />
           <text class="map-base-label" x={base.x} y={base.y - 14} text-anchor="middle">{t.hqLabel}</text>
@@ -109,7 +115,7 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
             <ul class="cov-clients">
               {
                 byPlace.map(([id, ws]) => (
-                  <li class="cov-client" data-map-row={LOCAL.includes(id) ? BASE : id}>
+                  <li class="cov-client" data-map-row={id}>
                     <span class="cov-place">{PLACES[id].name[lang]}</span>
                     <span class="cov-names">
                       {ws.map((w) => (
