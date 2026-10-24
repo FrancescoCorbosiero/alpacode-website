@@ -7,8 +7,9 @@
    Screenshots, keyed by the entry's file name:
    - src/assets/work/<id>.(png|jpg|webp) — the first screen, as a
      visitor lands. The index, the home and the case page use it.
-   - src/assets/work/<id>-full.(…) — the whole page, top to bottom.
-     When it's there, the case page scrolls it inside its frame.
+   - src/assets/work/<id>-full.(…) — the whole page, top to bottom
+     (`npm run work-shots` takes it from the entry's url). When it's
+     there, the case page scrolls it inside its frame.
    ============================================================ */
 import type { ImageMetadata } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";

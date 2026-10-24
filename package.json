@@ -17,7 +17,8 @@
     "studio:dev": "astro dev --root sites/studio",
     "studio:build": "astro build --root sites/studio",
     "studio:check": "astro check --root sites/studio",
-    "studio:start": "node sites/studio/dist/server/entry.mjs"
+    "studio:start": "node sites/studio/dist/server/entry.mjs",
+    "work-shots": "node tools/work/shots.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

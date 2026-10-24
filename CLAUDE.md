@@ -42,6 +42,7 @@ npm run dev | check | build | start      # the house (start: node dist/server/en
 npm run studio:dev | studio:check | studio:build | studio:start   # Alpacode Studio
 npm run og [-- og-name … | studio | work]   # share cards: tools/og -> public/ (studio -> sites/studio/public/)
 npm run icons | media | hero-video       # favicons, media, the home hero video (needs ffmpeg)
+npm run work-shots [-- id …]             # the projects' full-page screenshots, from their url
 ```
 
 Node 22 (as in the Dockerfiles and CI). CI (`.github/workflows/ci.yml`)
