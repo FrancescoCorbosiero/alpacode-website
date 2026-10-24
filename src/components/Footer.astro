@@ -5,6 +5,7 @@ import { CAMPAIGNS, t as tr } from "../data/campaigns";
 import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
 import { business, tagline } from "@shared/data/business";
+import { COMPARTMENTS, DOORS, doorTo } from "@shared/data/compartments";
 import BookCall from "./BookCall.astro";
 import Alpaca from "./Alpaca.astro";
 
@@ -64,6 +65,15 @@ const columns: FootGroup[][] = [
       links: CAMPAIGNS.map((c) => ({
         href: localizePath(`offerta/${c.slug}`, lang),
         label: tr(c.audience, lang),
+      })),
+    },
+    {
+      // The compartments of the house, each on its own subdomain.
+      title: lang === "it" ? "Le porte" : "The doors",
+      links: DOORS.map((id) => ({
+        href: doorTo(id, "/", { site: "house", where: "footer" }),
+        label: COMPARTMENTS[id].name,
+        external: true,
       })),
     },
     {

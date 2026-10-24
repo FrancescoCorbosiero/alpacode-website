@@ -1,4 +1,8 @@
 import type { Lang } from "../i18n/types";
+import { doorTo } from "@shared/data/compartments";
+
+/** A package the studio runs: its card opens the studio's page. */
+const studioPack = (id: string) => doorTo("studio", `/pacchetti/#${id}`, { site: "house", where: "prodotti" });
 
 export interface ProductMeta {
   k: string;
@@ -15,6 +19,9 @@ export interface Product {
   meta: ProductMeta[];
   /** When set, the card links to a dedicated product page under /<slug>. */
   slug?: string;
+  /** When set, the card opens a compartment's page instead (the studio's
+   *  marketing packages). */
+  door?: string;
 }
 export interface ProductGroup {
   label: string;
@@ -131,6 +138,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Prezzo", v: "Fisso" },
               { k: "Consegna", v: "File pronti all'uso" },
             ],
+            door: studioPack("brand-kit"),
           },
           {
             n: "07",
@@ -144,6 +152,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Prezzo", v: "Fisso + budget ADV" },
               { k: "Canali", v: "Google · Meta" },
             ],
+            door: studioPack("landing-adv"),
           },
         ],
       },
@@ -247,6 +256,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Price", v: "Fixed" },
               { k: "Delivery", v: "Ready-to-use files" },
             ],
+            door: studioPack("brand-kit"),
           },
           {
             n: "07",
@@ -260,6 +270,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
               { k: "Price", v: "Fixed + ad budget" },
               { k: "Channels", v: "Google · Meta" },
             ],
+            door: studioPack("landing-adv"),
           },
         ],
       },

@@ -1,25 +1,88 @@
 ---
+/* /faq — one archive by topic (data/faq.ts): the topics' index and a
+   search on the side, the answers in native <details>, each topic
+   ending on the page that tells the rest. Without JS every answer is
+   there and opens on click; the script only filters (lib/faq.ts). */
 import type { Lang } from "../../i18n/types";
-import { faq } from "../../data/faq";
+import { faqPage } from "../../data/faq";
+import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import CtaFinal from "../home/CtaFinal.astro";
-import FaqList from "../islands/FaqList.tsx";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = faq[lang];
+const t = faqPage(lang);
+const total = t.topics.reduce((n, tp) => n + tp.items.length, 0);
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
 
-<section class="section" style="padding-top:24px">
-  <div class="wrap-wide">
-    <div data-reveal>
-      <FaqList client:visible faqs={t.faqs} />
+<section class="section faq-hub" data-faq>
+  <div class="wrap-wide faq-hub-grid">
+    <aside class="faq-side">
+      <label class="faq-search">
+        <span class="faq-search-l">{t.searchLabel}</span>
+        <input type="search" placeholder={t.searchPh} autocomplete="off" data-faq-search />
+      </label>
+      <p class="faq-count" data-faq-count data-template={t.found} aria-live="polite">
+        {t.found.replace("{n}", String(total))}
+      </p>
+      <nav class="faq-index" aria-label={t.indexLabel}>
+        <ol>
+          {
+            t.topics.map((tp) => (
+              <li>
+                <a href={`#${tp.id}`} data-faq-link={tp.id}>
+                  <span>{tp.title}</span>
+                  <b data-faq-n={tp.id}>{tp.items.length}</b>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+    </aside>
+
+    <div class="faq-topics">
+      {
+        t.topics.map((tp) => (
+          <section class="faq-topic" id={tp.id} data-faq-topic={tp.id} aria-labelledby={`faq-h-${tp.id}`}>
+            <header class="faq-topic-head">
+              <h2 id={`faq-h-${tp.id}`}>{tp.title}</h2>
+              <p>{tp.lede}</p>
+            </header>
+            <div class="faq-items">
+              {tp.items.map((it) => (
+                <details class="faq-item" data-faq-item>
+                  <summary>
+                    <span class="faq-q">{it.q}</span>
+                    <span class="faq-ic" aria-hidden="true" />
+                  </summary>
+                  <div class="faq-a">
+                    <p>{it.a}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+            {tp.link && (
+              <a class="faq-topic-link" href={tp.link.href} target={tp.link.external ? "_blank" : undefined} rel={tp.link.external ? "noopener" : undefined}>
+                {tp.link.label} <span aria-hidden="true">{tp.link.external ? "↗" : "→"}</span>
+              </a>
+            )}
+          </section>
+        ))
+      }
+      <p class="faq-empty" data-faq-empty hidden>
+        {t.empty} <a href={localizePath("contatti", lang)}>{t.emptyCta} →</a>
+      </p>
     </div>
   </div>
 </section>
 
 <CtaFinal lang={lang} />
+
+<script>
+  import "../../lib/faq";
+</script>

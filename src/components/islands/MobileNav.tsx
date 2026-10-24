@@ -11,7 +11,7 @@ export interface MobileNavItem {
   mega?: {
     columns: {
       title: string;
-      items: { n: string; t: string; d: string }[];
+      items: { n: string; t: string; d: string; href?: string }[];
     }[];
   };
 }
@@ -197,7 +197,7 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
                         <ul>
                           {col.items.map((it) => (
                             <li key={it.n}>
-                              <a href={p.href} onClick={() => setOpen(false)}>
+                              <a href={it.href ?? p.href} onClick={() => setOpen(false)}>
                                 <span>
                                   <span className="ttl">{it.t}</span>
                                   <span className="desc">{it.d}</span>

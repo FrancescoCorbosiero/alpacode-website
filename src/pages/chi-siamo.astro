@@ -1,0 +1,11 @@
+---
+import Layout from "../components/Layout.astro";
+import ChiSiamo from "../components/pages/ChiSiamo.astro";
+import { meta } from "../i18n/ui";
+const lang = "it" as const;
+const m = meta["chi-siamo"];
+---
+
+<Layout lang={lang} active="chi-siamo" slug="chi-siamo" title={m.title[lang]} description={m.description[lang]}>
+  <ChiSiamo lang={lang} />
+</Layout>

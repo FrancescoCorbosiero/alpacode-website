@@ -581,6 +581,15 @@
 .mega ul a:hover .ttl {
   color: var(--blue);
 }
+/* A column that is a compartment's door: its name, by the title. */
+.mega h5 .mega-door-name {
+  margin-left: 10px;
+  padding: 3px 8px 2px;
+  border: 1px solid currentColor;
+  color: var(--blue);
+  font-size: 12px;
+  white-space: nowrap;
+}
 
 /* ---------- Command palette ---------- */
 .cmdk-backdrop {
@@ -2546,54 +2555,222 @@ cal-modal-box iframe,
   }
 }
 
-/* ---------- FAQ ---------- */
-.faq-list {
+/* ---------- FAQ: one archive by topic ----------
+   The index and the search on the side (sticky on a desk, a row on a
+   phone), the topics on the right: a title, a line, the answers as
+   native <details>, the page that tells the rest. */
+.faq-hub {
+  padding-top: 40px;
+}
+.faq-hub-grid {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--ink);
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.faq-side {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 18px;
+}
+.faq-search {
+  display: grid;
+  gap: 8px;
+}
+.faq-search-l {
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--mute);
+}
+.faq-search input {
+  width: 100%;
+  padding: 14px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+.faq-search input:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 var(--blue);
+}
+.faq-count {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mute);
+}
+.faq-index ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.faq-index a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 0 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  transition:
+    color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+.faq-index a b {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--mute);
+  font-variant-numeric: tabular-nums;
+}
+.faq-index a:hover,
+.faq-index a[aria-current] {
+  color: var(--blue);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+.faq-index li[data-faq-off] a {
+  opacity: 0.4;
+}
+.faq-topics {
+  display: grid;
+  gap: clamp(48px, 6vw, 72px);
+}
+.faq-topic {
+  scroll-margin-top: 96px;
+}
+.faq-topic-head {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--ink);
+}
+.faq-topic-head h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.faq-topic-head p {
+  margin: 0;
+  color: var(--mute-2);
 }
 .faq-item {
   border-bottom: 1px solid var(--rule);
 }
-.faq-q {
-  width: 100%;
-  background: transparent;
-  border: 0;
-  text-align: left;
-  padding: 28px 0;
+.faq-item summary {
   display: grid;
-  grid-template-columns: 60px 1fr 32px;
+  grid-template-columns: minmax(0, 1fr) 24px;
   gap: 24px;
   align-items: center;
-  color: var(--ink);
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
 }
-.faq-q .num {
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-q {
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.35;
+  transition: color 0.25s var(--ease);
+}
+.faq-item summary:hover .faq-q,
+.faq-item[open] .faq-q {
   color: var(--blue);
-  letter-spacing: 0.02em;
 }
-.faq-q .q {
-  font-family: var(--display);
-  font-size: clamp(20px, 2.4vw, 28px);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
+/* A plus that turns into a minus. */
+.faq-ic {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  justify-self: end;
 }
-.faq-q .ic {
-  font-family: var(--label);
-  font-size: 20px;
-  text-align: right;
+.faq-ic::before,
+.faq-ic::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease-expo);
+}
+.faq-ic::after {
+  transform: rotate(90deg);
+}
+.faq-item[open] .faq-ic::after {
+  transform: rotate(0deg);
 }
 .faq-a {
-  padding: 0 0 28px 84px;
-  max-width: 720px;
-  font-size: 16px;
-  color: var(--mute-2);
-  line-height: 1.65;
+  padding: 0 48px 24px 0;
+  max-width: 72ch;
 }
-.faq-a[hidden] {
-  display: none;
+.faq-a p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--mute-2);
+}
+.faq-topic-link {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 18px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.faq-topic-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.faq-empty {
+  margin: 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink);
+  font-weight: 600;
+}
+.faq-empty a {
+  color: var(--blue);
+}
+@media (max-width: 900px) {
+  .faq-hub-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .faq-side {
+    position: static;
+  }
+  /* The index becomes a row to swipe. */
+  .faq-index ol {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border: 0;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .faq-index a {
+    padding: 8px 12px;
+    border: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  .faq-index a:hover,
+  .faq-index a[aria-current] {
+    box-shadow: none;
+    border-color: var(--blue);
+  }
+  .faq-a {
+    padding-right: 0;
+  }
 }
 
 /* ---------- Contatti form ---------- */
@@ -3395,6 +3572,33 @@ cal-modal-box iframe,
   line-height: 1.5;
   margin: 0;
   max-width: 520px;
+}
+/* A group run by a compartment: its door, under the group's rows. */
+.svc-door {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 32px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  border: 1px solid var(--blue);
+  background: var(--blue-soft);
+  color: var(--ink);
+  transition: background-color 0.3s var(--ease-expo);
+}
+.svc-door:hover {
+  background: transparent;
+}
+.svc-door-text {
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.svc-door-go {
+  font-weight: 700;
+  color: var(--blue);
+  white-space: nowrap;
 }
 .svc-cross {
   display: flex;

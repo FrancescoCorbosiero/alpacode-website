@@ -14,6 +14,7 @@ import { PAGES } from "../data/pages";
 import { localizePath } from "../i18n/utils";
 import { ui, cmdk, footer } from "../i18n/ui";
 import { business, tagline } from "@shared/data/business";
+import { COMPARTMENTS, doorTo } from "@shared/data/compartments";
 import { CAL_CONFIGURED, CAL_ORIGIN } from "../lib/calcom";
 import { organizationSchema, websiteSchema } from "../lib/schema";
 import Header from "./Header.astro";
@@ -105,7 +106,9 @@ const cmdItems: CmdItem[] = [
     href: localizePath(p.slug, lang),
   })),
   // Program/marketing pages — no primary-nav slot, but searchable.
-  { kind: "page", num: "09", ttl: footer.collaborate[lang], sub: pageSub("collabora-con-noi"), href: localizePath("collabora-con-noi", lang) },
+  { kind: "page", num: "10", ttl: footer.collaborate[lang], sub: pageSub("collabora-con-noi"), href: localizePath("collabora-con-noi", lang) },
+  // The compartments: their doors are searchable too.
+  { kind: "page", num: "A1", ttl: COMPARTMENTS.studio.name, sub: COMPARTMENTS.studio.line[lang], href: doorTo("studio", "/", { site: "house", where: "cmdk" }) },
   { kind: "page", num: "P1", ttl: footer.partnerProgram[lang], sub: pageSub("partner"), href: localizePath("partner", lang) },
   { kind: "page", num: "P2", ttl: footer.smmOffer[lang], sub: pageSub("social-media-manager"), href: localizePath("social-media-manager", lang) },
   { kind: "page", num: "P3", ttl: footer.referral[lang], sub: pageSub("voucher"), href: localizePath("voucher", lang) },

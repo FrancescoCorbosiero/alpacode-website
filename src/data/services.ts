@@ -1,4 +1,8 @@
 import type { Lang } from "../i18n/types";
+import { doorTo } from "@shared/data/compartments";
+
+/** Growing is the studio's work: the group opens its door. */
+const studio = doorTo("studio", "/servizi/", { site: "house", where: "servizi" });
 
 export interface ServiceMeta {
   k: string;
@@ -14,6 +18,8 @@ export interface ServiceGroup {
   verb: string;
   tagline: string;
   rows: ServiceRow[];
+  /** A compartment that runs this work (shared/data/compartments.ts). */
+  door?: { text: string; label: string; href: string };
 }
 export interface ServiziPageData {
   crumb: string;
@@ -80,6 +86,16 @@ export const servizi: Record<Lang, ServiziPageData> = {
           },
           {
             n: "05",
+            t: "Integrazioni AI (LLM)",
+            d: "Modelli linguistici dentro processi reali: assistenti che rispondono ai clienti, automazioni che fanno risparmiare ore di lavoro, contenuti generati e curati. Solo casi d'uso concreti, con un ritorno chiaro sull'investimento.",
+            meta: [
+              { k: "Ambiti", v: "Assistenti · automazioni · contenuti" },
+              { k: "Dove", v: "Nei sistemi che usi già" },
+              { k: "Prezzo", v: "Su misura" },
+            ],
+          },
+          {
+            n: "06",
             t: "Manutenzione & supporto",
             d: "Dopo il lancio non spariamo. Aggiornamenti, sicurezza, backup e modifiche, con un canale dedicato e risposte rapide.",
             meta: [
@@ -93,9 +109,14 @@ export const servizi: Record<Lang, ServiziPageData> = {
       {
         verb: "Far crescere",
         tagline: "Quello che di solito chiedi a un'agenzia di comunicazione, qui sotto lo stesso tetto.",
+        door: {
+          text: "Questo è il lavoro di Alpacode Studio, il nostro compartimento marketing: social e contenuti, brand, UX, campagne e SEO, con i pacchetti pronti.",
+          label: "Vai allo studio",
+          href: studio,
+        },
         rows: [
           {
-            n: "06",
+            n: "07",
             t: "Branding & identità visiva",
             d: "Logo, palette, tono di voce e linee guida. L'immagine coordinata che ti fa sembrare — ed essere — professionale.",
             meta: [
@@ -105,7 +126,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "07",
+            n: "08",
             t: "Design UI/UX",
             d: "Interfacce belle e facili da usare. Studiamo come si muovono le persone e togliamo ogni attrito tra loro e l'obiettivo.",
             meta: [
@@ -115,7 +136,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "08",
+            n: "09",
             t: "Pubblicità & campagne",
             d: "Campagne Google e Meta gestite con criterio: budget sotto controllo, risultati misurati, niente soldi buttati.",
             meta: [
@@ -125,7 +146,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "09",
+            n: "10",
             t: "SEO & contenuti",
             d: "Ti facciamo trovare da chi ti cerca. Posizionamento, contenuti e velocità del sito, con numeri verificabili.",
             meta: [
@@ -141,7 +162,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         tagline: "Quello che impariamo, te lo lasciamo. Così diventi autonomo.",
         rows: [
           {
-            n: "10",
+            n: "11",
             t: "Corsi & percorsi",
             d: "Percorsi pratici per chi vuole imparare a muoversi nel digitale, dai primi passi fino agli approfondimenti.",
             meta: [
@@ -151,7 +172,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "11",
+            n: "12",
             t: "Kit & risorse pro",
             d: "Template, starter e snippet pronti all'uso, con documentazione in italiano e aggiornamenti nel tempo.",
             meta: [
@@ -161,7 +182,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "12",
+            n: "13",
             t: "Formazione per team",
             d: "Formazione su misura per le aziende, calibrata sui tuoi strumenti e sui tuoi casi reali, con supporto anche dopo l'aula.",
             meta: [
@@ -228,6 +249,16 @@ export const servizi: Record<Lang, ServiziPageData> = {
           },
           {
             n: "05",
+            t: "AI integrations (LLMs)",
+            d: "Language models inside real processes: assistants that answer your clients, automations that save hours of work, content generated and curated. Concrete use cases only, with a clear return on the investment.",
+            meta: [
+              { k: "Areas", v: "Assistants · automations · content" },
+              { k: "Where", v: "In the systems you already use" },
+              { k: "Price", v: "Bespoke" },
+            ],
+          },
+          {
+            n: "06",
             t: "Maintenance & support",
             d: "After launch we don't disappear. Updates, security, backups and changes, with a dedicated channel and quick replies.",
             meta: [
@@ -241,9 +272,14 @@ export const servizi: Record<Lang, ServiziPageData> = {
       {
         verb: "Grow",
         tagline: "What you'd normally ask a communication agency for, here under one roof.",
+        door: {
+          text: "This is the work of Alpacode Studio, our marketing compartment: social and content, brand, UX, campaigns and SEO, with ready-made packages. In Italian.",
+          label: "Go to the studio",
+          href: studio,
+        },
         rows: [
           {
-            n: "06",
+            n: "07",
             t: "Branding & visual identity",
             d: "Logo, palette, tone of voice and guidelines. The coordinated image that makes you look — and be — professional.",
             meta: [
@@ -253,7 +289,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "07",
+            n: "08",
             t: "UI/UX design",
             d: "Interfaces that are beautiful and easy to use. We study how people move and remove every bit of friction between them and the goal.",
             meta: [
@@ -263,7 +299,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "08",
+            n: "09",
             t: "Advertising & campaigns",
             d: "Google and Meta campaigns run with judgment: budget under control, results measured, no money wasted.",
             meta: [
@@ -273,7 +309,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "09",
+            n: "10",
             t: "SEO & content",
             d: "We get you found by the people looking for you. Ranking, content and site speed, with numbers you can verify.",
             meta: [
@@ -289,7 +325,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         tagline: "What we learn, we hand over. So you become independent.",
         rows: [
           {
-            n: "10",
+            n: "11",
             t: "Courses & paths",
             d: "Practical paths for anyone who wants to find their way in digital, from first steps to deeper dives.",
             meta: [
@@ -299,7 +335,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "11",
+            n: "12",
             t: "Pro kits & resources",
             d: "Templates, starters and snippets ready to use, with documentation and updates over time.",
             meta: [
@@ -309,7 +345,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             ],
           },
           {
-            n: "12",
+            n: "13",
             t: "Team training",
             d: "Bespoke training for companies, calibrated on your tools and your real cases, with support after class too.",
             meta: [
