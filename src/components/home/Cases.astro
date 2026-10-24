@@ -36,9 +36,9 @@ const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
   </div>
 
   <div class="cases-scene" data-scene="cases" style={`--len:${list.length + 1}`}>
-  <div class="cases-stage">
+  <div class="cases-stage" data-stage>
     <div class="wrap-wide">
-      <ol class="cases-list">
+      <ol class="cases-list" data-cases>
         {
           list.map((w, i) => {
             const d = w.data;
