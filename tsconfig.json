@@ -3,8 +3,10 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "baseUrl": ".",
+    "paths": { "@shared/*": ["./shared/*"] }
   },
-  "include": [".astro/types.d.ts", "src/**/*"],
-  "exclude": ["dist", ".vercel", ".astro", "design_reference", "node_modules"]
+  "include": [".astro/types.d.ts", "src/**/*", "shared/**/*"],
+  "exclude": ["dist", ".vercel", ".astro", "design_reference", "node_modules", "sites"]
 }

@@ -1,0 +1,49 @@
+---
+/* The home's visual: the feed the hook talks about. Grey posts drift
+   up a phone's screen, all alike; one stays, in colour, with a name on
+   it: the brand that makes itself remembered. CSS only (it's above the
+   fold); without motion the feed stands still with the brand in the
+   middle. Shapes, not fake posts: no invented likes or followers. */
+const posts = [
+  { shape: "a" },
+  { shape: "b" },
+  { shape: "c" },
+  { shape: "a" },
+  { shape: "c" },
+  { shape: "b" },
+];
+---
+
+<div class="fx-feed" aria-hidden="true">
+  <div class="fx-feed-phone">
+    <div class="fx-feed-bar"><i></i><b>il tuo feed</b><i></i></div>
+    <div class="fx-feed-screen">
+      <div class="fx-feed-track">
+        {
+          [...posts, ...posts].map((p) => (
+            <div class={`fx-post fx-post--${p.shape}`}>
+              <span class="fx-post-head">
+                <i />
+                <u />
+              </span>
+              <span class="fx-post-img" />
+              <span class="fx-post-lines">
+                <u />
+                <u />
+              </span>
+            </div>
+          ))
+        }
+      </div>
+      <div class="fx-post fx-post--you">
+        <span class="fx-post-head">
+          <i></i>
+          <b>il tuo brand</b>
+        </span>
+        <span class="fx-post-img"><span class="fx-post-mark">A</span></span>
+        <span class="fx-post-lines"><u></u><u></u></span>
+      </div>
+    </div>
+  </div>
+  <span class="fx-hand fx-feed-note">questo lo ricordano</span>
+</div>

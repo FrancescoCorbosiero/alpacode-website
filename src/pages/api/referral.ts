@@ -13,22 +13,22 @@
                     referral code (or none, for a direct visit).
 
    Every accepted submission is appended to the ledger and emailed
-   to the studio (lib/server/mail.ts; without AWS_REGION it is logged
+   to the studio (shared/server/mail.ts; without AWS_REGION it is logged
    instead, so the flow is testable locally). A submission is only
    refused when it would otherwise be lost: mail failed AND ledger
-   unavailable. Abuse guards: lib/server/guard.ts, like /api/contact.
+   unavailable. Abuse guards: shared/server/guard.ts, like /api/contact.
    ============================================================ */
 import type { APIRoute } from "astro";
-import { business } from "../../data/business";
+import { business } from "@shared/data/business";
 import { shared, type BusinessId, type NeedId, type PayoutId } from "../../data/voucher/shared";
 import { kit } from "../../data/voucher/kit";
 import { invitePath, isProgram, PROGRAM_LABEL, type ProgramId } from "../../lib/voucher/program";
 import { nameFromCode, normalizeCode } from "../../lib/voucher/referral-code";
 import { issueCode } from "../../lib/server/codes";
 import { append, priorReferral, referrerByCode, type LedgerEntry, type Person } from "../../lib/server/ledger";
-import { sendMail } from "../../lib/server/mail";
-import { readEnv } from "../../lib/server/env";
-import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "../../lib/server/guard";
+import { sendMail } from "@shared/server/mail";
+import { readEnv } from "@shared/server/env";
+import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "@shared/server/guard";
 import type { Lang } from "../../i18n/types";
 
 export const prerender = false;

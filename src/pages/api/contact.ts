@@ -1,12 +1,12 @@
 import type { APIRoute } from "astro";
-import { sendMail } from "../../lib/server/mail";
-import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "../../lib/server/guard";
+import { sendMail } from "@shared/server/mail";
+import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "@shared/server/guard";
 
 // This route runs on demand (form POST), the rest of the site is static.
 export const prerender = false;
 
 /* ---- Abuse guards ----------------------------------------------------
-   Payload and field caps live in lib/server/guard.ts (shared with
+   Payload and field caps live in shared/server/guard.ts (shared with
    /api/referral); this form allows five submissions per IP per ten
    minutes. */
 const MAX_MESSAGE = 5_000;

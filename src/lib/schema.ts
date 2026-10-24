@@ -1,4 +1,4 @@
-import { business } from "../data/business";
+import { business } from "@shared/data/business";
 import type { Lang } from "../i18n/types";
 
 const locale = (lang: Lang) => (lang === "it" ? "it-IT" : "en-US");

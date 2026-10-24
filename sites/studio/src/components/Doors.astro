@@ -1,0 +1,36 @@
+---
+/* The doors: one per reader, in their own words (data/pages.ts). Each
+   takes its colour; the last ones open on the house (alpacode.it). */
+import { DOORS } from "../data/pages";
+
+interface Props {
+  title?: string;
+  kicker?: string;
+}
+const { title = "Scegli la tua porta.", kicker = "da dove parti?" } = Astro.props;
+---
+
+<section class="fx-section" id="porte">
+  <div class="fx-wrap">
+    <div class="fx-choose-head" data-rise>
+      <span class="fx-hand">{kicker}</span>
+      <h2 class="fx-title">{title}</h2>
+    </div>
+    <ul class="fx-cards">
+      {
+        DOORS.map((d) => (
+          <li>
+            <a class:list={["fx-card", { "fx-card--house": d.house }]} href={d.href} style={`--ac:${d.accent}`} data-card>
+              <span class="fx-card-who">{d.who}</span>
+              <span class="fx-card-what">{d.what}</span>
+              {d.house && <span class="fx-card-house">alpacode.it</span>}
+              <span class="fx-card-go" aria-hidden="true">
+                {d.house ? "↗" : "→"}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

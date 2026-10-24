@@ -1,0 +1,28 @@
+---
+/* The end of a page: write, or book a call. */
+import { CAL } from "../data/site";
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = "Hai qualcosa da far crescere?",
+  text = "Raccontacelo: ti rispondiamo con una proposta scritta. Oppure prenota trenta minuti di call.",
+} = Astro.props;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap">
+    <div class="fx-cta" data-rise>
+      <div>
+        <h2 class="fx-title">{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="fx-cta-act">
+        <a class="fx-btn" href="/contatti/">Scrivici <span aria-hidden="true">→</span></a>
+        <a class="fx-btn fx-btn--ghost" href={CAL} target="_blank" rel="noopener" data-umami-event="call">Prenota una call</a>
+      </div>
+    </div>
+  </div>
+</section>

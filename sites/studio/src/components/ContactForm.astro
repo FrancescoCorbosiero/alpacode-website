@@ -1,0 +1,73 @@
+---
+/* The contact form: who you are, what you need, a few words. It posts
+   to /api/contact (lib/contact.ts); a link can choose the topic and
+   the offer (data/contact.ts). Works as a plain form too: without the
+   script the browser checks the required fields and the button tells
+   you to write by email. */
+import { OFFERS, TOPICS } from "../data/contact";
+import { business } from "../data/site";
+---
+
+<form class="fx-form" data-contact novalidate data-offers={JSON.stringify(OFFERS)}>
+  <div class="fx-form-row">
+    <label class="fx-field">
+      <span>Nome e cognome</span>
+      <input name="name" autocomplete="name" required maxlength="120" />
+    </label>
+    <label class="fx-field">
+      <span>Email</span>
+      <input name="email" type="email" autocomplete="email" required maxlength="200" />
+    </label>
+  </div>
+  <div class="fx-form-row">
+    <label class="fx-field">
+      <span>Telefono <small>se preferisci una chiamata</small></span>
+      <input name="phone" type="tel" autocomplete="tel" maxlength="40" />
+    </label>
+    <label class="fx-field">
+      <span>Attività <small>o il link al profilo</small></span>
+      <input name="company" autocomplete="organization" maxlength="160" />
+    </label>
+  </div>
+  <fieldset class="fx-chips">
+    <legend>Di cosa vuoi parlare?</legend>
+    {
+      TOPICS.map((t, i) => (
+        <label class="fx-chip">
+          <input type="radio" name="topic" value={t.id} checked={i === 0} />
+          <span>{t.label}</span>
+        </label>
+      ))
+    }
+  </fieldset>
+  <p class="fx-form-offer" data-offer-line hidden>Hai scelto: <b data-offer-name></b></p>
+  <input type="hidden" name="offer" value="" />
+  <label class="fx-field">
+    <span>Raccontaci <small>la tua attività, cosa vuoi far crescere, entro quando</small></span>
+    <textarea name="message" rows="5" maxlength="5000"></textarea>
+  </label>
+  <label class="fx-hp" aria-hidden="true">
+    Lascia vuoto <input name="website" tabindex="-1" autocomplete="off" />
+  </label>
+  <label class="fx-check">
+    <input type="checkbox" name="consent" required />
+    <span>Ho letto la <a href="/privacy/">privacy</a> e acconsento al trattamento dei miei dati per ricevere una risposta.</span>
+  </label>
+  <div class="fx-form-act">
+    <button class="fx-btn" type="submit" data-submit>Invia <span aria-hidden="true">→</span></button>
+    <p class="fx-form-status" data-status role="status" aria-live="polite"></p>
+  </div>
+  <noscript>
+    <p class="fx-form-status">Il modulo ha bisogno di JavaScript: scrivici a <a href={`mailto:${business.email}`}>{business.email}</a>.</p>
+  </noscript>
+</form>
+
+<div class="fx-form-done" data-done hidden tabindex="-1">
+  <span class="fx-sticker">Ricevuto</span>
+  <h3>Grazie, è arrivato.</h3>
+  <p>Ti rispondiamo per email. Se intanto vuoi aggiungere qualcosa, scrivi a <a href={`mailto:${business.email}`}>{business.email}</a>.</p>
+</div>
+
+<script>
+  import "../lib/contact";
+</script>

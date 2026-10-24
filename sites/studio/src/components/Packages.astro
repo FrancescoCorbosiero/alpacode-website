@@ -1,0 +1,50 @@
+---
+/* The packages (data/packages.ts): what's in each, for whom, the
+   price or "Su richiesta", and the way to start. */
+import type { Package } from "../data/packages";
+import { euro } from "../data/site";
+import Buy from "./Buy.astro";
+
+interface Props {
+  packages: Package[];
+}
+const { packages } = Astro.props;
+---
+
+<ul class="fx-packs">
+  {
+    packages.map((p) => (
+      <li class:list={["fx-pack", { "is-featured": p.featured }]} id={p.id} style={`--ac:${p.accent}`} data-rise>
+        <span class="fx-pack-tag">{p.tag}</span>
+        <h3>{p.name}</h3>
+        <p class="fx-pack-for">{p.forWho}</p>
+        <p>{p.blurb}</p>
+        <ul class="fx-ticks">
+          {p.includes.map((i) => (
+            <li>{i}</li>
+          ))}
+        </ul>
+        <dl class="fx-pack-meta">
+          {p.meta.map((m) => (
+            <div>
+              <dt>{m.k}</dt>
+              <dd>{m.v}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="fx-pack-price">
+          {p.price !== null ? (
+            <>
+              {euro(p.price)} {p.per && <small>{p.per}</small>}
+            </>
+          ) : (
+            <>
+              Su richiesta {p.per && <small>{p.per}</small>}
+            </>
+          )}
+        </p>
+        <Buy id={p.id} price={p.price} checkout={p.checkout} ask="pacchetto" askLabel="Parliamone" block ghost={!p.featured} />
+      </li>
+    ))
+  }
+</ul>

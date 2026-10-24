@@ -1,0 +1,31 @@
+---
+/* The signature: the house behind the studio, and its real work. */
+import { HOUSE, house } from "../data/site";
+
+interface Props {
+  /** Where the door is, for the house's analytics. */
+  where: string;
+}
+const { where } = Astro.props;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap">
+    <div class="fx-signed" data-rise>
+      <div>
+        <div class="fx-signed-mark">
+          <strong>ALPACODE</strong>
+          <span class="fx-hand">la casa dello studio</span>
+        </div>
+        <p>
+          Dietro lo studio c'è {HOUSE.name}: siti, e-commerce, software su misura, integrazioni AI e formazione, da Monza e
+          Milano in tutta Italia. Lo studio è il suo compartimento marketing: le stesse persone, lo stesso metodo, un'altra voce.
+        </p>
+      </div>
+      <div class="fx-signed-act">
+        <a class="fx-btn fx-btn--ghost" href={house("/lavori/", where)}>Guarda i lavori <span aria-hidden="true">↗</span></a>
+        <a class="fx-link" href={house("/chi-siamo/", where)}>Chi siamo</a>
+      </div>
+    </div>
+  </div>
+</section>

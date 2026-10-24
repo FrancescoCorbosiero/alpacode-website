@@ -1,0 +1,31 @@
+---
+/* A hook that turns around: the pieces that change are struck and
+   replaced (styles/studio.css, pure CSS: it's above the fold). Screen
+   readers get the sentence in full. */
+import type { Turn } from "../data/pages";
+
+interface Props {
+  turn: Turn;
+  said: string;
+  tag?: "h1" | "h2";
+}
+const { turn, said, tag: Tag = "h1" } = Astro.props;
+let k = 0;
+---
+
+<Tag class="fx-hook" data-intro style="--i:1">
+  <span class="fx-sr">{said}</span>
+  <span aria-hidden="true">
+    {
+      turn.map((seg) =>
+        typeof seg === "string" ? (
+          seg
+        ) : (
+          // One line on purpose: whitespace between the tags would show.
+          // prettier-ignore
+          <span class="fx-swap" data-quiet={seg.quiet ? "" : undefined} style={`--k:${k++}`}><s class="fx-from">{seg.from}</s><span class="fx-to">{seg.to}</span></span>
+        ),
+      )
+    }
+  </span>
+</Tag>
