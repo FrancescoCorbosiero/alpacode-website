@@ -64,14 +64,26 @@
 >   sites), which also feed the "other doors" at the foot of each page.
 >   No countdowns, no price-reassurance phrases. How to make a new one:
 >   `docs/landing-factory.md` (and the `new-landing` skill).
-> - **Alpacode FAST — `fast.alpacode.it`.** The social register lives on
->   its own subdomain and its own static site (`fast/`, same repo and
->   lockfile, its own container in the same `docker compose up -d`): the
->   fear of AI named and turned around, DM keywords (`FAST`, `SITO`, `AI`,
->   `CODE`, `BIO`, `AMICO`), small products — a site guide (22 €) and its
->   marketing module (+48 €), a crash course for freelancers — and doors
->   back to the studio. The map of both sites, audiences and keywords:
->   `docs/marketing-map.md`; running it: `fast/README.md`.
+> - **The house and its compartments.** alpacode.it is the house (IT +
+>   EN): consulting, digitalization, automation, software, training, the
+>   programs, and its marketing pages in its own formal voice. Alpacode
+>   Studio (studio.alpacode.it, `sites/studio/`, Italian) is the first
+>   compartment: the marketing, in a young register, with products bought
+>   on the site (Lemon Squeezy, Gumroad or Stripe, verified webhooks, a
+>   JSONL ledger). The house opens the studio's doors where it talks about
+>   that work (the mega menu, `/servizi`, `/prodotti`, the footer); the
+>   registry is `shared/data/compartments.ts`. Alpacode FAST, the first
+>   try at the social register (`fast/`), is retired. The map:
+>   `docs/marketing-map.md`.
+> - **The showcase.** `/lavori` lists the projects as rows in the display
+>   face, filtered by kind (CSS alone, animated with Flip), with a frame
+>   of the site following the mouse; each project has its page
+>   (`/lavori/<id>/`) and its share card. The home's Casi di studio (a
+>   pinned stage: before struck through, after in), Metodo (one technical
+>   drawing becoming each step's) and Dove operiamo (Italy in dots, an
+>   arc to every client) are rebuilt. The moves are entries of the motion
+>   catalog, `FrancescoCorbosiero/alpacode-motion`, copied into
+>   `src/engine/`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

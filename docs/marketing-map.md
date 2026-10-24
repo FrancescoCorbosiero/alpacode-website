@@ -1,110 +1,104 @@
-# The marketing map — two sites, five audiences, one ladder
+# The marketing map — the house and its compartments
 
-Alpacode speaks to the same people in two registers, on two sites that
-share a name.
+Alpacode is one name with one house and, around it, compartments: a line
+of work that runs on its own subdomain, with its own register and its own
+way of finding clients. The house includes them ("Alpacode ingloba
+studio.alpacode", the owner): it talks to the same people, opens each
+compartment's door wherever it talks about that work, and every
+compartment signs as Alpacode and leads back home.
 
-| | **alpacode.it** — the studio | **fast.alpacode.it** — Alpacode FAST |
+| | **alpacode.it** — the house | **studio.alpacode.it** — Alpacode Studio |
 | --- | --- | --- |
-| Sells | the work done for you: sites, software, programs, training for pros | doing it yourself: guides and crash courses — and sends the big jobs to the studio |
-| Tone | professional, concrete, calm | social: one hook per line, the fear named and turned around on the spot |
-| Channel | Google (SEO), ads to the landings, word of mouth | Instagram and TikTok (reels, carousels), LinkedIn for freelancers; link in bio |
-| Converts with | a form, a call | a DM keyword (WhatsApp, Instagram), a checkout of 22–70 € |
-| Prices | 300–450 €/year; the builders' formula on request | 22 € · +48 € · the crash course (price to set) |
-| Counts | qualified leads | DMs per keyword, sales, hand-offs to the studio |
-| Code | `src/` (the landing kit: `docs/landing-factory.md`) | `fast/` (its own Astro site: `fast/README.md`) |
+| Direction | inbound: people come to us ("VENIAMO contattati NOI") | outbound: we go and find them ("NOI contattiamo LORO") |
+| Does | IT consulting, digitalization, automation, sites and e-commerce, custom software, LLM integrations, professional training; the programs (partner, referral) | marketing: social and content, brand, UX and the user journey, campaigns, SEO, strategy; small products bought on the site |
+| Voice | authoritative, sharp, minimal, never corporate: a small studio (a ditta individuale) that knows its craft. The copy is already good: refine it, don't rewrite it | young, direct, provocative and honest: the worry named and turned around in the same line. A website, not Instagram: no DM keywords |
+| Languages | IT + EN, always both | IT |
+| Look | the editorial blueprint: Archivo Black + Manrope (+ Caveat for the studio's notes), the blue `#3B72E9`, paper and ink, square corners | ink and volt `#D4FF3A`, rounded, a colour per door |
+| Channel | Google (SEO), word of mouth, the landings' ads | SEO, ads, social content that points to the site |
+| Converts with | a form, a call | a purchase on the site (Lemon Squeezy, Gumroad or Stripe), the contact form, a call |
+| Code | `src/` (the landing kit: `docs/landing-factory.md`) | `sites/studio/` (`sites/studio/README.md`) |
 
-**Why two sites.** "Why pay thousands of euros for a site?" can't sit on
-the domain that sells sites at 300 €/year: on its own subdomain the
-aggressive register reaches people the studio never would (they want to
-do it themselves, they buy on impulse from a reel) without lowering the
-studio's voice. A subdomain keeps the Alpacode name — every guide is
-*signed* Alpacode — while search, analytics and tone stay apart. (The
-referral program went the other way: it moved *into* alpacode.it because
-it speaks like the studio.)
+The registry is `shared/data/compartments.ts` (name, origin, line, accent,
+languages). `doorTo(id, path, from)` builds a link to a compartment and
+tags it `utm_source=<site>&utm_medium=door&utm_campaign=<where>`, so each
+side's analytics see where a visitor came through. Future compartments
+get a subdomain each (the `new-compartment` skill).
 
----
+**Why two sites.** The studio's register would lower the house's voice,
+and the house's would slow the studio down. A subdomain keeps the name —
+every studio page carries the house's signature (`House.astro`) — while
+search, analytics and tone stay apart. The referral program went the
+other way: it lives inside alpacode.it because it speaks like the house.
 
-## The audiences, remapped
+## Where the doors are
 
-The four groups of `src/data/audiences.ts` (social media managers are
-their own door on FAST): for each, the fear or the FOMO the social hook
-names, the turn, where FAST takes them and what the studio offers next.
+On the house, the studio's door is wherever the house talks about its
+work:
 
-| Audience | The fear / FOMO | The turn (FAST) | FAST door · product | DM keyword | Next, at the studio |
-| --- | --- | --- | --- | --- | --- |
-| **People who want a site of their own** (small businesses, DIY) | "a site costs thousands" | "Un sito vetrina costa zero. Lo fai tu." | `/sito` · Guide 22 € + Marketing module 48 € | `SITO` | `/offerta/*` — we build it for you (300 €/year) |
-| **Freelancers** (partita IVA) | "AI will take my job" | "Temi l'AI? Cavalcala." | `/ai` · crash course *AI al lavoro* + your site made with AI, hosted free the first year | `AI` | `/partner` (bring digital to your clients), `/offerta/liberi-professionisti` |
-| **People who build sites** (developers, web designers) | "clients make their own sites with AI now" | "L'AI fa i siti per te." | `/code` · door | `CODE` | `/per-chi-fa-siti` — codebase / course + codebase / 1:1 |
-| **Social media managers, creators** | "your brand is a link in bio" | "Il tuo brand, sul tuo dominio." | `/bio` · door | `BIO` | `/social-media-manager` (300 €/year) |
-| **People who know someone** | "you know who just opened" | "Segnalarlo vale fino a 100 €." | `/amico` · door | `AMICO` | `/voucher`, `/voucher/nuova-attivita` |
+- the mega menu: the "Far crescere" column (social, brand, campaigns)
+  leads to the studio (`src/data/mega.ts`);
+- `/servizi`: the growth group's door; `/prodotti`: Brand Kit and
+  Landing & ADV are "Su Alpacode Studio";
+- the footer's "Le porte", the ⌘K palette, the learning page's studio
+  card.
 
-`FAST` — the master keyword — opens the chooser (`/`).
+On the studio, the home's doors are one per reader; the last two open on
+the house (`/per-chi-fa-siti`, `/voucher`), and the header and the
+signature lead back to alpacode.it.
+
+## The audiences
+
+| Reader | Where | What they find | Next |
+| --- | --- | --- | --- |
+| Businesses and professionals who need a site, an e-commerce, a tool | alpacode.it (home, `/servizi`, `/lavori`) | the work done for you; the showcase; the method | a call, the contact form |
+| The audiences of the campaigns: small businesses, professionals, coaches, educators, wellness | `/offerta/*` (`src/data/campaigns.ts`) | a site at a yearly fee, said in the house's voice | the landing's form |
+| People who build sites (developers, web designers) | `/per-chi-fa-siti/` (hosting, AI) | the codebase, the course, 1:1 | the form |
+| Agencies | `/partner` | the three models (refer, resell, swap) | the application |
+| Social media managers and creators | `/social-media-manager` | their brand on their own domain | the form |
+| People who know someone | `/voucher` (+ `/nuova-attivita`) | the referral program | their link |
+| People who want to be seen, remembered, chosen | studio.alpacode.it | social, brand, UX, campaigns, SEO; the packages | the form, a package |
+| People who want to do it themselves | studio `/prodotti` | the site guide (22 €, + marketing module 48 €), the crash course *AI al lavoro* | the checkout |
+
+The house's audience registry (which page speaks to whom, the "other
+doors") is `src/data/audiences.ts`; the studio's doors are
+`sites/studio/src/data/pages.ts`.
 
 ## The ladder
 
-0. **Free content** — a reel or a carousel with the hook: "commenta SITO".
-1. **The DM** — the automation answers with the door's link (UTM-tagged).
-2. **The way in** — the site guide, 22 €.
-3. **The add-on** — the marketing module, +48 € (guide + module: 70 €).
-4. **The crash course** for freelancers — price to set.
-5. **What recurs** — the site built in the course, hosted by us: free the
-   first year, a yearly fee from the second.
-6. **The studio** — done for you (300–450 €/year), the builders' formula,
-   the partner program. Every FAST page ends on that door.
+0. **Free content** — the blog (the house), the studio's social posts.
+1. **The way in** — the studio's products: the site guide (22 €), the
+   marketing module (+48 €), the crash course (price to set).
+2. **The packages** — Social Start, Social ogni mese, Brand Kit, Landing
+   & ADV (prices to set).
+3. **The house** — done for you: sites and e-commerce at a yearly fee
+   (`/offerta/*`), software, LLM integrations, consulting, training; the
+   builders' formula; the partner program.
 
-## The DM keywords
+## The two registers
 
-| Keyword | Door | Leads to |
-| --- | --- | --- |
-| `FAST` | `/` | the chooser |
-| `SITO` | `/sito` | the site guide (+ marketing) |
-| `AI` | `/ai` | the crash course |
-| `CODE` | `/code` | → alpacode.it/per-chi-fa-siti/ |
-| `BIO` | `/bio` | → alpacode.it/social-media-manager/ |
-| `AMICO` | `/amico` | → alpacode.it/voucher/ |
+- **The house**: never the aggressive register. Objections are answered
+  calmly where they arise (the AI one on `/per-chi-fa-siti/ai` and
+  `/partner`).
+- **The studio** may provoke: a question that names the worry, answered
+  in the same line ("Il tuo brand si perde nel feed? → si fa ricordare").
+  One promise per line, prices stated.
+- **Neither**: countdowns, invented scarcity, invented numbers,
+  testimonials or income claims, placeholder proof, the price-reassurance
+  tic (`docs/landing-factory.md`), "gratis" where it isn't, digs at a
+  group we also sell to.
 
-One keyword per post. The site's own buttons open WhatsApp with the
-keyword already typed (`wa.me/…?text=SITO`) and, once the handle is set,
-the Instagram DM. What the automation answers to each keyword is drafted
-as the chat in each door's hero (`reply` in `fast/src/data/doors.ts`). Links from FAST to the studio carry
-`utm_source=fast&utm_medium=social&utm_campaign=<door>`.
+## FAST, retired
 
-## The hooks, in both registers
-
-The brief's punchlines, as FAST says them and as the studio would.
-
-| The brief | FAST | alpacode.it |
-| --- | --- | --- |
-| "Hai paura che l'AI ti rubi il lavoro? Sfrutta l'AI per creare altro lavoro!" | "L'AI ti ruba il lavoro? → L'AI ti porta lavoro." | "L'AI toglie lavoro a chi la subisce. A chi la usa con metodo toglie la parte ripetitiva." (objection on `/per-chi-fa-siti/ai`) |
-| "Perché temere l'AI quando puoi cavalcarla?" | "Temi l'AI? → Cavalca l'AI." | — |
-| "Con un approccio corretto, l'AI può fare il lavoro di un team in poche ore" | "Con l'approccio giusto, l'AI fa in poche ore il lavoro di un team." | "Con un metodo, l'AI fa in ore il lavoro ripetitivo che chiedeva un team." |
-| "Perché pagare un web designer o uno sviluppatore / migliaia di euro per un sito quando puoi crearlo gratis? Alpacode ti mostra come, paghi a partire dal secondo anno." | "Perché pagare migliaia di euro per un sito? Fattelo con l'AI: il primo anno è gratis." — without the dig at web designers: FAST sells to them too (`/code`) | — (the studio sells the site done for you) |
-| "Vuoi creare il tuo sito vetrina gratuitamente? Guida 22 € (+ marketing 48 €)" | "Un sito vetrina costa migliaia di euro? → Costa zero. La guida: 22 €." | — |
-| (partners) | — | "L'AI farà fare tutto da soli ai miei clienti? Qualcuno ci proverà; gli altri cercano chi lo fa bene, e si fidano di chi conoscono." (objection on `/partner`) |
-
-## FAST's rules
-
-- **Allowed**: provocative questions, the fear named — and turned around
-  in the same line or the same screen; one promise per line; prices
-  stated.
-- **Not allowed**: countdowns and invented scarcity; invented numbers,
-  testimonials or income claims ("guadagna X € al mese"); the
-  price-reassurance tic (see the landing factory's house rules); "gratis"
-  where it isn't; digs at a group FAST also sells to; promises about time
-  or results nobody can keep.
-- **Every page**: its keyword, a price or the DM, the signature (the
-  studio behind it, with its real work at alpacode.it/lavori), the door
-  back to the studio.
+Alpacode FAST (fast.alpacode.it, `fast/`) was the social register's first
+site: DM keywords, small products. The owner retired it ("FAST per ora
+sparisce"); it never went online (no DNS). Its products moved to the
+studio, its look became the studio's, its DM keywords were dropped. The
+code is in the git history before the studio commit.
 
 ## Still to decide
 
-- The crash course's price; the yearly fee from the second year and what
-  the free first year includes (hosting, domain, email?).
-- Checkout: a merchant of record (Lemon Squeezy, Gumroad, Paddle) handles
-  EU VAT on digital products for you; its links go in
-  `fast/src/data/products.ts`. Until then the buttons send the keyword.
-- The Instagram handle (`fast/src/data/site.ts`).
-- The real contents of the guide, the module and the course: the pages
-  describe a draft, to line up with the products.
-- Consumer prices are shown VAT included: 22 € and 48 € are read as
-  final prices.
+- The packages' prices and the crash course's; the checkout links of
+  every product (`sites/studio/src/data/products.ts`, `packages.ts`).
+- The real contents of the guide, the module and the course.
+- Whether the studio needs English.
+- The next compartment, when there is one.
