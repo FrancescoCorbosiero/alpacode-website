@@ -52,7 +52,9 @@ is check, build and looking at the pages (below).
 ## Map of the house (`src/`)
 
 - `pages/` — routes; `pages/en/` mirrors them. `pages/api/contact.ts`
-  (lead form → AWS SES, logs the lead when `AWS_REGION` is unset) and
+  (lead form → mail through SMTP or AWS SES, `shared/server/mail.ts`; with
+  neither it only logs the lead, "NOT SENT"; the visitor gets the themed
+  auto-reply, `shared/server/reply.ts`) and
   `pages/api/referral.ts` (the referral program) are the only on-demand
   routes. `pages/lavori/[slug].astro`: a page per project.
 - `data/` — **all copy and content lives here**, typed, `Record<Lang, …>`

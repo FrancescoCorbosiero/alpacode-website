@@ -66,9 +66,9 @@ writing the same file would need a shared store instead.
 | --- | --- |
 | `REFERRAL_SECRET` | Long random value (`openssl rand -hex 32`), never changed afterwards: a new secret means new codes. If the program ever ran on `voucher.alpacode.it`, reuse its secret. |
 | `REFERRAL_LEDGER` | Ledger path, or `off`. |
-| `REFERRAL_CONFIRM_EMAILS` | `1` also emails referrers their link (needs SES out of the sandbox). |
+| `REFERRAL_CONFIRM_EMAILS` | `1` also emails referrers their link (with SES, only out of the sandbox). |
 | `SITE_URL` | Origin of the links the API hands out; empty = `https://alpacode.it`. |
-| `AWS_*`, `CONTACT_*` | The site's SES setup (`lib/server/mail.ts`, shared with `/api/contact`). Without `AWS_REGION` every message is logged (`grep "\[referral\]"`) and the flow works offline. |
+| `SMTP_*`, `AWS_*`, `CONTACT_*` | The site's mail (`shared/server/mail.ts`, shared with `/api/contact`): SMTP, else SES. With neither every message is logged (`grep "\[referral\]"`) and the flow works offline. The friend who asks through an invite gets the house's auto-reply (`shared/server/reply.ts`, `CONTACT_AUTOREPLY`). |
 
 ## Where to change what
 
