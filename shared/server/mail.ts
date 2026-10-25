@@ -95,11 +95,20 @@ const HINTS: Record<string, string> = {
   EENVELOPE: "the server refused the sender or the recipient: CONTACT_FROM_EMAIL must be the mailbox (or an alias) SMTP_USER may send as",
 };
 
+/** What the socket says, when it says more than the code (nodemailer
+ *  reports a refused connection as ESOCKET, like a failed handshake). */
+const NET: [RegExp, string][] = [
+  [/ECONNREFUSED/, "nothing answers at SMTP_HOST:SMTP_PORT: check the host and the port (465 TLS, 587 STARTTLS)"],
+  [/ENOTFOUND|EAI_AGAIN/, "SMTP_HOST doesn't resolve: check how it's spelled"],
+  [/EHOSTUNREACH|ENETUNREACH/, "SMTP_HOST can't be reached from the container: a firewall, or the host blocks outgoing SMTP"],
+];
+
 function describe(err: unknown): string {
   const e = (err ?? {}) as { name?: string; code?: string; message?: string; $metadata?: { httpStatusCode?: number } };
   const name = e.code ?? e.name ?? "Error";
   const status = e.$metadata?.httpStatusCode;
-  const hint = HINTS[name] ?? (e.name ? HINTS[e.name] : undefined);
+  const hint =
+    NET.find(([re]) => re.test(e.message ?? ""))?.[1] ?? HINTS[name] ?? (e.name ? HINTS[e.name] : undefined);
   return `${name}${status ? ` (HTTP ${status})` : ""}: ${e.message ?? String(err)}${hint ? ` → ${hint}` : ""}`;
 }
 
