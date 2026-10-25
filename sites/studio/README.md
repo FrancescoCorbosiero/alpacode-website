@@ -88,14 +88,19 @@ Umami always and to the ad tags when allowed.
 `src/engine/`, the studio's motion engine, on the same contract as the
 house's (that of the motion catalog `FrancescoCorbosiero/alpacode-motion`,
 reference only: never edited from here): its core, and the effects the
-studio uses — `reveal` (rising blocks), `deal` (the doors landing),
-`skew` (the band leaning with the scroll), `meter` (the course's pinned
-meter, standing on `stage`); `config.ts` and `registry.ts` are the
-studio's. Each effect's header is its markup API. The hero is CSS (the
-core's intro section is left out of `core.css`: the studio's hero has
-its own). Under reduced motion nothing runs and every piece sits in its
-end state; the hooks show the old words struck through next to the new
-ones.
+studio uses — `reveal` (rising blocks), `deal` (the readers' cards
+landing), `skew` (the band leaning with the scroll), `meter` (the
+course's pinned meter) and `feed` (the home's three verbs told on a
+phone), both standing on `stage`; and the studio's own small moves,
+`type` (the readers' phrases typing themselves), `scribble` (the notes
+in the hand writing themselves), `grow` (the last call's «crescere»),
+`stamp` (the products' prices), `tilt` (cards and phones leaning to the
+mouse). `config.ts` maps the studio's classes onto their hooks;
+`registry.ts` lists them. Each effect's header is its markup API. The
+hero is CSS (the core's intro section is left out of `core.css`: the
+studio's hero has its own). Under reduced motion nothing runs and every
+piece sits in its end state; the hooks show the old words struck
+through next to the new ones.
 
 ## Share cards
 
