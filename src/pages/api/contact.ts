@@ -20,13 +20,21 @@ export const POST: APIRoute = async (context) => {
   if (wrongType) return wrongType;
   // clientAddress is read lazily: its getter throws where it's unavailable.
   if (rateLimited(clientIp(request, () => context.clientAddress))) {
+    // One address, every form of the site (the contact page and the
+    // landings): trying them all in a row hits it.
+    console.warn("[contact] rate limited: more than 5 in 10 minutes from one address");
     return json({ ok: false, error: "rate_limited" }, 429);
   }
   const body = await readJson(request);
   if (body instanceof Response) return body;
 
-  // Honeypot — silently accept and drop bot submissions.
+  // Honeypot: a bot (or an autofill that wrote in it) — answer ok, send
+  // nothing, but leave a trace: a real lead taken for a bot is found in
+  // the log, never lost without one.
   if (str(body.website) !== "") {
+    console.warn(
+      `[contact] honeypot filled (${JSON.stringify(str(body.website, 80))}): taken for a bot, not mailed — ${str(body.name)} <${str(body.email)}>, ${str(body.campaign) || "contatti"}`,
+    );
     return json({ ok: true });
   }
 

@@ -26,7 +26,9 @@ validare», chiedi.
 | Hero della home con video «blueprint» | `src/data/home.ts` (`heroVideo`), `tools/media/` | Fatto, invariato. |
 | «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md` | Invariato. |
 | Alpacode FAST | — | **Ritirato** («FAST per ora sparisce»): i prodotti sono passati allo Studio, il codice è nella storia di git. |
-| Email dei moduli | `shared/server/mail.ts`, `shared/server/reply.ts` | Due trasporti: SMTP (`SMTP_HOST`…, la casella di info@) o AWS SES; senza nessuno dei due il server **non invia** e lo scrive nel log («NOT SENT»). Chi scrive riceve una **risposta automatica** nel tono del sito (casa o Studio), al massimo due al giorno per indirizzo (`CONTACT_AUTOREPLY=0` la spegne). Provato con un server SMTP finto: il lead arriva a info@, la risposta a chi scrive. |
+| Email dei moduli | `shared/server/mail.ts`, `shared/server/reply.ts` | Due trasporti: SMTP (`SMTP_HOST`…, la casella di info@) o AWS SES (in produzione: SES, e funziona); senza nessuno dei due il server **non invia** e lo scrive nel log («NOT SENT»). Chi scrive riceve una **risposta automatica** nel tono del sito (casa o Studio), al massimo due al giorno per indirizzo (`CONTACT_AUTOREPLY=0` la spegne). Provato con un server SMTP finto: il lead arriva a info@, la risposta a chi scrive. |
+| Moduli delle pagine marketing | `src/components/landing/LeadForm.astro`, `src/lib/landing/lead.ts`, `sites/studio/src/components/ContactForm.astro` | Non arrivavano solo loro. La causa più probabile: il campo trappola per i bot (`website`) era nascosto **fuori schermo**, non tolto dalla pagina, e il riempimento automatico del browser (o un gestore di password) poteva compilarlo con il tuo sito; il server allora lo prende per un bot, risponde «ok» e non invia nulla. Negli altri moduli la trappola era nascosta in un altro modo, ed è per questo che arrivavano. Ora la trappola non è mai disegnata (`hidden`, `display: none`), sia nella casa sia nello Studio. Quando scatta, il log lo scrive con nome ed email (`honeypot filled`): un lead vero preso per un bot non si perde più senza traccia. L'altra causa possibile: il limite di 5 invii in 10 minuti dalla stessa connessione, condiviso da tutti i moduli della casa. Chi prova le pagine una dopo l'altra lo supera. Ora la pagina lo dice («Troppe richieste…») e il log scrive `rate limited`. |
+| Testate dello Studio | `sites/studio/src/styles/studio.css` (`.fx-to`, `.fx-hook`) | L'evidenziatore volt è una **banda fissa** (0,84em) centrata sulle lettere. Prima lo sfondo copriva l'intera riga del font: su Windows Archivo Black usa metriche più alte (circa 1,35em contro un'interlinea di 0,9) e il volt finiva sulla riga sopra («RICORDARE.» copriva «SI FA»). Da 901px il titolo si misura sulla sua colonna (`cqi`), così non finisce sotto il telefono. Provato con le metriche di Mac e di Windows, da 1024 a 1600px e a 390. |
 | Footer | `src/components/Footer.astro`, `sites/studio/src/components/Foot.astro`, `shared/data/business.ts` | Completi su tutti e due i siti: navigazione, servizi, i dati dell'impresa (`companyLine()`: ditta individuale, sede operativa, P.IVA; sede legale, REA e PEC quando ci sono), le pagine legali. |
 | Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: la sua mossa nuova è il tabellone del Metodo. |
 
@@ -86,6 +88,11 @@ Da questa chat:
 - Una risposta automatica alle email, «in tema con il sito».
 - Animazioni su misura come in comunicazionecinofila: «sfogati su
   studio.alpacode e rimani un po' più sobrio in alpacode».
+- (25 ottobre, sera) AWS SES funzionava: non arrivavano solo i moduli
+  delle pagine marketing. Transfer Luxury Driver è il nuovo nome (non più
+  «SM Chauffeur»); Shoes Clothing Store è in Puglia, a Barletta; Edizioni
+  Rosi esce dalla vetrina. Le testate dello Studio avevano ancora
+  problemi (allegato a 1356px).
 - I lavori, in ordine di importanza: ResellPiacenza, transferluxurydriverncc.it
   (sito e prenotazioni online: «il cliente non aveva uno spazio online,
   ora riceve clienti e collaborazioni ed è visibile su Google»), Cesana,
@@ -165,26 +172,35 @@ Decise da Claude, non confermate.
 - Tipi di lavoro per i filtri: Siti, E-commerce, Software (Logistica
   Sanchez è «Software»).
 - Luoghi: EdilCalmi «Brianza» (sulla mappa al centro della Brianza),
-  Stiven PT Monza, Cesana e SM Luxury Chauffeur Milano, Logistica Sanchez
-  Seregno, Eternal Fishing Shop Cesano Maderno, ResellPiacenza Piacenza,
-  Edizioni Rosi Roma.
+  Stiven PT Monza, Cesana e Transfer Luxury Driver Milano, Logistica
+  Sanchez Seregno, Eternal Fishing Shop Cesano Maderno, ResellPiacenza
+  Piacenza, Shoes Clothing Store Barletta (la mappa ora arriva in
+  Puglia; Roma non c'è più).
 - Settori riscritti in minuscolo; Eternal Fishing Shop è «Pesca» (era
-  «E-commerce»), SM «NCC di lusso».
+  «E-commerce»), Transfer Luxury Driver «NCC di lusso».
 - **Le citazioni dei clienti sono segnaposto**: restano nei file ma non
   si vedono finché `quoteConfirmed: true`.
-- I casi della home sono i primi tre della tua lista: ResellPiacenza, SM
-  Luxury Chauffeur e Cesana (EdilCalmi esce dalla home, resta in
-  /lavori). Il caso di SM è scritto dalle tue parole chiave.
-- SM Luxury Chauffeur è transferluxurydriverncc.it: lo dice la sua
-  schermata (il marchio, il modulo di prenotazione). Il nome resta «SM
-  Luxury Chauffeur».
+- I casi della home sono i primi tre della tua lista: ResellPiacenza,
+  Transfer Luxury Driver e Cesana (EdilCalmi esce dalla home, resta in
+  /lavori). Il caso di Transfer Luxury Driver è scritto dalle tue parole
+  chiave e dalla schermata che mi hai mandato: Milano e Lago di Como,
+  transfer aeroportuali, servizio a ore e tour privati, il modulo
+  (transfer o a ore, partenza, destinazione, data, ora, passeggeri).
+- La sua pagina ora è `/lavori/transfer-luxury-driver/`: il vecchio
+  indirizzo (`/lavori/sm-luxury-chauffeur/`) ci rimanda, e
+  `/lavori/edizioni-rosi/` rimanda a `/lavori/` (`astro.config.mjs`).
+- Le schermate di Transfer Luxury Driver, Shoes Clothing Store,
+  ResellPiacenza e Logistica Sanchez sono le immagini che mi hai mandato
+  (i siti di oggi; le vecchie mostravano le versioni precedenti). La
+  descrizione di Logistica Sanchez ora parte dalle spedizioni di pallet
+  in tutta Italia, come il sito.
 - I siti che mi hai dato ora sono linkati («Visita il sito»): se un
   cliente non vuole il link, togli `url` dalla sua scheda.
-- Shoes Clothing Store: il nome viene dal dominio, il settore («Moda e
-  calzature») dal nome; luogo e anno non li so (le pagine li saltano);
-  il catalogo B2B è il secondo link.
+- Shoes Clothing Store: il settore è «Sneakers e abbigliamento» (dalla
+  schermata: «Shoes & Clothing Reselling», le sneakers, i rivenditori);
+  l'anno non lo so (la pagina lo salta); il catalogo B2B è il secondo
+  link.
 - GT Cars è in bozza (non si vede): di lui ho solo l'indirizzo.
-- Edizioni Rosi non era nella tua lista: l'ho lasciato in fondo.
 - Il Metodo come tabellone delle partenze: «Partenze · Monza · Milano»,
   le destinazioni CALL, PROPOSTA, SVILUPPO, ONLINE e le note «30
   minuti», «cosa · tempi · costo», «lo vedi crescere», «e restiamo»
@@ -209,14 +225,12 @@ Decise da Claude, non confermate.
 
 ## Decisioni aperte
 
-- **Le email non arrivano a info@alpacode.it** perché in produzione non
-  c'è un trasporto: né SMTP né AWS SES (o SES è ancora in sandbox). Il
-  modulo risponde «ok» al visitatore, ma il server scriveva il lead solo
-  nel log. Ora lo dice forte («NOT SENT»). Da fare: nel `.env` del
-  server `SMTP_HOST`, `SMTP_PORT` (465), `SMTP_USER` (info@alpacode.it),
-  `SMTP_PASS` (la password della casella, o una password per le app),
-  oppure le variabili di SES; poi il solito `docker compose up -d
-  --build`. Il log all'avvio dice quale trasporto usa.
+- **Da provare dopo il deploy: i moduli delle pagine marketing.** Manda
+  una richiesta da una pagina `/offerta/…` (al massimo cinque invii in
+  dieci minuti dalla stessa connessione). Se non arriva a info@,
+  `docker compose logs alpacode-website | grep -E "honeypot|rate limited"`
+  dice se è stata la trappola o il limite. (La mia prima diagnosi, «in
+  produzione manca il trasporto», era sbagliata: SES funziona.)
 - **I dati legali mancanti** per il footer: sede legale, REA, PEC
   (`shared/data/business.ts`, `legal`).
 - **La rete per i lavori**: per leggere i siti e scattare le schermate a
@@ -226,8 +240,8 @@ Decise da Claude, non confermate.
   e gtcars.netlify.app (Network access dell'ambiente). Poi le schede si
   rifiniscono dai testi letti.
 - GT Cars: cos'è e cosa abbiamo fatto (le sue parole chiave).
-- Shoes Clothing Store: dove sta, l'anno, come si scrive il marchio.
-- Edizioni Rosi: resta in vetrina?
+- Shoes Clothing Store: l'anno, e come si scrive il marchio («Shoes
+  Clothing Store» o «Shoes & Clothing»).
 - La conferma delle citazioni dei clienti.
 - La copy dei casi studio: il corpo di `src/content/work/<id>.md`.
 - Bio, foto e LinkedIn di Irene e Riccardo (e il LinkedIn di Francesco).
@@ -245,7 +259,8 @@ Decise da Claude, non confermate.
   alpacode.it): niente screenshot dei siti dei clienti da qui.
   `npm run work-pull` è provato sui siti locali.
 - L'invio vero delle email (SMTP o SES) non è provato da qui: solo con
-  un server SMTP finto in locale.
+  un server SMTP finto in locale. In produzione SES funziona (lo dice il
+  proprietario).
 - L'immagine Docker dello Studio non è mai stata costruita in una
   sessione (nessun demone Docker): il primo deploy è anche il primo test
   del container. Le build dei due siti invece sono verificate.
@@ -273,4 +288,9 @@ Decise da Claude, non confermate.
 - Stesso branch, dopo la PR #50 — le email (SMTP, risposta automatica),
   i footer con i dati legali, lo Studio senza «porte» e «la casa», le
   testate dello Studio, la casa senza prezzi, il Metodo come tabellone,
-  i lavori da «URL -> parole chiave», le mosse su misura dello Studio.
+  i lavori da «URL -> parole chiave», le mosse su misura dello Studio
+  (PR #51).
+- Stesso branch, dopo la PR #51 — i moduli delle pagine marketing (la
+  trappola per i bot, il limite detto chiaro), le testate dello Studio
+  anche su Windows, Transfer Luxury Driver, Shoes Clothing Store a
+  Barletta, via Edizioni Rosi, le schermate nuove dei lavori.

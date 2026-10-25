@@ -54,7 +54,8 @@ is check, build and looking at the pages (below).
 
 - `pages/` — routes; `pages/en/` mirrors them. `pages/api/contact.ts`
   (lead form → mail through SMTP or AWS SES, `shared/server/mail.ts`; with
-  neither it only logs the lead, "NOT SENT"; the visitor gets the themed
+  neither it only logs the lead, "NOT SENT"; a filled honeypot or the
+  rate limit mails nothing and logs it; the visitor gets the themed
   auto-reply, `shared/server/reply.ts`) and
   `pages/api/referral.ts` (the referral program) are the only on-demand
   routes. `pages/lavori/[slug].astro`: a page per project.
@@ -71,8 +72,8 @@ is check, build and looking at the pages (below).
   shown only once confirmed, `draft` until it's written; the body is
   the long case study), in the order of `tools/work/lavori.txt` (the
   owner's "URL -> keywords" lines); screenshots in
-  `assets/work/<id>.png` (`<id>-full.jpg`: the whole page, scrolled
-  inside the case page's frame).
+  `assets/work/<id>.png` or `.webp`, one per id (`<id>-full.jpg`: the
+  whole page, scrolled inside the case page's frame).
 - `components/` — `Layout.astro` (head, header, footer), `landing/` (the
   landing kit and its views), `voucher/` (the referral program),
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`

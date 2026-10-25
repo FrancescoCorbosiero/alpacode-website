@@ -90,13 +90,18 @@ export const POST: APIRoute = async (context) => {
   if (wrongType) return wrongType;
   // clientAddress is read lazily: its getter throws where it's unavailable.
   if (rateLimited(clientIp(request, () => context.clientAddress))) {
+    console.warn("[referral] rate limited: more than 8 in 10 minutes from one address");
     return json({ ok: false, error: "rate_limited" }, 429);
   }
   const body = await readJson(request);
   if (body instanceof Response) return body;
 
-  // Honeypot: pretend all went well, keep nothing.
-  if (str(body.website) !== "") return json({ ok: true });
+  // Honeypot: a bot, or an autofill that wrote in it. Answer ok, keep
+  // nothing, but leave a trace in the log.
+  if (str(body.website) !== "") {
+    console.warn(`[referral] honeypot filled (${JSON.stringify(str(body.website, 80))}): taken for a bot — ${str(body.kind)} ${str(body.name)} <${str(body.email)}>`);
+    return json({ ok: true });
+  }
 
   const kind = str(body.kind);
   const lang: Lang = body.lang === "en" ? "en" : "it";

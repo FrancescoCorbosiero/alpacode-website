@@ -415,6 +415,17 @@ svg {
 .fx-hero--solo .fx-hero-grid {
   grid-template-columns: minmax(0, 1fr);
 }
+/* Beside a visual the hook takes its size from its column, not the
+   screen: the longest word (with the marker's ends) fits, and never
+   runs under the visual between 900 and 1400px. */
+.fx-hero-copy {
+  container-type: inline-size;
+}
+@media (min-width: 901px) {
+  .fx-hero:not(.fx-hero--solo) .fx-hook {
+    font-size: clamp(44px, 13.6cqi, 104px);
+  }
+}
 .fx-hero--solo .fx-hero-copy {
   max-width: 980px;
 }
@@ -465,7 +476,14 @@ svg {
    the volt marker. Nothing changes size, so the line never reflows: the
    answer holds its place from the first frame and the marker uncovers
    it (each line of it on its own: the highlight hugs the words). Without
-   motion it's the same, already done. */
+   motion it's the same, already done.
+   The marker is a band, not the inline box's background: the box is the
+   font's content area, taller than the line pitch (0.9) and taller still
+   on Windows, which reads Archivo Black's win metrics (1.35em against
+   1.09em on a Mac): a wrapped line's box covered half the line above it.
+   The band is --band high, centred in the box (whose centre sits on the
+   capitals with either metrics), shorter than the pitch: every line keeps
+   its own. */
 /* The worry on a line of its own, above the answer: the answer then
    wraps like any heading, never a word stranded beside the struck one. */
 .fx-from {
@@ -480,10 +498,11 @@ svg {
   line-height: 1.15;
 }
 .fx-to {
-  padding: 0.02em 0.12em 0;
+  --band: 0.84em;
+  --mh: var(--band);
+  padding: 0 0.12em;
   margin: 0 -0.04em;
-  border-radius: 0.12em;
-  background: linear-gradient(var(--volt), var(--volt)) no-repeat 0 0 / 100% 100%;
+  background: linear-gradient(var(--volt), var(--volt)) no-repeat 0 50% / 100% var(--band);
   color: var(--ink);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -505,14 +524,16 @@ svg {
     animation: fx-strike 0.45s var(--ease) both;
     animation-delay: calc(0.95s + var(--k, 0) * 0.16s);
   }
-  /* The marker and the words it writes sweep together, line by line. */
+  /* The marker and the words it writes sweep together, line by line:
+     the band at its height, the words' ink at the whole box's. */
   .fx-to,
   .fx-ink {
-    background-size: 0% 100%;
+    background-size: 0% var(--mh);
     animation: fx-marker 0.6s cubic-bezier(0.65, 0, 0.35, 1) both;
     animation-delay: calc(1.3s + var(--k, 0) * 0.16s);
   }
   .fx-ink {
+    --mh: 100%;
     color: transparent;
     background-image: linear-gradient(var(--ink), var(--ink));
     background-repeat: no-repeat;
@@ -537,7 +558,7 @@ svg {
 }
 @keyframes fx-marker {
   to {
-    background-size: 100% 100%;
+    background-size: 100% var(--mh);
   }
 }
 @keyframes fx-quiet {
@@ -2130,12 +2151,10 @@ a.fx-verb:hover {
   margin: 2px 0 0;
   accent-color: var(--volt);
 }
+/* The honeypot isn't rendered: off screen, an autofill could fill it
+   and a real message read as a bot's. */
 .fx-hp {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  display: none;
 }
 .fx-form-act {
   display: flex;

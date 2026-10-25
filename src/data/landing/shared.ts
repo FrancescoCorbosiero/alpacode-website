@@ -79,6 +79,8 @@ export interface LeadFormCopy {
   invalid: string;
   /** "{email}" becomes a mailto link. */
   error: string;
+  /** Too many sends from one connection (the API's 429); "{email}" too. */
+  busy: string;
 }
 
 export const leadForm: Record<Lang, LeadFormCopy> = {
@@ -105,6 +107,7 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     doneAgain: "Invia un'altra richiesta",
     invalid: "Controlla i campi evidenziati: nome, un'email valida e il consenso.",
     error: "Non siamo riusciti a inviare la richiesta. Riprova tra poco o scrivici a {email}.",
+    busy: "Troppe richieste da questa connessione in poco tempo. Riprova tra qualche minuto, o scrivici a {email}.",
   },
   en: {
     name: "Full name",
@@ -129,6 +132,7 @@ export const leadForm: Record<Lang, LeadFormCopy> = {
     doneAgain: "Send another request",
     invalid: "Check the highlighted fields: name, a valid email and the consent.",
     error: "We couldn't send your request. Try again shortly or write to us at {email}.",
+    busy: "Too many requests from this connection in a short time. Try again in a few minutes, or write to us at {email}.",
   },
 };
 

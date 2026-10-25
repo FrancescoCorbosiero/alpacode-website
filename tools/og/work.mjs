@@ -19,7 +19,7 @@ const PLACES = {
   seregno: { it: "Seregno", en: "Seregno" },
   "cesano-maderno": { it: "Cesano Maderno", en: "Cesano Maderno" },
   piacenza: { it: "Piacenza", en: "Piacenza" },
-  roma: { it: "Roma", en: "Rome" },
+  barletta: { it: "Barletta", en: "Barletta" },
 };
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -68,7 +68,10 @@ export function workSvg(card) {
   const facts = [card.sector?.[lang], PLACES[card.place]?.[lang], card.year].filter(Boolean).join(" · ");
   const kicker = lang === "it" ? "Lavori · Alpacode" : "Work · Alpacode";
   const bar = card.url ? card.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") : title;
-  const size = title.length > 22 ? 52 : title.length > 14 ? 64 : 80;
+  // The longest word must fit the 500px column (Archivo Black runs about
+  // 0.6em a letter): «ResellPiacenza» at 80px ran under the screenshot.
+  const longest = Math.max(...title.split(/\s+/).map((w) => w.length));
+  const size = Math.min(title.length > 22 ? 52 : title.length > 14 ? 64 : 80, Math.floor(500 / (0.6 * longest)));
   const grid = [];
   for (let x = 0; x <= 1200; x += 40) grid.push(`<path d="M${x} 0V630" stroke="#e4e9f3" stroke-width="1"/>`);
   for (let y = 0; y <= 630; y += 40) grid.push(`<path d="M0 ${y}H1200" stroke="#e4e9f3" stroke-width="1"/>`);

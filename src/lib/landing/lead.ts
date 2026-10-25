@@ -94,6 +94,12 @@ function wire(form: HTMLFormElement): void {
           details,
         }),
       });
+      // The limit (five sends in ten minutes from one connection) is not
+      // a failure: say so, or trying the landings in a row reads as broken.
+      if (res.status === 429) {
+        say(d.errorBusy ?? d.errorSend ?? "");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       form.hidden = true;
       if (done) {

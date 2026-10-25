@@ -19,11 +19,16 @@ export const POST: APIRoute = async (context) => {
   const wrongType = notJson(request);
   if (wrongType) return wrongType;
   if (rateLimited(clientIp(request, () => context.clientAddress))) {
+    console.warn("[contact] rate limited: more than 5 in 10 minutes from one address");
     return json({ ok: false, error: "rate_limited" }, 429);
   }
   const body = await readJson(request);
   if (body instanceof Response) return body;
-  if (str(body.website) !== "") return json({ ok: true }); // a bot
+  if (str(body.website) !== "") {
+    // A bot, or an autofill: answer ok, mail nothing, leave a trace.
+    console.warn(`[contact] honeypot filled (${JSON.stringify(str(body.website, 80))}): taken for a bot, not mailed — ${str(body.name)} <${str(body.email)}>`);
+    return json({ ok: true });
+  }
 
   const name = str(body.name);
   const email = str(body.email);

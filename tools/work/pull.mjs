@@ -25,7 +25,7 @@
    on a new machine; pre-installed in Claude Code cloud sessions, whose
    network policy must allow the clients' hosts).
    ============================================================ */
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -187,6 +187,9 @@ async function shoot(page, id, url) {
   const first = join(assets, `${id}.png`);
   const has = readdirSync(assets).some((f) => f.replace(/\.[^.]+$/, "") === id);
   if (retake || !has) {
+    // One first screen per id: a retake replaces it whatever its format.
+    for (const f of readdirSync(assets))
+      if (f !== `${id}.png` && f.replace(/\.[^.]+$/, "") === id) unlinkSync(join(assets, f));
     await page.screenshot({ path: first, type: "png" });
     console.log(`  ✓ first screen → src/assets/work/${id}.png`);
   }

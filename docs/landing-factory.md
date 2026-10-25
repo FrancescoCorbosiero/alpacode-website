@@ -86,7 +86,12 @@ registry is `src/data/audiences.ts`:
   details[] }` with the person's fields to `/api/contact`. `choices`
   become the offer; `extra` and `profile` arrive as labelled details;
   `id` sets the anchor (`#parliamone` by default; `/partner` keeps
-  `#candidatura`, which its old links use).
+  `#candidatura`, which its old links use). Its honeypot (`website`) is
+  never rendered (`hidden`, `display: none`): kept off screen, an
+  autofill could fill it, and a real lead read as a bot's. A filled honeypot
+  answers ok, mails nothing and logs `[contact] honeypot filled`; past
+  the limit (five sends in ten minutes from one connection) the form
+  says so (`busy`) and the log says `rate limited`.
 
 ## Motion: scenes
 
