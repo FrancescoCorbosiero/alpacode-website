@@ -1,0 +1,36 @@
+---
+/* "In chi ti identifichi?": one card per reader, in their own words
+   (data/pages.ts). Each takes its colour; the last ones open alpacode.it. */
+import { READERS } from "../data/pages";
+
+interface Props {
+  title?: string;
+  kicker?: string;
+}
+const { title = "In chi ti identifichi?", kicker = "la frase che diresti tu" } = Astro.props;
+---
+
+<section class="fx-section" id="per-chi">
+  <div class="fx-wrap">
+    <div class="fx-choose-head" data-reveal>
+      <span class="fx-hand">{kicker}</span>
+      <h2 class="fx-title">{title}</h2>
+    </div>
+    <ul class="fx-cards" data-deal>
+      {
+        READERS.map((d) => (
+          <li>
+            <a class:list={["fx-card", { "fx-card--house": d.alpacode }]} href={d.href} style={`--ac:${d.accent}`} data-card>
+              <span class="fx-card-who">{d.who}</span>
+              <span class="fx-card-what">{d.what}</span>
+              {d.alpacode && <span class="fx-card-house">alpacode.it</span>}
+              <span class="fx-card-go" aria-hidden="true">
+                {d.alpacode ? "↗" : "→"}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

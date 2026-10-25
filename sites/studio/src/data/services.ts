@@ -128,6 +128,6 @@ export const SERVICES_QA = [
   },
   {
     q: "E il sito?",
-    a: "Se ti serve, lo costruisce Alpacode, la casa dello studio: siti, e-commerce e software su misura, sullo stesso progetto.",
+    a: "Se ti serve, lo costruisce Alpacode (alpacode.it): siti, e-commerce e software su misura, dentro lo stesso progetto.",
   },
 ];

@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../../i18n/types";
-import { servizi } from "../../data/services";
+import { anchorOf, servizi } from "../../data/services";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import Statement from "../Statement.astro";
@@ -31,7 +31,7 @@ const prodottiLabel =
             <p class="svc-group-tag">{g.tagline}</p>
           </div>
           {g.rows.map((r) => (
-            <div class="svc-row">
+            <div class="svc-row" id={anchorOf(r.t)}>
               <div class="svc-no">{r.n}<span class="dot">.</span></div>
               <div>
                 <h3>{r.t}</h3>

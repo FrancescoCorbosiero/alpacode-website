@@ -19,8 +19,11 @@ compartments, who each speaks to). The repo-level `CLAUDE.md` and
   price-reassurance tic; no digs at anyone the studio also works with.
 - No DM keywords on the pages: the buttons are a website's (buy, ask,
   book a call); WhatsApp is one way to write among the others.
-- Every page ends on the house (`components/House.astro`) or a way to
-  write; links into the house go through `house(path, where)`.
+- Pages end on a way to write, or on the work (`components/Proof.astro`:
+  the projects on alpacode.it); links to alpacode.it go through
+  `house(path, where)`. The page never talks about itself: no "la casa",
+  no "porte", no "compartimento", no "stesse persone, un'altra voce".
+  The tie to Alpacode is the footer's legal line ("un marchio di …").
 - The hero is CSS (above the fold); GSAP only below it. Reduced motion:
   every piece in its end state.
 - Verify: `npm run studio:check && npm run studio:build`, then

@@ -147,7 +147,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
       items: [
         {
           q: "Fate anche branding, social e pubblicità?",
-          a: "Sì: è il lavoro di Alpacode Studio, il nostro compartimento marketing, su studio.alpacode.it. Le stesse persone, lo stesso metodo, con i pacchetti pronti.",
+          a: "Sì: è il lavoro di Alpacode Studio, su studio.alpacode.it, con pacchetti pronti per partire.",
         },
         {
           q: "Posso avere sito e marketing insieme?",
@@ -239,7 +239,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
       items: [
         {
           q: "Do you also do branding, social and advertising?",
-          a: "Yes: it's the work of Alpacode Studio, our marketing compartment, on studio.alpacode.it (in Italian). The same people, the same method, with ready-made packages.",
+          a: "Yes: it's the work of Alpacode Studio, on studio.alpacode.it (in Italian), with ready-made packages.",
         },
         {
           q: "Can I have the site and the marketing together?",

@@ -5,7 +5,7 @@ import Studio from "../layouts/Studio.astro";
 import Hero from "../components/Hero.astro";
 import Band from "../components/Band.astro";
 import Qa from "../components/Qa.astro";
-import House from "../components/House.astro";
+import Proof from "../components/Proof.astro";
 import Cta from "../components/Cta.astro";
 import { PAGES } from "../data/pages";
 import { GROUPS, SERVICES_QA, STEPS, STRATEGY } from "../data/services";
@@ -88,6 +88,6 @@ const head = PAGES.servizi;
   </section>
 
   <Qa title="Prima che tu lo chieda." items={SERVICES_QA} />
-  <House where="servizi" />
+  <Proof where="servizi" />
   <Cta />
 </Studio>

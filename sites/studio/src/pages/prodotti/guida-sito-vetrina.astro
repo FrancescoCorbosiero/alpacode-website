@@ -8,7 +8,7 @@ import Offers from "../../components/Offers.astro";
 import Buy from "../../components/Buy.astro";
 import BuyBar from "../../components/BuyBar.astro";
 import Qa from "../../components/Qa.astro";
-import House from "../../components/House.astro";
+import Proof from "../../components/Proof.astro";
 import Cta from "../../components/Cta.astro";
 import { PAGES } from "../../data/pages";
 import { GUIDE, GUIDE_OFFERS, GUIDE_QA, MARKETING } from "../../data/products";
@@ -71,7 +71,7 @@ const sold = GUIDE_OFFERS.filter((o) => o.checkout && o.price !== null).map((o) 
   </section>
 
   <Qa title="Prima che tu lo chieda." items={GUIDE_QA} />
-  <House where="guida" />
+  <Proof where="guida" />
   <Cta
     title="Non hai tempo? Te lo fa Alpacode."
     text="Il sito della tua attività fatto per te, con dominio, hosting e manutenzione."

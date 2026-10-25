@@ -1,9 +1,14 @@
 ---
-/* The footer: what the studio is (a compartment of the house), the
-   pages, the legal fine print. */
-import { HOUSE, NAV, STUDIO, business, house, wa } from "../data/site";
+/* The footer: the studio in a line and the ways to write, the pages, the
+   products, the sites and software on alpacode.it, the legal pages; then
+   the company's data and the fine print of selling online. */
+import { NAV, STUDIO, business, house, wa, CAL } from "../data/site";
+import { companyLine } from "@shared/data/business";
+import { PRODUCTS } from "../data/products";
 
 const year = new Date().getFullYear();
+// The cookie preferences exist only when the build sets ad pixels.
+const pixels = Boolean(import.meta.env.PUBLIC_META_PIXEL_ID || import.meta.env.PUBLIC_GADS_ID);
 ---
 
 <footer class="fx-foot">
@@ -11,36 +16,53 @@ const year = new Date().getFullYear();
     <div class="fx-foot-grid">
       <div class="fx-foot-brand">
         <a class="fx-brand" href="/">ALPACODE <span class="fx-sticker">{STUDIO.tag}</span></a>
-        <p>
-          {STUDIO.name} è il compartimento marketing di <a href={house("/", "footer")}>{HOUSE.name}</a>: siti, e-commerce,
-          software e formazione stanno nella casa, il marketing qui. Stesse persone, stesso metodo.
-        </p>
+        <p>Marketing con un metodo: farsi vedere, farsi ricordare, farsi scegliere.</p>
+        <div class="fx-foot-reach">
+          <a class="fx-foot-mail" href={`mailto:${business.email}`}>{business.email}</a>
+          <a class="fx-btn fx-btn--sm" href={CAL} target="_blank" rel="noopener">Prenota una call</a>
+        </div>
       </div>
       <nav class="fx-foot-col" aria-label="Lo studio">
         <b>Lo studio</b>
+        <a href="/">Home</a>
         {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
       </nav>
-      <nav class="fx-foot-col" aria-label="La casa">
-        <b>La casa</b>
-        <a href={house("/lavori/", "footer")}>I lavori</a>
-        <a href={house("/chi-siamo/", "footer")}>Chi siamo</a>
-        <a href={house("/servizi/", "footer")}>Siti e software</a>
-        <a href={house("/learning/", "footer")}>Formazione</a>
+      <nav class="fx-foot-col" aria-label="Prodotti">
+        <b>Prodotti</b>
+        {PRODUCTS.map((p) => <a href={`/prodotti/${p.slug}/`}>{p.name}</a>)}
+      </nav>
+      <nav class="fx-foot-col" aria-label="Siti e software, su alpacode.it">
+        <b>Siti e software</b>
+        <a href={house("/servizi/", "footer")}>Servizi ↗</a>
+        <a href={house("/lavori/", "footer")}>I lavori ↗</a>
+        <a href={house("/chi-siamo/", "footer")}>Chi siamo ↗</a>
+        <a href={house("/learning/", "footer")}>Formazione ↗</a>
       </nav>
       <div class="fx-foot-col">
         <b>Scrivici</b>
-        <a href={`mailto:${business.email}`}>{business.email}</a>
+        <a href={`mailto:${business.email}`}>Email</a>
         <a href={wa()} target="_blank" rel="noopener">WhatsApp</a>
         <a href={business.social.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href="/contatti/">Il modulo</a>
       </div>
     </div>
+    <div class="fx-foot-legal">
+      <p>
+        {STUDIO.name} è un marchio di {companyLine("it")} · {business.email}
+      </p>
+      <p>
+        I prezzi sono in euro, IVA inclusa. Gli acquisti, i rimborsi e il diritto di recesso sono nelle
+        <a href="/condizioni-di-vendita/">condizioni di vendita</a>.
+      </p>
+    </div>
     <div class="fx-foot-fine">
-      <p>{STUDIO.name} · {business.name} · P.IVA {business.vat} · © {year}</p>
+      <p>© {year} {STUDIO.name} · Tutti i diritti riservati</p>
       <nav aria-label="Note legali">
         <a href="/privacy/">Privacy</a>
         <a href="/cookie/">Cookie</a>
         <a href="/condizioni-di-vendita/">Condizioni di vendita</a>
-        <a href={house("/termini/", "footer")}>Termini</a>
+        <a href={house("/termini/", "footer")}>Termini ↗</a>
+        {pixels && <button type="button" class="fx-cookie-link" data-cookie-prefs>Preferenze cookie</button>}
       </nav>
     </div>
   </div>

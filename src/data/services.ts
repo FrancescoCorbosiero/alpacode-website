@@ -4,6 +4,16 @@ import { doorTo } from "@shared/data/compartments";
 /** Growing is the studio's work: the group opens its door. */
 const studio = doorTo("studio", "/servizi/", { site: "house", where: "servizi" });
 
+/** The anchor of a service on /servizi/ ("Siti & web app" → "siti-web-app"):
+ *  the footer and the mega menu link straight to it. */
+export const anchorOf = (title: string): string =>
+  title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
 export interface ServiceMeta {
   k: string;
   v: string;
@@ -110,7 +120,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         verb: "Far crescere",
         tagline: "Quello che di solito chiedi a un'agenzia di comunicazione, qui sotto lo stesso tetto.",
         door: {
-          text: "Questo è il lavoro di Alpacode Studio, il nostro compartimento marketing: social e contenuti, brand, UX, campagne e SEO, con i pacchetti pronti.",
+          text: "Questo è il lavoro di Alpacode Studio: social e contenuti, brand, UX, campagne e SEO, con pacchetti pronti per partire.",
           label: "Vai allo studio",
           href: studio,
         },
@@ -273,7 +283,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         verb: "Grow",
         tagline: "What you'd normally ask a communication agency for, here under one roof.",
         door: {
-          text: "This is the work of Alpacode Studio, our marketing compartment: social and content, brand, UX, campaigns and SEO, with ready-made packages. In Italian.",
+          text: "This is the work of Alpacode Studio: social and content, brand, UX, campaigns and SEO, with ready-made packages. In Italian.",
           label: "Go to the studio",
           href: studio,
         },
