@@ -461,56 +461,72 @@ svg {
   }
 }
 
-/* A piece that changes: struck, gone, replaced. Without motion both
-   stay, the old one struck through. */
+/* A piece that changes: the worry, small and struck, then the answer in
+   the volt marker. Nothing changes size, so the line never reflows: the
+   answer holds its place from the first frame and the marker uncovers
+   it (each line of it on its own: the highlight hugs the words). Without
+   motion it's the same, already done. */
+/* The worry on a line of its own, above the answer: the answer then
+   wraps like any heading, never a word stranded beside the struck one. */
 .fx-from {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0.14em 0 0.1em;
   text-decoration: none;
-  white-space: nowrap;
   color: var(--mute);
   background: linear-gradient(var(--heat), var(--heat)) no-repeat 0 55% / 100% 0.11em;
   font-size: 0.42em;
-  vertical-align: 0.6em;
-  margin-right: 0.18em;
+  line-height: 1.15;
 }
 .fx-to {
-  display: inline-block;
-  padding: 0.02em 0.14em 0;
-  border-radius: 0.14em;
-  background: var(--volt);
+  padding: 0.02em 0.12em 0;
+  margin: 0 -0.04em;
+  border-radius: 0.12em;
+  background: linear-gradient(var(--volt), var(--volt)) no-repeat 0 0 / 100% 100%;
   color: var(--ink);
-  transform: rotate(-1.5deg);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .fx-swap[data-quiet] .fx-from {
   display: none;
 }
 /* Punctuation: inline, so it never wraps to a line of its own. */
 .fx-swap[data-quiet] .fx-to {
-  display: inline;
   padding: 0;
+  margin: 0;
   background: none;
   color: inherit;
-  transform: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   .fx-from {
-    white-space: normal;
-    font-size: 1em;
-    vertical-align: 0;
-    margin-right: 0;
-    color: inherit;
+    color: var(--paper);
     background-size: 0% 0.11em;
-    animation:
-      fx-strike 0.42s var(--ease) both,
-      fx-out 0.4s var(--ease) both;
-    animation-delay: calc(1s + var(--k, 0) * 0.16s), calc(1.5s + var(--k, 0) * 0.16s);
+    animation: fx-strike 0.45s var(--ease) both;
+    animation-delay: calc(0.95s + var(--k, 0) * 0.16s);
   }
-  .fx-swap[data-quiet] .fx-from {
-    display: inline;
+  /* The marker and the words it writes sweep together, line by line. */
+  .fx-to,
+  .fx-ink {
+    background-size: 0% 100%;
+    animation: fx-marker 0.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation-delay: calc(1.3s + var(--k, 0) * 0.16s);
+  }
+  .fx-ink {
+    color: transparent;
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .fx-swap[data-quiet] .fx-to,
+  .fx-swap[data-quiet] .fx-ink {
+    animation: fx-quiet 0.3s var(--ease) both;
+    animation-delay: calc(1.6s + var(--k, 0) * 0.16s);
     background: none;
-  }
-  .fx-to {
-    animation: fx-in 0.62s var(--ease) both;
-    animation-delay: calc(1.62s + var(--k, 0) * 0.16s);
+    color: inherit;
   }
 }
 @keyframes fx-strike {
@@ -519,29 +535,14 @@ svg {
     color: var(--mute);
   }
 }
-@keyframes fx-out {
+@keyframes fx-marker {
   to {
-    font-size: 0;
-    opacity: 0;
+    background-size: 100% 100%;
   }
 }
-@keyframes fx-in {
-  0% {
-    font-size: 0;
+@keyframes fx-quiet {
+  from {
     opacity: 0;
-    transform: rotate(-1.5deg) skewX(-14deg);
-  }
-  45% {
-    opacity: 1;
-    text-shadow:
-      0.05em 0 0 var(--heat),
-      -0.05em 0 0 var(--blue);
-  }
-  100% {
-    font-size: 1em;
-    opacity: 1;
-    transform: rotate(-1.5deg);
-    text-shadow: none;
   }
 }
 /* The rest of the hero comes in first. */

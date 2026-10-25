@@ -1,7 +1,8 @@
 ---
-/* A hook that turns around: the pieces that change are struck and
-   replaced (styles/studio.css, pure CSS: it's above the fold). Screen
-   readers get the sentence in full. */
+/* A hook that turns around: the worry, small and struck, then the
+   answer written in by the volt marker (styles/studio.css, pure CSS:
+   it's above the fold; nothing changes size, so nothing reflows).
+   Screen readers get the sentence in full. */
 import type { Turn } from "../data/pages";
 
 interface Props {
@@ -23,7 +24,7 @@ let k = 0;
         ) : (
           // One line on purpose: whitespace between the tags would show.
           // prettier-ignore
-          <span class="fx-swap" data-quiet={seg.quiet ? "" : undefined} style={`--k:${k++}`}><s class="fx-from">{seg.from}</s><span class="fx-to">{seg.to}</span></span>
+          <span class="fx-swap" data-quiet={seg.quiet ? "" : undefined} style={`--k:${k++}`}><s class="fx-from">{seg.from}</s><span class="fx-to"><span class="fx-ink">{seg.to}</span></span></span>
         ),
       )
     }
