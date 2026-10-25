@@ -138,7 +138,9 @@ the sites use, indexed and rebuilt as demos. A new move is born there
   init, and only below the fold. Under `prefers-reduced-motion` every
   scene is laid out in its end state. In scrubbed timelines use
   `fromTo`. A pinned stage must fit a phone (390×664). A sticky stage
-  needs no `overflow: hidden` above it (use `clip`).
+  needs no `overflow: hidden` above it (use `clip`). A scene's motion
+  layout switches on `[data-scene-live]` (set by its script), never on
+  `.has-motion` alone.
 - **Landings** are data-driven: a campaign is an entry, a page is a
   data file + a view on the kit. Register every landing in
   `src/data/audiences.ts`.
