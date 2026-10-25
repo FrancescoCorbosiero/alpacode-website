@@ -66,8 +66,9 @@ Da questa chat:
 - Ma alpacode-motion è **solo un riferimento**: «lo avevo allegato solo
   come riferimento e contesto per la generazione». Non si modifica da una
   sessione su questo repo; le mosse nascono qui, in `src/engine/effects/`.
-  In questa sessione ci avevo scritto per errore, su un ramo che va
-  cancellato (vedi «Decisioni aperte»).
+  In questa sessione ci avevo scritto per errore, sul ramo
+  `claude/busy-noether-amfgzf`: «lascio alpacode-motion così com'era».
+  Quel ramo non si unisce e non si tocca; il riferimento è il suo `main`.
 - «Usa placeholder dove non hai le info. Procedi in autonomia.»
 
 Da prima, ancora valide:
@@ -159,10 +160,6 @@ Decise da Claude, non confermate.
 - Lo Studio anche in inglese?
 - Archiviare il repo `alpacode-voucher` e far puntare voucher.alpacode.it
   (se è ancora online) su alpacode.it/voucher/.
-- **Cancellare il ramo `claude/busy-noether-amfgzf` di alpacode-motion**:
-  l'ha creato per errore questa sessione (18 commit, nessuna PR; `main` è
-  intatto). Da GitHub, la pagina dei rami del repo; da qui la
-  cancellazione è bloccata dai permessi della sessione.
 
 ## Da sapere
 
