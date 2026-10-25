@@ -2,7 +2,8 @@
    map — Dove operiamo: the dots of the map spread out from the base,
    then an arc reaches every place where a client is.
    Markup: data-scene="map" on the section; in its <svg>, the dots
-   [data-map-dots] (one path), the mask circle [data-map-reach] (its r
+   [data-map-dots] (one path), the reference cities [data-map-refs]
+   (spread with the dots), the mask circle [data-map-reach] (its r
    is the full reach), the base [data-map-base="<key>"], the arcs
    [data-map-arc="<key>"] (pathLength="1"), the places
    [data-map-place="<key>"], the ping [data-map-ping]; beside the map,
@@ -82,18 +83,27 @@ export function init(kit: Kit): void {
 
     if (skipIntro(root) || inFirstView(root)) return;
     const dots = svg.querySelector<SVGElement>("[data-map-dots]");
+    const refs = svg.querySelector<SVGElement>("[data-map-refs]");
     const reach = svg.querySelector<SVGCircleElement>("[data-map-reach]");
     const arcs = gsap.utils.toArray<SVGPathElement>("[data-map-arc]", svg);
     const places = gsap.utils.toArray<SVGElement>("[data-map-place]", svg);
     const full = Number(reach?.getAttribute("r")) || 0;
     if (dots && reach && full) {
-      dots.setAttribute("mask", `url(#${reach.closest("mask")?.id ?? ""})`);
-      kit.cleanup(() => dots.removeAttribute("mask"));
+      const mask = `url(#${reach.closest("mask")?.id ?? ""})`;
+      dots.setAttribute("mask", mask);
+      refs?.setAttribute("mask", mask);
+      kit.cleanup(() => {
+        dots.removeAttribute("mask");
+        refs?.removeAttribute("mask");
+      });
     }
     const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: START, once: true } });
     if (dots && reach && full) {
       tl.fromTo(reach, { attr: { r: 0 } }, { attr: { r: full }, duration: REACH, ease: "power2.out" }, 0).add(
-        () => dots.removeAttribute("mask"),
+        () => {
+          dots.removeAttribute("mask");
+          refs?.removeAttribute("mask");
+        },
         REACH,
       );
     }

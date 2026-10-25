@@ -1,8 +1,10 @@
 /* ============================================================
    Where the clients are: the places the map of "Dove operiamo"
    lights up. Every work entry names one (src/content/work/*.md,
-   `place`) and the map shows only the places that have a client —
-   never a city for the look of it.
+   `place`) and the map lights only the places that have a client.
+   Beside them, REFERENCES: the big cities, drawn faint and without an
+   arc, so the map reads as Italy (the owner's call) — never listed as
+   clients.
    Coordinates are the town centres (WGS84). Brianza is an area, not a
    town: it's drawn at its heart, between Seregno and Carate.
    ============================================================ */
@@ -23,6 +25,24 @@ export const PLACES = {
   piacenza: { name: { it: "Piacenza", en: "Piacenza" }, lat: 45.0526, lon: 9.6929 },
   barletta: { name: { it: "Barletta", en: "Barletta" }, lat: 41.3196, lon: 16.2834 },
 } satisfies Record<string, Place>;
+
+/** The cities that only orient the map: a faint dot and its name, the
+ *  label on the side that keeps clear of the clients' and the arcs
+ *  (`side`). No Bari: Barletta, a client, already marks Puglia. */
+export interface Reference extends Place {
+  side: "left" | "right";
+}
+export const REFERENCES: Reference[] = [
+  { name: { it: "Torino", en: "Turin" }, lat: 45.0703, lon: 7.6869, side: "left" },
+  { name: { it: "Genova", en: "Genoa" }, lat: 44.4056, lon: 8.9463, side: "left" },
+  { name: { it: "Venezia", en: "Venice" }, lat: 45.4408, lon: 12.3155, side: "right" },
+  { name: { it: "Bologna", en: "Bologna" }, lat: 44.4949, lon: 11.3426, side: "left" },
+  { name: { it: "Firenze", en: "Florence" }, lat: 43.7696, lon: 11.2558, side: "left" },
+  { name: { it: "Roma", en: "Rome" }, lat: 41.9028, lon: 12.4964, side: "left" },
+  { name: { it: "Napoli", en: "Naples" }, lat: 40.8518, lon: 14.2681, side: "left" },
+  { name: { it: "Palermo", en: "Palermo" }, lat: 38.1157, lon: 13.3615, side: "left" },
+  { name: { it: "Cagliari", en: "Cagliari" }, lat: 39.2238, lon: 9.1217, side: "right" },
+];
 
 export type PlaceId = keyof typeof PLACES;
 export const PLACE_IDS = Object.keys(PLACES) as [PlaceId, ...PlaceId[]];
