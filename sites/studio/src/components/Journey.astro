@@ -1,0 +1,114 @@
+---
+/* "Il percorso del tuo cliente, in tre verbi", told on a phone.
+   Farsi vedere: the feed races up and brakes on your post. Farsi
+   ricordare: your mark on everything that's yours. Farsi scegliere:
+   your page, a tap on «Prenota», the request dropping in. On a pinned
+   stage the feed scene ([data-scene="feed"], engine/effects/feed.ts)
+   plays it as the visitor scrolls, the verbs handing over beside the
+   phone; laid out (no script, reduced motion) the phone shows its last
+   screen, the request in, beside the three verbs. Shapes, not fake
+   posts: no invented likes, followers or names. */
+import { GROUPS } from "../data/services";
+
+/** The feed's posts, yours among them: the shapes vary, nothing else. */
+const posts = ["a", "c", "b", "a", "c", "you", "b", "a"];
+/** A note in the hand beside each verb. */
+const notes = ["questo si ferma", "lo riconosci ovunque", "e sceglie te"];
+---
+
+<section class="fx-section fx-journey">
+  <div class="fx-wrap">
+    <div class="fx-choose-head" data-reveal>
+      <span class="fx-hand">cosa facciamo</span>
+      <h2 class="fx-title">Il percorso del tuo cliente, in tre verbi.</h2>
+    </div>
+  </div>
+  <div class="fx-jn" data-scene="feed" style="--len:4.6">
+    <div class="fx-jn-stage" data-scene-stage>
+      <div class="fx-wrap fx-jn-grid">
+        <div class="fx-jn-phone" aria-hidden="true">
+          <div class="fx-jn-bar"><i></i><b data-jn-label data-feed="il tuo feed">il tuo sito</b><i></i></div>
+          <div class="fx-jn-screen">
+            <div class="fx-jn-feed" data-jn-feed>
+              <div class="fx-jn-track" data-jn-track>
+                {
+                  posts.map((p) =>
+                    p === "you" ? (
+                      <div class="fx-jn-post fx-jn-post--you" data-jn-you>
+                        <span class="fx-jn-head">
+                          <i />
+                          <b>il tuo brand</b>
+                        </span>
+                        <span class="fx-jn-img">
+                          <b>A</b>
+                          <svg class="fx-jn-heart" data-jn-heart viewBox="0 0 24 22">
+                            <path d="M12 21.5S1.5 15 1.5 7.6C1.5 4 4.2 1.5 7.3 1.5c2 0 3.7 1 4.7 2.6 1-1.6 2.7-2.6 4.7-2.6 3.1 0 5.8 2.5 5.8 6.1C22.5 15 12 21.5 12 21.5Z" />
+                          </svg>
+                        </span>
+                        <span class="fx-jn-lines">
+                          <u />
+                          <u />
+                        </span>
+                      </div>
+                    ) : (
+                      <div class={`fx-jn-post fx-jn-post--${p}`}>
+                        <span class="fx-jn-head">
+                          <i />
+                          <u />
+                        </span>
+                        <span class="fx-jn-img" />
+                        <span class="fx-jn-lines">
+                          <u />
+                          <u />
+                        </span>
+                      </div>
+                    ),
+                  )
+                }
+              </div>
+            </div>
+            <div class="fx-jn-mark" data-jn-mark>
+              <span class="fx-jn-tile fx-jn-tile--avatar" data-jn-tile><b>A</b><u>il tuo brand</u></span>
+              <span class="fx-jn-tile fx-jn-tile--card" data-jn-tile><b>A</b><u></u><u></u></span>
+              <span class="fx-jn-tile fx-jn-tile--story" data-jn-tile><b>A</b></span>
+              <span class="fx-jn-tile fx-jn-tile--bag" data-jn-tile><b>A</b></span>
+            </div>
+            <div class="fx-jn-page" data-jn-page>
+              <div class="fx-jn-site-top"><b>A</b><span>il tuo brand</span><i></i></div>
+              <div class="fx-jn-site-hero"><u></u><u></u></div>
+              <div class="fx-jn-site-lines"><u></u><u></u><u></u></div>
+              <span class="fx-jn-btn" data-jn-btn>Prenota<span class="fx-jn-tap" data-jn-tap></span></span>
+              <div class="fx-jn-site-cards"><i></i><i></i><i></i></div>
+              <div class="fx-jn-note" data-jn-note>
+                <i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></i>
+                <span><b>Nuova richiesta</b><small>dal tuo sito</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="fx-jn-beats" data-scene-beats>
+          {
+            GROUPS.map((g, i) => (
+              <li class="fx-jn-beat" data-scene-beat>
+                <span class="fx-hand fx-jn-hand" aria-hidden="true">
+                  {notes[i]}
+                </span>
+                <a class="fx-verb" href={`/servizi/#${g.id}`} style={`--ac:${g.accent}`}>
+                  <span class="fx-verb-n">0{i + 1}</span>
+                  <h3>{g.verb}</h3>
+                  <p>{g.lede}</p>
+                  <ul class="fx-verb-list" data-scene-aside>
+                    {g.services.map((s) => (
+                      <li>{s.t}</li>
+                    ))}
+                  </ul>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="fx-jn-progress" data-scene-progress aria-hidden="true"></div>
+    </div>
+  </div>
+</section>

@@ -22,5 +22,10 @@ export const config = {
   /** The site's own selectors for a hook, keyed by the hook exactly as
    *  the entry exports it (its page shows it): kit.query(hook) finds them
    *  too, e.g. { "[data-reveal]": [".section-head .lede", ".step"] }. */
-  selectors: {} as Record<string, string[]>,
+  selectors: {
+    "[data-scribble]": [".fx-hand"],
+    "[data-type]": [".fx-card-who"],
+    "[data-stamp]": [".fx-product-from"],
+    "[data-tilt]": [".fx-card", ".fx-product", ".fx-feed-phone", ".fx-jn-phone"],
+  } as Record<string, string[]>,
 };

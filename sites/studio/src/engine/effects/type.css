@@ -1,0 +1,28 @@
+/* ============================================================
+   type.
+
+   Reduced motion: every phrase is there, whole. Without JS, the same:
+   the script hides the letters at init, never the CSS.
+
+   While a phrase types ([data-typing], set by the script), its caret
+   ([data-type-caret]) blinks after the last letter; the phrase is the
+   caret's frame. Its colour is the phrase's accent, --ac.
+   ============================================================ */
+[data-typing] {
+  position: relative;
+}
+[data-type-caret] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.09em;
+  margin-left: 0.04em;
+  border-radius: 0.04em;
+  background: var(--ac, currentColor);
+  animation: fx-caret 0.9s steps(1) infinite;
+}
+@keyframes fx-caret {
+  50% {
+    visibility: hidden;
+  }
+}
