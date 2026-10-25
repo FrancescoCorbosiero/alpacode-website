@@ -845,56 +845,39 @@
   }
 }
 
-/* ---------- Home: Metodo ---------- */
+/* ---------- Home: Metodo — the departures board ---------- */
 .method {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 40px 64px;
+  align-items: center;
+}
+.method-steps {
   margin: 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.method-step {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 0;
-  padding: 28px 24px 32px;
-  border-right: 1px solid var(--rule);
-}
-.method-step:last-child {
-  border-right: 0;
-}
-.method-art {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--paper-3) 1px, transparent 1px),
-    linear-gradient(90deg, var(--paper-3) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: -1px -1px;
-  border: 1px solid var(--rule);
 }
 .method-text {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 6px 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
 }
 .method-no {
+  grid-row: span 2;
   font-family: var(--display);
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1;
   letter-spacing: -0.02em;
+  color: var(--blue);
 }
 .method-text h3 {
   margin: 0;
   font-family: var(--display);
   font-size: 22px;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.01em;
 }
 .method-text p {
@@ -903,50 +886,194 @@
   line-height: 1.55;
   color: var(--mute-2);
 }
-.m-frame {
-  fill: var(--paper);
-  stroke: var(--ink);
-  stroke-width: 1.5;
+@media (max-width: 900px) {
+  .method {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
-.m-soft {
-  fill: var(--blue-soft);
-  stroke: var(--ink);
-  stroke-width: 1.5;
+
+/* The board: ink by design, in both themes; square flaps of two halves
+   (the seam between them is the board showing through). --cb is the big
+   flap's width, from the board's own width: two for the number, a gap,
+   eight for the destination. */
+.board {
+  --b-bg: #0b0e14;
+  --b-cell: #181d29;
+  --b-cell-up: #1e2432;
+  --b-ch: #f0f3f9;
+  --b-mute: rgba(240, 243, 249, 0.62);
+  --b-faint: rgba(240, 243, 249, 0.42);
+  --b-rule: rgba(240, 243, 249, 0.14);
+  --g: 5px;
+  --gw: 24px;
+  padding: clamp(18px, 2.6vw, 36px);
+  background: var(--b-bg);
+  color: var(--b-ch);
+  box-shadow: 0 34px 60px -38px rgba(11, 14, 20, 0.6);
 }
-.m-bar {
-  fill: var(--ink);
+:root[data-theme="dark"] .board {
+  box-shadow: 0 0 0 1px rgba(240, 243, 249, 0.1);
 }
-.m-accent {
-  fill: var(--blue);
+.board-in {
+  container-type: inline-size;
 }
-.m-line {
-  fill: var(--rule);
+.board-in > * {
+  --cb: min(66px, calc((100cqi - 8 * var(--g) - var(--gw)) / 10));
 }
-.m-ring {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 1.5;
-}
-.m-dot {
-  fill: var(--blue);
-}
-.m-path {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.m-dim {
-  stroke: var(--blue);
-  stroke-width: 1;
-}
-.m-text {
-  font-family: var(--label);
-  font-size: 17px;
+.board-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--b-rule);
+  font-size: 13px;
   font-weight: 700;
-  fill: var(--blue);
+  color: var(--b-mute);
 }
+.board-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--b-ch);
+}
+.board-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--blue);
+}
+.board-cols {
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--b-faint);
+}
+.board-col-no {
+  flex: none;
+  width: calc(2 * var(--cb) + var(--g));
+  margin-right: var(--gw);
+}
+.board-now,
+.board-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.board-no,
+.board-to {
+  display: flex;
+  gap: var(--g);
+}
+.board-no {
+  margin-right: var(--gw);
+}
+.board-now {
+  --c: var(--cb);
+}
+.board-now .board-no .fl {
+  color: var(--blue);
+}
+.board-now .board-note {
+  flex-basis: 100%;
+  min-height: 1.3em;
+  margin-top: 14px;
+  padding-left: calc(2 * var(--cb) + var(--g) + var(--gw));
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 800;
+  color: var(--blue);
+}
+.board-next {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--b-rule);
+}
+.board-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--b-faint);
+}
+.board-next ol {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.board-row {
+  --c: max(15px, calc(var(--cb) * 0.5));
+  --g: 3px;
+  --gw: 14px;
+  gap: 4px 0;
+}
+.board-row .board-note {
+  min-height: 1.4em;
+  margin-left: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--b-faint);
+}
+.fl {
+  position: relative;
+  flex: none;
+  width: var(--c);
+  height: calc(var(--c) * 1.36);
+  font-family: var(--display);
+  font-size: calc(var(--c) * 0.86);
+  line-height: 1;
+  color: var(--b-ch);
+}
+.board-row .fl {
+  color: var(--b-mute);
+}
+.fl > span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(50% - 0.5px);
+  overflow: hidden;
+  background: var(--b-cell);
+}
+.fl > .fl-up,
+.fl > .fl-fall {
+  top: 0;
+  background: var(--b-cell-up);
+}
+.fl > .fl-dn,
+.fl > .fl-rise {
+  bottom: 0;
+}
+.fl b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--c) * 1.36);
+  font-weight: 400;
+}
+.fl-up b,
+.fl-fall b {
+  top: 0;
+}
+.fl-dn b,
+.fl-rise b {
+  bottom: 0;
+}
+@media (max-width: 600px) {
+  .board {
+    --g: 3px;
+    --gw: 12px;
+  }
+  .board-row .board-note {
+    flex-basis: 100%;
+    margin-left: calc(2 * var(--c) + var(--g) + var(--gw));
+    font-size: 12px;
+  }
+}
+
 .method-rail {
   height: 3px;
   margin-top: 28px;
@@ -960,32 +1087,10 @@
   transform: scaleX(0);
   transform-origin: left center;
 }
-@media (max-width: 1100px) {
-  .method {
-    grid-template-columns: 1fr 1fr;
-  }
-  .method-step:nth-child(2n) {
-    border-right: 0;
-  }
-  .method-step:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--rule);
-  }
-}
-@media (max-width: 600px) {
-  .method {
-    grid-template-columns: 1fr;
-  }
-  .method-step {
-    border-right: 0;
-    border-bottom: 1px solid var(--rule);
-  }
-  .method-step:last-child {
-    border-bottom: 0;
-  }
-}
 
-/* The scene (live, the method effect): one drawing on a sticky stage
-   (stage.css), becoming the next as the steps go by. */
+/* The scene (live, the method effect): the board on a sticky stage
+   (stage.css), the steps' texts sharing one place beside it (under it on
+   a phone), handed over by the script. */
 .method-scene[data-scene][data-scene-live] .method-stage {
   padding: 76px 0 28px;
   box-sizing: border-box;
@@ -993,44 +1098,57 @@
 .method-scene[data-scene][data-scene-live] .method-stage > .wrap-wide {
   width: 100%;
 }
-.method-scene[data-scene][data-scene-live] .method {
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  grid-auto-rows: auto;
-  column-gap: 64px;
-  align-items: center;
-  border: 0;
-}
-.method-scene[data-scene][data-scene-live] .method-step {
-  display: contents;
-}
-.method-scene[data-scene][data-scene-live] .method-art {
-  grid-column: 1;
-  grid-row: 1 / span 4;
-  align-self: center;
+.method-scene[data-scene][data-scene-live] .method-steps {
+  display: grid;
+  border-top: 0;
 }
 .method-scene[data-scene][data-scene-live] .method-text {
-  grid-column: 2;
-  padding: 16px 0 16px 24px;
-  border-left: 2px solid var(--rule);
-  transition: border-color 0.3s;
+  grid-area: 1 / 1;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 14px;
+  padding: 0;
+  border-bottom: 0;
 }
-.method-scene[data-scene][data-scene-live] .method-text.is-active {
-  border-left-color: var(--blue);
+.method-scene[data-scene][data-scene-live] .method-no {
+  grid-row: auto;
+  font-size: 64px;
+}
+.method-scene[data-scene][data-scene-live] .method-text h3 {
+  font-size: 30px;
+}
+.method-scene[data-scene][data-scene-live] .method-text p {
+  max-width: 34ch;
+  font-size: 17px;
 }
 @media (max-width: 900px) {
   .method-scene[data-scene][data-scene-live] .method {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
-  .method-scene[data-scene][data-scene-live] .method-art {
-    grid-row: 1;
+    gap: 24px;
   }
   .method-scene[data-scene][data-scene-live] .method-text {
-    grid-column: 1;
-    grid-row: 2;
-    align-self: start;
-    padding: 0;
-    border-left: 0;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 6px 14px;
+  }
+  .method-scene[data-scene][data-scene-live] .method-no {
+    grid-row: span 2;
+    font-size: 30px;
+  }
+  .method-scene[data-scene][data-scene-live] .method-text h3 {
+    font-size: 22px;
+  }
+  .method-scene[data-scene][data-scene-live] .method-text p {
+    font-size: 15px;
+  }
+}
+@media (max-width: 600px) {
+  /* On a phone the stage holds the board and one text: the notes of the
+     steps to come step aside (their texts say it), and the text keeps
+     clear of the floating buttons. */
+  .method-scene[data-scene][data-scene-live] .board-row .board-note {
+    display: none;
+  }
+  .method-scene[data-scene][data-scene-live] .method-steps {
+    padding-right: 60px;
   }
 }
 

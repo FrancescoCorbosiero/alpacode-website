@@ -1,0 +1,24 @@
+---
+/* A word on the departures board (Process.astro): n split flaps, one
+   letter each, blanks after it. A flap is its two halves, each with the
+   letter; the method scene flips them (engine/effects/method.ts). */
+interface Props {
+  word: string;
+  n: number;
+}
+const { word, n } = Astro.props;
+const letters = [...word.toUpperCase().padEnd(n, " ").slice(0, n)].map((ch) => ch.trim());
+---
+
+{
+  letters.map((ch) => (
+    <span class="fl" data-fl>
+      <span class="fl-up">
+        <b>{ch}</b>
+      </span>
+      <span class="fl-dn">
+        <b>{ch}</b>
+      </span>
+    </span>
+  ))
+}

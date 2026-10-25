@@ -478,13 +478,19 @@ export interface ProcessStep {
   n: string;
   t: string;
   d: string;
-  /** The dimension note on the step's drawing (Process.astro). */
+  /** On the departures board (Process.astro): the step's destination,
+   *  eight letters at most, in the big flaps… */
+  to: string;
+  /** …and its note, in the board's blue. */
   note: string;
 }
 export interface ProcessData {
   num: string;
   heading: string;
   lede: string;
+  /** The board's own words: its title, where it leaves from, the labels
+   *  of its columns and of the steps to come. */
+  board: { title: string; from: string; step: string; to: string; next: string };
   steps: ProcessStep[];
 }
 
@@ -493,22 +499,24 @@ export const process: Record<Lang, ProcessData> = {
     num: "Metodo",
     heading: "Come si parte.",
     lede: "Dalla prima call al lancio, in quattro passi.",
+    board: { title: "Partenze", from: "Monza · Milano", step: "Passo", to: "Destinazione", next: "A seguire" },
     steps: [
-      { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno.", note: "30 minuti" },
-      { n: "02", t: "Proposta scritta", d: "Entro pochi giorni: cosa faremo, in quanto tempo e a che costo, in parole semplici.", note: "cosa · tempi · costo" },
-      { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu.", note: "un aggiornamento a ogni passo" },
-      { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono.", note: "online, e restiamo" },
+      { n: "01", t: "Call gratuita", d: "Trenta minuti per capire cosa ti serve. Niente vendite, niente impegno.", to: "CALL", note: "30 minuti" },
+      { n: "02", t: "Proposta scritta", d: "Entro pochi giorni: cosa faremo, in quanto tempo e a che costo, in parole semplici.", to: "PROPOSTA", note: "cosa · tempi · costo" },
+      { n: "03", t: "Costruiamo insieme", d: "Aggiornamenti a ogni passo. Vedi crescere il progetto e decidi tu.", to: "SVILUPPO", note: "lo vedi crescere" },
+      { n: "04", t: "Lancio & supporto", d: "Andiamo online e restiamo. Manutenzione e modifiche quando servono.", to: "ONLINE", note: "e restiamo" },
     ],
   },
   en: {
     num: "Method",
     heading: "How it starts.",
     lede: "From the first call to launch, in four steps.",
+    board: { title: "Departures", from: "Monza · Milan", step: "Step", to: "Destination", next: "Next" },
     steps: [
-      { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment.", note: "30 minutes" },
-      { n: "02", t: "Written proposal", d: "Within a few days: what we'll do, how long it takes and what it costs, in plain words.", note: "what · when · cost" },
-      { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide.", note: "an update at every step" },
-      { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them.", note: "live, and we stay" },
+      { n: "01", t: "Free call", d: "Thirty minutes to understand what you need. No sales, no commitment.", to: "CALL", note: "30 minutes" },
+      { n: "02", t: "Written proposal", d: "Within a few days: what we'll do, how long it takes and what it costs, in plain words.", to: "PROPOSAL", note: "what · when · cost" },
+      { n: "03", t: "We build together", d: "Updates at every step. You watch it grow and you decide.", to: "BUILD", note: "you watch it grow" },
+      { n: "04", t: "Launch & support", d: "We go live and we stay. Maintenance and changes whenever you need them.", to: "LIVE", note: "and we stay" },
     ],
   },
 };
