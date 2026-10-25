@@ -3,7 +3,7 @@ import Fuse from "fuse.js";
 import { navigate } from "astro:transitions/client";
 import type { Lang } from "../../i18n/types";
 import { persistLang, toggleLangPath } from "../../lib/lang-store";
-import { lockScroll } from "../../lib/scroll-lock";
+import { lockScroll } from "../../engine/core/scroll-lock";
 
 export interface CmdItem {
   kind: "recent" | "page" | "course" | "action";

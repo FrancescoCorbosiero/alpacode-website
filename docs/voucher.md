@@ -85,7 +85,7 @@ writing the same file would need a shared store instead.
 | Behaviour | `src/lib/voucher/landing.ts`, `invite.ts`, `forms.ts` |
 | Styles (scoped under `.rf`, shipped with these pages only) | `src/styles/voucher.css` |
 | API and server helpers | `src/pages/api/referral.ts`, `src/lib/server/*` (codes, ledger), `shared/server/*` (env, guard, mail) |
-| Motion (the sticker, the decoding link, the QR that prints, the burst, the steps' alpaca) | `src/lib/motion.ts` — the one engine |
+| Motion (the sticker, the decoding link, the QR that prints, the burst, the steps' alpaca) | the site's engine, `src/engine/` (alpacode-motion's entries: `scramble`, `print`, `celebrate`, `rail` and the `alpaca` effect, `chat`, `coin`, `accordion`, `panel-enter`, `reveal-panel`, `nudge`); the page scripts import the moves they call from their entry. The sticker's count-up is `landing.ts`'s own: it plays in the hero, and the catalog's `count` works below the fold only |
 
 **Photo**: `tools/media/amici-laptop.jpg` is the flyer's photo, upscaled 3×
 (EDSR) from the 1024 px file; `npm run media` writes the AVIF/WebP/JPEG

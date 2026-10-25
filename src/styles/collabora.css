@@ -163,7 +163,8 @@
   position: relative;
   padding: 44px 32px 0 0;
 }
-/* The stop on the rail. */
+/* The stop on the rail: lit, unless the rail effect is filling the rail
+   (data-rail-live) and hasn't reached it yet. */
 .clb-step::before {
   content: "";
   position: absolute;
@@ -171,16 +172,15 @@
   left: 0;
   width: 16px;
   height: 16px;
-  background: var(--paper-2);
-  border: 3px solid var(--rule);
+  background: var(--blue);
+  border: 3px solid var(--blue);
   transition:
     background 0.4s var(--ease),
     border-color 0.4s var(--ease);
 }
-.clb-step.is-reached::before,
-html:not(.has-motion) .clb-step::before {
-  background: var(--blue);
-  border-color: var(--blue);
+[data-rail-live] .clb-step:not(.is-reached)::before {
+  background: var(--paper-2);
+  border-color: var(--rule);
 }
 .clb-step-no {
   font-size: 14px;

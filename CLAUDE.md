@@ -72,14 +72,22 @@ is check, build and looking at the pages (below).
   landing kit and its views), `voucher/` (the referral program),
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`
   (React).
-- Motion: `lib/motion.ts` (the site's engine, its header documents the
-  `data-*` API) and `lib/landing/scenes.ts` (the landings' scenes, a
-  chunk loaded only on `.lnd` pages); the showcase's moves are
-  alpacode-motion entries in `engine/` (the core, copied, and
-  `engine/effects/*`).
+- Motion: `engine/`, the alpacode-motion engine, copied: `core/` (the
+  page lifecycle, Lenis, the header, the guards) and one module per
+  catalog entry in `effects/` (its header is its markup API: `data-split`,
+  `data-reveal`, `data-rail`, `data-marquee`, `data-mark`, …);
+  `config.ts` (the house's classes for the hooks) and `registry.ts`
+  (which effects, eager or fetched only where their hook is) are the
+  house's own. The house's scenes are effects too: `effects/cases`,
+  `method`, `map`, `alpaca`, and `lib/landing/scenes.ts` (the landings'
+  scenes, fetched only on `.lnd [data-scene]` pages). Page scripts import
+  the moves they call from their entry (`celebrate`, `nudge`,
+  `scrollToTarget` from `core/scroll`, …).
 - `styles/` — `tokens.css` (palette, type, the dark theme), `base.css`,
-  `components.css`, `motion.css`, `landing.css` (the landing kit, imported
-  by its views only), `voucher.css`, `showcase.css`, page-specific sheets.
+  `components.css`, `engine.css` (the engine's CSS: the core's and the
+  entries'), `motion.css` (the house's own: the intro's order, the
+  hovers), `landing.css` (the landing kit, imported by its views only),
+  `voucher.css`, `showcase.css`, page-specific sheets.
 - `i18n/` — `ui.ts` (UI strings, meta), `utils.ts` (`localizePath`).
 
 `shared/` — what both sites use: `i18n.ts`, `data/business.ts` (the

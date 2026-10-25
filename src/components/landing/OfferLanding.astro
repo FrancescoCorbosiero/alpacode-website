@@ -95,12 +95,12 @@ const audience = tr(c.audience);
 
   {/* ---------- Found: what their clients search, and find ---------- */}
   <section class="lnd-scene lnd-found" data-scene="found" style="--len:3" aria-label={tr(c.search)}>
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-found-grid">
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.pains.map((p) => (
-              <div class="lnd-beat">
+              <div class="lnd-beat" data-scene-beat>
                 <h2 class="lnd-title lnd-title--md">{tr(p.k)}</h2>
                 <p class="lnd-lede">{tr(p.v)}</p>
               </div>
@@ -143,7 +143,7 @@ const audience = tr(c.audience);
           </div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -155,7 +155,7 @@ const audience = tr(c.audience);
         <h2 class="lnd-title" data-split><Lines text={tr(COPY.statsTitle)} /></h2>
         <p class="lnd-lede" data-reveal>{tr(COPY.statsLede)}</p>
       </div>
-      <ul class="lnd-stat-list" data-scene="bars">
+      <ul class="lnd-stat-list" data-bars>
         {
           STATS.map((s) => (
             <li class="lnd-stat">
@@ -164,10 +164,10 @@ const audience = tr(c.audience);
               {s.bar && (
                 <div class="lnd-vs">
                   <span>{tr(COPY.italy)}</span>
-                  <i style={`--v:${s.bar.it / 100}`} />
+                  <i data-bars-item style={`--v:${s.bar.it / 100}`} />
                   <b>{pct(s.bar.it)}</b>
                   <span>{tr(COPY.eu)}</span>
-                  <i class="lnd-vs-eu" style={`--v:${s.bar.eu / 100}`} />
+                  <i class="lnd-vs-eu" data-bars-item style={`--v:${s.bar.eu / 100}`} />
                   <b>{pct(s.bar.eu)}</b>
                 </div>
               )}

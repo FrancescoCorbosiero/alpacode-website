@@ -94,13 +94,20 @@ registry is `src/data/audiences.ts`:
   display's lines, the hero's marks. The first paint never waits on
   JavaScript.
 - **Below the fold it's a scene** — `data-scene="<name>"` runs the
-  function of that name in `SCENES` (`lib/landing/scenes.ts`, a chunk
-  `motion.ts` loads only on `.lnd` pages, inside the page's
-  `gsap.context()`, reverted on navigation). Two kinds:
-  - *Pinned*: `<section class="lnd-scene" data-scene="x" style="--len:3">`
-    with a `.lnd-stage` inside — the stage sticks for `--len` screens
-    of scroll while `scrubbed(root)` plays; `beats(tl, root, [...])`
-    hands the text over, `.lnd-progress` draws the rule.
+  function of that name in `SCENES` (`lib/landing/scenes.ts`: an effect
+  of the engine, `hook` + `init(kit)`, that `src/engine/registry.ts`
+  fetches only on pages with a `.lnd [data-scene]`; it is built inside
+  the page's `gsap.context()` and reverted on navigation). Two kinds:
+  - *Pinned*, on the catalog's `stage` entry
+    (`src/engine/effects/stage.ts`):
+    `<section class="lnd-scene" data-scene="x" style="--len:3">` with a
+    `<div class="lnd-stage" data-scene-stage>` inside, its text in
+    `[data-scene-beats]` > `[data-scene-beat]`s and a
+    `<div class="lnd-progress" data-scene-progress>` rule.
+    `scrubbed(kit, root)` builds the timeline and makes the scene live
+    (`[data-scene-live]`): only then does `stage.css` make it `--len`
+    screens tall and stick the stage. `beats(tl, root, [...])` hands the
+    text over; the rule fills by itself.
   - *Machines*: a hero object that plays on its own (the press, the
     loop) — pause it off screen.
 - **Rules that keep scenes correct**:
@@ -112,14 +119,24 @@ registry is `src/data/audiences.ts`:
   - Hide things only in JS, at init, and only below the fold
     (`below(el)`). **Nothing is hidden by CSS**: under reduced motion
     the chunk never runs and `landing.css` lays every scene out in its
-    end state. Look at the reduced-motion still of every page.
+    end state. A scene's motion layout is written under
+    `[data-scene="x"][data-scene-live]` (its end state for no motion
+    under `:not([data-scene-live])`), never under `.has-motion`: a chunk
+    that didn't load leaves the scene laid out, not half-built. Look at
+    the reduced-motion still of every page.
   - Phones: a pinned stage must fit about 660px of height (Safari's
-    small viewport) — shoot it at 390×664. Secondary copy can step out
-    of sight there with the visually-hidden pattern under
-    `.has-motion [data-scene="x"]` (never `display: none`: screen
-    readers keep it).
-- The site-wide hooks still work inside landings: `data-split`,
-  `data-reveal`, `data-scrub` (`motion.ts` header).
+    small viewport) — shoot it at 390×664. Secondary copy marked
+    `data-scene-aside` steps out of sight there while the scene is live
+    (the visually-hidden pattern, never `display: none`: screen readers
+    keep it).
+- The site-wide hooks work inside landings too, and the pen and the
+  tier-1 moves are catalog entries, not scenes: `data-split`,
+  `data-reveal`, `data-scrub`, `data-mark` (`<Mark>`), `data-hand`
+  (`<Hand>`), `data-kinetic`, `data-knoll`, `data-bars`,
+  `data-alternate`, `data-draw` — each documented in the header of its
+  module, `src/engine/effects/<id>.ts`. A move a second page could use
+  is born in alpacode-motion (module, demo, weight, shots) and copied
+  here; a scene stays in `scenes.ts`.
 
 ## Track A — Campaign landing (`/offerta/<slug>`)
 
@@ -171,7 +188,8 @@ For a pitch that isn't "we build your site for N €/year".
 4. **Styles** — a block at the end of `landing.css` headed by the
    landing's name: the scene's pieces, then its `@media` rules.
 5. **Scenes** — the functions in `scenes.ts`, listed in its header and
-   in `SCENES`.
+   in `SCENES` (a move that isn't this page's alone: a catalog entry
+   instead, see Motion above).
 6. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
    `Layout` (the full chrome), `jsonLd={landingJsonLd({ … faq })}`.
 7. **OG card** — `tools/og/og-<name>.svg` on the blueprint (see

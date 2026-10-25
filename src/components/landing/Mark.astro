@@ -2,8 +2,9 @@
 /* A word marked by hand, in the landing's accent: highlighted,
    underlined, struck through (backgrounds — the phrase can wrap), or
    circled and boxed (an SVG round a word or two). What's drawn here is
-   the static mark; lib/landing/scenes.ts draws it in when it's seen, and
-   redraws circles at the word's real size, never twice the same. */
+   the static mark; the pen's entries (mark-*, alpacode-motion) draw it
+   in when it's seen and redraw circles at the word's real size, never
+   twice the same; a scene's marks are drawn by its own timeline. */
 interface Props {
   kind?: "highlight" | "underline" | "strike" | "circle" | "box";
   tone?: "accent" | "ink";
@@ -18,4 +19,4 @@ const PATHS = {
 const svg = kind === "circle" || kind === "box";
 ---
 
-<span class="lnd-mark" data-mark={kind} data-tone={tone === "accent" ? undefined : tone} data-delay={delay}><slot />{svg && <svg class="lnd-mark-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d={PATHS[kind as "circle" | "box"]} /></svg>}</span>
+<span class="lnd-mark" data-mark={kind} data-tone={tone === "accent" ? undefined : tone} data-mark-delay={delay}><slot />{svg && <svg class="lnd-mark-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d={PATHS[kind as "circle" | "box"]} /></svg>}</span>

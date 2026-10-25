@@ -3,9 +3,10 @@
    the home's three rebuilt blocks (Casi di studio, Metodo, Dove
    operiamo). Every block is laid out complete here, as it stands with
    no script and under reduced motion. The pinned scenes switch to
-   their sticky stage under .has-motion (set by the engine when motion
-   runs), as the catalog's stage does; the other effects mark what they
-   take over (data-cursor-thumb-on, data-flip-filter-on, data-frame-scroll-on).
+   their sticky stage once their script runs them ([data-scene-live],
+   set by the stage entry's scrubbed(); stage.css gives the length and
+   sticks the stage); the other effects mark what they take over too
+   (data-cursor-thumb-on, data-flip-filter-on, data-frame-scroll-on).
    The moves are alpacode-motion entries (src/engine/effects).
    ============================================================ */
 
@@ -787,54 +788,45 @@
   }
 }
 
-/* The scene (.has-motion, the cases effect): a tall wrapper, its stage
-   sticky, the cases in one place, played in turn. */
-.has-motion .cases-scene[data-scene] {
-  height: calc(var(--len, 4) * 100svh);
-}
-.has-motion .cases-scene[data-scene] .cases-stage {
-  position: sticky;
-  top: 0;
-  display: flex;
-  align-items: center;
-  height: 100svh;
+/* The scene (live, the cases effect): a tall wrapper, its stage sticky
+   (stage.css), the cases in one place, played in turn. */
+.cases-scene[data-scene][data-scene-live] .cases-stage {
   padding: 76px 0 28px;
   box-sizing: border-box;
-  overflow: hidden;
 }
-.has-motion .cases-scene[data-scene] .cases-stage > .wrap-wide {
+.cases-scene[data-scene][data-scene-live] .cases-stage > .wrap-wide {
   width: 100%;
 }
-.has-motion .cases-scene[data-scene] .cases-list {
+.cases-scene[data-scene][data-scene-live] .cases-list {
   grid-template-areas: "stack";
   gap: 0;
 }
-.has-motion .cases-scene[data-scene] .cs {
+.cases-scene[data-scene][data-scene-live] .cs {
   grid-area: stack;
 }
-.has-motion .cases-scene[data-scene] .cs:not(.is-active) {
+.cases-scene[data-scene][data-scene-live] .cs:not(.is-active) {
   pointer-events: none;
 }
 @media (max-width: 900px) {
-  .has-motion .cases-scene[data-scene] .cs {
+  .cases-scene[data-scene][data-scene-live] .cs {
     gap: 16px;
     align-content: start;
   }
-  .has-motion .cases-scene[data-scene] .cs-text {
+  .cases-scene[data-scene][data-scene-live] .cs-text {
     gap: 12px;
   }
-  .has-motion .cases-scene[data-scene] .cs-frame .bframe-view {
+  .cases-scene[data-scene][data-scene-live] .cs-frame .bframe-view {
     aspect-ratio: 16 / 9;
   }
-  .has-motion .cases-scene[data-scene] .cs-name {
+  .cases-scene[data-scene][data-scene-live] .cs-name {
     font-size: 28px;
   }
-  .has-motion .cases-scene[data-scene] .cs-problem {
+  .cases-scene[data-scene][data-scene-live] .cs-problem {
     font-size: 16px;
   }
   /* On a phone's stage, what we did steps out of sight: screen readers
      keep it, the case page tells it, and without motion it's there. */
-  .has-motion .cases-scene[data-scene] .cs-solution {
+  .cases-scene[data-scene][data-scene-live] .cs-solution {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -842,13 +834,13 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
-  .has-motion .cases-scene[data-scene] .cs-shift {
+  .cases-scene[data-scene][data-scene-live] .cs-shift {
     padding: 12px 0;
   }
-  .has-motion .cases-scene[data-scene] .cs-v {
+  .cases-scene[data-scene][data-scene-live] .cs-v {
     font-size: 26px;
   }
-  .has-motion .cases-scene[data-scene] .cs-progress {
+  .cases-scene[data-scene][data-scene-live] .cs-progress {
     margin-top: 16px;
   }
 }
@@ -992,57 +984,48 @@
   }
 }
 
-/* The scene (.has-motion, the method effect): one drawing on a sticky
-   stage, becoming the next as the steps go by. */
-.has-motion .method-scene[data-scene] {
-  height: calc(var(--len, 4.2) * 100svh);
-}
-.has-motion .method-scene[data-scene] .method-stage {
-  position: sticky;
-  top: 0;
-  display: flex;
-  align-items: center;
-  height: 100svh;
+/* The scene (live, the method effect): one drawing on a sticky stage
+   (stage.css), becoming the next as the steps go by. */
+.method-scene[data-scene][data-scene-live] .method-stage {
   padding: 76px 0 28px;
   box-sizing: border-box;
-  overflow: hidden;
 }
-.has-motion .method-scene[data-scene] .method-stage > .wrap-wide {
+.method-scene[data-scene][data-scene-live] .method-stage > .wrap-wide {
   width: 100%;
 }
-.has-motion .method-scene[data-scene] .method {
+.method-scene[data-scene][data-scene-live] .method {
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   grid-auto-rows: auto;
   column-gap: 64px;
   align-items: center;
   border: 0;
 }
-.has-motion .method-scene[data-scene] .method-step {
+.method-scene[data-scene][data-scene-live] .method-step {
   display: contents;
 }
-.has-motion .method-scene[data-scene] .method-art {
+.method-scene[data-scene][data-scene-live] .method-art {
   grid-column: 1;
   grid-row: 1 / span 4;
   align-self: center;
 }
-.has-motion .method-scene[data-scene] .method-text {
+.method-scene[data-scene][data-scene-live] .method-text {
   grid-column: 2;
   padding: 16px 0 16px 24px;
   border-left: 2px solid var(--rule);
   transition: border-color 0.3s;
 }
-.has-motion .method-scene[data-scene] .method-text.is-active {
+.method-scene[data-scene][data-scene-live] .method-text.is-active {
   border-left-color: var(--blue);
 }
 @media (max-width: 900px) {
-  .has-motion .method-scene[data-scene] .method {
+  .method-scene[data-scene][data-scene-live] .method {
     grid-template-columns: 1fr;
     row-gap: 20px;
   }
-  .has-motion .method-scene[data-scene] .method-art {
+  .method-scene[data-scene][data-scene-live] .method-art {
     grid-row: 1;
   }
-  .has-motion .method-scene[data-scene] .method-text {
+  .method-scene[data-scene][data-scene-live] .method-text {
     grid-column: 1;
     grid-row: 2;
     align-self: start;

@@ -250,7 +250,7 @@ const cmdLabels: CmdLabels = {
     <ClientRouter />
   </head>
   <body data-page={active ?? "404"}>
-    <div class="scroll-progress" aria-hidden="true"></div>
+    <div data-read-progress aria-hidden="true"></div>
     <a class="skip-link" href="#main">{ui.skip[lang]}</a>
     {
       minimal ? (
@@ -312,7 +312,7 @@ const cmdLabels: CmdLabels = {
     <div id="cc-root" transition:persist></div>
 
     <script>
-      import "../lib/motion.ts";
+      import "../engine";
       import "../lib/consent.ts";
       import "../lib/cf-email.ts";
     </script>

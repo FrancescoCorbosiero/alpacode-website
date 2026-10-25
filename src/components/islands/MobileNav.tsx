@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../../i18n/types";
 import { persistLang } from "../../lib/lang-store";
-import { lockScroll } from "../../lib/scroll-lock";
+import { lockScroll } from "../../engine/core/scroll-lock";
 
 export interface MobileNavItem {
   num: string;
@@ -122,6 +122,9 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
 
   if (!open) return null;
 
+  // The search hint's key: ⌘ on Macs, Ctrl elsewhere.
+  const mod = /mac/i.test(navigator.userAgent) ? "⌘" : "Ctrl";
+
   const onCalClick = () => setOpen(false);
 
   return (
@@ -224,7 +227,7 @@ function MobileNav({ lang, active, items, itHref, enHref, contattiHref, cal, lab
               aria-label={labels.searchOpen}
               onClick={() => setOpen(false)}
             >
-              <span data-cmd-mod>⌘</span>
+              <span>{mod}</span>
               <span>K</span>
               <span className="mnav-search-label">{labels.searchOpen}</span>
             </button>

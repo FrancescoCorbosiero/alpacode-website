@@ -1,0 +1,34 @@
+/* ============================================================
+   The engine's CSS (alpacode-motion, copied: src/engine/). The core's
+   sheet, then the entries' that carry rules the house doesn't already
+   have. All of it is in the site's stylesheet, the lazy entries' too:
+   an end state must not wait for a chunk.
+   Not imported, because the house's own CSS is their source and has
+   them already: bars, kinetic and mark-* (styles/landing.css), kicker
+   (base.css: .sec-num, .label, .eyebrow), hero-video (components.css:
+   .hero-video-toggle), marquee (the ticker, components.css), the
+   showcase's moves — cases, method, map, cursor-thumb, frame-scroll —
+   (styles/showcase.css, on the house's classes), clip (its frames are
+   the house's classes, mapped in engine/config.ts; the image has
+   settled by the time the clip has opened). The other entries have no
+   rules, only their header.
+   At the foot: the house's values for the entries' variables.
+   ============================================================ */
+@import "../engine/core/core.css";
+@import "../engine/effects/split-lines.css";
+@import "../engine/effects/split-words.css";
+@import "../engine/effects/rail.css";
+@import "../engine/effects/print.css";
+@import "../engine/effects/chat.css";
+@import "../engine/effects/celebrate.css";
+@import "../engine/effects/stage.css";
+
+/* The reading progress: the blue strut down the left edge. */
+[data-read-progress] {
+  --read-progress-color: var(--blue);
+}
+/* "typing…" before the chat preview's bubble: square dots, the brand
+   has no round corners. */
+[data-chat] {
+  --chat-typing-dot: var(--mute-2);
+}

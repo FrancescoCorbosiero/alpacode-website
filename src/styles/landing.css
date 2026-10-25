@@ -218,7 +218,8 @@ body:has(.lnd) {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  /* the pen (mark-* entries) sweeps it in through --mark-sweep */
+  background-size: var(--mark-sweep, 100%) 100%;
 }
 .lnd-mark-svg {
   display: none;
@@ -415,25 +416,21 @@ body:has(.lnd) {
 
 /* ---------- Scenes ----------
    A scene is a tall section whose stage stays on screen (sticky) while
-   its timeline is scrubbed. Without motion it's an ordinary section. */
+   its timeline is scrubbed: the engine's stage entry (engine/effects/
+   stage.css) gives it its length and sticks the stage once the scene's
+   script has made it live ([data-scene-live]); its beats share one
+   cell and the phone's secondary copy ([data-scene-aside]) steps out of
+   sight. Without motion, or before the chunk has loaded, it's an
+   ordinary section. Here: the kit's look of it. */
 .lnd-scene {
   position: relative;
-}
-.has-motion .lnd-scene[data-scene] {
-  height: calc(var(--len, 2.5) * 100svh);
 }
 .lnd-stage {
   position: relative;
   padding-block: var(--lnd-plate-y);
 }
-.has-motion .lnd-scene[data-scene] > .lnd-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+[data-scene-live] > .lnd-stage {
   padding-block: 0;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
 }
 /* Beats: the scene's text changes as it plays (one visible at a time with
    motion; read in sequence without). */
@@ -441,53 +438,17 @@ body:has(.lnd) {
   display: grid;
   gap: 36px;
 }
-.has-motion [data-scene] .lnd-beats {
+[data-scene-live] .lnd-beats {
   gap: 0;
-}
-.has-motion [data-scene] .lnd-beat {
-  grid-area: 1 / 1;
 }
 .lnd-beat .lnd-title {
   margin-bottom: 22px;
 }
-/* On a phone's pinned stage, secondary copy (.lnd-aside-sm) steps out of
-   sight to make room: screen readers keep it, and without motion it's
-   all there. */
-@media (max-width: 720px) {
-  .has-motion [data-scene] .lnd-aside-sm {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-}
-/* The scene's progress, as a thin rule along the stage's foot. */
+/* The scene's progress, as a thin rule along the stage's foot (drawn by
+   stage.css): the kit's accent, on the kit's gutters. */
 .lnd-progress {
-  display: none;
-}
-.has-motion [data-scene] .lnd-progress {
-  display: block;
-  position: absolute;
-  left: var(--lnd-gutter);
-  right: var(--lnd-gutter);
-  bottom: 28px;
-  height: 2px;
-  background: currentColor;
-  opacity: 0.14;
-}
-.has-motion [data-scene] .lnd-progress::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--ac);
-  transform-origin: 0 50%;
-  transform: scaleX(var(--p, 0));
-}
-.has-motion [data-scene] .lnd-progress {
-  opacity: 1;
-  background: rgba(127, 140, 166, 0.22);
+  --scene-progress-color: var(--ac);
+  --scene-gutter: var(--lnd-gutter);
 }
 
 /* ---------- Profile switch: who's reading ---------- */
@@ -1470,16 +1431,16 @@ body:has(.lnd) {
   color: var(--lnd-on-print-mute);
   max-width: 52ch;
 }
-.has-motion [data-scene="stack"] .lnd-layer-item {
+[data-scene="stack"][data-scene-live] .lnd-layer-item {
   padding: 9px 0;
 }
-.has-motion [data-scene="stack"] .lnd-layer-name {
+[data-scene="stack"][data-scene-live] .lnd-layer-name {
   color: rgba(240, 243, 249, 0.45);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item.is-active .lnd-layer-name {
+[data-scene="stack"][data-scene-live] .lnd-layer-item.is-active .lnd-layer-name {
   color: var(--ac);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item p {
+[data-scene="stack"][data-scene-live] .lnd-layer-item p {
   max-height: 0;
   margin: 0;
   opacity: 0;
@@ -1489,7 +1450,7 @@ body:has(.lnd) {
     opacity 0.3s,
     margin 0.5s var(--ease-expo);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item.is-active p {
+[data-scene="stack"][data-scene-live] .lnd-layer-item.is-active p {
   max-height: 7em;
   margin-top: 6px;
   opacity: 1;
@@ -1550,10 +1511,10 @@ body:has(.lnd) {
   .lnd-receipt {
     margin-inline: auto;
   }
-  .has-motion [data-scene="pack"] .lnd-pack-grid {
+  [data-scene="pack"][data-scene-live] .lnd-pack-grid {
     gap: 20px;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy .lnd-lede {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy .lnd-lede {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -1564,10 +1525,10 @@ body:has(.lnd) {
   .lnd-iso {
     height: 300px;
   }
-  .has-motion [data-scene="stack"] .lnd-iso {
+  [data-scene="stack"][data-scene-live] .lnd-iso {
     height: 34svh;
   }
-  .has-motion [data-scene="stack"] .lnd-layers {
+  [data-scene="stack"][data-scene-live] .lnd-layers {
     margin-top: 16px;
   }
 }
@@ -1607,7 +1568,7 @@ body:has(.lnd) {
     width: 160px;
   }
   /* The exploded drawing sits beside the list of layers. */
-  .has-motion [data-scene="stack"] .lnd-stack-grid {
+  [data-scene="stack"][data-scene-live] .lnd-stack-grid {
     grid-template-columns: minmax(0, 1fr) 128px;
     grid-template-areas:
       "title title"
@@ -1616,58 +1577,58 @@ body:has(.lnd) {
     gap: 0 12px;
     align-items: start;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy {
     display: contents;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy .lnd-title {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy .lnd-title {
     grid-area: title;
     font-size: 34px;
   }
-  .has-motion [data-scene="stack"] .lnd-profile-row {
+  [data-scene="stack"][data-scene-live] .lnd-profile-row {
     grid-area: switch;
     margin-top: 18px;
   }
-  .has-motion [data-scene="stack"] .lnd-profile-row .lnd-hand {
+  [data-scene="stack"][data-scene-live] .lnd-profile-row .lnd-hand {
     display: none;
   }
-  .has-motion [data-scene="stack"] .lnd-layers {
+  [data-scene="stack"][data-scene-live] .lnd-layers {
     grid-area: list;
   }
-  .has-motion [data-scene="stack"] .lnd-iso {
+  [data-scene="stack"][data-scene-live] .lnd-iso {
     grid-area: iso;
     height: 300px;
     margin-top: 16px;
   }
-  .has-motion [data-scene="stack"] .lnd-iso-stack {
+  [data-scene="stack"][data-scene-live] .lnd-iso-stack {
     width: 92px;
   }
-  .has-motion [data-scene="stack"] .lnd-slab span,
-  .has-motion [data-scene="stack"] .lnd-iso-note {
+  [data-scene="stack"][data-scene-live] .lnd-slab span,
+  [data-scene="stack"][data-scene-live] .lnd-iso-note {
     display: none;
   }
-  .has-motion [data-scene="pack"] .lnd-lede {
+  [data-scene="pack"][data-scene-live] .lnd-lede {
     font-size: 15px;
   }
   .lnd-pack-count {
     margin-top: 10px;
   }
   /* A phone's pinned stage is about 660px tall: the pack fits in it. */
-  .has-motion [data-scene="pack"] .lnd-pack-grid {
+  [data-scene="pack"][data-scene-live] .lnd-pack-grid {
     gap: 14px;
   }
-  .has-motion [data-scene="pack"] .lnd-title {
+  [data-scene="pack"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="pack"] .lnd-bills {
+  [data-scene="pack"][data-scene-live] .lnd-bills {
     gap: 4px;
   }
-  .has-motion [data-scene="pack"] .lnd-bill {
+  [data-scene="pack"][data-scene-live] .lnd-bill {
     padding: 4px 6px;
   }
-  .has-motion [data-scene="pack"] .lnd-server-unit {
+  [data-scene="pack"][data-scene-live] .lnd-server-unit {
     padding: 12px 16px;
   }
-  .has-motion [data-scene="pack"] .lnd-pack-count {
+  [data-scene="pack"][data-scene-live] .lnd-pack-count {
     margin-top: 6px;
   }
 }
@@ -1920,7 +1881,7 @@ body:has(.lnd) {
   background: var(--ac);
   color: var(--ac-on);
 }
-html:not(.has-motion) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span {
+[data-scene="shift"]:not([data-scene-live]) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span {
   opacity: 0.35;
   text-decoration: line-through;
 }
@@ -2001,19 +1962,19 @@ html:not(.has-motion) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span
   line-height: 1.5;
   color: var(--lnd-on-print-mute);
 }
-.has-motion [data-scene="line"] .lnd-station {
+[data-scene="line"][data-scene-live] .lnd-station {
   opacity: 0.4;
   transition: opacity 0.35s;
 }
-.has-motion [data-scene="line"] .lnd-station.is-done {
+[data-scene="line"][data-scene-live] .lnd-station.is-done {
   opacity: 0.7;
 }
-.has-motion [data-scene="line"] .lnd-station.is-active {
+[data-scene="line"][data-scene-live] .lnd-station.is-active {
   opacity: 1;
 }
 .lnd-station.is-active .lnd-station-dot,
 .lnd-station.is-done .lnd-station-dot,
-html:not(.has-motion) .lnd-station-dot {
+[data-scene="line"]:not([data-scene-live]) .lnd-station-dot {
   background: var(--ac);
   border-color: var(--ac);
 }
@@ -2430,25 +2391,25 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-product {
     margin-inline: auto;
   }
-  .has-motion [data-scene="line"] .lnd-line-head .lnd-lede {
+  [data-scene="line"][data-scene-live] .lnd-line-head .lnd-lede {
     display: none;
   }
-  .has-motion [data-scene="line"] .lnd-stations {
+  [data-scene="line"][data-scene-live] .lnd-stations {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 6px;
     padding-top: 30px;
   }
-  .has-motion [data-scene="line"] .lnd-station {
+  [data-scene="line"][data-scene-live] .lnd-station {
     position: static;
   }
-  .has-motion [data-scene="line"] .lnd-station-dot {
+  [data-scene="line"][data-scene-live] .lnd-station-dot {
     top: -10px;
     left: auto;
     position: relative;
     display: block;
   }
-  .has-motion [data-scene="line"] .lnd-station-name,
-  .has-motion [data-scene="line"] .lnd-station p {
+  [data-scene="line"][data-scene-live] .lnd-station-name,
+  [data-scene="line"][data-scene-live] .lnd-station p {
     position: absolute;
     left: 0;
     right: 0;
@@ -2456,17 +2417,17 @@ html:not(.has-motion) .lnd-station-dot {
     transition: opacity 0.3s;
     pointer-events: none;
   }
-  .has-motion [data-scene="line"] .lnd-station-name {
+  [data-scene="line"][data-scene-live] .lnd-station-name {
     top: 44px;
   }
-  .has-motion [data-scene="line"] .lnd-station p {
+  [data-scene="line"][data-scene-live] .lnd-station p {
     top: 74px;
   }
-  .has-motion [data-scene="line"] .lnd-station.is-active .lnd-station-name,
-  .has-motion [data-scene="line"] .lnd-station.is-active p {
+  [data-scene="line"][data-scene-live] .lnd-station.is-active .lnd-station-name,
+  [data-scene="line"][data-scene-live] .lnd-station.is-active p {
     opacity: 1;
   }
-  .has-motion [data-scene="line"] .lnd-stations {
+  [data-scene="line"][data-scene-live] .lnd-stations {
     min-height: 170px;
   }
   .lnd-stations {
@@ -2504,22 +2465,22 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-time {
     margin-top: 12px;
   }
-  .has-motion [data-scene="shift"] .lnd-lede {
+  [data-scene="shift"][data-scene-live] .lnd-lede {
     font-size: 15px;
   }
-  .has-motion [data-scene="shift"] .lnd-shift-grid {
+  [data-scene="shift"][data-scene-live] .lnd-shift-grid {
     gap: 16px;
   }
-  .has-motion [data-scene="shift"] .lnd-title {
+  [data-scene="shift"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="shift"] .lnd-lanes {
+  [data-scene="shift"][data-scene-live] .lnd-lanes {
     gap: 10px;
   }
-  .has-motion [data-scene="shift"] .lnd-lane {
+  [data-scene="shift"][data-scene-live] .lnd-lane {
     padding: 10px 12px 12px;
   }
-  .has-motion [data-scene="shift"] .lnd-chip span {
+  [data-scene="shift"][data-scene-live] .lnd-chip span {
     padding: 5px 8px;
     font-size: 12px;
   }
@@ -2818,7 +2779,7 @@ html:not(.has-motion) .lnd-station-dot {
 .lnd-serp-site {
   display: none;
 }
-.has-motion [data-scene="found"] .lnd-serp-site {
+[data-scene="found"][data-scene-live] .lnd-serp-site {
   position: absolute;
   inset: 0;
   display: grid;
@@ -3154,17 +3115,17 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-track::before {
     display: none;
   }
-  .has-motion [data-scene="found"] .lnd-serp {
+  [data-scene="found"][data-scene-live] .lnd-serp {
     height: 46svh;
     min-height: 340px;
   }
-  .has-motion [data-scene="found"] .lnd-found-grid {
+  [data-scene="found"][data-scene-live] .lnd-found-grid {
     gap: 18px;
   }
-  .has-motion [data-scene="found"] .lnd-title {
+  [data-scene="found"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="found"] .lnd-lede {
+  [data-scene="found"][data-scene-live] .lnd-lede {
     font-size: 16px;
   }
 }
@@ -3679,21 +3640,21 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-feedphone {
     margin-top: 0;
   }
-  .has-motion [data-scene="rent"] .lnd-lock {
+  [data-scene="rent"][data-scene-live] .lnd-lock {
     min-height: 0;
     padding: 22px 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-lock-time {
+  [data-scene="rent"][data-scene-live] .lnd-lock-time {
     font-size: 40px;
     margin-bottom: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-rent-grid {
+  [data-scene="rent"][data-scene-live] .lnd-rent-grid {
     gap: 18px;
   }
-  .has-motion [data-scene="rent"] .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="rent"] .lnd-hand--kicker {
+  [data-scene="rent"][data-scene-live] .lnd-hand--kicker {
     margin-bottom: 10px;
   }
 }
@@ -3702,32 +3663,32 @@ html:not(.has-motion) .lnd-station-dot {
     grid-template-columns: minmax(0, 1fr);
   }
   /* The rented land on a phone's pinned stage: a smaller lock screen. */
-  .has-motion [data-scene="rent"] .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-title {
     font-size: 26px;
   }
-  .has-motion [data-scene="rent"] .lnd-rent-copy .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-rent-copy .lnd-title {
     margin-bottom: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-body {
+  [data-scene="rent"][data-scene-live] .lnd-body {
     font-size: 15px;
     line-height: 1.5;
   }
-  .has-motion [data-scene="rent"] .lnd-lock {
+  [data-scene="rent"][data-scene-live] .lnd-lock {
     padding: 14px 12px;
     border-radius: 30px;
   }
-  .has-motion [data-scene="rent"] .lnd-lock-time {
+  [data-scene="rent"][data-scene-live] .lnd-lock-time {
     font-size: 30px;
     margin-bottom: 8px;
   }
-  .has-motion [data-scene="rent"] .lnd-notes {
+  [data-scene="rent"][data-scene-live] .lnd-notes {
     gap: 6px;
   }
-  .has-motion [data-scene="rent"] .lnd-note {
+  [data-scene="rent"][data-scene-live] .lnd-note {
     padding: 8px 12px;
     border-radius: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-note-text {
+  [data-scene="rent"][data-scene-live] .lnd-note-text {
     font-size: 13px;
     line-height: 1.35;
   }
@@ -3876,7 +3837,7 @@ html:not(.has-motion) .lnd-station-dot {
   justify-content: flex-end;
   flex-wrap: wrap;
 }
-.has-motion .lnd-modes {
+[data-scene-live] .lnd-modes {
   display: flex;
 }
 .lnd-modes li {
@@ -4020,16 +3981,16 @@ html:not(.has-motion) .lnd-station-dot {
 .lnd-rail i:nth-of-type(3) {
   transform: translateX(84%);
 }
-.has-motion .lnd-rail i {
+[data-scene-live] .lnd-rail i {
   animation: lnd-rail 4.5s linear infinite;
 }
-.has-motion .lnd-rail i:nth-of-type(2) {
+[data-scene-live] .lnd-rail i:nth-of-type(2) {
   animation-delay: -1.5s;
 }
-.has-motion .lnd-rail i:nth-of-type(3) {
+[data-scene-live] .lnd-rail i:nth-of-type(3) {
   animation-delay: -3s;
 }
-.has-motion .lnd-rail--from i {
+[data-scene-live] .lnd-rail--from i {
   animation-direction: reverse;
 }
 @keyframes lnd-rail {
@@ -4054,7 +4015,7 @@ html:not(.has-motion) .lnd-station-dot {
   line-height: 1.05;
   color: var(--ac);
 }
-.has-motion .lnd-rail-labels {
+[data-scene-live] .lnd-rail-labels {
   display: grid;
 }
 .lnd-rail--from .lnd-rail-labels {
@@ -4106,7 +4067,7 @@ html:not(.has-motion) .lnd-station-dot {
   color: var(--ac);
 }
 /* With motion the rails say it; the beat keeps it for screen readers. */
-.has-motion .lnd-mode-flow {
+[data-scene-live] .lnd-mode-flow {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -4512,52 +4473,52 @@ html:not(.has-motion) .lnd-station-dot {
   }
   /* On a phone the channel's stage holds the model and its rails (the
      intro, the repeated tab and the bullets are .lnd-aside-sm). */
-  .has-motion [data-scene="channel"] .lnd-channel-wrap {
+  [data-scene="channel"][data-scene-live] .lnd-channel-wrap {
     gap: 18px;
   }
-  .has-motion [data-scene="channel"] .lnd-hand--kicker {
+  [data-scene="channel"][data-scene-live] .lnd-hand--kicker {
     margin-bottom: 8px;
   }
-  .has-motion [data-scene="channel"] .lnd-title {
+  [data-scene="channel"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="channel"] .lnd-channel-head {
+  [data-scene="channel"][data-scene-live] .lnd-channel-head {
     gap: 16px;
   }
-  .has-motion .lnd-modes {
+  [data-scene-live] .lnd-modes {
     flex-wrap: nowrap;
     gap: 8px;
   }
-  .has-motion .lnd-modes li {
+  [data-scene-live] .lnd-modes li {
     font-size: 16px;
     padding: 9px 12px 7px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode {
+  [data-scene="channel"][data-scene-live] .lnd-mode {
     gap: 0;
     padding-top: 16px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode .lnd-sub {
+  [data-scene="channel"][data-scene-live] .lnd-mode .lnd-sub {
     font-size: 22px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode .lnd-body {
+  [data-scene="channel"][data-scene-live] .lnd-mode .lnd-body {
     font-size: 15.5px;
     line-height: 1.5;
   }
   /* The scale, likewise: the title and the two pans. */
-  .has-motion [data-scene="scale"] .lnd-deal-wrap {
+  [data-scene="scale"][data-scene-live] .lnd-deal-wrap {
     gap: 14px;
   }
-  .has-motion [data-scene="scale"] .lnd-title {
+  [data-scene="scale"][data-scene-live] .lnd-title {
     font-size: 28px;
   }
-  .has-motion [data-scene="scale"] .lnd-pan {
+  [data-scene="scale"][data-scene-live] .lnd-pan {
     gap: 8px;
     padding: 10px 8px 14px;
   }
-  .has-motion [data-scene="scale"] .lnd-pan-k {
+  [data-scene="scale"][data-scene-live] .lnd-pan-k {
     font-size: 22px;
   }
-  .has-motion [data-scene="scale"] .lnd-weight {
+  [data-scene="scale"][data-scene-live] .lnd-weight {
     padding: 7px 8px;
     font-size: 12px;
   }

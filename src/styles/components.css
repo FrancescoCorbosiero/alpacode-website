@@ -6,8 +6,8 @@
 
 /* ---------- Header ---------- */
 /* Sticky, translucent, and out of the way: it slides up while you read
-   down the page and comes back the moment you scroll up (motion.ts toggles
-   .is-hidden / .scrolled). */
+   down the page and comes back the moment you scroll up (the engine's
+   core-header toggles .is-hidden / .scrolled). */
 .site-header {
   position: sticky;
   top: 0;
@@ -740,7 +740,7 @@
 }
 /* Isometric-cube backdrop (repeating-conic-gradient) in paper tones with a
    blue facet — pure CSS, no images. Masked toward the top-right so the
-   claim stays crisp; drifts slowly (motion.ts parallax + the keyframe). */
+   claim stays crisp; drifts slowly (the keyframe). */
 .hero::before {
   content: "";
   position: absolute;
@@ -903,7 +903,8 @@
   border-color: var(--paper);
   color: var(--ink);
 }
-/* Pause / play (WCAG 2.2.2). motion.ts unhides it once the video runs. */
+/* Pause / play (WCAG 2.2.2). The hero-video effect unhides it once the
+   video runs. */
 .hero-video-toggle {
   position: absolute;
   z-index: 2;
@@ -1071,7 +1072,7 @@
   z-index: 1;
 }
 /* The alpaca of the name, one shade off the ink, hooves on the band's lower
-   edge — the voucher's finale, at home (motion.ts walks it in). */
+   edge — the voucher's finale, at home (the alpaca effect walks it in). */
 .manifesto-alpaca {
   position: absolute;
   right: clamp(-40px, -2vw, 0px);
@@ -1194,7 +1195,7 @@
 }
 /* The alpaca leading each set (Ticker alpaca): it stands on the words'
    baseline, its head in the band's padding so the band keeps its height,
-   and walks with the band (motion.ts). */
+   and walks with the band (the alpaca effect rides the marquee). */
 .ticker-item--alpaca {
   align-items: baseline;
 }
@@ -1212,8 +1213,8 @@
 }
 
 /* XL variant — the home marquee: display-size words on paper, separated
-   by short blue struts. motion.ts takes over the CSS loop to tie speed
-   and direction to the scroll. */
+   by short blue struts. The marquee effect takes over the CSS loop to tie
+   speed and direction to the scroll. */
 .ticker--xl {
   background: var(--paper);
   color: var(--ink);
@@ -1498,7 +1499,7 @@
 }
 /* The signature: ALPACODE spanning the grid edge to edge, with the space
    under it as exact as the space beside it. Each letter rises out of its
-   own mask (motion.ts). Measured on Archivo Black: the word's ink is
+   own mask (the wordmark effect). Measured on Archivo Black: the word's ink is
    5.617em wide (-0.04em tracking, PA/AC kerned by hand in Footer.astro)
    and starts 0.01em into the A; change the word, re-measure. text-box
    trims the line to cap height and baseline, so no platform's line
@@ -1540,8 +1541,8 @@
    it tracks the letters at every width (the P's box runs 1.365–2.047em)
    and fits the padding above; clear of the floating buttons, which sit
    over the E on phones. The spot clips only below the cap line: the
-   alpaca rises from behind the P (motion.ts) and keeps room above for
-   its ears and hops. */
+   alpaca rises from behind the P (the wordmark effect) and keeps room
+   above for its ears and hops. */
 .foot-wordmark {
   position: relative;
 }
@@ -1673,7 +1674,8 @@
   margin: 28px auto;
 }
 /* The alpaca that took a wrong turn, standing on the strut. It steps up on
-   load (CSS, no waiting on the script); motion.ts has it look around. */
+   load (CSS, no waiting on the script); the alpaca effect has it look
+   around. */
 .error-bar--lost {
   position: relative;
   margin-top: 96px;

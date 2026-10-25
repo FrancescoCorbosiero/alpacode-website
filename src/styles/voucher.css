@@ -25,7 +25,7 @@
   scroll-margin-top: 96px;
 }
 /* On phones the WhatsApp button would sit on the hero CTAs: it waits
-   below the fold (motion.ts sets .is-past-fold). */
+   below the fold (the engine's core-header sets .is-past-fold). */
 @media (max-width: 600px) {
   body:has(.rf) .fab:not(.is-past-fold) .fab-wa {
     opacity: 0;
@@ -152,7 +152,7 @@
   position: absolute;
   inset: calc(-1 * var(--hero-pt)) 0 calc(-1 * var(--hero-pb));
   margin: 0;
-  /* The photo settles closer as the page scrolls (motion.ts): keep it in its frame. */
+  /* The photo settles closer as the page scrolls (hero-settle): keep it in its frame. */
   overflow: hidden;
 }
 .rf .rf-photo picture {
@@ -445,7 +445,7 @@
   --steps-gap: clamp(20px, 2.4vw, 36px);
 }
 /* The alpaca on the number tile of step --here (0 = the first), centred
-   on the 64px tile; on desktop it leaps along the tiles (motion.ts). */
+   on the 64px tile; on desktop it leaps along the tiles (the alpaca effect). */
 .rf .rf-steps-runner {
   position: absolute;
   z-index: 2;
@@ -1165,7 +1165,7 @@
 .rf .rf-faq-item[open] .rf-faq-ic::after {
   transform: rotate(0deg);
 }
-/* motion.ts keeps [open] until the answer has folded away: the icon turns
+/* The accordion keeps [open] until the answer has folded away: the icon turns
    back to "+" as soon as the closing starts. */
 .rf .rf-faq-item.is-closing .rf-faq-ic::after {
   transform: rotate(90deg);

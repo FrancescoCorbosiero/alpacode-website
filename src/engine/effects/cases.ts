@@ -2,8 +2,9 @@
    cases — Casi di studio: the projects one after another on a pinned
    stage, each one's "before" struck through as its "after" comes in.
    Markup: data-scene="cases" on a tall wrapper (--len, in screens: one
-   per case and one for the stage) whose stage the site's CSS makes
-   sticky under .has-motion, with its cases laid one over the other;
+   per case and one for the stage), built on the stage (stage.ts: its
+   [data-scene-stage] sticks once the scene is live) with its cases
+   laid one over the other;
    the cases [data-case], each with its frame [data-case-frame], its
    text [data-case-text], the line [data-case-strike] over its "before"
    and its "after" value [data-case-after]; the progress
@@ -20,15 +21,12 @@
    studio).
    ============================================================ */
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Kit } from "../core/kit";
-
-gsap.registerPlugin(ScrollTrigger);
+import { scrubbed } from "./stage";
 
 export const hook = '[data-scene="cases"]';
 
 /* ---------- Settings: the site's voice, tuned when copying ---------- */
-const SMOOTH = 0.6; // s the stage takes to catch up with the scroll
 const HOLD = 0.7; // share of a case's scroll it holds the stage before the next comes in
 const STRIKE = 0.12; // where in its unit the line strikes the "before" through
 const TURN = 0.26; // where in its unit the "after" comes in
@@ -55,16 +53,8 @@ export function init(kit: Kit): void {
     };
     kit.cleanup(() => cases.forEach((c) => c.classList.remove("is-active")));
 
-    const tl = gsap.timeline({
-      defaults: { ease: "none" },
-      scrollTrigger: {
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: SMOOTH,
-        invalidateOnRefresh: true,
-        onUpdate: (st) => setActive(Math.min(n - 1, Math.floor(st.progress * n + (1 - HOLD) / 2))),
-      },
+    const tl = scrubbed(kit, root, {
+      onUpdate: (st) => setActive(Math.min(n - 1, Math.floor(st.progress * n + (1 - HOLD) / 2))),
     });
 
     cases.forEach((c, k) => {

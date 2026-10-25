@@ -9,7 +9,7 @@
    Runs once as a module; forms are wired on every astro:page-load
    (data-ready keeps it to once per form).
    ============================================================ */
-import { celebrate } from "../motion";
+import { celebrate } from "../../engine/effects/celebrate";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 

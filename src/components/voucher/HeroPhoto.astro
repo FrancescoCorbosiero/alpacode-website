@@ -3,7 +3,8 @@
    campaign line. Static responsive variants from tools/media (see the
    header of tools/media/render.mjs for why they aren't built by Astro).
    The left edge dissolves into the paper, as it does on the flyer; the
-   photo settles closer as the page scrolls ([data-hero-zoom], motion.ts). */
+   photo settles closer as the page scrolls ([data-hero-settle], the
+   hero-settle effect). */
 interface Props {
   alt: string;
   class?: string;
@@ -32,7 +33,7 @@ const sizes = "(max-width: 900px) 92vw, 40vw";
       fetchpriority={priority ? "high" : "auto"}
       decoding="async"
       class="rf-photo-img"
-      data-hero-zoom
+      data-hero-settle
     />
   </picture>
 </figure>

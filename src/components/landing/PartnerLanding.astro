@@ -115,13 +115,13 @@ const SIGN =
 
   {/* ---------- The channel ---------- */}
   <section class="lnd-scene lnd-channel lnd-plate--print lnd-grid-bg" data-scene="channel" style="--len:3.2" id="canale">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-channel-wrap">
         <div class="lnd-channel-head">
           <div>
             <Hand kicker>{c.channel.kicker}</Hand>
             <h2 class="lnd-title lnd-title--md"><Lines text={c.channel.title} /></h2>
-            <p class="lnd-lede lnd-channel-lede lnd-aside-sm">{c.channel.lede}</p>
+            <p class="lnd-lede lnd-channel-lede lnd-aside-sm" data-scene-aside>{c.channel.lede}</p>
           </div>
           <ol class="lnd-modes" aria-hidden="true">
             {c.channel.modes.map((mo, i) => <li data-mode={i}>{mo.tab}</li>)}
@@ -141,12 +141,12 @@ const SIGN =
           </div>
           <span class="lnd-rail-node lnd-rail-node--us"><b>{h.us}</b><small>{h.usSub}</small></span>
         </div>
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.channel.modes.map((mo) => (
-              <div class="lnd-beat lnd-mode">
+              <div class="lnd-beat lnd-mode" data-scene-beat>
                 <div>
-                  <span class="lnd-mode-tab lnd-aside-sm">{mo.tab}</span>
+                  <span class="lnd-mode-tab lnd-aside-sm" data-scene-aside>{mo.tab}</span>
                   <h3 class="lnd-sub">{mo.headline}</h3>
                   <p class="lnd-body">{mo.blurb}</p>
                   <p class="lnd-mode-flow">
@@ -154,7 +154,7 @@ const SIGN =
                     <span>← {mo.flowFrom}</span>
                   </p>
                 </div>
-                <ul class="lnd-mode-list lnd-aside-sm">
+                <ul class="lnd-mode-list lnd-aside-sm" data-scene-aside>
                   {mo.bullets.map((b) => (
                     <li>{b}</li>
                   ))}
@@ -164,7 +164,7 @@ const SIGN =
           }
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -175,7 +175,7 @@ const SIGN =
         <h2 class="lnd-title" data-split><Lines text={c.who.title} /></h2>
         <p class="lnd-lede" data-reveal>{c.who.lede}</p>
       </div>
-      <ul class="lnd-trades" data-scene="trades">
+      <ul class="lnd-trades" data-alternate>
         {
           c.who.professions.map((p) => (
             <li class="lnd-trade">
@@ -190,12 +190,12 @@ const SIGN =
 
   {/* ---------- The scale ---------- */}
   <section class="lnd-scene lnd-deal lnd-plate--paper-2" data-scene="scale" style="--len:2.6">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-deal-wrap">
         <div class="lnd-deal-head">
           <Hand kicker>{c.deal.kicker}</Hand>
           <h2 class="lnd-title lnd-title--md"><Lines text={c.deal.title} /></h2>
-          <p class="lnd-lede lnd-aside-sm">{c.deal.lede}</p>
+          <p class="lnd-lede lnd-aside-sm" data-scene-aside>{c.deal.lede}</p>
         </div>
         <div class="lnd-scale">
           <div class="lnd-scale-beam">
@@ -211,7 +211,7 @@ const SIGN =
           <div class="lnd-scale-post" aria-hidden="true"></div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -235,7 +235,7 @@ const SIGN =
   {/* ---------- The pact ---------- */}
   <section class="lnd-plate lnd-plate--print lnd-pact-plate">
     <div class="lnd-wrap">
-      <article class="lnd-pact" data-scene="pact">
+      <article class="lnd-pact">
         <Hand kicker>{c.pact.kicker}</Hand>
         <h2 class="lnd-title">{c.pact.title}</h2>
         <ol class="lnd-clauses">
@@ -254,7 +254,7 @@ const SIGN =
             <span class="lnd-sign-k">{h.you}</span>
           </div>
           <div class="lnd-sign">
-            <svg class="lnd-sign-svg" viewBox="0 0 190 60" aria-hidden="true"><path d={SIGN}></path></svg>
+            <svg class="lnd-sign-svg" viewBox="0 0 190 60" aria-hidden="true" data-draw="1.6"><path d={SIGN}></path></svg>
             <span class="lnd-sign-line"></span>
             <span class="lnd-sign-k">{c.pact.sign}</span>
           </div>

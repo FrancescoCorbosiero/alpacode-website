@@ -1,7 +1,8 @@
 /* =====================================================================
    The alpaca's moves — for the rigged silhouette in
    components/Alpaca.astro. Pure GSAP, no state outside the element:
-   lib/motion.ts only decides where the alpacas walk.
+   the alpaca effect (engine/effects/alpaca.ts) only decides where the
+   alpacas walk.
 
    The rig (SVG groups; each pivot is in data-pivot, SVG user units):
      .alpaca-rig    the whole animal — bob and hops (y, user units)

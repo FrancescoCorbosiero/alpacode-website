@@ -170,15 +170,15 @@ const band = `${c.band.join(" · ")} · `;
 
   {/* ---------- Rented land ---------- */}
   <section class="lnd-scene lnd-rent lnd-plate--ink" data-scene="rent" style="--len:3">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-rent-grid">
         <div class="lnd-rent-copy">
           <Hand kicker>{c.rent.kicker}</Hand>
           <h2 class="lnd-title lnd-title--md"><Lines text={c.rent.title} /></h2>
-          <div class="lnd-beats">
+          <div class="lnd-beats" data-scene-beats>
             {
               c.rent.beats.map((b) => (
-                <div class="lnd-beat">
+                <div class="lnd-beat" data-scene-beat>
                   <h3 class="lnd-sub">{b.t}</h3>
                   <p class="lnd-body">{b.d}</p>
                 </div>
@@ -200,7 +200,7 @@ const band = `${c.band.join(" · ")} · `;
           </ul>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 

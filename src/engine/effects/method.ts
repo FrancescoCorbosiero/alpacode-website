@@ -1,9 +1,9 @@
 /* ============================================================
    method — Metodo: one technical drawing on a pinned stage, turning
    into the next step's as the visitor scrolls.
-   Markup: data-scene="method" on a tall wrapper (--len, in screens)
-   whose stage the site's CSS makes sticky under .has-motion, with the
-   steps' drawings laid one over the other; the steps
+   Markup: data-scene="method" on a tall wrapper (--len, in screens),
+   built on the stage (stage.ts: its [data-scene-stage] sticks once the
+   scene is live), with the steps' drawings laid one over the other; the steps
    [data-method-step], each with its drawing (an <svg>) and its text
    [data-method-text]. Every drawing is made of the same pieces, marked
    [data-method-piece="<key>"] (rects, circles, a path with as many
@@ -21,15 +21,12 @@
    /servizi, Metodo).
    ============================================================ */
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Kit } from "../core/kit";
-
-gsap.registerPlugin(ScrollTrigger);
+import { scrubbed } from "./stage";
 
 export const hook = '[data-scene="method"]';
 
 /* ---------- Settings: the site's voice, tuned when copying ---------- */
-const SMOOTH = 0.6; // s the drawing takes to catch up with the scroll
 const TURN = 0.45; // share of a step's scroll the drawing takes to become the next one
 const END = 0.6; // steps of scroll the last drawing holds before the stage lets go
 const DIM = 0.32; // opacity of a step's text off stage, on a desktop (on a phone: 0, they hand over)
@@ -93,16 +90,8 @@ export function init(kit: Kit): void {
       gsap.set(notes.slice(1), { opacity: 0 });
       gsap.set(texts.slice(1), { opacity: desk ? DIM : 0, y: desk ? 0 : SHIFT });
 
-      const tl = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: SMOOTH,
-          invalidateOnRefresh: true,
-          onUpdate: (st) => setActive(Math.min(n - 1, Math.floor(st.progress * T + TURN / 2))),
-        },
+      const tl = scrubbed(kit, root, {
+        onUpdate: (st) => setActive(Math.min(n - 1, Math.floor(st.progress * T + TURN / 2))),
       });
       for (let s = 1; s < n; s++) {
         const at = s - TURN;

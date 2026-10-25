@@ -1,6 +1,6 @@
 # Stato del progetto
 
-_Aggiornato il 24 ottobre 2026. Si aggiorna a fine sessione (skill
+_Aggiornato il 25 ottobre 2026. Si aggiorna a fine sessione (skill
 `handoff`). È scritto in italiano perché è anche la lista che il
 proprietario rilegge e corregge._
 
@@ -22,7 +22,7 @@ validare», chiedi.
 | Titoli delle pagine | `PageHero` | Più piccoli, meno vuoto. |
 | La vetrina | `/lavori/` e `/lavori/<id>/` (IT + EN) — `src/content/work/*.md`, `src/data/work.ts` | Fatta: righe tipografiche, filtri per tipo (Flip), la cornice del sito che segue il mouse, una pagina per progetto con la sua card di condivisione (`npm run og -- work`), la transizione dalla riga alla pagina. |
 | Casi di studio, Metodo, Dove operiamo (home) | `src/components/home/` | Rifatti: i casi su un palco fermo (il «prima» barrato, entra il «dopo»); un disegno tecnico che diventa ogni passo del metodo; l'Italia a punti con un arco verso ogni cliente e la lista dei clienti per luogo. |
-| Il motore delle animazioni | `src/lib/motion.ts` → `src/engine/` (alpacode-motion) | **In corso.** Le mosse nuove (vetrina, casi, metodo, mappa) sono già voci del catalogo e girano sul sito. Il resto passa al motore del catalogo quando il porting delle sue voci è finito. |
+| Il motore delle animazioni | `src/engine/` e `sites/studio/src/engine/` — alpacode-motion, copiato al commit `c19c357` | **Fatto.** Casa e Studio girano sul motore del catalogo: il nucleo, una voce per mossa, le selezioni della casa in `config.ts`. Il vecchio `lib/motion.ts` non c'è più. Le scene delle landing stanno sul palco del catalogo (`stage`), gli script del voucher e dei moduli chiamano le sue funzioni (coriandoli, scossa dei campi, link che si decodifica, QR che si stampa). Verificato pagina per pagina contro il motore di prima: stessa resa, a 1440, 390 e 390×664 e a movimento ridotto. |
 | Hero della home con video «blueprint» | `src/data/home.ts` (`heroVideo`), `tools/media/` | Fatto, invariato. |
 | «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md` | Invariato. |
 | Alpacode FAST | — | **Ritirato** («FAST per ora sparisce»): i prodotti sono passati allo Studio, il codice è nella storia di git. |
@@ -92,6 +92,18 @@ Decise da Claude, non confermate.
 - Tolti giri, posti rimasti, scadenze, timbri e la pillola sticky; tutte
   nel blu della casa, con header e footer completi.
 
+**Il voucher e il motore**
+- Il messaggio da condividere del voucher diceva «il prezzo lo sai
+  prima di iniziare» (il tic vietato): ora «ti dicono subito se e come
+  possono aiutarti», la stessa promessa della sezione contatti (IT ed
+  EN, tutte e due le porte).
+- Il contatore dell'adesivo del voucher resta uno script della pagina:
+  gira nell'hero, e la voce `count` del catalogo lavora solo sotto la
+  piega.
+- I passi di «Collabora con noi» e del voucher si accendono con la linea
+  solo dove lo script la anima; senza script, o se la linea è già nella
+  prima schermata, sono tutti accesi.
+
 **Chi siamo**
 - Le bio di Irene e Riccardo sono scritte dal ruolo (segnaposto,
   `draft: true`); i ritratti sono monogrammi (basta una foto in
@@ -130,7 +142,8 @@ Decise da Claude, non confermate.
   campo `url` di ogni lavoro) e gli **screenshot a pagina intera**
   (`src/assets/work/<id>-full.png`, scorrono nella cornice della pagina
   del caso). Da qui non si raggiungono: la rete dell'ambiente nega gli
-  host esterni.
+  host esterni. Da una macchina in rete: `npm run work-shots` li scatta
+  dall'`url` di ogni lavoro.
 - La conferma delle citazioni dei clienti.
 - La copy dei casi studio: il corpo di `src/content/work/<id>.md`.
 - Bio, foto e LinkedIn di Irene e Riccardo (e il LinkedIn di Francesco).
@@ -152,6 +165,9 @@ Decise da Claude, non confermate.
 - Non ci sono test automatici oltre a check e build (anche in CI). Il
   catalogo alpacode-motion ha i suoi: il controllo del catalogo e lo
   smoke test.
+- Il motore è copiato, non installato: una mossa nuova nasce nel
+  catalogo (modulo, demo, peso, scatti) e si copia qui; il commit di
+  partenza è scritto in testa a `src/engine/registry.ts`.
 - Pagine prodotto in pre-lancio, `noindex` e fuori dalla sitemap:
   `/hive-commerce`, `/alpacode-pro-kit`, `/paco`.
 - L'email del sito è `info@alpacode.it`.
@@ -166,4 +182,4 @@ Decise da Claude, non confermate.
 - Branch `claude/busy-noether-amfgzf` — la casa e i compartimenti, lo
   Studio, le pagine marketing nel tono della casa, la FAQ, Chi siamo, la
   vetrina e i blocchi della home, le mosse nuove nel catalogo
-  alpacode-motion.
+  alpacode-motion, e tutti e due i siti sul motore del catalogo.

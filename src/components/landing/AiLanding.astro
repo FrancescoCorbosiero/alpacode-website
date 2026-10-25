@@ -102,12 +102,12 @@ const ICONS = [
 
   {/* ---------- The craft has changed ---------- */}
   <section class="lnd-scene lnd-shift" data-scene="shift" style="--len:2.8" aria-labelledby="shift-title">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-shift-grid">
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.shift.beats.map((b, i) => (
-              <div class="lnd-beat">
+              <div class="lnd-beat" data-scene-beat>
                 <h2 class="lnd-title" id={i === 0 ? "shift-title" : undefined}>
                   <Lines text={b.title} />
                 </h2>
@@ -132,13 +132,13 @@ const ICONS = [
           </div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
   {/* ---------- The assembly line ---------- */}
   <section class="lnd-scene lnd-line lnd-plate--ink" data-scene="line" style="--len:4" id="catena">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-line-wrap">
         <div class="lnd-line-head">
           <h2 class="lnd-title"><Lines text={c.line.title} /></h2>
@@ -177,7 +177,7 @@ const ICONS = [
           </ol>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -228,7 +228,7 @@ const ICONS = [
           <ProfileSwitch lang={lang} id="profile-kit" />
         </div>
       </div>
-      <ul class="lnd-knoll" data-scene="knoll">
+      <ul class="lnd-knoll" data-knoll>
         {
           c.kit.items.map((it, i) => (
             <li class="lnd-tool">

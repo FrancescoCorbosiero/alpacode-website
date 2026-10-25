@@ -10,7 +10,10 @@
    once per page.
    ============================================================ */
 import { firstName } from "./referral-code";
-import { scrollToTarget, revealPanel, nudge, celebrate } from "../motion";
+import { scrollToTarget } from "../../engine/core/scroll";
+import { celebrate } from "../../engine/effects/celebrate";
+import { nudge } from "../../engine/effects/nudge";
+import { revealPanel } from "../../engine/effects/reveal-panel";
 import { checked, errorText, postReferral, setBusy, setStatus, validate, value, values, wireLiveClear, type FormErrors } from "./forms";
 
 interface InviteI18n {
