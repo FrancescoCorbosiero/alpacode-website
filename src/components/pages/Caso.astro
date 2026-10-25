@@ -11,7 +11,7 @@ import { render } from "astro:content";
 import type { Lang } from "../../i18n/types";
 import { localizePath } from "../../i18n/utils";
 import { PLACES } from "../../data/places";
-import { KIND_LABELS, fullShotFor, hostOf, no, shotFor, workHref, workLabels, type Work } from "../../data/work";
+import { KIND_LABELS, factsOf, fullShotFor, hostOf, no, shotFor, workHref, workLabels, type Work } from "../../data/work";
 import BrowserFrame from "../BrowserFrame.astro";
 import CtaFinal from "../home/CtaFinal.astro";
 
@@ -50,14 +50,22 @@ const nextTitle = next.data.title[lang];
               <dt>{L.sector}</dt>
               <dd>{d.sector[lang]}</dd>
             </div>
-            <div>
-              <dt>{L.place}</dt>
-              <dd>{PLACES[d.place].name[lang]}</dd>
-            </div>
-            <div>
-              <dt>{L.year}</dt>
-              <dd>{d.year}</dd>
-            </div>
+            {
+              d.place && (
+                <div>
+                  <dt>{L.place}</dt>
+                  <dd>{PLACES[d.place].name[lang]}</dd>
+                </div>
+              )
+            }
+            {
+              d.year && (
+                <div>
+                  <dt>{L.year}</dt>
+                  <dd>{d.year}</dd>
+                </div>
+              )
+            }
             <div>
               <dt>{L.kind}</dt>
               <dd>{KIND_LABELS[d.kind][lang]}</dd>
@@ -67,10 +75,19 @@ const nextTitle = next.data.title[lang];
             {d.tags.map((tg) => <li>{tg}</li>)}
           </ul>
           {
-            d.url && (
-              <a class="btn btn-ghost case-visit" href={d.url} target="_blank" rel="noopener">
-                {L.open} <span class="arrow" aria-hidden="true">↗</span>
-              </a>
+            (d.url || d.also?.length) && (
+              <div class="case-visits">
+                {d.url && (
+                  <a class="btn btn-ghost case-visit" href={d.url} target="_blank" rel="noopener">
+                    {L.open} <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {d.also?.map((a) => (
+                  <a class="btn btn-ghost case-visit" href={a.url} target="_blank" rel="noopener">
+                    {a.label[lang]} <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                ))}
+              </div>
             )
           }
         </div>
@@ -156,7 +173,7 @@ const nextTitle = next.data.title[lang];
         <span class="case-next-name" style={`view-transition-name:work-title-${next.id}`}>
           {nextTitle}
         </span>
-        <span class="case-next-meta">{next.data.sector[lang]} · {PLACES[next.data.place].name[lang]}</span>
+        <span class="case-next-meta">{factsOf(next.data, lang).slice(0, 2).join(" · ")}</span>
       </a>
     </div>
   </nav>

@@ -1,12 +1,12 @@
 ---
-/* /social-media-manager — copy in data/smm-landing.ts (the price from
-   the social-media-manager campaign). The mirror's typing
+/* /social-media-manager — copy in data/smm-landing.ts (the audience
+   from the social-media-manager campaign). The mirror's typing
    is lib/landing/mirror.ts; its links moving into the site and the
    rented-land notifications are scenes (lib/landing/scenes.ts). */
 import "../../styles/landing.css";
 import type { Lang } from "../../i18n/types";
 import { smmLanding, SMM_CAMPAIGN } from "../../data/smm-landing";
-import { COPY, offerVariants, t } from "../../data/campaigns";
+import { COPY, VARIANTS, t } from "../../data/campaigns";
 import { portals } from "../../data/audiences";
 import Mark from "./Mark.astro";
 import Hand from "./Hand.astro";
@@ -23,7 +23,6 @@ const c = smmLanding[lang];
 const camp = SMM_CAMPAIGN;
 const h = c.hero;
 const m = c.mirror;
-const variants = offerVariants(camp.price);
 
 /* The mirror's first paint, from the placeholder name (lib/landing/mirror.ts
    does the same as you type). */
@@ -211,17 +210,6 @@ const band = `${c.band.join(" · ")} · `;
         <h2 class="lnd-title" data-split><Lines text={c.offer.title} /></h2>
         <p class="lnd-lede lnd-offer-blurb" data-reveal>{c.offer.blurb}</p>
         <p class="lnd-body lnd-offer-why" data-reveal>{c.offer.why}</p>
-        <div class="lnd-express" data-reveal>
-          <div class="lnd-express-head">
-            <h3 class="lnd-sub">{c.offer.express.title}</h3>
-            <span>{c.offer.express.pay}</span>
-          </div>
-          <p class="lnd-body">{c.offer.express.body}</p>
-          <div class="lnd-actions">
-            <a class="btn btn-line" href="#parliamone" data-pick-tier="premium-extras">{c.offer.express.cta} <span class="arrow">→</span></a>
-            <span class="lnd-express-note">{c.offer.express.note}</span>
-          </div>
-        </div>
       </div>
       <div class="lnd-sheet-wrap">
         <article class="lnd-sheet">
@@ -229,15 +217,11 @@ const band = `${c.band.join(" · ")} · `;
             <span>{t(COPY.proposal, lang)}</span>
             <span>{t(camp.audience, lang)}</span>
           </header>
-          <h3 class="lnd-sheet-title">{t(variants[0].headline, lang)}</h3>
-          <div class="lnd-sheet-price">
-            <strong>{camp.price} €</strong>
-            <span>{t(COPY.perYear, lang)}</span>
-          </div>
-          <p class="lnd-sheet-note">{c.offer.priceNote}</p>
+          <h3 class="lnd-sheet-title">{t(VARIANTS[0].headline, lang)}</h3>
+          <p class="lnd-sheet-note">{c.offer.note}</p>
           <p class="lnd-sheet-k">{c.offer.includesLabel}</p>
           <ul class="lnd-sheet-list">{c.offer.includes.map((it) => <li>{it}</li>)}</ul>
-          <a class="btn btn-ac" href="#parliamone" data-pick-tier="all-inclusive">{c.offer.cta} <span class="arrow">→</span></a>
+          <a class="btn btn-ac" href="#parliamone">{c.offer.cta} <span class="arrow">→</span></a>
         </article>
       </div>
     </div>
@@ -269,14 +253,7 @@ const band = `${c.band.join(" · ")} · `;
     topic={`Offerta · ${t(camp.audience, lang)}`}
     title={c.lead.title}
     lede={c.lead.lede}
-    choices={[
-      { id: "all-inclusive", name: c.lead.choices[0] },
-      { id: "premium-extras", name: c.lead.choices[1] },
-    ]}
-    choiceLegend={c.lead.choiceLegend}
-    unsure={false}
     phone
-    price={`${camp.price} €/anno`}
     company={c.lead.company}
     message={c.lead.message}
   />

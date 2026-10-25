@@ -1,0 +1,9 @@
+/* ============================================================
+   stamp.
+
+   Reduced motion: every price is in its place, straight. Without JS,
+   the same: the script lifts it at init, never the CSS.
+
+   The price must be a box that can scale (inline-block or block): the
+   studio's .fx-product-from is a grid item.
+   ============================================================ */

@@ -23,10 +23,11 @@ export const footer = {
   sitemap: { it: "Mappa del sito", en: "Site map" },
   follow: { it: "Seguici", en: "Follow us" },
   legal: { it: "Legale", en: "Legal" },
-  rights: {
-    it: "© 2026 Alpacode · Tutti i diritti riservati",
-    en: "© 2026 Alpacode · All rights reserved",
-  },
+  rights: { it: "Tutti i diritti riservati", en: "All rights reserved" },
+  services: { it: "Servizi", en: "Services" },
+  marketing: { it: "Marketing", en: "Marketing" },
+  referralTerms: { it: "Segnala un amico: condizioni", en: "Refer a friend: terms" },
+  referralPrivacy: { it: "Segnala un amico: privacy", en: "Refer a friend: privacy" },
   /* Footer studio clock: "Monza, ore 19:44" — the time comes from
      Footer.astro's ticking script. */
   clock: { it: "Monza, ore", en: "Monza, local time" },
@@ -43,7 +44,7 @@ export const footer = {
   /* Secondary nav strip — indexes the marketing/program pages that
      deliberately have no primary-nav slot. */
   collab: { it: "Collabora", en: "Collaborate" },
-  offers: { it: "Offerte su misura", en: "Tailored offers" },
+  offers: { it: "Per professione", en: "By profession" },
   collaborate: { it: "Collabora con noi", en: "Collaborate with us" },
   partnerProgram: { it: "Programma partner", en: "Partner program" },
   referral: { it: "Segnala un amico", en: "Refer a friend" },
@@ -158,8 +159,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Products · Alpacode Digital Solutions",
     },
     description: {
-      it: "I prodotti digitali Alpacode — Hive Commerce, Alpacode Pro Kit e Paco — e i pacchetti pronti a prezzo fisso: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV.",
-      en: "Alpacode's digital products — Hive Commerce, Alpacode Pro Kit and Paco — plus fixed-price packages: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV.",
+      it: "I prodotti digitali Alpacode — Hive Commerce, Alpacode Pro Kit e Paco — e i pacchetti pronti: Sito Pronto, E-commerce Starter, Brand Kit, Landing & ADV.",
+      en: "Alpacode's digital products — Hive Commerce, Alpacode Pro Kit and Paco — plus ready-made packages: Ready Site, E-commerce Starter, Brand Kit, Landing & ADV.",
     },
   },
   lavori: {

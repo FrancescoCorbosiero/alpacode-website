@@ -4,6 +4,16 @@ import { doorTo } from "@shared/data/compartments";
 /** Growing is the studio's work: the group opens its door. */
 const studio = doorTo("studio", "/servizi/", { site: "house", where: "servizi" });
 
+/** The anchor of a service on /servizi/ ("Siti & web app" → "siti-web-app"):
+ *  the footer and the mega menu link straight to it. */
+export const anchorOf = (title: string): string =>
+  title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
 export interface ServiceMeta {
   k: string;
   v: string;
@@ -51,7 +61,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Formato", v: "Remoto · in studio" },
               { k: "Tempi", v: "da 2 a 8 settimane" },
-              { k: "Prezzo", v: "Su misura" },
+              { k: "Si parte da", v: "Una call di 30 minuti" },
             ],
           },
           {
@@ -61,7 +71,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Per chi", v: "Privati & imprese" },
               { k: "Tempi", v: "da 3 a 12 settimane" },
-              { k: "Prezzo", v: "Pacchetto o su misura" },
+              { k: "Formula", v: "Pacchetto o su misura" },
             ],
           },
           {
@@ -71,7 +81,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Base", v: "WooCommerce · Shopify" },
               { k: "Tempi", v: "da 4 a 10 settimane" },
-              { k: "Prezzo", v: "Pacchetto o su misura" },
+              { k: "Formula", v: "Pacchetto o su misura" },
             ],
           },
           {
@@ -81,7 +91,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Ambiti", v: "Gestione · ERP · CRM" },
               { k: "Tempi", v: "da 6 a 20 settimane" },
-              { k: "Prezzo", v: "Su misura" },
+              { k: "Formula", v: "Su misura" },
             ],
           },
           {
@@ -91,7 +101,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Ambiti", v: "Assistenti · automazioni · contenuti" },
               { k: "Dove", v: "Nei sistemi che usi già" },
-              { k: "Prezzo", v: "Su misura" },
+              { k: "Formula", v: "Su misura" },
             ],
           },
           {
@@ -110,7 +120,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         verb: "Far crescere",
         tagline: "Quello che di solito chiedi a un'agenzia di comunicazione, qui sotto lo stesso tetto.",
         door: {
-          text: "Questo è il lavoro di Alpacode Studio, il nostro compartimento marketing: social e contenuti, brand, UX, campagne e SEO, con i pacchetti pronti.",
+          text: "Questo è il lavoro di Alpacode Studio: social e contenuti, brand, UX, campagne e SEO, con pacchetti pronti per partire.",
           label: "Vai allo studio",
           href: studio,
         },
@@ -122,7 +132,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Consegna", v: "Brand kit pronto" },
               { k: "Tempi", v: "da 2 a 4 settimane" },
-              { k: "Prezzo", v: "Pacchetto Brand Kit" },
+              { k: "Formula", v: "Pacchetto Brand Kit" },
             ],
           },
           {
@@ -132,7 +142,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Ambiti", v: "Web · app · prodotto" },
               { k: "Output", v: "Prototipi navigabili" },
-              { k: "Prezzo", v: "Su misura" },
+              { k: "Formula", v: "Su misura" },
             ],
           },
           {
@@ -142,7 +152,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Canali", v: "Google · Meta" },
               { k: "Formato", v: "Setup + gestione" },
-              { k: "Prezzo", v: "Canone + budget" },
+              { k: "Formula", v: "Canone + budget ADV" },
             ],
           },
           {
@@ -152,7 +162,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Strumenti", v: "Search Console · Analytics" },
               { k: "Tempi", v: "Continuativo" },
-              { k: "Prezzo", v: "Progetto o canone" },
+              { k: "Formula", v: "Progetto o canone" },
             ],
           },
         ],
@@ -168,7 +178,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Formato", v: "In aula · remoto" },
               { k: "Durata", v: "8 — 32 ore" },
-              { k: "Prezzo", v: "Su richiesta" },
+              { k: "Programma", v: "Su richiesta" },
             ],
           },
           {
@@ -178,7 +188,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Formato", v: "Pacchetto digitale" },
               { k: "Licenza", v: "Commerciale" },
-              { k: "Prezzo", v: "Su richiesta" },
+              { k: "Aggiornamenti", v: "Nel tempo" },
             ],
           },
           {
@@ -188,7 +198,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Formato", v: "In aula · remoto" },
               { k: "Durata", v: "Da 1 giornata" },
-              { k: "Prezzo", v: "Su misura" },
+              { k: "Supporto", v: "Anche dopo l'aula" },
             ],
           },
         ],
@@ -214,7 +224,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Format", v: "Remote · in studio" },
               { k: "Lead time", v: "2 to 8 weeks" },
-              { k: "Price", v: "Tailored" },
+              { k: "Starts with", v: "A 30-minute call" },
             ],
           },
           {
@@ -224,7 +234,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "For", v: "People & businesses" },
               { k: "Lead time", v: "3 to 12 weeks" },
-              { k: "Price", v: "Package or tailored" },
+              { k: "Engagement", v: "Package or tailored" },
             ],
           },
           {
@@ -234,7 +244,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Base", v: "WooCommerce · Shopify" },
               { k: "Lead time", v: "4 to 10 weeks" },
-              { k: "Price", v: "Package or tailored" },
+              { k: "Engagement", v: "Package or tailored" },
             ],
           },
           {
@@ -244,7 +254,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Areas", v: "Ops · ERP · CRM" },
               { k: "Lead time", v: "6 to 20 weeks" },
-              { k: "Price", v: "Tailored" },
+              { k: "Engagement", v: "Tailored" },
             ],
           },
           {
@@ -254,7 +264,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Areas", v: "Assistants · automations · content" },
               { k: "Where", v: "In the systems you already use" },
-              { k: "Price", v: "Bespoke" },
+              { k: "Engagement", v: "Bespoke" },
             ],
           },
           {
@@ -273,7 +283,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
         verb: "Grow",
         tagline: "What you'd normally ask a communication agency for, here under one roof.",
         door: {
-          text: "This is the work of Alpacode Studio, our marketing compartment: social and content, brand, UX, campaigns and SEO, with ready-made packages. In Italian.",
+          text: "This is the work of Alpacode Studio: social and content, brand, UX, campaigns and SEO, with ready-made packages. In Italian.",
           label: "Go to the studio",
           href: studio,
         },
@@ -285,7 +295,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Delivery", v: "Ready brand kit" },
               { k: "Lead time", v: "2 to 4 weeks" },
-              { k: "Price", v: "Brand Kit package" },
+              { k: "Engagement", v: "Brand Kit package" },
             ],
           },
           {
@@ -295,7 +305,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Areas", v: "Web · app · product" },
               { k: "Output", v: "Clickable prototypes" },
-              { k: "Price", v: "Tailored" },
+              { k: "Engagement", v: "Tailored" },
             ],
           },
           {
@@ -305,7 +315,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Channels", v: "Google · Meta" },
               { k: "Format", v: "Setup + management" },
-              { k: "Price", v: "Fee + ad budget" },
+              { k: "Engagement", v: "Fee + ad budget" },
             ],
           },
           {
@@ -315,7 +325,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Tools", v: "Search Console · Analytics" },
               { k: "Timing", v: "Ongoing" },
-              { k: "Price", v: "Project or retainer" },
+              { k: "Engagement", v: "Project or retainer" },
             ],
           },
         ],
@@ -331,7 +341,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Format", v: "In person · remote" },
               { k: "Duration", v: "8 — 32 hours" },
-              { k: "Price", v: "On request" },
+              { k: "Programme", v: "On request" },
             ],
           },
           {
@@ -341,7 +351,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Format", v: "Digital pack" },
               { k: "License", v: "Commercial" },
-              { k: "Price", v: "On request" },
+              { k: "Updates", v: "Over time" },
             ],
           },
           {
@@ -351,7 +361,7 @@ export const servizi: Record<Lang, ServiziPageData> = {
             meta: [
               { k: "Format", v: "In person · remote" },
               { k: "Duration", v: "From 1 day" },
-              { k: "Price", v: "Tailored" },
+              { k: "Support", v: "After the class too" },
             ],
           },
         ],

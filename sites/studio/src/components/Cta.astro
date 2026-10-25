@@ -14,13 +14,24 @@ const {
   primary,
 } = Astro.props;
 const outside = primary ? /^https?:/.test(primary.href) : false;
+// «crescere» grows (engine/effects/grow.ts): the word, wherever it is.
+const at = title.toLowerCase().indexOf("crescere");
+const parts = at < 0 ? null : [title.slice(0, at), title.slice(at, at + 8), title.slice(at + 8)];
 ---
 
 <section class="fx-section">
   <div class="fx-wrap">
     <div class="fx-cta" data-reveal>
       <div>
-        <h2 class="fx-title">{title}</h2>
+        {
+          parts ? (
+            // One line on purpose: whitespace between the tags would show.
+            // prettier-ignore
+            <h2 class="fx-title">{parts[0]}<span class="fx-grow" data-grow>{parts[1]}</span>{parts[2]}</h2>
+          ) : (
+            <h2 class="fx-title">{title}</h2>
+          )
+        }
         <p>{text}</p>
       </div>
       <div class="fx-cta-act">

@@ -1,15 +1,15 @@
 ---
-/* The studio's home: the hook, the doors, the three verbs, the
-   packages and the products, the house behind it. */
+/* The studio's home: the hook, "in chi ti identifichi?", the three
+   verbs on a phone (Journey), the packages and the products, the work. */
 import Studio from "../layouts/Studio.astro";
 import Hero from "../components/Hero.astro";
 import Feed from "../components/Feed.astro";
 import Band from "../components/Band.astro";
-import Doors from "../components/Doors.astro";
-import House from "../components/House.astro";
+import Readers from "../components/Readers.astro";
+import Journey from "../components/Journey.astro";
+import Proof from "../components/Proof.astro";
 import Cta from "../components/Cta.astro";
 import { PAGES } from "../data/pages";
-import { GROUPS } from "../data/services";
 import { PACKAGES } from "../data/packages";
 import { PRODUCTS } from "../data/products";
 import { euro } from "../data/site";
@@ -21,40 +21,15 @@ const head = PAGES.home;
 <Studio title={head.meta.title} description={head.meta.description} og={head.meta.og} ogAlt={head.said} jsonld={[organization()]}>
   <Hero head={head}>
     <a class="fx-btn" href="/contatti/">Parliamone <span aria-hidden="true">→</span></a>
-    <a class="fx-link fx-hero-more" href="#porte">Oppure scegli da dove parti <span aria-hidden="true">↓</span></a>
+    <a class="fx-link fx-hero-more" href="#per-chi">Oppure dicci chi sei <span aria-hidden="true">↓</span></a>
     <Feed slot="visual" />
   </Hero>
 
   <Band words={["Farsi vedere", "Farsi ricordare", "Farsi scegliere"]} />
 
-  <Doors />
+  <Readers />
 
-  <section class="fx-section">
-    <div class="fx-wrap">
-      <div class="fx-choose-head" data-reveal>
-        <span class="fx-hand">cosa facciamo</span>
-        <h2 class="fx-title">Il percorso del tuo cliente, in tre verbi.</h2>
-      </div>
-      <ul class="fx-verbs">
-        {
-          GROUPS.map((g, i) => (
-            <li data-reveal>
-              <a class="fx-verb" href={`/servizi/#${g.id}`} style={`--ac:${g.accent}`}>
-                <span class="fx-verb-n">0{i + 1}</span>
-                <h3>{g.verb}</h3>
-                <p>{g.lede}</p>
-                <ul class="fx-verb-list">
-                  {g.services.map((s) => (
-                    <li>{s.t}</li>
-                  ))}
-                </ul>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  <Journey />
 
   <section class="fx-section fx-paper">
     <div class="fx-wrap">
@@ -111,6 +86,6 @@ const head = PAGES.home;
     </div>
   </section>
 
-  <House where="home" />
+  <Proof where="home" />
   <Cta />
 </Studio>

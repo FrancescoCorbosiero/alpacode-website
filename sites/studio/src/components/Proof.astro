@@ -1,0 +1,32 @@
+---
+/* The work: what Alpacode built for real businesses, on alpacode.it —
+   proof before trust. */
+import { house } from "../data/site";
+
+interface Props {
+  /** Where on the studio the link is, for alpacode.it's analytics. */
+  where: string;
+}
+const { where } = Astro.props;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap">
+    <div class="fx-signed" data-reveal>
+      <div>
+        <div class="fx-signed-mark">
+          <strong>I LAVORI</strong>
+          <span class="fx-hand">prima di fidarti, guarda</span>
+        </div>
+        <p>
+          Siti, e-commerce e software costruiti per attività vere, da Monza e Milano in tutta Italia: sono su alpacode.it, ognuno
+          con il suo caso, prima e dopo.
+        </p>
+      </div>
+      <div class="fx-signed-act">
+        <a class="fx-btn fx-btn--ghost" href={house("/lavori/", where)}>Guarda i lavori <span aria-hidden="true">↗</span></a>
+        <a class="fx-link" href={house("/chi-siamo/", where)}>Chi siamo <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>

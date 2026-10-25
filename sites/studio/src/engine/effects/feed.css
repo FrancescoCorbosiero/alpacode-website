@@ -1,0 +1,49 @@
+/* ============================================================
+   feed.
+
+   Reduced motion: the phone shows its last screen (the page covers the
+   feed and the mark, the request is in), beside the three verbs, one
+   after the other. Without JS, the same: the script hides what waits,
+   at init, never the CSS.
+
+   Live ([data-scene-live], set by the stage's scrubbed()): the wrapper
+   is --len screens tall and its stage sticks (stage.css); the verbs
+   share one place beside the phone, under it on a phone, where the
+   phone shrinks so the stage fits 390×664 and the services list steps
+   aside ([data-scene-aside]).
+   ============================================================ */
+[data-scene="feed"][data-scene-live] {
+  --scene-progress-color: var(--volt);
+  --scene-gutter: var(--gutter);
+}
+[data-scene="feed"][data-scene-live] .fx-jn-stage {
+  box-sizing: border-box;
+  padding: calc(var(--top) + 8px) 0 44px;
+}
+[data-scene="feed"][data-scene-live] .fx-jn-stage > .fx-wrap {
+  width: 100%;
+}
+[data-scene="feed"][data-scene-live] .fx-jn-phone {
+  width: min(100%, 340px, calc((100svh - var(--top) - 96px) / 1.72));
+}
+@media (max-width: 900px) {
+  [data-scene="feed"][data-scene-live] .fx-jn-grid {
+    gap: 18px;
+  }
+  [data-scene="feed"][data-scene-live] .fx-jn-phone {
+    width: min(54vw, calc((100svh - 330px) / 1.68), 260px);
+    padding: 8px 8px 10px;
+    border-radius: 28px;
+  }
+  [data-scene="feed"][data-scene-live] .fx-jn-bar {
+    padding: 2px 8px 6px;
+    font-size: 11px;
+  }
+  [data-scene="feed"][data-scene-live] .fx-jn-screen {
+    border-radius: 20px;
+  }
+  [data-scene="feed"][data-scene-live] .fx-verb {
+    gap: 8px;
+    padding: 18px 20px;
+  }
+}

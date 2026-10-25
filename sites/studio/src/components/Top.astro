@@ -1,8 +1,8 @@
 ---
-/* The header: the lockup (ALPACODE + the compartment's sticker), the
-   pages, the way to write, and the door back to the house. On a phone
-   the pages fold into a <details> menu: no script needed. */
-import { HOUSE, NAV, STUDIO, house } from "../data/site";
+/* The header: the lockup (ALPACODE + the studio's sticker), the pages,
+   the way to write, and the link to alpacode.it (sites and software).
+   On a phone the pages fold into a <details> menu: no script needed. */
+import { NAV, STUDIO, house } from "../data/site";
 
 const path = Astro.url.pathname;
 const current = (href: string) => path === href || path.startsWith(href);
@@ -24,7 +24,7 @@ const current = (href: string) => path === href || path.startsWith(href);
     </nav>
     <div class="fx-top-end">
       <a class="fx-top-house" href={house("/", "header")}>
-        <span class="fx-top-house-l">La casa:</span> alpacode.it <span aria-hidden="true">↗</span>
+        <span class="fx-top-house-l">Siti e software:</span> alpacode.it <span aria-hidden="true">↗</span>
       </a>
       <a class="fx-btn fx-btn--sm" href="/contatti/">Parliamone</a>
       <details class="fx-menu">
@@ -37,7 +37,7 @@ const current = (href: string) => path === href || path.startsWith(href);
               </a>
             ))
           }
-          <a class="fx-menu-house" href={house("/", "menu")}>{HOUSE.name}: alpacode.it ↗</a>
+          <a class="fx-menu-house" href={house("/", "menu")}>Siti e software: alpacode.it ↗</a>
         </div>
       </details>
     </div>

@@ -78,7 +78,9 @@ doors") is `src/data/audiences.ts`; the studio's doors are
 
 - **The house**: never the aggressive register. Objections are answered
   calmly where they arise (the AI one on `/per-chi-fa-siti/ai` and
-  `/partner`).
+  `/partner`). No prices: the house sells projects and proposals (what's
+  included, how it's done, a written proposal after the first call);
+  prices live on the studio's products.
 - **The studio** may provoke: a question that names the worry, answered
   in the same line ("Il tuo brand si perde nel feed? → si fa ricordare").
   One promise per line, prices stated.

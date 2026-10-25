@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { sendMail } from "@shared/server/mail";
+import { autoReply, replyAllowed } from "@shared/server/reply";
 import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "@shared/server/guard";
+import { CAL_LINK, CAL_ORIGIN } from "../../lib/calcom";
 
 // This route runs on demand (form POST), the rest of the site is static.
 export const prerender = false;
@@ -55,7 +57,6 @@ export const POST: APIRoute = async (context) => {
   const company = str(body.company);
   const phone = str(body.phone);
   const offer = str(body.offer);
-  const price = str(body.price);
   const topic = str(body.topic);
   const budget = str(body.budget);
   const lang = str(body.lang);
@@ -72,7 +73,6 @@ export const POST: APIRoute = async (context) => {
     campaign ? `Campagna: ${campaign}` : null,
     audience ? `Target: ${audience}` : null,
     offer ? `Offerta scelta: ${offer}` : null,
-    price ? `Prezzo: ${price}` : null,
     topic ? `Argomento: ${topic}` : null,
     budget ? `Budget: ${budget}` : null,
     ...details,
@@ -88,6 +88,22 @@ export const POST: APIRoute = async (context) => {
     // 503, not 502: Cloudflare swaps an origin's 502/504 for its own
     // "Bad gateway" page, which hides this JSON and reads as an outage.
     return json({ ok: false, error: "send_failed" }, 503);
+  }
+  // The person who wrote gets a reply in the site's look; it doesn't
+  // hold the answer up, and its failure (an SES sandbox) costs nothing.
+  if (replyAllowed(email)) {
+    void sendMail(
+      autoReply({
+        site: "house",
+        lang: lang === "en" ? "en" : "it",
+        name,
+        email,
+        about: topic || audience || undefined,
+        message,
+        book: `${CAL_ORIGIN}/${CAL_LINK}`,
+        origin: context.site?.origin ?? "https://alpacode.it",
+      }),
+    );
   }
   return json({ ok: true, delivered: sent === "sent" });
 };

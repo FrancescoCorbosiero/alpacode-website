@@ -67,23 +67,23 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
   it: {
     costi: {
       title: "Costi e pagamenti",
-      lede: "Quanto costa, come si paga, cosa succede prima di firmare.",
+      lede: "Come nasce un preventivo, come si paga, cosa succede prima di firmare.",
       items: [
         {
           q: "Quanto costa un sito?",
-          a: "Dipende da cosa ti serve. Per professionisti e piccole attività c'è il sito a canone: da 300 € l'anno, con dominio, hosting, email e la manutenzione del primo anno. Un sito su misura, un e-commerce o un software li preventiviamo dopo la prima call, con una proposta scritta.",
+          a: "Dipende da cosa ti serve: un sito per un professionista, un e-commerce e un software sono lavori diversi. Per professionisti e piccole attività c'è anche il sito a canone annuale, con dominio, hosting, email e la manutenzione del primo anno. Il resto lo preventiviamo dopo la prima call, con una proposta scritta.",
         },
         {
           q: "Come funziona il preventivo?",
           a: "Dopo una call di trenta minuti ti mandiamo una proposta scritta: cosa faremo, in che ordine, in quanto tempo e a che prezzo. Fino alla firma non c'è nessun impegno.",
         },
         {
-          q: "Avete prezzi fissi?",
-          a: "Per alcune cose sì: i pacchetti e i prodotti hanno un contenuto e un prezzo definiti. Il resto è su misura, perché dipende da quello che ti serve davvero.",
+          q: "Avete soluzioni già pronte?",
+          a: "Sì: i pacchetti e i prodotti hanno un contenuto definito, da cui partire subito. Il resto è su misura, perché dipende da quello che ti serve davvero.",
         },
         {
           q: "Posso pagare a rate?",
-          a: "Per i progetti più grandi sì: dividiamo il pagamento in più rate, senza interessi, su 3, 6 o 12 mesi.",
+          a: "Per i progetti più grandi sì: dividiamo il pagamento in più rate, che fissiamo nella proposta.",
         },
       ],
     },
@@ -137,7 +137,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
         },
         {
           q: "Quanto costano i corsi?",
-          a: "Dipende dal percorso e dal formato: ti mandiamo il programma e il prezzo su richiesta. Le guide e i crash course da fare da sé si comprano su Alpacode Studio.",
+          a: "Dipende dal percorso e dal formato: ti mandiamo il programma e la proposta su richiesta. Le guide e i corsi brevi da fare da sé si comprano su Alpacode Studio.",
         },
       ],
     },
@@ -147,7 +147,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
       items: [
         {
           q: "Fate anche branding, social e pubblicità?",
-          a: "Sì: è il lavoro di Alpacode Studio, il nostro compartimento marketing, su studio.alpacode.it. Le stesse persone, lo stesso metodo, con i pacchetti pronti.",
+          a: "Sì: è il lavoro di Alpacode Studio, su studio.alpacode.it, con pacchetti pronti per partire.",
         },
         {
           q: "Posso avere sito e marketing insieme?",
@@ -159,23 +159,23 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
   en: {
     costi: {
       title: "Costs and payments",
-      lede: "What it costs, how you pay, what happens before you sign.",
+      lede: "How a quote comes together, how you pay, what happens before you sign.",
       items: [
         {
           q: "How much does a website cost?",
-          a: "It depends on what you need. For professionals and small businesses there's the site on a yearly fee: from €300 a year, with domain, hosting, email and the first year's maintenance. A bespoke site, an e-commerce or a piece of software we quote after the first call, with a written proposal.",
+          a: "It depends on what you need: a site for a professional, an e-commerce and a piece of software are different jobs. For professionals and small businesses there's also the site on a yearly fee, with domain, hosting, email and the first year's maintenance. Everything else we quote after the first call, with a written proposal.",
         },
         {
           q: "How does the quote work?",
           a: "After a thirty-minute call we send you a written proposal: what we'll do, in what order, how long it takes and what it costs. There's no commitment until you sign.",
         },
         {
-          q: "Do you have fixed prices?",
-          a: "For some things, yes: the packages and the products have a set scope and price. The rest is bespoke, because it depends on what you actually need.",
+          q: "Do you have ready-made solutions?",
+          a: "Yes: the packages and the products have a set scope, ready to start from. The rest is bespoke, because it depends on what you actually need.",
         },
         {
           q: "Can I pay in instalments?",
-          a: "For larger projects, yes: we split the payment into instalments, interest-free, over 3, 6 or 12 months.",
+          a: "For larger projects, yes: we split the payment into instalments, set out in the proposal.",
         },
       ],
     },
@@ -229,7 +229,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
         },
         {
           q: "How much do the courses cost?",
-          a: "It depends on the track and the format: we send you the programme and the price on request. The do-it-yourself guides and crash courses are sold on Alpacode Studio, in Italian.",
+          a: "It depends on the track and the format: we send you the programme and a proposal on request. The do-it-yourself guides and short courses are sold on Alpacode Studio, in Italian.",
         },
       ],
     },
@@ -239,7 +239,7 @@ const OWN: Record<Lang, Record<"costi" | "metodo" | "dopo" | "formazione" | "stu
       items: [
         {
           q: "Do you also do branding, social and advertising?",
-          a: "Yes: it's the work of Alpacode Studio, our marketing compartment, on studio.alpacode.it (in Italian). The same people, the same method, with ready-made packages.",
+          a: "Yes: it's the work of Alpacode Studio, on studio.alpacode.it (in Italian), with ready-made packages.",
         },
         {
           q: "Can I have the site and the marketing together?",

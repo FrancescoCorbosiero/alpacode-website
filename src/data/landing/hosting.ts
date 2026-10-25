@@ -278,7 +278,7 @@ export const hosting: Record<Lang, HostingCopy> = {
           cta: "Scelgo l'1:1",
         },
       ],
-      note: "Prezzi su richiesta: dipendono dal percorso e da quanti siti porti.",
+      note: "Ogni percorso lo definiamo insieme, alla prima call, a partire da quanti siti porti.",
     },
     qa: {
       title: "Le domande\nche ci fanno.",
@@ -463,7 +463,7 @@ export const hosting: Record<Lang, HostingCopy> = {
           cta: "I'll take the 1:1",
         },
       ],
-      note: "Prices on request: they depend on the path and on how many sites you bring.",
+      note: "We define each path together, on the first call, starting from how many sites you bring.",
     },
     qa: {
       title: "The questions\nwe get asked.",

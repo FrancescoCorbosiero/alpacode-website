@@ -124,21 +124,21 @@ export const PAGES: Record<PageId, PageHead> = {
   },
 };
 
-/* ---------- The doors of the home ---------- */
+/* ---------- "In chi ti identifichi?": the readers of the home ---------- */
 
-export interface Door {
+export interface Reader {
   id: string;
   /** Who's reading, in their words. */
   who: string;
-  /** What's behind the door. */
+  /** Where the card leads. */
   what: string;
   href: string;
   accent: string;
-  /** A door into the house (alpacode.it). */
-  house?: boolean;
+  /** The card opens alpacode.it. */
+  alpacode?: boolean;
 }
 
-export const DOORS: Door[] = [
+export const READERS: Reader[] = [
   { id: "social", who: "Voglio crescere sui social.", what: "Social e contenuti", href: "/servizi/#vedere", accent: "#ff2e88" },
   { id: "brand", who: "Il mio brand non lo ricorda nessuno.", what: "Brand e identità", href: "/servizi/#ricordare", accent: "#ff6b1a" },
   { id: "clienti", who: "Mi vedono, ma non mi scrivono.", what: "UX, campagne e SEO", href: "/servizi/#scegliere", accent: "#2ee6c5" },
@@ -148,16 +148,16 @@ export const DOORS: Door[] = [
     id: "chi-fa-siti",
     who: "Faccio siti per i clienti.",
     what: "Codebase e formazione, su alpacode.it",
-    href: house("/per-chi-fa-siti/", "home-porte"),
+    href: house("/per-chi-fa-siti/", "home-per-chi"),
     accent: "#3b72e9",
-    house: true,
+    alpacode: true,
   },
   {
     id: "amico",
     who: "Conosco chi ha bisogno di un sito.",
     what: "Fino a 100 € a segnalazione, su alpacode.it",
-    href: house("/voucher/", "home-porte"),
+    href: house("/voucher/", "home-per-chi"),
     accent: "#3b72e9",
-    house: true,
+    alpacode: true,
   },
 ];

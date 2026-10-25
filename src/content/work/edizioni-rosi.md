@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 10
 year: "2025"
 sector: { it: "Editoria", en: "Publishing" }
 title: { it: "Edizioni Rosi", en: "Edizioni Rosi" }

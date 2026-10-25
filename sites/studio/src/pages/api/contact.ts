@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { sendMail } from "@shared/server/mail";
+import { autoReply, replyAllowed } from "@shared/server/reply";
 import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "@shared/server/guard";
+import { CAL } from "../../data/site";
 
 /* The studio's contact form (components/ContactForm.astro). On demand;
    the rest of the site is prerendered. Same guards and the same sender
@@ -50,5 +52,21 @@ export const POST: APIRoute = async (context) => {
     replyTo: email,
   });
   if (sent === "failed") return json({ ok: false, error: "send_failed" }, 503);
+  // The person who wrote gets a reply in the studio's look (it doesn't
+  // hold the answer up).
+  if (replyAllowed(email)) {
+    void sendMail(
+      autoReply({
+        site: "studio",
+        lang: "it",
+        name,
+        email,
+        about: offer || (topic !== "—" ? topic : undefined),
+        message: str(body.message, MAX_MESSAGE),
+        book: CAL,
+        origin: context.site?.origin ?? "https://studio.alpacode.it",
+      }),
+    );
+  }
   return json({ ok: true, delivered: sent === "sent" });
 };

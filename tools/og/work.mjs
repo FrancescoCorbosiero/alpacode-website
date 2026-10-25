@@ -46,7 +46,9 @@ export async function workCards(root) {
   const cards = [];
   for (const file of readdirSync(dir).filter((f) => f.endsWith(".md")).sort()) {
     const id = file.replace(/\.md$/, "");
-    const f = fieldsOf(readFileSync(join(dir, file), "utf8"));
+    const md = readFileSync(join(dir, file), "utf8");
+    if (/^draft: true/m.test(md)) continue; // not on show, no page to share
+    const f = fieldsOf(md);
     const shot = readdirSync(shots).find((s) => s.replace(/\.[^.]+$/, "") === id);
     const photo = shot
       ? `data:image/jpeg;base64,${(await sharp(join(shots, shot)).resize({ width: 980 }).jpeg({ quality: 82 }).toBuffer()).toString("base64")}`
@@ -93,7 +95,12 @@ export function workSvg(card) {
     <circle cx="${fx + 34}" cy="${fy + 15}" r="5" fill="none" stroke="#0b0e14" stroke-width="1.5"/>
     <circle cx="${fx + 50}" cy="${fy + 15}" r="5" fill="none" stroke="#0b0e14" stroke-width="1.5"/>
     <text x="${fx + fw / 2}" y="${fy + 20}" text-anchor="middle" font-family="Manrope" font-weight="700" font-size="14" fill="#465065">${esc(bar)}</text>
-    ${card.photo ? `<clipPath id="v"><rect x="${fx + 1}" y="${fy + 31}" width="${fw - 2}" height="${vh - 2}"/></clipPath><image href="${card.photo}" x="${fx + 1}" y="${fy + 31}" width="${fw - 2}" height="${vh - 2}" preserveAspectRatio="xMidYMin slice" clip-path="url(#v)"/>` : ""}
+    ${
+      card.photo
+        ? `<clipPath id="v"><rect x="${fx + 1}" y="${fy + 31}" width="${fw - 2}" height="${vh - 2}"/></clipPath><image href="${card.photo}" x="${fx + 1}" y="${fy + 31}" width="${fw - 2}" height="${vh - 2}" preserveAspectRatio="xMidYMin slice" clip-path="url(#v)"/>`
+        : // No screenshot yet: the window shows the site's name, as the page's frame does.
+          `<rect x="${fx + 1}" y="${fy + 31}" width="${fw - 2}" height="${vh - 2}" fill="#e4e9f3"/><text x="${fx + fw / 2}" y="${fy + 30 + vh / 2}" text-anchor="middle" font-family="Archivo Black" font-size="${bar.length > 20 ? 26 : 34}" fill="#0b0e14">${esc(bar)}</text><rect x="${fx + fw / 2 - 40}" y="${fy + 30 + vh / 2 + 18}" width="80" height="6" fill="#3b72e9"/>`
+    }
   </g>
 </svg>`;
 }

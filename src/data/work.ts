@@ -15,15 +15,21 @@ import type { ImageMetadata } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import type { Lang } from "../i18n/types";
 import { localizePath } from "../i18n/utils";
+import { PLACES } from "./places";
 
 export { WORK_KINDS, KIND_LABELS, type WorkKind } from "./work-kinds";
 
 export type Work = CollectionEntry<"work">;
 
-/** Every project, in the order of the collection. */
+/** Every project on show (drafts aside), in order of importance. */
 export async function works(): Promise<Work[]> {
-  return (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
+  return (await getCollection("work", (w) => !w.data.draft)).sort((a, b) => a.data.order - b.data.order);
 }
+
+/** What the rows print under a name: sector, place, year — the ones the
+ *  entry has. */
+export const factsOf = (d: Work["data"], lang: Lang): string[] =>
+  [d.sector[lang], d.place ? PLACES[d.place].name[lang] : null, d.year ?? null].filter((f): f is string => !!f);
 
 /** The projects the home tells as cases, in their `featured` order. */
 export async function featuredWorks(): Promise<Work[]> {

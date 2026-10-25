@@ -2658,28 +2658,6 @@ body:has(.lnd) {
   aspect-ratio: var(--ratio, 4 / 5);
   border: 0;
 }
-.lnd-price-tag {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 12px 16px;
-  background: var(--blue-fill);
-  color: #fff;
-}
-.lnd-price-tag strong {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: 34px;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.lnd-price-tag span {
-  font-weight: 700;
-  font-size: 14px;
-}
 
 
 /* Found: the search on a phone. */
@@ -3004,23 +2982,6 @@ body:has(.lnd) {
   line-height: 1.02;
   letter-spacing: -0.02em;
 }
-.lnd-sheet-price {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-.lnd-sheet-price strong {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(64px, 7vw, 112px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  color: var(--blue-fill);
-}
-.lnd-sheet-price span {
-  font-weight: 700;
-  color: var(--lnd-mute);
-}
 .lnd-sheet-note {
   margin: 10px 0 24px;
   font-size: 15px;
@@ -3133,9 +3094,6 @@ body:has(.lnd) {
   .lnd-terms,
   .lnd-track {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .lnd-price-tag strong {
-    font-size: 27px;
   }
   .lnd-phone {
     width: min(100%, 300px);
@@ -3547,36 +3505,11 @@ body:has(.lnd) {
   color: var(--lnd-mute);
   max-width: 54ch;
 }
-.lnd-express {
-  display: grid;
-  gap: 14px;
-  padding: clamp(22px, 2.6vw, 32px);
-  border: 2px solid var(--lnd-ink);
-  background: var(--lnd-paper);
-}
-.lnd-express-head {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px 16px;
-}
-.lnd-express-head span {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--lnd-mute);
-}
-.lnd-express-note {
-  font-size: 13.5px;
-  color: var(--lnd-mute);
-}
 .lnd--smm .lnd-sheet .btn-ac {
   background: var(--ac);
   border-color: var(--ac);
   color: var(--ac-on);
 }
-.lnd--smm .lnd-sheet-price strong,
 .lnd--smm .lnd-sheet-list li::before {
   color: var(--ac-ink);
 }

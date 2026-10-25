@@ -114,14 +114,6 @@
   color: var(--blue);
 }
 
-/* Course card: price reveals on hover */
-.course .price {
-  transition: color 220ms var(--ease);
-}
-.course:hover .price {
-  color: var(--blue);
-}
-
 /* Button arrow nudges */
 .btn .arrow {
   transition: transform 0.45s var(--ease-expo);

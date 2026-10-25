@@ -15,8 +15,8 @@ This skill is the operational checklist.
   kind of reader is a new group with an audience-first path and a hub
   (`/per-chi-fa-siti/` is the model). One reader with two profiles is
   the profile switch, not two pages.
-- **Track A** — the pitch is "we build your website for N €/year" for a
-  new audience: one entry in `CAMPAIGNS` (`src/data/campaigns.ts`).
+- **Track A** — the pitch is "we build and look after your website,
+  with domain, hosting and email" for a new audience: one entry in `CAMPAIGNS` (`src/data/campaigns.ts`).
   That is the whole job.
 - **Track B** — anything else (product, program, partnership,
   formula): data file + view on the kit + a CSS block in
@@ -35,7 +35,6 @@ in the reply.
 
 - Audience and their current workaround (what they use instead of a
   site today) — this drives the hero, the pains and the search scene.
-- Price tier (existing: 300/350/450 €). Default 300 € and flag it.
 - Slug (kebab-case, Italian).
 
 ## 3. Execute
@@ -45,8 +44,9 @@ Follow `docs/landing-factory.md` for the track. Non-negotiables:
 - IT + EN always; copy in the data layer, never in components.
 - Register the page in `LANDINGS` (`data/audiences.ts`) and give it
   portals to its group.
-- No invented numbers, stats or promises; "prima vedi, poi paghi" on
-  offers. None of the banned price-reassurance phrases, no countdowns,
+- No invented numbers, stats or promises; on offers, the site approved
+  finished before it goes live. No prices on alpacode.it (they live on
+  the studio's products). None of the banned price-reassurance phrases, no countdowns,
   no placeholder proof (the list is in the playbook's house rules).
 - Track B: the house's blue (the landings speak as the house), at
   least one scene of its own in `lib/landing/scenes.ts`, the full

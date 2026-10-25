@@ -8,8 +8,7 @@
    one, or the floating one) becomes the case page's frame on the way
    (a view transition named after the project). */
 import type { Lang } from "../../i18n/types";
-import { PLACES } from "../../data/places";
-import { KIND_LABELS, WORK_KINDS, hostOf, no, shotFor, workHref, workLabels, works } from "../../data/work";
+import { KIND_LABELS, WORK_KINDS, factsOf, hostOf, no, shotFor, workHref, workLabels, works } from "../../data/work";
 import PageHero from "../PageHero.astro";
 import BrowserFrame from "../BrowserFrame.astro";
 import Coverage from "../home/Coverage.astro";
@@ -91,9 +90,9 @@ const t =
                   {title}
                 </span>
                 <span class="works-meta">
-                  <span>{w.data.sector[lang]}</span>
-                  <span>{PLACES[w.data.place].name[lang]}</span>
-                  <span>{w.data.year}</span>
+                  {factsOf(w.data, lang).map((f) => (
+                    <span>{f}</span>
+                  ))}
                 </span>
                 <span class="works-desc">
                   {w.data.descriptor[lang]}

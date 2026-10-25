@@ -34,18 +34,25 @@ const blog = defineCollection({
 const work = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/work" }),
   schema: z.object({
+    /** The order of importance (tools/work/lavori.txt sets it). */
     order: z.number(),
-    year: z.string(),
+    /** Left out while unknown: the pages skip it. */
+    year: z.string().optional(),
     sector: localized,
     title: localized,
     descriptor: localized,
     tags: z.array(z.string()),
     /** What kind of work it is: the filters of /lavori. */
     kind: z.enum(WORK_KINDS),
-    /** Where the client is (src/data/places.ts): the map of "Dove operiamo". */
-    place: z.enum(PLACE_IDS),
+    /** Where the client is (src/data/places.ts): the map of "Dove operiamo".
+     *  Left out while unknown: the project is not on the map. */
+    place: z.enum(PLACE_IDS).optional(),
     /** The live site. Only once the client is happy to have it linked. */
     url: z.string().url().optional(),
+    /** The project's other live addresses (a B2B catalogue, a portal). */
+    also: z.array(z.object({ label: localized, url: z.string().url() })).optional(),
+    /** Still being written (a site we couldn't read yet): not shown. */
+    draft: z.boolean().default(false),
     /** Told as a case on the home, in this order. Needs `case`. */
     featured: z.number().optional(),
     /** The case in short: the home's scene and the head of the case page.

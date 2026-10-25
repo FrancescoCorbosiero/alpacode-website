@@ -7,7 +7,7 @@
 import "../../styles/landing.css";
 import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
-import { COPY, FAQ, PROMISES, SEARCH, STATS, STEPS, how, offerVariants, t, type Campaign } from "../../data/campaigns";
+import { COPY, FAQ, HOW as H, PROMISES, SEARCH, STATS, STEPS, VARIANTS as variants, t, type Campaign } from "../../data/campaigns";
 import { portals, siblings } from "../../data/audiences";
 import RemoteImage from "../RemoteImage.astro";
 import Mark from "./Mark.astro";
@@ -22,8 +22,6 @@ interface Props {
   campaign: Campaign;
 }
 const { lang, campaign: c } = Astro.props;
-const variants = offerVariants(c.price);
-const H = how(c.price);
 const tr = <T,>(v: Record<Lang, T>) => t(v, lang);
 
 // A photo dropped in src/assets/campaigns/<slug>.<ext> overrides the hotlink.
@@ -85,10 +83,6 @@ const audience = tr(c.audience);
       </div>
       <figure class="lnd-offer-photo" data-intro style="--i:2">
         <RemoteImage local={local} src={c.heroImage.src} alt={tr(c.heroImage.alt)} placeholder={audience} loading="eager" ratio="4 / 5" />
-        <span class="lnd-price-tag" aria-hidden="true">
-          <strong>{c.price} €</strong>
-          <span>{tr(COPY.perYear)}</span>
-        </span>
       </figure>
     </div>
   </section>
@@ -249,11 +243,7 @@ const audience = tr(c.audience);
                 <span>{audience}</span>
               </header>
               <h3 class="lnd-sheet-title">{tr(v.headline)}</h3>
-              <div class="lnd-sheet-price">
-                <strong>{c.price} €</strong>
-                <span>{tr(COPY.perYear)}</span>
-              </div>
-              <p class="lnd-sheet-note">{tr(v.priceNote)}</p>
+              <p class="lnd-sheet-note">{tr(v.note)}</p>
               <p class="lnd-sheet-k">{tr(COPY.includesLabel)}</p>
               <ul class="lnd-sheet-list">
                 {v.includes.map((it) => (
@@ -301,7 +291,6 @@ const audience = tr(c.audience);
     choiceLegend={tr(COPY.choiceLegend)}
     unsure={false}
     phone
-    price={`${c.price} €/anno`}
     message={{
       label: lang === "it" ? "Due righe su di te (facoltativo)" : "A couple of lines about you (optional)",
       ph: lang === "it" ? "Cosa fai, cosa ti serve." : "What you do, what you need.",

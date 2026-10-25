@@ -82,7 +82,7 @@ registry is `src/data/audiences.ts`:
   `profile.ts`, `offer.ts` (the proposal's tabs),
   `calc.ts`, `makeof.ts`, `mirror.ts`, `schema.ts`
   (`landingJsonLd({ lang, site, crumbs, faq })`), `scenes.ts`.
-- **The lead form** posts `{ campaign, audience, topic, offer, price,
+- **The lead form** posts `{ campaign, audience, topic, offer,
   details[] }` with the person's fields to `/api/contact`. `choices`
   become the offer; `extra` and `profile` arrive as labelled details;
   `id` sets the anchor (`#parliamone` by default; `/partner` keeps
@@ -152,9 +152,6 @@ the objections and the form, plus the group's other doors.
 1. Extend the `CampaignSlug` union with the new slug.
 2. Add one `Campaign` to `CAMPAIGNS` — copy an entry and rewrite:
    - `audience`, `eyebrow` — who it's for, in their own words.
-   - `price` — tiers for reference: 300 € (consumer-facing
-     micro-businesses), 350 € (coaches and consultants), 450 €
-     (licensed professionals).
    - `hero.line1` / `line2` — a two-beat mirror of their situation
      ("Bravissimo sul campo." / "Invisibile su Google."); `hero.fix`
      (optional): the pen strikes `strike` out of line 2 and writes
@@ -165,15 +162,16 @@ the objections and the form, plus the group's other doors.
      they cobble together today), not generic marketing.
    - `heroImage` — `unsplash("<photo-id>")`, or drop
      `src/assets/campaigns/<id>.jpg` to override it.
-   - `meta.title` — "Sito per X · N €/anno con dominio e hosting —
-     Alpacode"; `meta.description`; `portal` — the line other pages use
-     to point here.
+   - `meta.title` — "Sito per X, con dominio e hosting — Alpacode";
+     `meta.description` (no figures: "Lo vedi finito prima che vada
+     online."); `portal` — the line other pages use to point here.
 3. Verify: `npm run check && npm run build` — the pages must appear in
    `dist/client/offerta/<slug>/`.
 
 ## Track B — Bespoke landing
 
-For a pitch that isn't "we build your site for N €/year".
+For a pitch that isn't "we build and look after your site, with
+domain, hosting and email".
 
 1. **Registry** — one `LANDINGS` entry in `data/audiences.ts` (a new
    group if the reader is new; see above).
@@ -238,11 +236,17 @@ The marketing compartment's pages are data. The playbook is
   up front", "no hidden costs", "no surprises", "all included") read
   cheap. Name the things instead: "con dominio, hosting ed email",
   "una proposta scritta dopo la prima call". (A real term of an offer
-  — the Pro Kit founders' locked price — is not the tic.)
+  — the founders' terms of the pre-launch products — is not the tic.)
+- **No prices on alpacode.it.** No figures, no "prezzo fisso", no
+  "€/anno", no checkout talk: the house sells projects and proposals,
+  and its pages say what's included and how it's done. Prices belong
+  to the studio's products (Track C). The referral program's reward
+  («fino a 100 €») is a program term, not a price.
 - **No countdowns, no fake scarcity**: no rounds, no seats, no
   deadlines on the pages.
-- **Risk reversal is the brand**: "prima vedi, poi paghi" on every
-  offer of the site.
+- **Risk reversal is the brand**: the site is seen and approved
+  finished before it goes live ("lo vedi finito prima che vada
+  online"). Said as an approval, never as money ("non paghi nulla").
 - **No placeholder proof.** No logos, reviews or counts until they're
   real.
 - No emoji in UI (the linktree parody in the SMM mirror depicts the

@@ -4,8 +4,9 @@ import { PAGES } from "../data/pages";
 import { CAMPAIGNS, t as tr } from "../data/campaigns";
 import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
-import { business, tagline } from "@shared/data/business";
+import { business, companyLine, tagline } from "@shared/data/business";
 import { COMPARTMENTS, DOORS, doorTo } from "@shared/data/compartments";
+import { anchorOf, servizi } from "../data/services";
 import BookCall from "./BookCall.astro";
 import Alpaca from "./Alpaca.astro";
 
@@ -14,6 +15,8 @@ interface Props {
 }
 const { lang } = Astro.props;
 const cookiePrefsLabel = lang === "it" ? "Preferenze cookie" : "Cookie preferences";
+const year = new Date().getFullYear();
+const servicesHref = localizePath("servizi", lang);
 
 interface FootLink {
   href: string;
@@ -25,7 +28,7 @@ interface FootGroup {
   links: FootLink[];
 }
 
-/* Three link columns of about the same height. The program/marketing pages
+/* Four link columns of about the same height. The program/marketing pages
    have no primary-nav slot on purpose: these columns are their
    internal-link home. */
 const columns: FootGroup[][] = [
@@ -33,6 +36,12 @@ const columns: FootGroup[][] = [
     {
       title: footer.nav[lang],
       links: PAGES.map((p) => ({ href: localizePath(p.slug, lang), label: p.label[lang] })),
+    },
+  ],
+  [
+    {
+      title: footer.services[lang],
+      links: (servizi[lang].groups[0]?.rows ?? []).map((r) => ({ href: `${servicesHref}#${anchorOf(r.t)}`, label: r.t })),
     },
   ],
   [
@@ -68,8 +77,8 @@ const columns: FootGroup[][] = [
       })),
     },
     {
-      // The compartments of the house, each on its own subdomain.
-      title: lang === "it" ? "Le porte" : "The doors",
+      // The marketing, on its own site (shared/data/compartments.ts).
+      title: footer.marketing[lang],
       links: DOORS.map((id) => ({
         href: doorTo(id, "/", { site: "house", where: "footer" }),
         label: COMPARTMENTS[id].name,
@@ -89,6 +98,8 @@ const legalLinks: FootLink[] = [
   { href: localizePath("privacy", lang), label: footer.privacy[lang] },
   { href: localizePath("cookie", lang), label: footer.cookies[lang] },
   { href: localizePath("termini", lang), label: footer.terms[lang] },
+  { href: `${localizePath("voucher", lang)}#condizioni`, label: footer.referralTerms[lang] },
+  { href: localizePath("voucher/privacy", lang), label: footer.referralPrivacy[lang] },
 ];
 
 /* The wordmark is set letter by letter so each letter can rise out of its
@@ -143,8 +154,9 @@ const letters = [...business.wordmark].map((ch, i, all) => ({
       </nav>
     </div>
 
+    <p class="foot-company">{companyLine(lang)}</p>
     <div class="foot-bottom">
-      <span>{footer.rights[lang]}</span>
+      <span>© {year} Alpacode · {footer.rights[lang]}</span>
       <ul class="foot-legal" aria-label={footer.legal[lang]}>
         {legalLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
         <li><button type="button" class="foot-link-btn" data-cookie-prefs>{cookiePrefsLabel}</button></li>

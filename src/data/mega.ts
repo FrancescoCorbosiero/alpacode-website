@@ -140,8 +140,8 @@ export const megaProdotti: MegaMenu = {
         n: "04",
         t: { it: "Sito Pronto", en: "Ready Site" },
         d: {
-          it: "Il sito della tua attività, a prezzo fisso e in poche settimane",
-          en: "Your business website, fixed price, in a few weeks",
+          it: "Il sito della tua attività, pronto in poche settimane",
+          en: "Your business website, ready in a few weeks",
         },
       },
       {

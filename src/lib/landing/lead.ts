@@ -91,7 +91,6 @@ function wire(form: HTMLFormElement): void {
           audience: d.audience,
           topic: d.topic,
           offer: tier?.value ? tier.dataset.label : undefined,
-          price: d.price,
           details,
         }),
       });

@@ -1,0 +1,25 @@
+# I lavori, in ordine di importanza: il primo è il più importante.
+#
+# Una riga per lavoro:   indirizzo -> parole chiave
+#   - più indirizzi, separati da uno spazio, se il lavoro ne ha più d'uno;
+#   - per un lavoro senza indirizzo, il nome della sua scheda
+#     (src/content/work/<nome>.md) al posto dell'indirizzo;
+#   - le parole chiave sono il brief: cosa abbiamo fatto, cosa è cambiato.
+#     Non finiscono sul sito così come sono: la scheda si scrive da qui.
+#
+# `npm run work-pull` legge questo file: mette le schede in quest'ordine,
+# crea in bozza quelle che mancano, e da ogni indirizzo prende testi
+# (tools/work/digests/<nome>.md) e schermate (src/assets/work/). Poi le
+# schede si scrivono dalle parole chiave e da quei testi (la skill
+# `work-from-url`). Serve la rete verso i siti dei clienti.
+
+https://resellpiacenza.shop/ -> copy già presente
+https://transferluxurydriverncc.it/ -> sito web + prenotazioni online. Il cliente non aveva uno spazio online, ora riceve clienti e collaborazioni ed è visibile su Google
+https://cesanaassicuratori.it/ -> sito autorevole per un'azienda seria. Copy già presente
+https://shoesclothingstore.com/ https://b2b.shoesclothingstore.com/ -> e-commerce + catalogo B2B + gestionale, tutto su misura per il cliente
+https://logisticasanchez.com/ -> copy già presente + gestionale moderno rivisitato
+eternal-fishing-shop -> e-commerce (già noto) + piano di digital marketing completo
+https://gtcars.netlify.app/ ->
+stiven-pt -> già noto
+edilcalmi -> già noto
+edizioni-rosi -> non era nella lista: in fondo

@@ -27,7 +27,9 @@ import { nameFromCode, normalizeCode } from "../../lib/voucher/referral-code";
 import { issueCode } from "../../lib/server/codes";
 import { append, priorReferral, referrerByCode, type LedgerEntry, type Person } from "../../lib/server/ledger";
 import { sendMail } from "@shared/server/mail";
+import { autoReply, replyAllowed } from "@shared/server/reply";
 import { readEnv } from "@shared/server/env";
+import { CAL_LINK, CAL_ORIGIN } from "../../lib/calcom";
 import { clientIp, isEmail, json, notJson, rateLimiter, readJson, str } from "@shared/server/guard";
 import type { Lang } from "../../i18n/types";
 
@@ -234,6 +236,22 @@ export const POST: APIRoute = async (context) => {
       ]),
     });
     if (mailed === "failed" && !stored) return json({ ok: false, error: "send_failed" }, 503);
+    // The friend who asked gets the house's reply (it doesn't hold the
+    // answer up).
+    if (replyAllowed(friend.email)) {
+      void sendMail(
+        autoReply({
+          site: "house",
+          lang,
+          name: friend.name,
+          email: friend.email,
+          about: lang === "it" && wanted.length ? wanted.join(", ") : undefined,
+          message: friend.message,
+          book: `${CAL_ORIGIN}/${CAL_LINK}`,
+          origin: context.site?.origin ?? "https://alpacode.it",
+        }),
+      );
+    }
     return json({ ok: true });
   }
 

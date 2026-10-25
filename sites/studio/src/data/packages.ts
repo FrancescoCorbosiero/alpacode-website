@@ -110,6 +110,6 @@ export const PACKAGES_QA = [
   },
   {
     q: "Fate anche il sito?",
-    a: "Lo fa Alpacode, la casa dello studio: siti ed e-commerce, sullo stesso progetto e con le stesse persone.",
+    a: "Sì: siti ed e-commerce li progetta e li costruisce Alpacode (alpacode.it), dentro lo stesso progetto.",
   },
 ];

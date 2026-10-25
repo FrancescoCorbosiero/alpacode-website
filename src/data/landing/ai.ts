@@ -207,7 +207,7 @@ export const ai: Record<Lang, AiCopy> = {
           cta: "Scelgo l'1:1",
         },
       ],
-      note: "Prezzi su richiesta: dipendono dal percorso che scegli.",
+      note: "Ogni percorso lo definiamo insieme, alla prima call.",
     },
     qa: {
       title: "Le domande\nche ci fanno.",
@@ -388,7 +388,7 @@ export const ai: Record<Lang, AiCopy> = {
           cta: "I'll take the 1:1",
         },
       ],
-      note: "Prices on request: they depend on the path you choose.",
+      note: "We define each path together, on the first call.",
     },
     qa: {
       title: "The questions\nwe get asked.",

@@ -49,9 +49,16 @@ services:
       HOST: "0.0.0.0"
       PORT: "4321"
       NODE_ENV: "production"
-      # Contact form delivery via AWS SES — optional. Without AWS_REGION the
-      # form still works (the API route logs the submission and returns ok).
-      # Omit the keys if the host uses an IAM role / instance profile.
+      # Mail (shared/server/mail.ts): SMTP when SMTP_HOST is set (the
+      # mailbox's own server, the simplest), else AWS SES when AWS_REGION is
+      # set (omit the keys if the host uses an IAM role). With neither the
+      # forms answer ok but nothing reaches the inbox: the log says
+      # "NOT SENT". CONTACT_AUTOREPLY=0 turns off the reply to the visitor.
+      SMTP_HOST: "${SMTP_HOST:-}"
+      SMTP_PORT: "${SMTP_PORT:-465}"
+      SMTP_USER: "${SMTP_USER:-}"
+      SMTP_PASS: "${SMTP_PASS:-}"
+      CONTACT_AUTOREPLY: "${CONTACT_AUTOREPLY:-1}"
       AWS_REGION: "${AWS_REGION:-}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
@@ -114,7 +121,13 @@ services:
       HOST: "0.0.0.0"
       PORT: "4321"
       NODE_ENV: "production"
-      # The same SES setup as the house (the contact form, the order notices).
+      # The same mail setup as the house (the contact form, the order
+      # notices, the visitor's reply).
+      SMTP_HOST: "${SMTP_HOST:-}"
+      SMTP_PORT: "${SMTP_PORT:-465}"
+      SMTP_USER: "${SMTP_USER:-}"
+      SMTP_PASS: "${SMTP_PASS:-}"
+      CONTACT_AUTOREPLY: "${CONTACT_AUTOREPLY:-1}"
       AWS_REGION: "${AWS_REGION:-}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"

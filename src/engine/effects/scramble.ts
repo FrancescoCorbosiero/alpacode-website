@@ -9,7 +9,7 @@
    a code): on an <input> it writes the value.
    The characters cycle through random glyphs (capitals for capitals,
    small letters for small) and settle in turn, left to right; spaces,
-   dots, slashes, colons, dashes and @ hold their place, so a link's
+   dots (the middle one too), slashes, colons, dashes and @ hold their place, so a link's
    shape reads from the first frame. The noise is rolled again every
    third frame: a decoder, not a strobe. A new text takes over from one
    still decoding. Canonical: A's, hand-rolled (D8: FAST used the
@@ -28,7 +28,7 @@ const DURATION = 1.1; // s a text takes to decode (A; its referral link 1.25, it
 const HOVER = 0.55; // s: data-scramble, decoding again as the pointer enters (FAST)
 const UPPER = "ABCDEFGHJKMNPQRSTVWXYZ0123456789"; // the noise for capitals and digits: no I, L, O, U to misread (A)
 const LOWER = "abcdefghjkmnpqrstvwxyz0123456789"; // the noise for small letters (A)
-const FIXED = /[\s./:\-_@]/; // what holds its place from the first frame (A)
+const FIXED = /[\s./:\-_@·]/; // what holds its place from the first frame (A; the house's "·" too)
 
 const decoding = new WeakMap<Element, gsap.core.Tween>();
 const written = new WeakMap<Element, string>();
