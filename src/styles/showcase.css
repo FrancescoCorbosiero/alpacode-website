@@ -7,7 +7,7 @@
    set by the stage entry's scrubbed(); stage.css gives the length and
    sticks the stage); the other effects mark what they take over too
    (data-cursor-thumb-on, data-flip-filter-on, data-frame-scroll-on).
-   The moves are alpacode-motion entries (src/engine/effects).
+   The moves are the engine's effects (src/engine/effects).
    ============================================================ */
 
 /* ---------- The browser frame ---------- */

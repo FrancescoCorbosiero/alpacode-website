@@ -1,6 +1,6 @@
 /* ============================================================
-   Campaign landings — the scenes (tier 3 of alpacode-motion: "The
-   campaign landings' scenes", recipes kept in the house).
+   Campaign landings — the scenes: the house's own, on the engine's
+   stage.
    An effect in the engine's contract, fetched only by pages that have
    a .lnd [data-scene] (registry.ts, lazy) and built inside the page's
    gsap.context() and gsap.matchMedia(), so everything made here is
@@ -22,12 +22,12 @@
      loop     partner hero: clients go round from you to us and back
      channel  partner: the three models, one rail each way
      scale    partner: what each side gains, until it balances
-   What used to live here too is a catalog entry now, in engine/effects:
-   the pen (mark-*, hand), the kinetic bands (kinetic), and the moves
-   promoted to tier 1 (knoll, bars, alternate for the trades, draw for
-   the pact's signature; the stamp is gone from the pages).
-   A scene's own marks and notes are drawn by its timeline (drawMark,
-   writeHand below): the pen's entries leave them alone.
+   What used to live here too is an effect of its own now, in
+   engine/effects: the pen (mark-*, hand), the kinetic bands (kinetic),
+   and the moves any page can use (knoll, bars, alternate for the
+   trades, draw for the pact's signature; the stamp is gone from the
+   pages). A scene's own marks and notes are drawn by its timeline
+   (drawMark, writeHand below): the pen's effects leave them alone.
    Rules: things are hidden here, at init, and only below the fold
    (or inside a scene's own timeline); positions are measured from
    layout (offsets), not from transformed boxes, so a refresh in the

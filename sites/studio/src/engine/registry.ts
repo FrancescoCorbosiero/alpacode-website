@@ -1,12 +1,12 @@
 /* ============================================================
-   Alpacode Studio's effects (alpacode-motion, the catalog's contract):
-   the entries this site copies, written per site with config.ts.
+   Alpacode Studio's effects, with config.ts the site's settings for its
+   engine.
    `effects` are in the main bundle and built on every page;
    `lazy` ones are fetched only by pages that have their hook.
-   Copied from alpacode-motion (FrancescoCorbosiero/alpacode-motion,
-   src/engine/) at commit c19c357, as they are, but core.css: its intro
-   section is left out (the studio's hero has its own). meter stands on
-   stage, copied with it.
+   The same engine as the house's, on the contract of alpacode-motion,
+   the motion catalog (FrancescoCorbosiero/alpacode-motion): reference
+   only, never edited from here. The studio's core.css leaves the intro
+   section out (its hero has its own); meter stands on stage.
    ============================================================ */
 import type { Effect, LazyEffect } from "./core/kit";
 import * as deal from "./effects/deal";

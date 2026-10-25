@@ -72,13 +72,13 @@ is check, build and looking at the pages (below).
   landing kit and its views), `voucher/` (the referral program),
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`
   (React).
-- Motion: `engine/`, the alpacode-motion engine, copied: `core/` (the
-  page lifecycle, Lenis, the header, the guards) and one module per
-  catalog entry in `effects/` (its header is its markup API: `data-split`,
+- Motion: `engine/`, the site's motion engine, written on
+  alpacode-motion's contract: `core/` (the page lifecycle, Lenis, the
+  header, the guards) and one module per effect in `effects/` (a hook
+  and `init(kit)`; its header is its markup API: `data-split`,
   `data-reveal`, `data-rail`, `data-marquee`, `data-mark`, …);
   `config.ts` (the house's classes for the hooks) and `registry.ts`
-  (which effects, eager or fetched only where their hook is) are the
-  house's own. The house's scenes are effects too: `effects/cases`,
+  (which effects, eager or fetched only where their hook is). The house's scenes are effects too: `effects/cases`,
   `method`, `map`, `alpaca`, and `lib/landing/scenes.ts` (the landings'
   scenes, fetched only on `.lnd [data-scene]` pages). Page scripts import
   the moves they call from their entry (`celebrate`, `nudge`,
@@ -113,9 +113,12 @@ Skills: `.claude/skills/new-landing` (any new landing or studio page),
 `.claude/skills/new-compartment` (a new subdomain),
 `.claude/skills/handoff` (end of a session: update `docs/status.md`).
 
-The motion catalog is `FrancescoCorbosiero/alpacode-motion`: every effect
-the sites use, indexed and rebuilt as demos. A new move is born there
-(module, demo, weight, shots) and copied here; never link or install it.
+`FrancescoCorbosiero/alpacode-motion`, the motion catalog, is **reference
+only**: context for the engine's contract and its rules, read when it's
+attached, **never edited** from a session on this repo, never linked or
+installed. A new move is born here, in `src/engine/effects/`: its module
+(hook, `init(kit)`), its CSS with the reduced-motion end state, its
+place in `registry.ts`.
 
 ## House rules
 

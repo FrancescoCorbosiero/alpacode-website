@@ -20,10 +20,11 @@
 >   warm greys are gone: paper is a cool off-white with a breath of the
 >   brand blue (`#F0F3F9`), ink a blue-black (`#0B0E14`). The v2 colour
 >   table below is historical.
-> - **Motion is GSAP + Lenis on the alpacode-motion engine**
->   (`src/engine/`, copied from the catalog
->   `FrancescoCorbosiero/alpacode-motion`; CSS in `src/styles/engine.css`
->   and the house's own in `src/styles/motion.css`): smooth wheel
+> - **Motion is GSAP + Lenis** on the site's engine (`src/engine/`,
+>   written on the contract of the motion catalog
+>   `FrancescoCorbosiero/alpacode-motion`, which stays reference only;
+>   CSS in `src/styles/engine.css` and the house's own in
+>   `src/styles/motion.css`): smooth wheel
 >   scrolling, headings rising line by line, blocks fading up in
 >   staggered batches, struts drawing in, scrubbed statements, a
 >   scroll-reactive marquee, a header that steps aside while you read.
@@ -53,7 +54,7 @@
 >   needs all of the digital side — personal invite links
 >   (`/voucher/<CODE>`), `POST /api/referral` and a JSONL ledger on a
 >   Docker volume. Same tokens, same motion engine (its page scripts call
->   the catalog's moves: `celebrate`, `scramble`, `printQr`, …), styles
+>   the engine's moves: `celebrate`, `scramble`, `printQr`, …), styles
 >   scoped in `src/styles/voucher.css`.
 >   Everything about it: `docs/voucher.md`.
 > - **Campaign landings: one kit.** Every marketing page (`/offerta/*`,
@@ -86,9 +87,8 @@
 >   (`/lavori/<id>/`) and its share card. The home's Casi di studio (a
 >   pinned stage: before struck through, after in), Metodo (one technical
 >   drawing becoming each step's) and Dove operiamo (Italy in dots, an
->   arc to every client) are rebuilt. The moves are entries of the motion
->   catalog, `FrancescoCorbosiero/alpacode-motion`, copied into
->   `src/engine/`.
+>   arc to every client) are rebuilt. The moves are effects of the site's
+>   engine, `src/engine/effects/`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

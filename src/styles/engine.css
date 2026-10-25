@@ -1,7 +1,6 @@
 /* ============================================================
-   The engine's CSS (alpacode-motion, copied: src/engine/). The core's
-   sheet, then the entries' that carry rules the house doesn't already
-   have. All of it is in the site's stylesheet, the lazy entries' too:
+   The engine's CSS (src/engine/). The core's sheet, then the effects'
+   that carry rules the house doesn't already have. All of it is in the site's stylesheet, the lazy entries' too:
    an end state must not wait for a chunk.
    Not imported, because the house's own CSS is their source and has
    them already: bars, kinetic and mark-* (styles/landing.css), kicker

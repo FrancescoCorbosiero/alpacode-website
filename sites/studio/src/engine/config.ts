@@ -1,9 +1,9 @@
 /* ============================================================
-   The site's half of the core: its own selectors.
-   core/ and effects/ are copied as they are; this file and
-   registry.ts are written per site. A site's classes live here,
-   never in an effect (D5): alpacode maps its 66 block selectors to
-   [data-reveal] in `selectors`, C maps `.card` to [data-tilt].
+   Alpacode Studio's half of the core: its own selectors. core/ and
+   effects/ are the engine (the house's, on alpacode-motion's contract);
+   this file and registry.ts are the studio's settings. The site's
+   classes live here, never in an effect: the house maps its section
+   titles and blocks onto [data-split] and [data-reveal] this way.
    ============================================================ */
 
 export const config = {

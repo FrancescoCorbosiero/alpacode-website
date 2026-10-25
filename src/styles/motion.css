@@ -1,6 +1,6 @@
 /* ============================================================
-   Motion — the house's own half. The engine's CSS (alpacode-motion:
-   the core's intro, Lenis, the header's slide, the reading progress,
+   Motion — the house's own half. The engine's CSS (src/engine/: the
+   core's intro, Lenis, the header's slide, the reading progress,
    the effects layer, the page transitions, and the entries' rules) is
    styles/engine.css; this sheet is what only alpacode.it does with it:
 

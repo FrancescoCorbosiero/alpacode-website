@@ -98,7 +98,7 @@ registry is `src/data/audiences.ts`:
   of the engine, `hook` + `init(kit)`, that `src/engine/registry.ts`
   fetches only on pages with a `.lnd [data-scene]`; it is built inside
   the page's `gsap.context()` and reverted on navigation). Two kinds:
-  - *Pinned*, on the catalog's `stage` entry
+  - *Pinned*, on the engine's `stage`
     (`src/engine/effects/stage.ts`):
     `<section class="lnd-scene" data-scene="x" style="--len:3">` with a
     `<div class="lnd-stage" data-scene-stage>` inside, its text in
@@ -130,13 +130,15 @@ registry is `src/data/audiences.ts`:
     (the visually-hidden pattern, never `display: none`: screen readers
     keep it).
 - The site-wide hooks work inside landings too, and the pen and the
-  tier-1 moves are catalog entries, not scenes: `data-split`,
+  reusable moves are effects of their own, not scenes: `data-split`,
   `data-reveal`, `data-scrub`, `data-mark` (`<Mark>`), `data-hand`
   (`<Hand>`), `data-kinetic`, `data-knoll`, `data-bars`,
   `data-alternate`, `data-draw` — each documented in the header of its
   module, `src/engine/effects/<id>.ts`. A move a second page could use
-  is born in alpacode-motion (module, demo, weight, shots) and copied
-  here; a scene stays in `scenes.ts`.
+  becomes an effect there (a hook, `init(kit)`, its CSS with the
+  reduced-motion end state, its place in `registry.ts`); a scene stays
+  in `scenes.ts`. alpacode-motion, the motion catalog, is reference
+  only: read it for the contract, never edit it.
 
 ## Track A — Campaign landing (`/offerta/<slug>`)
 
@@ -188,8 +190,8 @@ For a pitch that isn't "we build your site for N €/year".
 4. **Styles** — a block at the end of `landing.css` headed by the
    landing's name: the scene's pieces, then its `@media` rules.
 5. **Scenes** — the functions in `scenes.ts`, listed in its header and
-   in `SCENES` (a move that isn't this page's alone: a catalog entry
-   instead, see Motion above).
+   in `SCENES` (a move that isn't this page's alone: an effect of its
+   own instead, see Motion above).
 6. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
    `Layout` (the full chrome), `jsonLd={landingJsonLd({ … faq })}`.
 7. **OG card** — `tools/og/og-<name>.svg` on the blueprint (see

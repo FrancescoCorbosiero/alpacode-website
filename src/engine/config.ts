@@ -1,9 +1,10 @@
 /* ============================================================
-   alpacode.it's half of the core: its own selectors (alpacode-motion's
-   contract: core/ and effects/ are copied as they are; this file and
-   registry.ts are the site's). The site's classes live here, never in
-   an effect: the section titles dealt their entrance, the blocks that
-   fade up, the struts, the kickers, the photos that open.
+   alpacode.it's half of the core: its own selectors (the engine's
+   contract, from alpacode-motion: core/ and effects/ are the engine,
+   this file and registry.ts the site's settings). The site's classes
+   live here, never in an effect: the section titles dealt their
+   entrance, the blocks that fade up, the struts, the kickers, the
+   photos that open, the referral forms' fields.
    ============================================================ */
 
 export const config = {

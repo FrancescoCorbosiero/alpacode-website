@@ -54,10 +54,10 @@ Follow `docs/landing-factory.md` for the track. Non-negotiables:
   rendered with `npm run og -- og-<name>`.
 - Scenes: `fromTo` in scrubbed timelines, hide only in JS and below
   the fold, every scene laid out in its end state without motion. A
-  move that isn't this page's alone is a catalog entry, born in
-  alpacode-motion and copied into `src/engine/effects/` (the pen, the
-  kinetic band, knoll, bars… already are): look in its `catalog.md`
-  before writing one.
+  move that isn't this page's alone is an effect of its own in
+  `src/engine/effects/` (the pen, the kinetic band, knoll, bars… already
+  are): look there first. alpacode-motion is reference only: read it,
+  never edit it.
 
 ## 4. Verify before pushing
 

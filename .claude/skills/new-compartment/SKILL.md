@@ -40,8 +40,9 @@ first.
   with the caddy labels for its domain (`<ID>_DOMAIN`), its volumes
   and env. **Deploy stays `docker compose up -d --build`**: no profiles,
   no extra steps.
-- Motion: the alpacode-motion engine, copied (its `src/engine/`: the
-  core, the entries it uses, its own `config.ts` and `registry.ts`).
+- Motion: the engine the house and the studio run (their `src/engine/`,
+  on alpacode-motion's contract, reference only): the core, the effects
+  it uses, its own `config.ts` and `registry.ts`.
 - The house's signature on every page and a header that leads back to
   alpacode.it; links into the house through `doorTo("house", …)`.
 

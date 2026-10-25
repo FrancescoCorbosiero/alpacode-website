@@ -1,6 +1,6 @@
 /* ============================================================
-   alpacode.it's effects (alpacode-motion's contract), written per site
-   with config.ts. `effects` are in the main bundle and built on every
+   alpacode.it's effects, with config.ts the site's settings for its
+   engine. `effects` are in the main bundle and built on every
    page, in this order; a module with nothing to do runs one query and
    returns. `lazy` ones are fetched only by pages that have their hook
    and built in the page's context: the pen's loops and notes (DrawSVG),
@@ -8,11 +8,13 @@
    cases, method and map, the alpacas, the landings' scenes). Their CSS
    is in the site's stylesheet (styles/engine.css): their end state must
    not wait for the chunk.
-   Copied from alpacode-motion (FrancescoCorbosiero/alpacode-motion,
-   src/engine/) at commit c19c357: core/ and every effects/ module but
-   alpaca.ts (the house's own, tier 3, on lib/alpaca.ts) are the
-   catalog's files as they are; lib/landing/scenes.ts is the landings'
-   tier 3, on the catalog's stage.
+   The engine follows the contract of alpacode-motion, the motion
+   catalog (FrancescoCorbosiero/alpacode-motion): reference only, never
+   edited from here. Its core/ and effects/ are this site's code: a new
+   move is written in effects/ (a hook and init(kit), its CSS with the
+   reduced-motion end state) and listed here. The alpacas (alpaca.ts, on
+   lib/alpaca.ts) and the landings' scenes (lib/landing/scenes.ts, on
+   stage) are the house's own scenes.
    ============================================================ */
 import type { Effect, LazyEffect } from "./core/kit";
 import * as accordion from "./effects/accordion";

@@ -1,7 +1,7 @@
 /* ============================================================
-   alpaca — the house's animal, alive wherever it stands (tier 3, the
-   catalog's "The alpaca (A)": the rig and its moves are
-   src/lib/alpaca.ts, the silhouette src/components/Alpaca.astro).
+   alpaca — the house's animal, alive wherever it stands (the house's
+   own scene: the rig and its moves are src/lib/alpaca.ts, the
+   silhouette src/components/Alpaca.astro).
    Markup:
    - svg[data-alpaca]: little signs of life while it's on screen,
      leans in when hovered, skips when tapped; ="walk-in" walks into

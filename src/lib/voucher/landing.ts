@@ -12,7 +12,7 @@
    6. the share panel: copy, WhatsApp, Telegram, email, native share,
       a QR of the invite (also swapped into the QR band) — a fresh link
       arrives decoding itself, its QR prints and the page celebrates
-      (the moves are alpacode-motion entries, in engine/effects);
+      (the moves are the engine's, in engine/effects);
    7. a generated code is remembered in this browser only, and turned
       back into the link of whichever door you're on.
 

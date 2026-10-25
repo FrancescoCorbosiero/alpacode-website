@@ -85,16 +85,17 @@ Umami always and to the ad tags when allowed.
 
 ## Motion
 
-`src/engine/`, the alpacode-motion engine, copied from the catalog
-(`FrancescoCorbosiero/alpacode-motion`): its core, and the entries the
-studio uses — `reveal` (rising blocks), `deal` (the doors landing), `skew`
-(the band leaning with the scroll), `meter` (the course's pinned meter,
-standing on `stage`, copied with it);
-`config.ts` and `registry.ts` are the studio's. Each entry's header is
-its markup API. The hero is CSS (the core's intro section is left out of
-`core.css`: the studio's hero has its own). Under reduced motion nothing
-runs and every piece sits in its end state; the hooks show the old words
-struck through next to the new ones.
+`src/engine/`, the studio's motion engine, on the same contract as the
+house's (that of the motion catalog `FrancescoCorbosiero/alpacode-motion`,
+reference only: never edited from here): its core, and the effects the
+studio uses — `reveal` (rising blocks), `deal` (the doors landing),
+`skew` (the band leaning with the scroll), `meter` (the course's pinned
+meter, standing on `stage`); `config.ts` and `registry.ts` are the
+studio's. Each effect's header is its markup API. The hero is CSS (the
+core's intro section is left out of `core.css`: the studio's hero has
+its own). Under reduced motion nothing runs and every piece sits in its
+end state; the hooks show the old words struck through next to the new
+ones.
 
 ## Share cards
 
