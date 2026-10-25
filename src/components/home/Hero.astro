@@ -27,9 +27,20 @@ const segments = (line: string) =>
   {
     video && (
       <div class="hero-media" aria-hidden="true">
-        {/* Sources are attached by motion.ts only when motion is welcome and
-            the connection isn't on Save-Data; otherwise the poster stays. */}
-        <video class="hero-video" muted loop playsinline disablepictureinpicture preload="none" poster={video.poster} data-hero-video>
+        {/* Sources are attached by the hero-video effect only when motion is
+            welcome and the connection isn't on Save-Data; otherwise the
+            poster stays. As the page scrolls away it settles closer. */}
+        <video
+          class="hero-video"
+          muted
+          loop
+          playsinline
+          disablepictureinpicture
+          preload="none"
+          poster={video.poster}
+          data-hero-video
+          data-hero-settle="1.08 0"
+        >
           {video.webm && <source data-src={video.webm} type="video/webm" />}
           <source data-src={video.mp4} type="video/mp4" />
         </video>
@@ -38,8 +49,8 @@ const segments = (line: string) =>
     )
   }
   {
-    /* A looping video needs a way to stop it (WCAG 2.2.2): shown by
-       motion.ts once the video actually plays. */
+    /* A looping video needs a way to stop it (WCAG 2.2.2): shown by the
+       hero-video effect once the video actually plays. */
     video && (
       <button
         class="hero-video-toggle"
@@ -61,7 +72,7 @@ const segments = (line: string) =>
     )
   }
 
-  <div class="wrap-wide hero-inner" data-hero-content>
+  <div class="wrap-wide hero-inner" data-hero-away>
     <p class:list={["label", { "label--on-ink": video }]} data-intro>{t.kicker}</p>
 
     {/* The wordmark below is brand furniture (and Italian-only), so the h1
@@ -87,7 +98,7 @@ const segments = (line: string) =>
     </div>
   </div>
 
-  <div class="wrap-wide hero-lockup" aria-hidden="true" data-hero-lockup>
+  <div class="wrap-wide hero-lockup" aria-hidden="true" data-hero-away="22" data-hero-fade="1">
     <div class="hero-wordmark">
       <div class="row row-1"><span>ALPACODE</span></div>
       <div class="hero-bar"></div>

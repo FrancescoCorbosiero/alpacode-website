@@ -1,0 +1,150 @@
+---
+/* /chi-siamo — the studio and its people (data/chi-siamo.ts): what we
+   do, the line that sums up the experience, the people (a photo from
+   src/assets/people/<id>.<ext> when there is one, a monogram until
+   then), who we work best with, the network, the doors. */
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { Lang } from "../../i18n/types";
+import { chiSiamo } from "../../data/chi-siamo";
+import { localizePath } from "../../i18n/utils";
+import { COMPARTMENTS, DOORS, doorTo } from "@shared/data/compartments";
+import PageHero from "../PageHero.astro";
+import Statement from "../Statement.astro";
+import CtaFinal from "../home/CtaFinal.astro";
+import Br from "../Br.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = chiSiamo[lang];
+
+const photos = import.meta.glob<{ default: ImageMetadata }>("../../assets/people/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP}", {
+  eager: true,
+});
+const photoFor = (id: string) =>
+  Object.entries(photos).find(([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === id)?.[1].default;
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+---
+
+<PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
+
+<section class="section about-what">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.what.kicker}</div>
+        <h2><Br text={t.what.title} /></h2>
+      </div>
+    </div>
+    <ol class="about-what-list">
+      {
+        t.what.items.map((it, i) => (
+          <li class="about-what-item" data-reveal>
+            <span class="about-what-n">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{it.t}</h3>
+            <p>{it.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<Statement text={t.statement} />
+
+<section class="section about-people">
+  <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.people.kicker}</div>
+        <h2><Br text={t.people.title} /></h2>
+      </div>
+      <p class="lede">{t.people.lede}</p>
+    </div>
+    <ul class="about-people-list">
+      {
+        t.people.list.map((p, i) => {
+          const photo = photoFor(p.id);
+          return (
+            <li class:list={["about-person", { "about-person--lead": i === 0 }]} data-reveal>
+              <figure class="about-portrait">
+                {photo ? (
+                  <Image src={photo} alt={p.name} widths={[320, 640]} sizes="(max-width: 900px) 100vw, 33vw" />
+                ) : (
+                  <span class="about-monogram" aria-hidden="true">
+                    {initials(p.name)}
+                  </span>
+                )}
+              </figure>
+              <div class="about-person-copy">
+                <h3>{p.name}</h3>
+                <p class="about-role">{p.role}</p>
+                {p.bio.map((b) => (
+                  <p class="about-bio">{b}</p>
+                ))}
+                <ul class="about-tags">
+                  {p.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
+                </ul>
+                {p.linkedin && (
+                  <a class="about-link" href={p.linkedin} target="_blank" rel="me noopener">
+                    LinkedIn ↗
+                  </a>
+                )}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint about-fit">
+  <div class="wrap-wide about-fit-grid">
+    <div>
+      <div class="sec-num">{t.fit.kicker}</div>
+      <h2 class="about-fit-title"><Br text={t.fit.title} /></h2>
+    </div>
+    <ul class="about-fit-list">
+      {
+        t.fit.items.map((it) => (
+          <li data-reveal>
+            <span class="about-fit-mark" aria-hidden="true" />
+            {it}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section about-network">
+  <div class="wrap-wide about-network-grid">
+    <a class="about-door" href={localizePath("collabora-con-noi", lang)} data-reveal>
+      <h2>{t.network.title}</h2>
+      <p>{t.network.text}</p>
+      <span class="about-door-go">{t.network.cta} →</span>
+    </a>
+    {
+      DOORS.map((id) => (
+        <a class="about-door about-door--compartment" href={doorTo(id, "/", { site: "house", where: "chi-siamo" })} data-reveal>
+          <h2>{COMPARTMENTS[id].name}</h2>
+          <p>{COMPARTMENTS[id].line[lang]}</p>
+          <span class="about-door-go">{COMPARTMENTS[id].origin.replace(/^https?:\/\//, "")} ↗</span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<CtaFinal lang={lang} />

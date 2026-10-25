@@ -1,17 +1,31 @@
 import type { Localized } from "../i18n/types";
 import type { MegaKey } from "./pages";
+import { doorTo } from "@shared/data/compartments";
 
 export interface MegaItem {
   n: string;
   t: Localized;
   d: Localized;
+  /** Where the item leads, when it isn't the menu's page: a door into a
+   *  compartment (shared/data/compartments.ts). */
+  href?: string;
+}
+
+export interface MegaColumn {
+  title: Localized;
+  /** Set when the column is a compartment's door: its name by the title. */
+  door?: Localized;
+  items: MegaItem[];
 }
 
 export interface MegaMenu {
   feature: { small: Localized; display: Localized; cta: Localized; href: MegaKey };
-  colA: { title: Localized; items: MegaItem[] };
-  colB: { title: Localized; items: MegaItem[] };
+  colA: MegaColumn;
+  colB: MegaColumn;
 }
+
+/** The studio's services, from the house's mega menu. */
+const studio = (hash: string) => doorTo("studio", `/servizi/${hash}`, { site: "house", where: "mega" });
 
 export const megaServizi: MegaMenu = {
   feature: {
@@ -44,24 +58,37 @@ export const megaServizi: MegaMenu = {
       },
     ],
   },
+  // Growing is the studio's work: the column opens its door.
   colB: {
     title: { it: "Far crescere", en: "Grow" },
+    door: { it: "Alpacode Studio", en: "Alpacode Studio, in Italian" },
     items: [
       {
         n: "03",
+        t: { it: "Social & contenuti", en: "Social & content" },
+        d: {
+          it: "Piano editoriale, post e reel, community. Ti fanno vedere",
+          en: "Editorial plan, posts and reels, community. Get seen",
+        },
+        href: studio("#vedere"),
+      },
+      {
+        n: "04",
         t: { it: "Branding & design", en: "Branding & design" },
         d: {
           it: "Identità visiva, logo, UI/UX. Come ti vedono e ti ricordano",
           en: "Visual identity, logo, UI/UX. How people see and remember you",
         },
+        href: studio("#ricordare"),
       },
       {
-        n: "04",
+        n: "05",
         t: { it: "Pubblicità & SEO", en: "Advertising & SEO" },
         d: {
           it: "Campagne Google e Meta, ricerca, contenuti. Ti fanno trovare",
           en: "Google and Meta campaigns, search, content. Get found",
         },
+        href: studio("#scegliere"),
       },
     ],
   },

@@ -20,18 +20,23 @@
 >   warm greys are gone: paper is a cool off-white with a breath of the
 >   brand blue (`#F0F3F9`), ink a blue-black (`#0B0E14`). The v2 colour
 >   table below is historical.
-> - **Motion is GSAP + Lenis** (`src/lib/motion.ts`, CSS half in
->   `src/styles/motion.css`): smooth wheel scrolling, headings rising
->   line by line, blocks fading up in staggered batches, struts drawing
->   in, scrubbed statements, a scroll-reactive marquee, a header that
->   steps aside while you read. Above-the-fold intros are pure CSS so
->   the first paint never waits on JavaScript. Everything is off under
->   `prefers-reduced-motion`. The header of `motion.ts` documents the
->   attribute API (`data-split`, `data-reveal`, `data-scrub`,
->   `data-speed`, `data-progress`, `data-strut`). Section titles take
->   turns between five entrances (lines, wipe, words, blur, letters) so
->   neighbours never repeat; `<Statement>` is the scroll-lit sentence band
->   (one per page at most: home, servizi, lavori, learning, collabora).
+> - **Motion is GSAP + Lenis** on the site's engine (`src/engine/`,
+>   written on the contract of the motion catalog
+>   `FrancescoCorbosiero/alpacode-motion`, which stays reference only;
+>   CSS in `src/styles/engine.css` and the house's own in
+>   `src/styles/motion.css`): smooth wheel
+>   scrolling, headings rising line by line, blocks fading up in
+>   staggered batches, struts drawing in, scrubbed statements, a
+>   scroll-reactive marquee, a header that steps aside while you read.
+>   Above-the-fold intros are pure CSS so the first paint never waits on
+>   JavaScript. Everything is off under `prefers-reduced-motion`. Each
+>   effect's header (`src/engine/effects/*.ts`) documents its markup
+>   (`data-split`, `data-reveal`, `data-scrub`, `data-rail`, `data-strut`,
+>   …); `src/engine/config.ts` maps the house's classes onto the hooks.
+>   Section titles take turns between five entrances (lines, wipe, words,
+>   blur, letters) so neighbours never repeat; `<Statement>` is the
+>   scroll-lit sentence band (one per page at most: home, servizi,
+>   lavori, learning, collabora).
 > - **The alpaca.** The animal in the name shows up in four places, never
 >   inside the logo: walking along the home marquee (it turns round when
 >   the scroll does), walking into the manifesto band (a silhouette one
@@ -40,7 +45,7 @@
 >   (al-PACO-de) and lost on the 404 — plus its own moments in the referral
 >   program. One rigged silhouette (`src/components/Alpaca.astro`, at rest
 >   the flyer's exact shape) and its moves (`src/lib/alpaca.ts`);
->   `data-alpaca` is in the `motion.ts` header.
+>   `data-alpaca` is in the header of `src/engine/effects/alpaca.ts`.
 > - **«Segnala un amico» — `/voucher`.** The referral program (up to €100
 >   cashback per referred client) moved in from its own repo
 >   (alpacode-voucher): one program with two doors — `/voucher/`, the
@@ -48,8 +53,9 @@
 >   `/voucher/nuova-attivita/`, for someone who just opened a business and
 >   needs all of the digital side — personal invite links
 >   (`/voucher/<CODE>`), `POST /api/referral` and a JSONL ledger on a
->   Docker volume. Same tokens, same motion engine (its effects are
->   exported from `motion.ts`), styles scoped in `src/styles/voucher.css`.
+>   Docker volume. Same tokens, same motion engine (its page scripts call
+>   the engine's moves: `celebrate`, `scramble`, `printQr`, …), styles
+>   scoped in `src/styles/voucher.css`.
 >   Everything about it: `docs/voucher.md`.
 > - **Campaign landings: one kit.** Every marketing page (`/offerta/*`,
 >   `/social-media-manager`, `/partner`, `/per-chi-fa-siti/*`) is built
@@ -64,14 +70,25 @@
 >   sites), which also feed the "other doors" at the foot of each page.
 >   No countdowns, no price-reassurance phrases. How to make a new one:
 >   `docs/landing-factory.md` (and the `new-landing` skill).
-> - **Alpacode FAST — `fast.alpacode.it`.** The social register lives on
->   its own subdomain and its own static site (`fast/`, same repo and
->   lockfile, its own container in the same `docker compose up -d`): the
->   fear of AI named and turned around, DM keywords (`FAST`, `SITO`, `AI`,
->   `CODE`, `BIO`, `AMICO`), small products — a site guide (22 €) and its
->   marketing module (+48 €), a crash course for freelancers — and doors
->   back to the studio. The map of both sites, audiences and keywords:
->   `docs/marketing-map.md`; running it: `fast/README.md`.
+> - **The house and its compartments.** alpacode.it is the house (IT +
+>   EN): consulting, digitalization, automation, software, training, the
+>   programs, and its marketing pages in its own formal voice. Alpacode
+>   Studio (studio.alpacode.it, `sites/studio/`, Italian) is the first
+>   compartment: the marketing, in a young register, with products bought
+>   on the site (Lemon Squeezy, Gumroad or Stripe, verified webhooks, a
+>   JSONL ledger). The house opens the studio's doors where it talks about
+>   that work (the mega menu, `/servizi`, `/prodotti`, the footer); the
+>   registry is `shared/data/compartments.ts`. Alpacode FAST, the first
+>   try at the social register (`fast/`), is retired. The map:
+>   `docs/marketing-map.md`.
+> - **The showcase.** `/lavori` lists the projects as rows in the display
+>   face, filtered by kind (CSS alone, animated with Flip), with a frame
+>   of the site following the mouse; each project has its page
+>   (`/lavori/<id>/`) and its share card. The home's Casi di studio (a
+>   pinned stage: before struck through, after in), Metodo (one technical
+>   drawing becoming each step's) and Dove operiamo (Italy in dots, an
+>   arc to every client) are rebuilt. The moves are effects of the site's
+>   engine, `src/engine/effects/`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

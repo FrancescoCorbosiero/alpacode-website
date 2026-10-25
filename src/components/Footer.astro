@@ -4,7 +4,8 @@ import { PAGES } from "../data/pages";
 import { CAMPAIGNS, t as tr } from "../data/campaigns";
 import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
-import { business, tagline } from "../data/business";
+import { business, tagline } from "@shared/data/business";
+import { COMPARTMENTS, DOORS, doorTo } from "@shared/data/compartments";
 import BookCall from "./BookCall.astro";
 import Alpaca from "./Alpaca.astro";
 
@@ -67,6 +68,15 @@ const columns: FootGroup[][] = [
       })),
     },
     {
+      // The compartments of the house, each on its own subdomain.
+      title: lang === "it" ? "Le porte" : "The doors",
+      links: DOORS.map((id) => ({
+        href: doorTo(id, "/", { site: "house", where: "footer" }),
+        label: COMPARTMENTS[id].name,
+        external: true,
+      })),
+    },
+    {
       title: footer.follow[lang],
       links: [
         { href: business.social.linkedin, label: "LinkedIn", external: true },
@@ -82,7 +92,7 @@ const legalLinks: FootLink[] = [
 ];
 
 /* The wordmark is set letter by letter so each letter can rise out of its
-   own mask (motion.ts). Separate boxes can't kern, so Archivo Black's
+   own mask (the wordmark effect). Separate boxes can't kern, so Archivo Black's
    pairs for this word (GPOS: PA −85, AC −18 units) are applied by hand. */
 const KERN: Record<string, string> = { PA: "-0.085em", AC: "-0.018em" };
 const letters = [...business.wordmark].map((ch, i, all) => ({
@@ -149,11 +159,11 @@ const letters = [...business.wordmark].map((ch, i, all) => ({
       looking along the word. It rises from behind the P a beat after the
       letters. */}
   <div class="foot-wordmark-wrap" aria-hidden="true">
-    <div class="foot-wordmark">
+    <div class="foot-wordmark" data-wordmark>
       {letters.map(({ ch, kern }) => (
-        <span class="foot-mask" style={kern ? `--kern:${kern}` : undefined}><span class="foot-char">{ch}</span></span>
+        <span class="foot-mask" style={kern ? `--kern:${kern}` : undefined}><span class="foot-char" data-wordmark-char>{ch}</span></span>
       ))}
-      <span class="foot-alpaca-spot"><Alpaca class="foot-alpaca" width={52} data-alpaca /></span>
+      <span class="foot-alpaca-spot"><Alpaca class="foot-alpaca" width={52} data-alpaca data-wordmark-mascot /></span>
     </div>
   </div>
 </footer>

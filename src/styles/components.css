@@ -6,8 +6,8 @@
 
 /* ---------- Header ---------- */
 /* Sticky, translucent, and out of the way: it slides up while you read
-   down the page and comes back the moment you scroll up (motion.ts toggles
-   .is-hidden / .scrolled). */
+   down the page and comes back the moment you scroll up (the engine's
+   core-header toggles .is-hidden / .scrolled). */
 .site-header {
   position: sticky;
   top: 0;
@@ -581,6 +581,15 @@
 .mega ul a:hover .ttl {
   color: var(--blue);
 }
+/* A column that is a compartment's door: its name, by the title. */
+.mega h5 .mega-door-name {
+  margin-left: 10px;
+  padding: 3px 8px 2px;
+  border: 1px solid currentColor;
+  color: var(--blue);
+  font-size: 12px;
+  white-space: nowrap;
+}
 
 /* ---------- Command palette ---------- */
 .cmdk-backdrop {
@@ -731,7 +740,7 @@
 }
 /* Isometric-cube backdrop (repeating-conic-gradient) in paper tones with a
    blue facet — pure CSS, no images. Masked toward the top-right so the
-   claim stays crisp; drifts slowly (motion.ts parallax + the keyframe). */
+   claim stays crisp; drifts slowly (the keyframe). */
 .hero::before {
   content: "";
   position: absolute;
@@ -894,7 +903,8 @@
   border-color: var(--paper);
   color: var(--ink);
 }
-/* Pause / play (WCAG 2.2.2). motion.ts unhides it once the video runs. */
+/* Pause / play (WCAG 2.2.2). The hero-video effect unhides it once the
+   video runs. */
 .hero-video-toggle {
   position: absolute;
   z-index: 2;
@@ -941,15 +951,15 @@
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   align-items: end;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 .section-head .sec-num {
   margin-bottom: 22px;
 }
 .section-head h2 {
   font-family: var(--display);
-  font-size: clamp(30px, 6vw, 88px);
-  line-height: 0.92;
+  font-size: clamp(28px, 3.6vw, 54px);
+  line-height: 0.95;
   letter-spacing: -0.02em;
   margin: 0;
 }
@@ -1006,7 +1016,7 @@
 }
 .verb .v-word {
   font-family: var(--display);
-  font-size: clamp(34px, 4.4vw, 72px);
+  font-size: clamp(30px, 3.4vw, 54px);
   line-height: 0.9;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -1049,194 +1059,6 @@
   transform: translateY(7px);
 }
 
-/* ---------- Casi (case picker) ---------- */
-.cases {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 0;
-  border: 1px solid var(--ink);
-  background: var(--paper);
-}
-/* Let grid/flex children shrink instead of forcing horizontal overflow. */
-.cases,
-.case-tabs,
-.case-body,
-.case-media,
-.case-info {
-  min-width: 0;
-}
-.case-tabs {
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--ink);
-}
-.case-tab {
-  text-align: left;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid var(--rule);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  color: var(--ink);
-  position: relative;
-  transition: background 0.15s;
-}
-.case-tab:last-child {
-  border-bottom: 0;
-}
-.case-tab:hover {
-  background: var(--paper-2);
-}
-.case-tab.is-on {
-  background: var(--ink);
-  color: var(--paper);
-}
-.case-tab.is-on::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: var(--strut);
-  background: var(--blue);
-}
-.case-tab .num {
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  opacity: 0.7;
-}
-.case-tab .nm {
-  font-family: var(--display);
-  font-size: 18px;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-}
-.case-tab .ind {
-  font-size: 11px;
-  color: var(--mute-2);
-}
-.case-tab.is-on .ind {
-  color: var(--blue-soft);
-}
-
-.case-body {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 0;
-  min-height: 540px;
-}
-.case-media {
-  position: relative;
-  background: var(--paper-2);
-  border-right: 1px solid var(--ink);
-  overflow: hidden;
-}
-.case-media .img-slot {
-  width: 100%;
-  height: 100%;
-  min-height: 540px;
-}
-.case-media .tag {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: var(--blue);
-  color: #fff;
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  padding: 5px 10px;
-  z-index: 2;
-}
-.case-info {
-  padding: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-.case-info .problem-label {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--blue);
-}
-.case-info h3 {
-  font-family: var(--display);
-  font-size: 32px;
-  line-height: 1;
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-.case-info .ptext {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--mute-2);
-  margin: 0;
-}
-.case-metrics {
-  display: grid;
-  grid-template-columns: 1fr 24px 1fr;
-  gap: 0;
-  align-items: stretch;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: 18px 0;
-}
-.case-metrics .col {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.case-metrics .col .lab {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--mute);
-}
-.case-metrics .col .val {
-  font-family: var(--display);
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-.case-metrics .col .val.after {
-  color: var(--blue);
-}
-.case-metrics .col .det {
-  font-size: 11px;
-  color: var(--mute-2);
-}
-.case-metrics .ar {
-  align-self: center;
-  font-family: var(--label);
-  font-size: 20px;
-  color: var(--ink);
-  text-align: center;
-}
-.case-quote {
-  border-left: var(--strut) solid var(--blue);
-  padding: 6px 0 6px 16px;
-  font-family: var(--display);
-  font-size: 18px;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-}
-.case-quote-attr {
-  margin-top: 8px;
-  font-family: var(--sans);
-  font-weight: 600;
-  font-size: 12px;
-  color: var(--mute-2);
-  letter-spacing: 0.04em;
-}
-
 /* ---------- Manifesto ---------- */
 .manifesto {
   position: relative;
@@ -1250,7 +1072,7 @@
   z-index: 1;
 }
 /* The alpaca of the name, one shade off the ink, hooves on the band's lower
-   edge — the voucher's finale, at home (motion.ts walks it in). */
+   edge — the voucher's finale, at home (the alpaca effect walks it in). */
 .manifesto-alpaca {
   position: absolute;
   right: clamp(-40px, -2vw, 0px);
@@ -1373,7 +1195,7 @@
 }
 /* The alpaca leading each set (Ticker alpaca): it stands on the words'
    baseline, its head in the band's padding so the band keeps its height,
-   and walks with the band (motion.ts). */
+   and walks with the band (the alpaca effect rides the marquee). */
 .ticker-item--alpaca {
   align-items: baseline;
 }
@@ -1391,8 +1213,8 @@
 }
 
 /* XL variant — the home marquee: display-size words on paper, separated
-   by short blue struts. motion.ts takes over the CSS loop to tie speed
-   and direction to the scroll. */
+   by short blue struts. The marquee effect takes over the CSS loop to tie
+   speed and direction to the scroll. */
 .ticker--xl {
   background: var(--paper);
   color: var(--ink);
@@ -1467,7 +1289,7 @@
 }
 .cta-final .display {
   font-family: var(--display);
-  font-size: clamp(36px, 8vw, 140px);
+  font-size: clamp(34px, 5.2vw, 84px);
   line-height: 0.85;
   letter-spacing: -0.03em;
   margin: 0;
@@ -1677,7 +1499,7 @@
 }
 /* The signature: ALPACODE spanning the grid edge to edge, with the space
    under it as exact as the space beside it. Each letter rises out of its
-   own mask (motion.ts). Measured on Archivo Black: the word's ink is
+   own mask (the wordmark effect). Measured on Archivo Black: the word's ink is
    5.617em wide (-0.04em tracking, PA/AC kerned by hand in Footer.astro)
    and starts 0.01em into the A; change the word, re-measure. text-box
    trims the line to cap height and baseline, so no platform's line
@@ -1719,8 +1541,8 @@
    it tracks the letters at every width (the P's box runs 1.365–2.047em)
    and fits the padding above; clear of the floating buttons, which sit
    over the E on phones. The spot clips only below the cap line: the
-   alpaca rises from behind the P (motion.ts) and keeps room above for
-   its ears and hops. */
+   alpaca rises from behind the P (the wordmark effect) and keeps room
+   above for its ears and hops. */
 .foot-wordmark {
   position: relative;
 }
@@ -1776,7 +1598,7 @@
 
 /* ---------- Generic page hero ---------- */
 .page-hero {
-  padding: 80px 0 56px;
+  padding: 64px 0 48px;
   border-bottom: 1px solid var(--rule);
   position: relative;
   overflow: hidden;
@@ -1812,8 +1634,8 @@
 }
 .page-hero h1 {
   font-family: var(--display);
-  font-size: clamp(38px, 9vw, 144px);
-  line-height: 0.86;
+  font-size: clamp(36px, 5.4vw, 80px);
+  line-height: 0.9;
   letter-spacing: -0.03em;
   margin: 0;
 }
@@ -1826,7 +1648,7 @@
   margin-right: 0.12em;
 }
 .page-hero .lede {
-  margin: 32px 0 0;
+  margin: 24px 0 0;
   max-width: 740px;
   font-size: 20px;
   line-height: 1.55;
@@ -1852,7 +1674,8 @@
   margin: 28px auto;
 }
 /* The alpaca that took a wrong turn, standing on the strut. It steps up on
-   load (CSS, no waiting on the script); motion.ts has it look around. */
+   load (CSS, no waiting on the script); the alpaca effect has it look
+   around. */
 .error-bar--lost {
   position: relative;
   margin-top: 96px;
@@ -1946,72 +1769,6 @@
 .svc-row .meta .v {
   font-size: 15px;
   font-weight: 600;
-}
-
-/* ---------- Lavori grid ---------- */
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.work {
-  border-right: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--paper);
-  transition: background 0.2s;
-}
-.work:nth-child(3n) {
-  border-right: 0;
-}
-.work:hover {
-  background: var(--paper-2);
-}
-.work .img-slot {
-  width: 100%;
-  height: 280px;
-  display: block;
-}
-.work .meta {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--mute);
-}
-.work h3 {
-  font-family: var(--display);
-  font-size: 30px;
-  line-height: 0.95;
-  margin: 0;
-  letter-spacing: -0.015em;
-}
-.work p {
-  font-size: 15px;
-  color: var(--mute-2);
-  margin: 0;
-  line-height: 1.55;
-}
-.work .tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.work .tag {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  padding: 4px 8px;
-  border: 1px solid var(--rule);
-  color: var(--mute-2);
 }
 
 /* ---------- Learning courses ---------- */
@@ -2546,54 +2303,222 @@ cal-modal-box iframe,
   }
 }
 
-/* ---------- FAQ ---------- */
-.faq-list {
+/* ---------- FAQ: one archive by topic ----------
+   The index and the search on the side (sticky on a desk, a row on a
+   phone), the topics on the right: a title, a line, the answers as
+   native <details>, the page that tells the rest. */
+.faq-hub {
+  padding-top: 40px;
+}
+.faq-hub-grid {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--ink);
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.faq-side {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 18px;
+}
+.faq-search {
+  display: grid;
+  gap: 8px;
+}
+.faq-search-l {
+  font-family: var(--label);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--mute);
+}
+.faq-search input {
+  width: 100%;
+  padding: 14px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+.faq-search input:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 var(--blue);
+}
+.faq-count {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mute);
+}
+.faq-index ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.faq-index a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 0 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  transition:
+    color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+.faq-index a b {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--mute);
+  font-variant-numeric: tabular-nums;
+}
+.faq-index a:hover,
+.faq-index a[aria-current] {
+  color: var(--blue);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+.faq-index li[data-faq-off] a {
+  opacity: 0.4;
+}
+.faq-topics {
+  display: grid;
+  gap: clamp(48px, 6vw, 72px);
+}
+.faq-topic {
+  scroll-margin-top: 96px;
+}
+.faq-topic-head {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--ink);
+}
+.faq-topic-head h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.faq-topic-head p {
+  margin: 0;
+  color: var(--mute-2);
 }
 .faq-item {
   border-bottom: 1px solid var(--rule);
 }
-.faq-q {
-  width: 100%;
-  background: transparent;
-  border: 0;
-  text-align: left;
-  padding: 28px 0;
+.faq-item summary {
   display: grid;
-  grid-template-columns: 60px 1fr 32px;
+  grid-template-columns: minmax(0, 1fr) 24px;
   gap: 24px;
   align-items: center;
-  color: var(--ink);
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
 }
-.faq-q .num {
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-q {
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.35;
+  transition: color 0.25s var(--ease);
+}
+.faq-item summary:hover .faq-q,
+.faq-item[open] .faq-q {
   color: var(--blue);
-  letter-spacing: 0.02em;
 }
-.faq-q .q {
-  font-family: var(--display);
-  font-size: clamp(20px, 2.4vw, 28px);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
+/* A plus that turns into a minus. */
+.faq-ic {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  justify-self: end;
 }
-.faq-q .ic {
-  font-family: var(--label);
-  font-size: 20px;
-  text-align: right;
+.faq-ic::before,
+.faq-ic::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease-expo);
+}
+.faq-ic::after {
+  transform: rotate(90deg);
+}
+.faq-item[open] .faq-ic::after {
+  transform: rotate(0deg);
 }
 .faq-a {
-  padding: 0 0 28px 84px;
-  max-width: 720px;
-  font-size: 16px;
-  color: var(--mute-2);
-  line-height: 1.65;
+  padding: 0 48px 24px 0;
+  max-width: 72ch;
 }
-.faq-a[hidden] {
-  display: none;
+.faq-a p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--mute-2);
+}
+.faq-topic-link {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 18px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.faq-topic-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.faq-empty {
+  margin: 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink);
+  font-weight: 600;
+}
+.faq-empty a {
+  color: var(--blue);
+}
+@media (max-width: 900px) {
+  .faq-hub-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .faq-side {
+    position: static;
+  }
+  /* The index becomes a row to swipe. */
+  .faq-index ol {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border: 0;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .faq-index a {
+    padding: 8px 12px;
+    border: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  .faq-index a:hover,
+  .faq-index a[aria-current] {
+    box-shadow: none;
+    border-color: var(--blue);
+  }
+  .faq-a {
+    padding-right: 0;
+  }
 }
 
 /* ---------- Contatti form ---------- */
@@ -2781,7 +2706,7 @@ cal-modal-box iframe,
 }
 .pitch-answer {
   font-family: var(--display);
-  font-size: clamp(32px, 6vw, 84px);
+  font-size: clamp(28px, 4vw, 60px);
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin: 0;
@@ -3396,6 +3321,33 @@ cal-modal-box iframe,
   margin: 0;
   max-width: 520px;
 }
+/* A group run by a compartment: its door, under the group's rows. */
+.svc-door {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 32px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  border: 1px solid var(--blue);
+  background: var(--blue-soft);
+  color: var(--ink);
+  transition: background-color 0.3s var(--ease-expo);
+}
+.svc-door:hover {
+  background: transparent;
+}
+.svc-door-text {
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.svc-door-go {
+  font-weight: 700;
+  color: var(--blue);
+  white-space: nowrap;
+}
 .svc-cross {
   display: flex;
   align-items: center;
@@ -3424,50 +3376,6 @@ cal-modal-box iframe,
   transform: translateX(4px);
 }
 
-/* ---------- Process (steps) ---------- */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.step {
-  padding: 32px 24px;
-  border-right: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  background: var(--paper-2);
-}
-.step:last-child {
-  border-right: 0;
-}
-.step-no {
-  font-family: var(--display);
-  font-size: 44px;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.step-strut {
-  width: 40px;
-  height: var(--strut);
-  background: var(--blue);
-}
-.step h3 {
-  font-family: var(--display);
-  font-size: 22px;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  margin: 0;
-}
-.step p {
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--mute-2);
-  margin: 0;
-}
-
 /* ---------- Block background patterns (pure CSS, masked, subtle) ---------- */
 /* Values — faint dot grid */
 .values {
@@ -3493,7 +3401,9 @@ cal-modal-box iframe,
 /* Process — faint diagonal hatch */
 .process {
   position: relative;
-  overflow: hidden;
+  /* clip, not hidden: hidden would make it a scroll box, and the method
+     scene's sticky stage would stop sticking. */
+  overflow: clip;
 }
 .process .wrap-wide {
   position: relative;
@@ -3531,130 +3441,6 @@ cal-modal-box iframe,
   -webkit-mask-image: radial-gradient(92% 120% at 0% 0%, #000 8%, transparent 72%);
   mask-image: radial-gradient(92% 120% at 0% 0%, #000 8%, transparent 72%);
   pointer-events: none;
-}
-
-/* ---------- Coverage (map) ---------- */
-.coverage-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 56px;
-  align-items: center;
-}
-.map-figure {
-  margin: 0;
-  position: relative;
-}
-.map {
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
-}
-.map-land {
-  fill: var(--paper-3);
-  stroke: var(--rule);
-  stroke-width: 0.6;
-  stroke-linejoin: round;
-}
-.map-land.is-region {
-  fill: var(--blue-soft);
-  stroke: var(--blue);
-  stroke-width: 1;
-}
-.map-line {
-  stroke: var(--blue);
-  stroke-width: 1;
-  opacity: 0.55;
-  fill: none;
-}
-.map-city {
-  fill: var(--mute-2);
-}
-.map-hq {
-  fill: var(--blue);
-}
-.map-ping {
-  fill: none;
-  stroke: var(--blue);
-  stroke-width: 1.5;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: mapPing 2.6s ease-out infinite;
-}
-@keyframes mapPing {
-  0% {
-    transform: scale(0.4);
-    opacity: 0.7;
-  }
-  80% {
-    opacity: 0;
-  }
-  100% {
-    transform: scale(3.2);
-    opacity: 0;
-  }
-}
-.map-label {
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  fill: var(--mute);
-}
-.map-hq-label {
-  font-family: var(--label);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  fill: var(--ink);
-}
-/* Routes draw themselves from the HQ when the map scrolls in
-   (motion.ts sets data-draw, then data-drawn). */
-.map-figure[data-draw] .map-line {
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--len);
-}
-.map-figure[data-draw][data-drawn] .map-line {
-  animation: mapDraw 900ms var(--ease-out) forwards;
-  animation-delay: calc(var(--i) * 90ms + 200ms);
-}
-@keyframes mapDraw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-.coverage-info {
-  display: grid;
-  gap: 0;
-}
-.cov-block {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.cov-block:first-child {
-  border-top: 1px solid var(--rule);
-}
-.cov-block .k {
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--mute);
-}
-.cov-block .v {
-  font-family: var(--display);
-  font-size: clamp(20px, 2vw, 26px);
-  letter-spacing: -0.01em;
-}
-.cov-note {
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--mute-2);
-  margin: 22px 0 24px;
-  max-width: 38ch;
 }
 
 /* ---------- Responsive ---------- */
@@ -3704,30 +3490,6 @@ cal-modal-box iframe,
     border-bottom: 1px solid var(--rule);
     min-height: 0;
   }
-  .cases {
-    grid-template-columns: 1fr;
-  }
-  .case-tabs {
-    flex-direction: row;
-    overflow-x: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--ink);
-  }
-  .case-tab {
-    min-width: 240px;
-    border-right: 1px solid var(--rule);
-    border-bottom: 0;
-  }
-  .case-body {
-    grid-template-columns: 1fr;
-  }
-  .case-media {
-    border-right: 0;
-    border-bottom: 1px solid var(--ink);
-  }
-  .case-media .img-slot {
-    min-height: 320px;
-  }
   .pillars {
     grid-template-columns: 1fr;
   }
@@ -3740,12 +3502,6 @@ cal-modal-box iframe,
   .course {
     border-right: 0;
     border-bottom: 1px solid var(--rule);
-  }
-  .work-grid {
-    grid-template-columns: 1fr;
-  }
-  .work {
-    border-right: 0;
   }
   .cta-grid {
     grid-template-columns: 1fr;
@@ -3845,14 +3601,6 @@ cal-modal-box iframe,
     align-items: flex-start;
     flex-direction: column;
   }
-  .coverage-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .map-figure {
-    max-width: 340px;
-    margin: 0 auto;
-  }
   .product-grid,
   .product-grid--featured {
     grid-template-columns: 1fr;
@@ -3863,15 +3611,6 @@ cal-modal-box iframe,
   .product:nth-child(3n) {
     border-right: 0;
   }
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
-  .step {
-    border-bottom: 1px solid var(--rule);
-  }
-  .step:nth-child(2n) {
-    border-right: 0;
-  }
   .svc-group-head {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -3880,12 +3619,6 @@ cal-modal-box iframe,
 }
 
 @media (max-width: 600px) {
-  .steps {
-    grid-template-columns: 1fr;
-  }
-  .step {
-    border-right: 0;
-  }
   .pitch-chips li {
     font-size: 11px;
   }
@@ -4397,27 +4130,6 @@ cal-modal-box iframe,
   .bw-fields {
     grid-template-columns: 1fr;
   }
-}
-
-/* ---------- Work card quotes ---------- */
-.work-quote {
-  margin: 16px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--rule);
-}
-.work-quote blockquote {
-  margin: 0;
-  font-size: 14.5px;
-  line-height: 1.5;
-  color: var(--ink);
-}
-.work-quote figcaption {
-  margin-top: 8px;
-  font-family: var(--label);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--blue);
 }
 
 /* ---------- Founder block (contact page) ---------- */

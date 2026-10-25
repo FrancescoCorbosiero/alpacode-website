@@ -1,15 +1,14 @@
 ---
 /* /offerta/<slug> — one template, a page per audience (data/campaigns.ts).
    The pen corrects the hero's second line; a search where the reader's
-   clients finally find them; Italy's gap in bars; the proposal sheet and
-   its stamp; the steps; open answers; the form (lib/landing/offer.ts
-   keeps the tabs, the form's choice and the round's state in step). */
+   clients finally find them; Italy's gap in bars; the proposal sheet;
+   the steps; open answers; the form (lib/landing/offer.ts keeps the
+   tabs and the form's choice in step). */
 import "../../styles/landing.css";
 import type { ImageMetadata } from "astro";
 import type { Lang } from "../../i18n/types";
 import { COPY, FAQ, PROMISES, SEARCH, STATS, STEPS, how, offerVariants, t, type Campaign } from "../../data/campaigns";
 import { portals, siblings } from "../../data/audiences";
-import { fill } from "../../i18n/utils";
 import RemoteImage from "../RemoteImage.astro";
 import Mark from "./Mark.astro";
 import Hand from "./Hand.astro";
@@ -17,7 +16,6 @@ import Lines from "./Lines.astro";
 import Objections from "./Objections.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -44,12 +42,6 @@ const [fixBefore, fixAfter] = fix ? line2.split(tr(fix.strike)) : ["", ""];
 const plain = line2.replace(/[.?!]$/, "");
 const stop = line2.slice(plain.length);
 
-/* The round: "30 posti in questa tornata · iscrizioni fino al 31 dicembre". */
-const deadline = new Date(c.deadlineISO);
-const date = new Intl.DateTimeFormat(lang === "it" ? "it-IT" : "en-GB", { day: "numeric", month: "long" }).format(deadline);
-const round =
-  fill(tr(COPY.round), { n: String(c.seats), date }) +
-  (c.seatsLeft < c.seats ? ` · ${fill(tr(COPY.left), { n: String(c.seatsLeft) })}` : "");
 const pct = (n: number) => `${String(n).replace(".", lang === "it" ? "," : ".")}%`;
 const audience = tr(c.audience);
 ---
@@ -90,9 +82,6 @@ const audience = tr(c.audience);
           <a class="btn btn-ac btn-lg" href="#parliamone" data-magnetic>{tr(COPY.ctaPrimary)} <span class="arrow">→</span></a>
           <a class="lnd-link" href="#offerta">{tr(COPY.ctaSecondary)} <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="lnd-round" data-intro style="--i:4" data-round data-deadline={c.deadlineISO} data-closed={tr(COPY.closed)}>
-          {round}
-        </p>
       </div>
       <figure class="lnd-offer-photo" data-intro style="--i:2">
         <RemoteImage local={local} src={c.heroImage.src} alt={tr(c.heroImage.alt)} placeholder={audience} loading="eager" ratio="4 / 5" />
@@ -106,12 +95,12 @@ const audience = tr(c.audience);
 
   {/* ---------- Found: what their clients search, and find ---------- */}
   <section class="lnd-scene lnd-found" data-scene="found" style="--len:3" aria-label={tr(c.search)}>
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-found-grid">
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.pains.map((p) => (
-              <div class="lnd-beat">
+              <div class="lnd-beat" data-scene-beat>
                 <h2 class="lnd-title lnd-title--md">{tr(p.k)}</h2>
                 <p class="lnd-lede">{tr(p.v)}</p>
               </div>
@@ -154,7 +143,7 @@ const audience = tr(c.audience);
           </div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -166,7 +155,7 @@ const audience = tr(c.audience);
         <h2 class="lnd-title" data-split><Lines text={tr(COPY.statsTitle)} /></h2>
         <p class="lnd-lede" data-reveal>{tr(COPY.statsLede)}</p>
       </div>
-      <ul class="lnd-stat-list" data-scene="bars">
+      <ul class="lnd-stat-list" data-bars>
         {
           STATS.map((s) => (
             <li class="lnd-stat">
@@ -175,10 +164,10 @@ const audience = tr(c.audience);
               {s.bar && (
                 <div class="lnd-vs">
                   <span>{tr(COPY.italy)}</span>
-                  <i style={`--v:${s.bar.it / 100}`} />
+                  <i data-bars-item style={`--v:${s.bar.it / 100}`} />
                   <b>{pct(s.bar.it)}</b>
                   <span>{tr(COPY.eu)}</span>
-                  <i class="lnd-vs-eu" style={`--v:${s.bar.eu / 100}`} />
+                  <i class="lnd-vs-eu" data-bars-item style={`--v:${s.bar.eu / 100}`} />
                   <b>{pct(s.bar.eu)}</b>
                 </div>
               )}
@@ -251,7 +240,7 @@ const audience = tr(c.audience);
           }
         </ol>
       </div>
-      <div class="lnd-sheet-wrap" data-scene="stamp">
+      <div class="lnd-sheet-wrap">
         {
           variants.map((v, i) => (
             <article class="lnd-sheet" id={`sheet-${v.id}`} role="tabpanel" aria-labelledby={`tab-${v.id}`} data-panel={v.id} hidden={i !== 0}>
@@ -277,9 +266,6 @@ const audience = tr(c.audience);
             </article>
           ))
         }
-        <div class="lnd-stamp" aria-hidden="true">
-          <span>{tr(COPY.stamp)}</span>
-        </div>
       </div>
     </div>
   </section>
@@ -323,8 +309,6 @@ const audience = tr(c.audience);
   />
 
   <Portals title={tr(COPY.portals)} items={portals(siblings(`offerta/${c.slug}`, "attivita").slice(0, 3), lang)} />
-
-  <Sticky href="#parliamone" label={tr(COPY.ctaPrimary)} />
 </div>
 
 <script>

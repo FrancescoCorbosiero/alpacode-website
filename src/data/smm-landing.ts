@@ -3,11 +3,11 @@
    For social media managers who don't own a website: they grow
    everyone else's brand, and a brand that looks for them finds a
    link in bio. On the landing kit (components/landing/
-   SmmLanding.astro), magenta.
+   SmmLanding.astro), in the house's blue.
 
    The hook is the mirror: type your name and see your socials and
    your own site side by side, the links moving into the site.
-   Price, seats and the round come from the social-media-manager
+   The price comes from the social-media-manager
    campaign (data/campaigns.ts), so both pages tell the same story.
    Copy rules: docs/landing-factory.md.
    ============================================================ */
@@ -15,7 +15,7 @@ import type { Lang } from "../i18n/types";
 import { campaignBySlug, type Campaign } from "./campaigns";
 import type { Objection } from "./landing/shared";
 
-/** Single source of truth for price / seats / round. */
+/** Single source of truth for the price. */
 export const SMM_CAMPAIGN: Campaign = campaignBySlug("social-media-manager")!;
 
 export interface SmmCopy {
@@ -85,7 +85,6 @@ export interface SmmCopy {
     choices: [string, string];
   };
   portalsTitle: string;
-  sticky: string;
 }
 
 const price = SMM_CAMPAIGN.price;
@@ -223,7 +222,6 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       choices: ["Sito personale", "Corsia veloce — attivazione online"],
     },
     portalsTitle: "Lavori già con clienti tuoi? C'è anche questo",
-    sticky: "Voglio il mio sito",
   },
 
   en: {
@@ -358,6 +356,5 @@ export const smmLanding: Record<Lang, SmmCopy> = {
       choices: ["Personal site", "Fast lane — online activation"],
     },
     portalsTitle: "Already working with clients of your own? There's this too",
-    sticky: "I want my site",
   },
 };

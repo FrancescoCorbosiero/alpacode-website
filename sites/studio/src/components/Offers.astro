@@ -1,0 +1,31 @@
+---
+/* The ways to buy a product: one card per offer, the featured one
+   ringed in its colour. */
+import type { Offer } from "../data/products";
+import { euro } from "../data/site";
+import Buy from "./Buy.astro";
+
+interface Props {
+  offers: Offer[];
+}
+const { offers } = Astro.props;
+---
+
+<ul class="fx-offers">
+  {
+    offers.map((o) => (
+      <li class:list={["fx-offer", { "is-featured": o.featured }]} data-reveal>
+        {o.featured && <span class="fx-sticker">Consigliato</span>}
+        <h3>{o.name}</h3>
+        <p class="fx-price">{o.price !== null ? euro(o.price) : <small>Prezzo in arrivo</small>}</p>
+        <p>{o.blurb}</p>
+        <ul class="fx-ticks">
+          {o.includes.map((i) => (
+            <li>{i}</li>
+          ))}
+        </ul>
+        <Buy id={o.id} price={o.price} checkout={o.checkout} askLabel="La voglio" block />
+      </li>
+    ))
+  }
+</ul>

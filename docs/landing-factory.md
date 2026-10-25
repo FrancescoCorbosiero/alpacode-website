@@ -9,16 +9,19 @@ fits.
 | --- | --- | --- | --- |
 | **A — Campaign** | Selling the site offer to a new audience | 1 data entry, ~15 min | `/offerta/educatori-cinofili`, `/offerta/olistica-yoga` |
 | **B — Bespoke** | A different pitch (product, program, formula) | data file + view + CSS block + 2 pages + OG card, half a day | `/social-media-manager`, `/partner`, `/per-chi-fa-siti/*` |
-| **C — FAST door** | The social register: a hook for a reel, a DM keyword, a small product | 1 entry in `fast/src/data/doors.ts` + 1 card, ~20 min | fast.alpacode.it `/sito`, `/ai`, `/code` |
+| **C — A studio page** | The marketing compartment: a service, a package, a product bought on the site | data entries in `sites/studio/src/data/` + 1 card, under an hour | studio.alpacode.it `/servizi`, `/pacchetti`, `/prodotti/*` |
 
-Tracks A and B are alpacode.it, the studio's voice. Track C is
-Alpacode FAST, its own site (`fast/`): the aggressive register, the
-fear named and turned around, prices in the tens of euros — kept off
-the studio's domain on purpose (`docs/marketing-map.md`).
+Tracks A and B are alpacode.it, the house's voice: formal, never the
+aggressive register. Track C is Alpacode Studio, its own site
+(`sites/studio/`): the young register, the worry named and turned
+around, products bought on the site — on its own subdomain on purpose
+(`docs/marketing-map.md`).
 
-Both tracks ship IT + EN, SEO meta with FAQPage + BreadcrumbList
+Tracks A and B ship IT + EN, SEO meta with FAQPage + BreadcrumbList
 JSON-LD, a lead form wired to `/api/contact` with per-landing
-attribution, and the same motion. No new framework code is needed.
+attribution, and the same motion; the house's full header and footer
+(the landings are pages of the house, not a separate funnel). No new
+framework code is needed.
 
 ---
 
@@ -54,19 +57,16 @@ registry is `src/data/audiences.ts`:
   `.lnd--<name>` with its accent:
   - `--ac` fills, marks, the pen · `--ac-ink` the accent as text on
     paper (≥ 4.5:1) · `--ac-on` text on an accent fill · `--ac-soft`
-    the highlighter band;
-  - `body:has(.lnd--<name>) { --lnd-header-cta; --lnd-header-cta-on }`
-    paints the minimal header's button.
+    the highlighter band.
   - Plates: `.lnd-plate` (paper), `--print` (blueprint), `--ink`,
     `--paper-2`; `.lnd-grid-bg` (drafting grid), `.lnd-crop` (crop
     marks). Type: `.lnd-display`, `.lnd-title` (`--md`), `.lnd-sub`,
     `.lnd-lede`, `.lnd-body`, `.lnd-hand` (`--kicker`) for the margin
     notes.
-  - Accents taken: brand blue (offers on the blueprint `#8fb0f5`; the
-    hub; the referral program), teal `#2ee6c5` (hosting), orange
-    `#ff6b1a` (AI), magenta `#ff2e88` (SMM), green `#2fe08a` (partner),
-    yellow (Hive), coral `#e63422` (Pro Kit). A new landing picks a new
-    one.
+  - Accents: the house's blue for every landing (on the blueprint,
+    `#8fb0f5`): the landings speak as the house. The colours per door
+    belong to the studio (`sites/studio/src/data/pages.ts`). The
+    product pages (Hive, Pro Kit) keep their own.
 - **Components** — `src/components/landing/`:
   - `Mark` (`kind`: highlight, underline, strike, circle, box) — the pen
     on a word; `Hand` (`arrow`, `kicker`) — a note in the margin;
@@ -75,12 +75,11 @@ registry is `src/data/audiences.ts`:
     below, the one that suits the reader marked by hand; a tier's
     button ticks it in the form). Copy in `data/landing/*`.
   - `Objections` (`variant`: list or chat), `LeadForm` (see below),
-    `Portals`, `Sticky` (the pill after the hero, hidden on the form
-    and the footer), `ProfileSwitch`.
+    `Portals`, `ProfileSwitch`.
   - The views: `OfferLanding` (Track A), `SmmLanding`, `PartnerLanding`,
     `HostingLanding`, `AiLanding`, `BuildersHub`.
 - **Scripts** — `src/lib/landing/`: `lead.ts` (the form), `formula.ts`,
-  `profile.ts`, `offer.ts` (tabs; the round's "closed" state),
+  `profile.ts`, `offer.ts` (the proposal's tabs),
   `calc.ts`, `makeof.ts`, `mirror.ts`, `schema.ts`
   (`landingJsonLd({ lang, site, crumbs, faq })`), `scenes.ts`.
 - **The lead form** posts `{ campaign, audience, topic, offer, price,
@@ -95,13 +94,20 @@ registry is `src/data/audiences.ts`:
   display's lines, the hero's marks. The first paint never waits on
   JavaScript.
 - **Below the fold it's a scene** — `data-scene="<name>"` runs the
-  function of that name in `SCENES` (`lib/landing/scenes.ts`, a chunk
-  `motion.ts` loads only on `.lnd` pages, inside the page's
-  `gsap.context()`, reverted on navigation). Two kinds:
-  - *Pinned*: `<section class="lnd-scene" data-scene="x" style="--len:3">`
-    with a `.lnd-stage` inside — the stage sticks for `--len` screens
-    of scroll while `scrubbed(root)` plays; `beats(tl, root, [...])`
-    hands the text over, `.lnd-progress` draws the rule.
+  function of that name in `SCENES` (`lib/landing/scenes.ts`: an effect
+  of the engine, `hook` + `init(kit)`, that `src/engine/registry.ts`
+  fetches only on pages with a `.lnd [data-scene]`; it is built inside
+  the page's `gsap.context()` and reverted on navigation). Two kinds:
+  - *Pinned*, on the engine's `stage`
+    (`src/engine/effects/stage.ts`):
+    `<section class="lnd-scene" data-scene="x" style="--len:3">` with a
+    `<div class="lnd-stage" data-scene-stage>` inside, its text in
+    `[data-scene-beats]` > `[data-scene-beat]`s and a
+    `<div class="lnd-progress" data-scene-progress>` rule.
+    `scrubbed(kit, root)` builds the timeline and makes the scene live
+    (`[data-scene-live]`): only then does `stage.css` make it `--len`
+    screens tall and stick the stage. `beats(tl, root, [...])` hands the
+    text over; the rule fills by itself.
   - *Machines*: a hero object that plays on its own (the press, the
     loop) — pause it off screen.
 - **Rules that keep scenes correct**:
@@ -113,14 +119,26 @@ registry is `src/data/audiences.ts`:
   - Hide things only in JS, at init, and only below the fold
     (`below(el)`). **Nothing is hidden by CSS**: under reduced motion
     the chunk never runs and `landing.css` lays every scene out in its
-    end state. Look at the reduced-motion still of every page.
+    end state. A scene's motion layout is written under
+    `[data-scene="x"][data-scene-live]` (its end state for no motion
+    under `:not([data-scene-live])`), never under `.has-motion`: a chunk
+    that didn't load leaves the scene laid out, not half-built. Look at
+    the reduced-motion still of every page.
   - Phones: a pinned stage must fit about 660px of height (Safari's
-    small viewport) — shoot it at 390×664. Secondary copy can step out
-    of sight there with the visually-hidden pattern under
-    `.has-motion [data-scene="x"]` (never `display: none`: screen
-    readers keep it).
-- The site-wide hooks still work inside landings: `data-split`,
-  `data-reveal`, `data-scrub` (`motion.ts` header).
+    small viewport) — shoot it at 390×664. Secondary copy marked
+    `data-scene-aside` steps out of sight there while the scene is live
+    (the visually-hidden pattern, never `display: none`: screen readers
+    keep it).
+- The site-wide hooks work inside landings too, and the pen and the
+  reusable moves are effects of their own, not scenes: `data-split`,
+  `data-reveal`, `data-scrub`, `data-mark` (`<Mark>`), `data-hand`
+  (`<Hand>`), `data-kinetic`, `data-knoll`, `data-bars`,
+  `data-alternate`, `data-draw` — each documented in the header of its
+  module, `src/engine/effects/<id>.ts`. A move a second page could use
+  becomes an effect there (a hook, `init(kit)`, its CSS with the
+  reduced-motion end state, its place in `registry.ts`); a scene stays
+  in `scenes.ts`. alpacode-motion, the motion catalog, is reference
+  only: read it for the contract, never edit it.
 
 ## Track A — Campaign landing (`/offerta/<slug>`)
 
@@ -137,10 +155,6 @@ the objections and the form, plus the group's other doors.
    - `price` — tiers for reference: 300 € (consumer-facing
      micro-businesses), 350 € (coaches and consultants), 450 €
      (licensed professionals).
-   - `seats` / `seatsLeft` — edit `seatsLeft` by hand as people sign
-     up; it shows only once it's below `seats`. `deadlineISO` reuses
-     `DEADLINE`, a round date (the end of a quarter): the page names the
-     round calmly and turns to "closed" by itself. **No countdowns.**
    - `hero.line1` / `line2` — a two-beat mirror of their situation
      ("Bravissimo sul campo." / "Invisibile su Google."); `hero.fix`
      (optional): the pen strikes `strike` out of line 2 and writes
@@ -169,18 +183,17 @@ For a pitch that isn't "we build your site for N €/year".
 3. **View** — `src/components/landing/<Name>Landing.astro`: import
    `landing.css`, root `<div class="lnd lnd--<name>">`, plates in
    sequence — hero (copy + its machine), a kinetic band, the scenes
-   that tell the pitch, steps, objections, the form, the portals, the
-   sticky pill. **At least one scene of its own**, the thing that makes
+   that tell the pitch, steps, objections, the form, the portals.
+   **At least one scene of its own**, the thing that makes
    it memorable (SMM: the link-in-bio's links move into the site;
    partner: the loop between you and us, the scale that balances).
 4. **Styles** — a block at the end of `landing.css` headed by the
-   landing's name: the `.lnd--<name>` accent, the header CTA, the
-   scene's pieces, then its `@media` rules.
+   landing's name: the scene's pieces, then its `@media` rules.
 5. **Scenes** — the functions in `scenes.ts`, listed in its header and
-   in `SCENES`.
+   in `SCENES` (a move that isn't this page's alone: an effect of its
+   own instead, see Motion above).
 6. **Pages** — `src/pages/<slug>.astro` + `src/pages/en/<slug>.astro`:
-   `Layout` with `minimal`, `themeColor="#f0f3f9"`, `ctaHref` at the
-   form's anchor, `jsonLd={landingJsonLd({ … faq })}`.
+   `Layout` (the full chrome), `jsonLd={landingJsonLd({ … faq })}`.
 7. **OG card** — `tools/og/og-<name>.svg` on the blueprint (see
    `og-hosting.svg`, `og-partner.svg`), then `npm run og -- og-<name>`
    (only those cards; link-preview scrapers don't render SVG, the site
@@ -192,25 +205,26 @@ For a pitch that isn't "we build your site for N €/year".
    form: without `AWS_REGION` the API logs the lead — check its
    campaign and details.
 
-## Track C — a FAST door (`fast.alpacode.it/<door>`)
+## Track C — a studio page (`studio.alpacode.it`)
 
-For a social campaign: a reel or a carousel ends on a keyword, the DM
-answers with the door's link. The playbook is `fast/README.md`; the
-strategy, the keywords and FAST's own rules are in
+The marketing compartment's pages are data. The playbook is
+`sites/studio/README.md`; the register and its rules are in
 `docs/marketing-map.md`.
 
-1. One `Door` in `fast/src/data/doors.ts`: the keyword (one per door),
-   the hook as a `turn` (the fear, struck, and what replaces it — in the
-   same line), the chat's reply (also the DM automation's suggested
-   answer), the chooser card, meta. Add it to `CHOOSER`, and to
-   `BRIDGES` if it hands over to a studio page (three punches + the
-   link) rather than selling a FAST product.
-2. A product of its own goes in `fast/src/data/products.ts` (price VAT
-   included, contents, `checkout` or none: then the keyword sells it)
-   with a page in `fast/src/pages/`.
-3. Its share card in `tools/og/fast.mjs`, then `npm run og -- fast`.
-4. `npm run fast:check && npm run fast:build`, then look at it at 390
-   (that's where it's read) and with reduced motion.
+1. A service: `sites/studio/src/data/services.ts` (under its verb: farsi
+   vedere, farsi ricordare, farsi scegliere). A package:
+   `sites/studio/src/data/packages.ts` (`price: null` reads "Su
+   richiesta"). A product: `sites/studio/src/data/products.ts` (price
+   VAT included, contents, `checkout` or `null`: then the button asks
+   instead), with its page in `sites/studio/src/pages/prodotti/`.
+2. A door on the studio's home, if it's a new reader:
+   `sites/studio/src/data/pages.ts` (`DOORS`), with its accent. A door
+   from the house: `doorTo("studio", path, { site: "house", where })`
+   (`shared/data/compartments.ts`) where the house talks about that
+   work.
+3. Its share card in `tools/og/studio.mjs`, then `npm run og -- studio`.
+4. `npm run studio:check && npm run studio:build`, then look at it at
+   390 and with reduced motion. No DM keywords, no countdowns.
 
 ## House rules (all tracks)
 
@@ -225,8 +239,8 @@ strategy, the keywords and FAST's own rules are in
   cheap. Name the things instead: "con dominio, hosting ed email",
   "una proposta scritta dopo la prima call". (A real term of an offer
   — the Pro Kit founders' locked price — is not the tic.)
-- **No countdowns, no fake scarcity.** A round has a date and a number
-  of places; the page says so once, calmly.
+- **No countdowns, no fake scarcity**: no rounds, no seats, no
+  deadlines on the pages.
 - **Risk reversal is the brand**: "prima vedi, poi paghi" on every
   offer of the site.
 - **No placeholder proof.** No logos, reviews or counts until they're

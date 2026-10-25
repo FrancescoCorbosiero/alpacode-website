@@ -1,0 +1,51 @@
+---
+/* Write to the studio, book a call, or the other ways. */
+import Studio from "../layouts/Studio.astro";
+import Hero from "../components/Hero.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { PAGES } from "../data/pages";
+import { CAL, business, house, wa } from "../data/site";
+import { breadcrumbs, organization } from "../lib/schema";
+
+const head = PAGES.contatti;
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[organization(), breadcrumbs([{ name: "Contatti", path: "/contatti/" }])]}
+>
+  <Hero head={head}>
+    <a class="fx-btn" href="#scrivi">Scrivici <span aria-hidden="true">↓</span></a>
+    <a class="fx-link fx-hero-more" href={CAL} target="_blank" rel="noopener" data-umami-event="call">Prenota una call</a>
+  </Hero>
+
+  <section class="fx-section" id="scrivi">
+    <div class="fx-wrap fx-split">
+      <div class="fx-contact-side" data-reveal>
+        <span class="fx-hand">o se preferisci</span>
+        <a class="fx-contact-way" href={CAL} target="_blank" rel="noopener" data-umami-event="call">
+          <small>Una call</small>
+          <b>30 minuti, gratis ↗</b>
+        </a>
+        <a class="fx-contact-way" href={`mailto:${business.email}`}>
+          <small>Email</small>
+          <b>{business.email}</b>
+        </a>
+        <a class="fx-contact-way" href={wa()} target="_blank" rel="noopener" data-umami-event="whatsapp">
+          <small>WhatsApp</small>
+          <b>Scrivici un messaggio ↗</b>
+        </a>
+        <a class="fx-contact-way" href={house("/contatti/", "contatti")}>
+          <small>Un sito, un e-commerce, un software?</small>
+          <b>Li fa la casa, alpacode.it ↗</b>
+        </a>
+      </div>
+      <div data-reveal>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Studio>

@@ -79,7 +79,6 @@ export interface LandingCopy {
   faq: { kicker: string; title: string; items: { q: string; a: string }[] };
   cross: CrossLink[];
   final: { kicker: string; line1: string; line2: string; sub: string; cta: string; alt: string; altSubject: string };
-  sticky: string;
 }
 
 const STICKER_IT = { pre: "Fino a", amount: "100€", post: "di cashback", aria: "Fino a 100 euro di cashback" };
@@ -215,7 +214,7 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         lede: "Due strade, stesso premio. Condividi il tuo link personale e lascia che sia il tuo amico a scriverci, oppure mandaci tu i suoi contatti, se è d'accordo.",
         points: POINTS_IT,
         message:
-          "Ciao! Se ti serve un sito web o un e-commerce, ti consiglio Alpacode: la prima call è gratuita e il prezzo lo sai prima di iniziare. Puoi scrivergli da qui: {link}",
+          "Ciao! Se ti serve un sito web o un e-commerce, ti consiglio Alpacode: la prima call è gratuita e ti dicono subito se e come possono aiutarti. Puoi scrivergli da qui: {link}",
         emailSubject: "Ti consiglio Alpacode per il tuo sito",
         resultLede:
           "Mandalo a chi pensi possa servire un sito web o un e-commerce. Quando ci scrive da lì, la segnalazione è tua.",
@@ -271,7 +270,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_IT, line1: "Un messaggio a un amico." },
-      sticky: "Genera il tuo link",
     },
     en: {
       meta: {
@@ -310,7 +308,7 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         lede: "Two ways, same reward. Share your personal link and let your friend reach out, or send us their contact details yourself, if they agree.",
         points: POINTS_EN,
         message:
-          "Hi! If you need a website or an online store, I recommend Alpacode: the first call is free and you know the price before they start. You can reach them here: {link}",
+          "Hi! If you need a website or an online store, I recommend Alpacode: the first call is free and they tell you straight away whether and how they can help. You can reach them here: {link}",
         emailSubject: "I recommend Alpacode for your website",
         resultLede:
           "Send it to anyone who might need a website or an online store. When they reach out through it, the referral is yours.",
@@ -366,7 +364,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_EN, line1: "One message to a friend." },
-      sticky: "Get your link",
     },
   },
 
@@ -419,7 +416,7 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         lede: "Due strade, stesso premio. Condividi il tuo link personale e lascia che sia chi ha aperto a scriverci, oppure mandaci tu i suoi contatti, se è d'accordo.",
         points: POINTS_IT,
         message:
-          "Ciao! Ho saputo che hai aperto {thing}: complimenti! Per tutta la parte digitale, dal logo al sito alla pubblicità, ti consiglio Alpacode: la prima call è gratuita e il prezzo lo sai prima di iniziare. Puoi scrivergli da qui: {link}",
+          "Ciao! Ho saputo che hai aperto {thing}: complimenti! Per tutta la parte digitale, dal logo al sito alla pubblicità, ti consiglio Alpacode: la prima call è gratuita e ti dicono subito se e come possono aiutarti. Puoi scrivergli da qui: {link}",
         emailSubject: "Ti consiglio Alpacode per la tua nuova attività",
         resultLede: "Mandalo a chi ha appena aperto un'attività. Quando ci scrive da lì, la segnalazione è tua.",
         cardDesc: "Tutto il digitale per chi ha appena aperto · prima call gratuita",
@@ -475,7 +472,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_IT, line1: "Un messaggio a chi apre." },
-      sticky: "Genera il tuo link",
     },
     en: {
       meta: {
@@ -524,7 +520,7 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         lede: "Two ways, same reward. Share your personal link and let the new owner reach out, or send us their contact details yourself, if they agree.",
         points: POINTS_EN,
         message:
-          "Hi! I heard you opened {thing}: congratulations! For all things digital, from the logo to the website to advertising, I recommend Alpacode: the first call is free and you know the price before they start. You can reach them here: {link}",
+          "Hi! I heard you opened {thing}: congratulations! For all things digital, from the logo to the website to advertising, I recommend Alpacode: the first call is free and they tell you straight away whether and how they can help. You can reach them here: {link}",
         emailSubject: "I recommend Alpacode for your new business",
         resultLede: "Send it to someone who just opened a business. When they reach out through it, the referral is yours.",
         cardDesc: "All things digital for new businesses · free first call",
@@ -580,7 +576,6 @@ export const landing: Record<ProgramId, Record<Lang, LandingCopy>> = {
         },
       ],
       final: { ...FINAL_EN, line1: "One message to a new business." },
-      sticky: "Get your link",
     },
   },
 };

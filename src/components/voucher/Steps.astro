@@ -1,6 +1,6 @@
 ---
 /* "Come funziona?" — the flyer's four numbered steps, joined by a rail
-   that fills as you scroll ([data-progress], see lib/motion.ts). The
+   that fills as you scroll (the rail effect, [data-rail]). The
    alpaca stands on the first number tile and, on desktop, leaps from
    tile to tile as the steps light up. On the invite page `here` marks
    the step the visitor is living right now: the alpaca waits there. */
@@ -31,19 +31,19 @@ const { kicker, title, lede, items, here, hereLabel } = Astro.props;
       <p class="rf-steps-lede">{lede}</p>
     </div>
 
-    <div class="rf-steps-track" data-progress data-here={here} style={here ? `--here:${here}` : undefined}>
-      <span class="rf-steps-rail" aria-hidden="true"><span class="rf-steps-fill" data-progress-fill></span></span>
+    <div class="rf-steps-track" data-rail data-here={here} style={here ? `--here:${here}` : undefined}>
+      <span class="rf-steps-rail" aria-hidden="true"><span class="rf-steps-fill"></span></span>
       <Alpaca class="rf-steps-runner" width={40} data-steps-runner />
       <ol class="rf-steps">
         {
           items.map((s, i) => (
             <li
               class:list={["rf-step", { "is-here": here === i }]}
-              data-progress-step
+              data-rail-step
               aria-current={here === i ? "step" : undefined}
             >
               <div class="rf-step-top">
-                <span class="rf-step-n" aria-hidden="true" data-progress-tile>
+                <span class="rf-step-n" aria-hidden="true" data-rail-tile>
                   {i + 1}
                 </span>
                 <span class="rf-step-icon" aria-hidden="true">

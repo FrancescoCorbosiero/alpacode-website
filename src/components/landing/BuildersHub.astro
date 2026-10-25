@@ -4,7 +4,6 @@
 import "../../styles/landing.css";
 import type { Lang } from "../../i18n/types";
 import { hub } from "../../data/landing/hub";
-import { leadForm } from "../../data/landing/shared";
 import { LANDINGS, portals } from "../../data/audiences";
 import { localizePath } from "../../i18n/utils";
 import Mark from "./Mark.astro";
@@ -13,7 +12,6 @@ import ProfileSwitch from "./ProfileSwitch.astro";
 import Formula from "./Formula.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -77,8 +75,6 @@ const band = `${c.band[0]} · ${c.band[1]} · `;
   />
 
   <Portals title={c.portalsTitle} items={portals(["learning", "alpacode-pro-kit", "partner"], lang)} />
-
-  <Sticky href="#formula" label={leadForm[lang].sticky} />
 </div>
 
 <script>

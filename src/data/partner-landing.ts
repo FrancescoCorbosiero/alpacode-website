@@ -3,7 +3,7 @@
    Professionals with a client portfolio (SMM, accountants, sales
    agents, photographers…) become partners: they refer (segnala),
    resell white-label (rivendi) or swap leads (scambia). On the
-   landing kit (components/landing/PartnerLanding.astro), green.
+   landing kit (components/landing/PartnerLanding.astro), in the house's blue.
 
    No hard numbers on commissions or margins on purpose: terms are
    agreed on the first call and put in writing — the copy says
@@ -67,7 +67,6 @@ export interface PartnerCopy {
     modelLegend: string;
   };
   portalsTitle: string;
-  sticky: string;
 }
 
 export const partnerLanding: Record<Lang, PartnerCopy> = {
@@ -151,6 +150,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
         { t: "Fotografi e videomaker", d: "Il servizio è splendido — e finisce su un sito vecchio che lo mortifica. Chiudi tu il cerchio." },
         { t: "Copywriter e marketer", d: "Scrivi funnel e campagne che atterrano su pagine di altri. Portale in casa." },
         { t: "Coach e formatori", d: "La tua community ti chiede di continuo «chi mi fa il sito?». Ora hai la risposta." },
+        { t: "Agenzie web e di comunicazione", d: "Ti serve un reparto tecnico affidabile per i progetti dei tuoi clienti: siti, e-commerce, software e integrazioni AI, anche in white-label." },
       ],
     },
     deal: {
@@ -233,7 +233,6 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       modelLegend: "Il modello che ti interessa",
     },
     portalsTitle: "Non è il tuo caso? C'è anche questo",
-    sticky: "Candidati come partner",
   },
 
   en: {
@@ -316,6 +315,7 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
         { t: "Photographers and videomakers", d: "The shoot is stunning — and it ends up on an old site that buries it. Close the loop yourself." },
         { t: "Copywriters and marketers", d: "You write funnels and campaigns that land on other people's pages. Bring them home." },
         { t: "Coaches and trainers", d: "Your community keeps asking “who can build my site?”. Now you have the answer." },
+        { t: "Web and communication agencies", d: "You need a reliable technical team for your clients' projects: websites, e-commerce, software and AI integrations, white-label too." },
       ],
     },
     deal: {
@@ -398,6 +398,5 @@ export const partnerLanding: Record<Lang, PartnerCopy> = {
       modelLegend: "The model you're interested in",
     },
     portalsTitle: "Not quite you? There's this too",
-    sticky: "Apply as a partner",
   },
 };

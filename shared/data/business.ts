@@ -1,0 +1,24 @@
+import type { Localized } from "../i18n";
+
+/** Single source of truth for company facts. Change here, change everywhere. */
+export const business = {
+  name: "Soluzioni Digitali Alpacode",
+  wordmark: "ALPACODE",
+  email: "info@alpacode.it",
+  vat: "14463350968",
+  /** WhatsApp number, international format, digits only. Used only in the
+   *  wa.me click-to-chat link — never rendered as visible text. */
+  whatsapp: "393514003240",
+  locations: "Monza · Milano · IT",
+  locationsEn: "Monza · Milan · IT",
+  hoursShort: "09:00 — 18:00 CET",
+  social: {
+    linkedin: "https://www.linkedin.com/company/soluzioni-digitali-alpacode/",
+  },
+  founded: "2025",
+} as const;
+
+export const tagline: Localized = {
+  it: "Digitalizziamo privati e imprese in Italia, dal primo sito al software su misura.",
+  en: "We digitalize individuals and businesses across Italy, from a first website to custom software.",
+};

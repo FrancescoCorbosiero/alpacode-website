@@ -1,0 +1,42 @@
+---
+/* The end of a page: write, or book a call. */
+import { CAL } from "../data/site";
+
+interface Props {
+  title?: string;
+  text?: string;
+  /** The main button, when it isn't "Scrivici" (a door into the house). */
+  primary?: { href: string; label: string };
+}
+const {
+  title = "Hai qualcosa da far crescere?",
+  text = "Raccontacelo: ti rispondiamo con una proposta scritta. Oppure prenota trenta minuti di call.",
+  primary,
+} = Astro.props;
+const outside = primary ? /^https?:/.test(primary.href) : false;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap">
+    <div class="fx-cta" data-reveal>
+      <div>
+        <h2 class="fx-title">{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="fx-cta-act">
+        {
+          primary ? (
+            <a class="fx-btn" href={primary.href}>
+              {primary.label} <span aria-hidden="true">{outside ? "↗" : "→"}</span>
+            </a>
+          ) : (
+            <a class="fx-btn" href="/contatti/">
+              Scrivici <span aria-hidden="true">→</span>
+            </a>
+          )
+        }
+        <a class="fx-btn fx-btn--ghost" href={CAL} target="_blank" rel="noopener" data-umami-event="call">Prenota una call</a>
+      </div>
+    </div>
+  </div>
+</section>

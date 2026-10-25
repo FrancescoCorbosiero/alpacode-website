@@ -143,7 +143,7 @@ export const hosting: Record<Lang, HostingCopy> = {
     hero: {
       kicker: "per chi fa siti ai clienti",
       lines: ["Paghi un hosting", "per ogni cliente?"],
-      accent: { before: "Stai ", mark: "perdendo soldi", after: "." },
+      accent: { before: "Quel ", mark: "margine", after: " può restare a te." },
       lede: "Ogni sito che parcheggi su un hosting a canone è margine che lasci a qualcun altro. Con un server tuo e una codebase pronta, i siti dei tuoi clienti stanno tutti nello stesso posto — e l'hosting, da costo, diventa un'entrata.",
       cta: "Scegli come iniziare",
       alt: "Fai i conti",
@@ -328,7 +328,7 @@ export const hosting: Record<Lang, HostingCopy> = {
     hero: {
       kicker: "for people who build client sites",
       lines: ["A hosting plan", "for every client?"],
-      accent: { before: "You're ", mark: "losing money", after: "." },
+      accent: { before: "That ", mark: "margin", after: " can stay yours." },
       lede: "Every site you park on a monthly hosting plan is margin you leave to someone else. With your own server and a ready codebase, your clients' sites all live in the same place — and hosting turns from a cost into income.",
       cta: "Choose how to start",
       alt: "Do the maths",

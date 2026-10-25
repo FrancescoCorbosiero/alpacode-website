@@ -1,7 +1,7 @@
 ---
 import Layout from "../../../components/Layout.astro";
 import OfferLanding from "../../../components/landing/OfferLanding.astro";
-import { CAMPAIGNS, COPY, FAQ, t, type Campaign } from "../../../data/campaigns";
+import { CAMPAIGNS, FAQ, t, type Campaign } from "../../../data/campaigns";
 import { landingJsonLd } from "../../../lib/landing/schema";
 
 export function getStaticPaths() {
@@ -27,10 +27,7 @@ const slug = `offerta/${campaign.slug}`;
     crumbs: [{ name: t(campaign.audience, lang), slug }],
     faq: FAQ.map((f) => ({ q: t(f.q, lang), a: t(f.a, lang) })),
   })}
-  minimal
   themeColor="#f0f3f9"
-  ctaLabel={t(COPY.ctaPrimary, lang)}
-  ctaHref="#parliamone"
 >
   <OfferLanding lang={lang} campaign={campaign} />
 </Layout>

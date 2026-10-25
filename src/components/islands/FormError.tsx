@@ -1,4 +1,4 @@
-import { business } from "../../data/business";
+import { business } from "@shared/data/business";
 
 /** A form's failure line. "{email}" in the copy becomes a mailto link, so a
  *  visitor whose message didn't go through can still reach us from right

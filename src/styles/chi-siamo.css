@@ -1,0 +1,267 @@
+/* ============================================================
+   Chi siamo (/chi-siamo): what we do as a numbered list, the
+   people as portraits with their words, who we work best with,
+   the doors to the network and the compartments.
+   ============================================================ */
+
+/* ---------- What we do ---------- */
+.about-what-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+}
+.about-what-item {
+  grid-column: span 2;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 28px 28px 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+/* Five items: the last two share the row's width. */
+.about-what-item:nth-child(n + 4) {
+  grid-column: span 3;
+}
+.about-what-item + .about-what-item {
+  padding-left: 28px;
+  border-left: 1px solid var(--rule);
+}
+.about-what-item:nth-child(4) {
+  padding-left: 0;
+  border-left: 0;
+}
+.about-what-n {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.about-what-item h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.08;
+}
+.about-what-item p {
+  margin: 0;
+  color: var(--mute-2);
+  line-height: 1.6;
+}
+
+/* ---------- The people ---------- */
+.about-people-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+.about-person {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.42fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 32px 32px 36px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.about-person:nth-child(odd):not(.about-person--lead) {
+  padding-right: 32px;
+}
+.about-person:nth-child(even) {
+  padding-left: 32px;
+  border-left: 1px solid var(--rule);
+}
+/* The founder spans the row: the studio is his, the page says so. */
+.about-person--lead {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(200px, 0.32fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding: 40px 0 44px;
+}
+.about-portrait {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink);
+}
+.about-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-monogram {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(rgba(240, 243, 249, 0.12) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(240, 243, 249, 0.12) 1px, transparent 1px) 0 0 / 24px 24px,
+    #12306f;
+  color: #f0f3f9;
+  font-family: var(--display);
+  font-size: clamp(40px, 5vw, 72px);
+  letter-spacing: -0.02em;
+}
+.about-person-copy {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+.about-person h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1;
+}
+.about-person--lead h3 {
+  font-size: clamp(30px, 3.4vw, 48px);
+}
+.about-role {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.about-bio {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--mute-2);
+  line-height: 1.65;
+}
+.about-tags {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.about-tags li {
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  font-size: 13px;
+  font-weight: 600;
+}
+.about-link {
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* ---------- Who we work best with ---------- */
+.about-fit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 32px clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.about-fit-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 54px);
+  line-height: 0.95;
+}
+.about-fit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+.about-fit-list li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.about-fit-mark {
+  width: 22px;
+  height: 6px;
+  background: var(--blue);
+  transform: translateY(-4px);
+}
+
+/* ---------- Doors ---------- */
+.about-network-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.about-door {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  transition:
+    background-color 0.3s var(--ease-expo),
+    color 0.3s var(--ease-expo);
+}
+.about-door h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.05;
+}
+.about-door p {
+  margin: 0;
+  color: var(--mute-2);
+}
+.about-door-go {
+  font-weight: 700;
+  color: var(--blue);
+}
+.about-door:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.about-door:hover p {
+  color: var(--on-ink-mute);
+}
+.about-door:hover .about-door-go {
+  color: #8fb0f5;
+}
+
+@media (max-width: 900px) {
+  .about-what-list,
+  .about-people-list,
+  .about-fit-grid,
+  .about-network-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about-what-item,
+  .about-what-item:nth-child(n + 4) {
+    grid-column: auto;
+    padding: 22px 0;
+    border-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  .about-person,
+  .about-person--lead {
+    grid-template-columns: minmax(96px, 0.36fr) minmax(0, 1fr);
+    padding: 24px 0 !important;
+    border-left: 0 !important;
+  }
+}
+@media (max-width: 560px) {
+  .about-person,
+  .about-person--lead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about-portrait {
+    width: min(100%, 220px);
+  }
+}

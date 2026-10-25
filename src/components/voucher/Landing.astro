@@ -16,7 +16,7 @@ import "../../styles/voucher.css";
 import type { Lang } from "../../i18n/types";
 import { landing } from "../../data/voucher/landing";
 import { shared } from "../../data/voucher/shared";
-import { business } from "../../data/business";
+import { business } from "@shared/data/business";
 import { localizePath } from "../../i18n/utils";
 import { programPath, type ProgramId } from "../../lib/voucher/program";
 import Sticker from "./Sticker.astro";
@@ -31,7 +31,6 @@ import QrBand from "./QrBand.astro";
 import Why from "./Why.astro";
 import Faq from "./Faq.astro";
 import CrossCard from "./CrossCard.astro";
-import StickyCta from "./StickyCta.astro";
 import Terms from "./Terms.astro";
 import Alpaca from "../Alpaca.astro";
 
@@ -62,7 +61,7 @@ const crossHref = (to: (typeof c.cross)[number]["to"]) =>
   {/* ---------- HERO ---------- */}
   <section class="rf-hero" data-hero aria-labelledby="hero-title">
     <div class="wrap-wide rf-hero-grid">
-      <div class="rf-hero-copy" data-hero-content>
+      <div class="rf-hero-copy" data-hero-away>
         <p class="sec-num rf-hero-kicker" data-intro style="--intro-d:0.02s">{h.kicker}</p>
         <h1 class="rf-h1 intro-lines" id="hero-title">
           {
@@ -162,7 +161,6 @@ const crossHref = (to: (typeof c.cross)[number]["to"]) =>
 
   <Terms lang={lang} />
 
-  <StickyCta label={c.sticky} href="#segnala" />
 </div>
 
 <script>

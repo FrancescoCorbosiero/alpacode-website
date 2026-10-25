@@ -47,6 +47,14 @@ const prodottiLabel =
               </div>
             </div>
           ))}
+          {g.door && (
+            <a class="svc-door" href={g.door.href}>
+              <span class="svc-door-text">{g.door.text}</span>
+              <span class="svc-door-go">
+                {g.door.label} <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+          )}
         </div>
       ))
     }

@@ -4,7 +4,7 @@
 import { createHmac } from "node:crypto";
 import { CROCKFORD, codePrefix } from "../voucher/referral-code";
 import type { Lang } from "../../i18n/types";
-import { readEnv } from "./env";
+import { readEnv } from "@shared/server/env";
 
 // The development secret of the program's first home (alpacode-voucher):
 // kept, so codes issued in development stay the same.

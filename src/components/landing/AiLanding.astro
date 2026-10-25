@@ -5,7 +5,6 @@
 import "../../styles/landing.css";
 import type { Lang } from "../../i18n/types";
 import { ai } from "../../data/landing/ai";
-import { leadForm } from "../../data/landing/shared";
 import { portals } from "../../data/audiences";
 import { localizePath } from "../../i18n/utils";
 import Mark from "./Mark.astro";
@@ -16,7 +15,6 @@ import Formula from "./Formula.astro";
 import Objections from "./Objections.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -104,12 +102,12 @@ const ICONS = [
 
   {/* ---------- The craft has changed ---------- */}
   <section class="lnd-scene lnd-shift" data-scene="shift" style="--len:2.8" aria-labelledby="shift-title">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-shift-grid">
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.shift.beats.map((b, i) => (
-              <div class="lnd-beat">
+              <div class="lnd-beat" data-scene-beat>
                 <h2 class="lnd-title" id={i === 0 ? "shift-title" : undefined}>
                   <Lines text={b.title} />
                 </h2>
@@ -134,13 +132,13 @@ const ICONS = [
           </div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
   {/* ---------- The assembly line ---------- */}
   <section class="lnd-scene lnd-line lnd-plate--ink" data-scene="line" style="--len:4" id="catena">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-line-wrap">
         <div class="lnd-line-head">
           <h2 class="lnd-title"><Lines text={c.line.title} /></h2>
@@ -179,7 +177,7 @@ const ICONS = [
           </ol>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -230,7 +228,7 @@ const ICONS = [
           <ProfileSwitch lang={lang} id="profile-kit" />
         </div>
       </div>
-      <ul class="lnd-knoll" data-scene="knoll">
+      <ul class="lnd-knoll" data-knoll>
         {
           c.kit.items.map((it, i) => (
             <li class="lnd-tool">
@@ -268,8 +266,6 @@ const ICONS = [
     title={lang === "it" ? "Fai siti per i clienti? C'è anche questo" : "Building sites for clients? There's this too"}
     items={portals(["per-chi-fa-siti/hosting", "learning", "alpacode-pro-kit"], lang)}
   />
-
-  <Sticky href="#formula" label={leadForm[lang].sticky} />
 </div>
 
 <script>

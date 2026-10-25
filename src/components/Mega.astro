@@ -22,12 +22,15 @@ const columns = [menu.colA, menu.colB];
   </div>
   {
     columns.map((col) => (
-      <div>
-        <h5>{col.title[lang]}</h5>
+      <div class:list={{ "mega-door": col.door }}>
+        <h5>
+          {col.title[lang]}
+          {col.door && <span class="mega-door-name">{col.door[lang]} ↗</span>}
+        </h5>
         <ul>
           {col.items.map((item) => (
             <li>
-              <a href={href}>
+              <a href={item.href ?? href}>
                 <span>
                   <span class="ttl">{item.t[lang]}</span>
                   <span class="desc">{item.d[lang]}</span>

@@ -14,10 +14,11 @@
     "media": "node tools/media/render.mjs",
     "hero-video": "node tools/media/hero-video.mjs",
     "astro": "astro",
-    "fast:dev": "astro dev --root fast",
-    "fast:build": "astro build --root fast",
-    "fast:check": "astro check --root fast",
-    "fast:preview": "astro preview --root fast"
+    "studio:dev": "astro dev --root sites/studio",
+    "studio:build": "astro build --root sites/studio",
+    "studio:check": "astro check --root sites/studio",
+    "studio:start": "node sites/studio/dist/server/entry.mjs",
+    "work-shots": "node tools/work/shots.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

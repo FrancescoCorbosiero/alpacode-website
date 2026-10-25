@@ -16,7 +16,7 @@
    ============================================================ */
 import { appendFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { readEnv } from "./env";
+import { readEnv } from "@shared/server/env";
 
 export interface Person {
   name: string;

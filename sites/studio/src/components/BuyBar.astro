@@ -1,0 +1,23 @@
+---
+/* The buy button that follows the reader on a product page, once the
+   hero is gone (lib/bar.ts); out of the way over the footer. */
+import type { Checkout } from "../data/products";
+import Buy from "./Buy.astro";
+
+interface Props {
+  id: string;
+  name: string;
+  price: number | null;
+  checkout: Checkout | null;
+}
+const { id, name, price, checkout } = Astro.props;
+---
+
+<div class="fx-bar" data-bar>
+  <span class="fx-bar-name">{name}</span>
+  <Buy id={id} price={price} checkout={checkout} askLabel="La voglio" />
+</div>
+
+<script>
+  import "../lib/bar";
+</script>

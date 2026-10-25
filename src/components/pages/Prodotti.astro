@@ -14,6 +14,7 @@ const { lang } = Astro.props;
 const t = prodotti[lang];
 const start = lang === "it" ? "Inizia da qui" : "Start here";
 const learnMore = lang === "it" ? "Scopri di più" : "Learn more";
+const onStudio = lang === "it" ? "Su Alpacode Studio" : "On Alpacode Studio";
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
@@ -52,7 +53,11 @@ const learnMore = lang === "it" ? "Scopri di più" : "Learn more";
                     </div>
                   ))}
                 </div>
-                {p.slug ? (
+                {p.door ? (
+                  <a class="btn btn-sm" href={p.door} data-journey="product-studio">
+                    {onStudio} <span class="arrow">↗</span>
+                  </a>
+                ) : p.slug ? (
                   <a class="btn btn-sm" href={localizePath(p.slug, lang)} data-journey="product-learn-more">
                     {learnMore} <span class="arrow">→</span>
                   </a>

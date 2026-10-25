@@ -1,0 +1,81 @@
+---
+/* The site guide (22 €) and its marketing module (+48 €). */
+import Studio from "../../layouts/Studio.astro";
+import Hero from "../../components/Hero.astro";
+import Band from "../../components/Band.astro";
+import Chapters from "../../components/Chapters.astro";
+import Offers from "../../components/Offers.astro";
+import Buy from "../../components/Buy.astro";
+import BuyBar from "../../components/BuyBar.astro";
+import Qa from "../../components/Qa.astro";
+import House from "../../components/House.astro";
+import Cta from "../../components/Cta.astro";
+import { PAGES } from "../../data/pages";
+import { GUIDE, GUIDE_OFFERS, GUIDE_QA, MARKETING } from "../../data/products";
+import { euro, house } from "../../data/site";
+import { breadcrumbs, faqPage, organization, product } from "../../lib/schema";
+
+const head = PAGES.guida;
+const guide = GUIDE_OFFERS[0];
+const sold = GUIDE_OFFERS.filter((o) => o.checkout && o.price !== null).map((o) => o.price as number);
+---
+
+<Studio
+  title={head.meta.title}
+  description={head.meta.description}
+  og={head.meta.og}
+  ogAlt={head.said}
+  jsonld={[
+    organization(),
+    breadcrumbs([
+      { name: "Prodotti", path: "/prodotti/" },
+      { name: GUIDE.name, path: "/prodotti/guida-sito-vetrina/" },
+    ]),
+    product({ name: GUIDE.name, description: head.meta.description, path: "/prodotti/guida-sito-vetrina/", prices: sold }),
+    faqPage(GUIDE_QA),
+  ]}
+>
+  <Hero head={head}>
+    <Buy id={guide.id} price={guide.price} checkout={guide.checkout} label={`Compra la guida · ${euro(GUIDE.price)}`} askLabel="La voglio" />
+    <a class="fx-link fx-hero-more" href="#scegli">Guida + Marketing: {euro(GUIDE.price + MARKETING.price)} <span aria-hidden="true">↓</span></a>
+  </Hero>
+
+  <section class="fx-section">
+    <div class="fx-wrap fx-split">
+      <div class="fx-split-side" data-reveal>
+        <span class="fx-hand">cosa c'è dentro</span>
+        <h2 class="fx-title">Dal niente al sito online.</h2>
+        <p class="fx-lede">Quattro capitoli, nell'ordine in cui ti servono. Senza scrivere codice.</p>
+      </div>
+      <Chapters items={GUIDE.chapters} />
+    </div>
+  </section>
+
+  <Band words={["Il sito: 0 €", `La guida: ${euro(GUIDE.price)}`, "Fallo da te"]} />
+
+  <section class="fx-section">
+    <div class="fx-wrap">
+      <div class="fx-addon" data-reveal>
+        <span class="fx-sticker">+{euro(MARKETING.price)}</span>
+        <h2 class="fx-title">{MARKETING.title}</h2>
+        <Chapters items={MARKETING.chapters} />
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-section" id="scegli">
+    <div class="fx-wrap">
+      <h2 class="fx-title" data-reveal>Scegli come partire.</h2>
+      <Offers offers={GUIDE_OFFERS} />
+    </div>
+  </section>
+
+  <Qa title="Prima che tu lo chieda." items={GUIDE_QA} />
+  <House where="guida" />
+  <Cta
+    title="Non hai tempo? Te lo fa Alpacode."
+    text="Il sito della tua attività fatto per te, con dominio, hosting e manutenzione."
+    primary={{ href: house("/servizi/", "guida"), label: "Siti fatti per te" }}
+  />
+  <BuyBar slot="after" id={guide.id} name={`${GUIDE.name} · ${euro(GUIDE.price)}`} price={guide.price} checkout={guide.checkout} />
+</Studio>

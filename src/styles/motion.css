@@ -1,73 +1,21 @@
 /* ============================================================
-   Motion — the CSS half of the engine (lib/motion.ts is the other).
+   Motion — the house's own half. The engine's CSS (src/engine/: the
+   core's intro, Lenis, the header's slide, the reading progress,
+   the effects layer, the page transitions, and the entries' rules) is
+   styles/engine.css; this sheet is what only alpacode.it does with it:
 
-   Two layers:
+   1. INTRO — the house's order of arrival above the fold, on top of the
+      core's .intro-lines and [data-intro] (CSS keyframes: the first
+      screen moves on first paint, without waiting for the script):
+      the kickers first, the heroes' actions and facts last, the home
+      lockup assembling after the claim, the heroes' bars drawing in.
+   2. HOVERS — the small moves that answer the pointer.
 
-   1. INTRO — above the fold, pure CSS keyframes, so the first screen
-      animates on first paint without waiting for JavaScript (and
-      replays after every view-transition navigation, for free):
-        .intro-lines   each .line > span rises out of its own mask
-        [data-intro]   fades up; --intro-d sets the delay
-
-   2. SCROLL — below the fold, GSAP ScrollTrigger + SplitText with Lenis
-      smooth scrolling, wired in lib/motion.ts. Nothing below the fold
-      is hidden by CSS: if the script never runs, the page is simply
-      static. The attribute API (data-split, data-scrub, data-speed,
-      data-progress, …) is documented at the top of motion.ts.
-
-   3. EFFECTS — the pieces motion.ts adds on the fly (the referral
-      program's burst, the QR's scan bar, "typing…" in the chat preview).
-
-   prefers-reduced-motion: every intro and scroll effect is off.
+   prefers-reduced-motion: none of it moves (the foot of the sheet).
    ============================================================ */
 
-/* ---------- Lenis (smooth scroll) — upstream lenis.css ---------- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis:not(.lenis-autoToggle).lenis-stopped {
-  overflow: clip;
-}
-.lenis [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
-}
-
 /* ---------- 1. Intro ---------- */
-/* Line masks. The padding/negative-margin pair grows each mask enough to
-   keep accents and descenders while leaving the layout untouched. */
-.intro-lines .line {
-  display: block;
-  overflow: hidden;
-  padding: 0.1em 0 0.12em;
-  margin: -0.1em 0 -0.12em;
-}
-.intro-lines .line > span {
-  display: inline-block;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .intro-lines .line > span {
-    animation: introLine 1.15s var(--ease-expo) both;
-    animation-delay: calc(0.12s + var(--line-i, 0) * 0.09s);
-  }
-  .intro-lines .line:nth-child(2) > span {
-    --line-i: 1;
-  }
-  .intro-lines .line:nth-child(3) > span {
-    --line-i: 2;
-  }
-  .intro-lines .line:nth-child(4) > span {
-    --line-i: 3;
-  }
-
-  [data-intro] {
-    animation: introFade 0.95s var(--ease-expo) both;
-    animation-delay: var(--intro-d, 0.55s);
-  }
   /* Order of arrival: kicker, headline lines, text, actions, facts. */
   .label[data-intro],
   .crumb[data-intro] {
@@ -92,7 +40,7 @@ html.lenis body {
   }
   [data-hero] .hero-wordmark .row > span {
     display: inline-block;
-    animation: introLine 1.3s var(--ease-expo) both;
+    animation: introLine 1.3s var(--ease-expo) backwards;
     animation-delay: 0.35s;
   }
   [data-hero] .hero-wordmark .row-2 > span {
@@ -102,33 +50,15 @@ html.lenis body {
     animation-delay: 0.78s;
   }
   [data-hero] .hero-bar {
-    animation: introBar 1.2s var(--ease-expo) 0.55s both;
+    animation: introBar 1.2s var(--ease-expo) 0.55s backwards;
   }
 
   /* Inner-page hero bar. */
   .page-hero h1 .bar {
-    animation: introBar 1s var(--ease-expo) 0.45s both;
+    animation: introBar 1s var(--ease-expo) 0.45s backwards;
   }
 }
 
-@keyframes introLine {
-  from {
-    transform: translateY(120%);
-  }
-  to {
-    transform: none;
-  }
-}
-@keyframes introFade {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 @keyframes introBar {
   from {
     transform: scaleX(0);
@@ -138,20 +68,8 @@ html.lenis body {
   }
 }
 
-/* ---------- 2. Scroll helpers (state set by motion.ts) ---------- */
-/* SplitText line masks (headings): grow each mask enough to keep accents
-   and descenders — the display face runs at line-height < 1. */
-.split-line-mask {
-  padding: 0.1em 0 0.12em;
-  margin: -0.1em 0 -0.12em;
-}
-.split-word-mask {
-  padding: 0.1em 0.02em 0.12em;
-  margin: -0.1em -0.02em -0.12em;
-}
-
-/* Scrubbed statement — words start dim and light up with scroll. Without
-   the script the paragraph is simply full-strength text. */
+/* Scrubbed statement ([data-scrub]): words start dim and light up with
+   the scroll. Without the script the paragraph is full-strength text. */
 .statement-band {
   background: var(--ink);
   color: var(--paper);
@@ -175,32 +93,7 @@ html.lenis body {
   max-width: 22em;
 }
 
-/* Progress rails ([data-progress]) — steps light up as the fill passes. */
-[data-progress-step] {
-  transition:
-    opacity 0.5s var(--ease),
-    color 0.5s var(--ease);
-}
-.has-motion [data-progress-step]:not(.is-reached) {
-  opacity: 0.38;
-}
-
-/* Case picker crossfade on tab switch */
-@keyframes caseSwap {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.case-info,
-.case-media .tag {
-  animation: caseSwap 500ms var(--ease) both;
-}
-
+/* ---------- 2. Hovers ---------- */
 /* Verb hover: strut grows */
 .verb .v-strut {
   transition:
@@ -219,20 +112,6 @@ html.lenis body {
 .blog-row:hover .arr {
   transform: translateX(6px);
   color: var(--blue);
-}
-
-/* Work card hover: the image breathes, the card doesn't jump. */
-.work {
-  transition: background 0.4s var(--ease);
-}
-.work .img-slot {
-  overflow: hidden;
-}
-.work .img-slot img {
-  transition: transform 1.2s var(--ease-expo);
-}
-.work:hover .img-slot img {
-  transform: scale(1.04);
 }
 
 /* Course card: price reveals on hover */
@@ -283,151 +162,17 @@ html.lenis body {
   }
 }
 
-/* Scroll-progress strut — the blue strut growing down the left edge with
-   scroll. Native scroll-timeline (Lenis drives the real scroll position,
-   so this stays in sync); hidden where unsupported and under reduced
-   motion. */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--blue);
-  transform: scaleY(0);
-  transform-origin: top center;
-  z-index: 60;
-  pointer-events: none;
-}
-@supports (animation-timeline: scroll()) {
-  .scroll-progress {
-    animation: scrollProgress linear both;
-    animation-timeline: scroll(root block);
-  }
-  @keyframes scrollProgress {
-    to {
-      transform: scaleY(1);
-    }
-  }
-}
-
-/* ---------- 3. Effects (added by motion.ts) ---------- */
-/* The burst when a referral link is ready (celebrate()): the sticker's
-   struts, the ticker's square ticks, euro signs and the odd tiny alpaca,
-   above everything. */
-.fx-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  overflow: hidden;
-  pointer-events: none;
-}
-.fx-bit {
-  position: absolute;
-  display: block;
-  will-change: transform, opacity;
-}
-.fx-strut {
-  width: 26px;
-  height: 6px;
-  background: currentColor;
-}
-.fx-square {
-  width: 9px;
-  height: 9px;
-  background: currentColor;
-}
-.fx-euro {
-  font-family: var(--display);
-  font-size: 26px;
-  line-height: 1;
-}
-.fx-alpaca {
-  width: 24px;
-  height: 29px;
-}
-.fx-alpaca svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* The QR prints under a scan bar (printQr()). Its tile is the frame. */
-.qr-scan {
-  position: absolute;
-  left: -6px;
-  right: -6px;
-  top: 0;
-  height: 3px;
-  margin-top: -1.5px;
-  background: var(--blue);
-  box-shadow: 0 0 14px 2px rgba(59, 114, 233, 0.55);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* "typing…" before the chat preview's bubble pops in. Square dots: the
-   brand has no round corners. */
-.rf-typing {
-  position: absolute;
-  top: 22px;
-  right: 18px;
-  display: inline-flex;
-  gap: 5px;
-  padding: 12px 13px;
-  background: #d9e5fb;
-}
-.rf-typing i {
-  display: block;
-  width: 6px;
-  height: 6px;
-  background: var(--mute-2);
-}
-
-/* ---------- Page transitions (Astro view transitions) ---------- */
-/* The outgoing page lifts away, the new one settles in. */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root) {
-    animation: vtOut 0.32s var(--ease) both;
-  }
-  ::view-transition-new(root) {
-    animation: vtIn 0.5s var(--ease-expo) both;
-  }
-}
-@keyframes vtOut {
-  to {
-    opacity: 0;
-    transform: translateY(-14px);
-  }
-}
-@keyframes vtIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-progress,
-  .fx-layer,
-  .qr-scan,
-  .rf-typing {
-    display: none;
-  }
   .hero::before {
     animation: none !important;
   }
-  .case-info,
-  .case-media .tag,
   .scale-panel {
     animation: none !important;
   }
   .scale-rail-fill,
   .scale-dot {
     transition: none !important;
-  }
-  .map-ping {
-    animation: none !important;
   }
   /* The marquee runs infinitely and has no keyboard/touch pause control —
      with reduced motion it must simply not move (WCAG 2.2.2). */

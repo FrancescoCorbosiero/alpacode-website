@@ -1,0 +1,11 @@
+---
+import Studio from "../layouts/Studio.astro";
+import Legal from "../components/Legal.astro";
+import { LEGAL } from "../data/legal";
+
+const doc = LEGAL.cookie;
+---
+
+<Studio title={`${doc.title} — Alpacode Studio`} description={doc.lede}>
+  <Legal doc={doc} />
+</Studio>

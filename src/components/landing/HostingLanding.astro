@@ -5,7 +5,6 @@
 import "../../styles/landing.css";
 import type { Lang } from "../../i18n/types";
 import { hosting } from "../../data/landing/hosting";
-import { leadForm } from "../../data/landing/shared";
 import { portals } from "../../data/audiences";
 import Mark from "./Mark.astro";
 import Hand from "./Hand.astro";
@@ -15,7 +14,6 @@ import Formula from "./Formula.astro";
 import Objections from "./Objections.astro";
 import LeadForm from "./LeadForm.astro";
 import Portals from "./Portals.astro";
-import Sticky from "./Sticky.astro";
 
 interface Props {
   lang: Lang;
@@ -92,12 +90,12 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
 
   {/* ---------- Twenty plans, one server ---------- */}
   <section class="lnd-scene lnd-pack" data-scene="pack" style="--len:3.4" aria-labelledby="pack-title">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-pack-grid">
-        <div class="lnd-beats">
+        <div class="lnd-beats" data-scene-beats>
           {
             c.pack.beats.map((b, i) => (
-              <div class="lnd-beat" data-beat={i}>
+              <div class="lnd-beat" data-scene-beat data-beat={i}>
                 <h2 class="lnd-title" id={i === 0 ? "pack-title" : undefined}>
                   <Lines text={b.title} />
                 </h2>
@@ -133,7 +131,7 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
           </div>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -193,7 +191,7 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
 
   {/* ---------- What's in the codebase ---------- */}
   <section class="lnd-scene lnd-stack lnd-plate--print lnd-grid-bg" data-scene="stack" style="--len:3.2" id="codebase">
-    <div class="lnd-stage">
+    <div class="lnd-stage" data-scene-stage>
       <div class="lnd-wrap lnd-stack-grid">
         <div class="lnd-stack-copy">
           <h2 class="lnd-title"><Lines text={c.stack.title} /></h2>
@@ -224,7 +222,7 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
           <Hand class="lnd-iso-note" arrow="down-left">{c.stack.note}</Hand>
         </div>
       </div>
-      <div class="lnd-progress" aria-hidden="true"></div>
+      <div class="lnd-progress" data-scene-progress aria-hidden="true"></div>
     </div>
   </section>
 
@@ -248,8 +246,6 @@ const totalLabel = lang === "it" ? "Totale" : "Total";
     title={lang === "it" ? "Fai siti per i clienti? C'è anche questo" : "Building sites for clients? There's this too"}
     items={portals(["per-chi-fa-siti/ai", "learning", "alpacode-pro-kit"], lang)}
   />
-
-  <Sticky href="#formula" label={leadForm[lang].sticky} />
 </div>
 
 <script>

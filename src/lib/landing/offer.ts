@@ -1,9 +1,7 @@
 /* ============================================================
-   Offer landings (/offerta/*) — the proposal's tabs and the round.
-   - The tabs swap the proposal sheet and its blurb, and tick the
-     same version in the lead form, so the request says which one.
-   - The round's line is rendered at build time; once its deadline
-     has passed, it says so here, without waiting for a rebuild.
+   Offer landings (/offerta/*) — the proposal's tabs: they swap the
+   proposal sheet and its blurb, and tick the same version in the
+   lead form, so the request says which one.
    ============================================================ */
 function tabs(root: HTMLElement): void {
   const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>(".lnd-tab"));
@@ -31,10 +29,6 @@ function init(): void {
     if (root.dataset.ready) return;
     root.dataset.ready = "1";
     tabs(root);
-  });
-  document.querySelectorAll<HTMLElement>("[data-round]").forEach((el) => {
-    const end = Date.parse(el.dataset.deadline ?? "");
-    if (end && Date.now() > end && el.dataset.closed) el.textContent = el.dataset.closed;
   });
 }
 

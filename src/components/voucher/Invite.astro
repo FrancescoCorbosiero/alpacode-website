@@ -22,7 +22,6 @@ import KitPicker from "./KitPicker.astro";
 import Steps from "./Steps.astro";
 import Why from "./Why.astro";
 import CrossCard from "./CrossCard.astro";
-import StickyCta from "./StickyCta.astro";
 import ConsentLabel from "./ConsentLabel.astro";
 import Terms from "./Terms.astro";
 import Icon from "./Icon.astro";
@@ -62,7 +61,7 @@ const i18n = {
 <div class:list={["rf", "rf--invite", `rf--${program}`]} data-page="invite">
   <section class="rf-hero rf-hero--invite" data-hero aria-labelledby="hero-title">
     <div class="wrap-wide rf-hero-grid">
-      <div class="rf-hero-copy" data-hero-content>
+      <div class="rf-hero-copy" data-hero-away>
         <p class="sec-num rf-hero-kicker" data-intro style="--intro-d:0.02s">{kicker}</p>
         <h1 class="rf-h1 intro-lines" id="hero-title">
           {
@@ -230,7 +229,6 @@ const i18n = {
 
   <Terms lang={lang} />
 
-  <StickyCta label={c.sticky} href="#progetto" />
 </div>
 
 <script>

@@ -82,10 +82,10 @@ writing the same file would need a shared store instead.
 | Privacy notice (**draft to validate**) | `src/data/voucher/privacy.ts` |
 | Doors, paths, invite links | `src/lib/voucher/program.ts` |
 | Page pieces | `src/components/voucher/*` (views: `Landing.astro`, `Invite.astro`) |
-| Behaviour | `src/lib/voucher/landing.ts`, `invite.ts`, `forms.ts` (the sticky pill: `src/lib/sticky.ts`, shared with the campaign landings) |
+| Behaviour | `src/lib/voucher/landing.ts`, `invite.ts`, `forms.ts` |
 | Styles (scoped under `.rf`, shipped with these pages only) | `src/styles/voucher.css` |
-| API and server helpers | `src/pages/api/referral.ts`, `src/lib/server/*` |
-| Motion (the sticker, the decoding link, the QR that prints, the burst, the steps' alpaca) | `src/lib/motion.ts` — the one engine |
+| API and server helpers | `src/pages/api/referral.ts`, `src/lib/server/*` (codes, ledger), `shared/server/*` (env, guard, mail) |
+| Motion (the sticker, the decoding link, the QR that prints, the burst, the steps' alpaca) | the site's engine, `src/engine/` (its effects: `scramble`, `print`, `celebrate`, `rail` and the `alpaca` effect, `chat`, `coin`, `accordion`, `panel-enter`, `reveal-panel`, `nudge`); the page scripts import the moves they call from their entry. The sticker's count-up is `landing.ts`'s own: it plays in the hero, above the fold, where the engine's effects leave things alone |
 
 **Photo**: `tools/media/amici-laptop.jpg` is the flyer's photo, upscaled 3×
 (EDSR) from the 1024 px file; `npm run media` writes the AVIF/WebP/JPEG

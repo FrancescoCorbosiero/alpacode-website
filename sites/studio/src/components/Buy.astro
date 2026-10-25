@@ -1,0 +1,44 @@
+---
+/* The way to buy one offer: its checkout when it's set (data/products.ts,
+   Checkout) — an overlay on the page for Lemon Squeezy, the provider's
+   page otherwise (lib/checkout.ts) — or, until then, the contact form
+   with the offer already chosen. */
+import type { Checkout } from "../data/products";
+import { euro } from "../data/site";
+
+interface Props {
+  id: string;
+  price: number | null;
+  checkout: Checkout | null;
+  /** The buy label ("Compra · 22 €" by default). */
+  label?: string;
+  /** The label while it can't be bought yet. */
+  askLabel?: string;
+  /** Which field of the contact form it fills: prodotto or pacchetto. */
+  ask?: "prodotto" | "pacchetto";
+  ghost?: boolean;
+  block?: boolean;
+}
+const { id, price, checkout, label, askLabel = "Chiedi", ask = "prodotto", ghost = false, block = false } = Astro.props;
+const buy = label ?? `Compra${price !== null ? ` · ${euro(price)}` : ""}`;
+const cls = ["fx-btn", { "fx-btn--ghost": ghost, "fx-btn--block": block }];
+---
+
+{
+  checkout ? (
+    <a
+      class:list={cls}
+      href={checkout.url}
+      data-checkout={checkout.provider}
+      data-umami-event="checkout"
+      data-umami-event-offer={id}
+      data-umami-event-provider={checkout.provider}
+    >
+      {buy} <span aria-hidden="true">→</span>
+    </a>
+  ) : (
+    <a class:list={cls} href={`/contatti/?${ask}=${encodeURIComponent(id)}`} data-umami-event="ask" data-umami-event-offer={id}>
+      {askLabel} <span aria-hidden="true">→</span>
+    </a>
+  )
+}

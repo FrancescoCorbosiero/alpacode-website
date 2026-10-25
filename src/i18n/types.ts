@@ -1,10 +1,4 @@
-export type Lang = "it" | "en";
-
-export const LANGS: Lang[] = ["it", "en"];
-export const DEFAULT_LANG: Lang = "it";
-
-/** A string available in both site languages. */
-export type Localized<T = string> = Record<Lang, T>;
-
-export const isLang = (value: string): value is Lang =>
-  (LANGS as string[]).includes(value);
+/* The site's languages: one definition for the house and its
+   compartments (shared/i18n.ts). */
+export { LANGS, DEFAULT_LANG, isLang } from "@shared/i18n";
+export type { Lang, Localized } from "@shared/i18n";

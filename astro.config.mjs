@@ -6,6 +6,7 @@ import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
@@ -77,5 +78,12 @@ export default defineConfig({
   },
   experimental: {
     clientPrerender: true,
+  },
+  // shared/: what the house and its compartments (sites/*) have in
+  // common — the company facts, the compartments, the server helpers.
+  vite: {
+    resolve: {
+      alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)) },
+    },
   },
 });

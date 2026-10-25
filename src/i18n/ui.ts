@@ -82,6 +82,16 @@ export const cmdk = {
 
 /** <title> and meta description per page. */
 export const meta: Record<PageKey, { title: Localized; description: Localized }> = {
+  "chi-siamo": {
+    title: {
+      it: "Chi siamo · Lo studio e le persone — Alpacode",
+      en: "About · The studio and its people — Alpacode",
+    },
+    description: {
+      it: "Alpacode è uno studio digitale di Monza: siti, e-commerce, software su misura e integrazioni AI per aziende, professionisti e agenzie. Le persone, il percorso, come lavoriamo.",
+      en: "Alpacode is a digital studio in Monza: websites, e-commerce, custom software and AI integrations for companies, professionals and agencies. The people, the path, how we work.",
+    },
+  },
   "collabora-con-noi": {
     title: {
       it: "Collabora con noi · Collaborazioni tra professionisti — Alpacode",
@@ -188,8 +198,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "FAQ · Alpacode Digital Solutions",
     },
     description: {
-      it: "Le domande che ci fanno davvero: costi, pacchetti, branding e pubblicità, manutenzione, pagamenti a rate, tempi. Raccolte qui per chi vuole capire prima di chiamare.",
-      en: "The questions people actually ask: costs, packages, branding and ads, maintenance, installments, timing. Gathered here before you call.",
+      it: "Le risposte alle domande che ci fanno più spesso, per argomento: costi e pagamenti, come lavoriamo, dopo il lancio, i siti a canone, il programma partner, la formazione, il marketing.",
+      en: "Answers to the questions we hear most, by topic: costs and payments, how we work, after launch, sites on a yearly fee, the partner programme, training, marketing.",
     },
   },
   contatti: {

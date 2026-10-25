@@ -9,7 +9,8 @@
 interface Props {
   class?: string;
   width?: number;
-  /** Behaviour hooks read by lib/motion.ts (data-alpaca, data-alpaca-walk…). */
+  /** Behaviour hooks read by the alpaca effect (engine/effects/alpaca.ts:
+   *  data-alpaca, data-alpaca-walker, data-steps-runner). */
   [attr: `data-${string}`]: string | boolean | undefined;
 }
 const { class: cls, width = 64, ...rest } = Astro.props;

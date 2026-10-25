@@ -12,7 +12,7 @@
    6. the share panel: copy, WhatsApp, Telegram, email, native share,
       a QR of the invite (also swapped into the QR band) — a fresh link
       arrives decoding itself, its QR prints and the page celebrates
-      (the moves live in lib/motion.ts);
+      (the moves are the engine's, in engine/effects);
    7. a generated code is remembered in this browser only, and turned
       back into the link of whichever door you're on.
 
@@ -21,7 +21,13 @@
    ============================================================ */
 import { qrSvg } from "./qr";
 import { codePrefix, firstName } from "./referral-code";
-import { scrollToTarget, panelEnter, revealPanel, nudge, scramble, printQr, celebrate } from "../motion";
+import { scrollToTarget } from "../../engine/core/scroll";
+import { celebrate } from "../../engine/effects/celebrate";
+import { nudge } from "../../engine/effects/nudge";
+import { panelEnter } from "../../engine/effects/panel-enter";
+import { printQr } from "../../engine/effects/print";
+import { revealPanel } from "../../engine/effects/reveal-panel";
+import { scramble } from "../../engine/effects/scramble";
 import {
   checked,
   errorText,
@@ -189,7 +195,7 @@ function sharePanel(root: HTMLElement, i18n: StudioI18n, state: { thing: string 
   const bandTitle = $("[data-qr-title]");
   const bandBody = $("[data-qr-body]");
   const bandDefault = {
-    // The QR alone: motion.ts may have parked its scan bar in the tile.
+    // The QR alone: the print entry may have parked its scan bar in the tile.
     tile: bandTile?.querySelector("svg")?.outerHTML ?? bandTile?.innerHTML ?? "",
     title: bandTitle?.textContent ?? "",
     body: bandBody?.textContent ?? "",

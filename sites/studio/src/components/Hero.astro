@@ -1,0 +1,35 @@
+---
+/* The first screen: the sticker, the hook that turns around, the lede,
+   the actions (the slot), a visual on the side (slot "visual") and the
+   page's word, huge and hollow, behind everything. All CSS: first
+   paint never waits on a script. */
+import type { PageHead } from "../data/pages";
+import Turn from "./Turn.astro";
+
+interface Props {
+  head: PageHead;
+}
+const { head } = Astro.props;
+const hasVisual = Astro.slots.has("visual");
+---
+
+<section class:list={["fx-hero", { "fx-hero--solo": !hasVisual }]} data-hero>
+  <span class="fx-ghost" aria-hidden="true">{head.ghost}</span>
+  <div class="fx-wrap fx-hero-grid">
+    <div class="fx-hero-copy">
+      <span class="fx-sticker" data-intro style="--i:0">{head.sticker}</span>
+      <Turn turn={head.turn} said={head.said} />
+      <p class="fx-lede" data-intro style="--i:2">{head.lede}</p>
+      <div class="fx-hero-act" data-intro style="--i:3">
+        <slot />
+      </div>
+    </div>
+    {
+      hasVisual && (
+        <div class="fx-hero-visual" data-intro style="--i:2">
+          <slot name="visual" />
+        </div>
+      )
+    }
+  </div>
+</section>

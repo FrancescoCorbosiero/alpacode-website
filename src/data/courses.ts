@@ -1,4 +1,8 @@
 import type { Lang } from "../i18n/types";
+import { doorTo } from "@shared/data/compartments";
+
+/** The studio sells the do-it-yourself products (studio.alpacode.it/prodotti). */
+const studioProducts = doorTo("studio", "/prodotti/", { site: "house", where: "learning" });
 
 export interface Course {
   lvl: string;
@@ -6,8 +10,8 @@ export interface Course {
   price: string;
   h: string;
   items: string[];
-  /** A course that lives elsewhere (Alpacode FAST): its link and button
-   *  label, in place of the call booking. */
+  /** A course that lives in a compartment (Alpacode Studio): its link and
+   *  button label, in place of the call booking. */
   href?: string;
   cta?: string;
 }
@@ -31,7 +35,7 @@ export const learning: Record<Lang, LearningPageData> = {
     target: "Per professionisti, team aziendali, studenti.",
     statement: "Quello che impariamo lo restituiamo in corsi, guide e risorse. La conoscenza serve poco se resta chiusa.",
     courses: [
-      { lvl: "Fai da te", t: "Guide FAST", price: "Da 22 €", h: "Guide e crash course in digitale", items: ["Il tuo sito vetrina, da solo, con l'AI", "Il modulo Marketing", "AI al lavoro, per partite IVA", "Su fast.alpacode.it"], href: "https://fast.alpacode.it/?utm_source=alpacode&utm_medium=referral&utm_campaign=learning", cta: "Vai a FAST" },
+      { lvl: "Fai da te", t: "Guide e crash course", price: "Da 22 €", h: "Su Alpacode Studio", items: ["Il tuo sito vetrina, da solo, con l'AI", "Il modulo Marketing", "AI al lavoro, per partite IVA", "Da comprare sul sito, in digitale"], href: studioProducts, cta: "Vai allo studio" },
       { lvl: "Fondamenta", t: "WordPress Gutenberg", price: "Su richiesta", h: "24 ore · 6 settimane", items: ["Blocchi nativi & custom", "theme.json a fondo", "Full-site editing", "Performance & accessibilità", "Progetto finale guidato"] },
       { lvl: "Intermedio", t: "Front-end moderno", price: "Su richiesta", h: "32 ore · 8 settimane", items: ["HTML semantico, CSS moderno", "JavaScript senza framework", "Accessibilità (WCAG)", "Design systems & token", "Build & deploy"] },
       { lvl: "Intermedio", t: "WordPress + AI", price: "Su richiesta", h: "12 ore · 4 settimane", items: ["Automatizza la creazione di siti WordPress", "Generazione di contenuti e blocchi con l'AI", "Workflow editoriali assistiti", "Strumenti pratici già pronti", "Esempi reali e snippet"] },
@@ -51,7 +55,7 @@ export const learning: Record<Lang, LearningPageData> = {
     target: "For professionals, internal teams, students.",
     statement: "What we learn we give back as courses, guides and resources. Knowledge serves little if it stays locked away.",
     courses: [
-      { lvl: "DIY", t: "FAST guides", price: "From €22", h: "Digital guides and crash courses, in Italian", items: ["Your showcase site, on your own, with AI", "The marketing module", "AI at work, for freelancers", "On fast.alpacode.it"], href: "https://fast.alpacode.it/?utm_source=alpacode&utm_medium=referral&utm_campaign=learning", cta: "Go to FAST" },
+      { lvl: "DIY", t: "Guides and crash courses", price: "From €22", h: "On Alpacode Studio, in Italian", items: ["Your showcase site, on your own, with AI", "The marketing module", "AI at work, for freelancers", "Bought online, delivered digitally"], href: studioProducts, cta: "Go to the studio" },
       { lvl: "Foundation", t: "WordPress Gutenberg", price: "On request", h: "24 hours · 6 weeks", items: ["Native & custom blocks", "theme.json in depth", "Full-site editing", "Performance & accessibility", "Guided final project"] },
       { lvl: "Intermediate", t: "Modern front-end", price: "On request", h: "32 hours · 8 weeks", items: ["Semantic HTML, modern CSS", "JavaScript without frameworks", "Accessibility (WCAG)", "Design systems & tokens", "Build & deploy"] },
       { lvl: "Intermediate", t: "WordPress + AI", price: "On request", h: "12 hours · 4 weeks", items: ["Automate WordPress site creation", "AI-generated content and blocks", "AI-assisted editorial workflows", "Ready-to-use practical tools", "Real examples and snippets"] },

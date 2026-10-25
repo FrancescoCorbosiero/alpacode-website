@@ -1,6 +1,6 @@
 ---
 name: new-landing
-description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience or audience group, build a bespoke pitch page on the landing kit (like /partner, /social-media-manager, /per-chi-fa-siti), or add a social door on Alpacode FAST (fast.alpacode.it: DM keywords, small digital products, "scrivi X in DM").
+description: Mint a new marketing landing page for an ad campaign. Use when asked to create a landing ("nuova landing", "landing per <audience>", "sforna una pagina per…"), add a campaign audience or audience group, build a bespoke pitch page on the landing kit (like /partner, /social-media-manager, /per-chi-fa-siti), or add a page to Alpacode Studio (studio.alpacode.it: a marketing service, a package, a small product bought on the site).
 ---
 
 # New landing
@@ -21,10 +21,12 @@ This skill is the operational checklist.
 - **Track B** — anything else (product, program, partnership,
   formula): data file + view on the kit + a CSS block in
   `landing.css` + its scenes + IT/EN pages + OG card.
-- **Track C** — the social register (a reel's hook, a DM keyword, a
-  small product, the fear of AI turned around): a door on Alpacode FAST
-  (`fast/`, fast.alpacode.it), never on alpacode.it. Follow
-  `fast/README.md` and the rules in `docs/marketing-map.md`.
+- **Track C** — the marketing compartment's register (a provocative
+  hook turned around in the same line, a package, a small product
+  bought on the site): a page on Alpacode Studio (`sites/studio/`,
+  studio.alpacode.it), never on alpacode.it. Follow
+  `sites/studio/README.md` and the rules in `docs/marketing-map.md`.
+  No DM keywords: it's a website.
 
 If the brief doesn't clearly say which, default to Track A and say so
 in the reply.
@@ -46,12 +48,16 @@ Follow `docs/landing-factory.md` for the track. Non-negotiables:
 - No invented numbers, stats or promises; "prima vedi, poi paghi" on
   offers. None of the banned price-reassurance phrases, no countdowns,
   no placeholder proof (the list is in the playbook's house rules).
-- Track B: a NEW accent (`.lnd--<name>` tokens + the header CTA), at
-  least one scene of its own in `lib/landing/scenes.ts`, the sticky
-  pill, `landingJsonLd` (FAQ + breadcrumb), OG card rendered with
-  `npm run og -- og-<name>`.
+- Track B: the house's blue (the landings speak as the house), at
+  least one scene of its own in `lib/landing/scenes.ts`, the full
+  chrome (no `minimal`), `landingJsonLd` (FAQ + breadcrumb), OG card
+  rendered with `npm run og -- og-<name>`.
 - Scenes: `fromTo` in scrubbed timelines, hide only in JS and below
-  the fold, every scene laid out in its end state without motion.
+  the fold, every scene laid out in its end state without motion. A
+  move that isn't this page's alone is an effect of its own in
+  `src/engine/effects/` (the pen, the kinetic band, knoll, bars… already
+  are): look there first. alpacode-motion is reference only: read it,
+  never edit it.
 
 ## 4. Verify before pushing
 

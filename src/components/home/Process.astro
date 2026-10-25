@@ -1,4 +1,13 @@
 ---
+/* Metodo — the four steps, each with its technical drawing: the call
+   (two voices and a clock), the written proposal (the sheets, the cost
+   box, the signature), the build (the site taking shape, an update at
+   every step), the launch (the site live, the pulse that says we stay).
+   The four drawings are made of the same eleven pieces, in the same
+   order, so the method scene ([data-scene="method"]) can pin the stage
+   and turn the first drawing into the next ones as the visitor scrolls.
+   Laid out (no script, reduced motion) it's four steps, each with its
+   own drawing. */
 import type { Lang } from "../../i18n/types";
 import { process } from "../../data/home";
 import BookCall from "../BookCall.astro";
@@ -13,6 +22,101 @@ const { lang, bare = false } = Astro.props;
 const t = process[lang];
 const num = bare ? t.num.replace(/^\d+\s*·\s*/, "") : t.num;
 const bookLabel = lang === "it" ? "Prenota la prima call" : "Book the first call";
+
+type R = [x: number, y: number, w: number, h: number];
+type C = [cx: number, cy: number, r: number];
+interface Drawing {
+  /** frame, soft, bar, accent, then four lines/blocks */
+  rects: [R, R, R, R, R, R, R, R];
+  dot: C;
+  ring: C;
+  /** six points, always six: the scene morphs it point by point */
+  path: [number, number][];
+  /** the note's dimension line and where its text sits */
+  dim: [x1: number, y1: number, x2: number, y2: number];
+  text: [x: number, y: number, anchor: "start" | "middle" | "end"];
+}
+
+/* viewBox 480 × 360. The order of the rects is their stacking order
+   and their role: 0 the frame (paper), 1 the soft one (blue tint,
+   painted first so it sits behind), 2 the bar (ink), 3 the accent
+   (blue), 4–7 lines that become blocks. */
+const DRAWINGS: Drawing[] = [
+  {
+    // 01 — the call: two voices, a clock
+    rects: [
+      [40, 64, 260, 112],
+      [200, 190, 230, 96],
+      [64, 88, 96, 12],
+      [224, 214, 120, 10],
+      [64, 114, 200, 8],
+      [64, 134, 164, 8],
+      [224, 236, 176, 8],
+      [224, 256, 132, 8],
+    ],
+    dot: [424, 96, 4],
+    ring: [424, 96, 30],
+    path: [[424, 96], [424, 74], [424, 96], [442, 105], [442, 105], [442, 105]],
+    dim: [394, 146, 454, 146],
+    text: [424, 170, "middle"],
+  },
+  {
+    // 02 — the proposal: the sheets, the cost box, the signature
+    rects: [
+      [150, 22, 200, 280],
+      [176, 36, 200, 280],
+      [174, 48, 104, 14],
+      [174, 222, 152, 34],
+      [174, 82, 152, 8],
+      [174, 100, 136, 8],
+      [174, 118, 148, 8],
+      [174, 136, 100, 8],
+    ],
+    dot: [318, 284, 4],
+    ring: [306, 176, 14],
+    path: [[178, 288], [196, 276], [212, 290], [230, 274], [248, 288], [264, 280]],
+    dim: [150, 326, 376, 326],
+    text: [263, 350, "middle"],
+  },
+  {
+    // 03 — the build: the site takes shape, an update at every step
+    rects: [
+      [20, 36, 360, 220],
+      [316, 268, 144, 52],
+      [20, 36, 360, 22],
+      [40, 76, 200, 64],
+      [40, 156, 100, 80],
+      [150, 156, 100, 80],
+      [260, 156, 100, 80],
+      [256, 78, 104, 10],
+    ],
+    dot: [226, 126, 4],
+    ring: [226, 126, 12],
+    path: [[338, 294], [348, 304], [368, 282], [368, 282], [368, 282], [368, 282]],
+    dim: [316, 332, 460, 332],
+    text: [460, 354, "end"],
+  },
+  {
+    // 04 — the launch: the site live, and the pulse of who stays
+    rects: [
+      [20, 36, 360, 220],
+      [292, 10, 88, 16],
+      [20, 36, 360, 22],
+      [40, 76, 320, 64],
+      [40, 156, 100, 80],
+      [150, 156, 100, 80],
+      [260, 156, 100, 80],
+      [40, 244, 320, 4],
+    ],
+    dot: [448, 300, 5],
+    ring: [448, 300, 14],
+    path: [[20, 300], [180, 300], [196, 280], [214, 320], [230, 300], [434, 300]],
+    dim: [20, 326, 180, 326],
+    text: [20, 350, "start"],
+  },
+];
+const RECT_CLASS = ["m-frame", "m-soft", "m-bar", "m-accent", "m-line", "m-line", "m-line", "m-line"];
+const pathD = (pts: [number, number][]) => pts.map(([x, y], i) => `${i ? "L" : "M"}${x} ${y}`).join(" ");
 ---
 
 <section class="section section--tint process">
@@ -24,19 +128,53 @@ const bookLabel = lang === "it" ? "Prenota la prima call" : "Book the first call
       </div>
       <p class="lede">{t.lede}</p>
     </div>
+  </div>
 
-    <div class="steps">
-      {
-        t.steps.map((s) => (
-          <div class="step">
-            <div class="step-no">{s.n}</div>
-            <div class="step-strut" />
-            <h3>{s.t}</h3>
-            <p>{s.d}</p>
-          </div>
-        ))
-      }
+  <div class="method-scene" data-scene="method" style="--len:4.2">
+  <div class="method-stage" data-scene-stage>
+    <div class="wrap-wide">
+      <ol class="method">
+        {
+          t.steps.map((s, i) => {
+            const d = DRAWINGS[i]!;
+            return (
+              <li class="method-step" data-method-step>
+                <svg class="method-art" viewBox="0 0 480 360" aria-hidden="true">
+                  <g class="m-shapes">
+                    {/* the soft piece first: it sits behind the frame */}
+                    {[1, 0, 2, 3, 4, 5, 6, 7].map((k) => {
+                      const [x, y, w, h] = d.rects[k]!;
+                      return <rect class={RECT_CLASS[k]} data-method-piece={k} x={x} y={y} width={w} height={h} />;
+                    })}
+                    <circle class="m-ring" data-method-piece="ring" cx={d.ring[0]} cy={d.ring[1]} r={d.ring[2]} />
+                    <circle class="m-dot" data-method-piece="dot" cx={d.dot[0]} cy={d.dot[1]} r={d.dot[2]} />
+                    <path class="m-path" data-method-piece="path" d={pathD(d.path)} />
+                  </g>
+                  <g class="m-note" data-method-note>
+                    <line class="m-dim" x1={d.dim[0]} y1={d.dim[1]} x2={d.dim[2]} y2={d.dim[3]} />
+                    <line class="m-dim" x1={d.dim[0]} y1={d.dim[1] - 5} x2={d.dim[0]} y2={d.dim[1] + 5} />
+                    <line class="m-dim" x1={d.dim[2]} y1={d.dim[3] - 5} x2={d.dim[2]} y2={d.dim[3] + 5} />
+                    <text class="m-text" x={d.text[0]} y={d.text[1]} text-anchor={d.text[2]}>
+                      {s.note}
+                    </text>
+                  </g>
+                </svg>
+                <div class="method-text" data-method-text>
+                  <span class="method-no">{s.n}</span>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ol>
+      <div class="method-rail" data-method-rail hidden aria-hidden="true"><i></i></div>
     </div>
+  </div>
+  </div>
+
+  <div class="wrap-wide">
     <div class="band-cta">
       <BookCall label={bookLabel} journey="process" lang={lang} class="btn-blue" />
     </div>

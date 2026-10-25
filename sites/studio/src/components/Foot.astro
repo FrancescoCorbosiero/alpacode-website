@@ -1,0 +1,47 @@
+---
+/* The footer: what the studio is (a compartment of the house), the
+   pages, the legal fine print. */
+import { HOUSE, NAV, STUDIO, business, house, wa } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="fx-foot">
+  <div class="fx-wrap">
+    <div class="fx-foot-grid">
+      <div class="fx-foot-brand">
+        <a class="fx-brand" href="/">ALPACODE <span class="fx-sticker">{STUDIO.tag}</span></a>
+        <p>
+          {STUDIO.name} è il compartimento marketing di <a href={house("/", "footer")}>{HOUSE.name}</a>: siti, e-commerce,
+          software e formazione stanno nella casa, il marketing qui. Stesse persone, stesso metodo.
+        </p>
+      </div>
+      <nav class="fx-foot-col" aria-label="Lo studio">
+        <b>Lo studio</b>
+        {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <nav class="fx-foot-col" aria-label="La casa">
+        <b>La casa</b>
+        <a href={house("/lavori/", "footer")}>I lavori</a>
+        <a href={house("/chi-siamo/", "footer")}>Chi siamo</a>
+        <a href={house("/servizi/", "footer")}>Siti e software</a>
+        <a href={house("/learning/", "footer")}>Formazione</a>
+      </nav>
+      <div class="fx-foot-col">
+        <b>Scrivici</b>
+        <a href={`mailto:${business.email}`}>{business.email}</a>
+        <a href={wa()} target="_blank" rel="noopener">WhatsApp</a>
+        <a href={business.social.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="fx-foot-fine">
+      <p>{STUDIO.name} · {business.name} · P.IVA {business.vat} · © {year}</p>
+      <nav aria-label="Note legali">
+        <a href="/privacy/">Privacy</a>
+        <a href="/cookie/">Cookie</a>
+        <a href="/condizioni-di-vendita/">Condizioni di vendita</a>
+        <a href={house("/termini/", "footer")}>Termini</a>
+      </nav>
+    </div>
+  </div>
+</footer>

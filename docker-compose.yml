@@ -1,4 +1,5 @@
-# Alpacode website — sits behind lucaslorentz/caddy-docker-proxy.
+# Alpacode — the house (alpacode.it) and its compartments (studio.alpacode.it
+# first), each in its own container, behind lucaslorentz/caddy-docker-proxy.
 #
 # Prereqs: the caddy proxy stack is already up and owns the external
 # "caddy" network (CADDY_INGRESS_NETWORKS=caddy). Caddy reads the labels
@@ -6,8 +7,10 @@
 # automatically via the global ACME email.
 #
 # Deploy:  docker compose up -d --build
-# Domain:  set SITE_DOMAIN (defaults to alpacode.it); point its DNS A/AAAA
-#          record at the VPS first so Let's Encrypt can issue a cert.
+# Domains: SITE_DOMAIN (alpacode.it) and STUDIO_DOMAIN (studio.alpacode.it);
+#          point their DNS A/AAAA records at the VPS first so Let's Encrypt
+#          can issue the certificates. A wildcard record (*.alpacode.it)
+#          covers every compartment to come.
 
 networks:
   caddy:
@@ -18,6 +21,9 @@ volumes:
   # program's memory ("already referred?", "whose code is this?"). Back it
   # up; `docker compose down -v` would delete it.
   referral-data:
+  # The studio's orders, as the payment providers notify them (one JSON
+  # per line). The providers keep their own records too; back it up anyway.
+  studio-data:
 
 services:
   alpacode-website:
@@ -28,6 +34,8 @@ services:
         PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-https://cal.eu/alpacode/30min}"
         PUBLIC_UMAMI_SRC: "${PUBLIC_UMAMI_SRC:-}"
         PUBLIC_UMAMI_ID: "${PUBLIC_UMAMI_ID:-}"
+        PUBLIC_HOUSE_ORIGIN: "https://${SITE_DOMAIN:-alpacode.it}"
+        PUBLIC_STUDIO_ORIGIN: "https://${STUDIO_DOMAIN:-studio.alpacode.it}"
     image: alpacode-website:latest
     container_name: alpacode-website
     restart: unless-stopped
@@ -75,32 +83,61 @@ services:
       retries: 3
       start_period: 20s
 
-  # Alpacode FAST (fast.alpacode.it) — the social-first sibling: a static
-  # site in its own container (fast/Dockerfile, fast/README.md), up with
-  # the rest on the same `docker compose up -d --build`. Point FAST_DOMAIN's
-  # DNS at the VPS: until it resolves, Caddy keeps retrying the certificate
-  # for that domain alone (alpacode.it is unaffected).
-  alpacode-fast:
+  # Alpacode Studio (studio.alpacode.it) — the house's marketing
+  # compartment: sites/studio/ (its README), a Node server like the house's,
+  # up with the rest on the same `docker compose up -d --build`. Until
+  # STUDIO_DOMAIN resolves, Caddy keeps retrying its certificate alone
+  # (alpacode.it is unaffected).
+  alpacode-studio:
     build:
       context: .
-      dockerfile: fast/Dockerfile
+      dockerfile: sites/studio/Dockerfile
       args:
-        FAST_SITE: "https://${FAST_DOMAIN:-fast.alpacode.it}"
+        STUDIO_SITE: "https://${STUDIO_DOMAIN:-studio.alpacode.it}"
+        PUBLIC_HOUSE_ORIGIN: "https://${SITE_DOMAIN:-alpacode.it}"
+        PUBLIC_STUDIO_ORIGIN: "https://${STUDIO_DOMAIN:-studio.alpacode.it}"
+        PUBLIC_CALCOM_LINK: "${PUBLIC_CALCOM_LINK:-https://cal.eu/alpacode/30min}"
         PUBLIC_UMAMI_SRC: "${PUBLIC_UMAMI_SRC:-}"
-        PUBLIC_UMAMI_FAST_ID: "${PUBLIC_UMAMI_FAST_ID:-}"
-    image: alpacode-fast:latest
-    container_name: alpacode-fast
+        PUBLIC_UMAMI_STUDIO_ID: "${PUBLIC_UMAMI_STUDIO_ID:-}"
+        PUBLIC_META_PIXEL_ID: "${PUBLIC_META_PIXEL_ID:-}"
+        PUBLIC_GADS_ID: "${PUBLIC_GADS_ID:-}"
+    image: alpacode-studio:latest
+    container_name: alpacode-studio
     restart: unless-stopped
     networks:
       - caddy
     expose:
-      - "80"
+      - "4321"
+    volumes:
+      - studio-data:/app/data
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "4321"
+      NODE_ENV: "production"
+      # The same SES setup as the house (the contact form, the order notices).
+      AWS_REGION: "${AWS_REGION:-}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
+      CONTACT_TO_EMAIL: "${CONTACT_TO_EMAIL:-info@alpacode.it}"
+      CONTACT_FROM_EMAIL: "${CONTACT_FROM_EMAIL:-info@alpacode.it}"
+      # Buying on the site — sites/studio/README.md, "Buying on the site".
+      ORDERS_LEDGER: "${ORDERS_LEDGER:-/app/data/orders.jsonl}"
+      LEMONSQUEEZY_WEBHOOK_SECRET: "${LEMONSQUEEZY_WEBHOOK_SECRET:-}"
+      STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET:-}"
+      GUMROAD_WEBHOOK_KEY: "${GUMROAD_WEBHOOK_KEY:-}"
+      GUMROAD_SELLER_ID: "${GUMROAD_SELLER_ID:-}"
     labels:
-      caddy: "${FAST_DOMAIN:-fast.alpacode.it}"
-      caddy.reverse_proxy: "{{upstreams 80}}"
+      caddy: "${STUDIO_DOMAIN:-studio.alpacode.it}"
+      caddy.reverse_proxy: "{{upstreams 4321}}"
+      caddy.encode: "zstd gzip"
+      caddy.header.X-Content-Type-Options: "nosniff"
+      caddy.header.Referrer-Policy: "strict-origin-when-cross-origin"
+      caddy.header.X-Frame-Options: "SAMEORIGIN"
+      caddy.header.Permissions-Policy: "geolocation=(), camera=(), microphone=()"
+      caddy.header.Strict-Transport-Security: "max-age=31536000"
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:4321/ >/dev/null 2>&1 || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 10s
+      start_period: 20s

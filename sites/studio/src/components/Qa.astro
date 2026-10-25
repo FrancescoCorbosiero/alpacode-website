@@ -1,0 +1,25 @@
+---
+import type { Qa } from "../data/products";
+
+interface Props {
+  title: string;
+  items: Qa[];
+}
+const { title, items } = Astro.props;
+---
+
+<section class="fx-section">
+  <div class="fx-wrap fx-split">
+    <h2 class="fx-title" data-reveal>{title}</h2>
+    <div class="fx-qa">
+      {
+        items.map((it) => (
+          <details data-reveal>
+            <summary>{it.q}</summary>
+            <p>{it.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

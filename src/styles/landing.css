@@ -10,7 +10,9 @@
    grids: a landing is a story told in scenes, and the scenes move
    with the scroll (lib/landing/scenes.ts).
 
-   Every landing sets its accent on the root:
+   Every landing sets its accent on the root — on alpacode.it it is
+   always the house's blue (the colours per reader are the studio's,
+   studio.alpacode.it):
      --ac       fills, marks, the pen
      --ac-ink   the accent as text on paper (AA)
      --ac-on    text on an accent fill
@@ -39,7 +41,7 @@
   --ac-soft: rgba(59, 114, 233, 0.26);
   --lnd-gutter: clamp(16px, 4vw, 48px);
   --lnd-col: 1440px;
-  --lnd-plate-y: clamp(88px, 13vh, 168px);
+  --lnd-plate-y: clamp(72px, 10vh, 128px);
   --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
   background: var(--lnd-paper);
@@ -57,11 +59,6 @@
    the header's call to action in the accent. */
 body:has(.lnd) {
   background: var(--paper);
-}
-body:has(.lnd) .campaign-header .btn-blue {
-  background: var(--lnd-header-cta, var(--blue-fill));
-  border-color: var(--lnd-header-cta, var(--blue-fill));
-  color: var(--lnd-header-cta-on, #fff);
 }
 
 /* ---------- Layout ---------- */
@@ -129,7 +126,7 @@ body:has(.lnd) .campaign-header .btn-blue {
   text-wrap: balance;
 }
 .lnd-display {
-  font-size: clamp(46px, 8.2vw, 148px);
+  font-size: clamp(40px, 5.8vw, 96px);
   line-height: 0.88;
   letter-spacing: -0.035em;
 }
@@ -137,12 +134,12 @@ body:has(.lnd) .campaign-header .btn-blue {
   display: block;
 }
 .lnd-title {
-  font-size: clamp(36px, 5.4vw, 92px);
+  font-size: clamp(30px, 3.8vw, 58px);
   line-height: 0.92;
   letter-spacing: -0.03em;
 }
 .lnd-title--md {
-  font-size: clamp(32px, 4vw, 64px);
+  font-size: clamp(28px, 3.2vw, 48px);
 }
 .lnd-sub {
   font-size: clamp(22px, 2.1vw, 32px);
@@ -221,7 +218,8 @@ body:has(.lnd) .campaign-header .btn-blue {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  /* the pen (mark-* entries) sweeps it in through --mark-sweep */
+  background-size: var(--mark-sweep, 100%) 100%;
 }
 .lnd-mark-svg {
   display: none;
@@ -342,7 +340,7 @@ body:has(.lnd) .campaign-header .btn-blue {
 }
 /* The headline takes the width; under it, the copy and the hero's machine. */
 .lnd-hero .lnd-display {
-  font-size: clamp(44px, 6.3vw, 120px);
+  font-size: clamp(40px, 5.2vw, 88px);
   margin-bottom: clamp(28px, 3.6vw, 52px);
 }
 .lnd-hero-row {
@@ -418,25 +416,21 @@ body:has(.lnd) .campaign-header .btn-blue {
 
 /* ---------- Scenes ----------
    A scene is a tall section whose stage stays on screen (sticky) while
-   its timeline is scrubbed. Without motion it's an ordinary section. */
+   its timeline is scrubbed: the engine's stage entry (engine/effects/
+   stage.css) gives it its length and sticks the stage once the scene's
+   script has made it live ([data-scene-live]); its beats share one
+   cell and the phone's secondary copy ([data-scene-aside]) steps out of
+   sight. Without motion, or before the chunk has loaded, it's an
+   ordinary section. Here: the kit's look of it. */
 .lnd-scene {
   position: relative;
-}
-.has-motion .lnd-scene[data-scene] {
-  height: calc(var(--len, 2.5) * 100svh);
 }
 .lnd-stage {
   position: relative;
   padding-block: var(--lnd-plate-y);
 }
-.has-motion .lnd-scene[data-scene] > .lnd-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+[data-scene-live] > .lnd-stage {
   padding-block: 0;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
 }
 /* Beats: the scene's text changes as it plays (one visible at a time with
    motion; read in sequence without). */
@@ -444,53 +438,17 @@ body:has(.lnd) .campaign-header .btn-blue {
   display: grid;
   gap: 36px;
 }
-.has-motion [data-scene] .lnd-beats {
+[data-scene-live] .lnd-beats {
   gap: 0;
-}
-.has-motion [data-scene] .lnd-beat {
-  grid-area: 1 / 1;
 }
 .lnd-beat .lnd-title {
   margin-bottom: 22px;
 }
-/* On a phone's pinned stage, secondary copy (.lnd-aside-sm) steps out of
-   sight to make room: screen readers keep it, and without motion it's
-   all there. */
-@media (max-width: 720px) {
-  .has-motion [data-scene] .lnd-aside-sm {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-}
-/* The scene's progress, as a thin rule along the stage's foot. */
+/* The scene's progress, as a thin rule along the stage's foot (drawn by
+   stage.css): the kit's accent, on the kit's gutters. */
 .lnd-progress {
-  display: none;
-}
-.has-motion [data-scene] .lnd-progress {
-  display: block;
-  position: absolute;
-  left: var(--lnd-gutter);
-  right: var(--lnd-gutter);
-  bottom: 28px;
-  height: 2px;
-  background: currentColor;
-  opacity: 0.14;
-}
-.has-motion [data-scene] .lnd-progress::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--ac);
-  transform-origin: 0 50%;
-  transform: scaleX(var(--p, 0));
-}
-.has-motion [data-scene] .lnd-progress {
-  opacity: 1;
-  background: rgba(127, 140, 166, 0.22);
+  --scene-progress-color: var(--ac);
+  --scene-gutter: var(--lnd-gutter);
 }
 
 /* ---------- Profile switch: who's reading ---------- */
@@ -1059,18 +1017,14 @@ body:has(.lnd) .campaign-header .btn-blue {
 }
 
 /* ============================================================
-   Hosting (/per-chi-fa-siti/hosting) — teal, the colour of a
-   server's lights.
+   Hosting (/per-chi-fa-siti/hosting) — the house's blue, like every
+   page of alpacode.it (the colours per reader are the studio's).
    ============================================================ */
 .lnd--hosting {
-  --ac: #2ee6c5;
-  --ac-ink: #00796b;
-  --ac-on: #06211c;
-  --ac-soft: rgba(46, 230, 197, 0.4);
-}
-body:has(.lnd--hosting) {
-  --lnd-header-cta: #2ee6c5;
-  --lnd-header-cta-on: #06211c;
+  --ac: #8fb0f5;
+  --ac-ink: #2756c2;
+  --ac-on: #0b0e14;
+  --ac-soft: rgba(59, 114, 233, 0.24);
 }
 
 /* Hero machine: the bill. */
@@ -1477,16 +1431,16 @@ body:has(.lnd--hosting) {
   color: var(--lnd-on-print-mute);
   max-width: 52ch;
 }
-.has-motion [data-scene="stack"] .lnd-layer-item {
+[data-scene="stack"][data-scene-live] .lnd-layer-item {
   padding: 9px 0;
 }
-.has-motion [data-scene="stack"] .lnd-layer-name {
+[data-scene="stack"][data-scene-live] .lnd-layer-name {
   color: rgba(240, 243, 249, 0.45);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item.is-active .lnd-layer-name {
+[data-scene="stack"][data-scene-live] .lnd-layer-item.is-active .lnd-layer-name {
   color: var(--ac);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item p {
+[data-scene="stack"][data-scene-live] .lnd-layer-item p {
   max-height: 0;
   margin: 0;
   opacity: 0;
@@ -1496,7 +1450,7 @@ body:has(.lnd--hosting) {
     opacity 0.3s,
     margin 0.5s var(--ease-expo);
 }
-.has-motion [data-scene="stack"] .lnd-layer-item.is-active p {
+[data-scene="stack"][data-scene-live] .lnd-layer-item.is-active p {
   max-height: 7em;
   margin-top: 6px;
   opacity: 1;
@@ -1557,10 +1511,10 @@ body:has(.lnd--hosting) {
   .lnd-receipt {
     margin-inline: auto;
   }
-  .has-motion [data-scene="pack"] .lnd-pack-grid {
+  [data-scene="pack"][data-scene-live] .lnd-pack-grid {
     gap: 20px;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy .lnd-lede {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy .lnd-lede {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -1571,10 +1525,10 @@ body:has(.lnd--hosting) {
   .lnd-iso {
     height: 300px;
   }
-  .has-motion [data-scene="stack"] .lnd-iso {
+  [data-scene="stack"][data-scene-live] .lnd-iso {
     height: 34svh;
   }
-  .has-motion [data-scene="stack"] .lnd-layers {
+  [data-scene="stack"][data-scene-live] .lnd-layers {
     margin-top: 16px;
   }
 }
@@ -1614,7 +1568,7 @@ body:has(.lnd--hosting) {
     width: 160px;
   }
   /* The exploded drawing sits beside the list of layers. */
-  .has-motion [data-scene="stack"] .lnd-stack-grid {
+  [data-scene="stack"][data-scene-live] .lnd-stack-grid {
     grid-template-columns: minmax(0, 1fr) 128px;
     grid-template-areas:
       "title title"
@@ -1623,74 +1577,70 @@ body:has(.lnd--hosting) {
     gap: 0 12px;
     align-items: start;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy {
     display: contents;
   }
-  .has-motion [data-scene="stack"] .lnd-stack-copy .lnd-title {
+  [data-scene="stack"][data-scene-live] .lnd-stack-copy .lnd-title {
     grid-area: title;
     font-size: 34px;
   }
-  .has-motion [data-scene="stack"] .lnd-profile-row {
+  [data-scene="stack"][data-scene-live] .lnd-profile-row {
     grid-area: switch;
     margin-top: 18px;
   }
-  .has-motion [data-scene="stack"] .lnd-profile-row .lnd-hand {
+  [data-scene="stack"][data-scene-live] .lnd-profile-row .lnd-hand {
     display: none;
   }
-  .has-motion [data-scene="stack"] .lnd-layers {
+  [data-scene="stack"][data-scene-live] .lnd-layers {
     grid-area: list;
   }
-  .has-motion [data-scene="stack"] .lnd-iso {
+  [data-scene="stack"][data-scene-live] .lnd-iso {
     grid-area: iso;
     height: 300px;
     margin-top: 16px;
   }
-  .has-motion [data-scene="stack"] .lnd-iso-stack {
+  [data-scene="stack"][data-scene-live] .lnd-iso-stack {
     width: 92px;
   }
-  .has-motion [data-scene="stack"] .lnd-slab span,
-  .has-motion [data-scene="stack"] .lnd-iso-note {
+  [data-scene="stack"][data-scene-live] .lnd-slab span,
+  [data-scene="stack"][data-scene-live] .lnd-iso-note {
     display: none;
   }
-  .has-motion [data-scene="pack"] .lnd-lede {
+  [data-scene="pack"][data-scene-live] .lnd-lede {
     font-size: 15px;
   }
   .lnd-pack-count {
     margin-top: 10px;
   }
   /* A phone's pinned stage is about 660px tall: the pack fits in it. */
-  .has-motion [data-scene="pack"] .lnd-pack-grid {
+  [data-scene="pack"][data-scene-live] .lnd-pack-grid {
     gap: 14px;
   }
-  .has-motion [data-scene="pack"] .lnd-title {
+  [data-scene="pack"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="pack"] .lnd-bills {
+  [data-scene="pack"][data-scene-live] .lnd-bills {
     gap: 4px;
   }
-  .has-motion [data-scene="pack"] .lnd-bill {
+  [data-scene="pack"][data-scene-live] .lnd-bill {
     padding: 4px 6px;
   }
-  .has-motion [data-scene="pack"] .lnd-server-unit {
+  [data-scene="pack"][data-scene-live] .lnd-server-unit {
     padding: 12px 16px;
   }
-  .has-motion [data-scene="pack"] .lnd-pack-count {
+  [data-scene="pack"][data-scene-live] .lnd-pack-count {
     margin-top: 6px;
   }
 }
 
 /* ============================================================
-   AI (/per-chi-fa-siti/ai) — safety orange: the factory floor.
+   AI (/per-chi-fa-siti/ai) — the house's blue.
    ============================================================ */
 .lnd--ai {
-  --ac: #ff6b1a;
-  --ac-ink: #b84300;
-  --ac-on: #1a0a00;
-  --ac-soft: rgba(255, 107, 26, 0.3);
-}
-body:has(.lnd--ai) {
-  --lnd-header-cta: #ff6b1a;
-  --lnd-header-cta-on: #1a0a00;
+  --ac: #8fb0f5;
+  --ac-ink: #2756c2;
+  --ac-on: #0b0e14;
+  --ac-soft: rgba(59, 114, 233, 0.24);
 }
 
 /* Hero machine: the press. */
@@ -1931,7 +1881,7 @@ body:has(.lnd--ai) {
   background: var(--ac);
   color: var(--ac-on);
 }
-html:not(.has-motion) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span {
+[data-scene="shift"]:not([data-scene-live]) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span {
   opacity: 0.35;
   text-decoration: line-through;
 }
@@ -2012,19 +1962,19 @@ html:not(.has-motion) .lnd-lane[data-lane="you"] .lnd-chip:not([data-keep]) span
   line-height: 1.5;
   color: var(--lnd-on-print-mute);
 }
-.has-motion [data-scene="line"] .lnd-station {
+[data-scene="line"][data-scene-live] .lnd-station {
   opacity: 0.4;
   transition: opacity 0.35s;
 }
-.has-motion [data-scene="line"] .lnd-station.is-done {
+[data-scene="line"][data-scene-live] .lnd-station.is-done {
   opacity: 0.7;
 }
-.has-motion [data-scene="line"] .lnd-station.is-active {
+[data-scene="line"][data-scene-live] .lnd-station.is-active {
   opacity: 1;
 }
 .lnd-station.is-active .lnd-station-dot,
 .lnd-station.is-done .lnd-station-dot,
-html:not(.has-motion) .lnd-station-dot {
+[data-scene="line"]:not([data-scene-live]) .lnd-station-dot {
   background: var(--ac);
   border-color: var(--ac);
 }
@@ -2188,7 +2138,7 @@ html:not(.has-motion) .lnd-station-dot {
 }
 /* System: the swatches land; agents: the content fills in. */
 .lnd-product.is-s1 .lnd-p-grid i:nth-child(1) {
-  background: rgba(255, 107, 26, 0.35);
+  background: rgba(143, 176, 245, 0.35);
 }
 .lnd-product.is-s2 .lnd-p-logo,
 .lnd-product.is-s2 .lnd-p-h {
@@ -2441,25 +2391,25 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-product {
     margin-inline: auto;
   }
-  .has-motion [data-scene="line"] .lnd-line-head .lnd-lede {
+  [data-scene="line"][data-scene-live] .lnd-line-head .lnd-lede {
     display: none;
   }
-  .has-motion [data-scene="line"] .lnd-stations {
+  [data-scene="line"][data-scene-live] .lnd-stations {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 6px;
     padding-top: 30px;
   }
-  .has-motion [data-scene="line"] .lnd-station {
+  [data-scene="line"][data-scene-live] .lnd-station {
     position: static;
   }
-  .has-motion [data-scene="line"] .lnd-station-dot {
+  [data-scene="line"][data-scene-live] .lnd-station-dot {
     top: -10px;
     left: auto;
     position: relative;
     display: block;
   }
-  .has-motion [data-scene="line"] .lnd-station-name,
-  .has-motion [data-scene="line"] .lnd-station p {
+  [data-scene="line"][data-scene-live] .lnd-station-name,
+  [data-scene="line"][data-scene-live] .lnd-station p {
     position: absolute;
     left: 0;
     right: 0;
@@ -2467,17 +2417,17 @@ html:not(.has-motion) .lnd-station-dot {
     transition: opacity 0.3s;
     pointer-events: none;
   }
-  .has-motion [data-scene="line"] .lnd-station-name {
+  [data-scene="line"][data-scene-live] .lnd-station-name {
     top: 44px;
   }
-  .has-motion [data-scene="line"] .lnd-station p {
+  [data-scene="line"][data-scene-live] .lnd-station p {
     top: 74px;
   }
-  .has-motion [data-scene="line"] .lnd-station.is-active .lnd-station-name,
-  .has-motion [data-scene="line"] .lnd-station.is-active p {
+  [data-scene="line"][data-scene-live] .lnd-station.is-active .lnd-station-name,
+  [data-scene="line"][data-scene-live] .lnd-station.is-active p {
     opacity: 1;
   }
-  .has-motion [data-scene="line"] .lnd-stations {
+  [data-scene="line"][data-scene-live] .lnd-stations {
     min-height: 170px;
   }
   .lnd-stations {
@@ -2515,22 +2465,22 @@ html:not(.has-motion) .lnd-station-dot {
   .lnd-time {
     margin-top: 12px;
   }
-  .has-motion [data-scene="shift"] .lnd-lede {
+  [data-scene="shift"][data-scene-live] .lnd-lede {
     font-size: 15px;
   }
-  .has-motion [data-scene="shift"] .lnd-shift-grid {
+  [data-scene="shift"][data-scene-live] .lnd-shift-grid {
     gap: 16px;
   }
-  .has-motion [data-scene="shift"] .lnd-title {
+  [data-scene="shift"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="shift"] .lnd-lanes {
+  [data-scene="shift"][data-scene-live] .lnd-lanes {
     gap: 10px;
   }
-  .has-motion [data-scene="shift"] .lnd-lane {
+  [data-scene="shift"][data-scene-live] .lnd-lane {
     padding: 10px 12px 12px;
   }
-  .has-motion [data-scene="shift"] .lnd-chip span {
+  [data-scene="shift"][data-scene-live] .lnd-chip span {
     padding: 5px 8px;
     font-size: 12px;
   }
@@ -2552,19 +2502,12 @@ html:not(.has-motion) .lnd-station-dot {
   --ac-on: #0b0e14;
   --ac-soft: rgba(143, 176, 245, 0.35);
 }
-body:has(.lnd--hub) {
-  --lnd-header-cta: #f0f3f9;
-  --lnd-header-cta-on: #0b0e14;
-}
-body:has(.lnd--hub) .campaign-header .btn-blue {
-  border-color: var(--ink);
-}
 .lnd-hub-accent {
   color: var(--lnd-on-print);
 }
 .lnd-hub-accent .lnd-mark {
-  --ac: #2ee6c5;
-  color: #2ee6c5;
+  --ac: #8fb0f5;
+  color: #8fb0f5;
 }
 .lnd-hero--hub .lnd-lede {
   margin-bottom: clamp(36px, 4vw, 56px);
@@ -2678,7 +2621,7 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   align-items: center;
 }
 .lnd-hero--offer .lnd-display {
-  font-size: clamp(40px, 4.3vw, 84px);
+  font-size: clamp(36px, 4vw, 72px);
 }
 /* Room above the corrected line for the handwriting. */
 .lnd-fixline {
@@ -2704,18 +2647,11 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   white-space: nowrap;
   transform: rotate(-6deg);
 }
-.lnd-round {
-  margin: 26px 0 0;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--lnd-on-print-mute);
-}
 .lnd-offer-photo {
   position: relative;
   margin: 0;
   padding: 12px 12px 48px;
   background: var(--lnd-paper);
-  transform: rotate(2.2deg);
   box-shadow: 0 34px 60px -30px rgba(3, 10, 30, 0.7);
 }
 .lnd-offer-photo .img-slot {
@@ -2724,18 +2660,14 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
 }
 .lnd-price-tag {
   position: absolute;
-  left: -34px;
-  bottom: -26px;
-  display: grid;
-  place-content: center;
-  width: 148px;
-  height: 148px;
-  border-radius: 50%;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 12px 16px;
   background: var(--blue-fill);
   color: #fff;
-  text-align: center;
-  transform: rotate(-12deg);
-  box-shadow: 0 18px 30px -16px rgba(3, 10, 30, 0.7);
 }
 .lnd-price-tag strong {
   font-family: var(--display);
@@ -2748,17 +2680,7 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   font-weight: 700;
   font-size: 14px;
 }
-@media (prefers-reduced-motion: no-preference) {
-  .lnd-price-tag {
-    animation: lnd-slap 0.6s var(--ease-back) both 1.2s;
-  }
-}
-@keyframes lnd-slap {
-  from {
-    opacity: 0;
-    transform: rotate(-40deg) scale(1.8);
-  }
-}
+
 
 /* Found: the search on a phone. */
 .lnd-found-grid {
@@ -2857,7 +2779,7 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
 .lnd-serp-site {
   display: none;
 }
-.has-motion [data-scene="found"] .lnd-serp-site {
+[data-scene="found"][data-scene-live] .lnd-serp-site {
   position: absolute;
   inset: 0;
   display: grid;
@@ -2984,7 +2906,7 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   border-bottom: 1px solid var(--lnd-rule);
 }
 
-/* The proposal: a sheet, its terms, the stamp. */
+/* The proposal: a sheet and its terms. */
 .lnd-offer-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -3130,37 +3052,6 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   font-weight: 800;
   color: var(--blue-fill);
 }
-.lnd-stamp {
-  position: absolute;
-  right: 4%;
-  top: 30%;
-  display: grid;
-  place-items: center;
-  width: 190px;
-  height: 190px;
-  border: 5px solid #d8342b;
-  border-radius: 50%;
-  color: #d8342b;
-  text-align: center;
-  transform: rotate(-11deg);
-  pointer-events: none;
-  mix-blend-mode: multiply;
-}
-.lnd-stamp::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-}
-.lnd-stamp span {
-  padding: 0 24px;
-  font-family: var(--display);
-  font-size: 19px;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-}
 
 /* Steps: one line, four stops. */
 .lnd-steps-plate .lnd-title {
@@ -3224,17 +3115,17 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   .lnd-track::before {
     display: none;
   }
-  .has-motion [data-scene="found"] .lnd-serp {
+  [data-scene="found"][data-scene-live] .lnd-serp {
     height: 46svh;
     min-height: 340px;
   }
-  .has-motion [data-scene="found"] .lnd-found-grid {
+  [data-scene="found"][data-scene-live] .lnd-found-grid {
     gap: 18px;
   }
-  .has-motion [data-scene="found"] .lnd-title {
+  [data-scene="found"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="found"] .lnd-lede {
+  [data-scene="found"][data-scene-live] .lnd-lede {
     font-size: 16px;
   }
 }
@@ -3242,21 +3133,6 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
   .lnd-terms,
   .lnd-track {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .lnd-stamp {
-    width: 140px;
-    height: 140px;
-    right: -6px;
-    top: 26%;
-  }
-  .lnd-stamp span {
-    font-size: 14px;
-    padding: 0 16px;
-  }
-  .lnd-price-tag {
-    width: 116px;
-    height: 116px;
-    left: -10px;
   }
   .lnd-price-tag strong {
     font-size: 27px;
@@ -3272,17 +3148,13 @@ body:has(.lnd--hub) .campaign-header .btn-blue {
 }
 
 /* ============================================================
-   SMM (/social-media-manager) — magenta, the colour of a "like".
+   SMM (/social-media-manager) — the house's blue.
    ============================================================ */
 .lnd--smm {
-  --ac: #ff2e88;
-  --ac-ink: #c4105e;
+  --ac: #8fb0f5;
+  --ac-ink: #2756c2;
   --ac-on: #0b0e14;
-  --ac-soft: rgba(255, 46, 136, 0.24);
-}
-body:has(.lnd--smm) {
-  --lnd-header-cta: #ff2e88;
-  --lnd-header-cta-on: #0b0e14;
+  --ac-soft: rgba(59, 114, 233, 0.24);
 }
 /* Hero machine: a feed of everyone else's brands. */
 .lnd-feedbox {
@@ -3455,7 +3327,7 @@ body:has(.lnd--smm) {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff2e88, #ffd400);
+  background: linear-gradient(135deg, #3b72e9, #8fb0f5);
   font-weight: 800;
   color: var(--lnd-ink);
 }
@@ -3627,7 +3499,7 @@ body:has(.lnd--smm) {
   padding: 40px 18px 28px;
   border-radius: 40px;
   background:
-    radial-gradient(120% 70% at 30% 0%, rgba(255, 46, 136, 0.35), transparent 60%),
+    radial-gradient(120% 70% at 30% 0%, rgba(59, 114, 233, 0.35), transparent 60%),
     linear-gradient(180deg, #1d2142, #0b0e14);
   box-shadow:
     inset 0 0 0 10px #050608,
@@ -3768,21 +3640,21 @@ body:has(.lnd--smm) {
   .lnd-feedphone {
     margin-top: 0;
   }
-  .has-motion [data-scene="rent"] .lnd-lock {
+  [data-scene="rent"][data-scene-live] .lnd-lock {
     min-height: 0;
     padding: 22px 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-lock-time {
+  [data-scene="rent"][data-scene-live] .lnd-lock-time {
     font-size: 40px;
     margin-bottom: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-rent-grid {
+  [data-scene="rent"][data-scene-live] .lnd-rent-grid {
     gap: 18px;
   }
-  .has-motion [data-scene="rent"] .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="rent"] .lnd-hand--kicker {
+  [data-scene="rent"][data-scene-live] .lnd-hand--kicker {
     margin-bottom: 10px;
   }
 }
@@ -3791,32 +3663,32 @@ body:has(.lnd--smm) {
     grid-template-columns: minmax(0, 1fr);
   }
   /* The rented land on a phone's pinned stage: a smaller lock screen. */
-  .has-motion [data-scene="rent"] .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-title {
     font-size: 26px;
   }
-  .has-motion [data-scene="rent"] .lnd-rent-copy .lnd-title {
+  [data-scene="rent"][data-scene-live] .lnd-rent-copy .lnd-title {
     margin-bottom: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-body {
+  [data-scene="rent"][data-scene-live] .lnd-body {
     font-size: 15px;
     line-height: 1.5;
   }
-  .has-motion [data-scene="rent"] .lnd-lock {
+  [data-scene="rent"][data-scene-live] .lnd-lock {
     padding: 14px 12px;
     border-radius: 30px;
   }
-  .has-motion [data-scene="rent"] .lnd-lock-time {
+  [data-scene="rent"][data-scene-live] .lnd-lock-time {
     font-size: 30px;
     margin-bottom: 8px;
   }
-  .has-motion [data-scene="rent"] .lnd-notes {
+  [data-scene="rent"][data-scene-live] .lnd-notes {
     gap: 6px;
   }
-  .has-motion [data-scene="rent"] .lnd-note {
+  [data-scene="rent"][data-scene-live] .lnd-note {
     padding: 8px 12px;
     border-radius: 14px;
   }
-  .has-motion [data-scene="rent"] .lnd-note-text {
+  [data-scene="rent"][data-scene-live] .lnd-note-text {
     font-size: 13px;
     line-height: 1.35;
   }
@@ -3833,18 +3705,13 @@ body:has(.lnd--smm) {
 }
 
 /* ============================================================
-   Partner (/partner) — green, the colour of a deal that goes
-   through.
+   Partner (/partner) — the house's blue.
    ============================================================ */
 .lnd--partner {
-  --ac: #2fe08a;
-  --ac-ink: #0f7a4a;
+  --ac: #8fb0f5;
+  --ac-ink: #2756c2;
   --ac-on: #0b0e14;
-  --ac-soft: rgba(47, 224, 138, 0.34);
-}
-body:has(.lnd--partner) {
-  --lnd-header-cta: #2fe08a;
-  --lnd-header-cta-on: #0b0e14;
+  --ac-soft: rgba(59, 114, 233, 0.24);
 }
 
 /* Hero machine: the loop between you and us. The nodes sit on the loop's
@@ -3970,7 +3837,7 @@ body:has(.lnd--partner) {
   justify-content: flex-end;
   flex-wrap: wrap;
 }
-.has-motion .lnd-modes {
+[data-scene-live] .lnd-modes {
   display: flex;
 }
 .lnd-modes li {
@@ -4114,16 +3981,16 @@ body:has(.lnd--partner) {
 .lnd-rail i:nth-of-type(3) {
   transform: translateX(84%);
 }
-.has-motion .lnd-rail i {
+[data-scene-live] .lnd-rail i {
   animation: lnd-rail 4.5s linear infinite;
 }
-.has-motion .lnd-rail i:nth-of-type(2) {
+[data-scene-live] .lnd-rail i:nth-of-type(2) {
   animation-delay: -1.5s;
 }
-.has-motion .lnd-rail i:nth-of-type(3) {
+[data-scene-live] .lnd-rail i:nth-of-type(3) {
   animation-delay: -3s;
 }
-.has-motion .lnd-rail--from i {
+[data-scene-live] .lnd-rail--from i {
   animation-direction: reverse;
 }
 @keyframes lnd-rail {
@@ -4148,7 +4015,7 @@ body:has(.lnd--partner) {
   line-height: 1.05;
   color: var(--ac);
 }
-.has-motion .lnd-rail-labels {
+[data-scene-live] .lnd-rail-labels {
   display: grid;
 }
 .lnd-rail--from .lnd-rail-labels {
@@ -4200,7 +4067,7 @@ body:has(.lnd--partner) {
   color: var(--ac);
 }
 /* With motion the rails say it; the beat keeps it for screen readers. */
-.has-motion .lnd-mode-flow {
+[data-scene-live] .lnd-mode-flow {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -4606,52 +4473,52 @@ body:has(.lnd--partner) {
   }
   /* On a phone the channel's stage holds the model and its rails (the
      intro, the repeated tab and the bullets are .lnd-aside-sm). */
-  .has-motion [data-scene="channel"] .lnd-channel-wrap {
+  [data-scene="channel"][data-scene-live] .lnd-channel-wrap {
     gap: 18px;
   }
-  .has-motion [data-scene="channel"] .lnd-hand--kicker {
+  [data-scene="channel"][data-scene-live] .lnd-hand--kicker {
     margin-bottom: 8px;
   }
-  .has-motion [data-scene="channel"] .lnd-title {
+  [data-scene="channel"][data-scene-live] .lnd-title {
     font-size: 30px;
   }
-  .has-motion [data-scene="channel"] .lnd-channel-head {
+  [data-scene="channel"][data-scene-live] .lnd-channel-head {
     gap: 16px;
   }
-  .has-motion .lnd-modes {
+  [data-scene-live] .lnd-modes {
     flex-wrap: nowrap;
     gap: 8px;
   }
-  .has-motion .lnd-modes li {
+  [data-scene-live] .lnd-modes li {
     font-size: 16px;
     padding: 9px 12px 7px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode {
+  [data-scene="channel"][data-scene-live] .lnd-mode {
     gap: 0;
     padding-top: 16px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode .lnd-sub {
+  [data-scene="channel"][data-scene-live] .lnd-mode .lnd-sub {
     font-size: 22px;
   }
-  .has-motion [data-scene="channel"] .lnd-mode .lnd-body {
+  [data-scene="channel"][data-scene-live] .lnd-mode .lnd-body {
     font-size: 15.5px;
     line-height: 1.5;
   }
   /* The scale, likewise: the title and the two pans. */
-  .has-motion [data-scene="scale"] .lnd-deal-wrap {
+  [data-scene="scale"][data-scene-live] .lnd-deal-wrap {
     gap: 14px;
   }
-  .has-motion [data-scene="scale"] .lnd-title {
+  [data-scene="scale"][data-scene-live] .lnd-title {
     font-size: 28px;
   }
-  .has-motion [data-scene="scale"] .lnd-pan {
+  [data-scene="scale"][data-scene-live] .lnd-pan {
     gap: 8px;
     padding: 10px 8px 14px;
   }
-  .has-motion [data-scene="scale"] .lnd-pan-k {
+  [data-scene="scale"][data-scene-live] .lnd-pan-k {
     font-size: 22px;
   }
-  .has-motion [data-scene="scale"] .lnd-weight {
+  [data-scene="scale"][data-scene-live] .lnd-weight {
     padding: 7px 8px;
     font-size: 12px;
   }
