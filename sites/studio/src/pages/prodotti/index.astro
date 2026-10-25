@@ -28,7 +28,7 @@ const head = PAGES.prodotti;
       <ul class="fx-products">
         {
           PRODUCTS.map((p) => (
-            <li data-rise>
+            <li data-reveal>
               <a class="fx-product" href={`/prodotti/${p.slug}/`} style={`--ac:${p.accent}`}>
                 <span class="fx-product-kind">{p.kind}</span>
                 <h3>{p.name}</h3>

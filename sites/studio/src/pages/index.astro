@@ -31,14 +31,14 @@ const head = PAGES.home;
 
   <section class="fx-section">
     <div class="fx-wrap">
-      <div class="fx-choose-head" data-rise>
+      <div class="fx-choose-head" data-reveal>
         <span class="fx-hand">cosa facciamo</span>
         <h2 class="fx-title">Il percorso del tuo cliente, in tre verbi.</h2>
       </div>
       <ul class="fx-verbs">
         {
           GROUPS.map((g, i) => (
-            <li data-rise>
+            <li data-reveal>
               <a class="fx-verb" href={`/servizi/#${g.id}`} style={`--ac:${g.accent}`}>
                 <span class="fx-verb-n">0{i + 1}</span>
                 <h3>{g.verb}</h3>
@@ -59,7 +59,7 @@ const head = PAGES.home;
   <section class="fx-section fx-paper">
     <div class="fx-wrap">
       <div class="fx-split">
-        <div class="fx-split-side" data-rise>
+        <div class="fx-split-side" data-reveal>
           <span class="fx-hand">i pacchetti</span>
           <h2 class="fx-title">Pronti da partire.</h2>
           <p class="fx-lede">Un contenuto definito e tempi chiari: i social, il brand, una campagna. Il punto da cui cominciare.</p>
@@ -68,7 +68,7 @@ const head = PAGES.home;
         <ul class="fx-chapters">
           {
             PACKAGES.map((p) => (
-              <li class="fx-chapter" data-rise>
+              <li class="fx-chapter" data-reveal>
                 <h3>{p.name}</h3>
                 <p>{p.blurb}</p>
               </li>
@@ -81,14 +81,14 @@ const head = PAGES.home;
 
   <section class="fx-section">
     <div class="fx-wrap">
-      <div class="fx-choose-head" data-rise>
+      <div class="fx-choose-head" data-reveal>
         <span class="fx-hand">fai da te</span>
         <h2 class="fx-title">Il metodo, in mano tua.</h2>
       </div>
       <ul class="fx-products">
         {
           PRODUCTS.map((p) => (
-            <li data-rise>
+            <li data-reveal>
               <a class="fx-product" href={`/prodotti/${p.slug}/`} style={`--ac:${p.accent}`}>
                 <span class="fx-product-kind">{p.kind}</span>
                 <h3>{p.name}</h3>

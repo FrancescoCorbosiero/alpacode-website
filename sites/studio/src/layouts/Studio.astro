@@ -7,6 +7,8 @@ import "@fontsource/manrope/600.css";
 import "@fontsource/manrope/700.css";
 import "@fontsource/manrope/800.css";
 import "@fontsource/caveat/600.css";
+import "../engine/core/core.css";
+import "../engine/effects/meter.css";
 import "../styles/studio.css";
 import Top from "../components/Top.astro";
 import Foot from "../components/Foot.astro";
@@ -81,7 +83,7 @@ const hasPixels = Boolean(pixels.meta || pixels.gads);
     <Foot />
     <slot name="after" />
     <script>
-      import "../lib/motion";
+      import "../engine";
       import "../lib/checkout";
       import "../lib/consent";
     </script>

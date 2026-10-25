@@ -12,11 +12,11 @@ const { title = "Scegli la tua porta.", kicker = "da dove parti?" } = Astro.prop
 
 <section class="fx-section" id="porte">
   <div class="fx-wrap">
-    <div class="fx-choose-head" data-rise>
+    <div class="fx-choose-head" data-reveal>
       <span class="fx-hand">{kicker}</span>
       <h2 class="fx-title">{title}</h2>
     </div>
-    <ul class="fx-cards">
+    <ul class="fx-cards" data-deal>
       {
         DOORS.map((d) => (
           <li>

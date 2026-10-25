@@ -1,6 +1,7 @@
 ---
 /* /ai: the needle goes from fear to leverage as the page scrolls
-   (lib/motion.ts). Without motion it rests on LEVA, the three beats
+   (the meter entry of alpacode-motion, engine/effects/meter.ts). Without
+   motion it rests on LEVA, the three beats
    read in order. */
 import { METER } from "../data/products";
 
@@ -14,7 +15,7 @@ const ticks = Array.from({ length: 11 }, (_, i) => {
 ---
 
 <section class="fx-scene fx-meter" data-scene="meter" data-bar-hide style="--len:3" aria-labelledby="meter-title">
-  <div class="fx-stage">
+  <div class="fx-stage" data-scene-stage>
     <div class="fx-wrap fx-meter-grid">
       <div class="fx-gauge" aria-hidden="true">
         <div class="fx-gauge-dial">
@@ -28,7 +29,7 @@ const ticks = Array.from({ length: 11 }, (_, i) => {
             </defs>
             <path class="fx-gauge-arc" d="M30 200 A170 170 0 0 1 370 200"></path>
             {ticks.map((t) => <line class="fx-gauge-tick" x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} />)}
-            <g class="fx-needle" transform="rotate(80 200 200)">
+            <g class="fx-needle" data-meter-needle data-meter-pivot="200 200" transform="rotate(80 200 200)">
               <line x1="200" y1="200" x2="200" y2="58"></line>
               <circle cx="200" cy="200" r="14"></circle>
             </g>
@@ -36,13 +37,13 @@ const ticks = Array.from({ length: 11 }, (_, i) => {
           <span class="fx-gauge-l">PAURA</span>
           <span class="fx-gauge-r">LEVA</span>
         </div>
-        <b class="fx-gauge-word" data-word>{METER[METER.length - 1].word}</b>
+        <b class="fx-gauge-word" data-meter-word>{METER[METER.length - 1].word}</b>
       </div>
-      <ol class="fx-beats">
+      <ol class="fx-beats" data-meter-beats>
         {
           METER.map((m, i) => (
-            <li class="fx-beat">
-              <span class="fx-sticker fx-sticker--ghost fx-beat-k">{m.word}</span>
+            <li class="fx-beat" data-meter-beat>
+              <span class="fx-sticker fx-sticker--ghost fx-beat-k" data-meter-key>{m.word}</span>
               <h3 id={i === 0 ? "meter-title" : undefined}>{m.t}</h3>
               <p>{m.d}</p>
             </li>

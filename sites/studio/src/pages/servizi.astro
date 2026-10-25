@@ -28,7 +28,7 @@ const head = PAGES.servizi;
 
   <section class="fx-section">
     <div class="fx-wrap">
-      <div class="fx-strategy" data-rise>
+      <div class="fx-strategy" data-reveal>
         <h2 class="fx-title">{STRATEGY.title}</h2>
         <p>{STRATEGY.text}</p>
       </div>
@@ -39,7 +39,7 @@ const head = PAGES.servizi;
     GROUPS.map((g, i) => (
       <section class="fx-section fx-group" id={g.id} style={`--ac:${g.accent}`}>
         <div class="fx-wrap fx-split">
-          <div class="fx-split-side fx-split-side--sticky" data-rise>
+          <div class="fx-split-side fx-split-side--sticky" data-reveal>
             <span class="fx-verb-n">0{i + 1}</span>
             <div class="fx-group-head">
               <h2 class="fx-title">
@@ -50,7 +50,7 @@ const head = PAGES.servizi;
           </div>
           <div class="fx-services">
             {g.services.map((s) => (
-              <article class="fx-service" id={s.id} data-rise>
+              <article class="fx-service" id={s.id} data-reveal>
                 <h3>{s.t}</h3>
                 <p>{s.d}</p>
                 <ul class="fx-ticks">
@@ -70,14 +70,14 @@ const head = PAGES.servizi;
 
   <section class="fx-section">
     <div class="fx-wrap">
-      <div class="fx-choose-head" data-rise>
+      <div class="fx-choose-head" data-reveal>
         <span class="fx-hand">come lavoriamo</span>
         <h2 class="fx-title">Quattro passi, ogni mese.</h2>
       </div>
       <ol class="fx-steps">
         {
           STEPS.map((s) => (
-            <li class="fx-step" data-rise>
+            <li class="fx-step" data-reveal>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
             </li>

@@ -14,7 +14,7 @@ const { offers } = Astro.props;
 <ul class="fx-offers">
   {
     offers.map((o) => (
-      <li class:list={["fx-offer", { "is-featured": o.featured }]} data-rise>
+      <li class:list={["fx-offer", { "is-featured": o.featured }]} data-reveal>
         {o.featured && <span class="fx-sticker">Consigliato</span>}
         <h3>{o.name}</h3>
         <p class="fx-price">{o.price !== null ? euro(o.price) : <small>Prezzo in arrivo</small>}</p>

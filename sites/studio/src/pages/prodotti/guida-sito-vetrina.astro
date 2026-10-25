@@ -42,7 +42,7 @@ const sold = GUIDE_OFFERS.filter((o) => o.checkout && o.price !== null).map((o) 
 
   <section class="fx-section">
     <div class="fx-wrap fx-split">
-      <div class="fx-split-side" data-rise>
+      <div class="fx-split-side" data-reveal>
         <span class="fx-hand">cosa c'è dentro</span>
         <h2 class="fx-title">Dal niente al sito online.</h2>
         <p class="fx-lede">Quattro capitoli, nell'ordine in cui ti servono. Senza scrivere codice.</p>
@@ -55,7 +55,7 @@ const sold = GUIDE_OFFERS.filter((o) => o.checkout && o.price !== null).map((o) 
 
   <section class="fx-section">
     <div class="fx-wrap">
-      <div class="fx-addon" data-rise>
+      <div class="fx-addon" data-reveal>
         <span class="fx-sticker">+{euro(MARKETING.price)}</span>
         <h2 class="fx-title">{MARKETING.title}</h2>
         <Chapters items={MARKETING.chapters} />
@@ -65,7 +65,7 @@ const sold = GUIDE_OFFERS.filter((o) => o.checkout && o.price !== null).map((o) 
 
   <section class="fx-section" id="scegli">
     <div class="fx-wrap">
-      <h2 class="fx-title" data-rise>Scegli come partire.</h2>
+      <h2 class="fx-title" data-reveal>Scegli come partire.</h2>
       <Offers offers={GUIDE_OFFERS} />
     </div>
   </section>

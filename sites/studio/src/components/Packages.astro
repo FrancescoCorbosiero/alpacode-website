@@ -14,7 +14,7 @@ const { packages } = Astro.props;
 <ul class="fx-packs">
   {
     packages.map((p) => (
-      <li class:list={["fx-pack", { "is-featured": p.featured }]} id={p.id} style={`--ac:${p.accent}`} data-rise>
+      <li class:list={["fx-pack", { "is-featured": p.featured }]} id={p.id} style={`--ac:${p.accent}`} data-reveal>
         <span class="fx-pack-tag">{p.tag}</span>
         <h3>{p.name}</h3>
         <p class="fx-pack-for">{p.forWho}</p>
