@@ -9,8 +9,7 @@
 import type { Lang } from "../../i18n/types";
 import { localizePath } from "../../i18n/utils";
 import { cases } from "../../data/home";
-import { PLACES } from "../../data/places";
-import { featuredWorks, hostOf, no, shotFor, workHref, workLabels } from "../../data/work";
+import { factsOf, featuredWorks, hostOf, no, shotFor, workHref, workLabels } from "../../data/work";
 import BrowserFrame from "../BrowserFrame.astro";
 import Br from "../Br.astro";
 
@@ -61,7 +60,7 @@ const casesCta = lang === "it" ? "Vedi tutti i lavori" : "See all the work";
                       {no(i)} / {no(list.length - 1)}
                     </span>
                     <span>
-                      {d.sector[lang]} · {PLACES[d.place].name[lang]} · {d.year}
+                      {factsOf(d, lang).join(" · ")}
                     </span>
                   </p>
                   <h3 class="cs-name">{title}</h3>

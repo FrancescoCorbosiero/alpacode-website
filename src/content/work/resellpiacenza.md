@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 year: "2025"
 sector: { it: "Streetwear", en: "Streetwear" }
 title: { it: "ResellPiacenza", en: "ResellPiacenza" }
@@ -9,7 +9,8 @@ descriptor:
 tags: ["E-commerce", "WooCommerce", "Social"]
 kind: ecommerce
 place: piacenza
-featured: 2
+url: "https://resellpiacenza.shop/"
+featured: 1
 case:
   problem:
     it: "Un negozio con un pubblico di veri appassionati, ma vendite ferme ai confini della città."

@@ -9,6 +9,7 @@ descriptor:
 tags: ["Istituzionale", "SEO", "Lead"]
 kind: sito
 place: milano
+url: "https://cesanaassicuratori.it/"
 featured: 3
 case:
   problem:

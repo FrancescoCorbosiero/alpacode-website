@@ -43,6 +43,7 @@ npm run studio:dev | studio:check | studio:build | studio:start   # Alpacode Stu
 npm run og [-- og-name … | studio | work]   # share cards: tools/og -> public/ (studio -> sites/studio/public/)
 npm run icons | media | hero-video       # favicons, media, the home hero video (needs ffmpeg)
 npm run work-shots [-- id …]             # the projects' full-page screenshots, from their url
+npm run work-pull [-- id …]              # tools/work/lavori.txt (URL -> keywords): order, drafts, digests, shots
 ```
 
 Node 22 (as in the Dockerfiles and CI). CI (`.github/workflows/ci.yml`)
@@ -67,9 +68,11 @@ is check, build and looking at the pages (below).
   `places.ts` (the showcase).
 - `content/` — the blog (MDX) and the work: one entry per project
   (`content/work/<id>.md`: kind, place, the case in short, its quote
-  shown only once confirmed; the body is the long case study);
-  screenshots in `assets/work/<id>.png` (`<id>-full.png`: the whole
-  page, scrolled inside the case page's frame).
+  shown only once confirmed, `draft` until it's written; the body is
+  the long case study), in the order of `tools/work/lavori.txt` (the
+  owner's "URL -> keywords" lines); screenshots in
+  `assets/work/<id>.png` (`<id>-full.jpg`: the whole page, scrolled
+  inside the case page's frame).
 - `components/` — `Layout.astro` (head, header, footer), `landing/` (the
   landing kit and its views), `voucher/` (the referral program),
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`
@@ -113,7 +116,9 @@ guard, mail, JSONL). Alpacode Studio (`sites/studio/`): its own
 
 Skills: `.claude/skills/new-landing` (any new landing or studio page),
 `.claude/skills/new-compartment` (a new subdomain),
-`.claude/skills/handoff` (end of a session: update `docs/status.md`).
+`.claude/skills/work-from-url` (a project of the showcase from its
+address and keywords), `.claude/skills/handoff` (end of a session:
+update `docs/status.md`).
 
 `FrancescoCorbosiero/alpacode-motion`, the motion catalog, is **reference
 only**: context for the engine's contract and its rules, read when it's

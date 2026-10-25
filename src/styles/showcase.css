@@ -89,10 +89,21 @@
   inset: 0;
   display: grid;
   place-items: center;
-  font-family: var(--label);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--mute);
+  padding: 8%;
+  background: var(--paper-2);
+  container-type: inline-size;
+}
+.bframe-empty b {
+  padding-bottom: 0.3em;
+  border-bottom: max(3px, 0.12em) solid var(--blue);
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(9px, 5.6cqi, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  color: var(--ink);
 }
 
 /* ---------- /lavori: the index ---------- */
@@ -436,7 +447,10 @@
   font-weight: 600;
   color: var(--mute-2);
 }
-.case-visit {
+.case-visits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-self: start;
 }
 .case-stage {

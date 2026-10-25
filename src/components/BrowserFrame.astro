@@ -2,7 +2,9 @@
 /* A project's site in a browser window: the frame the showcase uses
    everywhere (/lavori, the case pages, the home's cases).
    The bar carries the site's address when the entry links it, the
-   project's name otherwise — never an address we made up.
+   project's name otherwise — never an address we made up. Without a
+   screenshot yet, the window shows that name, set large: never a
+   picture standing in for the site.
    With `full` (the whole page, top to bottom) and `scroll`, the page
    scrolls inside the frame as the visitor scrolls ([data-frame-scroll],
    the frame-scroll effect); without it the first screen fills the view. */
@@ -48,7 +50,9 @@ const img = tall ? full : shot;
           class="bframe-shot"
         />
       ) : (
-        <span class="bframe-empty">{alt}</span>
+        <span class="bframe-empty" aria-hidden="true">
+          <b>{bar}</b>
+        </span>
       )
     }
   </div>

@@ -150,12 +150,12 @@ export const cases: Record<Lang, CasesData> = {
   it: {
     num: "Casi di studio",
     heading: "Quello che\nabbiamo costruito.",
-    lede: "Tre progetti recenti, raccontati con i numeri prima e dopo. La prova che conta più di ogni promessa.",
+    lede: "Tre progetti recenti, raccontati con il prima e il dopo. La prova che conta più di ogni promessa.",
   },
   en: {
     num: "Case studies",
     heading: "What we have built.",
-    lede: "Three recent projects, told in numbers before and after. The proof that matters more than any promise.",
+    lede: "Three recent projects, told by their before and after. The proof that matters more than any promise.",
   },
 };
 

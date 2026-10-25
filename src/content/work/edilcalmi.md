@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 9
 year: "2025"
 sector: { it: "Edilizia", en: "Construction" }
 title: { it: "EdilCalmi", en: "EdilCalmi" }
@@ -9,7 +9,6 @@ descriptor:
 tags: ["Landing", "Lead", "WordPress"]
 kind: sito
 place: brianza
-featured: 1
 case:
   problem:
     it: "Maestri artigiani con anni di lavori alle spalle, ma invisibili online: i clienti arrivavano solo col passaparola."
