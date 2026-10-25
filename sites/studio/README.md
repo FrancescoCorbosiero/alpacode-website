@@ -85,11 +85,16 @@ Umami always and to the ad tags when allowed.
 
 ## Motion
 
-`src/lib/motion.ts` (GSAP: rising blocks, the doors landing, the band
-leaning with the scroll, the course's pinned meter) until the studio moves
-to the alpacode-motion engine with the house (docs/status.md). The hero is
-CSS. Under reduced motion nothing runs and every piece sits in its end
-state; the hooks show the old words struck through next to the new ones.
+`src/engine/`, the alpacode-motion engine, copied from the catalog
+(`FrancescoCorbosiero/alpacode-motion`): its core, and the entries the
+studio uses — `reveal` (rising blocks), `deal` (the doors landing), `skew`
+(the band leaning with the scroll), `meter` (the course's pinned meter,
+standing on `stage`, copied with it);
+`config.ts` and `registry.ts` are the studio's. Each entry's header is
+its markup API. The hero is CSS (the core's intro section is left out of
+`core.css`: the studio's hero has its own). Under reduced motion nothing
+runs and every piece sits in its end state; the hooks show the old words
+struck through next to the new ones.
 
 ## Share cards
 

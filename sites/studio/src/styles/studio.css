@@ -1347,17 +1347,10 @@ a.fx-verb:hover {
   position: relative;
   padding-block: clamp(72px, 12vh, 140px);
 }
-.has-motion .fx-scene[data-scene] {
-  height: calc(var(--len, 3) * 100svh);
-}
-.has-motion .fx-scene[data-scene] > .fx-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+/* Live (the meter runs it: [data-scene-live]), the stage entry's CSS
+   makes the section --len screens tall and sticks its stage. */
+.fx-scene[data-scene-live] > .fx-stage {
   padding-block: 0;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
 }
 .fx-meter-grid {
   display: grid;
@@ -1432,10 +1425,10 @@ a.fx-verb:hover {
   display: grid;
   gap: 32px;
 }
-.has-motion [data-scene] .fx-beats {
+[data-scene][data-scene-live] .fx-beats {
   gap: 0;
 }
-.has-motion [data-scene] .fx-beat {
+[data-scene][data-scene-live] .fx-beat {
   grid-area: 1 / 1;
 }
 .fx-beat h3 {
@@ -1457,8 +1450,8 @@ a.fx-verb:hover {
   display: inline-block;
   margin-bottom: 14px;
 }
-/* With motion the gauge names the beat. */
-.has-motion [data-scene] .fx-beat-k {
+/* While the scene plays the gauge names the beat. */
+[data-scene][data-scene-live] .fx-beat-k {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -2022,20 +2015,20 @@ a.fx-verb:hover {
     font-size: 22px;
   }
   /* A phone's pinned stage: the gauge above, one beat under it. */
-  .has-motion [data-scene="meter"] .fx-meter-grid {
+  [data-scene="meter"][data-scene-live] .fx-meter-grid {
     gap: 22px;
   }
-  .has-motion [data-scene="meter"] .fx-gauge {
+  [data-scene="meter"][data-scene-live] .fx-gauge {
     width: min(100%, 300px);
   }
-  .has-motion [data-scene="meter"] .fx-gauge-word {
+  [data-scene="meter"][data-scene-live] .fx-gauge-word {
     margin-top: 10px;
     font-size: 40px;
   }
-  .has-motion [data-scene="meter"] .fx-beat h3 {
+  [data-scene="meter"][data-scene-live] .fx-beat h3 {
     font-size: 26px;
   }
-  .has-motion [data-scene="meter"] .fx-beat p {
+  [data-scene="meter"][data-scene-live] .fx-beat p {
     font-size: 16px;
   }
 }

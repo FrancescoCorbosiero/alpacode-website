@@ -2,8 +2,9 @@
    meter — a needle swings from one end of a dial to the other as the
    visitor scrolls; the word under it scrambles into the next; the
    beats hand over.
-   Markup: data-scene="meter" on a tall wrapper (--len, in screens)
-   whose stage ([data-scene-stage]) sticks under .has-motion; the
+   Markup: data-scene="meter" on a tall wrapper (--len, in screens),
+   built on the stage (stage.ts: its [data-scene-stage] sticks once the
+   scene is live); the
    needle [data-meter-needle] (an SVG group turning on
    data-meter-pivot="x y", in the drawing's units), the word
    [data-meter-word], the beats [data-meter-beat], each naming its word
@@ -19,17 +20,16 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Kit } from "../core/kit";
+import { scrubbed } from "./stage";
 
-gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
+gsap.registerPlugin(ScrambleTextPlugin);
 
 export const hook = '[data-scene="meter"]';
 
 /* ---------- Settings: the site's voice, tuned when copying ---------- */
 const FROM = -80; // degrees: where the needle starts (FAST and the studio)
 const TO = 80; // degrees: where it ends, on the last beat (FAST and the studio)
-const SMOOTH = 0.6; // s the scene takes to catch up with the scroll
 const SPRING = "back.out(2.4)"; // how the needle lands on each step (FAST and the studio)
 const SCRAMBLE = "upperCase"; // the characters the word scrambles through (FAST and the studio)
 
@@ -46,10 +46,7 @@ export function init(kit: Kit): void {
     word.textContent = words[0] ?? "";
     kit.cleanup(() => (word.textContent = last));
 
-    const tl = gsap.timeline({
-      defaults: { ease: "none" },
-      scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: SMOOTH, invalidateOnRefresh: true },
-    });
+    const tl = scrubbed(kit, root);
     // The timeline owns the start: the needle at FROM, the first beat in.
     tl.fromTo(needle, { rotation: angle(0), svgOrigin: pivot }, { rotation: angle(0), duration: 0.01 }, 0);
     beats.forEach((b, i) => {
