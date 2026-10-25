@@ -10,7 +10,7 @@ export interface ProductMeta {
 }
 export interface Product {
   n: string;
-  /** Short badge, e.g. "Prodotto di punta", "Kit digitale", "Prezzo fisso". */
+  /** Short badge, e.g. "Prodotto di punta", "Kit digitale", "Pacchetto". */
   tag: string;
   t: string;
   d: string;
@@ -76,7 +76,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             meta: [
               { k: "Formato", v: "Pacchetto digitale" },
               { k: "Licenza", v: "Personale" },
-              { k: "Prezzo", v: "Su richiesta" },
+              { k: "Aggiornamenti", v: "A vita" },
             ],
             slug: "alpacode-pro-kit",
           },
@@ -98,58 +98,58 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
       },
       {
         label: "Pacchetti pronti",
-        tagline: "Soluzioni a prezzo fisso per partire in fretta.",
+        tagline: "Soluzioni già definite, per partire in fretta.",
         list: [
           {
             n: "04",
-            tag: "Prezzo fisso",
+            tag: "Pacchetto",
             t: "Sito Pronto",
             d: "Il sito della tua attività, pronto in poche settimane. Design su misura, veloce e pensato per portarti clienti.",
             forWho: "Per professionisti e piccole imprese",
             items: ["Design su misura", "Fino a 5 pagine", "Ottimizzato per mobile", "SEO di base + Google", "Modulo contatti", "Formazione all'uso"],
             meta: [
               { k: "Tempi", v: "2 — 3 settimane" },
-              { k: "Prezzo", v: "Fisso" },
+              { k: "Pagine", v: "Fino a 5" },
               { k: "Dopo", v: "Manutenzione opzionale" },
             ],
           },
           {
             n: "05",
-            tag: "Prezzo fisso",
+            tag: "Pacchetto",
             t: "E-commerce Starter",
             d: "Un negozio online pronto a vendere: catalogo, pagamenti e spedizioni già configurati e collaudati.",
             forWho: "Per chi vuole iniziare a vendere online",
             items: ["Catalogo prodotti", "Pagamenti sicuri", "Spedizioni & magazzino", "Gestione ordini", "Pronto da mobile", "Formazione all'uso"],
             meta: [
               { k: "Tempi", v: "3 — 5 settimane" },
-              { k: "Prezzo", v: "Fisso" },
+              { k: "Consegna", v: "Configurato e collaudato" },
               { k: "Base", v: "WooCommerce / Shopify" },
             ],
           },
           {
             n: "06",
-            tag: "Prezzo fisso",
+            tag: "Pacchetto",
             t: "Brand Kit",
             d: "Logo, colori e identità visiva pronti all'uso. Tutto quello che serve per presentarti bene, ovunque.",
             forWho: "Per chi parte da zero o rinnova",
             items: ["Logo e varianti", "Palette e font", "Linee guida d'uso", "Template per i social", "Biglietti & firme email"],
             meta: [
               { k: "Tempi", v: "~ 2 settimane" },
-              { k: "Prezzo", v: "Fisso" },
+              { k: "Dove", v: "Alpacode Studio" },
               { k: "Consegna", v: "File pronti all'uso" },
             ],
             door: studioPack("brand-kit"),
           },
           {
             n: "07",
-            tag: "Prezzo fisso",
+            tag: "Pacchetto",
             t: "Landing & ADV",
             d: "Una pagina pensata per convertire e una campagna pubblicitaria avviata e tracciata. Per un lancio o una promozione.",
             forWho: "Per lanci, eventi e promozioni",
             items: ["Landing page mirata", "Tracciamento conversioni", "Setup campagne Google & Meta", "Primo mese di gestione", "Report dei risultati"],
             meta: [
               { k: "Tempi", v: "1 — 2 settimane" },
-              { k: "Prezzo", v: "Fisso + budget ADV" },
+              { k: "Dove", v: "Alpacode Studio" },
               { k: "Canali", v: "Google · Meta" },
             ],
             door: studioPack("landing-adv"),
@@ -194,7 +194,7 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
             meta: [
               { k: "Format", v: "Digital pack" },
               { k: "License", v: "Personal" },
-              { k: "Price", v: "On request" },
+              { k: "Updates", v: "Lifetime" },
             ],
             slug: "alpacode-pro-kit",
           },
@@ -216,58 +216,58 @@ export const prodotti: Record<Lang, ProdottiPageData> = {
       },
       {
         label: "Ready-made packages",
-        tagline: "Fixed-price solutions to get going fast.",
+        tagline: "Solutions already defined, to get going fast.",
         list: [
           {
             n: "04",
-            tag: "Fixed price",
+            tag: "Package",
             t: "Ready Site",
             d: "Your business website, ready in a few weeks. Custom design, fast, and built to bring you clients.",
             forWho: "For professionals and small businesses",
             items: ["Custom design", "Up to 5 pages", "Mobile-optimized", "Basic SEO + Google", "Contact form", "Hands-on training"],
             meta: [
               { k: "Lead time", v: "2 — 3 weeks" },
-              { k: "Price", v: "Fixed" },
+              { k: "Pages", v: "Up to 5" },
               { k: "After", v: "Optional maintenance" },
             ],
           },
           {
             n: "05",
-            tag: "Fixed price",
+            tag: "Package",
             t: "E-commerce Starter",
             d: "An online shop ready to sell: catalog, payments and shipping already set up and tested.",
             forWho: "For those starting to sell online",
             items: ["Product catalog", "Secure payments", "Shipping & stock", "Order management", "Mobile-ready", "Hands-on training"],
             meta: [
               { k: "Lead time", v: "3 — 5 weeks" },
-              { k: "Price", v: "Fixed" },
+              { k: "Delivery", v: "Set up and tested" },
               { k: "Base", v: "WooCommerce / Shopify" },
             ],
           },
           {
             n: "06",
-            tag: "Fixed price",
+            tag: "Package",
             t: "Brand Kit",
             d: "Logo, colors and a visual identity ready to use. Everything you need to present yourself well, everywhere.",
             forWho: "For starting from scratch or refreshing",
             items: ["Logo and variants", "Palette and fonts", "Usage guidelines", "Social templates", "Cards & email signatures"],
             meta: [
               { k: "Lead time", v: "~ 2 weeks" },
-              { k: "Price", v: "Fixed" },
+              { k: "Where", v: "Alpacode Studio" },
               { k: "Delivery", v: "Ready-to-use files" },
             ],
             door: studioPack("brand-kit"),
           },
           {
             n: "07",
-            tag: "Fixed price",
+            tag: "Package",
             t: "Landing & ADV",
             d: "A page built to convert and an advertising campaign launched and tracked. For a launch or a promotion.",
             forWho: "For launches, events and promotions",
             items: ["Focused landing page", "Conversion tracking", "Google & Meta campaign setup", "First month of management", "Results report"],
             meta: [
               { k: "Lead time", v: "1 — 2 weeks" },
-              { k: "Price", v: "Fixed + ad budget" },
+              { k: "Where", v: "Alpacode Studio" },
               { k: "Channels", v: "Google · Meta" },
             ],
             door: studioPack("landing-adv"),

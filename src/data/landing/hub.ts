@@ -91,7 +91,7 @@ export const hub: Record<Lang, HubCopy> = {
           cta: "Scelgo l'1:1",
         },
       ],
-      note: "Prezzi su richiesta: dipendono dal percorso e da cosa scegli.",
+      note: "Ogni percorso lo definiamo insieme, alla prima call.",
     },
     lead: {
       title: "Parliamone.",
@@ -167,7 +167,7 @@ export const hub: Record<Lang, HubCopy> = {
           cta: "I'll take the 1:1",
         },
       ],
-      note: "Prices on request: they depend on the path and on what you choose.",
+      note: "We define each path together, on the first call.",
     },
     lead: {
       title: "Let's talk.",

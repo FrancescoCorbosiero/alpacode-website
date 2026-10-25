@@ -7,7 +7,7 @@
 
    The hook is the mirror: type your name and see your socials and
    your own site side by side, the links moving into the site.
-   The price comes from the social-media-manager
+   The audience comes from the social-media-manager
    campaign (data/campaigns.ts), so both pages tell the same story.
    Copy rules: docs/landing-factory.md.
    ============================================================ */
@@ -15,7 +15,7 @@ import type { Lang } from "../i18n/types";
 import { campaignBySlug, type Campaign } from "./campaigns";
 import type { Objection } from "./landing/shared";
 
-/** Single source of truth for the price. */
+/** The campaign this page shares its audience with. */
 export const SMM_CAMPAIGN: Campaign = campaignBySlug("social-media-manager")!;
 
 export interface SmmCopy {
@@ -69,9 +69,9 @@ export interface SmmCopy {
     why: string;
     includesLabel: string;
     includes: string[];
-    priceNote: string;
+    /** The line under the sheet's headline. */
+    note: string;
     cta: string;
-    express: { title: string; body: string; cta: string; pay: string; note: string };
   };
   steps: { title: string; items: { t: string; d: string }[] };
   qa: { title: string; items: Objection[] };
@@ -80,33 +80,28 @@ export interface SmmCopy {
     lede: string;
     company: { label: string; ph: string };
     message: { label: string; ph: string };
-    choiceLegend: string;
-    /** The two choices: the site, or the fast lane. */
-    choices: [string, string];
   };
   portalsTitle: string;
 }
 
-const price = SMM_CAMPAIGN.price;
-
 export const smmLanding: Record<Lang, SmmCopy> = {
   it: {
-    title: `Il sito per chi gestisce i social degli altri · ${price} €/anno con dominio e hosting — Alpacode`,
-    description: `Fai crescere i brand degli altri, ma un brand che cerca te trova un link in bio. Portfolio, media kit e contatti sul tuo dominio: ${price} € l'anno. Lo vedi finito, poi decidi.`,
+    title: "Il sito per chi gestisce i social degli altri, con dominio e hosting — Alpacode",
+    description: "Fai crescere i brand degli altri, ma un brand che cerca te trova un link in bio. Portfolio, media kit e contatti sul tuo dominio. Lo vedi finito prima che vada online.",
     ogImage: "/og-smm.png",
     ogAlt: "Fai crescere i brand degli altri. E il tuo? — Alpacode",
     hero: {
       kicker: "per chi gestisce i social degli altri",
       lines: ["Fai crescere", "i brand degli altri."],
       accent: "E il tuo?",
-      lede: `Sei tu il motivo per cui i tuoi clienti hanno una presenza online impeccabile. Poi un brand cerca te su Google — e trova un link in bio. Ti costruiamo il tuo sito: portfolio, media kit, contatti, sul tuo dominio. ${price} € l'anno, con hosting ed email.`,
+      lede: "Sei tu il motivo per cui i tuoi clienti hanno una presenza online impeccabile. Poi un brand cerca te su Google — e trova un link in bio. Ti costruiamo il tuo sito: portfolio, media kit, contatti, sul tuo dominio, con hosting ed email.",
       cta: "Voglio il mio sito",
       alt: "Fammi vedere",
       me: "@maria.rossi",
       feed: ["@caffe.brera", "@studio.lumen", "@bottega.verde", "@fitlab.monza", "@ottica.sole", "@pane.e.rose"],
       note: "tutti, tranne te",
     },
-    band: ["TUONOME.IT", "PORTFOLIO", "MEDIA KIT", "LINK IN BIO, MA TUO", `${price} € L'ANNO`],
+    band: ["TUONOME.IT", "PORTFOLIO", "MEDIA KIT", "LINK IN BIO, MA TUO", "CASE STUDY"],
     mirror: {
       title: "Scrivi il tuo nome.\nGuarda l'insieme.",
       lede: "I social ti hanno costruito il pubblico; il sito lo trasforma in clienti. Non è un aut-aut: è una somma. Fai la prova con il tuo nome.",
@@ -155,7 +150,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     },
     offer: {
       title: "Il tuo sito,\nchiavi in mano.",
-      blurb: "Lo costruiamo partendo dai tuoi social: tu continui a postare. Lo vedi finito, poi decidi.",
+      blurb: "Lo costruiamo partendo dai tuoi social: tu continui a postare. Lo vedi finito prima che vada online.",
       why: "Come ci riusciamo: un sistema collaudato, l'AI sul lavoro ripetitivo e la cura dei nostri progetti più grandi, sulla stessa infrastruttura.",
       includesLabel: "Dentro il tuo sito",
       includes: [
@@ -166,22 +161,15 @@ export const smmLanding: Record<Lang, SmmCopy> = {
         "Hosting, SSL, backup e manutenzione: ci pensiamo noi",
         "SEO di base: chi cerca il tuo nome trova te",
       ],
-      priceNote: "Rinnovo alla stessa cifra, con gli stessi servizi.",
+      note: "Un servizio annuale, che si rinnova con gli stessi servizi.",
       cta: "Voglio il mio sito",
-      express: {
-        title: "Corsia veloce",
-        body: "Hai già deciso? Attiva online e salta la call: al pagamento partiamo subito e ti contattiamo noi per i materiali.",
-        cta: "Attiva subito",
-        pay: "VISA · MASTERCARD · AMEX · SEPA",
-        note: "Pagamento sicuro · fattura inclusa",
-      },
     },
     steps: {
       title: "Dal modulo\nal sito online.",
       items: [
         { t: "Ci scrivi", d: "Due minuti di modulo, qui sotto. Ti ricontatta una persona entro mezza giornata lavorativa." },
         { t: "Lo costruiamo", d: "Testi, design, dominio, hosting: partiamo dai tuoi social e facciamo tutto noi. Tu continui a postare." },
-        { t: "Lo vedi finito", d: "Ti piace? Va online. Non ti convince? Non paghi niente." },
+        { t: "Lo vedi finito", d: "Te lo mostriamo completo: quando lo approvi, va online." },
       ],
     },
     qa: {
@@ -200,47 +188,41 @@ export const smmLanding: Record<Lang, SmmCopy> = {
           a: "E va benissimo: il sito non sostituisce i social, li capitalizza. È dove mandi chi è già interessato — case study, servizi, modulo di contatto — ed è quello che un brand trova quando ti cerca su Google.",
         },
         {
-          q: "Devo pagare qualcosa in anticipo?",
-          a: "No. Costruiamo il sito, te lo mostriamo finito e solo allora decidi. Se non ti convince, non paghi nulla. Se preferisci la corsia veloce, puoi attivare online e partire subito.",
+          q: "Vedo il sito prima che vada online?",
+          a: "Sì. Te lo mostriamo finito, lo rivediamo insieme e va online solo quando lo approvi.",
         },
         {
           q: "E dopo il primo anno?",
-          a: "Si rinnova alla stessa cifra, con gli stessi servizi: dominio, hosting, email, manutenzione.",
-        },
-        {
-          q: "Come fate a questo prezzo?",
-          a: "Con un metodo: un sistema collaudato, l'AI sul lavoro ripetitivo e il tempo sulle scelte. Lavorare così costa meno anche a noi, e il prezzo lo riflette.",
+          a: "Il servizio si rinnova di anno in anno, con gli stessi servizi: dominio, hosting, email, manutenzione.",
         },
       ],
     },
     lead: {
       title: "Il prossimo brand\nda lanciare sei tu.",
-      lede: "Due minuti di modulo: ti ricontattiamo per partire. Paghi solo quando hai visto il sito finito.",
+      lede: "Due minuti di modulo: ti ricontattiamo per capire cosa ti serve e partire.",
       company: { label: "Il tuo profilo social (facoltativo)", ph: "@iltuoprofilo" },
       message: { label: "Due righe su di te (facoltativo)", ph: "Chi segui, chi ti segue, cosa ti serve." },
-      choiceLegend: "Come vuoi partire",
-      choices: ["Sito personale", "Corsia veloce — attivazione online"],
     },
     portalsTitle: "Lavori già con clienti tuoi? C'è anche questo",
   },
 
   en: {
-    title: `The website for people who run everyone else's socials · €${price}/yr with domain and hosting — Alpacode`,
-    description: `You grow other people's brands, but a brand searching for you finds a link in bio. Portfolio, media kit and contacts on your own domain: €${price} a year. You see it finished, then decide.`,
+    title: "The website for people who run everyone else's socials, with domain and hosting — Alpacode",
+    description: "You grow other people's brands, but a brand searching for you finds a link in bio. Portfolio, media kit and contacts on your own domain. You see it finished before it goes live.",
     ogImage: "/og-smm.png",
     ogAlt: "You grow everyone else's brand. What about yours? — Alpacode",
     hero: {
       kicker: "for people who run other people's socials",
       lines: ["You grow", "everyone else's brand."],
       accent: "What about yours?",
-      lede: `You're the reason your clients look flawless online. Then a brand googles you — and finds a link in bio. We build your site: portfolio, media kit, contacts, on your own domain. €${price} a year, with hosting and email.`,
+      lede: "You're the reason your clients look flawless online. Then a brand googles you — and finds a link in bio. We build your site: portfolio, media kit, contacts, on your own domain, with hosting and email.",
       cta: "I want my site",
       alt: "Show me",
       me: "@jane.doe",
       feed: ["@brera.coffee", "@studio.lumen", "@green.workshop", "@fitlab.monza", "@sun.optics", "@bread.and.roses"],
       note: "everyone but you",
     },
-    band: ["YOURNAME.COM", "PORTFOLIO", "MEDIA KIT", "LINK IN BIO, BUT YOURS", `€${price} A YEAR`],
+    band: ["YOURNAME.COM", "PORTFOLIO", "MEDIA KIT", "LINK IN BIO, BUT YOURS", "CASE STUDIES"],
     mirror: {
       title: "Type your name.\nSee the whole picture.",
       lede: "Your socials built you an audience; a site turns it into clients. It's not either-or: it's a sum. Try it with your name.",
@@ -289,7 +271,7 @@ export const smmLanding: Record<Lang, SmmCopy> = {
     },
     offer: {
       title: "Your site,\nturnkey.",
-      blurb: "We build it starting from your socials: you keep posting. You see it finished, then you decide.",
+      blurb: "We build it starting from your socials: you keep posting. You see it finished before it goes live.",
       why: "How we manage it: a proven system, AI on the repetitive work, and the care of our biggest projects, on the same infrastructure.",
       includesLabel: "Inside your site",
       includes: [
@@ -300,22 +282,15 @@ export const smmLanding: Record<Lang, SmmCopy> = {
         "Hosting, SSL, backups and maintenance: we handle it",
         "Basic SEO: people searching your name find you",
       ],
-      priceNote: "Renews at the same figure, with the same services.",
+      note: "A yearly service, renewed with the same services.",
       cta: "I want my site",
-      express: {
-        title: "Fast lane",
-        body: "Already decided? Activate online and skip the call: we start right away and reach out for your materials.",
-        cta: "Activate now",
-        pay: "VISA · MASTERCARD · AMEX · SEPA",
-        note: "Secure payment · invoice included",
-      },
     },
     steps: {
       title: "From the form\nto the site online.",
       items: [
         { t: "You write to us", d: "A two-minute form, below. A person gets back to you within half a working day." },
         { t: "We build it", d: "Copy, design, domain, hosting: we start from your socials and do it all. You keep posting." },
-        { t: "You see it finished", d: "Like it? It goes live. Not convinced? You pay nothing." },
+        { t: "You see it finished", d: "We show it to you complete: once you approve it, it goes live." },
       ],
     },
     qa: {
@@ -334,26 +309,20 @@ export const smmLanding: Record<Lang, SmmCopy> = {
           a: "Great: the site doesn't replace your socials, it capitalises on them. It's where you send people who are already interested — case studies, services, contact form — and what a brand finds when it googles you.",
         },
         {
-          q: "Do I have to pay anything up front?",
-          a: "No. We build the site, show it to you finished, and only then you decide. If it doesn't convince you, you pay nothing. If you prefer the fast lane, you can activate online and start right away.",
+          q: "Do I see the site before it goes live?",
+          a: "Yes. We show it to you finished, go through it together, and it goes live only once you approve it.",
         },
         {
           q: "What about after the first year?",
-          a: "It renews at the same figure, with the same services: domain, hosting, email, maintenance.",
-        },
-        {
-          q: "How can you do it at this price?",
-          a: "With a method: a proven system, AI on the repetitive work and the time on the choices. Working this way costs us less too, and the price reflects it.",
+          a: "The service renews year by year, with the same services: domain, hosting, email, maintenance.",
         },
       ],
     },
     lead: {
       title: "The next brand\nto launch is you.",
-      lede: "A two-minute form: we'll get back to you to start. You pay only once you've seen the site finished.",
+      lede: "A two-minute form: we'll get back to you to work out what you need and get started.",
       company: { label: "Your social handle (optional)", ph: "@yourhandle" },
       message: { label: "A couple of lines about you (optional)", ph: "What you do, what you need." },
-      choiceLegend: "How you'd like to start",
-      choices: ["Personal site", "Fast lane — online activation"],
     },
     portalsTitle: "Already working with clients of your own? There's this too",
   },

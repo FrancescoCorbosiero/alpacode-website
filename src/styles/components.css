@@ -1811,10 +1811,6 @@
   margin: 0;
   letter-spacing: -0.01em;
 }
-.course .price {
-  font-family: var(--display);
-  font-size: 36px;
-}
 .course ul {
   list-style: none;
   padding: 0;

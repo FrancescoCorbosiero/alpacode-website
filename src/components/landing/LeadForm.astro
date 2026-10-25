@@ -32,8 +32,6 @@ interface Props {
   extra?: { name: string; label: string; ph: string; numeric?: boolean };
   /** Ask for a phone number (optional field). */
   phone?: boolean;
-  /** Sent with the lead, e.g. "300 €/anno". */
-  price?: string;
   message?: { label: string; ph: string };
   /** Relabel the "studio or business" field (e.g. a social handle). */
   company?: { label: string; ph: string };
@@ -52,7 +50,6 @@ const {
   profile = false,
   extra,
   phone = false,
-  price,
   message,
   company,
   id = "parliamone",
@@ -83,7 +80,6 @@ const profileIds: ProfileId[] = ["dev", "designer"];
         data-campaign={campaign}
         data-audience={audience}
         data-topic={topic}
-        data-price={price}
         data-lang={lang}
         data-error-invalid={f.invalid}
         data-error-send={errorHtml}

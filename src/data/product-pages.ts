@@ -134,7 +134,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     eaEyebrow: "Early access",
     eaHeading: "Entra prima.",
     eaLede:
-      "Lancio pubblico nel terzo trimestre 2026. Chi sale a bordo adesso non aspetta — e non paga come gli altri.",
+      "Il lancio pubblico è in preparazione. Chi sale a bordo adesso non aspetta, e decide con noi cosa entra.",
     eaPerks: [
       {
         n: "01",
@@ -143,8 +143,8 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       },
       {
         n: "02",
-        t: "Prezzo fondatori",
-        d: "Tariffa bloccata a vita. La paghi una volta sola, quando entri.",
+        t: "Condizioni da fondatore",
+        d: "Le condizioni con cui entri restano le tue, anche dopo il lancio.",
       },
       {
         n: "03",
@@ -219,7 +219,7 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
     eaEyebrow: "Early access",
     eaHeading: "Get in early.",
     eaLede:
-      "Public launch is Q3 2026. Coming on board now means you don't wait — and you don't pay like everyone else.",
+      "The public launch is in the works. Coming on board now means you don't wait, and you help decide what goes in.",
     eaPerks: [
       {
         n: "01",
@@ -228,8 +228,8 @@ export const hiveCommerce: Record<Lang, ProductPage> = {
       },
       {
         n: "02",
-        t: "Founder pricing",
-        d: "Rate locked for life. Paid once, when you join.",
+        t: "Founder terms",
+        d: "The terms you join on stay yours, after the launch too.",
       },
       {
         n: "03",
@@ -310,7 +310,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     eaEyebrow: "Early access",
     eaHeading: "Sei tra i primi.",
     eaLede:
-      "Lancio pubblico nel terzo trimestre 2026. Chi entra adesso porta a casa l'edizione fondatori — e ha voce in capitolo.",
+      "Il lancio pubblico è in preparazione. Chi entra adesso porta a casa l'edizione fondatori, e ha voce in capitolo.",
     eaPerks: [
       {
         n: "01",
@@ -320,7 +320,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       {
         n: "02",
         t: "Edizione fondatori",
-        d: "Dashboard gestionale a vita, prezzo bloccato, niente canone mensile.",
+        d: "Dashboard gestionale a vita, alle condizioni di chi entra adesso.",
       },
       {
         n: "03",
@@ -395,7 +395,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
     eaEyebrow: "Early access",
     eaHeading: "You're among the first.",
     eaLede:
-      "Public launch is Q3 2026. Joining now means you get the founders' edition — and you get a say.",
+      "The public launch is in the works. Joining now means you get the founders' edition, and you get a say.",
     eaPerks: [
       {
         n: "01",
@@ -405,7 +405,7 @@ export const alpacodeProKit: Record<Lang, ProductPage> = {
       {
         n: "02",
         t: "Founders' edition",
-        d: "Lifetime management dashboard, locked price, no monthly fee.",
+        d: "Lifetime management dashboard, on the terms of those who join now.",
       },
       {
         n: "03",
@@ -496,8 +496,8 @@ export const paco: Record<Lang, ProductPage> = {
       },
       {
         n: "02",
-        t: "Prezzo fondatori",
-        d: "Tariffa bloccata a vita, finché resti a bordo.",
+        t: "Condizioni da fondatore",
+        d: "Le condizioni con cui entri restano le tue, finché resti a bordo.",
       },
       {
         n: "03",
@@ -581,8 +581,8 @@ export const paco: Record<Lang, ProductPage> = {
       },
       {
         n: "02",
-        t: "Founder pricing",
-        d: "Rate locked for life, for as long as you stay on board.",
+        t: "Founder terms",
+        d: "The terms you join on stay yours, for as long as you stay on board.",
       },
       {
         n: "03",

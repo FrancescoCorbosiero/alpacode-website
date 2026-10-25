@@ -57,7 +57,6 @@ export const POST: APIRoute = async (context) => {
   const company = str(body.company);
   const phone = str(body.phone);
   const offer = str(body.offer);
-  const price = str(body.price);
   const topic = str(body.topic);
   const budget = str(body.budget);
   const lang = str(body.lang);
@@ -74,7 +73,6 @@ export const POST: APIRoute = async (context) => {
     campaign ? `Campagna: ${campaign}` : null,
     audience ? `Target: ${audience}` : null,
     offer ? `Offerta scelta: ${offer}` : null,
-    price ? `Prezzo: ${price}` : null,
     topic ? `Argomento: ${topic}` : null,
     budget ? `Budget: ${budget}` : null,
     ...details,
