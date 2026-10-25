@@ -20,6 +20,12 @@ export default defineConfig({
     // at /collabora-con-noi now. Keep old links (and indexed URLs) working.
     '/lavora-con-noi': '/collabora-con-noi/',
     '/en/lavora-con-noi': '/en/collabora-con-noi/',
+    // The showcase: a client renamed (SM Luxury Chauffeur is Transfer
+    // Luxury Driver now), one no longer shown.
+    '/lavori/sm-luxury-chauffeur': '/lavori/transfer-luxury-driver/',
+    '/en/lavori/sm-luxury-chauffeur': '/en/lavori/transfer-luxury-driver/',
+    '/lavori/edizioni-rosi': '/lavori/',
+    '/en/lavori/edizioni-rosi': '/en/lavori/',
   },
   markdown: {
     shikiConfig: {

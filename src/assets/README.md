@@ -16,16 +16,21 @@ Le stesse immagini alimentano anche il case picker della home (§02).
 Gli screenshot attuali sono già presenti — sostituiscili pure con
 versioni migliori mantenendo il nome.
 
-| File                    | Progetto |
-|-------------------------|----------|
-| `work/cesana.<ext>`     | Cesana Assicuratori & Brokers |
-| `work/edilcalmi.<ext>`  | EdilCalmi |
-| `work/efs.<ext>`        | Eternal Fishing Shop |
-| `work/ls.<ext>`         | Logistica Sanchez |
-| `work/resellpiacenza.<ext>` | ResellPiacenza |
-| `work/rosi.<ext>`       | Edizioni Rosi |
-| `work/sm.<ext>`         | SM Luxury Chauffeur |
-| `work/stiven.<ext>`     | Stiven PT |
+| File                                | Progetto |
+|-------------------------------------|----------|
+| `work/resellpiacenza.<ext>`         | ResellPiacenza |
+| `work/transfer-luxury-driver.<ext>` | Transfer Luxury Driver |
+| `work/cesana-assicuratori.<ext>`    | Cesana Assicuratori & Brokers |
+| `work/shoes-clothing-store.<ext>`   | Shoes Clothing Store |
+| `work/logistica-sanchez.<ext>`      | Logistica Sanchez |
+| `work/eternal-fishing-shop.<ext>`   | Eternal Fishing Shop |
+| `work/gtcars.<ext>`                 | GT Cars (in bozza) |
+| `work/stiven-pt.<ext>`              | Stiven PT |
+| `work/edilcalmi.<ext>`              | EdilCalmi |
+
+Un solo file per progetto (se cambi formato, togli il vecchio). Accanto,
+facoltativo, `work/<nome>-full.jpg`: la pagina intera, che scorre nella
+cornice della pagina del caso (`npm run work-shots`).
 
 ## `people/` — le facce dello studio
 

@@ -21,7 +21,7 @@ export const PLACES = {
   seregno: { name: { it: "Seregno", en: "Seregno" }, lat: 45.6503, lon: 9.2028 },
   "cesano-maderno": { name: { it: "Cesano Maderno", en: "Cesano Maderno" }, lat: 45.6297, lon: 9.1447 },
   piacenza: { name: { it: "Piacenza", en: "Piacenza" }, lat: 45.0526, lon: 9.6929 },
-  roma: { name: { it: "Roma", en: "Rome" }, lat: 41.9028, lon: 12.4964 },
+  barletta: { name: { it: "Barletta", en: "Barletta" }, lat: 41.3196, lon: 16.2834 },
 } satisfies Record<string, Place>;
 
 export type PlaceId = keyof typeof PLACES;

@@ -169,8 +169,8 @@ export const meta: Record<PageKey, { title: Localized; description: Localized }>
       en: "Work · Alpacode Digital Solutions",
     },
     description: {
-      it: "Progetti reali in settori diversi: edilizia, streetwear, editoria, fitness, e-commerce per la pesca, NCC di lusso e logistica. Una strategia su misura per ciascuno.",
-      en: "Real projects across sectors: construction, streetwear, publishing, fitness, fishing e-commerce, luxury chauffeur and logistics. A tailored strategy for each.",
+      it: "Progetti reali in settori diversi: edilizia, streetwear, assicurazioni, fitness, e-commerce per la pesca, NCC di lusso e logistica. Una strategia su misura per ciascuno.",
+      en: "Real projects across sectors: construction, streetwear, insurance, fitness, fishing e-commerce, luxury chauffeur and logistics. A tailored strategy for each.",
     },
   },
   learning: {

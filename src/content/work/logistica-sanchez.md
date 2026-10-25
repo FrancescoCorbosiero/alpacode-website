@@ -4,8 +4,8 @@ year: "2025"
 sector: { it: "Logistica", en: "Logistics" }
 title: { it: "Logistica Sanchez", en: "Logistica Sanchez" }
 descriptor:
-  it: "Hub logistico a Seregno: il sito, il portale dei clienti (ordini, tracciamento, documenti, area riservata) e un gestionale moderno, rivisto da capo."
-  en: "Logistics hub in Seregno: the site, the client portal (orders, tracking, documents, a private area) and a modern management system, reworked from the ground up."
+  it: "Spedizioni di pallet in tutta Italia dall'hub di Seregno: il sito, il portale dei clienti (ordini, tracciamento, documenti, area riservata) e un gestionale moderno, rivisto da capo."
+  en: "Pallet shipping across Italy from a hub in Seregno: the site, the client portal (orders, tracking, documents, a private area) and a modern management system, reworked from the ground up."
 tags: ["Portale clienti", "Gestionale", "Tracciamento"]
 kind: software
 place: seregno
