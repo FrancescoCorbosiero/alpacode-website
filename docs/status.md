@@ -207,6 +207,11 @@ Decise da Claude, non confermate.
   (prese dalla copy dei passi).
 - «Dove operiamo» elenca i clienti per luogo (sono gli stessi nomi di
   `/lavori`).
+- Sulla mappa ci sono anche le grandi città come riferimento, anche dove
+  non ci sono lavori (tua richiesta): Torino, Genova, Venezia, Bologna,
+  Firenze, Roma, Napoli, Palermo, Cagliari. Sono tenui, senza arco e
+  fuori dall'elenco dei clienti (`REFERENCES` in `src/data/places.ts`).
+  Bari l'ho lasciata fuori, perché si sovrapponeva a Barletta.
 
 **Lo Studio**
 - Pacchetti «Su richiesta» (nessun prezzo); il crash course senza prezzo.
@@ -293,4 +298,5 @@ Decise da Claude, non confermate.
 - Stesso branch, dopo la PR #51 — i moduli delle pagine marketing (la
   trappola per i bot, il limite detto chiaro), le testate dello Studio
   anche su Windows, Transfer Luxury Driver, Shoes Clothing Store a
-  Barletta, via Edizioni Rosi, le schermate nuove dei lavori.
+  Barletta, via Edizioni Rosi, le schermate nuove dei lavori (PR #52).
+- Stesso branch, dopo la PR #52 — le città di riferimento sulla mappa.

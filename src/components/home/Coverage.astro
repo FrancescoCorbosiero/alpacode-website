@@ -9,7 +9,7 @@
    the map is whole. */
 import type { Lang } from "../../i18n/types";
 import { coverage } from "../../data/home";
-import { BASE, LOCAL, PLACES, PLACE_IDS, type PlaceId } from "../../data/places";
+import { BASE, LOCAL, PLACES, PLACE_IDS, REFERENCES, type PlaceId } from "../../data/places";
 import { works, workHref } from "../../data/work";
 import { arc, dotPath, mapBox, project } from "../../lib/italy-dots";
 import BookCall from "../BookCall.astro";
@@ -34,6 +34,8 @@ const at = (id: PlaceId) => project(PLACES[id].lat, PLACES[id].lon);
 // The far places get an arc and a label; the near ones are the cluster
 // round the base, named by its label.
 const far = byPlace.filter(([id]) => !LOCAL.includes(id)).map(([id]) => ({ id, ...at(id) }));
+// The big cities, faint, only to orient the map (no arc, not clients).
+const refs = REFERENCES.map((r) => ({ ...r, ...project(r.lat, r.lon) }));
 const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([id]) => ({ id, ...at(id) }));
 ---
 
@@ -60,6 +62,24 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
         </defs>
 
         <path class="map-dots" d={dots.d} data-map-dots />
+
+        <g class="map-refs" data-map-refs aria-hidden="true">
+          {
+            refs.map((r) => (
+              <g class="map-ref">
+                <circle class="map-ref-pt" cx={r.x} cy={r.y} r="2" />
+                <text
+                  class="map-ref-label"
+                  x={r.side === "right" ? r.x + 6 : r.x - 6}
+                  y={r.y + 3.5}
+                  text-anchor={r.side === "right" ? "start" : "end"}
+                >
+                  {r.name[lang]}
+                </text>
+              </g>
+            ))
+          }
+        </g>
 
         <g class="map-arcs">
           {far.map((p) => <path class="map-arc" d={arc(base, p)} pathLength="1" data-map-arc={p.id} />)}
