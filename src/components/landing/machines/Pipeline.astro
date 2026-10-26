@@ -1,0 +1,54 @@
+---
+/* Software: the spreadsheet that ran everything hands each row to a
+   process, step after step, on its own; the row is ticked off. Laid
+   out, it's the process with every step done and the sheet ticked. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "pipeline" }>;
+}
+const { copy: m } = Astro.props;
+const ROWS = 4;
+---
+
+<div class="svm svm--flow" data-machine="pipeline">
+  <div class="svm-sheet svm-xls" data-sheet>
+    <div class="svm-xls-bar"><i></i>{m.sheet}</div>
+    <div class="svm-xls-grid" style={`--cols:${m.cols.length}`}>
+      {m.cols.map((c) => <span class="svm-xls-h">{c}</span>)}
+      {
+        Array.from({ length: ROWS }, (_, r) => (
+          <div class="svm-xls-row" data-row>
+            {m.cols.map((_, c) =>
+              c === m.cols.length - 1 ? (
+                <span class="svm-xls-c svm-xls-ok" data-ok>
+                  ✓
+                </span>
+              ) : (
+                <span class="svm-xls-c">
+                  <i style={`--w:${[72, 54, 38, 60, 46, 66, 30, 58][(r * 3 + c) % 8]}%`} />
+                </span>
+              ),
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="svm-chain">
+    <svg class="svm-wire" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 5 H 100" data-wire /></svg>
+    <ol class="svm-nodes">
+      {
+        m.nodes.map((n) => (
+          <li class="svm-node" data-node>
+            <span class="svm-node-box" aria-hidden="true" />
+            <span class="svm-node-name">{n}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <i class="svm-packet" data-packet aria-hidden="true"></i>
+  </div>
+  <span class="svm-auto"><i></i>{m.auto}</span>
+  <span class="lnd-hand svm-note" data-machine-note>{m.note}</span>
+</div>

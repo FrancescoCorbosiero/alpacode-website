@@ -2,9 +2,12 @@
    Where the clients are: the places the map of "Dove operiamo"
    lights up. Every work entry names one (src/content/work/*.md,
    `place`) and the map lights only the places that have a client.
-   Beside them, REFERENCES: the big cities, drawn faint and without an
-   arc, so the map reads as Italy (the owner's call) — never listed as
-   clients.
+   Beside them, REFERENCES: a city for every region (the owner's call:
+   «almeno una città importante per ogni regione»), its capital, drawn
+   faint so the map reads as all of Italy — never listed as clients.
+   Three of them, the biggest after Milan (Torino, Roma, Napoli), are
+   connected to the base by an arc of reach (`hub`): a lighter arc than
+   a client's, and the map's key says which is which.
    Coordinates are the town centres (WGS84). Brianza is an area, not a
    town: it's drawn at its heart, between Seregno and Carate.
    ============================================================ */
@@ -26,20 +29,33 @@ export const PLACES = {
   barletta: { name: { it: "Barletta", en: "Barletta" }, lat: 41.3196, lon: 16.2834 },
 } satisfies Record<string, Place>;
 
-/** The cities that only orient the map: a faint dot and its name, the
- *  label on the side that keeps clear of the clients' and the arcs
- *  (`side`). No Bari: Barletta, a client, already marks Puglia. */
+/** The cities that orient the map: a faint dot and its name, the label
+ *  on the side that keeps clear of the clients' and the arcs (`side`).
+ *  Lombardy is the base, Puglia has a client (Barletta: Bari would sit
+ *  on its label); Trentino-Alto Adige is Bolzano (Trento would sit on
+ *  the base's label). */
 export interface Reference extends Place {
   side: "left" | "right";
+  /** Connected to the base by an arc of reach (not a client's). */
+  hub?: boolean;
 }
 export const REFERENCES: Reference[] = [
-  { name: { it: "Torino", en: "Turin" }, lat: 45.0703, lon: 7.6869, side: "left" },
+  { name: { it: "Aosta", en: "Aosta" }, lat: 45.7372, lon: 7.3206, side: "left" },
+  { name: { it: "Torino", en: "Turin" }, lat: 45.0703, lon: 7.6869, side: "left", hub: true },
   { name: { it: "Genova", en: "Genoa" }, lat: 44.4056, lon: 8.9463, side: "left" },
+  { name: { it: "Bolzano", en: "Bolzano" }, lat: 46.4983, lon: 11.3548, side: "right" },
   { name: { it: "Venezia", en: "Venice" }, lat: 45.4408, lon: 12.3155, side: "right" },
+  { name: { it: "Trieste", en: "Trieste" }, lat: 45.6495, lon: 13.7768, side: "right" },
   { name: { it: "Bologna", en: "Bologna" }, lat: 44.4949, lon: 11.3426, side: "left" },
   { name: { it: "Firenze", en: "Florence" }, lat: 43.7696, lon: 11.2558, side: "left" },
-  { name: { it: "Roma", en: "Rome" }, lat: 41.9028, lon: 12.4964, side: "left" },
-  { name: { it: "Napoli", en: "Naples" }, lat: 40.8518, lon: 14.2681, side: "left" },
+  { name: { it: "Perugia", en: "Perugia" }, lat: 43.1107, lon: 12.3908, side: "right" },
+  { name: { it: "Ancona", en: "Ancona" }, lat: 43.6158, lon: 13.5189, side: "right" },
+  { name: { it: "Roma", en: "Rome" }, lat: 41.9028, lon: 12.4964, side: "left", hub: true },
+  { name: { it: "L'Aquila", en: "L'Aquila" }, lat: 42.3498, lon: 13.3995, side: "right" },
+  { name: { it: "Campobasso", en: "Campobasso" }, lat: 41.5603, lon: 14.6627, side: "left" },
+  { name: { it: "Napoli", en: "Naples" }, lat: 40.8518, lon: 14.2681, side: "left", hub: true },
+  { name: { it: "Potenza", en: "Potenza" }, lat: 40.6404, lon: 15.8056, side: "right" },
+  { name: { it: "Catanzaro", en: "Catanzaro" }, lat: 38.9098, lon: 16.5877, side: "right" },
   { name: { it: "Palermo", en: "Palermo" }, lat: 38.1157, lon: 13.3615, side: "left" },
   { name: { it: "Cagliari", en: "Cagliari" }, lat: 39.2238, lon: 9.1217, side: "right" },
 ];

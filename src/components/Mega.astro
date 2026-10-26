@@ -30,7 +30,7 @@ const columns = [menu.colA, menu.colB];
         <ul>
           {col.items.map((item) => (
             <li>
-              <a href={item.href ?? href}>
+              <a href={item.href ?? (item.slug ? localizePath(item.slug, lang) : href)}>
                 <span>
                   <span class="ttl">{item.t[lang]}</span>
                   <span class="desc">{item.d[lang]}</span>

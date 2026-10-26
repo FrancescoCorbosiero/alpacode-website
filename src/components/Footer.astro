@@ -6,7 +6,7 @@ import { localizePath } from "../i18n/utils";
 import { footer } from "../i18n/ui";
 import { business, companyLine, tagline } from "@shared/data/business";
 import { COMPARTMENTS, DOORS, doorTo } from "@shared/data/compartments";
-import { anchorOf, servizi } from "../data/services";
+import { SERVICE_PAGES, serviceHref } from "../data/service-pages";
 import BookCall from "./BookCall.astro";
 import Alpaca from "./Alpaca.astro";
 
@@ -16,7 +16,6 @@ interface Props {
 const { lang } = Astro.props;
 const cookiePrefsLabel = lang === "it" ? "Preferenze cookie" : "Cookie preferences";
 const year = new Date().getFullYear();
-const servicesHref = localizePath("servizi", lang);
 
 interface FootLink {
   href: string;
@@ -41,7 +40,8 @@ const columns: FootGroup[][] = [
   [
     {
       title: footer.services[lang],
-      links: (servizi[lang].groups[0]?.rows ?? []).map((r) => ({ href: `${servicesHref}#${anchorOf(r.t)}`, label: r.t })),
+      // A page per service (data/service-pages).
+      links: SERVICE_PAGES.map((s) => ({ href: serviceHref(s.slug, lang), label: s.copy[lang].name })),
     },
   ],
   [

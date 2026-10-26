@@ -7,6 +7,10 @@
    network of independents around them (Collabora con noi). The
    site's voice stays "noi".
 
+   The people are on equal footing (the owner: a page not centred on
+   one person): three panes of glass that meet where your project is
+   (`team`), then a plate each.
+
    PLACEHOLDERS — to replace with the real ones:
    - Irene's and Riccardo's bios are drawn from their roles only, and
      every portrait is a monogram (`photo: null`): drop a photo in
@@ -14,6 +18,7 @@
    - `linkedin: null` hides the profile link.
    ============================================================ */
 import type { Lang } from "../i18n/types";
+import type { ServiceSlug } from "./service-pages";
 
 export interface Person {
   id: string;
@@ -26,6 +31,8 @@ export interface Person {
   linkedin: string | null;
   /** True while the bio is a placeholder written from the role. */
   draft?: boolean;
+  /** What they bring, short: their pane in the team scene. */
+  what: string;
 }
 
 export interface ChiSiamoData {
@@ -33,9 +40,13 @@ export interface ChiSiamoData {
   h1Line1: string;
   h1Line2: string;
   lede: string;
-  what: { kicker: string; title: string; items: { t: string; d: string }[] };
+  /** The studio's plate: its facts (shared/data/business.ts has the
+   *  name and the VAT number). */
+  plate: { facts: { k: string; v: string }[]; vat: string };
+  /** Each item leads to its service page (data/service-pages). */
+  what: { kicker: string; title: string; items: { t: string; d: string; slug: ServiceSlug }[]; go: string };
   statement: string;
-  people: { kicker: string; title: string; lede: string; list: Person[] };
+  people: { kicker: string; title: string; lede: string; core: string; coreNote: string; list: Person[] };
   fit: { kicker: string; title: string; items: string[] };
   network: { title: string; text: string; cta: string };
 }
@@ -46,6 +57,15 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
     h1Line1: "Uno studio piccolo,",
     h1Line2: "per scelta.",
     lede: "Aiutiamo aziende, professionisti e agenzie a costruire la propria presenza digitale e a farla crescere. Siti, e-commerce, software su misura, integrazioni di intelligenza artificiale: tutto pensato per dare risultati misurabili, non solo per fare bella figura online.",
+    plate: {
+      facts: [
+        { k: "Dal", v: "2025" },
+        { k: "Sede operativa", v: "Monza · Milano" },
+        { k: "Forma", v: "Ditta individuale" },
+        { k: "Dove lavoriamo", v: "In tutta Italia, anche da remoto" },
+      ],
+      vat: "P.IVA",
+    },
     what: {
       kicker: "Cosa facciamo, in concreto",
       title: "Cinque cose,\nfatte bene.",
@@ -53,24 +73,30 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
         {
           t: "Siti che lavorano davvero",
           d: "Veloci, ben posizionati sui motori di ricerca, costruiti per trasformare i visitatori in clienti. SEO, prestazioni e design non sono extra: fanno parte del progetto dall'inizio.",
+          slug: "siti-web",
         },
         {
           t: "E-commerce e gestione automatizzata",
           d: "Portiamo online la tua attività commerciale, ma non solo: costruiamo un sistema su misura per gestirla in automatico.",
+          slug: "e-commerce",
         },
         {
           t: "Software e applicazioni web su misura",
           d: "Per chi ha esigenze che gli strumenti pronti non coprono: gestionali, portali, automazioni, integrazioni con i sistemi che usate già. Dal piccolo strumento interno alla piattaforma completa.",
+          slug: "software-su-misura",
         },
         {
           t: "Integrazioni di modelli LLM",
           d: "Assistenti che rispondono ai clienti, automazioni che fanno risparmiare ore di lavoro, contenuti generati e curati. Solo casi d'uso concreti, con un ritorno chiaro sull'investimento.",
+          slug: "integrazioni-ai",
         },
         {
           t: "Consulenza digitale",
           d: "Per chi vuole capire prima di spendere: l'analisi della situazione, la scelta degli strumenti giusti, una strategia sostenibile. Senza venderti soluzioni che non ti servono.",
+          slug: "consulenza-digitale",
         },
       ],
+      go: "Il servizio",
     },
     statement:
       "Agenzie piccole e grandi aziende, progetti enterprise e attività locali: il rigore di chi ha visto progetti complessi, la concretezza di chi sa lavorare con budget veri.",
@@ -78,6 +104,8 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
       kicker: "Le persone",
       title: "Chi trovi\ndall'altra parte.",
       lede: "Un fondatore che costruisce quello che progetta, e le persone con cui lavora ogni giorno. Chi segue il tuo progetto è anche chi lo realizza.",
+      core: "Il tuo progetto",
+      coreNote: "Dove le competenze si sovrappongono, c'è il tuo progetto: chi lo segue è anche chi lo realizza.",
       list: [
         {
           id: "francesco-corbosiero",
@@ -89,6 +117,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           ],
           tags: ["Java · Spring Boot", "WordPress", "Integrazioni LLM", "Software su misura", "SEO e analytics"],
           linkedin: null,
+          what: "Software · AI · siti",
         },
         {
           id: "irene-bellapianta",
@@ -98,6 +127,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           tags: ["Social", "Contenuti", "Community"],
           linkedin: null,
           draft: true,
+          what: "Social · contenuti",
         },
         {
           id: "riccardo-grassi",
@@ -107,6 +137,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           tags: ["Enterprise", "Architetture", "Integrazioni"],
           linkedin: null,
           draft: true,
+          what: "Enterprise · architetture",
         },
       ],
     },
@@ -131,6 +162,15 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
     h1Line1: "A small studio,",
     h1Line2: "by choice.",
     lede: "We help companies, professionals and agencies build their digital presence and make it grow. Websites, e-commerce, custom software, artificial intelligence integrations: all designed to deliver measurable results, not just to look good online.",
+    plate: {
+      facts: [
+        { k: "Since", v: "2025" },
+        { k: "Office", v: "Monza · Milan" },
+        { k: "Form", v: "Sole proprietorship" },
+        { k: "Where we work", v: "All over Italy, remotely too" },
+      ],
+      vat: "VAT",
+    },
     what: {
       kicker: "What we do, concretely",
       title: "Five things,\ndone well.",
@@ -138,24 +178,30 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
         {
           t: "Websites that actually work",
           d: "Fast, well placed on search engines, built to turn visitors into clients. SEO, performance and design aren't extras: they're part of the project from the start.",
+          slug: "siti-web",
         },
         {
           t: "E-commerce and automated management",
           d: "We take your shop online, and more: we build a bespoke system to run it automatically.",
+          slug: "e-commerce",
         },
         {
           t: "Custom software and web applications",
           d: "For needs off-the-shelf tools don't cover: internal tools, portals, automations, integrations with the systems you already use. From a small internal tool to a complete platform.",
+          slug: "software-su-misura",
         },
         {
           t: "LLM integrations",
           d: "Assistants that answer your clients, automations that save hours of work, content generated and curated. Concrete use cases only, with a clear return on the investment.",
+          slug: "integrazioni-ai",
         },
         {
           t: "Digital consulting",
           d: "For people who want to understand before spending: an analysis of where you are, the right tools, a sustainable strategy. Without selling you solutions you don't need.",
+          slug: "consulenza-digitale",
         },
       ],
+      go: "The service",
     },
     statement:
       "Small agencies and large companies, enterprise projects and local businesses: the rigour of people who've seen complex projects, the pragmatism of people who know how to work with real budgets.",
@@ -163,6 +209,8 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
       kicker: "The people",
       title: "Who you find\non the other side.",
       lede: "A founder who builds what he designs, and the people he works with every day. Whoever follows your project is also who makes it.",
+      core: "Your project",
+      coreNote: "Where the skills overlap, that's where your project is: whoever follows it is also who makes it.",
       list: [
         {
           id: "francesco-corbosiero",
@@ -174,6 +222,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           ],
           tags: ["Java · Spring Boot", "WordPress", "LLM integrations", "Custom software", "SEO and analytics"],
           linkedin: null,
+          what: "Software · AI · websites",
         },
         {
           id: "irene-bellapianta",
@@ -183,6 +232,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           tags: ["Social", "Content", "Community"],
           linkedin: null,
           draft: true,
+          what: "Social · content",
         },
         {
           id: "riccardo-grassi",
@@ -192,6 +242,7 @@ export const chiSiamo: Record<Lang, ChiSiamoData> = {
           tags: ["Enterprise", "Architectures", "Integrations"],
           linkedin: null,
           draft: true,
+          what: "Enterprise · architectures",
         },
       ],
     },

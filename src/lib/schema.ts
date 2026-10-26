@@ -108,6 +108,20 @@ export function reportSchema(opts: {
   };
 }
 
+/** A service the studio provides: the pages of /servizi/<slug>. */
+export function serviceSchema(opts: { siteUrl: string; url: string; name: string; description: string; lang: Lang }) {
+  return {
+    "@type": "Service",
+    name: opts.name,
+    serviceType: opts.name,
+    description: opts.description,
+    url: opts.url,
+    inLanguage: locale(opts.lang),
+    provider: { "@id": `${opts.siteUrl}#org` },
+    areaServed: { "@type": "Country", name: "Italia" },
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@type": "BreadcrumbList",

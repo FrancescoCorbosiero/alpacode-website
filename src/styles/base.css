@@ -20,16 +20,88 @@ html:not(.lenis) {
     scroll-behavior: auto;
   }
 }
+html {
+  background: var(--field);
+}
 body {
   font-family: var(--sans);
   font-feature-settings: "ss01", "cv11";
-  background: var(--paper);
+  /* Transparent: the page is the facade over the field (below). */
+  background: transparent;
   color: var(--ink);
   font-size: 17px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+}
+
+/* ---------- The facade: the field and the mullions ----------
+   Behind every page, fixed to the screen: the field, the light behind
+   the glass (a cool base, the brand blue's light from the top left, the
+   sky's from the right, a deeper blue from below), and over it the
+   mullions, hairlines on the wide layout's six columns. Sections are
+   transparent and the panes (section--tint, the cards) frosted glass,
+   so the light shows through and the mullions blur behind a pane. The
+   field drifts a little as the page scrolls (a scroll timeline on the
+   compositor, where the browser has one); with reduced motion it
+   stays. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
+  inset: -12vh -8vw;
+  background:
+    radial-gradient(50vmax 40vmax at 8% 4%, var(--field-blue), transparent 64%),
+    radial-gradient(38vmax 34vmax at 98% 40%, var(--field-sky), transparent 64%),
+    radial-gradient(56vmax 44vmax at 46% 104%, var(--field-deep), transparent 66%),
+    linear-gradient(165deg, var(--field-top) 0%, var(--field) 55%, var(--field-bottom) 100%);
+}
+body::after {
+  inset: 0;
+  --bay: calc((min(100vw, 1480px) - 2 * var(--gutter)) / 6);
+  background: linear-gradient(to right, var(--mullion) 1px, transparent 1px) calc(50% - 3 * var(--bay)) 0 /
+    var(--bay) 100% repeat-x;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+}
+@media (max-width: 899px) {
+  /* Three bays on a tablet, two on a phone: a facade, not graph paper. */
+  body::after {
+    --bay: calc((100vw - 2 * var(--gutter)) / 3);
+    background-position: calc(50% - 1.5 * var(--bay)) 0;
+  }
+}
+@media (max-width: 599px) {
+  body::after {
+    --bay: calc((100vw - 2 * var(--gutter)) / 2);
+    background-position: calc(50% - var(--bay)) 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    body::before {
+      animation: fieldDrift linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes fieldDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-5vw, -9vh, 0);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  body::after {
+    display: none;
+  }
 }
 
 a {

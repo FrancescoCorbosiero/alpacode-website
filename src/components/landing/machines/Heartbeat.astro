@@ -1,0 +1,41 @@
+---
+/* Manutenzione: the site's pulse runs on the monitor, the backups fill
+   day by day, the updates come into the log, a request arrives and is
+   done. Laid out, it's the monitor with a full fortnight of backups,
+   the log written and the request done. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "heartbeat" }>;
+}
+const { copy: m } = Astro.props;
+const DAYS = 14;
+/* One beat, drawn twice end to end: the path slides by its own half. */
+const BEAT = "h34 l6 -14 l7 30 l6 -24 l5 8 h22";
+const pulse = `M0 30 ${BEAT} ${BEAT} ${BEAT} ${BEAT}`;
+---
+
+<div class="svm svm--care" data-machine="heartbeat">
+  <div class="svm-sheet svm-monitor">
+    <div class="svm-mon-bar">
+      <span class="svm-url">{m.site}</span>
+      <b class="svm-live">{m.status}</b>
+    </div>
+    <div class="svm-pulse">
+      <svg viewBox="0 0 320 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d={pulse} data-pulse />
+      </svg>
+    </div>
+    <div class="svm-backups">
+      <span class="svm-k">{m.backups}</span>
+      <span class="svm-days">{Array.from({ length: DAYS }, () => <i data-day />)}</span>
+    </div>
+    <ul class="svm-log">
+      {m.log.map((l) => <li data-log>{l}</li>)}
+    </ul>
+  </div>
+  <div class="svm-sheet svm-ticket" data-ticket>
+    <span class="svm-ticket-q">{m.ticket}</span>
+    <span class="svm-stamp" data-stamp>{m.done}</span>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+---
+/* Integrazioni AI: a client's question comes in, the answer is looked
+   up in the business's own systems, drafted word by word, approved by
+   a person, sent. Laid out, it's the first thread, sent; the machine
+   plays every thread in turn (their copy in data-threads). */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "answer" }>;
+}
+const { copy: m } = Astro.props;
+const first = m.threads[0]!;
+---
+
+<div class="svm svm--ai" data-machine="answer" data-threads={JSON.stringify(m.threads)}>
+  <div class="svm-sheet svm-inbox">
+    <div class="svm-inbox-bar"><i></i>{m.inbox}</div>
+    <div class="svm-threads" data-threads-box>
+    <div class="svm-thread" data-thread>
+      <p class="svm-msg svm-msg--in" data-q>{first.q}</p>
+      <p class="svm-source" data-src><i></i><span data-src-t>{first.source}</span><b class="svm-scan" data-scan></b></p>
+      <div class="svm-msg svm-msg--draft" data-a>
+        <span class="svm-draft-k">{m.draft}</span>
+        <span class="svm-draft-t" data-a-t>{first.a}</span>
+      </div>
+      <div class="svm-approve">
+        <span class="svm-approve-btn" data-approve>{m.approve}</span>
+        <span class="svm-sent" data-sent>✓ {m.sent}</span>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

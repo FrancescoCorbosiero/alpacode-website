@@ -1,0 +1,49 @@
+---
+import Layout from "../../../components/Layout.astro";
+import ServiceLanding from "../../../components/landing/ServiceLanding.astro";
+import { SERVICE_PAGES, servicePath, type ServicePage } from "../../../data/service-pages";
+import { landingJsonLd } from "../../../lib/landing/schema";
+import { serviceSchema } from "../../../lib/schema";
+import { localizePath } from "../../../i18n/utils";
+
+export function getStaticPaths() {
+  return SERVICE_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const lang = "en" as const;
+const { page } = Astro.props as { page: ServicePage };
+const c = page.copy[lang];
+const slug = servicePath(page.slug);
+const site = Astro.site ?? new URL("https://alpacode.it");
+---
+
+<Layout
+  lang={lang}
+  active="servizi"
+  slug={slug}
+  title={c.meta.title}
+  description={c.meta.description}
+  ogImage={`/og-servizio-${page.slug}-en.png`}
+  ogAlt={c.meta.ogAlt}
+  jsonLd={[
+    serviceSchema({
+      siteUrl: site.href,
+      url: new URL(localizePath(slug, lang), site).href,
+      name: c.name,
+      description: c.meta.description,
+      lang,
+    }),
+    ...landingJsonLd({
+      lang,
+      site,
+      crumbs: [
+        { name: "Services", slug: "servizi" },
+        { name: c.name, slug },
+      ],
+      faq: c.qa.items,
+    }),
+  ]}
+  themeColor="#f0f3f9"
+>
+  <ServiceLanding lang={lang} slug={page.slug} />
+</Layout>

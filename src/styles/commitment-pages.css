@@ -100,14 +100,14 @@
   gap: 12px;
   padding: 32px 26px 34px;
   border-right: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--glass);
   transition: background 0.2s;
 }
 .sus-saving:last-child {
   border-right: 0;
 }
 .sus-saving:hover {
-  background: var(--paper-2);
+  background: var(--glass-hover);
 }
 .sus-saving-no {
   font-family: var(--label);
@@ -302,7 +302,7 @@
   display: grid;
   gap: 10px;
   border: 1.5px solid var(--ink);
-  background: var(--paper);
+  background: var(--glass);
   padding: 36px 32px;
   transition:
     border-color 0.15s,
@@ -409,7 +409,7 @@
   gap: 8px;
   padding: 30px 26px 32px;
   border-right: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--glass);
 }
 .rep-kpi:last-child {
   border-right: 0;
@@ -510,7 +510,7 @@
   gap: 2px; /* the 2px surface gap between adjacent marks */
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--ink);
-  background: var(--paper);
+  background: var(--glass);
 }
 .rep-col {
   display: flex;
@@ -623,7 +623,7 @@
   flex-direction: column;
   padding: 24px 22px 26px;
   border-right: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--glass);
 }
 .rep-q:last-child {
   border-right: 0;
@@ -944,7 +944,7 @@
   gap: 12px;
   padding: 32px 28px 34px;
   border-right: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--glass);
 }
 .soc-pillar:last-child {
   border-right: 0;
@@ -1091,7 +1091,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
   border-bottom: 1px solid var(--ink);
-  background: var(--paper);
+  background: var(--glass);
 }
 .soc-fcol {
   display: flex;

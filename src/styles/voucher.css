@@ -237,6 +237,12 @@
   padding-left: 0.42em;
   padding-right: 0.6em;
 }
+/* Below the desktop the badge keeps the flyer's size it always had there. */
+@media (max-width: 1023px) {
+  .rf .rf-sticker-body {
+    font-size: 84px;
+  }
+}
 .rf .rf-sticker--narrow .rf-sticker-pre {
   left: -0.4em;
 }

@@ -1184,8 +1184,10 @@
 .map-figure {
   grid-area: map;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 14px;
   margin: 0;
 }
 .map {
@@ -1260,6 +1262,50 @@
 }
 .map-arc.is-hot {
   stroke-width: 2.6;
+}
+/* Torino, Roma, Napoli: an arc of reach, lighter than a client's, a ring
+   for a dot and a label between the clients' and the faint cities'. */
+.map-arc--reach {
+  stroke: color-mix(in srgb, var(--blue) 50%, transparent);
+  stroke-width: 1.1;
+}
+.map-pt--hub {
+  fill: var(--paper);
+  stroke: var(--blue);
+  stroke-width: 1.5;
+}
+.map-hub-label {
+  font-family: var(--label);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink-2);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+/* The key: which arc is a client, which is reach. */
+.map-key {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 22px;
+  font-family: var(--label);
+  font-size: 13px;
+  color: var(--mute-2);
+}
+.map-key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-key-line {
+  width: 24px;
+  border-top: 2px solid var(--blue);
+}
+.map-key-line--reach {
+  border-top-width: 1px;
+  border-top-color: color-mix(in srgb, var(--blue) 50%, transparent);
 }
 
 .coverage-head {

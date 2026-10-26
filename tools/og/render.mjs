@@ -18,6 +18,7 @@
    Only some cards (no blog covers):     npm run og -- og-hosting og-ai
    Alpacode Studio's cards (studio.mjs → sites/studio/public/):  npm run og -- studio
    The case pages' cards (work.mjs → public/og-work-*.jpg):      npm run og -- work
+   The service pages' cards (services.mjs → public/og-servizio-*.png): npm run og -- services
    Chrome is auto-detected; override with OG_CHROME=/path/to/chrome.
 
    Chrome's new headless mode reserves ~87px of --window-size for
@@ -33,6 +34,7 @@ import sharp from "sharp";
 import { COVERS, coverSvg } from "./covers.mjs";
 import { STUDIO_CARDS, studioSvg } from "./studio.mjs";
 import { workCards, workSvg } from "./work.mjs";
+import { SERVICE_CARDS, serviceSvg } from "./services.mjs";
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -131,7 +133,9 @@ const sources = readdirSync(here)
 const studioCards = STUDIO_CARDS.filter((c) => only.length === 0 || only.includes("studio") || only.includes(c.name));
 // "work" picks every case page's card; their names pick one by one.
 const caseCards = (await workCards(root)).filter((c) => only.length === 0 || only.includes("work") || only.includes(c.name));
-if (sources.length === 0 && studioCards.length === 0 && caseCards.length === 0) {
+// "services" picks every service page's card; their names pick one by one.
+const serviceCards = SERVICE_CARDS.filter((c) => only.length === 0 || only.includes("services") || only.includes(c.name));
+if (sources.length === 0 && studioCards.length === 0 && caseCards.length === 0 && serviceCards.length === 0) {
   console.error("No card matches — nothing to render.");
   process.exit(1);
 }
@@ -157,7 +161,12 @@ try {
     await renderSvgTo(workSvg(card), join(outDir, `${card.name}.jpg`), `work:${card.name} -> public/${card.name}.jpg`);
   }
 
-  // 4) Blog covers: generated from specs -> src/assets/blog/<slug>.png,
+  // 4) The service pages: one card per service and language -> public/og-servizio-*.png.
+  for (const card of serviceCards) {
+    await renderSvgTo(serviceSvg(card), join(outDir, `${card.name}.png`), `services:${card.name} -> public/${card.name}.png`);
+  }
+
+  // 5) Blog covers: generated from specs -> src/assets/blog/<slug>.png,
   //    referenced by each post's `cover` frontmatter (page + og:image).
   const coversDir = join(root, "src", "assets", "blog");
   mkdirSync(coversDir, { recursive: true });

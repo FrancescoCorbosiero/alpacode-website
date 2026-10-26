@@ -9,6 +9,9 @@
      segnalatori     know someone who needs it: /voucher, both doors
      chi-fa-siti     build sites for clients themselves (developers,
                      web designers): /per-chi-fa-siti and its pages
+     servizi         came for one service of the house: the pages of
+                     /servizi/<slug> (data/service-pages), one per
+                     service, the reader's need rather than their trade
    New groups get an audience-first path (/per-chi-fa-siti/…); the
    older pages keep the URLs their ads point to.
 
@@ -24,14 +27,16 @@
 import type { Lang, Localized } from "../i18n/types";
 import { localizePath } from "../i18n/utils";
 import { CAMPAIGNS } from "./campaigns";
+import { SERVICE_PAGES, servicePath } from "./service-pages";
 
-export type AudienceId = "attivita" | "professionisti" | "segnalatori" | "chi-fa-siti";
+export type AudienceId = "attivita" | "professionisti" | "segnalatori" | "chi-fa-siti" | "servizi";
 
 export const AUDIENCES: Record<AudienceId, { label: Localized }> = {
   attivita: { label: { it: "Per chi ha un'attività", en: "For business owners" } },
   professionisti: { label: { it: "Per chi lavora con i clienti", en: "For people with clients" } },
   segnalatori: { label: { it: "Per chi conosce qualcuno", en: "For people who know someone" } },
   "chi-fa-siti": { label: { it: "Per chi fa siti", en: "For people who build sites" } },
+  servizi: { label: { it: "Servizi", en: "Services" } },
 };
 
 export interface LandingEntry {
@@ -127,6 +132,16 @@ export const LANDINGS: LandingEntry[] = [
     accent: BLUE,
     accentOn: "#ffffff",
   },
+  ...SERVICE_PAGES.map(
+    (s): LandingEntry => ({
+      slug: servicePath(s.slug),
+      audience: "servizi",
+      title: { it: s.copy.it.portal, en: s.copy.en.portal },
+      for: { it: s.copy.it.name, en: s.copy.en.name },
+      accent: BLUE,
+      accentOn: "#ffffff",
+    }),
+  ),
 ];
 
 /** Pages that aren't landings but belong next to some of them. */
@@ -139,6 +154,12 @@ const RELATED: Record<string, Omit<LandingEntry, "slug" | "audience">> = {
   },
   "alpacode-pro-kit": {
     title: { it: "Alpacode Pro Kit: il kit del web master.", en: "Alpacode Pro Kit: the web master's kit." },
+    for: { it: "Prodotti", en: "Products" },
+    accent: BLUE,
+    accentOn: "#ffffff",
+  },
+  paco: {
+    title: { it: "Paco: il sito che gestisci da WhatsApp.", en: "Paco: the site you run from WhatsApp." },
     for: { it: "Prodotti", en: "Products" },
     accent: BLUE,
     accentOn: "#ffffff",

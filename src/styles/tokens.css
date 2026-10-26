@@ -23,6 +23,30 @@
      (buttons, pills): #3b72e9 gives 4.4:1 with white, this gives 4.6:1 —
      WCAG AA — and reads as the same blue. */
   --blue-fill: #376fe4;
+  /* The facade: the page is a glass front, not a sheet of paper.
+     The field is the light behind it (a cool base, the brand blue's
+     light and the sky's, drifting with the scroll); the mullions are the
+     structure, hairlines on the layout's columns; the panes are frosted
+     glass, square, with a lit top edge. (base.css draws the field and
+     the mullions; the panes are the surfaces that used to be paper-2.) */
+  --field: #eaf0fa;
+  --field-top: #f6f9fe;
+  --field-bottom: #e2e9f6;
+  --field-blue: rgba(59, 114, 233, 0.27);
+  --field-sky: rgba(92, 170, 255, 0.3);
+  --field-deep: rgba(39, 86, 194, 0.17);
+  --mullion: rgba(39, 86, 194, 0.085);
+  --glass: rgba(255, 255, 255, 0.46);
+  --glass-strong: rgba(250, 252, 255, 0.86);
+  --glass-hover: rgba(255, 255, 255, 0.66);
+  --glass-edge: rgba(255, 255, 255, 0.95);
+  --glass-shade: rgba(39, 86, 194, 0.1);
+  --glass-blur: blur(20px) saturate(1.5);
+  /* Glass bricks: the faces of the page heroes' cube field. */
+  --brick-light: rgba(255, 255, 255, 0.62);
+  --brick-blue: rgba(59, 114, 233, 0.16);
+  --brick-shade: rgba(39, 86, 194, 0.11);
+
   /* Ink-band tints (paper at reduced strength on --ink). */
   --on-ink: #f0f3f9;
   --on-ink-mute: rgba(240, 243, 249, 0.66);
@@ -89,6 +113,22 @@
   --mute: #8b95a8;
   --mute-2: #bcc5d5;
   --blue-soft: #1a2740;
+  /* The facade at night: the same glass, lit from inside. */
+  --field: #0a0d14;
+  --field-top: #0e121c;
+  --field-bottom: #070a10;
+  --field-blue: rgba(59, 114, 233, 0.26);
+  --field-sky: rgba(56, 128, 235, 0.16);
+  --field-deep: rgba(39, 86, 194, 0.2);
+  --mullion: rgba(143, 176, 245, 0.07);
+  --glass: rgba(22, 28, 41, 0.5);
+  --glass-strong: rgba(18, 23, 34, 0.86);
+  --glass-hover: rgba(30, 38, 55, 0.62);
+  --glass-edge: rgba(255, 255, 255, 0.09);
+  --glass-shade: rgba(0, 0, 0, 0.32);
+  --brick-light: rgba(255, 255, 255, 0.05);
+  --brick-blue: rgba(59, 114, 233, 0.16);
+  --brick-shade: rgba(0, 0, 0, 0.28);
 
   color-scheme: dark;
 }
@@ -120,6 +160,22 @@
   --mute: #687387;
   --mute-2: #465065;
   --blue-soft: #dce5fa;
+  --glass: rgba(255, 255, 255, 0.46);
+  --glass-strong: rgba(250, 252, 255, 0.86);
+  --glass-hover: rgba(255, 255, 255, 0.66);
+  --glass-edge: rgba(255, 255, 255, 0.95);
+  --glass-shade: rgba(39, 86, 194, 0.1);
+}
+/* The pinned pages keep the day's field too. */
+:root[data-theme="dark"]:has(body .lnd),
+:root[data-theme="dark"]:has(body .rf) {
+  --field: #eaf0fa;
+  --field-top: #f6f9fe;
+  --field-bottom: #e2e9f6;
+  --field-blue: rgba(59, 114, 233, 0.27);
+  --field-sky: rgba(92, 170, 255, 0.3);
+  --field-deep: rgba(39, 86, 194, 0.17);
+  --mullion: rgba(39, 86, 194, 0.085);
 }
 :root[data-theme="dark"] body:has(.lnd),
 :root[data-theme="dark"] body:has(.rf) {

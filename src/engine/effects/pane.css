@@ -1,0 +1,54 @@
+/* ============================================================
+   pane.
+
+   The band of light: a slanted streak, waiting off the pane's left
+   edge (translateX(-100%) of a box twice the pane's width, so it
+   leaves no trace), crossed once by the script as the pane enters.
+   Reduced motion and no script: it waits there, the lettering is
+   drawn and filled as the stylesheet says.
+
+   The pointer's light: a soft radial glow at --px --py (% of the
+   pane), shown while a mouse is over it (.is-lit, set by the
+   script). The pane needs position: relative and overflow: hidden
+   (the site's CSS: it clips its own light).
+   ============================================================ */
+.pane-glint {
+  position: absolute;
+  inset: -10% auto -10% -50%;
+  width: 200%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    104deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0) 41%,
+    rgba(255, 255, 255, 0.5) 48%,
+    rgba(255, 255, 255, 0.12) 52%,
+    transparent 58%
+  );
+  transform: translateX(-100%);
+}
+[data-pane]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at calc(var(--px, 50) * 1%) calc(var(--py, 0) * 1%),
+    rgba(255, 255, 255, 0.38),
+    rgba(255, 255, 255, 0) 42%
+  );
+  opacity: 0;
+  transition: opacity 0.5s var(--ease, ease);
+}
+[data-pane].is-lit::after {
+  opacity: 1;
+}
+:root[data-theme="dark"] [data-pane]::after {
+  background: radial-gradient(
+    circle at calc(var(--px, 50) * 1%) calc(var(--py, 0) * 1%),
+    rgba(143, 176, 245, 0.22),
+    rgba(143, 176, 245, 0) 42%
+  );
+}

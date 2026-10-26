@@ -8,7 +8,7 @@ interface Props {
   labels: ContattiData["labels"];
 }
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "error" | "busy";
 
 // memo: lets @astrojs/react's renderer probe short-circuit (see CmdK.tsx).
 function ContactForm({ lang, labels }: Props) {
@@ -35,9 +35,14 @@ function ContactForm({ lang, labels }: Props) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...data, lang }),
       });
+      if (res.status === 429) {
+        setStatus("busy");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("sent");
       form.reset();
+      document.dispatchEvent(new CustomEvent("alpa:lead_sent", { detail: { form: "contact" } }));
     } catch {
       setStatus("error");
     }
@@ -45,15 +50,12 @@ function ContactForm({ lang, labels }: Props) {
 
   return (
     <form className="contact-form" onSubmit={onSubmit}>
-      {/* Honeypot — must stay empty for humans. */}
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        className="visually-hidden"
-        aria-hidden="true"
-      />
+      {/* The honeypot: bots fill it, people never see it. Not rendered at
+          all (display: none), so no autofill or password manager writes in
+          it: one that did would make a real lead look like a bot's. */}
+      <div hidden style={{ display: "none" }} aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" data-1p-ignore data-lpignore="true" data-bwignore />
+      </div>
 
       <div className="field">
         <label htmlFor="cf-name">{labels.name}</label>
@@ -106,6 +108,7 @@ function ContactForm({ lang, labels }: Props) {
         <span role="status" aria-live="polite">
           {status === "sent" && <span className="contact-confirm">{labels.confirm}</span>}
           {status === "error" && <FormError text={labels.error} />}
+          {status === "busy" && <FormError text={labels.busy} />}
         </span>
       </div>
     </form>
