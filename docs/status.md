@@ -1,6 +1,6 @@
 # Stato del progetto
 
-_Aggiornato il 25 ottobre 2026. Si aggiorna a fine sessione (skill
+_Aggiornato il 26 ottobre 2026. Si aggiorna a fine sessione (skill
 `handoff`). È scritto in italiano perché è anche la lista che il
 proprietario rilegge e corregge._
 
@@ -16,12 +16,16 @@ validare», chiedi.
 | La casa e i compartimenti | `shared/data/compartments.ts`, `shared/` | Fatto. alpacode.it è la casa; studio.alpacode.it il primo compartimento. I link tra i due passano da `doorTo()` (UTM `utm_source`, `utm_medium=door`, `utm_campaign`). Skill `new-compartment` per il prossimo. |
 | Alpacode Studio | `sites/studio/` → studio.alpacode.it: `/`, `/servizi/`, `/pacchetti/`, `/prodotti/` (guida sito vetrina, *AI al lavoro*), `/contatti/`, `/grazie/`, privacy, cookie, condizioni di vendita | Costruito, **non ancora online** (DNS). Servizio già in `docker-compose.yml`. Acquisti predisposti: Lemon Squeezy, Gumroad o Stripe, webhook firmati e verificati, ordini in un ledger JSONL e per email. Niente parole chiave DM. |
 | Le pagine marketing della casa | `/offerta/*`, `/social-media-manager/`, `/partner/`, `/per-chi-fa-siti/*`, `/voucher/*`, `/prodotti/` | Rimesse nel tono della casa: header e footer completi, il blu della casa, niente giri, posti, scadenze, timbri né pillola sticky. **Niente prezzi sulla casa** (nessuna cifra, niente «prezzo fisso», niente «€/anno», niente checkout): i prezzi stanno sui prodotti dello Studio. |
-| Mega menu e link allo Studio | `src/data/mega.ts`, footer «Marketing», ⌘K, `/servizi/`, `/prodotti/`, `/learning/` | La colonna «Far crescere» del mega menu porta allo Studio. |
+| Mega menu e link allo Studio | `src/data/mega.ts`, footer «Marketing», ⌘K, `/servizi/`, `/prodotti/`, `/learning/` | La colonna «Far crescere» del mega menu porta allo Studio. La colonna «Costruire» ha quattro voci (siti, e-commerce, software, AI), ognuna alla sua pagina servizio. |
 | FAQ | `/faq/` — `src/data/faq.ts` | Rifatta: per argomento, con ricerca, legge le FAQ delle landing. |
-| Chi siamo | `/chi-siamo/` — `src/data/chi-siamo.ts` | Nuova: lo studio, Francesco (testo dal suo LinkedIn), Irene Bellapianta, Riccardo Grassi, la rete. |
-| Titoli delle pagine | `PageHero` | Più piccoli, meno vuoto. |
+| Chi siamo | `/chi-siamo/` — `src/data/chi-siamo.ts`, `src/components/pages/ChiSiamo.astro`, `src/styles/chi-siamo.css` | **Rifatta** (26 ottobre): la lastra dello studio con i suoi dati; le tre persone alla pari, tre lastre di vetro che scorrendo si sovrappongono dove sta «Il tuo progetto» (`effects/team.ts`); poi una finestra per persona, con le iniziali che si disegnano a filo sul vetro finché non c'è la foto (`src/assets/people/<id>.jpg`); «Cosa facciamo» con un link a ogni pagina servizio; con chi lavoriamo meglio, la rete, le porte. |
+| Titoli delle pagine | `PageHero`, `components.css`, `landing.css`, `collabora.css`, `product-pages.css`, `voucher.css` | Più piccoli **solo sul desktop**: sul telefono hanno di nuovo le proporzioni di prima della riduzione (testate, titoli di sezione, landing, adesivo del voucher). Verificato contro la versione di prima: telefono identico a prima della riduzione, desktop identico a dopo. |
+| Lo sfondo: la facciata di vetro | `src/styles/tokens.css` (`--field*`, `--glass*`, `--mullion`), `src/styles/base.css` | Via la carta color crema. Sotto tutto c'è un campo di luce blu fisso (tre aloni su un gradiente) con i montanti di una facciata sulle sei colonne della griglia (tre sul tablet, due sul telefono); il campo deriva piano con lo scroll (dove il browser lo sa fare; fermo altrove e a movimento ridotto). Header, sezioni «tinta», card, mega menu, ⌘K e menu mobile sono lastre di vetro (trasparenza e sfocatura). Il tema scuro ha la sua facciata; le landing restano nel campo chiaro anche in tema scuro, come prima la carta. |
+| Le pagine dei servizi | `/servizi/<slug>/` e `/en/servizi/<slug>/` — `src/data/service-pages/`, `src/components/landing/ServiceLanding.astro`, `src/lib/landing/machines.ts` | **Nuove**, sul kit delle landing, nel blu della casa: consulenza-digitale, siti-web, e-commerce, software-su-misura, integrazioni-ai, manutenzione, formazione. Ognuna: la testata con la sua **macchina** (una scena in loop presa dal servizio: la roadmap che si riordina, il disegno a filo che diventa sito, l'ordine che passa carrello, pagamento e spedizione, il foglio Excel che passa le righe al processo, l'AI che risponde e una persona che approva, il monitor del sito, la lezione), i fatti della riga di `/servizi`, «Quando serve» (il problema barrato e la correzione scritta a penna), cosa comprende, come lavoriamo, i lavori che lo provano (solo dove ci sono), le domande, il modulo (`campaign: servizio-<slug>`). Registrate in `audiences.ts` («servizi»), nel footer (colonna «Servizi»), nel mega menu, su `/servizi` (ogni riga porta alla sua pagina), con lo schema `Service` e la loro card di condivisione (`npm run og -- services`). |
 | La vetrina | `/lavori/` e `/lavori/<id>/` (IT + EN) — `src/content/work/*.md`, `src/data/work.ts` | Fatta: righe tipografiche, filtri per tipo (Flip), la cornice del sito che segue il mouse, una pagina per progetto con la sua card di condivisione (`npm run og -- work`), la transizione dalla riga alla pagina. **I lavori da «URL -> parole chiave»**: `tools/work/lavori.txt` (una riga per lavoro, in ordine di importanza), `npm run work-pull` (ordina le schede, crea in bozza le mancanti, legge i siti in `tools/work/digests/`, scatta le schermate), la skill `work-from-url` (come si scrive la scheda). |
-| Casi di studio, Metodo, Dove operiamo (home) | `src/components/home/` | Rifatti: i casi su un palco fermo (il «prima» barrato, entra il «dopo»); il Metodo è un **tabellone delle partenze** («Come si parte.»: palette che girano lettera per lettera, passo dopo passo; `effects/method.ts`); l'Italia a punti con un arco verso ogni cliente e la lista dei clienti per luogo. |
+| Casi di studio, Metodo, Dove operiamo (home) | `src/components/home/` | Rifatti: i casi su un palco fermo (il «prima» barrato, entra il «dopo»); l'Italia a punti con un arco verso ogni cliente e la lista dei clienti per luogo. Il Metodo, il **tabellone delle partenze** («Come si parte.»: palette che girano lettera per lettera; `effects/method.ts`), **non è più sulla home** (26 ottobre, per snellirla): resta su `/servizi`. |
+| La mappa | `src/data/places.ts`, `src/components/home/Coverage.astro`, `src/engine/effects/map.ts` | Una città per regione (tutte e venti: dove c'è un cliente vale il cliente). Torino, Roma e Napoli sono collegate alla base con un arco più chiaro di quello dei clienti; la legenda sotto la mappa distingue «Clienti» da «Da remoto, in tutta Italia». |
+| Contatti | `/contatti/` — `src/components/pages/Contatti.astro`, `src/data/contatti.ts`, `src/data/wizard.ts`, `src/components/islands/BriefBuilder.tsx`, `src/styles/contatti.css` | **Rifatta** (26 ottobre) per convertire: in cima «Quattro modi per cominciare» (il brief, la call, WhatsApp, l'email con «Copia l'indirizzo»), lastre di vetro che si accendono, con l'orologio dello studio (aperto o chiuso, ora di Milano) e il tempo di risposta. Poi **il brief che si scrive da solo**: tre tap e un contatto, e accanto il foglio indirizzato a chi lo legge si compila a ogni risposta; la bozza resta sul dispositivo finché non la invii; un link può impostare la prima risposta con il servizio (`/contatti/?servizio=e-commerce`, per una campagna o una mail: oggi nessuna pagina lo usa); dopo l'invio propone subito la call (Cal.com) o WhatsApp. Poi «Cosa succede quando scrivi» (quattro passi, dalla copy delle FAQ), quattro domande dalla FAQ, il modulo lungo (che c'era) con la persona a cui scrivi e i dati diretti, la mappa. Ogni via d'ingresso si misura: `contact_channel`, `brief_start`, `lead_sent` (nel `dataLayer` e come eventi `alpa:*`). Il vecchio `BriefWizard.tsx` non c'è più (i link a `#wizard` arrivano al brief). |
 | Il motore delle animazioni | `src/engine/` e `sites/studio/src/engine/` | **Fatto.** Casa e Studio girano sullo stesso motore, scritto sul contratto di alpacode-motion (che resta solo un riferimento): il nucleo, un modulo per mossa, le selezioni della casa in `config.ts`. Il vecchio `lib/motion.ts` non c'è più. Le scene delle landing stanno sul palco del motore (`stage`), gli script del voucher e dei moduli chiamano le sue funzioni (coriandoli, scossa dei campi, link che si decodifica, QR che si stampa). Verificato pagina per pagina contro il motore di prima: stessa resa, a 1440, 390 e 390×664 e a movimento ridotto. |
 | Hero della home con video «blueprint» | `src/data/home.ts` (`heroVideo`), `tools/media/` | Fatto, invariato. |
 | «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md` | Invariato. |
@@ -30,11 +34,39 @@ validare», chiedi.
 | Moduli delle pagine marketing | `src/components/landing/LeadForm.astro`, `src/lib/landing/lead.ts`, `sites/studio/src/components/ContactForm.astro` | Non arrivavano solo loro. La causa più probabile: il campo trappola per i bot (`website`) era nascosto **fuori schermo**, non tolto dalla pagina, e il riempimento automatico del browser (o un gestore di password) poteva compilarlo con il tuo sito; il server allora lo prende per un bot, risponde «ok» e non invia nulla. Negli altri moduli la trappola era nascosta in un altro modo, ed è per questo che arrivavano. Ora la trappola non è mai disegnata (`hidden`, `display: none`), sia nella casa sia nello Studio. Quando scatta, il log lo scrive con nome ed email (`honeypot filled`): un lead vero preso per un bot non si perde più senza traccia. L'altra causa possibile: il limite di 5 invii in 10 minuti dalla stessa connessione, condiviso da tutti i moduli della casa. Chi prova le pagine una dopo l'altra lo supera. Ora la pagina lo dice («Troppe richieste…») e il log scrive `rate limited`. |
 | Testate dello Studio | `sites/studio/src/styles/studio.css` (`.fx-to`, `.fx-hook`) | L'evidenziatore volt è una **banda fissa** (0,84em) centrata sulle lettere. Prima lo sfondo copriva l'intera riga del font: su Windows Archivo Black usa metriche più alte (circa 1,35em contro un'interlinea di 0,9) e il volt finiva sulla riga sopra («RICORDARE.» copriva «SI FA»). Da 901px il titolo si misura sulla sua colonna (`cqi`), così non finisce sotto il telefono. Provato con le metriche di Mac e di Windows, da 1024 a 1600px e a 390. |
 | Footer | `src/components/Footer.astro`, `sites/studio/src/components/Foot.astro`, `shared/data/business.ts` | Completi su tutti e due i siti: navigazione, servizi, i dati dell'impresa (`companyLine()`: ditta individuale, sede operativa, P.IVA; sede legale, REA e PEC quando ci sono), le pagine legali. |
-| Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: la sua mossa nuova è il tabellone del Metodo. |
+| Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: le sue mosse su misura sono il tabellone del Metodo, le macchine dei servizi, le lastre di «Chi siamo». |
+| Le mosse nuove della casa | `src/engine/effects/pane.ts` (+ `pane.css`), `effects/team.ts`, `src/lib/landing/machines.ts` | **pane**: una banda di luce attraversa il vetro quando entra in vista, il chiarore segue il puntatore, i contorni SVG si disegnano a filo (`data-pane`, `data-pane-glint`); **team**: le tre lastre di «Chi siamo», legate allo scroll; **machines**: le sette macchine delle pagine servizio (in loop solo mentre sono in vista) e le correzioni a penna di «Quando serve» (`data-machine`, `data-fixes`). Tutte con lo stato finale a movimento ridotto. |
+| La direzione del movimento | `docs/motion-direction.md` | **Un brainstorm, non costruito** (tua domanda: spigoli vivi e animazioni «lit»). La proposta: «corpi rigidi, luce fluida», il vocabolario della casa (binari, cerniere, luce, costruzione, la mano poca, un'idea per sezione), le curve da mettere nei token, sei mosse da costruire in ordine di impatto, cosa rivedere. È il lavoro della prossima sessione sulla casa. |
 
 ## Decisioni del proprietario
 
-Da questa chat:
+Da questa chat (26 ottobre):
+
+- Le testate: la riduzione chiesta prima era «solo per la versione
+  desktop»; le proporzioni da telefono «erano già ottime» e tornano
+  com'erano.
+- Via «questo maledetto color crema / editoriale» che c'è «in ogni
+  singolo prodotto generato dell'AI»: «qualche background eccentrico, un
+  po' glassy ma sempre elegante e sobrio».
+- Il Metodo esce dalla home, «per snellire un po'»: riprendeva
+  l'animazione dei lavori subito prima.
+- La mappa: «collega anche Torino, Roma e Napoli, aggiungi almeno una
+  città importante per ogni regione… altrimenti discrimini».
+- Una pagina per ogni servizio, «come per le pagine di marketing».
+- «Non mi piace il layout di chi siamo.»
+- Contatti, «una delle pagine più importanti»: i moduli sono «già molto
+  cool, ma si potrebbe osare un po' di più», nella UI, nella UX e nelle
+  funzioni: «come potremmo convertire al massimo tramite questo sito?»
+- Il movimento: «mantenere il look sharp (quasi architetturale) dei
+  design token del sito, ma voglio anche animazioni "lit"», senza che i
+  due concetti entrino in contrasto. È un brainstorm («l'unico punto in
+  cui puoi fare brainstorming e operare alla prossima sessione»):
+  `docs/motion-direction.md`.
+- Al sito manca ancora «quel guizzo» di comunicazionecinofila, che
+  viene dalle animazioni fatte su misura per il suo contesto.
+- Lo Studio: «ne parliamo nella prossima sessione».
+
+Dalla chat precedente:
 
 - «alpacode deve rimanere un obelisco di autoritevolezza e
   professionalità, dove VENIAMO contattati NOI»: consulenza IT,
@@ -55,7 +87,8 @@ Da questa chat:
   Bellapianta (SMM) e Riccardo Grassi (partner tecnologico per i progetti
   enterprise).
 - Contatti: struttura e form restano; le FAQ cambiano «decisamente»
-  (struttura, UI, copy).
+  (struttura, UI, copy). (Superata il 26 ottobre per la pagina dei
+  contatti, «si potrebbe osare un po' di più»: il modulo lungo resta.)
 - Il blog resta su alpacode, con lo stesso concept.
 - Le pagine marketing restano tutte su alpacode, nel tono formale della
   casa.
@@ -113,6 +146,65 @@ Da prima, ancora valide:
 
 Decise da Claude, non confermate.
 
+**Le pagine dei servizi** (26 ottobre)
+- Sono sette, i servizi della casa: consulenza-digitale (la riga 01 di
+  `/servizi`), siti-web (02), e-commerce (03), software-su-misura (04),
+  integrazioni-ai (05), manutenzione (06), formazione (11 e 13). Gli
+  indirizzi li ho scelti io; in inglese sono gli stessi, sotto `/en/`.
+- I servizi della crescita (07–10: brand, UI/UX, campagne, SEO) non hanno
+  una pagina sulla casa: sono il lavoro dello Studio e aprono la sua
+  porta. «Kit & risorse pro» (12) resta su `/prodotti`.
+- **La copy delle sette pagine è mia** (quando serve, cosa comprende,
+  come lavoriamo, le domande, il modulo), presa da `/servizi`, dalle FAQ
+  e dal Metodo: da rileggere. I tempi nei fatti e nelle risposte sono
+  quelli di `/servizi` («da 3 a 12 settimane»…); la formazione «da 1
+  giornata a 32 ore» viene da «8 — 32 ore».
+- I lavori per servizio: siti → i lavori «Siti»; e-commerce → gli
+  «E-commerce»; software → i «Software» e Shoes Clothing Store (il
+  gestionale); consulenza → Logistica Sanchez e Shoes Clothing Store. AI,
+  manutenzione e formazione non mostrano lavori (nessuna prova finta).
+- Le scritte dentro le macchine sono una dimostrazione, non dati veri:
+  «Il tuo prodotto», il numero d'ordine che sale da 1041 a ogni giro, le
+  righe del foglio, la domanda all'AI, i log del monitor, la lezione.
+- Il problema barrato e la correzione a penna di «Quando serve»: la mano
+  sulla casa, poca (vedi `docs/motion-direction.md`).
+- Nel mega menu «Costruire» ha ora quattro voci (siti, e-commerce,
+  software, AI); consulenza, manutenzione e formazione si trovano da
+  `/servizi`, dal footer e da «Chi siamo».
+
+**Lo sfondo, le testate, la mappa** (26 ottobre)
+- La facciata di vetro: i colori del campo, le sei campate dei montanti,
+  la deriva con lo scroll e quanto è trasparente il vetro sono scelte
+  mie. Le landing restano nel campo chiaro anche in tema scuro.
+- Le testate: sul telefono i minimi di prima della riduzione (per esempio
+  il titolo della testata 38px, i titoli di sezione 30px, il titolo delle
+  landing 46px); sul desktop (provato a 1024 e 1440) è tutto come dopo
+  la riduzione.
+- La mappa: una città per regione, il capoluogo, tranne Bolzano per il
+  Trentino-Alto Adige (Trento si sovrapponeva) e Barletta per la Puglia
+  (c'è il cliente; Bari si sovrapponeva). Torino, Roma e Napoli hanno un
+  arco più chiaro, non quello dei clienti, perché lì non ci sono lavori:
+  la legenda dice «Da remoto, in tutta Italia».
+
+**Chi siamo e Contatti** (26 ottobre)
+- «Chi siamo»: i fatti della lastra («Dal 2025», «Monza · Milano»,
+  «Ditta individuale», «In tutta Italia, anche da remoto»), «Il tuo
+  progetto» al centro delle tre lastre, le competenze brevi di ognuno
+  («Software · AI · siti», «Social · contenuti», «Enterprise ·
+  architetture»).
+- Contatti: il brief è indirizzato a «Francesco Corbosiero · Alpacode»;
+  ha quattro opzioni in più nella prima domanda (Integrazioni AI,
+  Consulenza, Manutenzione, Formazione) e «Pubblicità & SEO» è diventato
+  «Social, pubblicità & SEO».
+- «Stiamo prendendo nuovi progetti per Q3 2026» (una data già passata) è
+  diventato «Stiamo prendendo nuovi progetti».
+- I quattro passi di «Cosa succede quando scrivi» e le quattro domande
+  scelte dalla FAQ («Come funziona il preventivo?», «Quanto costa un
+  sito?», «Con chi parlo durante il progetto?», «Lavorate solo a Monza e
+  Milano?»).
+- La bozza del brief resta nel browser di chi scrive (si cancella
+  all'invio): nessun dato lascia il dispositivo prima dell'invio.
+
 **La casa e lo Studio**
 - Il nome «Alpacode Studio», il dominio studio.alpacode.it, solo
   italiano, il volt di FAST come colore dello Studio, un colore per porta.
@@ -165,8 +257,9 @@ Decise da Claude, non confermate.
 
 **Chi siamo**
 - Le bio di Irene e Riccardo sono scritte dal ruolo (segnaposto,
-  `draft: true`); i ritratti sono monogrammi (basta una foto in
-  `src/assets/people/<id>.jpg`); nessun link LinkedIn (`linkedin: null`).
+  `draft: true`); al posto dei ritratti ci sono le iniziali disegnate sul
+  vetro (basta una foto in `src/assets/people/<id>.jpg`); nessun link
+  LinkedIn (`linkedin: null`).
 
 **La vetrina**
 - Tipi di lavoro per i filtri: Siti, E-commerce, Software (Logistica
@@ -207,11 +300,10 @@ Decise da Claude, non confermate.
   (prese dalla copy dei passi).
 - «Dove operiamo» elenca i clienti per luogo (sono gli stessi nomi di
   `/lavori`).
-- Sulla mappa ci sono anche le grandi città come riferimento, anche dove
-  non ci sono lavori (tua richiesta): Torino, Genova, Venezia, Bologna,
-  Firenze, Roma, Napoli, Palermo, Cagliari. Sono tenui, senza arco e
-  fuori dall'elenco dei clienti (`REFERENCES` in `src/data/places.ts`).
-  Bari l'ho lasciata fuori, perché si sovrapponeva a Barletta.
+- Sulla mappa ci sono anche le città di riferimento, anche dove non ci
+  sono lavori (tua richiesta): ora una per regione (vedi sopra). Sono
+  tenui e fuori dall'elenco dei clienti (`REFERENCES` in
+  `src/data/places.ts`).
 
 **Lo Studio**
 - Pacchetti «Su richiesta» (nessun prezzo); il crash course senza prezzo.
@@ -230,6 +322,14 @@ Decise da Claude, non confermate.
 
 ## Decisioni aperte
 
+- **Le pagine dei servizi**: rileggere la copy (la prima stesura è mia),
+  confermare i sette servizi e i loro indirizzi, e se la crescita resta
+  solo sullo Studio.
+- **Il movimento della casa** (`docs/motion-direction.md`): se la regola
+  «corpi rigidi, luce fluida» ti torna e quali delle sei mosse proposte
+  costruire. È il lavoro della prossima sessione sulla casa.
+- **Lo Studio**: la sessione che hai annunciato («ne parliamo nella
+  prossima sessione»).
 - **Da provare dopo il deploy: i moduli delle pagine marketing.** Manda
   una richiesta da una pagina `/offerta/…` (al massimo cinque invii in
   dieci minuti dalla stessa connessione). Se non arriva a info@,
@@ -249,7 +349,8 @@ Decise da Claude, non confermate.
   Clothing Store» o «Shoes & Clothing»).
 - La conferma delle citazioni dei clienti.
 - La copy dei casi studio: il corpo di `src/content/work/<id>.md`.
-- Bio, foto e LinkedIn di Irene e Riccardo (e il LinkedIn di Francesco).
+- Bio, foto e LinkedIn di Irene e Riccardo (e il LinkedIn e la foto di
+  Francesco, che compare anche nei contatti: `src/assets/people/`).
 - Prezzi dei pacchetti e del crash course; il provider di pagamento e i
   link dei prodotti; i contenuti veri di guida, modulo e corso.
 - DNS di studio.alpacode.it (poi basta il solito deploy).
@@ -278,6 +379,15 @@ Decise da Claude, non confermate.
 - Pagine prodotto in pre-lancio, `noindex` e fuori dalla sitemap:
   `/hive-commerce`, `/alpacode-pro-kit`, `/paco`.
 - L'email del sito è `info@alpacode.it`.
+- La prenotazione di Cal.com non si carica da questo ambiente (la rete):
+  della call nei contatti è provato solo il bottone; senza Cal
+  configurato porta a `/prenota`.
+- La deriva dello sfondo con lo scroll usa le animazioni CSS legate allo
+  scroll (`animation-timeline`, nessuno script): dove il browser non le
+  supporta il campo resta fermo, ed è voluto.
+- Gli screenshot a pagina intera di Playwright disegnano male i livelli
+  fissi dello sfondo: per giudicare la facciata servono le schermate
+  della finestra.
 
 ## Sessioni
 
@@ -299,4 +409,10 @@ Decise da Claude, non confermate.
   trappola per i bot, il limite detto chiaro), le testate dello Studio
   anche su Windows, Transfer Luxury Driver, Shoes Clothing Store a
   Barletta, via Edizioni Rosi, le schermate nuove dei lavori (PR #52).
-- Stesso branch, dopo la PR #52 — le città di riferimento sulla mappa.
+- Stesso branch, dopo la PR #52 — le città di riferimento sulla mappa
+  (PR #53).
+- Branch `claude/main-site-refinements-wag4r4` — le testate di nuovo
+  proporzionate sul telefono, lo sfondo a facciata di vetro, il Metodo
+  fuori dalla home, una città per regione e tre archi in più sulla mappa,
+  una pagina per servizio con la sua macchina, «Chi siamo» e «Contatti»
+  rifatti, il brainstorm sul movimento (`docs/motion-direction.md`).
