@@ -415,4 +415,5 @@ Decise da Claude, non confermate.
   proporzionate sul telefono, lo sfondo a facciata di vetro, il Metodo
   fuori dalla home, una città per regione e tre archi in più sulla mappa,
   una pagina per servizio con la sua macchina, «Chi siamo» e «Contatti»
-  rifatti, il brainstorm sul movimento (`docs/motion-direction.md`).
+  rifatti, il brainstorm sul movimento (`docs/motion-direction.md`)
+  (PR #54).
