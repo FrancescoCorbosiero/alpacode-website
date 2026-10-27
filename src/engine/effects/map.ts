@@ -11,7 +11,8 @@
    Below the fold, once, as it enters: the dots are masked by a circle
    growing from the base, the arcs draw out to their places one after
    another (nearest first, as the markup orders them), each place pops
-   in as its arc lands; then the mask goes and the map is the
+   in as its arc lands (the places without an arc, round the base,
+   with the first); then the mask goes and the map is the
    stylesheet's. The ping round the base loops while the map is on
    screen and the tab is shown. A row and its place light up together
    (.is-hot) when the row is hovered with a mouse or holds the focus.
@@ -120,12 +121,18 @@ export function init(kit: Kit): void {
         },
         ARCS,
       );
-    if (places.length)
+    // Each place lands with its own arc; the ones without, with the first.
+    const landing = (place: SVGElement): number => {
+      const i = arcs.findIndex((a) => a.dataset.mapArc === place.dataset.mapPlace);
+      return ARCS + Math.max(i, 0) * STAGGER + DRAW * 0.75;
+    };
+    places.forEach((place) =>
       tl.fromTo(
-        places,
+        place,
         { scale: 0, transformOrigin: "50% 50%" },
-        { scale: 1, duration: 0.5, ease: "back.out(2.4)", stagger: STAGGER, clearProps: "transform" },
-        ARCS + DRAW * 0.75,
-      );
+        { scale: 1, duration: 0.5, ease: "back.out(2.4)", clearProps: "transform" },
+        landing(place),
+      ),
+    );
   });
 }

@@ -25,7 +25,25 @@ export interface ContattiData {
     confirm: string;
     /** "{email}" renders as a mailto link (FormError). */
     error: string;
+    /** Too many sends from one connection (the API's 429); "{email}" too. */
+    busy: string;
   };
+  /** The ways in, at the top: the brief, the call, WhatsApp, email. */
+  channels: {
+    kicker: string;
+    title: string;
+    brief: { t: string; d: string; go: string };
+    call: { t: string; d: string; go: string };
+    whatsapp: { t: string; d: string; go: string; text: string };
+    email: { t: string; d: string; go: string; copy: string; copied: string };
+    reply: string;
+  };
+  /** What happens once you've written. */
+  next: { kicker: string; title: string; items: { t: string; d: string }[] };
+  /** The long form's section. */
+  long: { kicker: string; title: string; lede: string };
+  /** The questions asked before writing: their q, as in data/faq.ts. */
+  faq: { kicker: string; title: string; qs: string[]; more: string };
   info: {
     h: string;
     email: string;
@@ -77,6 +95,42 @@ export const contatti: Record<Lang, ContattiData> = {
       consent: "Ho letto la privacy policy e acconsento al trattamento dei dati per essere ricontattato/a.",
       confirm: "Grazie: ti rispondiamo presto.",
       error: "Qualcosa è andato storto: riprova o scrivici a {email}.",
+      busy: "Troppe richieste da questa connessione in poco tempo. Riprova tra qualche minuto, o scrivici a {email}.",
+    },
+    channels: {
+      kicker: "Come preferisci",
+      title: "Quattro modi\nper cominciare.",
+      brief: { t: "Il brief in 60 secondi", d: "Tre tap e un contatto: lo legge una persona, e ti risponde.", go: "Comincia" },
+      call: { t: "Una call di 30 minuti", d: "Gratuita, senza impegno. Scegli tu il giorno e l'ora.", go: "Scegli l'orario" },
+      whatsapp: {
+        t: "WhatsApp",
+        d: "Un messaggio veloce: ti rispondiamo in orario di studio.",
+        go: "Scrivici",
+        text: "Ciao Alpacode! Vorrei parlarvi di un progetto.",
+      },
+      email: { t: "Email", d: "Per gli allegati e le richieste lunghe.", go: "Scrivi", copy: "Copia l'indirizzo", copied: "Copiato" },
+      reply: "Rispondiamo entro mezza giornata lavorata",
+    },
+    next: {
+      kicker: "Dopo",
+      title: "Cosa succede\nquando scrivi.",
+      items: [
+        { t: "Ti rispondiamo", d: "Entro mezza giornata lavorata, di persona: chi ti scrive è chi costruisce." },
+        { t: "Una call di 30 minuti", d: "Gratuita: capiamo cosa ti serve e ti diciamo subito se possiamo aiutarti." },
+        { t: "La proposta scritta", d: "Cosa faremo, in che ordine, in quanto tempo e con che costo." },
+        { t: "Decidi tu", d: "Fino alla firma non c'è nessun impegno. Poi si costruisce, insieme." },
+      ],
+    },
+    long: {
+      kicker: "Per esteso",
+      title: "Preferisci scrivere\ntutto per esteso?",
+      lede: "Il modulo completo, per chi ha già le idee chiare o un progetto da raccontare per bene.",
+    },
+    faq: {
+      kicker: "Prima di scrivere",
+      title: "Le domande\nche ci fanno.",
+      qs: ["Come funziona il preventivo?", "Quanto costa un sito?", "Con chi parlo durante il progetto?", "Lavorate solo a Monza e Milano?"],
+      more: "Tutte le domande",
     },
     info: {
       h: "Diretto.",
@@ -91,7 +145,7 @@ export const contatti: Record<Lang, ContattiData> = {
       reply: "Tempo di risposta",
       replyV: "< mezza giornata lavorata",
       availableLabel: "Disponibile",
-      availableV: "Stiamo prendendo nuovi progetti per Q3 2026.",
+      availableV: "Stiamo prendendo nuovi progetti.",
     },
     person: {
       h: "A chi stai scrivendo.",
@@ -143,6 +197,42 @@ export const contatti: Record<Lang, ContattiData> = {
       consent: "I have read the privacy policy and consent to data processing to be contacted back.",
       confirm: "Thanks: we'll reply soon.",
       error: "Something went wrong: try again or email us at {email}.",
+      busy: "Too many requests from this connection in a short time. Try again in a few minutes, or email us at {email}.",
+    },
+    channels: {
+      kicker: "However you like",
+      title: "Four ways\nto start.",
+      brief: { t: "The brief in 60 seconds", d: "Three taps and a contact: a person reads it, and answers.", go: "Start" },
+      call: { t: "A 30-minute call", d: "Free, no commitment. You pick the day and the time.", go: "Pick a time" },
+      whatsapp: {
+        t: "WhatsApp",
+        d: "A quick message: we reply during studio hours.",
+        go: "Message us",
+        text: "Hi Alpacode! I'd like to talk to you about a project.",
+      },
+      email: { t: "Email", d: "For attachments and long requests.", go: "Write", copy: "Copy the address", copied: "Copied" },
+      reply: "We reply within half a working day",
+    },
+    next: {
+      kicker: "Next",
+      title: "What happens\nwhen you write.",
+      items: [
+        { t: "We reply", d: "Within half a working day, in person: whoever writes to you is who builds." },
+        { t: "A 30-minute call", d: "Free: we understand what you need and tell you right away if we can help." },
+        { t: "The written proposal", d: "What we'll do, in what order, how long it takes and what it costs." },
+        { t: "You decide", d: "There's no commitment until you sign. Then we build, together." },
+      ],
+    },
+    long: {
+      kicker: "In full",
+      title: "Would you rather\nwrite it all out?",
+      lede: "The full form, for people who already have clear ideas or a project to tell properly.",
+    },
+    faq: {
+      kicker: "Before you write",
+      title: "The questions\npeople ask.",
+      qs: ["How does the quote work?", "How much does a website cost?", "Who do I talk to during the project?", "Do you only work in Monza and Milan?"],
+      more: "All the questions",
     },
     info: {
       h: "Direct.",
@@ -157,7 +247,7 @@ export const contatti: Record<Lang, ContattiData> = {
       reply: "Response time",
       replyV: "< half a worked day",
       availableLabel: "Available",
-      availableV: "We're taking new projects for Q3 2026.",
+      availableV: "We're taking on new projects.",
     },
     person: {
       h: "Who you're writing to.",

@@ -1,0 +1,40 @@
+---
+/* Siti: the page goes from wireframe to built to live, the cursor asks
+   for a quote, the request comes in. Laid out, it's the built page,
+   live, with its request and its checks; the machine plays it from
+   the wireframe up, on a loop. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "wireframe" }>;
+}
+const { copy: m } = Astro.props;
+---
+
+<div class="svm svm--site" data-machine="wireframe">
+  <div class="svm-sheet svm-browser" data-browser>
+    <div class="svm-bar">
+      <i></i><i></i><i></i>
+      <span class="svm-url">{m.url}</span>
+      <b class="svm-live" data-live>{m.live}</b>
+    </div>
+    <div class="svm-page">
+      <div class="svm-b svm-nav" data-b>
+        <span class="svm-logo">{m.brand}</span>
+        <span class="svm-links"><i></i><i></i><i></i></span>
+      </div>
+      <div class="svm-b svm-head" data-b><span class="svm-h">{m.headline}</span></div>
+      <div class="svm-b svm-lines" data-b><i></i><i></i></div>
+      <div class="svm-b svm-ctas" data-b><span class="svm-cta" data-cta>{m.cta}</span></div>
+      <div class="svm-b svm-media" data-b><i><b></b></i></div>
+      <div class="svm-b svm-tiles" data-b><i></i><i></i><i></i></div>
+    </div>
+    <div class="svm-toast" data-toast><b></b>{m.ping}</div>
+    <svg class="svm-cursor" data-cursor viewBox="0 0 20 24" aria-hidden="true">
+      <path d="M2 2 L 2 19 L 7 14.5 L 10.5 22 L 13.5 20.6 L 10 13.4 L 17 13 Z" />
+    </svg>
+  </div>
+  <ul class="svm-checks">
+    {m.checks.map((c) => <li data-check>{c}</li>)}
+  </ul>
+</div>

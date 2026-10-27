@@ -1,14 +1,26 @@
 ---
+/* /contatti — "il centralino": every way in at the top (the brief, a
+   call, WhatsApp, email, each a pane of glass that lights up), then
+   the brief that writes itself as you answer (BriefBuilder: it goes
+   to the person who reads it, the draft is kept on the device, a
+   link can preset it with ?servizio=<a service's slug>), what happens
+   once you've written, the questions people ask before writing (from
+   data/faq.ts), the long form with the direct details, the map. Every
+   way in is tracked like the booking is (data-journey; the brief and
+   the forms dispatch alpa:lead_sent). */
 import type { Lang } from "../../i18n/types";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { contatti } from "../../data/contatti";
-import { wizard } from "../../data/wizard";
+import { PRESET, wizard } from "../../data/wizard";
+import { faqEntries } from "../../data/faq";
 import { business } from "@shared/data/business";
 import { localizePath } from "../../i18n/utils";
+import { CAL_CONFIG, CAL_CONFIGURED, CAL_LINK, CAL_NAMESPACE } from "../../lib/calcom";
 import PageHero from "../PageHero.astro";
+import Br from "../Br.astro";
 import ContactForm from "../islands/ContactForm.tsx";
-import BriefWizard from "../islands/BriefWizard.tsx";
+import BriefBuilder from "../islands/BriefBuilder.tsx";
 import Coverage from "../home/Coverage.astro";
 
 interface Props {
@@ -17,10 +29,14 @@ interface Props {
 const { lang } = Astro.props;
 const t = contatti[lang];
 const w = wizard[lang];
+const ch = t.channels;
 const prenotaHref = localizePath("prenota", lang);
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(ch.whatsapp.text)}`;
+const cal = CAL_CONFIGURED ? { link: CAL_LINK, namespace: CAL_NAMESPACE, config: CAL_CONFIG } : null;
+const faq = t.faq.qs.map((q) => faqEntries(lang).find((e) => e.q === q)).filter((e): e is NonNullable<typeof e> => !!e);
 
-// Founder photo slot — drop src/assets/people/francesco.<ext> and the
-// initials placeholder disappears (see src/assets/README.md).
+// The photo of the person who answers — drop src/assets/people/francesco.<ext>
+// and the initials placeholder disappears (see src/assets/README.md).
 const peopleImages = import.meta.glob<{ default: ImageMetadata }>(
   "../../assets/people/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
   { eager: true },
@@ -28,72 +44,189 @@ const peopleImages = import.meta.glob<{ default: ImageMetadata }>(
 const founderImg = Object.entries(peopleImages).find(
   ([p]) => p.split("/").pop()?.replace(/\.[^.]+$/, "") === "francesco",
 )?.[1].default;
+const no = (i: number) => String(i + 1).padStart(2, "0");
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
 
-{/* ---------- 60-second wizard + the human block ---------- */}
-<section class="section" id="wizard" style="border-top:1px solid var(--rule)">
+{/* ---------- Every way in ---------- */}
+<section class="section ct-ways-sec" aria-labelledby="ct-ways-title">
+  <div class="wrap-wide">
+    <div class="ct-ways-head">
+      <div class="sec-num">{ch.kicker}</div>
+      <h2 id="ct-ways-title" class="ct-ways-title"><Br text={ch.title} /></h2>
+    </div>
+    <ul class="ct-ways">
+      <li>
+        <a class="ct-way ct-way--brief" href="#brief" data-pane data-journey="contact-brief">
+          <span class="pane-glint" data-pane-glint aria-hidden="true"></span>
+          <span class="ct-way-no">01</span>
+          <span class="ct-way-t">{ch.brief.t}</span>
+          <span class="ct-way-d">{ch.brief.d}</span>
+          <span class="ct-way-go">{ch.brief.go} <span class="arrow" aria-hidden="true">↓</span></span>
+        </a>
+      </li>
+      <li>
+        {
+          cal ? (
+            <button
+              type="button"
+              class="ct-way"
+              data-pane
+              data-cal-link={cal.link}
+              data-cal-namespace={cal.namespace}
+              data-cal-config={cal.config}
+              data-journey="contact-call"
+            >
+              <span class="pane-glint" data-pane-glint aria-hidden="true" />
+              <span class="ct-way-no">02</span>
+              <span class="ct-way-t">{ch.call.t}</span>
+              <span class="ct-way-d">{ch.call.d}</span>
+              <span class="ct-way-go">
+                {ch.call.go} <span class="arrow" aria-hidden="true">→</span>
+              </span>
+            </button>
+          ) : (
+            <a class="ct-way" href={prenotaHref} data-pane data-journey="contact-call">
+              <span class="pane-glint" data-pane-glint aria-hidden="true" />
+              <span class="ct-way-no">02</span>
+              <span class="ct-way-t">{ch.call.t}</span>
+              <span class="ct-way-d">{ch.call.d}</span>
+              <span class="ct-way-go">
+                {ch.call.go} <span class="arrow" aria-hidden="true">→</span>
+              </span>
+            </a>
+          )
+        }
+      </li>
+      <li>
+        <a class="ct-way" href={waHref} target="_blank" rel="noopener" data-pane data-journey="contact-whatsapp">
+          <span class="pane-glint" data-pane-glint aria-hidden="true"></span>
+          <span class="ct-way-no">03</span>
+          <span class="ct-way-t">{ch.whatsapp.t}</span>
+          <span class="ct-way-d">{ch.whatsapp.d}</span>
+          <span class="ct-way-go">{ch.whatsapp.go} <span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+      <li>
+        <div class="ct-way ct-way--email" data-pane>
+          <span class="pane-glint" data-pane-glint aria-hidden="true"></span>
+          <span class="ct-way-no">04</span>
+          <span class="ct-way-t">{ch.email.t}</span>
+          <span class="ct-way-d">{ch.email.d}</span>
+          <a class="ct-way-mail" href={`mailto:${business.email}`} data-journey="contact-email">{business.email}</a>
+          <button type="button" class="ct-copy" data-copy={business.email} data-copied={ch.email.copied} data-journey="contact-email-copy">
+            <span data-copy-label>{ch.email.copy}</span>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <p class="ct-pulse">
+      <span class="ct-clock" data-studio-root data-open-label={t.person.clockOpen} data-closed-label={t.person.clockClosed}>
+        <i aria-hidden="true"></i>
+        <span data-studio-label>{t.person.clockOpen}</span>
+        <span class="ct-clock-time"><span data-studio-time>—:—</span> CET</span>
+      </span>
+      <span>{ch.reply}</span>
+      <span>{t.info.availableV}</span>
+    </p>
+  </div>
+</section>
+
+{/* ---------- The brief, written as you answer ---------- */}
+<section class="section section--tint ct-brief" id="brief">
+  {/* The old links (#wizard) land here too. */}
+  <span id="wizard" class="ct-anchor" aria-hidden="true"></span>
   <div class="wrap-wide">
     <div class="section-head">
       <div>
-        <div class="sec-num eyebrow">{w.kicker}</div>
-        <h2>{w.title}</h2>
+        <div class="sec-num">{w.kicker}</div>
+        <h2><Br text={w.title} /></h2>
       </div>
       <p class="lede">{w.lede}</p>
     </div>
-    <div class="bw-grid">
-      <BriefWizard client:load lang={lang} labels={w} prenotaHref={prenotaHref} />
-      <aside class="contact-info bw-person">
-        <h3>{t.person.h}</h3>
-        <div class="bw-founder">
+    <BriefBuilder client:load lang={lang} labels={w} presets={PRESET} cal={cal} prenotaHref={prenotaHref} waHref={waHref} />
+  </div>
+</section>
+
+{/* ---------- What happens next, and the questions before writing ---------- */}
+<section class="section ct-after">
+  <div class="wrap-wide ct-after-grid">
+    <div>
+      <div class="sec-num">{t.next.kicker}</div>
+      <h2 class="ct-h2"><Br text={t.next.title} /></h2>
+      <div class="ct-rail" data-rail>
+        <span class="ct-rail-line" aria-hidden="true"><i></i></span>
+        <ol class="ct-steps">
           {
-            founderImg ? (
-              <Image
-                src={founderImg}
-                alt={t.person.sig.photoAlt}
-                widths={[96, 192]}
-                sizes="96px"
-                class="bw-founder-img"
-              />
-            ) : (
-              <span class="bw-founder-ph" aria-hidden="true">{t.person.sig.initials}</span>
-            )
+            t.next.items.map((s, i) => (
+              <li class="ct-step" data-rail-step>
+                <span class="ct-step-tile" data-rail-tile>
+                  {no(i)}
+                </span>
+                <span class="ct-step-copy">
+                  <b>{s.t}</b>
+                  <span>{s.d}</span>
+                </span>
+              </li>
+            ))
           }
-          <span class="bw-founder-id">
-            <span class="bw-founder-name">{t.person.sig.name}</span>
-            <span class="bw-founder-role">{t.person.sig.role}</span>
-          </span>
-        </div>
+        </ol>
+      </div>
+    </div>
+    <div class="ct-faq">
+      <div class="sec-num">{t.faq.kicker}</div>
+      <h2 class="ct-h2"><Br text={t.faq.title} /></h2>
+      <div class="ct-faq-list">
         {
-          t.person.points.map((p) => (
-            <div class="block">
-              <span class="k">{p.k}</span>
-              <span class="v">{p.v}</span>
-            </div>
+          faq.map((f) => (
+            <details class="ct-q" data-accordion>
+              <summary>
+                <span>{f.q}</span>
+                <i aria-hidden="true" />
+              </summary>
+              <div class="ct-a">
+                <p>{f.a}</p>
+              </div>
+            </details>
           ))
         }
-        <div
-          class="bw-clock"
-          data-studio-root
-          data-open-label={t.person.clockOpen}
-          data-closed-label={t.person.clockClosed}
-        >
-          <span class="bw-clock-dot" data-studio-dot aria-hidden="true">●</span>
-          <span data-studio-label>{t.person.clockOpen}</span>
-          <span class="bw-clock-time"><span data-studio-time>—:—</span> CET</span>
-        </div>
-      </aside>
+      </div>
+      <a class="ct-more" href={localizePath("faq", lang)}>{t.faq.more} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
-<section style="border-top:1px solid var(--rule)">
+{/* ---------- The long form, and the direct details ---------- */}
+<section class="section section--tint ct-long" id="modulo">
   <div class="wrap-wide">
+    <div class="section-head">
+      <div>
+        <div class="sec-num">{t.long.kicker}</div>
+        <h2><Br text={t.long.title} /></h2>
+      </div>
+      <p class="lede">{t.long.lede}</p>
+    </div>
     <div class="contact-grid">
       <ContactForm client:idle lang={lang} labels={t.labels} />
 
-      <aside class="contact-info">
+      <aside class="contact-info ct-direct">
+        <div class="ct-person">
+          {
+            founderImg ? (
+              <Image src={founderImg} alt={t.person.sig.photoAlt} widths={[96, 192]} sizes="96px" class="ct-person-img" />
+            ) : (
+              <span class="ct-person-ph" aria-hidden="true">
+                {t.person.sig.initials}
+              </span>
+            )
+          }
+          <span class="ct-person-id">
+            <span class="ct-person-h">{t.person.h}</span>
+            <b>{t.person.sig.name}</b>
+            <span>{t.person.sig.role}</span>
+          </span>
+        </div>
         <h3>{t.info.h}</h3>
         <div class="block">
           <span class="k">{t.info.email}</span>
@@ -104,10 +237,6 @@ const founderImg = Object.entries(peopleImages).find(
           <span class="v">{t.info.baseV}</span>
         </div>
         <div class="block">
-          <span class="k">{t.info.vat}</span>
-          <span class="v">{t.info.vatV}</span>
-        </div>
-        <div class="block">
           <span class="k">{t.info.hours}</span>
           <span class="v">{t.info.hoursV}</span>
         </div>
@@ -115,9 +244,9 @@ const founderImg = Object.entries(peopleImages).find(
           <span class="k">{t.info.reply}</span>
           <span class="v">{t.info.replyV}</span>
         </div>
-        <div class="contact-available">
-          <div class="eyebrow">{t.info.availableLabel}</div>
-          <div class="v">{t.info.availableV}</div>
+        <div class="block">
+          <span class="k">{t.info.vat}</span>
+          <span class="v">{t.info.vatV}</span>
         </div>
       </aside>
     </div>
@@ -125,3 +254,47 @@ const founderImg = Object.entries(peopleImages).find(
 </section>
 
 <Coverage lang={lang} bare />
+
+<script>
+  /* The email way in: copy the address, say so for a moment. And every
+     way in reports which one it was (the booking's own tracking reports
+     the call: CalEmbed.astro). */
+  const track = (name: string, detail: Record<string, string>) => {
+    try {
+      const w = window as unknown as { dataLayer?: unknown[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: name, ...detail });
+    } catch {
+      /* no analytics */
+    }
+    document.dispatchEvent(new CustomEvent(`alpa:${name}`, { detail }));
+  };
+  function wire(): void {
+    document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) => {
+      if (btn.dataset.wired) return;
+      btn.dataset.wired = "1";
+      const label = btn.querySelector<HTMLElement>("[data-copy-label]");
+      const idle = label?.textContent ?? "";
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+          if (label) label.textContent = btn.dataset.copied ?? idle;
+          btn.classList.add("is-done");
+          window.setTimeout(() => {
+            if (label) label.textContent = idle;
+            btn.classList.remove("is-done");
+          }, 1800);
+        } catch {
+          window.location.href = `mailto:${btn.dataset.copy}`;
+        }
+      });
+    });
+    document.querySelectorAll<HTMLElement>(".ct-ways [data-journey]").forEach((el) => {
+      if (el.dataset.wired || el.hasAttribute("data-cal-link")) return;
+      el.dataset.wired = "1";
+      el.addEventListener("click", () => track("contact_channel", { channel: el.dataset.journey ?? "" }));
+    });
+  }
+  document.addEventListener("astro:page-load", wire);
+  wire();
+</script>

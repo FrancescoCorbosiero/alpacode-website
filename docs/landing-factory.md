@@ -2,8 +2,9 @@
 
 Every campaign page is built on one kit — the landing kit, `.lnd`:
 blueprint and paper plates, the studio's pen on the copy, scenes that
-move with the scroll. There are two tracks. Pick the cheapest one that
-fits.
+move with the scroll. There are three tracks. Pick the cheapest one that
+fits. The service pages of the house are built on it too (see «A service
+page» below).
 
 | Track | When | Cost | Examples |
 | --- | --- | --- | --- |
@@ -77,11 +78,13 @@ registry is `src/data/audiences.ts`:
   - `Objections` (`variant`: list or chat), `LeadForm` (see below),
     `Portals`, `ProfileSwitch`.
   - The views: `OfferLanding` (Track A), `SmmLanding`, `PartnerLanding`,
-    `HostingLanding`, `AiLanding`, `BuildersHub`.
+    `HostingLanding`, `AiLanding`, `BuildersHub`, `ServiceLanding` (the
+    service pages, with their `machines/`).
 - **Scripts** — `src/lib/landing/`: `lead.ts` (the form), `formula.ts`,
   `profile.ts`, `offer.ts` (the proposal's tabs),
   `calc.ts`, `makeof.ts`, `mirror.ts`, `schema.ts`
-  (`landingJsonLd({ lang, site, crumbs, faq })`), `scenes.ts`.
+  (`landingJsonLd({ lang, site, crumbs, faq })`), `scenes.ts`,
+  `machines.ts` (the service pages' machines and pen fixes).
 - **The lead form** posts `{ campaign, audience, topic, offer,
   details[] }` with the person's fields to `/api/contact`. `choices`
   become the offer; `extra` and `profile` arrive as labelled details;
@@ -207,6 +210,35 @@ domain, hosting and email".
    pinned scenes at 390×664), the reduced-motion still, and submit the
    form: without `AWS_REGION` the API logs the lead — check its
    campaign and details.
+
+## A service page (`/servizi/<slug>`)
+
+One page per service of the house (the growth services are the
+studio's: they open its door and have no page here). The view is
+shared; the copy and the machine are the service's own.
+
+1. **Data** — `src/data/service-pages/<slug>.ts` (`ServiceCopy`, IT +
+   EN: meta, the hero and its machine's labels, the facts of its
+   `/servizi` row, «Quando serve» — the problem struck through, the fix
+   written in pen —, what it covers, how we work, the questions, the
+   form) and its entry in `SERVICE_PAGES` (`index.ts`): the slug, the
+   `/servizi` rows it tells (each row then links to it), the works that
+   prove it (by kind or id; none, none shown).
+2. **View** — `ServiceLanding.astro` renders every page; the hero's
+   machine is `components/landing/machines/<Kind>.astro` and its loop a
+   function in `lib/landing/machines.ts`. It plays only while in view,
+   and on repeat GSAP puts each property back where its first tween
+   found it: the first move of each property starts from the painted
+   state (`set`/`to`), or the machine loses a piece on the second lap.
+3. **Wiring** — `audiences.ts` (the «servizi» group), the footer, the
+   mega menu and `/servizi` read `SERVICE_PAGES`; the form posts
+   `campaign: servizio-<slug>`; a link can open the contact page's
+   brief on the service: `/contatti/?servizio=<slug>` (`PRESET` in
+   `data/wizard.ts`).
+4. **OG card** — `npm run og -- services` (`tools/og/services.mjs`:
+   `public/og-servizio-<slug>.png` and `-en.png`).
+5. **Verify** — as Track B, with the machine's loop watched for two
+   laps.
 
 ## Track C — a studio page (`studio.alpacode.it`)
 

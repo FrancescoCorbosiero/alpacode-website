@@ -30,7 +30,9 @@ confirmation — check those before building on them.
 - **Deploy is `docker compose up -d --build`, and must stay that.** Never
   add profiles, extra flags or extra steps to the boot.
 - They react badly to cheap-sounding copy and to generic "AI-template"
-  design. Motion should be bold and purposeful (GSAP), never decoration.
+  design. Motion should be bold and purposeful (GSAP), never decoration:
+  each section gets a move born from its own content (the «guizzo» they
+  miss; `docs/motion-direction.md`).
 - The house's copy is already good: refine it, don't rewrite it. Don't
   make the house corporate: it's a small studio that knows its craft.
   Keep the mega menu and the alpacas.
@@ -40,7 +42,7 @@ confirmation — check those before building on them.
 ```sh
 npm run dev | check | build | start      # the house (start: node dist/server/entry.mjs)
 npm run studio:dev | studio:check | studio:build | studio:start   # Alpacode Studio
-npm run og [-- og-name … | studio | work]   # share cards: tools/og -> public/ (studio -> sites/studio/public/)
+npm run og [-- og-name … | studio | work | services]   # share cards: tools/og -> public/ (studio -> sites/studio/public/)
 npm run icons | media | hero-video       # favicons, media, the home hero video (needs ffmpeg)
 npm run work-shots [-- id …]             # the projects' full-page screenshots, from their url
 npm run work-pull [-- id …]              # tools/work/lavori.txt (URL -> keywords): order, drafts, digests, shots
@@ -63,8 +65,10 @@ is check, build and looking at the pages (below).
   or `{ it, en }`. Components never hardcode copy. Key files:
   `campaigns.ts` (the `/offerta/*` campaigns), `audiences.ts` (the
   audience registry: which page speaks to whom, the "other doors"),
-  `landing/*` and `*-landing.ts` (bespoke landings), `voucher/*`,
-  `home.ts`, `products.ts`, `courses.ts`, `mega.ts` (the mega menu),
+  `landing/*` and `*-landing.ts` (bespoke landings), `service-pages/*`
+  (a page per service, `/servizi/<slug>`), `voucher/*`,
+  `home.ts`, `services.ts` (`/servizi`), `products.ts`, `courses.ts`,
+  `wizard.ts` (the contact page's brief), `mega.ts` (the mega menu),
   `faq.ts` (the FAQ by topic), `chi-siamo.ts`, `work.ts` +
   `places.ts` (the showcase).
 - `content/` — the blog (MDX) and the work: one entry per project
@@ -75,7 +79,8 @@ is check, build and looking at the pages (below).
   `assets/work/<id>.png` or `.webp`, one per id (`<id>-full.jpg`: the
   whole page, scrolled inside the case page's frame).
 - `components/` — `Layout.astro` (head, header, footer), `landing/` (the
-  landing kit and its views), `voucher/` (the referral program),
+  landing kit and its views; `ServiceLanding.astro` and `machines/`, the
+  service pages), `voucher/` (the referral program),
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`
   (React).
 - Motion: `engine/`, the site's motion engine, written on
@@ -85,13 +90,16 @@ is check, build and looking at the pages (below).
   `data-reveal`, `data-rail`, `data-marquee`, `data-mark`, …);
   `config.ts` (the house's classes for the hooks) and `registry.ts`
   (which effects, eager or fetched only where their hook is). The house's scenes are effects too: `effects/cases`,
-  `method`, `map`, `alpaca`, and `lib/landing/scenes.ts` (the landings'
-  scenes, fetched only on `.lnd [data-scene]` pages). Page scripts import
+  `method`, `map`, `alpaca`, `team`, `pane` (light on the glass),
+  `lib/landing/scenes.ts` (the landings' scenes, fetched only on
+  `.lnd [data-scene]` pages) and `lib/landing/machines.ts` (the service
+  pages' machines, `.lnd [data-machine]`). Page scripts import
   the moves they call from their entry (`celebrate`, `nudge`,
   `scrollToTarget` from `core/scroll`, …).
-- `styles/` — `tokens.css` (palette, type, the dark theme), `base.css`,
-  `components.css`, `engine.css` (the engine's CSS: the core's and the
-  entries'), `motion.css` (the house's own: the intro's order, the
+- `styles/` — `tokens.css` (palette, type, the dark theme), `base.css`
+  (with `tokens.css`, the glass facade: the field, the mullions, the
+  panes), `components.css`, `engine.css` (the engine's CSS: the core's
+  and the entries'), `motion.css` (the house's own: the intro's order, the
   hovers), `landing.css` (the landing kit, imported by its views only),
   `voucher.css`, `showcase.css`, page-specific sheets.
 - `i18n/` — `ui.ts` (UI strings, meta), `utils.ts` (`localizePath`).
@@ -110,6 +118,7 @@ guard, mail, JSONL). Alpacode Studio (`sites/studio/`): its own
 | `docs/marketing-map.md` | the house and its compartments, the audiences, the ladder, the two registers |
 | `docs/landing-factory.md` | making a landing: Track A (a campaign entry), B (bespoke on the kit), C (a studio page); the house rules |
 | `docs/voucher.md` | the referral program («Segnala un amico», `/voucher`) |
+| `docs/motion-direction.md` | the house's motion direction: «corpi rigidi, luce fluida», a brainstorm to decide (Italian) |
 | `docs/headless-cms.md` | a plan for a CMS (nothing built) |
 | `sites/studio/README.md` | running and changing Alpacode Studio, buying on the site |
 | `README.md` | the v3 notes at the top are current; the v2 spec below them is historical where they disagree |
@@ -143,7 +152,10 @@ place in `registry.ts`.
 - **Brand**: Archivo Black (display) + Manrope (text) + Caveat (the
   studio's handwritten notes); the blue `#3B72E9`; paper `#F0F3F9`, ink
   `#0B0E14`. The house has square corners and its landings take its
-  blue; the studio is ink + volt `#D4FF3A`, rounded, a colour per door.
+  blue; it stands on a glass facade (a fixed field of blue light with
+  mullions, glass panes: `--field*`, `--glass*`), never a flat cream
+  or "editorial" paper; the studio is ink + volt `#D4FF3A`, rounded, a
+  colour per door.
 - **Motion**: above the fold in CSS (first paint never waits on JS);
   below it GSAP. Nothing hidden by CSS: elements are hidden in JS, at
   init, and only below the fold. Under `prefers-reduced-motion` every

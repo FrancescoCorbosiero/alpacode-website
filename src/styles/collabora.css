@@ -18,7 +18,7 @@
 .clb-hero-h1 {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(40px, 5.6vw, 88px);
+  font-size: clamp(50px, 5.6vw, 88px);
   line-height: 0.9;
   letter-spacing: -0.035em;
   margin: 28px 0 0;
@@ -238,7 +238,9 @@
 }
 .clb-form-card {
   padding: 40px;
-  background: var(--paper);
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 .clb-form-card + .clb-form-card {
   border-left: 1.5px solid var(--ink);

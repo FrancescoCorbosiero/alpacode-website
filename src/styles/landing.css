@@ -44,9 +44,17 @@
   --lnd-plate-y: clamp(72px, 10vh, 128px);
   --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
-  background: var(--lnd-paper);
+  /* Transparent: the landing's paper plates are the house's facade
+     (base.css), its paper-2 plates panes of glass. */
+  background: transparent;
   color: var(--lnd-ink);
   overflow-x: clip;
+}
+/* Phones keep the plates' air they had before the desktop's was cut. */
+@media (max-width: 759px) {
+  .lnd {
+    --lnd-plate-y: clamp(88px, 13vh, 168px);
+  }
 }
 .lnd *,
 .lnd *::before,
@@ -58,7 +66,7 @@
    choice for the rest of the site), body painted like the first plate,
    the header's call to action in the accent. */
 body:has(.lnd) {
-  background: var(--paper);
+  background: transparent;
 }
 
 /* ---------- Layout ---------- */
@@ -81,7 +89,12 @@ body:has(.lnd) {
   color: var(--lnd-on-print);
 }
 .lnd-plate--paper-2 {
-  background: var(--lnd-paper-2);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow:
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 -1px 0 var(--glass-shade);
 }
 /* The drafting grid, for the plates that are drawings. */
 .lnd-grid-bg {
@@ -126,7 +139,8 @@ body:has(.lnd) {
   text-wrap: balance;
 }
 .lnd-display {
-  font-size: clamp(40px, 5.8vw, 96px);
+  /* Minimums: the phone's sizes; vw terms: the desktop's. */
+  font-size: clamp(46px, 5.8vw, 96px);
   line-height: 0.88;
   letter-spacing: -0.035em;
 }
@@ -134,12 +148,12 @@ body:has(.lnd) {
   display: block;
 }
 .lnd-title {
-  font-size: clamp(30px, 3.8vw, 58px);
+  font-size: clamp(36px, 3.8vw, 58px);
   line-height: 0.92;
   letter-spacing: -0.03em;
 }
 .lnd-title--md {
-  font-size: clamp(28px, 3.2vw, 48px);
+  font-size: clamp(32px, 3.2vw, 48px);
 }
 .lnd-sub {
   font-size: clamp(22px, 2.1vw, 32px);
@@ -340,7 +354,7 @@ body:has(.lnd) {
 }
 /* The headline takes the width; under it, the copy and the hero's machine. */
 .lnd-hero .lnd-display {
-  font-size: clamp(40px, 5.2vw, 88px);
+  font-size: clamp(44px, 5.2vw, 88px);
   margin-bottom: clamp(28px, 3.6vw, 52px);
 }
 .lnd-hero-row {
@@ -2618,7 +2632,7 @@ body:has(.lnd) {
   align-items: center;
 }
 .lnd-hero--offer .lnd-display {
-  font-size: clamp(36px, 4vw, 72px);
+  font-size: clamp(40px, 4vw, 72px);
 }
 /* Room above the corrected line for the handwriting. */
 .lnd-fixline {
@@ -4451,5 +4465,1441 @@ body:has(.lnd) {
   [data-scene="scale"][data-scene-live] .lnd-weight {
     padding: 7px 8px;
     font-size: 12px;
+  }
+}
+
+/* ============================================================
+   Services (/servizi/<slug>) — ServiceLanding.astro: the hero on the
+   blueprint with its machine and the service's facts; "Quando serve"
+   (the pen strikes the problem out, the fix is written above it);
+   what it covers (panes with their fixings, knolled in); the steps on
+   the rail; the works that prove it, on ink. The machines are below.
+   ============================================================ */
+.lnd--service {
+  --ac: #8fb0f5;
+  --ac-ink: #2756c2;
+  --ac-on: #0b0e14;
+  --ac-soft: rgba(59, 114, 233, 0.24);
+}
+.svp-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 clamp(18px, 2.4vw, 28px);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--lnd-on-print-mute);
+}
+.svp-crumbs a {
+  color: var(--lnd-on-print);
+  text-decoration: underline;
+  text-decoration-color: rgba(240, 243, 249, 0.4);
+  text-underline-offset: 3px;
+}
+.svp-crumbs a:hover {
+  text-decoration-color: var(--ac);
+}
+.svp-hero .lnd-display {
+  max-width: 16ch;
+}
+.svp-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: clamp(36px, 5vw, 64px) 0 0;
+  border-top: 1px solid rgba(240, 243, 249, 0.28);
+}
+.svp-fact {
+  display: grid;
+  gap: 6px;
+  padding: 16px 20px 0 0;
+}
+.svp-fact + .svp-fact {
+  padding-left: 20px;
+  border-left: 1px solid rgba(240, 243, 249, 0.18);
+}
+.svp-fact dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lnd-on-print-mute);
+}
+.svp-fact dd {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(17px, 1.5vw, 22px);
+  letter-spacing: -0.01em;
+  color: var(--lnd-on-print);
+}
+.svp-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px clamp(32px, 5vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+/* When it's needed: the line, the problem struck out, the fix above. */
+.svp-when {
+  --ac: #3b72e9;
+}
+.svp-when > .lnd-wrap > .lnd-title {
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.svp-when-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 2.6vw, 40px);
+}
+.svp-when-item {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 2px solid var(--lnd-ink);
+}
+.svp-no {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ac-ink);
+}
+.svp-when-t {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.svp-del {
+  text-decoration: none;
+  color: var(--lnd-mute);
+}
+.svp-fix-write {
+  position: relative;
+  padding-right: 46px;
+  text-decoration: none;
+  font-size: clamp(25px, 2.2vw, 32px);
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--ac-ink);
+  transform: rotate(-3deg);
+}
+.svp-fix-write .lnd-arrow {
+  position: absolute;
+  right: 0;
+  top: 0.5em;
+  width: 44px;
+  height: 28px;
+}
+.svp-when-item .lnd-body {
+  max-width: 38ch;
+}
+
+/* What it covers: frosted panes, a fixing in each corner. */
+.svp-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--lnd-ink);
+  border-left: 1px solid var(--lnd-rule);
+}
+.svp-cell {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 188px;
+  padding: clamp(24px, 2.4vw, 34px);
+  border-right: 1px solid var(--lnd-rule);
+  border-bottom: 1px solid var(--lnd-rule);
+  background: var(--glass);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+.svp-cell::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  pointer-events: none;
+  --t: rgba(39, 86, 194, 0.55);
+  background:
+    linear-gradient(var(--t), var(--t)) 0 0 / 9px 1.5px,
+    linear-gradient(var(--t), var(--t)) 0 0 / 1.5px 9px,
+    linear-gradient(var(--t), var(--t)) 100% 0 / 9px 1.5px,
+    linear-gradient(var(--t), var(--t)) 100% 0 / 1.5px 9px,
+    linear-gradient(var(--t), var(--t)) 0 100% / 9px 1.5px,
+    linear-gradient(var(--t), var(--t)) 0 100% / 1.5px 9px,
+    linear-gradient(var(--t), var(--t)) 100% 100% / 9px 1.5px,
+    linear-gradient(var(--t), var(--t)) 100% 100% / 1.5px 9px;
+  background-repeat: no-repeat;
+}
+.svp-pin {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ac-ink);
+}
+.svp-cell .lnd-sub,
+.svp-step .lnd-sub {
+  font-size: clamp(20px, 1.7vw, 26px);
+}
+
+/* How we work: the rail fills, the steps light up. */
+.svp-steps > .lnd-wrap > .lnd-title {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.svp-rail {
+  position: relative;
+}
+.svp-rail-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 27px;
+  height: 2px;
+  background: var(--lnd-rule);
+}
+.svp-rail-line i {
+  position: absolute;
+  inset: 0;
+  background: var(--ac-ink);
+  transform: scaleX(var(--p, 1));
+  transform-origin: left center;
+}
+.svp-rail-steps {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 36px);
+}
+.svp-step {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+.svp-step-tile {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 8px;
+  background: var(--lnd-ink);
+  color: var(--lnd-paper);
+  font-family: var(--display);
+  font-size: 18px;
+}
+.svp-step.is-reached .svp-step-tile {
+  background: var(--ac-ink);
+}
+
+/* The works that prove it, on ink. */
+.svp-works .svp-head .lnd-lede {
+  color: var(--lnd-on-print-mute);
+}
+.svp-works-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 36px);
+}
+.svp-work a {
+  display: grid;
+  gap: 8px;
+  color: var(--lnd-on-print);
+}
+.svp-work-frame {
+  margin: 0 0 10px;
+  transition: transform 0.6s var(--ease-expo);
+}
+.svp-work a:hover .svp-work-frame,
+.svp-work a:focus-visible .svp-work-frame {
+  transform: translateY(-6px);
+}
+.svp-work-facts {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lnd-on-print-mute);
+}
+.svp-work-name {
+  font-family: var(--display);
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.svp-work-go {
+  justify-self: start;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--ac);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.svp-works-all {
+  display: inline-block;
+  margin-top: clamp(32px, 4vw, 48px);
+  color: var(--lnd-on-print);
+}
+
+@media (max-width: 1024px) {
+  .svp-when-list,
+  .svp-works-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svp-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .svp-rail-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 40px;
+  }
+  .svp-rail-line {
+    display: none;
+  }
+  .svp-works-list {
+    max-width: 640px;
+  }
+}
+@media (max-width: 640px) {
+  .svp-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svp-fact,
+  .svp-fact + .svp-fact {
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: baseline;
+    padding: 12px 0;
+    border-left: 0;
+    border-bottom: 1px solid rgba(240, 243, 249, 0.14);
+  }
+  .svp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svp-cell {
+    min-height: 0;
+  }
+  /* The rail stands up: the steps one under the other, the line down
+     their tiles. */
+  .svp-rail-steps {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 28px;
+  }
+  .svp-rail-line {
+    display: block;
+    left: 27px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+  .svp-rail-line i {
+    transform: scaleY(var(--p, 1));
+    transform-origin: center top;
+  }
+  .svp-step {
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: 20px;
+    row-gap: 8px;
+  }
+  .svp-step-tile {
+    grid-row: span 2;
+    margin: 0;
+  }
+  .svp-step .lnd-sub {
+    align-self: end;
+  }
+}
+
+/* ============================================================
+   The machines: one per service, in the hero (components/landing/
+   machines/, played by lib/landing/machines.ts). Laid out here in
+   their end state — the composition, complete: what reduced motion
+   and a page without the script show. The script moves them from
+   there, on a loop, on screen only; its states are written under
+   [data-machine-live] (set by it).
+   ============================================================ */
+.svm {
+  --sheet: #f7f9fd;
+  --sheet-2: #e8edf6;
+  --sheet-ink: #0b0e14;
+  --sheet-mute: #687387;
+  --sheet-rule: #d3dbe9;
+  --sheet-blue: #3b72e9;
+  --sheet-light: #8fb0f5;
+  position: relative;
+  width: min(100%, 480px);
+  margin-left: auto;
+  color: var(--sheet-ink);
+  font-family: var(--sans);
+}
+.svm-sheet {
+  position: relative;
+  background: var(--sheet);
+  color: var(--sheet-ink);
+  border: 1px solid var(--sheet-ink);
+  box-shadow: 0 32px 54px -30px rgba(3, 10, 30, 0.9);
+}
+.svm .svm-note {
+  position: absolute;
+  z-index: 3;
+  font-size: clamp(22px, 2vw, 28px);
+  color: var(--sheet-light);
+  white-space: nowrap;
+}
+.svm-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 3px 8px;
+  background: #fff;
+  border: 1px solid var(--sheet-rule);
+  color: var(--sheet-mute);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.svm-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sheet-blue);
+}
+.svm-live::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--sheet-blue);
+  box-shadow: 0 0 0 3px rgba(59, 114, 233, 0.22);
+}
+.svm-stamp {
+  padding: 4px 9px 3px;
+  border: 2px solid var(--sheet-blue);
+  color: var(--sheet-blue);
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+/* Consulenza: the roadmap. */
+.svm--roadmap {
+  padding: 6px 0 56px;
+}
+.svm-road {
+  padding: 18px 16px 14px;
+  transform: rotate(-1.2deg);
+}
+.svm-road-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.svm-road-col {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 176px;
+  border-top: 2px solid var(--sheet-ink);
+}
+.svm-road-h {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 9px 0 2px;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.svm-road-h b {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--sheet-blue);
+}
+.svm-road-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.svm-chip {
+  padding: 9px 10px;
+  background: #fff;
+  border: 1px solid var(--sheet-rule);
+  border-left: 3px solid var(--sheet-blue);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 8px 14px -12px rgba(11, 14, 20, 0.55);
+}
+.svm-road-col:nth-child(2) .svm-chip {
+  border-left-color: var(--sheet-light);
+}
+.svm-road-col:nth-child(3) .svm-chip {
+  border-left-color: #c3cde0;
+}
+.svm-road-route {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin-top: 12px;
+  overflow: visible;
+}
+.svm-road-route path {
+  fill: none;
+  stroke: var(--sheet-blue);
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+.svm--roadmap .svm-note {
+  right: 4%;
+  bottom: 8px;
+  transform: rotate(-4deg);
+}
+
+/* Siti: the page, built and live. */
+.svm--site {
+  padding-bottom: 50px;
+}
+.svm-browser {
+  overflow: hidden;
+}
+.svm-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  background: var(--sheet-2);
+  border-bottom: 1px solid var(--sheet-rule);
+}
+.svm-bar > i {
+  width: 7px;
+  height: 7px;
+  background: #c1cadb;
+}
+.svm-bar .svm-url {
+  margin: 0 8px 0 6px;
+}
+.svm-page {
+  display: grid;
+  gap: 12px;
+  padding: 16px 18px 20px;
+}
+/* A block of the page: its content, and its wireframe (--w: 1 while
+   it's still a drawing; the machine tweens it). */
+.svm-b {
+  position: relative;
+}
+.svm-b > * {
+  opacity: calc(1 - var(--w, 0));
+}
+.svm-b::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1.5px dashed #95a3bb;
+  opacity: var(--w, 0);
+  pointer-events: none;
+}
+.svm-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 18px;
+}
+.svm-logo {
+  font-family: var(--display);
+  font-size: 13px;
+}
+.svm-links {
+  display: flex;
+  gap: 8px;
+}
+.svm-links i {
+  width: 26px;
+  height: 6px;
+  background: #c9d2e2;
+}
+.svm-head {
+  min-height: 52px;
+}
+.svm-h {
+  display: block;
+  font-family: var(--display);
+  font-size: 25px;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  max-width: 13ch;
+}
+.svm-lines {
+  display: grid;
+  gap: 6px;
+}
+.svm-lines i {
+  display: block;
+  height: 7px;
+  background: #d3dbe9;
+}
+.svm-lines i:last-child {
+  width: 68%;
+}
+.svm-ctas {
+  min-height: 34px;
+}
+.svm-cta {
+  display: inline-block;
+  padding: 9px 14px;
+  background: var(--sheet-blue);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.svm-media {
+  height: 70px;
+}
+.svm-media > i {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #3b72e9, #8fb0f5);
+}
+.svm-media b {
+  position: absolute;
+  left: 18px;
+  right: 40%;
+  bottom: 0;
+  height: 46px;
+  background: rgba(247, 249, 253, 0.55);
+  clip-path: polygon(0 100%, 32% 22%, 52% 64%, 70% 38%, 100% 100%);
+}
+.svm-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.svm-tiles i {
+  height: 36px;
+  background: var(--sheet-2);
+  border: 1px solid var(--sheet-rule);
+}
+.svm-toast {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--sheet-ink);
+  color: #f0f3f9;
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 0 16px 26px -14px rgba(3, 10, 30, 0.8);
+}
+.svm-toast b {
+  width: 8px;
+  height: 8px;
+  background: var(--sheet-light);
+}
+.svm-cursor {
+  position: absolute;
+  z-index: 3;
+  left: 42%;
+  top: 59%;
+  width: 18px;
+  height: 22px;
+  fill: var(--sheet-ink);
+  stroke: #fff;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.svm-checks {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.svm-checks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid rgba(240, 243, 249, 0.38);
+  background: rgba(240, 243, 249, 0.08);
+  color: #f0f3f9;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.svm-checks li::before {
+  content: "✓";
+  color: var(--sheet-light);
+}
+
+/* E-commerce: the product, the cart, the order's way, the label. */
+.svm--shop {
+  height: 390px;
+}
+.svm-product {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56%;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  transform: rotate(-1.5deg);
+}
+.svm-pimg {
+  position: relative;
+  height: 108px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #dce5fa, #8fb0f5);
+}
+/* A bag, drawn in two strokes: its body and its handle. */
+.svm-pimg i {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  width: 52px;
+  height: 46px;
+  margin: -18px 0 0 -26px;
+  background: var(--sheet-ink);
+  clip-path: polygon(14% 0, 86% 0, 100% 100%, 0 100%);
+}
+.svm-pimg i::before {
+  content: "";
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: -18px;
+  height: 22px;
+  border: 4px solid var(--sheet-ink);
+  border-bottom: 0;
+}
+.svm-pimg {
+  isolation: isolate;
+}
+.svm-pname {
+  font-family: var(--display);
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.svm-add {
+  justify-self: start;
+  padding: 8px 12px;
+  background: var(--sheet-ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.svm-cart {
+  position: absolute;
+  right: 6%;
+  top: 22px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  background: var(--sheet);
+  border: 1px solid var(--sheet-ink);
+  box-shadow: 0 20px 30px -20px rgba(3, 10, 30, 0.9);
+}
+.svm-cart svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--sheet-ink);
+  stroke-width: 1.8;
+  stroke-linejoin: miter;
+}
+.svm-cart b {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  background: var(--sheet-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.svm-ghost {
+  position: absolute;
+  z-index: 3;
+  left: 24%;
+  top: 84px;
+  width: 20px;
+  height: 20px;
+  background: var(--sheet-blue);
+  opacity: 0;
+  pointer-events: none;
+}
+.svm-flow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 222px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0 0 10px;
+  border-bottom: 2px solid rgba(240, 243, 249, 0.22);
+  color: #f0f3f9;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.svm-flow li {
+  position: relative;
+  padding-left: 14px;
+}
+.svm-flow li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 7px;
+  height: 7px;
+  background: var(--sheet-light);
+}
+.svm-flow-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--sheet-light);
+  transform: scaleX(var(--f, 1));
+  transform-origin: left center;
+}
+.svm-label {
+  position: absolute;
+  right: 2%;
+  bottom: 0;
+  width: 60%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 12px 14px 14px;
+  transform: rotate(2deg);
+}
+.svm-label-k {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sheet-mute);
+}
+.svm-label-no {
+  grid-column: 1;
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.svm-label .svm-stamp {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.svm-barcode {
+  grid-column: 1 / -1;
+  height: 30px;
+  margin-top: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sheet-ink) 0 2px,
+    transparent 2px 4px,
+    var(--sheet-ink) 4px 5px,
+    transparent 5px 8px,
+    var(--sheet-ink) 8px 11px,
+    transparent 11px 13px
+  );
+}
+.svm--shop .svm-note {
+  left: 0;
+  bottom: 30px;
+  transform: rotate(-4deg);
+}
+
+/* Software: the sheet hands its rows to the process. */
+.svm--flow {
+  height: 390px;
+}
+.svm-xls {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80%;
+  font-size: 11px;
+  transform: rotate(-1.4deg);
+}
+.svm-xls-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--sheet-2);
+  border-bottom: 1px solid var(--sheet-rule);
+  color: var(--sheet-mute);
+  font-weight: 700;
+}
+.svm-xls-bar i {
+  width: 12px;
+  height: 12px;
+  background: var(--sheet-ink);
+}
+.svm-xls-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+}
+.svm-xls-row {
+  display: contents;
+}
+.svm-xls-h,
+.svm-xls-c {
+  padding: 7px 8px;
+  border-right: 1px solid var(--sheet-rule);
+  border-bottom: 1px solid var(--sheet-rule);
+  transition: background-color 0.3s;
+}
+.svm-xls-h {
+  background: var(--sheet-2);
+  font-weight: 800;
+  color: var(--sheet-mute);
+}
+.svm-xls-c i {
+  display: block;
+  width: var(--w, 60%);
+  height: 6px;
+  margin-top: 3px;
+  background: #c9d2e2;
+}
+.svm-xls-ok {
+  text-align: center;
+  font-weight: 800;
+  color: var(--sheet-blue);
+}
+.svm-xls-row.is-hot > span {
+  background: rgba(59, 114, 233, 0.12);
+}
+.svm-chain {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+}
+.svm-wire {
+  position: absolute;
+  left: 12.5%;
+  right: 12.5%;
+  top: 27px;
+  width: 75%;
+  height: 4px;
+  overflow: visible;
+}
+.svm-wire path {
+  fill: none;
+  stroke: rgba(240, 243, 249, 0.5);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+  vector-effect: non-scaling-stroke;
+}
+.svm-nodes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.svm-node {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  color: #f0f3f9;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.svm-node-box {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  background: var(--lnd-print-2, #183c86);
+  border: 1.5px solid rgba(240, 243, 249, 0.6);
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.svm-node-box::after {
+  content: "✓";
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sheet-light);
+  transition: opacity 0.25s;
+}
+.svm-node.is-on .svm-node-box {
+  background: var(--sheet-blue);
+  border-color: var(--sheet-light);
+  box-shadow: 0 0 0 7px rgba(143, 176, 245, 0.18);
+}
+.svm-node.is-on .svm-node-box::after {
+  color: #fff;
+}
+[data-machine-live] .svm-node.is-off .svm-node-box::after {
+  opacity: 0;
+}
+.svm-packet {
+  position: absolute;
+  z-index: 2;
+  left: 12.5%;
+  top: 23px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--sheet-light);
+  box-shadow: 0 0 16px var(--sheet-light);
+  opacity: 0;
+}
+.svm-auto {
+  position: absolute;
+  left: 0;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f0f3f9;
+  font-size: 13px;
+  font-weight: 700;
+}
+.svm-auto i {
+  width: 8px;
+  height: 8px;
+  background: var(--sheet-light);
+  box-shadow: 0 0 0 4px rgba(143, 176, 245, 0.2);
+}
+.svm--flow .svm-note {
+  right: 0;
+  bottom: 12px;
+  transform: rotate(-3deg);
+}
+
+/* Integrazioni AI: the question, the lookup, the draft, the approval. */
+.svm-inbox-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--sheet-2);
+  border-bottom: 1px solid var(--sheet-rule);
+  font-size: 13px;
+  font-weight: 800;
+}
+.svm-inbox-bar i {
+  width: 8px;
+  height: 8px;
+  background: var(--sheet-blue);
+}
+/* The threads share one place: the machine plays them in turn. */
+.svm-threads {
+  display: grid;
+}
+.svm-threads > .svm-thread {
+  grid-area: 1 / 1;
+}
+.svm-thread {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 318px;
+  padding: 16px;
+}
+.svm-msg {
+  margin: 0;
+  max-width: 84%;
+  padding: 11px 13px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.svm-msg--in {
+  justify-self: start;
+  background: var(--sheet-2);
+  font-weight: 700;
+}
+.svm-source {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 10px;
+  overflow: hidden;
+  border: 1px dashed #95a3bb;
+  color: var(--sheet-mute);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.svm-source i {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--sheet-blue);
+  border-radius: 0;
+  box-shadow: inset 0 -4px 0 rgba(59, 114, 233, 0.35);
+}
+.svm-scan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(59, 114, 233, 0.28), transparent);
+  opacity: 0;
+}
+.svm-msg--draft {
+  justify-self: end;
+  display: grid;
+  gap: 6px;
+  background: var(--sheet-ink);
+  color: #f0f3f9;
+}
+.svm-draft-k {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--sheet-light);
+}
+.svm-approve {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+}
+.svm-approve-btn {
+  padding: 8px 12px;
+  border: 1.5px solid var(--sheet-ink);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.svm-approve-btn.is-pressed {
+  background: var(--sheet-ink);
+  color: #fff;
+}
+.svm-sent {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--sheet-blue);
+}
+
+/* Manutenzione: the monitor and a request done. */
+.svm--care {
+  padding-bottom: 76px;
+}
+.svm-mon-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--sheet-2);
+  border-bottom: 1px solid var(--sheet-rule);
+}
+.svm-pulse {
+  position: relative;
+  height: 72px;
+  margin: 14px 14px 10px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(143, 176, 245, 0.08) 1px, transparent 1px) 0 0 / 100% 18px,
+    var(--sheet-ink);
+}
+.svm-pulse svg {
+  display: block;
+  width: 200%;
+  height: 100%;
+}
+.svm-pulse path {
+  fill: none;
+  stroke: var(--sheet-light);
+  stroke-width: 2;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+.svm-backups {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 14px 10px;
+}
+.svm-k {
+  min-width: 60px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sheet-mute);
+}
+.svm-days {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: 3px;
+}
+.svm-days i {
+  height: 14px;
+  background: var(--sheet-blue);
+  transition: background-color 0.25s;
+}
+[data-machine-live] .svm-days i.is-empty {
+  background: #dfe5f0;
+}
+.svm-log {
+  display: grid;
+  gap: 6px;
+  margin: 2px 14px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.svm-log li::before {
+  content: "✓ ";
+  color: var(--sheet-blue);
+}
+.svm-ticket {
+  position: absolute;
+  left: -16px;
+  bottom: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 72%;
+  padding: 13px 14px;
+  transform: rotate(-2deg);
+}
+.svm-ticket-q {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Formazione: the lesson, three blocks in their slots. */
+.svm--learn {
+  height: 390px;
+}
+.svm-screen {
+  position: absolute;
+  inset: 0 0 74px;
+}
+.svm-screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  background: var(--sheet-2);
+  border-bottom: 1px solid var(--sheet-rule);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.svm-screen-bar i {
+  width: 7px;
+  height: 7px;
+  background: #c1cadb;
+}
+.svm-screen-bar i:last-of-type {
+  margin-right: 6px;
+}
+.svm-slots {
+  display: grid;
+  gap: 12px;
+  width: 60%;
+  padding: 16px 0 0 16px;
+}
+.svm-slot {
+  position: relative;
+  height: 56px;
+  border: 1.5px dashed #95a3bb;
+}
+.svm-block {
+  position: absolute;
+  inset: 4px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: var(--sheet-blue);
+  color: #fff;
+  font-family: var(--display);
+  font-size: 15px;
+  box-shadow: 0 12px 20px -14px rgba(3, 10, 30, 0.85);
+}
+.svm-slot:nth-child(2) .svm-block {
+  background: var(--sheet-ink);
+}
+.svm-slot:nth-child(3) .svm-block {
+  background: var(--sheet-light);
+  color: var(--sheet-ink);
+}
+.svm-palette {
+  position: absolute;
+  right: 16px;
+  top: 58px;
+  width: 30%;
+  display: grid;
+  gap: 12px;
+}
+.svm-spot {
+  height: 56px;
+  border: 1px solid var(--sheet-rule);
+  background: var(--sheet-2);
+}
+.svm-cur {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  pointer-events: none;
+}
+.svm-cur svg {
+  width: 18px;
+  height: 22px;
+  fill: var(--sheet-ink);
+  stroke: #fff;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.svm-cur span {
+  margin-top: 16px;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.svm-cur--teacher {
+  right: 30%;
+  bottom: 22px;
+}
+.svm-cur--teacher span {
+  background: var(--sheet-ink);
+  color: #fff;
+}
+.svm-cur--you {
+  right: 4%;
+  bottom: 6px;
+}
+.svm-cur--you svg {
+  fill: var(--sheet-blue);
+}
+.svm-cur--you span {
+  background: var(--sheet-light);
+  color: var(--sheet-ink);
+}
+.svm-badge {
+  position: absolute;
+  left: 4%;
+  bottom: 12px;
+  padding: 8px 14px 7px;
+  border: 2px solid var(--sheet-light);
+  color: var(--sheet-light);
+  font-family: var(--display);
+  font-size: 18px;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+}
+
+/* A narrow screen: the machine under the copy, centred, a little
+   smaller. */
+@media (max-width: 1024px) {
+  .svm {
+    margin-inline: auto;
+  }
+}
+@media (max-width: 480px) {
+  .svm-road-cols {
+    gap: 6px;
+  }
+  .svm-chip {
+    padding: 8px 7px;
+    font-size: 11.5px;
+  }
+  .svm-road-h {
+    font-size: 13px;
+  }
+  .svm-h {
+    font-size: 21px;
+  }
+  .svm-checks li {
+    padding: 6px 8px;
+    font-size: 11.5px;
+  }
+  .svm-product {
+    width: 60%;
+  }
+  /* The note goes under the label, not across it. */
+  .svm--shop {
+    height: 432px;
+  }
+  .svm-label {
+    width: 70%;
+    bottom: 46px;
+  }
+  .svm--shop .svm-note {
+    bottom: 2px;
+  }
+  .svm-ticket {
+    left: 0;
+    width: 86%;
+  }
+  .svm-node-box {
+    width: 46px;
+    height: 46px;
+  }
+  .svm-node {
+    font-size: 11px;
+  }
+  .svm-wire {
+    top: 22px;
+  }
+  .svm-packet {
+    top: 18px;
   }
 }

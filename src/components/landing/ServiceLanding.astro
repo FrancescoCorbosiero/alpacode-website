@@ -1,0 +1,242 @@
+---
+/* /servizi/<slug> — a page per service, on the landing kit. Copy in
+   data/service-pages/<slug>.ts; the hero's machine (one per service:
+   components/landing/machines/, played by lib/landing/machines.ts);
+   the pen's corrections in "Quando serve" (the problem struck out,
+   the fix written above it: [data-fixes], the same module); the rest
+   is the kit's (knoll, rail, Objections, LeadForm, Portals) and the
+   showcase's frame for the works that prove it. */
+import "../../styles/landing.css";
+import type { Lang } from "../../i18n/types";
+import { localizePath } from "../../i18n/utils";
+import { portals } from "../../data/audiences";
+import { SERVICE_PAGES, servicePage, servicePath, type ServiceSlug } from "../../data/service-pages";
+import { works, factsOf, hostOf, shotFor, workHref, workLabels, no } from "../../data/work";
+import BrowserFrame from "../BrowserFrame.astro";
+import Mark from "./Mark.astro";
+import Hand from "./Hand.astro";
+import Lines from "./Lines.astro";
+import Objections from "./Objections.astro";
+import LeadForm from "./LeadForm.astro";
+import Portals from "./Portals.astro";
+import Roadmap from "./machines/Roadmap.astro";
+import Wireframe from "./machines/Wireframe.astro";
+import Checkout from "./machines/Checkout.astro";
+import Pipeline from "./machines/Pipeline.astro";
+import Answer from "./machines/Answer.astro";
+import Heartbeat from "./machines/Heartbeat.astro";
+import Lesson from "./machines/Lesson.astro";
+
+interface Props {
+  lang: Lang;
+  slug: ServiceSlug;
+}
+const { lang, slug } = Astro.props;
+const page = servicePage(slug);
+const c = page.copy[lang];
+const h = c.hero;
+const m = c.machine;
+const L = workLabels[lang];
+
+/* The works that prove it: the kinds the page names, then its ids. */
+const all = await works();
+const proof = page.works
+  ? all.filter((w) => page.works?.kinds?.includes(w.data.kind) || page.works?.ids?.includes(w.id)).slice(0, 3)
+  : [];
+
+/* The other services: the next three in the order of /servizi. */
+const order = SERVICE_PAGES.map((s) => servicePath(s.slug));
+const here = order.indexOf(servicePath(slug));
+const next = [1, 2, 3].map((k) => order[(here + k) % order.length]!);
+const servicesHref = localizePath("servizi", lang);
+const crumb = lang === "it" ? "Servizi" : "Services";
+const allWorks = lang === "it" ? "Tutti i lavori" : "All the work";
+---
+
+<div class={`lnd lnd--service lnd--svc-${slug}`}>
+  {/* ---------- Hero: the promise, and the service at work ---------- */}
+  <section class="lnd-plate lnd-plate--print lnd-hero svp-hero" data-hero>
+    <div class="lnd-crop" aria-hidden="true"></div>
+    <div class="lnd-wrap">
+      <nav class="svp-crumbs" aria-label={lang === "it" ? "Percorso" : "Breadcrumb"} data-intro style="--i:0">
+        <a href={servicesHref}>{crumb}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{c.name}</span>
+      </nav>
+      <Hand kicker><span data-intro style="--i:0">{h.kicker}</span></Hand>
+      <h1 class="lnd-display">
+        {h.lines.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}
+        <span class="lnd-ac" style={`--i:${h.lines.length}`}>
+          {h.accent.before}<Mark kind="underline">{h.accent.mark}</Mark>{h.accent.after}
+        </span>
+      </h1>
+      <div class="lnd-hero-row">
+        <div class="lnd-hero-copy">
+          <p class="lnd-lede" data-intro style="--i:3">{h.lede}</p>
+          <div class="lnd-actions" data-intro style="--i:4">
+            <a class="btn btn-ac btn-lg" href="#parliamone" data-magnetic>{h.cta} <span class="arrow">→</span></a>
+            <a class="lnd-link" href="#quando">{h.alt} <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="lnd-hero-machine" aria-hidden="true">
+          {m.kind === "roadmap" && <Roadmap copy={m} />}
+          {m.kind === "wireframe" && <Wireframe copy={m} />}
+          {m.kind === "checkout" && <Checkout copy={m} />}
+          {m.kind === "pipeline" && <Pipeline copy={m} />}
+          {m.kind === "answer" && <Answer copy={m} />}
+          {m.kind === "heartbeat" && <Heartbeat copy={m} />}
+          {m.kind === "lesson" && <Lesson copy={m} />}
+        </div>
+      </div>
+      <dl class="svp-facts" data-intro style="--i:5">
+        {
+          c.facts.map((f) => (
+            <div class="svp-fact">
+              <dt>{f.k}</dt>
+              <dd>{f.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  {/* ---------- When it's needed: the pen corrects the problem ---------- */}
+  <section class="lnd-plate svp-when" id="quando">
+    <div class="lnd-wrap">
+      <h2 class="lnd-title" data-split><Lines text={c.when.title} /></h2>
+      <ol class="svp-when-list" data-fixes>
+        {
+          c.when.items.map((w, i) => (
+            <li class="svp-when-item">
+              <span class="svp-no">{no(i)}</span>
+              {/* The line first, then the fix: the note is drawn above it. */}
+              <h3 class="svp-when-t">
+                <span class="svp-when-line">
+                  {w.t}{" "}
+                  <del class="svp-del">
+                    <span class="lnd-mark" data-mark="strike" data-mark-manual>
+                      {w.strike}
+                    </span>
+                  </del>
+                </span>{" "}
+                <ins class="lnd-hand svp-fix-write" data-fix-write>
+                  {w.fix}
+                  <svg class="lnd-arrow" viewBox="0 0 64 40" aria-hidden="true" focusable="false">
+                    <path d="M10 4 C 30 6, 44 18, 46 36 M38 29 L 46 37 L 53 28" />
+                  </svg>
+                </ins>
+              </h3>
+              <p class="lnd-body">{w.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* ---------- What it covers ---------- */}
+  <section class="lnd-plate lnd-plate--paper-2 svp-includes">
+    <div class="lnd-wrap">
+      <div class="svp-head">
+        <h2 class="lnd-title" data-split><Lines text={c.includes.title} /></h2>
+        <p class="lnd-lede" data-reveal>{c.includes.lede}</p>
+      </div>
+      <ul class="svp-grid" data-knoll>
+        {
+          c.includes.items.map((it, i) => (
+            <li class="svp-cell">
+              <span class="svp-pin" aria-hidden="true">
+                {no(i)}
+              </span>
+              <h3 class="lnd-sub">{it.t}</h3>
+              <p class="lnd-body">{it.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- How we work: the rail ---------- */}
+  <section class="lnd-plate svp-steps">
+    <div class="lnd-wrap">
+      <h2 class="lnd-title" data-split><Lines text={c.steps.title} /></h2>
+      <div class="svp-rail" data-rail>
+        <span class="svp-rail-line" aria-hidden="true"><i></i></span>
+        <ol class="svp-rail-steps">
+          {
+            c.steps.items.map((s, i) => (
+              <li class="svp-step" data-rail-step>
+                <span class="svp-step-tile" data-rail-tile>
+                  {no(i)}
+                </span>
+                <h3 class="lnd-sub">{s.t}</h3>
+                <p class="lnd-body">{s.d}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- The works that prove it (only real ones) ---------- */}
+  {
+    c.works && proof.length > 0 && (
+      <section class="lnd-plate lnd-plate--ink svp-works">
+        <div class="lnd-wrap">
+          <div class="svp-head">
+            <h2 class="lnd-title" data-split>
+              <Lines text={c.works.title} />
+            </h2>
+            <p class="lnd-lede" data-reveal>
+              {c.works.lede}
+            </p>
+          </div>
+          <ul class="svp-works-list">
+            {proof.map((w) => (
+              <li class="svp-work" data-reveal>
+                <a href={workHref(w.id, lang)}>
+                  <BrowserFrame
+                    shot={shotFor(w.id)}
+                    alt={lang === "it" ? `Il sito di ${w.data.title[lang]}` : `${w.data.title[lang]}'s website`}
+                    bar={hostOf(w.data.url) ?? w.data.title[lang]}
+                    sizes="(max-width: 900px) 100vw, 33vw"
+                    class="svp-work-frame"
+                  />
+                  <span class="svp-work-facts">{factsOf(w.data, lang).join(" · ")}</span>
+                  <span class="svp-work-name">{w.data.title[lang]}</span>
+                  <span class="svp-work-go">
+                    {L.view} <span aria-hidden="true">→</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a class="lnd-link svp-works-all" href={localizePath("lavori", lang)}>
+            {allWorks} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <Objections title={c.qa.title} items={c.qa.items} />
+
+  <LeadForm
+    lang={lang}
+    campaign={`servizio-${slug}`}
+    audience={c.name}
+    topic={c.lead.topic}
+    title={c.lead.title}
+    lede={c.lead.lede}
+    choices={c.lead.choices}
+    choiceLegend={c.lead.legend}
+    phone
+    message={c.lead.message}
+    extra={c.lead.extra}
+  />
+
+  <Portals title={c.portals} items={portals(next, lang)} />
+</div>

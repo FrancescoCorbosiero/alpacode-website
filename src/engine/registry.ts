@@ -7,7 +7,8 @@
    the filter (Flip), and the house's own scenes (tier 3: the home's
    cases, method and map, the alpacas, the landings' scenes). Their CSS
    is in the site's stylesheet (styles/engine.css): their end state must
-   not wait for the chunk.
+   not wait for the chunk. The service pages' machines
+   (lib/landing/machines.ts) are the house's too, on the landing kit.
    The engine follows the contract of alpacode-motion, the motion
    catalog (FrancescoCorbosiero/alpacode-motion): reference only, never
    edited from here. Its core/ and effects/ are this site's code: a new
@@ -34,6 +35,7 @@ import * as kinetic from "./effects/kinetic";
 import * as knoll from "./effects/knoll";
 import * as magnetic from "./effects/magnetic";
 import * as markHighlight from "./effects/mark-highlight";
+import * as pane from "./effects/pane";
 import * as markStrike from "./effects/mark-strike";
 import * as markUnderline from "./effects/mark-underline";
 import * as marquee from "./effects/marquee";
@@ -87,6 +89,7 @@ export const effects: Effect[] = [
   cursorThumb,
   tilt,
   magnetic,
+  pane,
   coin,
   accordion,
 ];
@@ -99,6 +102,8 @@ export const lazy: LazyEffect[] = [
   { hook: '[data-scene="cases"]', load: () => import("./effects/cases") },
   { hook: '[data-scene="method"]', load: () => import("./effects/method") },
   { hook: '[data-scene="map"]', load: () => import("./effects/map") },
+  { hook: '[data-scene="team"]', load: () => import("./effects/team") },
   { hook: "[data-alpaca], [data-alpaca-walker], [data-steps-runner]", load: () => import("./effects/alpaca") },
   { hook: ".lnd [data-scene]", load: () => import("../lib/landing/scenes") },
+  { hook: ".lnd [data-machine], .lnd [data-fixes]", load: () => import("../lib/landing/machines") },
 ];

@@ -1,8 +1,349 @@
 /* ============================================================
-   Chi siamo (/chi-siamo): what we do as a numbered list, the
-   people as portraits with their words, who we work best with,
-   the doors to the network and the compartments.
+   Chi siamo (/chi-siamo): the studio's plate, the people on equal
+   footing (three panes that meet where your project is, then a plate
+   each, its window with the initials traced on the glass), what we do
+   (each thing leading to its page), who we work best with, the doors
+   to the network and the compartments.
    ============================================================ */
+
+/* ---------- The studio's plate: a pane of glass on the facade ---------- */
+.about-plate-sec {
+  padding-top: clamp(48px, 6vw, 80px);
+  padding-bottom: 24px;
+}
+.about-plate {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 28px;
+  padding: clamp(26px, 3.4vw, 48px);
+  border: 1px solid var(--ink);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+/* Its fixings, one in each corner. */
+.about-plate::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  --t: var(--blue);
+  background:
+    linear-gradient(var(--t), var(--t)) 0 0 / 12px 2px,
+    linear-gradient(var(--t), var(--t)) 0 0 / 2px 12px,
+    linear-gradient(var(--t), var(--t)) 100% 0 / 12px 2px,
+    linear-gradient(var(--t), var(--t)) 100% 0 / 2px 12px,
+    linear-gradient(var(--t), var(--t)) 0 100% / 12px 2px,
+    linear-gradient(var(--t), var(--t)) 0 100% / 2px 12px,
+    linear-gradient(var(--t), var(--t)) 100% 100% / 12px 2px,
+    linear-gradient(var(--t), var(--t)) 100% 100% / 2px 12px;
+  background-repeat: no-repeat;
+}
+.about-plate-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid var(--ink);
+}
+.about-plate-name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(26px, 3.6vw, 54px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+.about-plate-alpaca {
+  flex: none;
+  width: clamp(40px, 4vw, 56px);
+  height: auto;
+  color: var(--blue);
+}
+.about-plate-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+}
+.about-plate-facts div {
+  display: grid;
+  gap: 6px;
+  padding-right: 20px;
+}
+.about-plate-facts div + div {
+  padding-left: 20px;
+  border-left: 1px solid var(--rule);
+}
+.about-plate-facts dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mute);
+}
+.about-plate-facts dd {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(17px, 1.5vw, 22px);
+  letter-spacing: -0.01em;
+}
+.about-plate-vat {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mute);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- The people: three panes that meet ---------- */
+.about-team-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 32px clamp(40px, 6vw, 96px);
+  align-items: center;
+  margin-bottom: clamp(56px, 7vw, 96px);
+}
+.about-team-stage {
+  position: relative;
+  width: min(100%, 640px);
+  aspect-ratio: 1 / 0.92;
+}
+/* A pane: frosted glass, a blue of its own; where two overlap the
+   glass is denser, where all three do is the core. */
+.about-pane {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: clamp(14px, 2vw, 24px);
+  border: 1px solid var(--pane-edge, rgba(39, 86, 194, 0.55));
+  background: var(--pane, rgba(59, 114, 233, 0.16));
+  -webkit-backdrop-filter: blur(6px) saturate(1.3);
+  backdrop-filter: blur(6px) saturate(1.3);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+.about-pane--a {
+  left: 0;
+  top: 0;
+  --pane: rgba(59, 114, 233, 0.2);
+}
+.about-pane--b {
+  right: 0;
+  top: 0;
+  align-items: flex-end;
+  text-align: right;
+  --pane: rgba(143, 176, 245, 0.26);
+  --pane-edge: rgba(59, 114, 233, 0.45);
+}
+.about-pane--c {
+  left: 19%;
+  bottom: 0;
+  justify-content: flex-end;
+  --pane: rgba(11, 14, 20, 0.08);
+  --pane-edge: rgba(11, 14, 20, 0.5);
+}
+.about-pane-no {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue);
+}
+.about-pane-name {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.3vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.about-pane-what {
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 700;
+  color: var(--mute-2);
+}
+/* The core: the square all three panes share (the panes are 62% of
+   the stage's width, the stage 0.92 of it tall: x 38–62%, y from
+   0.30 to 0.62 of the width). */
+.about-team-core {
+  position: absolute;
+  left: 38%;
+  top: 32.6%;
+  width: 24%;
+  height: 34.8%;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  background: var(--blue-fill);
+  color: #fff;
+  text-align: center;
+  font-family: var(--display);
+  font-size: clamp(13px, 1.5vw, 20px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  box-shadow: 0 22px 40px -22px rgba(39, 86, 194, 0.9);
+}
+.about-team-copy {
+  display: grid;
+  gap: 28px;
+  align-content: center;
+}
+.about-team-lede {
+  margin: 0;
+  max-width: 36ch;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--mute-2);
+}
+/* The line the scene illustrates, led by the strut. */
+.about-team-note {
+  position: relative;
+  margin: 0;
+  max-width: 30ch;
+  padding-top: 22px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.about-team-note::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: var(--strut);
+  background: var(--blue);
+}
+
+/* At night the panes are lit from inside: light edges, the third pane
+   a breath of light instead of a breath of ink. */
+:root[data-theme="dark"] .about-pane--a {
+  --pane-edge: rgba(143, 176, 245, 0.6);
+}
+:root[data-theme="dark"] .about-pane--b {
+  --pane-edge: rgba(143, 176, 245, 0.45);
+}
+:root[data-theme="dark"] .about-pane--c {
+  --pane: rgba(240, 243, 249, 0.07);
+  --pane-edge: rgba(240, 243, 249, 0.38);
+}
+
+/* ---------- A plate each ---------- */
+.about-people-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 0 clamp(20px, 2.6vw, 40px);
+  border-top: 1px solid var(--ink);
+}
+/* The rows line up across the three: window, role, name, bio, tags. */
+.about-person {
+  grid-row: span 5;
+  display: grid;
+  grid-template-rows: subgrid;
+  align-content: start;
+  gap: 10px;
+  padding-top: 28px;
+}
+.about-window {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 14px;
+  aspect-ratio: 5 / 4;
+  border: 1px solid var(--ink);
+  background:
+    linear-gradient(rgba(39, 86, 194, 0.09) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(39, 86, 194, 0.09) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(143, 176, 245, 0.28));
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+:root[data-theme="dark"] .about-window {
+  background:
+    linear-gradient(rgba(143, 176, 245, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(143, 176, 245, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(160deg, rgba(59, 114, 233, 0.18), rgba(20, 26, 38, 0.6));
+}
+:root[data-theme="dark"] .about-initials text {
+  fill: rgba(143, 176, 245, 0.12);
+  stroke: #8fb0f5;
+}
+.about-window img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 24%;
+}
+.about-initials {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.about-initials text {
+  font-family: var(--display);
+  font-size: 276px;
+  letter-spacing: -0.04em;
+  fill: rgba(59, 114, 233, 0.14);
+  stroke: var(--blue);
+  stroke-width: 2.5;
+  paint-order: stroke;
+}
+.about-role {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-weight: 700;
+  color: var(--blue);
+}
+.about-no {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--mute);
+  font-variant-numeric: tabular-nums;
+}
+.about-name {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.3vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.about-bio {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+.about-bio p {
+  margin: 0;
+  color: var(--mute-2);
+  line-height: 1.6;
+}
+.about-tags {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 6px;
+}
+.about-tags li {
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  background: var(--glass);
+  font-size: 13px;
+  font-weight: 600;
+}
+.about-link {
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--blue);
+}
 
 /* ---------- What we do ---------- */
 .about-what-list {
@@ -15,10 +356,6 @@
 }
 .about-what-item {
   grid-column: span 2;
-  display: grid;
-  align-content: start;
-  gap: 12px;
-  padding: 28px 28px 32px 0;
   border-bottom: 1px solid var(--rule);
 }
 /* Five items: the last two share the row's width. */
@@ -26,12 +363,26 @@
   grid-column: span 3;
 }
 .about-what-item + .about-what-item {
-  padding-left: 28px;
   border-left: 1px solid var(--rule);
 }
 .about-what-item:nth-child(4) {
-  padding-left: 0;
   border-left: 0;
+}
+.about-what-item a {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  height: 100%;
+  padding: 28px 28px 30px;
+  color: var(--ink);
+  transition: background-color 0.3s var(--ease-expo);
+}
+.about-what-item:nth-child(1) a,
+.about-what-item:nth-child(4) a {
+  padding-left: 0;
+}
+.about-what-item a:hover {
+  background: var(--glass-hover);
 }
 .about-what-n {
   font-weight: 700;
@@ -51,107 +402,17 @@
   color: var(--mute-2);
   line-height: 1.6;
 }
-
-/* ---------- The people ---------- */
-.about-people-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  border-top: 1px solid var(--ink);
-}
-.about-person {
-  display: grid;
-  grid-template-columns: minmax(120px, 0.42fr) minmax(0, 1fr);
-  gap: 24px;
-  padding: 32px 32px 36px 0;
-  border-bottom: 1px solid var(--rule);
-}
-.about-person:nth-child(odd):not(.about-person--lead) {
-  padding-right: 32px;
-}
-.about-person:nth-child(even) {
-  padding-left: 32px;
-  border-left: 1px solid var(--rule);
-}
-/* The founder spans the row: the studio is his, the page says so. */
-.about-person--lead {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(200px, 0.32fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 64px);
-  padding: 40px 0 44px;
-}
-.about-portrait {
-  margin: 0;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--ink);
-}
-.about-portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.about-monogram {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  background:
-    linear-gradient(rgba(240, 243, 249, 0.12) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(90deg, rgba(240, 243, 249, 0.12) 1px, transparent 1px) 0 0 / 24px 24px,
-    #12306f;
-  color: #f0f3f9;
-  font-family: var(--display);
-  font-size: clamp(40px, 5vw, 72px);
-  letter-spacing: -0.02em;
-}
-.about-person-copy {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-}
-.about-person h3 {
-  margin: 0;
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(24px, 2.4vw, 34px);
-  line-height: 1;
-}
-.about-person--lead h3 {
-  font-size: clamp(30px, 3.4vw, 48px);
-}
-.about-role {
-  margin: 0 0 6px;
+.about-what-go {
   font-weight: 700;
+  font-size: 14px;
   color: var(--blue);
 }
-.about-bio {
-  margin: 0;
-  max-width: 62ch;
-  color: var(--mute-2);
-  line-height: 1.65;
+.about-what-go .arrow {
+  display: inline-block;
+  transition: transform 0.35s var(--ease-expo);
 }
-.about-tags {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.about-tags li {
-  padding: 5px 10px;
-  border: 1px solid var(--rule);
-  font-size: 13px;
-  font-weight: 600;
-}
-.about-link {
-  margin-top: 6px;
-  font-weight: 700;
-  color: var(--blue);
+.about-what-item a:hover .arrow {
+  transform: translateX(6px);
 }
 
 /* ---------- Who we work best with ---------- */
@@ -165,7 +426,7 @@
   margin: 0;
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 54px);
+  font-size: clamp(30px, 3.6vw, 54px);
   line-height: 0.95;
 }
 .about-fit-list {
@@ -204,6 +465,7 @@
   gap: 12px;
   padding: clamp(24px, 3vw, 36px);
   border: 1px solid var(--ink);
+  background: var(--glass);
   color: var(--ink);
   transition:
     background-color 0.3s var(--ease-expo),
@@ -235,9 +497,28 @@
   color: #8fb0f5;
 }
 
+@media (max-width: 1024px) {
+  .about-team-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about-team-stage {
+    margin-inline: auto;
+  }
+  .about-team-note,
+  .about-team-lede {
+    max-width: 46ch;
+  }
+  .about-plate-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 18px;
+  }
+  .about-plate-facts div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
 @media (max-width: 900px) {
   .about-what-list,
-  .about-people-list,
   .about-fit-grid,
   .about-network-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -245,23 +526,47 @@
   .about-what-item,
   .about-what-item:nth-child(n + 4) {
     grid-column: auto;
-    padding: 22px 0;
     border-left: 0 !important;
-    padding-left: 0 !important;
   }
-  .about-person,
-  .about-person--lead {
-    grid-template-columns: minmax(96px, 0.36fr) minmax(0, 1fr);
-    padding: 24px 0 !important;
-    border-left: 0 !important;
+  .about-what-item a {
+    padding: 22px 0;
+  }
+  /* The plates one under the other, the window beside the name. */
+  .about-people-list {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+  .about-person {
+    grid-row: auto;
+    grid-template-rows: none;
+    grid-template-columns: minmax(110px, 0.34fr) minmax(0, 1fr);
+    column-gap: 22px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .about-window {
+    grid-row: span 3;
+    margin: 0;
+    align-self: start;
+  }
+  .about-bio,
+  .about-tags,
+  .about-link {
+    grid-column: 1 / -1;
   }
 }
 @media (max-width: 560px) {
-  .about-person,
-  .about-person--lead {
+  .about-plate-facts {
     grid-template-columns: minmax(0, 1fr);
   }
-  .about-portrait {
-    width: min(100%, 220px);
+  .about-plate-facts div,
+  .about-plate-facts div + div {
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: baseline;
+    padding: 0;
+    border-left: 0;
+  }
+  .about-pane-what {
+    font-size: 11.5px;
   }
 }

@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../../i18n/types";
 import { anchorOf, servizi } from "../../data/services";
+import { serviceHref, servicePageForRow } from "../../data/service-pages";
 import { localizePath } from "../../i18n/utils";
 import PageHero from "../PageHero.astro";
 import Statement from "../Statement.astro";
@@ -17,6 +18,16 @@ const prodottiLabel =
   lang === "it"
     ? "Cerchi una soluzione già pronta? Vedi i prodotti"
     : "Looking for a ready-made solution? See the products";
+/* Where a row leads: its page (data/service-pages), the studio for the
+   growth rows (their group's door), the products for the kits. */
+const KITS = "12";
+const rowLink = (n: string, door?: string): { href: string; label: string; out: boolean } | null => {
+  const page = servicePageForRow(n);
+  if (page) return { href: serviceHref(page.slug, lang), label: lang === "it" ? "Scopri il servizio" : "See the service", out: false };
+  if (door) return { href: door, label: lang === "it" ? "Su Alpacode Studio" : "On Alpacode Studio", out: true };
+  if (n === KITS) return { href: prodottiHref, label: lang === "it" ? "Vedi i prodotti" : "See the products", out: false };
+  return null;
+};
 ---
 
 <PageHero crumb={t.crumb} line1={t.h1Line1} line2={t.h1Line2} lede={t.lede} />
@@ -30,23 +41,32 @@ const prodottiLabel =
             <h2 class="svc-group-verb">{g.verb}</h2>
             <p class="svc-group-tag">{g.tagline}</p>
           </div>
-          {g.rows.map((r) => (
-            <div class="svc-row" id={anchorOf(r.t)}>
-              <div class="svc-no">{r.n}<span class="dot">.</span></div>
-              <div>
-                <h3>{r.t}</h3>
-                <p>{r.d}</p>
-                <div class="meta">
-                  {r.meta.map((m) => (
-                    <div>
-                      <span class="k">{m.k}</span>
-                      <span class="v">{m.v}</span>
-                    </div>
-                  ))}
+          {g.rows.map((r) => {
+            const link = rowLink(r.n, g.door?.href);
+            return (
+              <div class:list={["svc-row", { "svc-row--link": link }]} id={anchorOf(r.t)}>
+                <div class="svc-no">{r.n}<span class="dot">.</span></div>
+                <div>
+                  {/* The title is the row's link; its ::after spans the row. */}
+                  <h3>{link ? <a class="svc-row-a" href={link.href}>{r.t}</a> : r.t}</h3>
+                  <p>{r.d}</p>
+                  <div class="meta">
+                    {r.meta.map((m) => (
+                      <div>
+                        <span class="k">{m.k}</span>
+                        <span class="v">{m.v}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {link && (
+                    <span class="svc-row-go" aria-hidden="true">
+                      {link.label} <span class="arrow">{link.out ? "↗" : "→"}</span>
+                    </span>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {g.door && (
             <a class="svc-door" href={g.door.href}>
               <span class="svc-door-text">{g.door.text}</span>

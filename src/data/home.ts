@@ -226,7 +226,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Scrivici", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Prenota una call", v: "30 min · gratis", href: "prenota" },
-      { k: "Racconta il progetto", v: "60 secondi · 3 tap", href: "contatti#wizard" },
+      { k: "Racconta il progetto", v: "60 secondi · 3 tap", href: "contatti#brief" },
     ],
     cta: "Apri il modulo di contatto",
   },
@@ -238,7 +238,7 @@ export const ctaFinal: Record<Lang, CtaData> = {
     grid: [
       { k: "Write us", v: "info@alpacode.it", href: "mailto:info@alpacode.it" },
       { k: "Book a call", v: "30 min · free", href: "prenota" },
-      { k: "Tell us your project", v: "60 seconds · 3 taps", href: "contatti#wizard" },
+      { k: "Tell us your project", v: "60 seconds · 3 taps", href: "contatti#brief" },
     ],
     cta: "Open the contact form",
   },
@@ -533,6 +533,9 @@ export interface CoverageData {
   hqLabel: string;
   /** The heading of the list of places with a client. */
   clientsLabel: string;
+  /** The map's key: a client's arc, an arc of reach. */
+  keyClients: string;
+  keyReach: string;
   note: string;
   cta: string;
 }
@@ -548,6 +551,8 @@ export const coverage: Record<Lang, CoverageData> = {
     reachValue: "Tutta Italia, da remoto",
     hqLabel: "Monza · Milano · Brianza",
     clientsLabel: "Dove sono i clienti",
+    keyClients: "Clienti",
+    keyReach: "Da remoto, in tutta Italia",
     note: "Per i progetti più grandi, veniamo volentieri da te.",
     cta: "Lavoriamo insieme",
   },
@@ -561,6 +566,8 @@ export const coverage: Record<Lang, CoverageData> = {
     reachValue: "All Italy, remotely",
     hqLabel: "Monza · Milan · Brianza",
     clientsLabel: "Where our clients are",
+    keyClients: "Clients",
+    keyReach: "Remotely, across Italy",
     note: "For bigger projects, we're happy to come to you.",
     cta: "Let's work together",
   },

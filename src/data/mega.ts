@@ -9,6 +9,8 @@ export interface MegaItem {
   /** Where the item leads, when it isn't the menu's page: a door into a
    *  compartment (shared/data/compartments.ts). */
   href?: string;
+  /** Or a page of the house, as localizePath takes it (a service page). */
+  slug?: string;
 }
 
 export interface MegaColumn {
@@ -37,6 +39,7 @@ export const megaServizi: MegaMenu = {
     cta: { it: "Vedi tutti i servizi", en: "All services" },
     href: "servizi",
   },
+  // Each service of the house leads to its page (data/service-pages).
   colA: {
     title: { it: "Costruire", en: "Build" },
     items: [
@@ -44,17 +47,37 @@ export const megaServizi: MegaMenu = {
         n: "01",
         t: { it: "Siti & web app", en: "Websites & web apps" },
         d: {
-          it: "Siti, e-commerce, gestionali e prodotti su misura",
-          en: "Sites, e-commerce, portals and custom products",
+          it: "Siti vetrina, portali e aree riservate su misura",
+          en: "Showcase sites, portals and private areas, to measure",
         },
+        slug: "servizi/siti-web",
       },
       {
         n: "02",
+        t: { it: "E-commerce", en: "E-commerce" },
+        d: {
+          it: "Negozi online che vendono, collegati al magazzino",
+          en: "Online shops that sell, connected to your stock",
+        },
+        slug: "servizi/e-commerce",
+      },
+      {
+        n: "03",
         t: { it: "Software & automazioni", en: "Software & automations" },
         d: {
-          it: "Integrazioni, gestionali, processi che si tengono in piedi",
-          en: "Integrations, internal tools, processes that hold up",
+          it: "Gestionali e integrazioni: processi che si tengono in piedi",
+          en: "Management systems and integrations: processes that hold up",
         },
+        slug: "servizi/software-su-misura",
+      },
+      {
+        n: "04",
+        t: { it: "Integrazioni AI", en: "AI integrations" },
+        d: {
+          it: "Modelli linguistici dentro il lavoro, non per fare scena",
+          en: "Language models inside the work, not for show",
+        },
+        slug: "servizi/integrazioni-ai",
       },
     ],
   },
@@ -64,7 +87,7 @@ export const megaServizi: MegaMenu = {
     door: { it: "Alpacode Studio", en: "Alpacode Studio, in Italian" },
     items: [
       {
-        n: "03",
+        n: "05",
         t: { it: "Social & contenuti", en: "Social & content" },
         d: {
           it: "Piano editoriale, post e reel, community. Ti fanno vedere",
@@ -73,7 +96,7 @@ export const megaServizi: MegaMenu = {
         href: studio("#vedere"),
       },
       {
-        n: "04",
+        n: "06",
         t: { it: "Branding & design", en: "Branding & design" },
         d: {
           it: "Identità visiva, logo, UI/UX. Come ti vedono e ti ricordano",
@@ -82,7 +105,7 @@ export const megaServizi: MegaMenu = {
         href: studio("#ricordare"),
       },
       {
-        n: "05",
+        n: "07",
         t: { it: "Pubblicità & SEO", en: "Advertising & SEO" },
         d: {
           it: "Campagne Google e Meta, ricerca, contenuti. Ti fanno trovare",

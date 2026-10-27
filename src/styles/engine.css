@@ -21,6 +21,7 @@
 @import "../engine/effects/chat.css";
 @import "../engine/effects/celebrate.css";
 @import "../engine/effects/stage.css";
+@import "../engine/effects/pane.css";
 
 /* The reading progress: the blue strut down the left edge. */
 [data-read-progress] {

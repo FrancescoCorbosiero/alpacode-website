@@ -225,7 +225,7 @@
 .pp-h1 {
   position: relative;
   margin-top: 56px;
-  font-size: clamp(38px, 5vw, 76px);
+  font-size: clamp(42px, 5vw, 76px);
   line-height: 0.98;
   letter-spacing: -0.015em;
   display: grid;

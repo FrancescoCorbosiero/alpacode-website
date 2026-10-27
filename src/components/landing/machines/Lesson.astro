@@ -1,0 +1,42 @@
+---
+/* Formazione: the teacher shows the first move, you make the second
+   (wrong slot, then the right one), the third is yours alone, and the
+   stamp says so. Laid out, every block is in its slot and the page is
+   done by you; the machine takes them out and plays the lesson. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "lesson" }>;
+}
+const { copy: m } = Astro.props;
+const ARROW = "M2 2 L 2 19 L 7 14.5 L 10.5 22 L 13.5 20.6 L 10 13.4 L 17 13 Z";
+---
+
+<div class="svm svm--learn" data-machine="lesson">
+  <div class="svm-sheet svm-screen" data-screen>
+    <div class="svm-screen-bar"><i></i><i></i><i></i>{m.screen}</div>
+    <div class="svm-slots">
+      {
+        m.blocks.map((b, i) => (
+          <div class="svm-slot" data-slot={i}>
+            <span class="svm-block" data-block={i}>
+              {b}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+    <div class="svm-palette" aria-hidden="true">
+      {m.blocks.map((_, i) => <span class="svm-spot" data-spot={i} />)}
+    </div>
+  </div>
+  <div class="svm-cur svm-cur--teacher" data-cur="teacher">
+    <svg viewBox="0 0 20 24" aria-hidden="true"><path d={ARROW} /></svg>
+    <span>{m.teacher}</span>
+  </div>
+  <div class="svm-cur svm-cur--you" data-cur="you">
+    <svg viewBox="0 0 20 24" aria-hidden="true"><path d={ARROW} /></svg>
+    <span>{m.you}</span>
+  </div>
+  <span class="svm-badge" data-badge>{m.done}</span>
+</div>

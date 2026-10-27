@@ -36,7 +36,12 @@ const mobileNavItems: MobileNavItem[] = PAGES.map((p) => {
     item.mega = {
       columns: [menu.colA, menu.colB].map((col) => ({
         title: col.door ? `${col.title[lang]} · ${col.door[lang]} ↗` : col.title[lang],
-        items: col.items.map((it) => ({ n: it.n, t: it.t[lang], d: it.d[lang], href: it.href })),
+        items: col.items.map((it) => ({
+          n: it.n,
+          t: it.t[lang],
+          d: it.d[lang],
+          href: it.href ?? (it.slug ? localizePath(it.slug, lang) : undefined),
+        })),
       })),
     };
   }

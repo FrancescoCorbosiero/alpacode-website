@@ -1,0 +1,35 @@
+---
+/* E-commerce: the product goes into the cart, the order runs through
+   cart, payment and shipping, its label prints and is stamped; then
+   the next order, numbered on. Laid out, it's an order shipped. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "checkout" }>;
+}
+const { copy: m } = Astro.props;
+---
+
+<div class="svm svm--shop" data-machine="checkout" data-first={m.first}>
+  <div class="svm-sheet svm-product" data-product>
+    <div class="svm-pimg"><i></i></div>
+    <span class="svm-pname">{m.product}</span>
+    <span class="svm-add" data-add>{m.add}</span>
+  </div>
+  <div class="svm-cart" data-cart>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.5l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h7.9a1.5 1.5 0 0 0 1.4-1.1L20.5 8H6.4" /><circle cx="9.5" cy="19.5" r="1.4" /><circle cx="17" cy="19.5" r="1.4" /></svg>
+    <b data-count>1</b>
+  </div>
+  <i class="svm-ghost" data-ghost aria-hidden="true"></i>
+  <ol class="svm-flow" data-flow>
+    {m.steps.map((s) => <li data-flow-step>{s}</li>)}
+    <i class="svm-flow-fill" data-flow-fill></i>
+  </ol>
+  <div class="svm-sheet svm-label" data-label>
+    <span class="svm-label-k">{m.order}</span>
+    <b class="svm-label-no">#<span data-order>{m.first}</span></b>
+    <span class="svm-barcode"></span>
+    <span class="svm-stamp" data-stamp>{m.shipped}</span>
+  </div>
+  <span class="lnd-hand svm-note" data-machine-note>{m.note}</span>
+</div>

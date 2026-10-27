@@ -1,0 +1,43 @@
+---
+/* Consulenza: the business's tasks, scattered, sorted into a roadmap
+   (now, next, later), the route drawn under the columns. Laid out,
+   it's the roadmap; the machine (lib/landing/machines.ts) scatters it
+   and puts it back in order, on a loop. */
+import type { MachineCopy } from "../../../data/service-pages/types";
+
+interface Props {
+  copy: Extract<MachineCopy, { kind: "roadmap" }>;
+}
+const { copy: m } = Astro.props;
+---
+
+<div class="svm svm--roadmap" data-machine="roadmap">
+  <div class="svm-sheet svm-road">
+    <div class="svm-road-cols">
+      {
+        m.cols.map((c, i) => (
+          <div class="svm-road-col">
+            <span class="svm-road-h" data-road-head>
+              <b>{String(i + 1).padStart(2, "0")}</b>
+              {c}
+            </span>
+            <ul class="svm-road-list">
+              {m.chips
+                .filter((ch) => ch.col === i)
+                .map((ch) => (
+                  <li class="svm-chip" data-chip>
+                    {ch.t}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <svg class="svm-road-route" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M6 12 H 286" data-road-route />
+      <path d="M278 5 L 290 12 L 278 19" data-road-tip />
+    </svg>
+  </div>
+  <span class="lnd-hand svm-note" data-machine-note>{m.note}</span>
+</div>

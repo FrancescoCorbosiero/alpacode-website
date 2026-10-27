@@ -1,7 +1,8 @@
 ---
 /* Dove operiamo — Italy in dots, the base between Monza and Milano,
    an arc to every place where a client is (src/data/places.ts, read
-   from the work entries: no city lit for the look of it), and beside
+   from the work entries), a lighter arc of reach to Torino, Roma and
+   Napoli, a faint city for every region; and beside
    it, with the same weight, the sheet: base, reach, the clients by
    place (each name opens its case), the call. One screen tall on a
    desktop. The map scene ([data-scene="map"]) spreads the dots out
@@ -34,8 +35,20 @@ const at = (id: PlaceId) => project(PLACES[id].lat, PLACES[id].lon);
 // The far places get an arc and a label; the near ones are the cluster
 // round the base, named by its label.
 const far = byPlace.filter(([id]) => !LOCAL.includes(id)).map(([id]) => ({ id, ...at(id) }));
-// The big cities, faint, only to orient the map (no arc, not clients).
-const refs = REFERENCES.map((r) => ({ ...r, ...project(r.lat, r.lon) }));
+// A city for every region, faint, to orient the map (not clients); the
+// hubs among them get an arc of reach and a label of their own.
+const refs = REFERENCES.filter((r) => !r.hub).map((r) => ({ ...r, ...project(r.lat, r.lon) }));
+const hubs = REFERENCES.filter((r) => r.hub).map((r) => ({
+  ...r,
+  id: r.name.en.toLowerCase(),
+  ...project(r.lat, r.lon),
+}));
+// Every arc, nearest first: the map scene draws them in this order.
+const far2 = (p: { x: number; y: number }) => (p.x - base.x) ** 2 + (p.y - base.y) ** 2;
+const arcs = [
+  ...far.map((p) => ({ id: p.id as string, x: p.x, y: p.y, reach: false })),
+  ...hubs.map((h) => ({ id: h.id, x: h.x, y: h.y, reach: true })),
+].sort((a, b) => far2(a) - far2(b));
 const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([id]) => ({ id, ...at(id) }));
 ---
 
@@ -47,8 +60,8 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
         viewBox={`0 0 ${mapBox.w} ${mapBox.h}`}
         role="img"
         aria-label={lang === "it"
-          ? `Mappa dell'Italia: la base tra Monza e Milano, clienti a ${byPlace.map(([id]) => PLACES[id].name.it).join(", ")}`
-          : `Map of Italy: based between Monza and Milan, clients in ${byPlace.map(([id]) => PLACES[id].name.en).join(", ")}`}
+          ? `Mappa dell'Italia: la base tra Monza e Milano, clienti a ${byPlace.map(([id]) => PLACES[id].name.it).join(", ")}; da remoto anche verso ${hubs.map((h) => h.name.it).join(", ")} e tutte le regioni`
+          : `Map of Italy: based between Monza and Milan, clients in ${byPlace.map(([id]) => PLACES[id].name.en).join(", ")}; remotely also to ${hubs.map((h) => h.name.en).join(", ")} and every region`}
       >
         <defs>
           {/* The reach the map scene spreads out from the base. */}
@@ -63,6 +76,16 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
 
         <path class="map-dots" d={dots.d} data-map-dots />
 
+        <g class="map-arcs">
+          {
+            arcs.map((a) => (
+              <path class:list={["map-arc", a.reach && "map-arc--reach"]} d={arc(base, a)} pathLength="1" data-map-arc={a.id} />
+            ))
+          }
+        </g>
+
+        {/* Over the arcs: a faint city's name stays legible where an arc
+            passes it. */}
         <g class="map-refs" data-map-refs aria-hidden="true">
           {
             refs.map((r) => (
@@ -79,10 +102,6 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
               </g>
             ))
           }
-        </g>
-
-        <g class="map-arcs">
-          {far.map((p) => <path class="map-arc" d={arc(base, p)} pathLength="1" data-map-arc={p.id} />)}
         </g>
 
         <g class="map-places">
@@ -103,6 +122,21 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
               </g>
             ))
           }
+          {
+            hubs.map((h) => (
+              <g class="map-place map-place--hub" data-map-place={h.id}>
+                <circle class="map-pt map-pt--hub" cx={h.x} cy={h.y} r="2.8" />
+                <text
+                  class="map-hub-label"
+                  x={h.side === "right" ? h.x + 7 : h.x - 7}
+                  y={h.y + 4}
+                  text-anchor={h.side === "right" ? "start" : "end"}
+                >
+                  {h.name[lang]}
+                </text>
+              </g>
+            ))
+          }
         </g>
 
         <g class="map-base" data-map-base={BASE}>
@@ -111,6 +145,10 @@ const near = byPlace.filter(([id]) => LOCAL.includes(id) && id !== BASE).map(([i
           <text class="map-base-label" x={base.x} y={base.y - 14} text-anchor="middle">{t.hqLabel}</text>
         </g>
       </svg>
+      <figcaption class="map-key">
+        <span class="map-key-item"><i class="map-key-line" aria-hidden="true"></i>{t.keyClients}</span>
+        <span class="map-key-item"><i class="map-key-line map-key-line--reach" aria-hidden="true"></i>{t.keyReach}</span>
+      </figcaption>
     </figure>
 
     <div class="coverage-head">
