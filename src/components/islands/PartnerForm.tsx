@@ -90,15 +90,12 @@ function PartnerForm({ lang, labels, campaign = "partner-landing", topic = "Part
 
   return (
     <form className="contact-form campaign-form" onSubmit={onSubmit}>
-      {/* Honeypot — must stay empty for humans. */}
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        className="visually-hidden"
-        aria-hidden="true"
-      />
+      {/* The honeypot: bots fill it, people never see it. Not rendered at
+          all (display: none), so no autofill or password manager writes in
+          it: one that did would make a real lead look like a bot's. */}
+      <div hidden style={{ display: "none" }} aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" data-1p-ignore data-lpignore="true" data-bwignore />
+      </div>
 
       <div className="field">
         <label htmlFor="pf-name">{labels.name}</label>

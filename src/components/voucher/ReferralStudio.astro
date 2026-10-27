@@ -135,7 +135,11 @@ const i18n = {
             <form class="rf-form" data-form="referrer" novalidate>
               <h3 class="rf-form-title">{ui.link.title}</h3>
               <p class="rf-form-intro">{ui.link.intro}</p>
-              <input type="text" name="website" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+              {/* The honeypot: bots fill it, people never see it. Not rendered
+                  at all (.rf-hp), so no autofill writes in it. */}
+              <div class="rf-hp" hidden aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore />
+              </div>
 
               <div class="field">
                 <label for="rl-name">{f.name}</label>
@@ -185,7 +189,9 @@ const i18n = {
             <form class="rf-form" data-form="direct" novalidate>
               <h3 class="rf-form-title">{ui.direct.title}</h3>
               <p class="rf-form-intro">{ui.direct.intro}</p>
-              <input type="text" name="website" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+              <div class="rf-hp" hidden aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore />
+              </div>
 
               <fieldset class="rf-group">
                 <legend>{ui.direct.yourLegend}</legend>

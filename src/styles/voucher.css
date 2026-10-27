@@ -1531,6 +1531,12 @@
   color: var(--mute-2);
   font-size: 15.5px;
 }
+/* The honeypot isn't rendered. Merely out of sight, Chrome took the intro
+   above it for its label ("Ti basta un'email") and autofilled it, and the
+   API answered a real referrer as a bot. */
+.rf .rf-hp {
+  display: none;
+}
 
 .rf .field {
   position: relative;
