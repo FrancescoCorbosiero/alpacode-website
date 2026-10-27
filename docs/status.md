@@ -1,6 +1,6 @@
 # Stato del progetto
 
-_Aggiornato il 26 ottobre 2026. Si aggiorna a fine sessione (skill
+_Aggiornato il 27 ottobre 2026. Si aggiorna a fine sessione (skill
 `handoff`). È scritto in italiano perché è anche la lista che il
 proprietario rilegge e corregge._
 
@@ -28,10 +28,10 @@ validare», chiedi.
 | Contatti | `/contatti/` — `src/components/pages/Contatti.astro`, `src/data/contatti.ts`, `src/data/wizard.ts`, `src/components/islands/BriefBuilder.tsx`, `src/styles/contatti.css` | **Rifatta** (26 ottobre) per convertire: in cima «Quattro modi per cominciare» (il brief, la call, WhatsApp, l'email con «Copia l'indirizzo»), lastre di vetro che si accendono, con l'orologio dello studio (aperto o chiuso, ora di Milano) e il tempo di risposta. Poi **il brief che si scrive da solo**: tre tap e un contatto, e accanto il foglio indirizzato a chi lo legge si compila a ogni risposta; la bozza resta sul dispositivo finché non la invii; un link può impostare la prima risposta con il servizio (`/contatti/?servizio=e-commerce`, per una campagna o una mail: oggi nessuna pagina lo usa); dopo l'invio propone subito la call (Cal.com) o WhatsApp. Poi «Cosa succede quando scrivi» (quattro passi, dalla copy delle FAQ), quattro domande dalla FAQ, il modulo lungo (che c'era) con la persona a cui scrivi e i dati diretti, la mappa. Ogni via d'ingresso si misura: `contact_channel`, `brief_start`, `lead_sent` (nel `dataLayer` e come eventi `alpa:*`). Il vecchio `BriefWizard.tsx` non c'è più (i link a `#wizard` arrivano al brief). |
 | Il motore delle animazioni | `src/engine/` e `sites/studio/src/engine/` | **Fatto.** Casa e Studio girano sullo stesso motore, scritto sul contratto di alpacode-motion (che resta solo un riferimento): il nucleo, un modulo per mossa, le selezioni della casa in `config.ts`. Il vecchio `lib/motion.ts` non c'è più. Le scene delle landing stanno sul palco del motore (`stage`), gli script del voucher e dei moduli chiamano le sue funzioni (coriandoli, scossa dei campi, link che si decodifica, QR che si stampa). Verificato pagina per pagina contro il motore di prima: stessa resa, a 1440, 390 e 390×664 e a movimento ridotto. |
 | Hero della home con video «blueprint» | `src/data/home.ts` (`heroVideo`), `tools/media/` | Fatto, invariato. |
-| «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md` | Invariato. |
+| «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md`, `src/components/voucher/ReferralStudio.astro`, `Invite.astro` | **Riparato** (27 ottobre). A chi compila con il riempimento automatico di Chrome, «Genera il mio link» rispondeva «Qualcosa è andato storto». La trappola per i bot (`website`) era solo nascosta alla vista: Chrome prendeva la frase sopra («Ti basta un'email…») per la sua etichetta e ci scriveva l'email. Il server allora prendeva la richiesta per un bot e rispondeva «ok» senza link. Lo stesso succedeva in «Mandaci tu i contatti» (ci finiva la provincia), nella richiesta dalla pagina invito e nel modulo di `/collabora-con-noi/` (`PartnerForm.tsx`). In questi ultimi due la pagina diceva «inviato», ma non partiva niente. Ora la trappola non è disegnata (`display: none`) in nessun modulo. Provato con l'autofill di Chromium su ogni modulo della casa: trappola vuota, link generato, richieste inviate. `REFERRAL_SECRET` non c'entrava: senza, i codici usano una chiave di sviluppo. |
 | Alpacode FAST | — | **Ritirato** («FAST per ora sparisce»): i prodotti sono passati allo Studio, il codice è nella storia di git. |
 | Email dei moduli | `shared/server/mail.ts`, `shared/server/reply.ts` | Due trasporti: SMTP (`SMTP_HOST`…, la casella di info@) o AWS SES (in produzione: SES, e funziona); senza nessuno dei due il server **non invia** e lo scrive nel log («NOT SENT»). Chi scrive riceve una **risposta automatica** nel tono del sito (casa o Studio), al massimo due al giorno per indirizzo (`CONTACT_AUTOREPLY=0` la spegne). Provato con un server SMTP finto: il lead arriva a info@, la risposta a chi scrive. |
-| Moduli delle pagine marketing | `src/components/landing/LeadForm.astro`, `src/lib/landing/lead.ts`, `sites/studio/src/components/ContactForm.astro` | Non arrivavano solo loro. La causa più probabile: il campo trappola per i bot (`website`) era nascosto **fuori schermo**, non tolto dalla pagina, e il riempimento automatico del browser (o un gestore di password) poteva compilarlo con il tuo sito; il server allora lo prende per un bot, risponde «ok» e non invia nulla. Negli altri moduli la trappola era nascosta in un altro modo, ed è per questo che arrivavano. Ora la trappola non è mai disegnata (`hidden`, `display: none`), sia nella casa sia nello Studio. Quando scatta, il log lo scrive con nome ed email (`honeypot filled`): un lead vero preso per un bot non si perde più senza traccia. L'altra causa possibile: il limite di 5 invii in 10 minuti dalla stessa connessione, condiviso da tutti i moduli della casa. Chi prova le pagine una dopo l'altra lo supera. Ora la pagina lo dice («Troppe richieste…») e il log scrive `rate limited`. |
+| Moduli delle pagine marketing | `src/components/landing/LeadForm.astro`, `src/lib/landing/lead.ts`, `sites/studio/src/components/ContactForm.astro` | Non arrivavano solo loro. La causa più probabile: il campo trappola per i bot (`website`) era nascosto **fuori schermo**, non tolto dalla pagina, e il riempimento automatico del browser (o un gestore di password) poteva compilarlo con il tuo sito; il server allora lo prende per un bot, risponde «ok» e non invia nulla. Ora la trappola non è mai disegnata (`hidden`, `display: none`), sia nella casa sia nello Studio (dal 27 ottobre anche nel voucher e in «Collabora con noi», che erano rimasti fuori: vedi «Segnala un amico»). Quando scatta, il log lo scrive con nome ed email (`honeypot filled`): un lead vero preso per un bot non si perde più senza traccia. L'altra causa possibile: il limite di 5 invii in 10 minuti dalla stessa connessione, condiviso da tutti i moduli della casa. Chi prova le pagine una dopo l'altra lo supera. Ora la pagina lo dice («Troppe richieste…») e il log scrive `rate limited`. |
 | Testate dello Studio | `sites/studio/src/styles/studio.css` (`.fx-to`, `.fx-hook`) | L'evidenziatore volt è una **banda fissa** (0,84em) centrata sulle lettere. Prima lo sfondo copriva l'intera riga del font: su Windows Archivo Black usa metriche più alte (circa 1,35em contro un'interlinea di 0,9) e il volt finiva sulla riga sopra («RICORDARE.» copriva «SI FA»). Da 901px il titolo si misura sulla sua colonna (`cqi`), così non finisce sotto il telefono. Provato con le metriche di Mac e di Windows, da 1024 a 1600px e a 390. |
 | Footer | `src/components/Footer.astro`, `sites/studio/src/components/Foot.astro`, `shared/data/business.ts` | Completi su tutti e due i siti: navigazione, servizi, i dati dell'impresa (`companyLine()`: ditta individuale, sede operativa, P.IVA; sede legale, REA e PEC quando ci sono), le pagine legali. |
 | Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: le sue mosse su misura sono il tabellone del Metodo, le macchine dei servizi, le lastre di «Chi siamo». |
@@ -336,6 +336,13 @@ Decise da Claude, non confermate.
   `docker compose logs alpacode-website | grep -E "honeypot|rate limited"`
   dice se è stata la trappola o il limite. (La mia prima diagnosi, «in
   produzione manca il trasporto», era sbagliata: SES funziona.)
+- **Prima del prossimo deploy: le richieste prese per bot.**
+  `docker compose logs alpacode-website | grep "honeypot filled"` elenca
+  nome ed email di chi è stato preso per un bot (link del voucher,
+  segnalazioni, richieste dalle pagine invito, proposte di
+  collaborazione). `up --build` ricrea il container e quei log si
+  perdono: salvali prima. Dopo il deploy, prova a generare un link da
+  `/voucher/` con il riempimento automatico.
 - **I dati legali mancanti** per il footer: sede legale, REA, PEC
   (`shared/data/business.ts`, `legal`).
 - **La rete per i lavori**: per leggere i siti e scattare le schermate a
@@ -385,6 +392,15 @@ Decise da Claude, non confermate.
 - La deriva dello sfondo con lo scroll usa le animazioni CSS legate allo
   scroll (`animation-timeline`, nessuno script): dove il browser non le
   supporta il campo resta fermo, ed è voluto.
+- I moduli e il riempimento automatico: un campo solo nascosto alla vista
+  (`.visually-hidden`, fuori schermo) Chrome lo riempie, se dal testo
+  vicino lo prende per email, nome o indirizzo; uno in `display: none`
+  no. Si prova con il Chromium di Playwright: `--show-autofill-type-predictions`
+  scrive su ogni campo il tipo che Chrome gli dà (`autofill-prediction`),
+  e `Autofill.trigger` (CDP) compila il modulo con un indirizzo finto.
+- In produzione `REFERRAL_SECRET` è impostata (lo ha detto il
+  proprietario il 27 ottobre): non va più cambiata, o cambiano i codici
+  di tutti.
 - Gli screenshot a pagina intera di Playwright disegnano male i livelli
   fissi dello sfondo: per giudicare la facciata servono le schermate
   della finestra.
@@ -417,3 +433,6 @@ Decise da Claude, non confermate.
   una pagina per servizio con la sua macchina, «Chi siamo» e «Contatti»
   rifatti, il brainstorm sul movimento (`docs/motion-direction.md`)
   (PR #54).
+- Branch `claude/wonderful-pasteur-sk0co6` — i moduli del voucher e di
+  «Collabora con noi»: la trappola per i bot che l'autofill di Chrome
+  riempiva.

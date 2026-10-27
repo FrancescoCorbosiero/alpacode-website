@@ -167,6 +167,10 @@ place in `registry.ts`.
 - **Landings** are data-driven: a campaign is an entry, a page is a
   data file + a view on the kit. Register every landing in
   `src/data/audiences.ts`.
+- **Forms**: the honeypot (`website`) is never rendered (`hidden`,
+  `display: none`). Merely out of sight, Chrome's autofill takes the
+  text near it for its label and fills it, and the API answers a real
+  person as a bot.
 
 ## Verify before pushing
 
