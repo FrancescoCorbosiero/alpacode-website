@@ -435,4 +435,4 @@ Decise da Claude, non confermate.
   (PR #54).
 - Branch `claude/wonderful-pasteur-sk0co6` — i moduli del voucher e di
   «Collabora con noi»: la trappola per i bot che l'autofill di Chrome
-  riempiva.
+  riempiva (PR #55).
