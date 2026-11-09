@@ -148,7 +148,7 @@ Decise da Claude, non confermate.
 
 **Il badge «Realizzato da Alpacode»** (9 novembre)
 - Per i siti dei clienti: `<alpacode-badge>`, un Web Component in un solo
-  file (`tools/badge/alpacode-badge.js`, ~3 KB gzip, Shadow DOM, nessuna
+  file servito da alpacode.it (`public/badge.js` → `https://alpacode.it/badge.js`, ~3 KB gzip, Shadow DOM, nessuna
   dipendenza, nessun font o richiesta esterna). Un vetro squadrato con lo
   strut blu; l'alpaca dietro una finestrella: a riposo spunta la testa,
   all'hover sale, guarda la scritta e muove l'orecchio, lo strut corre
@@ -158,10 +158,13 @@ Decise da Claude, non confermate.
 - Il link porta UTM (`utm_source` = dominio del cliente,
   `utm_medium=credit-badge`) e si apre in una nuova scheda; `rel`
   `noopener` (link «follow»: da confermare, si può passare `nofollow`).
-- Va copiato nel sito del cliente, mai caricato da alpacode.it: il
-  prompt da incollare in una chat di Claude Code sul loro codice è
-  `docs/credits-badge-prompt.md` (`npm run badge-prompt` lo rigenera
-  dal file del badge).
+- Servito da alpacode.it, non copiato: i siti dei clienti lo caricano con
+  un tag `<script>`, così una modifica qui arriva a tutti (nome del tag e
+  attributi da tenere stabili). Il backlink è il `<a>` dentro
+  l'elemento, nell'HTML della pagina: lo leggono i crawler e resta se lo
+  script non carica. Il prompt da incollare in una chat di Claude Code sul
+  codice del cliente è `docs/credits-badge-prompt.md` (`npm run
+  badge-prompt`). Il link funziona solo dopo il deploy di alpacode.it.
 
 **Le pagine dei servizi** (26 ottobre)
 - Sono sette, i servizi della casa: consulenza-digitale (la riga 01 di

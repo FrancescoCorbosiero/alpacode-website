@@ -2,11 +2,13 @@
  * <alpacode-badge> — the credit badge for the sites Alpacode builds.
  * https://alpacode.it · self-contained, no dependencies, ~9 KB (~3 KB gzipped).
  *
- * Usage (self-host this file; never hotlink it):
- *   <script src="/alpacode-badge.js" defer></script>
- *   <alpacode-badge lang="it" theme="auto">
- *     <a href="https://alpacode.it">Realizzato da Alpacode</a>
+ * Served by alpacode.it (public/badge.js); a client site's footer gets:
+ *   <script src="https://alpacode.it/badge.js" defer></script>
+ *   <alpacode-badge lang="it" theme="light">
+ *     <a href="https://alpacode.it/">Realizzato da Alpacode</a>
  *   </alpacode-badge>
+ * Change it here and every site that loads it changes with it: keep the
+ * tag name and the attributes stable, and never break the fallback.
  *
  * Attributes
  *   lang     "it" (default) | "en"
@@ -14,8 +16,9 @@
  *   compact  present: the window with the alpaca only (label for screen readers)
  *   rel      the link's rel (default "noopener"; e.g. "noopener nofollow")
  *
- * The light-DOM <a> is the fallback: without JS, and for crawlers, the
- * credit is a plain link. With JS the shadow badge takes its place.
+ * The light-DOM <a> is the backlink: it sits in the page's HTML, so
+ * crawlers read it whether or not they run JS, and it is what shows if
+ * the script can't load. With JS the shadow badge takes its place.
  *
  * The move, born from the brand: a glass pane with the house's blue
  * strut, and the alpaca behind a little window. At rest only its head
