@@ -46,6 +46,7 @@ npm run og [-- og-name … | studio | work | services]   # share cards: tools/og
 npm run icons | media | hero-video       # favicons, media, the home hero video (needs ffmpeg)
 npm run work-shots [-- id …]             # the projects' full-page screenshots, from their url
 npm run work-pull [-- id …]              # tools/work/lavori.txt (URL -> keywords): order, drafts, digests, shots
+npm run badge-prompt                     # public/badge/alpacode-badge.js -> docs/credits-badge-prompt.md (the clients' credit badge)
 ```
 
 Node 22 (as in the Dockerfiles and CI). CI (`.github/workflows/ci.yml`)
