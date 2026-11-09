@@ -1,9 +1,9 @@
 // Builds docs/credits-badge-prompt.md: the prompt to paste in a Claude Code
 // chat on a client's codebase, with the badge's source embedded verbatim
-// (public/badge/alpacode-badge.js is the one source). Run: npm run badge-prompt
+// (tools/badge/alpacode-badge.js is the one source). Run: npm run badge-prompt
 import { readFileSync, writeFileSync } from "node:fs";
 
-const src = readFileSync(new URL("../../public/badge/alpacode-badge.js", import.meta.url), "utf8").trimEnd();
+const src = readFileSync(new URL("./alpacode-badge.js", import.meta.url), "utf8").trimEnd();
 
 const prompt = `# Add the «Made by Alpacode» credit badge
 

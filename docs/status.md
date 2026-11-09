@@ -148,7 +148,7 @@ Decise da Claude, non confermate.
 
 **Il badge «Realizzato da Alpacode»** (9 novembre)
 - Per i siti dei clienti: `<alpacode-badge>`, un Web Component in un solo
-  file (`public/badge/alpacode-badge.js`, ~3 KB gzip, Shadow DOM, nessuna
+  file (`tools/badge/alpacode-badge.js`, ~3 KB gzip, Shadow DOM, nessuna
   dipendenza, nessun font o richiesta esterna). Un vetro squadrato con lo
   strut blu; l'alpaca dietro una finestrella: a riposo spunta la testa,
   all'hover sale, guarda la scritta e muove l'orecchio, lo strut corre
