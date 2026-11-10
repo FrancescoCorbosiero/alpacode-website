@@ -8,8 +8,9 @@ description: Open a new compartment of Alpacode on its own subdomain — a line 
 alpacode.it is the house; a compartment is a line of work on its own
 subdomain (studio.alpacode.it is the first: the marketing). Read
 `docs/marketing-map.md` (why the house and its compartments are
-arranged this way) and `sites/studio/README.md` (the worked example)
-first.
+arranged this way), `docs/domain-tree.md` (the tree the owner wants:
+check which of its questions are decided before placing a new node)
+and `sites/studio/README.md` (the worked example) first.
 
 ## 1. Place it
 
@@ -49,10 +50,12 @@ first.
 ## 4. Open its doors on the house
 
 Wherever the house talks about that work: the mega menu
-(`src/data/mega.ts`), `/servizi` (`src/data/services.ts`), the footer's
-"Le porte" (`Footer.astro`), the ⌘K palette (`Layout.astro`), the
-pages that sell it. Every door goes through `doorTo(id, path, { site:
-"house", where })` so the UTMs say where it was taken.
+(`src/data/mega.ts`), `/servizi` (`src/data/services.ts`), the pages
+that sell it. The footer's «Marketing» column (`Footer.astro`), the ⌘K
+palette (`Layout.astro`) and «Chi siamo» read `DOORS` by themselves
+(the footer column's title is the studio's: a compartment that isn't
+marketing needs its own). Every door goes through `doorTo(id, path, {
+site: "house", where })` so the UTMs say where it was taken.
 
 ## 5. Verify and record
 

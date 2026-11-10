@@ -21,12 +21,12 @@ true.
    - «Da sapere»: limits found (what couldn't be tested, manual steps).
    - «Sessioni»: one line for this session (the PR, if there is one).
    - Update the date at the top.
-2. **`CLAUDE.md`** (and `fast/CLAUDE.md`): only if the map, the
-   commands, a house rule or the owner's working preferences changed.
-   Keep it short: it's loaded into every session.
+2. **`CLAUDE.md`** (and `sites/studio/CLAUDE.md`): only if the map,
+   the commands, a house rule or the owner's working preferences
+   changed. Keep it short: it's loaded into every session.
 3. Docs the session touched (`docs/marketing-map.md`,
-   `docs/landing-factory.md`, `fast/README.md`, `docs/voucher.md`) agree
-   with the code.
+   `docs/domain-tree.md`, `docs/landing-factory.md`,
+   `sites/studio/README.md`, `docs/voucher.md`) agree with the code.
 4. Commit ("Handoff: …") and push to the session's branch.
 5. Reply to the owner, in Italian, with the two or three things the
    next chat most needs from them (the open decisions that block work).

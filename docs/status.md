@@ -1,6 +1,6 @@
 # Stato del progetto
 
-_Aggiornato il 27 ottobre 2026. Si aggiorna a fine sessione (skill
+_Aggiornato il 10 novembre 2026. Si aggiorna a fine sessione (skill
 `handoff`). È scritto in italiano perché è anche la lista che il
 proprietario rilegge e corregge._
 
@@ -37,10 +37,24 @@ validare», chiedi.
 | Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: le sue mosse su misura sono il tabellone del Metodo, le macchine dei servizi, le lastre di «Chi siamo». |
 | Le mosse nuove della casa | `src/engine/effects/pane.ts` (+ `pane.css`), `effects/team.ts`, `src/lib/landing/machines.ts` | **pane**: una banda di luce attraversa il vetro quando entra in vista, il chiarore segue il puntatore, i contorni SVG si disegnano a filo (`data-pane`, `data-pane-glint`); **team**: le tre lastre di «Chi siamo», legate allo scroll; **machines**: le sette macchine delle pagine servizio (in loop solo mentre sono in vista) e le correzioni a penna di «Quando serve» (`data-machine`, `data-fixes`). Tutte con lo stato finale a movimento ridotto. |
 | La direzione del movimento | `docs/motion-direction.md` | **Un brainstorm, non costruito** (tua domanda: spigoli vivi e animazioni «lit»). La proposta: «corpi rigidi, luce fluida», il vocabolario della casa (binari, cerniere, luce, costruzione, la mano poca, un'idea per sezione), le curve da mettere nei token, sei mosse da costruire in ordine di impatto, cosa rivedere. È il lavoro della prossima sessione sulla casa. |
+| L'albero dei domini | `docs/domain-tree.md` | **Un'analisi e un brainstorm, non costruiti** (10 novembre; tua domanda: «esamina se l'organizzazione attuale è solida e coerente»). Le fondamenta reggono, ma sono fatte per due nodi: registro piatto, motore copiato in ogni sito, ogni nodo un sito intero; e le foglie (le campagne per mestiere) stanno sulla radice. La proposta: l'albero si divide per lettore, la profondità sta nel registro, un sottodominio si guadagna; sette domande da decidere. **Sistemato** (fatto): i residui di FAST nella skill di passaggio, i riferimenti a `House.astro`, a «Le porte» e ai `DOORS` dello Studio nei documenti, la casa «editorial» nella mappa, il README; il ⌘K legge le porte dal registro. |
 
 ## Decisioni del proprietario
 
-Da questa chat (26 ottobre):
+Dalla chat del 10 novembre (la direzione; i dettagli sono le domande di
+`docs/domain-tree.md`):
+
+- «fast.alpacode.it non è più presente, è stato convertito in "studio",
+  corretto?» — sì: `fast/` è diventato `sites/studio/` il 24 ottobre, e
+  FAST non era mai andato online.
+- Lo Studio «sarà l'hub per tutti i servizi offerti da alpacode»: «servizi
+  da digital studio/creative agency, per professionisti e usufruitori di
+  social. Focus sul marketing e sulle campagne».
+- alpacode.it: «mondo IT, consulenze, biglietto da visita professionale».
+- «Multipli altri sottodomini sempre più specifici. L'intera struttura è
+  come un albero dove più su scende e più il copy diventa specifico.»
+
+Dalla chat del 26 ottobre:
 
 - Le testate: la riduzione chiesta prima era «solo per la versione
   desktop»; le proporzioni da telefono «erano già ottime» e tornano
@@ -342,6 +356,15 @@ Decise da Claude, non confermate.
 
 ## Decisioni aperte
 
+- **L'albero dei domini** (`docs/domain-tree.md`, «Le domande»): lo
+  Studio hub di tutti i servizi per professionisti e piccole attività
+  (siti compresi) o solo marketing; le campagne `/offerta/*` e
+  `/social-media-manager` che scendono allo Studio come foglie (con i
+  redirect) o restano sulla casa; foglie come percorsi o subito
+  sottodomini, e quali sono i primi; i prodotti (Paco, Hive, Pro Kit) su
+  un sottodominio al lancio; la riga «Studio digitale a Monza e Milano»
+  in cima alla home; Learning; lo Studio online. Finché non sono decise,
+  nessuna pagina cambia sito.
 - **Le pagine dei servizi**: rileggere la copy (la prima stesura è mia),
   confermare i sette servizi e i loro indirizzi, e se la crescita resta
   solo sullo Studio.
@@ -456,3 +479,9 @@ Decise da Claude, non confermate.
 - Branch `claude/wonderful-pasteur-sk0co6` — i moduli del voucher e di
   «Collabora con noi»: la trappola per i bot che l'autofill di Chrome
   riempiva (PR #55).
+- Branch `claude/happy-sagan-dtwzr9` — il badge «Realizzato da Alpacode»
+  per i siti dei clienti, servito da `alpacode.it/badge.js` (PR #56).
+- Branch `claude/youthful-johnson-eejvq1` — l'ordine nei domini: i
+  residui di FAST e i riferimenti stantii nei documenti e nelle skill, il
+  ⌘K che legge le porte dal registro; l'analisi e il brainstorm
+  sull'albero dei domini (`docs/domain-tree.md`).

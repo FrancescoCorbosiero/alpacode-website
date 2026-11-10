@@ -120,6 +120,7 @@ guard, mail, JSONL). Alpacode Studio (`sites/studio/`): its own
 | `docs/landing-factory.md` | making a landing: Track A (a campaign entry), B (bespoke on the kit), C (a studio page); the house rules |
 | `docs/voucher.md` | the referral program («Segnala un amico», `/voucher`) |
 | `docs/motion-direction.md` | the house's motion direction: «corpi rigidi, luce fluida», a brainstorm to decide (Italian) |
+| `docs/domain-tree.md` | the tree of domains the owner wants (alpacode.it the root, the studio the hub of the services, more specific subdomains below): the analysis, the proposal, the questions to decide before any page changes site (Italian) |
 | `docs/headless-cms.md` | a plan for a CMS (nothing built) |
 | `sites/studio/README.md` | running and changing Alpacode Studio, buying on the site |
 | `README.md` | the v3 notes at the top are current; the v2 spec below them is historical where they disagree |

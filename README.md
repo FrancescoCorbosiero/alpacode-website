@@ -19,7 +19,11 @@
 > - **Palette: blueprint paper.** The warm cream (`#F4F1E8`) and its
 >   warm greys are gone: paper is a cool off-white with a breath of the
 >   brand blue (`#F0F3F9`), ink a blue-black (`#0B0E14`). The v2 colour
->   table below is historical.
+>   table below is historical. Behind every page now stands a **glass
+>   facade**: a fixed field of blue light with mullions on the grid's
+>   columns, and glass panes for the header, the tinted sections, the
+>   cards and the menus (`--field*`, `--glass*` in `tokens.css`,
+>   `base.css`); the landings keep the light field.
 > - **Motion is GSAP + Lenis** on the site's engine (`src/engine/`,
 >   written on the contract of the motion catalog
 >   `FrancescoCorbosiero/alpacode-motion`, which stays reference only;
@@ -85,10 +89,10 @@
 >   face, filtered by kind (CSS alone, animated with Flip), with a frame
 >   of the site following the mouse; each project has its page
 >   (`/lavori/<id>/`) and its share card. The home's Casi di studio (a
->   pinned stage: before struck through, after in), Metodo (one technical
->   drawing becoming each step's) and Dove operiamo (Italy in dots, an
->   arc to every client) are rebuilt. The moves are effects of the site's
->   engine, `src/engine/effects/`.
+>   pinned stage: before struck through, after in) and Dove operiamo
+>   (Italy in dots, an arc to every client) are rebuilt; the Metodo, a
+>   departures board («Come si parte.»), left the home for `/servizi`.
+>   The moves are effects of the site's engine, `src/engine/effects/`.
 > - **Home hero**: the claim is the headline; the ALPACODE lockup is a
 >   full-width signature on the bottom edge. Behind it, the "blueprint"
 >   video: blue ink spreading in milk, graded into a duotone of the brand

@@ -252,8 +252,9 @@ The marketing compartment's pages are data. The playbook is
    richiesta"). A product: `sites/studio/src/data/products.ts` (price
    VAT included, contents, `checkout` or `null`: then the button asks
    instead), with its page in `sites/studio/src/pages/prodotti/`.
-2. A door on the studio's home, if it's a new reader:
-   `sites/studio/src/data/pages.ts` (`DOORS`), with its accent. A door
+2. A card on the studio's home («In chi ti identifichi?»), if it's a
+   new reader: `sites/studio/src/data/pages.ts` (`READERS`), with its
+   accent. A door
    from the house: `doorTo("studio", path, { site: "house", where })`
    (`shared/data/compartments.ts`) where the house talks about that
    work.
