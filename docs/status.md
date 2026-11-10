@@ -37,7 +37,7 @@ validare», chiedi.
 | Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: le sue mosse su misura sono il tabellone del Metodo, le macchine dei servizi, le lastre di «Chi siamo». |
 | Le mosse nuove della casa | `src/engine/effects/pane.ts` (+ `pane.css`), `effects/team.ts`, `src/lib/landing/machines.ts` | **pane**: una banda di luce attraversa il vetro quando entra in vista, il chiarore segue il puntatore, i contorni SVG si disegnano a filo (`data-pane`, `data-pane-glint`); **team**: le tre lastre di «Chi siamo», legate allo scroll; **machines**: le sette macchine delle pagine servizio (in loop solo mentre sono in vista) e le correzioni a penna di «Quando serve» (`data-machine`, `data-fixes`). Tutte con lo stato finale a movimento ridotto. |
 | La direzione del movimento | `docs/motion-direction.md` | **Un brainstorm, non costruito** (tua domanda: spigoli vivi e animazioni «lit»). La proposta: «corpi rigidi, luce fluida», il vocabolario della casa (binari, cerniere, luce, costruzione, la mano poca, un'idea per sezione), le curve da mettere nei token, sei mosse da costruire in ordine di impatto, cosa rivedere. È il lavoro della prossima sessione sulla casa. |
-| L'albero dei domini | `docs/domain-tree.md` | **Un'analisi e un brainstorm, non costruiti** (10 novembre; tua domanda: «esamina se l'organizzazione attuale è solida e coerente»). Le fondamenta reggono, ma sono fatte per due nodi: registro piatto, motore copiato in ogni sito, ogni nodo un sito intero; e le foglie (le campagne per mestiere) stanno sulla radice. La proposta: l'albero si divide per lettore, la profondità sta nel registro, un sottodominio si guadagna; sette domande da decidere. **Sistemato** (fatto): i residui di FAST nella skill di passaggio, i riferimenti a `House.astro`, a «Le porte» e ai `DOORS` dello Studio nei documenti, la casa «editorial» nella mappa, il README; il ⌘K legge le porte dal registro. |
+| L'albero dei domini | `docs/domain-tree.md` | **Un'analisi e un brainstorm, non costruiti** (10 novembre; tua domanda: «esamina se l'organizzazione attuale è solida e coerente»). Le fondamenta reggono, ma sono fatte per due nodi: registro piatto, motore copiato in ogni sito, ogni nodo un sito intero; e le foglie (le campagne per mestiere) stanno sulla radice. La proposta: l'albero si divide per lettore, la profondità sta nel registro, un sottodominio si guadagna; sette domande da decidere. Disegnato in una pagina (privata, del proprietario: https://claude.ai/artifact/YS85BmSCoPM2JCSEnxNnQd), con «Oggi» e «La proposta» a confronto e il disegno di come i siti restano indipendenti. **Sistemato** (fatto): i residui di FAST nella skill di passaggio, i riferimenti a `House.astro`, a «Le porte» e ai `DOORS` dello Studio nei documenti, la casa «editorial» nella mappa, il README; il ⌘K legge le porte dal registro. |
 
 ## Decisioni del proprietario
 
@@ -53,6 +53,12 @@ Dalla chat del 10 novembre (la direzione; i dettagli sono le domande di
 - alpacode.it: «mondo IT, consulenze, biglietto da visita professionale».
 - «Multipli altri sottodomini sempre più specifici. L'intera struttura è
   come un albero dove più su scende e più il copy diventa specifico.»
+- Sul motore copiato e il registro piatto: «questo potrebbe essere un
+  serio problema se non gestito bene. Non voglio che i singoli siti siano
+  impattati da ciò. In teoria essendo tutti siti statici questo non
+  dovrebbe avvenire.» Le regole per rispettarlo (online i siti non si
+  toccano; nella build sì, e lì valgono le regole): `docs/domain-tree.md`,
+  «I siti restano indipendenti».
 
 Dalla chat del 26 ottobre:
 
@@ -484,4 +490,5 @@ Decise da Claude, non confermate.
 - Branch `claude/youthful-johnson-eejvq1` — l'ordine nei domini: i
   residui di FAST e i riferimenti stantii nei documenti e nelle skill, il
   ⌘K che legge le porte dal registro; l'analisi e il brainstorm
-  sull'albero dei domini (`docs/domain-tree.md`).
+  sull'albero dei domini (`docs/domain-tree.md`), la pagina con l'albero
+  disegnato, le regole perché i siti restino indipendenti.

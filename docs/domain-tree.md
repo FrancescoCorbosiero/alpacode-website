@@ -142,6 +142,10 @@ decidere, come `docs/status.md`._
 
 ## La proposta: l'albero
 
+Disegnato, con «Oggi» e «La proposta» a confronto: la pagina
+https://claude.ai/artifact/YS85BmSCoPM2JCSEnxNnQd (privata, del
+proprietario).
+
 ### Il principio
 
 - **Si divide per lettore.** La radice parla a chi vuole sapere chi è
@@ -250,16 +254,58 @@ identiche.
    pagine (font, statistiche, consenso), il gestore del modulo contatti,
    la riga legale, robots e sitemap. Un nodo nuovo diventa dati e
    pagine, non un sito da rifare.
-3. **Una foglia non ha un container.** La costruisce il padre: su un
-   percorso (zero infrastruttura) o sul suo sottodominio, con
-   un'etichetta di Caddy sul container del padre che porta l'indirizzo
-   nella cartella della foglia (i file `/_astro/` esclusi). Sempre `docker
-   compose up -d --build`.
+3. **Una foglia vive nel suo ramo.** La costruisce il padre, come una
+   sua pagina: su un percorso (zero infrastruttura) o sul suo
+   sottodominio, con un'etichetta di Caddy sul container del padre che
+   porta l'indirizzo nella cartella della foglia (i file `/_astro/`
+   esclusi). Un ramo e un prodotto hanno invece la loro build e il loro
+   container. Sempre `docker compose up -d --build`.
 4. **Il compose senza copie**: il blocco della posta scritto una volta
    (un'ancora YAML) e richiamato da ogni servizio. Un servizio nuovo solo
    per un ramo vero.
 5. **La CI su `sites/*`**, così un sito nuovo è controllato senza toccare
    il file.
+
+### I siti restano indipendenti (la condizione del proprietario)
+
+«Non voglio che i singoli siti siano impattati da ciò. In teoria
+essendo tutti siti statici questo non dovrebbe avvenire» (10 novembre).
+È così online, e le fondamenta lo devono mantenere anche nella build.
+
+- **Online non si toccano.** Ogni sito è un pacchetto di file suo, nel
+  suo container (più il piccolo server dei moduli); nessun sito chiama
+  l'altro, tra i siti passano solo link. Il codice in comune non è un
+  servizio: entra in un sito quando il sito si costruisce (Vite lo copia
+  dentro la build). Se un container si ferma, Caddy continua a servire
+  gli altri.
+- **Si toccano nella build.** Una modifica al codice in comune arriva a
+  tutti i siti alla build successiva, e `docker compose up -d --build`
+  li ricostruisce tutti a ogni deploy. È quello che si vuole per una
+  correzione (oggi, con le copie, una correzione fatta in un sito non
+  arriva all'altro, e con dieci siti le versioni si separano senza che
+  nessuno se ne accorga); per un errore servono le regole qui sotto.
+- **Le regole:**
+  1. in comune solo le parti stabili (il ciclo delle pagine, lo
+     scroll, i controlli, il kit); ogni sito tiene la sua
+     configurazione, le sue impostazioni e le sue mosse (lo Studio
+     inclina le card più della casa, e resta così);
+  2. una modifica al comune aggiunge (un'opzione, una mossa nuova), non
+     cambia il comportamento che c'è;
+  3. la CI costruisce e controlla tutti i siti a ogni modifica (oggi
+     casa e Studio; ogni sito nuovo entra nella CI con lui): se il
+     comune rompe un sito, la modifica non passa;
+  4. quando cambia `shared/` si guardano tutti i siti, non solo quello
+     per cui si è fatta la modifica;
+  5. un sito può staccarsi: se deve restare fermo, si copia dentro il
+     sito la versione che usa, e torna indipendente come oggi.
+- **Il legame che c'è già oggi è un altro: un solo `package.json`.**
+  Astro, GSAP e Lenis sono gli stessi per tutti i siti: un aggiornamento
+  li tocca tutti insieme. Va bene finché si aggiornano insieme; un sito
+  che deve restare indietro avrà il suo (un workspace npm).
+- **Isolati per ramo.** Ogni ramo e ogni prodotto ha la sua build e il
+  suo container; una foglia vive nel suo ramo, come una sua pagina (se
+  il ramo è giù lo è anche la foglia: è la stessa offerta, con lo stesso
+  modulo).
 
 ### Come si vede l'albero (idee)
 
