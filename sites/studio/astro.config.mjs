@@ -29,7 +29,11 @@ export default defineConfig({
   security: { checkOrigin: false },
   vite: {
     resolve: {
-      alias: { "@shared": fileURLToPath(new URL("../../shared", import.meta.url)) },
+      alias: {
+        "@shared": fileURLToPath(new URL("../../shared", import.meta.url)),
+        // The shared engine core (shared/engine) reads this site's settings.
+        "@site/engine-config": fileURLToPath(new URL("./src/engine/config.ts", import.meta.url)),
+      },
     },
   },
 });

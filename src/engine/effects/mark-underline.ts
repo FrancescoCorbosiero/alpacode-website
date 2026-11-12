@@ -8,7 +8,7 @@
    decides it's a line.
    Sources: A src/lib/landing/scenes.ts:189; CSS A src/styles/landing.css:234.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { sweep } from "./_marks";
 
 export const hook = '[data-mark="underline"]';

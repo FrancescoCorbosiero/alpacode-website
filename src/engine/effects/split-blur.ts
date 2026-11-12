@@ -8,7 +8,7 @@
    split-cycle deals from.
    Sources: A src/lib/motion.ts:542; C src/scripts/motion.ts:399.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { addMove, enter, splitHeading, type HeadingMove } from "./_headings";
 
 export const hook = '[data-split="blur"]';

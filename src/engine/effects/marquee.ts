@@ -22,7 +22,7 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 
 gsap.registerPlugin(ScrollTrigger);
 

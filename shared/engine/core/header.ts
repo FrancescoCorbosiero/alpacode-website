@@ -8,7 +8,7 @@
    slides away. Canonical: the union.
    Sources: A src/lib/motion.ts:300; C src/scripts/motion.ts:321.
    ============================================================ */
-import { config } from "../config";
+import { config } from "@site/engine-config";
 import { reduced } from "./guards";
 
 let lastY = 0;

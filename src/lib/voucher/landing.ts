@@ -21,7 +21,7 @@
    ============================================================ */
 import { qrSvg } from "./qr";
 import { codePrefix, firstName } from "./referral-code";
-import { scrollToTarget } from "../../engine/core/scroll";
+import { scrollToTarget } from "@shared/engine/core/scroll";
 import { celebrate } from "../../engine/effects/celebrate";
 import { nudge } from "../../engine/effects/nudge";
 import { panelEnter } from "../../engine/effects/panel-enter";

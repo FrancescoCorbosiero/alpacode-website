@@ -37,9 +37,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { below } from "../../engine/core/guards";
-import type { Kit } from "../../engine/core/kit";
-import { beats, centre, scrubbed } from "../../engine/effects/stage";
+import { below } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
+import { beats, centre, scrubbed } from "@shared/engine/effects/stage";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 

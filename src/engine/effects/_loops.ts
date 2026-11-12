@@ -15,7 +15,7 @@
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { marksOf, pen } from "./_marks";
 import { rng } from "./_seed";
 

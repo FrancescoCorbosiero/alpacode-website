@@ -17,7 +17,7 @@
    lib/alpaca.ts) and the landings' scenes (lib/landing/scenes.ts, on
    stage) are the house's own scenes.
    ============================================================ */
-import type { Effect, LazyEffect } from "./core/kit";
+import type { Effect, LazyEffect } from "@shared/engine/core/kit";
 import * as accordion from "./effects/accordion";
 import * as alternate from "./effects/alternate";
 import * as bars from "./effects/bars";
@@ -42,7 +42,7 @@ import * as marquee from "./effects/marquee";
 import * as pop from "./effects/pop";
 import * as print from "./effects/print";
 import * as rail from "./effects/rail";
-import * as reveal from "./effects/reveal";
+import * as reveal from "@shared/engine/effects/reveal";
 import * as scrub from "./effects/scrub";
 import * as splitBlur from "./effects/split-blur";
 import * as splitChars from "./effects/split-chars";

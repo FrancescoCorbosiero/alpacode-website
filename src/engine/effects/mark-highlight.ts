@@ -12,7 +12,7 @@
    Sources: A src/lib/landing/scenes.ts:172, :198;
    C src/scripts/motion.ts:948 (data-hl), CSS src/styles/sections.css:578.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { sweep } from "./_marks";
 
 export const hook = '[data-mark="highlight"]';

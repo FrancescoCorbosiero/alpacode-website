@@ -19,7 +19,7 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { config } from "../config";
+import { config } from "@site/engine-config";
 import { clearFxLayer } from "./fx-layer";
 import { fine, onReducedChange, reduced } from "./guards";
 import { resetHeader } from "./header";

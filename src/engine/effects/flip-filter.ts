@@ -14,7 +14,7 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 
 gsap.registerPlugin(Flip);
 

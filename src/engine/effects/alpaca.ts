@@ -21,8 +21,8 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { hop, idle, leapTo, lookAround, marchers, playful, rigOf, walkIn } from "../../lib/alpaca";
-import { inFirstView } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { inFirstView } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 import { ride } from "./marquee";
 
 gsap.registerPlugin(ScrollTrigger);

@@ -10,7 +10,7 @@
    once per page.
    ============================================================ */
 import { firstName } from "./referral-code";
-import { scrollToTarget } from "../../engine/core/scroll";
+import { scrollToTarget } from "@shared/engine/core/scroll";
 import { celebrate } from "../../engine/effects/celebrate";
 import { nudge } from "../../engine/effects/nudge";
 import { revealPanel } from "../../engine/effects/reveal-panel";

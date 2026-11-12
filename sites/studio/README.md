@@ -87,10 +87,13 @@ Umami always and to the ad tags when allowed.
 
 ## Motion
 
-`src/engine/`, the studio's motion engine, on the same contract as the
-house's (that of the motion catalog `FrancescoCorbosiero/alpacode-motion`,
-reference only: never edited from here): its core, and the effects the
-studio uses — `reveal` (rising blocks), `deal` (the readers' cards
+The same engine as the house's, on the contract of the motion catalog
+`FrancescoCorbosiero/alpacode-motion` (reference only: never edited from
+here): the core and the shared effects live in `shared/engine/` (one
+copy for every site; the core reads `src/engine/config.ts` through the
+`@site/engine-config` alias); `src/engine/` keeps the studio's settings,
+its `core/core.css` and its own effects. The effects the studio uses —
+`reveal` (rising blocks, shared), `deal` (the readers' cards
 landing), `skew` (the band leaning with the scroll), `meter` (the
 course's pinned meter) and `feed` (the home's three verbs told on a
 phone), both standing on `stage`; and the studio's own small moves,

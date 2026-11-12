@@ -18,8 +18,8 @@
    Sources: A src/lib/motion.ts:396; FAST fast/src/lib/motion.ts:57.
    ============================================================ */
 import { gsap } from "gsap";
-import { reduced } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { reduced } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 
 export const hook = "[data-scramble]";
 

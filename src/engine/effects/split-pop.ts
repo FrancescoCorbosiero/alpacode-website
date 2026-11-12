@@ -11,7 +11,7 @@
    Sources: A src/lib/motion.ts:562; C src/scripts/motion.ts:372.
    ============================================================ */
 import { gsap } from "gsap";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { addMove, enter, splitHeading, type HeadingMove } from "./_headings";
 
 export const hook = '[data-split="pop"]';

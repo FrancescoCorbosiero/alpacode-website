@@ -39,9 +39,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { inFirstView } from "../../engine/core/guards";
-import type { Kit } from "../../engine/core/kit";
-import { centre } from "../../engine/effects/stage";
+import { inFirstView } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
+import { centre } from "@shared/engine/effects/stage";
 import { rng } from "../../engine/effects/_seed";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);

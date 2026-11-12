@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../../i18n/types";
 import { persistLang } from "../../lib/lang-store";
-import { lockScroll } from "../../engine/core/scroll-lock";
+import { lockScroll } from "@shared/engine/core/scroll-lock";
 
 export interface MobileNavItem {
   num: string;

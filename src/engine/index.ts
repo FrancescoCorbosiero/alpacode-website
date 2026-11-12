@@ -3,7 +3,7 @@
    <script>import "../engine";</script>; the ClientRouter keeps it
    across page swaps and the core rebuilds each page.
    ============================================================ */
-import { start } from "./core";
+import { start } from "@shared/engine/core";
 import { effects, lazy } from "./registry";
 
 start(effects, lazy);

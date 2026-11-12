@@ -6,7 +6,7 @@
    Sources: A src/lib/motion.ts:92 (preferences), :211, :217;
    C src/scripts/motion.ts:85, :122, :125; A landing/scenes.ts:92.
    ============================================================ */
-import { config } from "../config";
+import { config } from "@site/engine-config";
 
 const reducedQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 /** The visitor asked for less motion: no Lenis, no scroll animation. */

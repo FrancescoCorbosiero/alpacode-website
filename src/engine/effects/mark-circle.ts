@@ -12,7 +12,7 @@
    resize. Lazy: fetched only by a page that has a circle, with DrawSVG.
    Sources: A src/lib/landing/scenes.ts:125, :157, :172.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { loop, loops } from "./_loops";
 
 export const hook = '[data-mark="circle"]';

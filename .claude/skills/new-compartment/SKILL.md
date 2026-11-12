@@ -23,9 +23,11 @@ and `sites/studio/README.md` (the worked example) first.
 
 ## 2. Register it
 
-- `shared/data/compartments.ts`: an entry (id, name, tag, origin from
-  `PUBLIC_<ID>_ORIGIN`, the line in the house's voice, accent and the
-  text on it, langs) and its id in `DOORS`.
+- `shared/data/compartments.ts`: an entry (id, `kind` — branch or
+  leaf —, its `parent`, name, tag, origin from `PUBLIC_<ID>_ORIGIN`,
+  the line in the house's voice, accent and the text on it, langs).
+  The house's doors (`DOORS`) are its children: a node hanging from
+  the house shows up in the footer, the ⌘K and «Chi siamo» by itself.
 - The origin variable: `src/env.d.ts` (and the new site's), the root
   `Dockerfile` (ARG/ENV), `.env.example`.
 
@@ -41,9 +43,12 @@ and `sites/studio/README.md` (the worked example) first.
   with the caddy labels for its domain (`<ID>_DOMAIN`), its volumes
   and env. **Deploy stays `docker compose up -d --build`**: no profiles,
   no extra steps.
-- Motion: the engine the house and the studio run (their `src/engine/`,
-  on alpacode-motion's contract, reference only): the core, the effects
-  it uses, its own `config.ts` and `registry.ts`.
+- Motion: the shared core (`shared/engine/core/`, on alpacode-motion's
+  contract, reference only) and the shared effects
+  (`shared/engine/effects/`); the site keeps its own `src/engine/`
+  (`config.ts`, reached by the core through the `@site/engine-config`
+  alias in its `astro.config.mjs` and `tsconfig.json`; `registry.ts`;
+  `core/core.css`; its own effects). Never copy the core into the site.
 - The house's signature on every page and a header that leads back to
   alpacode.it; links into the house through `doorTo("house", …)`.
 

@@ -12,7 +12,7 @@
    Sources: alpacode.it src/engine/effects/tilt.ts (A src/lib/motion.ts:1097;
    C src/scripts/motion.ts:1177), the studio's settings.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { play } from "./_pointer";
 
 export const hook = "[data-tilt]";

@@ -12,7 +12,7 @@
    Sources: A src/lib/motion.ts:1040 (data-payout-picker).
    ============================================================ */
 import { gsap } from "gsap";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 
 export const hook = "[data-coin]";
 

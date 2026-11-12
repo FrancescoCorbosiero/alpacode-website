@@ -109,7 +109,7 @@ decidere, come `docs/status.md`._
    (`reveal`, `stage` e `_batch` identici, `tilt` con le sue impostazioni).
    Oggi una correzione si fa due volte; con dieci nodi, dieci volte. E
    non si sposta e basta: il nucleo legge `../config`, la configurazione
-   del suo sito.
+   del suo sito. (Risolti il 12 novembre: vedi «Le fondamenta».)
 3. **Ogni nodo costa un sito intero**: un progetto Astro, un Dockerfile,
    un servizio nel compose, due passi in CI, e di nuovo layout, header,
    footer, pagine legali, modulo contatti, robots, card social. Lo Studio
@@ -248,12 +248,26 @@ identiche.
    suo), `path` (un percorso del padre), `host` (il sito del padre, sul
    suo sottodominio). Da lì: `children(id)` al posto di `DOORS`; la
    briciola tra i siti e le porte in su e in giù, generate.
+   _Fatto in parte (12 novembre): ogni nodo ha `kind` e `parent`;
+   `children()` e `trail()` (la strada fino alla radice); `DOORS` è
+   `children("house")`, così footer, ⌘K e «Chi siamo» seguono l'albero.
+   Il modo in cui è servito (`own`, `path`, `host`) e la briciola
+   arrivano con il primo nodo che ne ha bisogno._
 2. **Il kit del compartimento in `shared/`.** Il nucleo del motore e gli
    effetti comuni (`shared/engine/`: il nucleo riceve la configurazione
    del suo sito, con un alias per sito o da `start()`), la testa delle
    pagine (font, statistiche, consenso), il gestore del modulo contatti,
    la riga legale, robots e sitemap. Un nodo nuovo diventa dati e
    pagine, non un sito da rifare.
+   _Fatto per il motore (12 novembre): il nucleo è in
+   `shared/engine/core/` e legge le impostazioni del sito dall'alias
+   `@site/engine-config` (il `src/engine/config.ts` di ogni sito); gli
+   effetti identici (`reveal`, `stage`, `_batch`) in
+   `shared/engine/effects/`. Ogni sito tiene la sua configurazione, il
+   CSS del nucleo e le sue mosse (anche `tilt`, diverso per scelta).
+   Verificato: le 102 pagine della casa e le 12 dello Studio identiche a
+   prima, CSS uguale al byte, stesso peso del JavaScript. Il resto del
+   kit (testa, modulo contatti, robots) quando arriva il terzo nodo._
 3. **Una foglia vive nel suo ramo.** La costruisce il padre, come una
    sua pagina: su un percorso (zero infrastruttura) o sul suo
    sottodominio, con un'etichetta di Caddy sul container del padre che

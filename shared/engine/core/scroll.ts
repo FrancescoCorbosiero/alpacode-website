@@ -7,7 +7,7 @@
    Canonical: A's, with `done` (C has none).
    Sources: A src/lib/motion.ts:253, :273; C src/scripts/motion.ts:158, :177.
    ============================================================ */
-import { config } from "../config";
+import { config } from "@site/engine-config";
 import { reduced } from "./guards";
 import { currentLenis } from "./lenis";
 
