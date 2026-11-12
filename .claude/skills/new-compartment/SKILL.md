@@ -8,8 +8,9 @@ description: Open a new compartment of Alpacode on its own subdomain — a line 
 alpacode.it is the house; a compartment is a line of work on its own
 subdomain (studio.alpacode.it is the first: the marketing). Read
 `docs/marketing-map.md` (why the house and its compartments are
-arranged this way) and `sites/studio/README.md` (the worked example)
-first.
+arranged this way), `docs/domain-tree.md` (the tree the owner wants:
+check which of its questions are decided before placing a new node)
+and `sites/studio/README.md` (the worked example) first.
 
 ## 1. Place it
 
@@ -22,9 +23,11 @@ first.
 
 ## 2. Register it
 
-- `shared/data/compartments.ts`: an entry (id, name, tag, origin from
-  `PUBLIC_<ID>_ORIGIN`, the line in the house's voice, accent and the
-  text on it, langs) and its id in `DOORS`.
+- `shared/data/compartments.ts`: an entry (id, `kind` — branch or
+  leaf —, its `parent`, name, tag, origin from `PUBLIC_<ID>_ORIGIN`,
+  the line in the house's voice, accent and the text on it, langs).
+  The house's doors (`DOORS`) are its children: a node hanging from
+  the house shows up in the footer, the ⌘K and «Chi siamo» by itself.
 - The origin variable: `src/env.d.ts` (and the new site's), the root
   `Dockerfile` (ARG/ENV), `.env.example`.
 
@@ -40,19 +43,24 @@ first.
   with the caddy labels for its domain (`<ID>_DOMAIN`), its volumes
   and env. **Deploy stays `docker compose up -d --build`**: no profiles,
   no extra steps.
-- Motion: the engine the house and the studio run (their `src/engine/`,
-  on alpacode-motion's contract, reference only): the core, the effects
-  it uses, its own `config.ts` and `registry.ts`.
+- Motion: the shared core (`shared/engine/core/`, on alpacode-motion's
+  contract, reference only) and the shared effects
+  (`shared/engine/effects/`); the site keeps its own `src/engine/`
+  (`config.ts`, reached by the core through the `@site/engine-config`
+  alias in its `astro.config.mjs` and `tsconfig.json`; `registry.ts`;
+  `core/core.css`; its own effects). Never copy the core into the site.
 - The house's signature on every page and a header that leads back to
   alpacode.it; links into the house through `doorTo("house", …)`.
 
 ## 4. Open its doors on the house
 
 Wherever the house talks about that work: the mega menu
-(`src/data/mega.ts`), `/servizi` (`src/data/services.ts`), the footer's
-"Le porte" (`Footer.astro`), the ⌘K palette (`Layout.astro`), the
-pages that sell it. Every door goes through `doorTo(id, path, { site:
-"house", where })` so the UTMs say where it was taken.
+(`src/data/mega.ts`), `/servizi` (`src/data/services.ts`), the pages
+that sell it. The footer's «Marketing» column (`Footer.astro`), the ⌘K
+palette (`Layout.astro`) and «Chi siamo» read `DOORS` by themselves
+(the footer column's title is the studio's: a compartment that isn't
+marketing needs its own). Every door goes through `doorTo(id, path, {
+site: "house", where })` so the UTMs say where it was taken.
 
 ## 5. Verify and record
 

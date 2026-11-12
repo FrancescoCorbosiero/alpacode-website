@@ -21,8 +21,8 @@
    studio).
    ============================================================ */
 import { gsap } from "gsap";
-import type { Kit } from "../core/kit";
-import { scrubbed } from "./stage";
+import type { Kit } from "@shared/engine/core/kit";
+import { scrubbed } from "@shared/engine/effects/stage";
 
 export const hook = '[data-scene="cases"]';
 

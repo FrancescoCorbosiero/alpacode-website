@@ -5,7 +5,7 @@
     "jsxImportSource": "react",
     "verbatimModuleSyntax": false,
     "baseUrl": ".",
-    "paths": { "@shared/*": ["./shared/*"] }
+    "paths": { "@shared/*": ["./shared/*"], "@site/engine-config": ["./src/engine/config.ts"] }
   },
   "include": [".astro/types.d.ts", "src/**/*", "shared/**/*"],
   "exclude": ["dist", ".vercel", ".astro", "design_reference", "node_modules", "sites"]

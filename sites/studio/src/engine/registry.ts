@@ -12,10 +12,10 @@
    phrases), grow (the last call's «crescere»), stamp (the prices);
    tilt is the house's, leaning further.
    ============================================================ */
-import type { Effect, LazyEffect } from "./core/kit";
+import type { Effect, LazyEffect } from "@shared/engine/core/kit";
 import * as deal from "./effects/deal";
 import * as grow from "./effects/grow";
-import * as reveal from "./effects/reveal";
+import * as reveal from "@shared/engine/effects/reveal";
 import * as scribble from "./effects/scribble";
 import * as skew from "./effects/skew";
 import * as stamp from "./effects/stamp";

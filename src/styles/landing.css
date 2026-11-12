@@ -3510,7 +3510,8 @@ body:has(.lnd) {
   font-weight: 600;
 }
 
-/* The fast lane, under the offer. */
+/* The SMM offer: the why under its title; the sheet's button and ticks
+   in the accent. */
 .lnd-offer-why {
   margin: 0 0 34px;
   color: var(--lnd-mute);

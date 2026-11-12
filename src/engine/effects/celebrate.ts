@@ -15,9 +15,9 @@
    Sources: A src/lib/motion.ts:349; C src/scripts/motion.ts:207.
    ============================================================ */
 import { gsap } from "gsap";
-import { fxLayer } from "../core/fx-layer";
-import { reduced } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { fxLayer } from "@shared/engine/core/fx-layer";
+import { reduced } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 
 export const hook = "[data-celebrate]";
 

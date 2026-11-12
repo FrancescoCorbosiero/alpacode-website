@@ -10,7 +10,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { config } from "../config";
+import { config } from "@site/engine-config";
 import { reduced } from "./guards";
 
 gsap.registerPlugin(ScrollTrigger);

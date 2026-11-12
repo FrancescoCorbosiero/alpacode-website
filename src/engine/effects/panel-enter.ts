@@ -16,8 +16,8 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { config } from "../config";
-import { reduced } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { reduced } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 
 export const hook = "[data-panel-field]";
 

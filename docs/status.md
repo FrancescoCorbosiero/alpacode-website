@@ -1,6 +1,6 @@
 # Stato del progetto
 
-_Aggiornato il 27 ottobre 2026. Si aggiorna a fine sessione (skill
+_Aggiornato il 12 novembre 2026. Si aggiorna a fine sessione (skill
 `handoff`). È scritto in italiano perché è anche la lista che il
 proprietario rilegge e corregge._
 
@@ -26,7 +26,7 @@ validare», chiedi.
 | Casi di studio, Metodo, Dove operiamo (home) | `src/components/home/` | Rifatti: i casi su un palco fermo (il «prima» barrato, entra il «dopo»); l'Italia a punti con un arco verso ogni cliente e la lista dei clienti per luogo. Il Metodo, il **tabellone delle partenze** («Come si parte.»: palette che girano lettera per lettera; `effects/method.ts`), **non è più sulla home** (26 ottobre, per snellirla): resta su `/servizi`. |
 | La mappa | `src/data/places.ts`, `src/components/home/Coverage.astro`, `src/engine/effects/map.ts` | Una città per regione (tutte e venti: dove c'è un cliente vale il cliente). Torino, Roma e Napoli sono collegate alla base con un arco più chiaro di quello dei clienti; la legenda sotto la mappa distingue «Clienti» da «Da remoto, in tutta Italia». |
 | Contatti | `/contatti/` — `src/components/pages/Contatti.astro`, `src/data/contatti.ts`, `src/data/wizard.ts`, `src/components/islands/BriefBuilder.tsx`, `src/styles/contatti.css` | **Rifatta** (26 ottobre) per convertire: in cima «Quattro modi per cominciare» (il brief, la call, WhatsApp, l'email con «Copia l'indirizzo»), lastre di vetro che si accendono, con l'orologio dello studio (aperto o chiuso, ora di Milano) e il tempo di risposta. Poi **il brief che si scrive da solo**: tre tap e un contatto, e accanto il foglio indirizzato a chi lo legge si compila a ogni risposta; la bozza resta sul dispositivo finché non la invii; un link può impostare la prima risposta con il servizio (`/contatti/?servizio=e-commerce`, per una campagna o una mail: oggi nessuna pagina lo usa); dopo l'invio propone subito la call (Cal.com) o WhatsApp. Poi «Cosa succede quando scrivi» (quattro passi, dalla copy delle FAQ), quattro domande dalla FAQ, il modulo lungo (che c'era) con la persona a cui scrivi e i dati diretti, la mappa. Ogni via d'ingresso si misura: `contact_channel`, `brief_start`, `lead_sent` (nel `dataLayer` e come eventi `alpa:*`). Il vecchio `BriefWizard.tsx` non c'è più (i link a `#wizard` arrivano al brief). |
-| Il motore delle animazioni | `src/engine/` e `sites/studio/src/engine/` | **Fatto.** Casa e Studio girano sullo stesso motore, scritto sul contratto di alpacode-motion (che resta solo un riferimento): il nucleo, un modulo per mossa, le selezioni della casa in `config.ts`. Il vecchio `lib/motion.ts` non c'è più. Le scene delle landing stanno sul palco del motore (`stage`), gli script del voucher e dei moduli chiamano le sue funzioni (coriandoli, scossa dei campi, link che si decodifica, QR che si stampa). Verificato pagina per pagina contro il motore di prima: stessa resa, a 1440, 390 e 390×664 e a movimento ridotto. |
+| Il motore delle animazioni | `shared/engine/` (il nucleo e gli effetti comuni, dal 12 novembre), `src/engine/` e `sites/studio/src/engine/` (impostazioni e mosse di ogni sito) | **Fatto.** Casa e Studio girano sullo stesso motore, scritto sul contratto di alpacode-motion (che resta solo un riferimento): il nucleo, un modulo per mossa, le selezioni della casa in `config.ts`. Il vecchio `lib/motion.ts` non c'è più. Le scene delle landing stanno sul palco del motore (`stage`), gli script del voucher e dei moduli chiamano le sue funzioni (coriandoli, scossa dei campi, link che si decodifica, QR che si stampa). Verificato pagina per pagina contro il motore di prima: stessa resa, a 1440, 390 e 390×664 e a movimento ridotto. |
 | Hero della home con video «blueprint» | `src/data/home.ts` (`heroVideo`), `tools/media/` | Fatto, invariato. |
 | «Segnala un amico» | `/voucher/`, `/voucher/nuova-attivita/`, `POST /api/referral` — `docs/voucher.md`, `src/components/voucher/ReferralStudio.astro`, `Invite.astro` | **Riparato** (27 ottobre). A chi compila con il riempimento automatico di Chrome, «Genera il mio link» rispondeva «Qualcosa è andato storto». La trappola per i bot (`website`) era solo nascosta alla vista: Chrome prendeva la frase sopra («Ti basta un'email…») per la sua etichetta e ci scriveva l'email. Il server allora prendeva la richiesta per un bot e rispondeva «ok» senza link. Lo stesso succedeva in «Mandaci tu i contatti» (ci finiva la provincia), nella richiesta dalla pagina invito e nel modulo di `/collabora-con-noi/` (`PartnerForm.tsx`). In questi ultimi due la pagina diceva «inviato», ma non partiva niente. Ora la trappola non è disegnata (`display: none`) in nessun modulo. Provato con l'autofill di Chromium su ogni modulo della casa: trappola vuota, link generato, richieste inviate. `REFERRAL_SECRET` non c'entrava: senza, i codici usano una chiave di sviluppo. |
 | Alpacode FAST | — | **Ritirato** («FAST per ora sparisce»): i prodotti sono passati allo Studio, il codice è nella storia di git. |
@@ -37,10 +37,30 @@ validare», chiedi.
 | Le mosse dello Studio | `sites/studio/src/engine/effects/` | Fatte su misura per le sue pagine: **feed** (i tre verbi su un telefono, su un palco fermo: il feed corre e si inchioda sul tuo post, il tuo marchio su avatar, biglietto, storia e busta, la tua pagina, il tap su «Prenota», la richiesta che arriva), **type** (le frasi «che diresti tu» si scrivono da sole), **scribble** (le note a mano si scrivono), **grow** («crescere» cresce), **stamp** (il prezzo atterra come un timbro), **tilt** (carte e telefoni si inclinano verso il mouse). La casa resta sobria: le sue mosse su misura sono il tabellone del Metodo, le macchine dei servizi, le lastre di «Chi siamo». |
 | Le mosse nuove della casa | `src/engine/effects/pane.ts` (+ `pane.css`), `effects/team.ts`, `src/lib/landing/machines.ts` | **pane**: una banda di luce attraversa il vetro quando entra in vista, il chiarore segue il puntatore, i contorni SVG si disegnano a filo (`data-pane`, `data-pane-glint`); **team**: le tre lastre di «Chi siamo», legate allo scroll; **machines**: le sette macchine delle pagine servizio (in loop solo mentre sono in vista) e le correzioni a penna di «Quando serve» (`data-machine`, `data-fixes`). Tutte con lo stato finale a movimento ridotto. |
 | La direzione del movimento | `docs/motion-direction.md` | **Un brainstorm, non costruito** (tua domanda: spigoli vivi e animazioni «lit»). La proposta: «corpi rigidi, luce fluida», il vocabolario della casa (binari, cerniere, luce, costruzione, la mano poca, un'idea per sezione), le curve da mettere nei token, sei mosse da costruire in ordine di impatto, cosa rivedere. È il lavoro della prossima sessione sulla casa. |
+| L'albero dei domini | `docs/domain-tree.md` | **Un'analisi e un brainstorm, non costruiti** (10 novembre; tua domanda: «esamina se l'organizzazione attuale è solida e coerente»). Le fondamenta reggono, ma sono fatte per due nodi: registro piatto, motore copiato in ogni sito, ogni nodo un sito intero; e le foglie (le campagne per mestiere) stanno sulla radice. La proposta: l'albero si divide per lettore, la profondità sta nel registro, un sottodominio si guadagna; sette domande da decidere. Disegnato in una pagina (privata, del proprietario: https://claude.ai/artifact/YS85BmSCoPM2JCSEnxNnQd), con «Oggi» e «La proposta» a confronto e il disegno di come i siti restano indipendenti. **Sistemato** (fatto): i residui di FAST nella skill di passaggio, i riferimenti a `House.astro`, a «Le porte» e ai `DOORS` dello Studio nei documenti, la casa «editorial» nella mappa, il README; il ⌘K legge le porte dal registro. |
 
 ## Decisioni del proprietario
 
-Da questa chat (26 ottobre):
+Dalla chat del 10 novembre (la direzione; i dettagli sono le domande di
+`docs/domain-tree.md`):
+
+- «fast.alpacode.it non è più presente, è stato convertito in "studio",
+  corretto?» — sì: `fast/` è diventato `sites/studio/` il 24 ottobre, e
+  FAST non era mai andato online.
+- Lo Studio «sarà l'hub per tutti i servizi offerti da alpacode»: «servizi
+  da digital studio/creative agency, per professionisti e usufruitori di
+  social. Focus sul marketing e sulle campagne».
+- alpacode.it: «mondo IT, consulenze, biglietto da visita professionale».
+- «Multipli altri sottodomini sempre più specifici. L'intera struttura è
+  come un albero dove più su scende e più il copy diventa specifico.»
+- Sul motore copiato e il registro piatto: «questo potrebbe essere un
+  serio problema se non gestito bene. Non voglio che i singoli siti siano
+  impattati da ciò. In teoria essendo tutti siti statici questo non
+  dovrebbe avvenire.» Le regole per rispettarlo (online i siti non si
+  toccano; nella build sì, e lì valgono le regole): `docs/domain-tree.md`,
+  «I siti restano indipendenti».
+
+Dalla chat del 26 ottobre:
 
 - Le testate: la riduzione chiesta prima era «solo per la versione
   desktop»; le proporzioni da telefono «erano già ottime» e tornano
@@ -342,6 +362,15 @@ Decise da Claude, non confermate.
 
 ## Decisioni aperte
 
+- **L'albero dei domini** (`docs/domain-tree.md`, «Le domande»): lo
+  Studio hub di tutti i servizi per professionisti e piccole attività
+  (siti compresi) o solo marketing; le campagne `/offerta/*` e
+  `/social-media-manager` che scendono allo Studio come foglie (con i
+  redirect) o restano sulla casa; foglie come percorsi o subito
+  sottodomini, e quali sono i primi; i prodotti (Paco, Hive, Pro Kit) su
+  un sottodominio al lancio; la riga «Studio digitale a Monza e Milano»
+  in cima alla home; Learning; lo Studio online. Finché non sono decise,
+  nessuna pagina cambia sito.
 - **Le pagine dei servizi**: rileggere la copy (la prima stesura è mia),
   confermare i sette servizi e i loro indirizzi, e se la crescita resta
   solo sullo Studio.
@@ -456,3 +485,16 @@ Decise da Claude, non confermate.
 - Branch `claude/wonderful-pasteur-sk0co6` — i moduli del voucher e di
   «Collabora con noi»: la trappola per i bot che l'autofill di Chrome
   riempiva (PR #55).
+- Branch `claude/happy-sagan-dtwzr9` — il badge «Realizzato da Alpacode»
+  per i siti dei clienti, servito da `alpacode.it/badge.js` (PR #56).
+- Branch `claude/youthful-johnson-eejvq1`, 12 novembre («procedi con
+  quello che ritieni necessario, effettua il merge su main subito
+  dopo») — le fondamenta senza cambiamenti visibili: il nucleo del
+  motore e gli effetti identici in `shared/engine/`, il registro come
+  albero (`kind`, `parent`, `children()`, `trail()`). Pagine identiche a
+  prima. Unito su `main`.
+- Branch `claude/youthful-johnson-eejvq1` — l'ordine nei domini: i
+  residui di FAST e i riferimenti stantii nei documenti e nelle skill, il
+  ⌘K che legge le porte dal registro; l'analisi e il brainstorm
+  sull'albero dei domini (`docs/domain-tree.md`), la pagina con l'albero
+  disegnato, le regole perché i siti restino indipendenti.

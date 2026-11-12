@@ -25,7 +25,7 @@ npm run studio:start    # node sites/studio/dist/server/entry.mjs
 
 | Path | What |
 | --- | --- |
-| `/` | the hook, the doors (one per reader; the last ones open on the house), the three verbs, the packages, the products, the house behind it |
+| `/` | the hook, the readers («In chi ti identifichi?», `READERS`: one card per reader; the last two open on alpacode.it), the three verbs, the packages, the products, the work (on alpacode.it) |
 | `/servizi/` | strategy first, then the three verbs — farsi vedere (social, formats), farsi ricordare (brand, positioning), farsi scegliere (UX, campaigns, SEO) — the method, the questions |
 | `/pacchetti/` | Social Start, Social ogni mese, Brand Kit, Landing & ADV |
 | `/prodotti/` | the do-it-yourself products: `/prodotti/guida-sito-vetrina/` (22 € + the marketing module, 48 €), `/prodotti/ai-al-lavoro/` (the crash course) |
@@ -34,8 +34,10 @@ npm run studio:start    # node sites/studio/dist/server/entry.mjs
 | `/privacy/`, `/cookie/`, `/condizioni-di-vendita/` | drafts; the site terms are the house's |
 
 Every page: the hook that turns the worry around (`components/Turn.astro`,
-CSS above the fold), the house's signature (`components/House.astro`) and
-a way to write. No DM keywords: the buttons are a website's — buy, ask,
+CSS above the fold), a way to write, often the work Alpacode built
+(`components/Proof.astro`, on alpacode.it), and the footer's legal line
+(«… è un marchio di Soluzioni Digitali Alpacode»): the tie to Alpacode,
+never told on the page. No DM keywords: the buttons are a website's — buy, ask,
 book a call. WhatsApp is one way to write among the others.
 
 ## Data — where to change things
@@ -85,10 +87,13 @@ Umami always and to the ad tags when allowed.
 
 ## Motion
 
-`src/engine/`, the studio's motion engine, on the same contract as the
-house's (that of the motion catalog `FrancescoCorbosiero/alpacode-motion`,
-reference only: never edited from here): its core, and the effects the
-studio uses — `reveal` (rising blocks), `deal` (the readers' cards
+The same engine as the house's, on the contract of the motion catalog
+`FrancescoCorbosiero/alpacode-motion` (reference only: never edited from
+here): the core and the shared effects live in `shared/engine/` (one
+copy for every site; the core reads `src/engine/config.ts` through the
+`@site/engine-config` alias); `src/engine/` keeps the studio's settings,
+its `core/core.css` and its own effects. The effects the studio uses —
+`reveal` (rising blocks, shared), `deal` (the readers' cards
 landing), `skew` (the band leaning with the scroll), `meter` (the
 course's pinned meter) and `feed` (the home's three verbs told on a
 phone), both standing on `stage`; and the studio's own small moves,

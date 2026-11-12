@@ -13,7 +13,7 @@ compartment signs as Alpacode and leads back home.
 | Does | IT consulting, digitalization, automation, sites and e-commerce, custom software, LLM integrations, professional training; the programs (partner, referral) | marketing: social and content, brand, UX and the user journey, campaigns, SEO, strategy; small products bought on the site |
 | Voice | authoritative, sharp, minimal, never corporate: a small studio (a ditta individuale) that knows its craft. The copy is already good: refine it, don't rewrite it | young, direct, provocative and honest: the worry named and turned around in the same line. A website, not Instagram: no DM keywords |
 | Languages | IT + EN, always both | IT |
-| Look | the editorial blueprint: Archivo Black + Manrope (+ Caveat for the studio's notes), the blue `#3B72E9`, paper and ink, square corners | ink and volt `#D4FF3A`, rounded, a colour per door |
+| Look | the glass facade (a fixed field of blue light, mullions, glass panes: `--field*`, `--glass*`), Archivo Black + Manrope, the blue `#3B72E9`, square corners; the landings keep the light field | ink and volt `#D4FF3A`, Archivo Black + Manrope + Caveat (the notes in the hand), rounded, a colour per reader |
 | Channel | Google (SEO), word of mouth, the landings' ads | SEO, ads, social content that points to the site |
 | Converts with | a form, a call | a purchase on the site (Lemon Squeezy, Gumroad or Stripe), the contact form, a call |
 | Code | `src/` (the landing kit: `docs/landing-factory.md`) | `sites/studio/` (`sites/studio/README.md`) |
@@ -26,7 +26,9 @@ get a subdomain each (the `new-compartment` skill).
 
 **Why two sites.** The studio's register would lower the house's voice,
 and the house's would slow the studio down. A subdomain keeps the name —
-every studio page carries the house's signature (`House.astro`) — while
+every studio page signs as Alpacode in its footer («Alpacode Studio è un
+marchio di Soluzioni Digitali Alpacode») and shows the work built on
+alpacode.it (`Proof.astro`), without talking about itself — while
 search, analytics and tone stay apart. The referral program went the
 other way: it lives inside alpacode.it because it speaks like the house.
 
@@ -39,12 +41,14 @@ work:
   leads to the studio (`src/data/mega.ts`);
 - `/servizi`: the growth group's door; `/prodotti`: Brand Kit and
   Landing & ADV are "Su Alpacode Studio";
-- the footer's "Le porte", the ⌘K palette, the learning page's studio
-  card.
+- the footer's «Marketing» column, the ⌘K palette and «Chi siamo» (all
+  three read the registry's `DOORS`), the FAQ's answers, the learning
+  page's studio card.
 
-On the studio, the home's doors are one per reader; the last two open on
-the house (`/per-chi-fa-siti`, `/voucher`), and the header and the
-signature lead back to alpacode.it.
+On the studio, the home's readers («In chi ti identifichi?», `READERS`)
+are one card per reader; the last two open on the house
+(`/per-chi-fa-siti`, `/voucher`), and the header, the footer and the
+work (`Proof.astro`) lead back to alpacode.it.
 
 ## The audiences
 
@@ -95,7 +99,10 @@ Alpacode FAST (fast.alpacode.it, `fast/`) was the social register's first
 site: DM keywords, small products. The owner retired it ("FAST per ora
 sparisce"); it never went online (no DNS). Its products moved to the
 studio, its look became the studio's, its DM keywords were dropped. The
-code is in the git history before the studio commit.
+code is in the git history before the studio commit (`1a9a406`, 24
+October 2026, "sites/studio from FAST"). What's left of it in the tree
+is provenance: some engine effects name `fast/src/…` among the sources
+of their values ("Sources: FAST …"), lines of that history.
 
 ## Still to decide
 
@@ -103,4 +110,8 @@ code is in the git history before the studio commit.
   every product (`sites/studio/src/data/products.ts`, `packages.ts`).
 - The real contents of the guide, the module and the course.
 - Whether the studio needs English.
-- The next compartment, when there is one.
+- The next compartment, when there is one — and the shape of the whole:
+  the owner sees a tree (alpacode.it the root, the studio the hub of the
+  services, more specific subdomains below, the copy more specific the
+  lower it goes). The analysis and the brainstorm, with the questions
+  to decide: `docs/domain-tree.md`.

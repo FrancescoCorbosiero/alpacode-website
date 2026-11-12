@@ -13,7 +13,7 @@
    Sources: A src/lib/motion.ts:1097; C src/scripts/motion.ts:1177, :1210.
    ============================================================ */
 import { gsap } from "gsap";
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 
 export interface Play {
   /** Degrees it leans at its edges: rotationX up to this, rotationY

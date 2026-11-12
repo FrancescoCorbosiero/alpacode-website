@@ -27,9 +27,9 @@
    studio's home).
    ============================================================ */
 import { gsap } from "gsap";
-import { inFirstView, skipIntro } from "../core/guards";
-import type { Kit } from "../core/kit";
-import { beats, scrubbed } from "./stage";
+import { inFirstView, skipIntro } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
+import { beats, scrubbed } from "@shared/engine/effects/stage";
 
 export const hook = '[data-scene="feed"]';
 

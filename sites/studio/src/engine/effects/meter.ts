@@ -20,8 +20,8 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import type { Kit } from "../core/kit";
-import { scrubbed } from "./stage";
+import type { Kit } from "@shared/engine/core/kit";
+import { scrubbed } from "@shared/engine/effects/stage";
 
 gsap.registerPlugin(ScrambleTextPlugin);
 

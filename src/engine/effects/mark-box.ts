@@ -11,7 +11,7 @@
    resize. Lazy: fetched only by a page that has a box, with DrawSVG.
    Sources: A src/lib/landing/scenes.ts:144, :157, :172.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { box, loops } from "./_loops";
 
 export const hook = '[data-mark="box"]';

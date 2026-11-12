@@ -9,7 +9,7 @@
    scene (a title struck out and written anew: rewrite, tier 2).
    Sources: A src/lib/landing/scenes.ts:189; CSS A src/styles/landing.css:237.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { sweep } from "./_marks";
 
 export const hook = '[data-mark="strike"]';

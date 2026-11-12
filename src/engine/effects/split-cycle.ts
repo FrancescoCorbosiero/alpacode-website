@@ -16,8 +16,8 @@
    Sources: A src/lib/motion.ts:503, :513, :584;
    C src/scripts/motion.ts:350, :358, :415.
    ============================================================ */
-import { inFirstView, skipIntro } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { inFirstView, skipIntro } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 import { movesOf, splitHeading } from "./_headings";
 
 export const hook = "[data-split]";

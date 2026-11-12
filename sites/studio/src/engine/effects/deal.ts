@@ -10,9 +10,9 @@
    Sources: FAST fast/src/lib/motion.ts:35 (.fx-cards > li).
    ============================================================ */
 import { gsap } from "gsap";
-import { inFirstView, skipIntro } from "../core/guards";
-import type { Kit } from "../core/kit";
-import { batchIn } from "./_batch";
+import { inFirstView, skipIntro } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
+import { batchIn } from "@shared/engine/effects/_batch";
 
 export const hook = "[data-deal]";
 

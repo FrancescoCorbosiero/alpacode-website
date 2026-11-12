@@ -15,8 +15,8 @@
    ============================================================ */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { inFirstView, skipIntro } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { inFirstView, skipIntro } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 
 gsap.registerPlugin(ScrollTrigger);
 

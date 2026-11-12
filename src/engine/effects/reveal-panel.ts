@@ -13,8 +13,8 @@
    Sources: A src/lib/motion.ts:480.
    ============================================================ */
 import { gsap } from "gsap";
-import { reduced } from "../core/guards";
-import type { Kit } from "../core/kit";
+import { reduced } from "@shared/engine/core/guards";
+import type { Kit } from "@shared/engine/core/kit";
 
 export const hook = "[data-reveal-panel]";
 

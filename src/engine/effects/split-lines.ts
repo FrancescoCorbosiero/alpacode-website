@@ -7,7 +7,7 @@
    the deck split-cycle deals from: the first move of the cycle.
    Sources: A src/lib/motion.ts:573; C src/scripts/motion.ts:410.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { addMove, enter, splitHeading, type HeadingMove } from "./_headings";
 
 export const hook = '[data-split="lines"]';

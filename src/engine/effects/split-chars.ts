@@ -9,7 +9,7 @@
    Not C's chars, which drop from above: that is split-drop.
    Sources: A src/lib/motion.ts:553.
    ============================================================ */
-import type { Kit } from "../core/kit";
+import type { Kit } from "@shared/engine/core/kit";
 import { addMove, enter, splitHeading, type HeadingMove } from "./_headings";
 
 export const hook = '[data-split="chars"]';

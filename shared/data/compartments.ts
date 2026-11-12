@@ -11,6 +11,11 @@
 
    studio.alpacode.it is the first: the marketing.
 
+   The compartments make a tree (docs/domain-tree.md): the house is
+   the root, every other node names its parent. In DNS they're all
+   siblings (<name>.alpacode.it); the depth is here. A node's doors
+   are its children (`children()`); a leaf's way up is its parent.
+
    A new compartment: an entry here, a site in sites/<id>/ (the
    new-compartment skill), a service in docker-compose.yml. Origins
    are build-time (PUBLIC_*_ORIGIN), so a staging build links to its
@@ -20,8 +25,16 @@ import type { Lang, Localized } from "../i18n";
 
 export type CompartmentId = "house" | "studio";
 
+/** Where a node stands in the tree: the root (the house), a branch
+ *  (a line of work with its own readers, voice and way to buy: the
+ *  studio), a leaf (one reader or one product). */
+export type CompartmentKind = "root" | "branch" | "leaf";
+
 export interface Compartment {
   id: CompartmentId;
+  kind: CompartmentKind;
+  /** The node it hangs from (none for the root). */
+  parent?: CompartmentId;
   /** As a header writes it. */
   name: string;
   /** The word after ALPACODE in a compartment's lockup (none for the house). */
@@ -43,6 +56,7 @@ const origin = (key: string, fallback: string): string => (env[key] || fallback)
 export const COMPARTMENTS: Record<CompartmentId, Compartment> = {
   house: {
     id: "house",
+    kind: "root",
     name: "Alpacode",
     origin: origin("PUBLIC_HOUSE_ORIGIN", "https://alpacode.it"),
     line: {
@@ -55,6 +69,8 @@ export const COMPARTMENTS: Record<CompartmentId, Compartment> = {
   },
   studio: {
     id: "studio",
+    kind: "branch",
+    parent: "house",
     name: "Alpacode Studio",
     tag: "Studio",
     origin: origin("PUBLIC_STUDIO_ORIGIN", "https://studio.alpacode.it"),
@@ -68,8 +84,21 @@ export const COMPARTMENTS: Record<CompartmentId, Compartment> = {
   },
 };
 
-/** The doors the house shows, in order (the house itself left out). */
-export const DOORS: CompartmentId[] = ["studio"];
+/** The nodes that hang from `id`, in the registry's order. */
+export function children(id: CompartmentId): CompartmentId[] {
+  return (Object.keys(COMPARTMENTS) as CompartmentId[]).filter((c) => COMPARTMENTS[c].parent === id);
+}
+
+/** The way from a node up to the root, the node first
+ *  (["studio", "house"]): a page's trail across the sites. */
+export function trail(id: CompartmentId): CompartmentId[] {
+  const out: CompartmentId[] = [];
+  for (let c: CompartmentId | undefined = id; c; c = COMPARTMENTS[c].parent) out.push(c);
+  return out;
+}
+
+/** The doors the house shows, in order: its children. */
+export const DOORS: CompartmentId[] = children("house");
 
 /** A link into a compartment. `from` names where the door is (the
  *  page or the block): the analytics of the compartment read it as

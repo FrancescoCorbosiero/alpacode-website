@@ -85,8 +85,16 @@ is check, build and looking at the pages (below).
   `pages/` (page bodies), `home/`, `BrowserFrame.astro`, `islands/`
   (React).
 - Motion: `engine/`, the site's motion engine, written on
-  alpacode-motion's contract: `core/` (the page lifecycle, Lenis, the
-  header, the guards) and one module per effect in `effects/` (a hook
+  alpacode-motion's contract: the core (the page lifecycle, Lenis, the
+  header, the guards) is `shared/engine/core/`, one for every site,
+  reading each site's `src/engine/config.ts` through the alias
+  `@site/engine-config`; the effects identical on every site
+  (`reveal`, `stage`, `_batch`) are in `shared/engine/effects/`; the
+  site's own CSS for the core stays in `src/engine/core/core.css`. A
+  change to `shared/engine` reaches every site at its next build: it
+  adds, never alters, and both sites are checked, built and looked at
+  (`docs/domain-tree.md`, «I siti restano indipendenti»). The rest:
+  one module per effect in `effects/` (a hook
   and `init(kit)`; its header is its markup API: `data-split`,
   `data-reveal`, `data-rail`, `data-marquee`, `data-mark`, …);
   `config.ts` (the house's classes for the hooks) and `registry.ts`
@@ -106,8 +114,10 @@ is check, build and looking at the pages (below).
 - `i18n/` — `ui.ts` (UI strings, meta), `utils.ts` (`localizePath`).
 
 `shared/` — what both sites use: `i18n.ts`, `data/business.ts` (the
-company facts), `data/compartments.ts` (`doorTo()`), `server/*` (env,
-guard, mail, JSONL). Alpacode Studio (`sites/studio/`): its own
+company facts), `data/compartments.ts` (the tree of the sites: each
+node's `kind` and `parent`, `children()`, `trail()`, `doorTo()`),
+`server/*` (env, guard, mail, JSONL), `engine/` (the motion core and
+the shared effects). Alpacode Studio (`sites/studio/`): its own
 `README.md` and `CLAUDE.md`; everything that changes is in
 `sites/studio/src/data/`.
 
@@ -120,6 +130,7 @@ guard, mail, JSONL). Alpacode Studio (`sites/studio/`): its own
 | `docs/landing-factory.md` | making a landing: Track A (a campaign entry), B (bespoke on the kit), C (a studio page); the house rules |
 | `docs/voucher.md` | the referral program («Segnala un amico», `/voucher`) |
 | `docs/motion-direction.md` | the house's motion direction: «corpi rigidi, luce fluida», a brainstorm to decide (Italian) |
+| `docs/domain-tree.md` | the tree of domains the owner wants (alpacode.it the root, the studio the hub of the services, more specific subdomains below): the analysis, the proposal, the questions to decide before any page changes site (Italian) |
 | `docs/headless-cms.md` | a plan for a CMS (nothing built) |
 | `sites/studio/README.md` | running and changing Alpacode Studio, buying on the site |
 | `README.md` | the v3 notes at the top are current; the v2 spec below them is historical where they disagree |
