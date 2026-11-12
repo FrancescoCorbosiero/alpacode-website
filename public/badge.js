@@ -221,11 +221,33 @@ a:active .alpaca { transform: translateY(-3px); transition-duration: 0.18s; }
 }
 `;
 
+  // One stylesheet shared by every badge on the page; null where the
+  // browser can't construct one (then the inline <style> fallback is used).
+  let SHEET;
+  const sharedSheet = () => {
+    if (SHEET === undefined) {
+      try {
+        SHEET = new CSSStyleSheet();
+        SHEET.replaceSync(CSS);
+      } catch {
+        SHEET = null;
+      }
+    }
+    return SHEET;
+  };
+
   class AlpacodeBadge extends HTMLElement {
     static get observedAttributes() { return ["lang", "rel", "compact"]; }
 
     connectedCallback() {
-      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      if (!this.shadowRoot) {
+        this.attachShadow({ mode: "open" });
+        // Styles through a constructable stylesheet: a site's
+        // Content-Security-Policy (style-src without 'unsafe-inline')
+        // doesn't block it, while it blocks an inline <style>.
+        const sheet = sharedSheet();
+        if (sheet) this.shadowRoot.adoptedStyleSheets = [sheet];
+      }
       this.render();
     }
 
@@ -243,7 +265,7 @@ a:active .alpaca { transform: translateY(-3px); transition-duration: 0.18s; }
       url.searchParams.set("utm_campaign", "made-by");
       const rel = this.getAttribute("rel") || "noopener";
 
-      this.shadowRoot.innerHTML = `<style>${CSS}</style>
+      this.shadowRoot.innerHTML = `${(this.shadowRoot.adoptedStyleSheets || []).length ? "" : `<style>${CSS}</style>`}
 <a part="badge" href="${url}" target="_blank" rel="${rel}" aria-label="${t.label}">
   <span class="win">${ALPACA}</span>
   <span class="txt">
